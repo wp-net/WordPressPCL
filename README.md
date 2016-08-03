@@ -10,8 +10,8 @@ As the WP REST API (Version 2) Plugin is currently being integrated into WordPre
 * [Basic Authentication handler](https://github.com/WP-API/Basic-Auth)
 * [WP REST API - OAuth 1.0a Server](https://github.com/WP-API/OAuth1)
 
-## Including WordPressUWP
-We plan on making WordPressUWP available through Nuget as soon as we reach a Beta-Status. Until then you can just download the ZIP-file and include the projekt in your Visual Studio solution.
+## Including WordPressPCL
+We plan on making WordPressPCL available through Nuget as soon as we reach a Beta-Status. Until then you can just download the ZIP-file and include the projekt in your Visual Studio solution.
 
 ## Using the API Wrapper
 
