@@ -1,6 +1,6 @@
 # WordPressPCL
 This is a portable library for consuimg the WordPress REST-API in (almost) any C# application.
-The project is still very much in beta so use at your own risk! 
+The project is still very much in *beta* so use at your own risk! 
 If you find bugs or have any suggestions, feel free to create an issue.
 
 #Quickstart
@@ -15,7 +15,9 @@ As the WP REST API (Version 2) Plugin is currently being integrated into WordPre
 ## Including WordPressPCL
 The WordPressPCL API Wrapper is avaiable through nuget:
 
-```> Install-Package WordPressPCL```
+```
+> Install-Package WordPressPCL
+```
 
 ## Supported Plattforms
 WordPressPCL is built on top of the new [.NET Platform Standard](https://github.com/dotnet/corefx/blob/master/Documentation/architecture/net-platform-standard.md) targeting netstandard version 1.1 - therefore it should work on the following plaforms:
