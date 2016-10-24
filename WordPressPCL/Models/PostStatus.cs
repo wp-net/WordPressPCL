@@ -1,3 +1,5 @@
+namespace WordPressPCL.Models
+  {
   static public class PostStatus
     {
         public static string Publish { get { return "publish"; } }
