@@ -2,8 +2,9 @@
   "supports": {},
   "dependencies": {
     "Microsoft.NETCore.Portable.Compatibility": "1.0.1",
-    "NETStandard.Library": "1.6.0",
-    "Newtonsoft.Json": "9.0.1"
+    "NETStandard.Library": "1.6.1",
+    "Newtonsoft.Json": "9.0.2-beta1",
+    "NuGet.CommandLine": "3.4.4-rtm-final"
   },
   "frameworks": {
     "netstandard1.1": {}
