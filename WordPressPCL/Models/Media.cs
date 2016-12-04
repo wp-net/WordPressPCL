@@ -50,7 +50,7 @@ namespace WordPressPCL.Models
         public string AltText { get; set; }
 
         [JsonProperty("caption")]
-        public string Caption { get; set; }
+        public Caption Caption { get; set; }
 
         [JsonProperty("description")]
         public string Description { get; set; }
@@ -72,6 +72,12 @@ namespace WordPressPCL.Models
 
         [JsonProperty("_links")]
         public Links Links { get; set; }
+    }
+
+    public class Caption
+    {
+        [JsonProperty("rendered")]
+        public string Rendered { get; set; }
     }
 
     public class Thumbnail

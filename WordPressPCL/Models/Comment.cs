@@ -7,7 +7,7 @@ namespace WordPressPCL.Models
         [JsonProperty("id")]
         public int Id { get; set; }
 
-        [JsonProperty("id")]
+        [JsonProperty("post")]
         public int PostId { get; set; }
 
         [JsonProperty("parent")]

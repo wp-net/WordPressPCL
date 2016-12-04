@@ -24,7 +24,7 @@ namespace WordPressUWPTestApp
             client.Username = ApiCredentials.Username;
             client.Password = ApiCredentials.Password;
 
-            var posts = await client.ListPosts();
+            var posts = await client.ListPosts(true);
             var post = await client.GetPost("1");
 
 
