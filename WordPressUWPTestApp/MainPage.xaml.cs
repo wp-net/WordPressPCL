@@ -1,6 +1,6 @@
 ﻿using Windows.UI.Xaml.Controls;
-using WordPressUWP;
-using WordPressUWP.Models;
+using WordPressPCL;
+using WordPressPCL.Models;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -46,7 +46,7 @@ namespace WordPressUWPTestApp
 
         private void authButton_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            client.DoOAuth();
+            //client.DoOAuth();
         }
     }
 }

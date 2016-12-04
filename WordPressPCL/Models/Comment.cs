@@ -4,13 +4,17 @@ namespace WordPressPCL.Models
 {
 	public class Comment
 	{
-		public int Id { get; set; }
+        [JsonProperty("id")]
+        public int Id { get; set; }
 
-		public int Post { get; set; }
+        [JsonProperty("id")]
+        public int PostId { get; set; }
 
-		public int Parent { get; set; }
+        [JsonProperty("parent")]
+        public int ParentId { get; set; }
 
-		public int Author { get; set; }
+        [JsonProperty("author")]
+        public int AuthorId { get; set; }
 
 		[JsonProperty("author_name")]
 		public string AuthorName { get; set; }

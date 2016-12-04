@@ -38,16 +38,16 @@ namespace WordPressPCL
 
 
         #region Post methods 
-        public async Task<IList<Post>> ListPosts()
+        public async Task<IList<Post>> ListPosts(bool embed = false)
 		{
             // default values 
             // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
-            return await GetRequest<Post[]>($"posts").ConfigureAwait(false);
+            return await GetRequest<Post[]>($"posts", embed).ConfigureAwait(false);
 		}
 
-		public async Task<Post> GetPost(String id)
+		public async Task<Post> GetPost(String id, bool embed = false)
 		{
-			return await GetRequest<Post>($"posts/{id}").ConfigureAwait(false);
+			return await GetRequest<Post>($"posts/{id}", embed).ConfigureAwait(false);
 		}
 
         public async Task<Post> CreatePost(Post postObject)
@@ -58,19 +58,19 @@ namespace WordPressPCL
         #endregion
 
         #region Comment methods
-        public async Task<IList<Comment>> ListComments()
+        public async Task<IList<Comment>> ListComments(bool embed = false)
 		{
-			return await GetRequest<Comment[]>("comments").ConfigureAwait(false);
+			return await GetRequest<Comment[]>("comments", embed).ConfigureAwait(false);
 		}
 
-        public async Task<IList<Comment>> GetCommentsForPost(string id)
+        public async Task<IList<Comment>> GetCommentsForPost(string id, bool embed = false)
         {
-            return await GetRequest<Comment[]>($"comments?post={id}");
+            return await GetRequest<Comment[]>($"comments?post={id}", embed);
         }
 
-		public async Task<Comment> GetComment(string id)
+		public async Task<Comment> GetComment(string id, bool embed = false)
 		{
-			return await GetRequest<Comment>($"comments/{id}").ConfigureAwait(false);
+			return await GetRequest<Comment>($"comments/{id}", embed).ConfigureAwait(false);
 		}
         #endregion
 
@@ -90,24 +90,27 @@ namespace WordPressPCL
         #endregion
 
         #region Media methods
-        public async Task<Media> GetMedia(string id)
+        public async Task<Media> GetMedia(string id, bool embed = false)
         {
-            return await GetRequest<Media>($"media/{id}").ConfigureAwait(false);
+            return await GetRequest<Media>($"media/{id}", embed).ConfigureAwait(false);
         }
         #endregion
 
 
         #region internal http methods
-        protected async Task<TClass> GetRequest<TClass>(string route, bool isAuthRequired = false)
+        protected async Task<TClass> GetRequest<TClass>(string route, bool embed, bool isAuthRequired = false)
 			where TClass : class
 		{
+            string embedParam = "";
+            if(embed) { embedParam = "?_embed"; }
+
 			using (var client = new HttpClient())
 			{
                 if (isAuthRequired)
                 {
                     client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Utility.Authentication.Base64Encode($"{Username}:{Password}"));
                 }
-                var response = await client.GetAsync($"{WordPressUri}{route}").ConfigureAwait(false);
+                var response = await client.GetAsync($"{WordPressUri}{route}{embedParam}").ConfigureAwait(false);
                 
                 if (response.IsSuccessStatusCode)
 				{

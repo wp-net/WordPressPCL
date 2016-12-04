@@ -25,10 +25,4 @@ namespace WordPressPCL.Models
         public string size96 { get; set; }
     }
 
-    public class Links
-    {
-        public List<Self> self { get; set; }
-        public List<Collection> collection { get; set; }
-    }
-
 }

@@ -243,3 +243,4 @@ ModelManifest.xml
 
 # FAKE - F# Make
 .fake/
+WordPressUWPTestApp/Utility/ApiCredentials.cs

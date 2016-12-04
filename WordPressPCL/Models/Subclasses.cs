@@ -9,14 +9,4 @@ namespace WordPressPCL.Models
         [JsonProperty("raw")]
         public string Raw { get; set; }
     }
-
-	public class Self
-	{
-		public string Href { get; set; }
-	}
-
-	public class Collection
-	{
-		public string Href { get; set; }
-	}
 }

@@ -1,11 +1,11 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 
 namespace WordPressPCL.Models
 {
 	public class Post
 	{
-
 		[JsonProperty("date")]
 		public DateTime Date { get; set; }
 
@@ -75,13 +75,40 @@ namespace WordPressPCL.Models
         [JsonProperty("tags")]
         public int[] Tags { get; set; }
 
-        public enum OrderBy
-		{
-			date, id, include, title, slug
-		}
-	}
+        
+        [JsonProperty("template")]
+        public string Template { get; set; }
+        
+        
+        [JsonProperty("_links")]
+        public Links Links { get; set; }
 
-	public class Guid
+        [JsonProperty("_embedded")]
+        public Embedded Embedded { get; set; }
+    }
+
+    public class Embedded
+    {
+        [JsonProperty("author")]
+        public IList<User> Author { get; set; }
+
+        [JsonProperty("replies")]
+        public IList<IList<Comment>> Replies { get; set; }
+
+        [JsonProperty("wp:featuredmedia")]
+        public IList<Media> WpFeaturedmedia { get; set; }
+
+        [JsonProperty("wp:term")]
+        public IList<IList<Term>> WpTerm { get; set; }
+    }
+
+
+    public enum OrderBy
+    {
+        date, id, include, title, slug
+    }
+
+    public class Guid
 	{
 		[JsonProperty("rendered")]
 		public string Rendered { get; set; }
@@ -106,30 +133,6 @@ namespace WordPressPCL.Models
         public string Raw { get; set; }
     }
 
-	public class About
-	{
-		[JsonProperty("href")]
-		public string Href { get; set; }
-	}
-
-	public class Author
-	{
-		[JsonProperty("embeddable")]
-		public bool Embeddable { get; set; }
-
-		[JsonProperty("href")]
-		public string Href { get; set; }
-	}
-
-	public class Reply
-	{
-		[JsonProperty("embeddable")]
-		public bool Embeddable { get; set; }
-
-		[JsonProperty("href")]
-		public string Href { get; set; }
-	}
-
 	public class VersionHistory
 	{
 		[JsonProperty("href")]
@@ -137,32 +140,6 @@ namespace WordPressPCL.Models
 	}
 
 	public class HttpsApiWOrgFeaturedmedia
-	{
-		[JsonProperty("embeddable")]
-		public bool Embeddable { get; set; }
-
-		[JsonProperty("href")]
-		public string Href { get; set; }
-	}
-
-	public class HttpsApiWOrgAttachment
-	{
-		[JsonProperty("href")]
-		public string Href { get; set; }
-	}
-
-	public class HttpsApiWOrgTerm
-	{
-		public string Taxonomy { get; set; }
-
-		[JsonProperty("embeddable")]
-		public bool Embeddable { get; set; }
-
-		[JsonProperty("href")]
-		public string Href { get; set; }
-	}
-
-	public class HttpsApiWOrgMeta
 	{
 		[JsonProperty("embeddable")]
 		public bool Embeddable { get; set; }

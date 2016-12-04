@@ -40,10 +40,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\Comment.cs" />
+    <Compile Include="Models\Links.cs" />
     <Compile Include="Models\Media.cs" />
     <Compile Include="Models\Post.cs" />
     <Compile Include="Models\Subclasses.cs" />
     <Compile Include="Models\Tag.cs" />
+    <Compile Include="Models\Term.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utility\Authentication.cs" />
