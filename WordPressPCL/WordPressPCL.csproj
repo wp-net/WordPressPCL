@@ -2,6 +2,17 @@
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
+    <TargetFramework>netstandard1.1</TargetFramework>
+    <PackageId>WordPressPCL</PackageId>
+    <PackageVersion>0.1.2-alpha</PackageVersion>
+    <Authors>Thomas Pentenrieder</Authors>
+    <Description>This is a portable library for consuimg the WordPress REST-API in (almost) any C# application</Description>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageReleaseNotes>First .netstandard release</PackageReleaseNotes>
+    <Copyright>Copyright 2016 (c) Thomas Pentenrieder. All rights reserved.</Copyright>
+    <PackageTags>WordPress REST API</PackageTags>
+</PropertyGroup>
+<PropertyGroup>
     <MinimumVisualStudioVersion>14.0</MinimumVisualStudioVersion>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -33,6 +44,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\WordPressPCL.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .NET Framework is automatically included -->
