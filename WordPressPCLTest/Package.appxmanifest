@@ -5,11 +5,11 @@
   xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
   IgnorableNamespaces="uap mp">
 
-  <Identity Name="9cba3705-ab8a-450e-af2c-bd173ca40ba7"
+  <Identity Name="5d79f519-ce9b-433f-b707-719a3e2950d8"
             Publisher="CN=pente"
             Version="1.0.0.0" />
 
-  <mp:PhoneIdentity PhoneProductId="9cba3705-ab8a-450e-af2c-bd173ca40ba7" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+  <mp:PhoneIdentity PhoneProductId="5d79f519-ce9b-433f-b707-719a3e2950d8" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
     <DisplayName>WordPressPCLTest</DisplayName>
@@ -40,6 +40,6 @@
     </Application>
   </Applications>
   <Capabilities>
-    <Capability Name="internetClient" />
+    <Capability Name="internetClientServer" />
   </Capabilities>
 </Package>
