@@ -9,11 +9,19 @@ using WordPressPCL.Models;
 
 namespace WordPressPCL
 {
-	public class WordPressClient
+
+	/// <summary>
+    ///     Main class containing the wrapper client with all public API endpoints.
+    /// </summary>
+    public class WordPressClient
 	{
 		private readonly string _wordPressUri;
 
-		public WordPressClient(string uri)
+        /// <summary>
+        ///     The WordPressClient holds all connection infos and provides methods to call WordPress APIs.
+        /// </summary>
+        /// <param name="uri">URI for WordPress API endpoint, e.g. "http://demo.wp-api.org/wp-json/wp/v2/"</param>
+        public WordPressClient(string uri)
 		{
 			if (string.IsNullOrWhiteSpace(uri))
 			{
@@ -28,6 +36,9 @@ namespace WordPressPCL
 			_wordPressUri = uri;
 		}
 
+        /// <summary>
+        /// WordPressUri holds the WordPress API endpoint, e.g. "http://demo.wp-api.org/wp-json/wp/v2/"
+        /// </summary>
 		public string WordPressUri
 		{
 			get { return _wordPressUri; }

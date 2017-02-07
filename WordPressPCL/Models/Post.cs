@@ -6,14 +6,26 @@ namespace WordPressPCL.Models
 {
 	public class Post
 	{
+        /// <summary>
+        ///     The date the object was published, in the site’s timezone.
+        /// </summary>
+        /// <remarks>Context: view, edit, embed</remarks>
 		[JsonProperty("date")]
 		public DateTime Date { get; set; }
 
-		[JsonProperty("date_gmt")]
+        /// <summary>
+        ///     The date the object was published, as GMT.
+        /// </summary>
+        /// <remarks>Context: view, edit</remarks>
+        [JsonProperty("date_gmt")]
 		public DateTime DateGmt { get; set; }
 
-		[JsonProperty("guid")]
-		public Guid Guid { get; set; }
+        /// <summary>
+        /// The globally unique identifier for the object.
+        /// </summary>
+        /// <remarks>Context: view, edit</remarks>
+        [JsonProperty("guid")]
+        public Guid Guid { get; set; }
 
         [JsonProperty("id")]
         public int Id { get; set; }
@@ -65,7 +77,13 @@ namespace WordPressPCL.Models
 		[JsonProperty("sticky")]
 		public bool Sticky { get; set; }
 
-        // One of: standard, aside, chat, gallery, link, image, quote, status, video, audio
+        /// <summary>
+        ///     The format for the object.
+        /// </summary>
+        /// <remarks>
+        ///     Context: view, edit
+        ///     One of: standard
+        /// </remarks>
         [JsonProperty("format")]
 		public string Format { get; set; }
 
