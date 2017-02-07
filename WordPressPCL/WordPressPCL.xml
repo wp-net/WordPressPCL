@@ -16,6 +16,21 @@
             </summary>
             <remarks>Context: view, edit</remarks>
         </member>
+        <member name="P:WordPressPCL.Models.Post.Guid">
+            <summary>
+            The globally unique identifier for the object.
+            </summary>
+            <remarks>Context: view, edit</remarks>
+        </member>
+        <member name="P:WordPressPCL.Models.Post.Format">
+            <summary>
+                The format for the object.
+            </summary>
+            <remarks>
+                Context: view, edit
+                One of: standard
+            </remarks>
+        </member>
         <member name="T:WordPressPCL.WordPressClient">
             <summary>
                 Main class containing the wrapper client with all public API endpoints.
