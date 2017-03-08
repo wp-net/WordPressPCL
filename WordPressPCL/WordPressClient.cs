@@ -61,7 +61,7 @@ namespace WordPressPCL
             return await GetRequest<Post[]>($"{defaultPath}posts", embed).ConfigureAwait(false);
 		}
 
-		public async Task<Post> GetPost(String id, bool embed = false)
+		public async Task<Post> GetPost(int id, bool embed = false)
 		{
 			return await GetRequest<Post>($"{defaultPath}posts/{id}", embed).ConfigureAwait(false);
 		}

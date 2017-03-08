@@ -21,6 +21,16 @@ namespace WordPressPCLTests
             Assert.IsNotNull(posts);
         }
 
+        [TestMethod]
+        public async Task GetFirstPostTest()
+        {
+            // Initialize
+            var client = new WordPressClient(ApiCredentials.WordPressUri);
+            var posts = await client.ListPosts();
+            var post = client.GetPost(posts[0].Id);
+            Assert.IsTrue(posts[0].Id == post.Id);
+        }
+
 
         [TestMethod]
         public async Task JWTAuthTest()
