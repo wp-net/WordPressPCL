@@ -1,16 +1,17 @@
-﻿using System;
+using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using WordPressPCLTests.Utility;
 using WordPressPCL;
-using WordPressPCLTest.Utility;
-namespace WordPressPCLTest
+using System.Threading.Tasks;
+using WordPressPCL.Models;
+
+namespace WordPressPCLTests
 {
     [TestClass]
     public class UnitTest1
     {
-
-
         [TestMethod]
-        public async void TestMethod1()
+        public async Task BasicSetupTest()
         {
             // Initialize
             var client = new WordPressClient(ApiCredentials.WordPressUri);
@@ -22,13 +23,17 @@ namespace WordPressPCLTest
 
 
         [TestMethod]
-        public async void BasicAuthTest()
+        public async Task JWTAuthTest()
         {
             var client = new WordPressClient(ApiCredentials.WordPressUri);
             client.Username = ApiCredentials.Username;
             client.Password = ApiCredentials.Password;
+            client.AuthMethod = AuthMethod.JWT;
+            await client.RequestJWToken();
+            Assert.IsNotNull(client.JWToken);
+            var IsValidToken = await client.IsValidJWToken();
+            Assert.IsTrue(IsValidToken);
 
-            
         }
     }
 }

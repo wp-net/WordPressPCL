@@ -36,16 +36,16 @@
                 Main class containing the wrapper client with all public API endpoints.
             </summary>
         </member>
-        <member name="M:WordPressPCL.WordPressClient.#ctor(System.String)">
-            <summary>
-                The WordPressClient holds all connection infos and provides methods to call WordPress APIs.
-            </summary>
-            <param name="uri">URI for WordPress API endpoint, e.g. "http://demo.wp-api.org/wp-json/wp/v2/"</param>
-        </member>
         <member name="P:WordPressPCL.WordPressClient.WordPressUri">
             <summary>
             WordPressUri holds the WordPress API endpoint, e.g. "http://demo.wp-api.org/wp-json/wp/v2/"
             </summary>
+        </member>
+        <member name="M:WordPressPCL.WordPressClient.#ctor(System.String)">
+            <summary>
+                The WordPressClient holds all connection infos and provides methods to call WordPress APIs.
+            </summary>
+            <param name="uri">URI for WordPress API endpoint, e.g. "http://demo.wp-api.org/wp-json/"</param>
         </member>
     </members>
 </doc>
