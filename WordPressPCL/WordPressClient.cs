@@ -73,10 +73,10 @@ namespace WordPressPCL
             return post;
         }
 
-        public async Task<HttpStatusCode> DeletePost(int id)
+        public async Task<HttpResponseMessage> DeletePost(int id)
         {
             var response = await DeleteRequest($"{defaultPath}posts/{id}").ConfigureAwait(false);
-            return response.StatusCode;
+            return response;
         }
         #endregion
 
@@ -105,10 +105,10 @@ namespace WordPressPCL
             return comment;
         }
 
-        public async Task<HttpStatusCode> DeleteComment(int id)
+        public async Task<HttpResponseMessage> DeleteComment(int id)
         {
             var response = await DeleteRequest($"{defaultPath}comments/{id}").ConfigureAwait(false);
-            return response.StatusCode;
+            return response;
         }
         #endregion
 
@@ -195,18 +195,21 @@ namespace WordPressPCL
                 try
                 {
                     response = await client.GetAsync($"{WordPressUri}{route}{embedParam}").ConfigureAwait(false);
-                } catch (Exception ex)
+                    var responseString = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    if (response.IsSuccessStatusCode)
+                    {
+                        return JsonConvert.DeserializeObject<TClass>(responseString);
+                    }
+                    else
+                    {
+                        Debug.WriteLine(responseString);
+                    }
+                }
+                catch (Exception ex)
                 {
                     Debug.WriteLine("exception thrown: " + ex.Message);
                 }
-
-
-                if (response.IsSuccessStatusCode)
-				{
-					var responseString = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-					return JsonConvert.DeserializeObject<TClass>(responseString);
-				}
-			}
+            }
 			return default(TClass);
 		}
 
@@ -229,6 +232,10 @@ namespace WordPressPCL
                     if (response.IsSuccessStatusCode)
                     {
                         return (JsonConvert.DeserializeObject<TClass>(responseString), response);
+                    }
+                    else
+                    {
+                        Debug.WriteLine(responseString);
                     }
                 }
                 catch(Exception ex)
@@ -253,11 +260,14 @@ namespace WordPressPCL
                 try
                 {
                     response = await client.DeleteAsync($"{WordPressUri}{route}").ConfigureAwait(false);
-
+                    var responseString = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
                     if (response.IsSuccessStatusCode)
                     {
-                        var responseString = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
                         return response;
+                    }
+                    else
+                    {
+                        Debug.WriteLine(responseString);
                     }
                 }
                 catch (Exception ex)

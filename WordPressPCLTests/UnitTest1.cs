@@ -67,10 +67,20 @@ namespace WordPressPCLTests
             {
                 Content = "Testcomment",
                 PostId = postId,
-                AuthorId = me.id
+                AuthorId = me.id,
+                AuthorEmail = "test@test.com",
+                AuthorName = me.name
             };
             var resultComment = await client.CreateComment(comment, postId);
             Assert.IsNotNull(resultComment);
+
+            // Posting same comment twice should fail
+            var secondResultComment = await client.CreateComment(comment, postId);
+            Assert.IsNull(secondResultComment);
+
+
+            var del = await client.DeleteComment(resultComment.Id);
+            Assert.IsTrue(del.IsSuccessStatusCode);
         }
 
 
@@ -91,8 +101,8 @@ namespace WordPressPCLTests
             var resultPost = await client.CreatePost(newpost);
             Assert.IsNotNull(resultPost.Id);
 
-            //var del = await client.DeletePost(resultPost.Id);
-            //Assert.IsTrue(del == HttpStatusCode.OK);
+            var del = await client.DeletePost(resultPost.Id);
+            Assert.IsTrue(del.IsSuccessStatusCode);
 
 
             }

@@ -31,6 +31,18 @@
                 One of: standard
             </remarks>
         </member>
+        <member name="P:WordPressPCL.Models.PostCreate.Date">
+            <summary>
+                The date the object was published, in the site’s timezone.
+            </summary>
+            <remarks>Context: view, edit, embed</remarks>
+        </member>
+        <member name="P:WordPressPCL.Models.PostCreate.DateGmt">
+            <summary>
+                The date the object was published, as GMT.
+            </summary>
+            <remarks>Context: view, edit</remarks>
+        </member>
         <member name="T:WordPressPCL.WordPressClient">
             <summary>
                 Main class containing the wrapper client with all public API endpoints.

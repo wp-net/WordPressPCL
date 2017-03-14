@@ -13,8 +13,8 @@ namespace WordPressPCL.Models
         [JsonProperty("author_email")]
         public string AuthorEmail { get; set; }
 
-        [JsonProperty("author_ip")]
-        public string AuthorIP { get; set; }
+        //[JsonProperty("author_ip")]
+        //public string AuthorIP { get; set; }
 
         [JsonProperty("author_name")]
         public string AuthorName { get; set; }
