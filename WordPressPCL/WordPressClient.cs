@@ -66,13 +66,21 @@ namespace WordPressPCL
 			return await GetRequest<Post>($"{defaultPath}posts/{id}", embed).ConfigureAwait(false);
 		}
 
-        public async Task<Post> CreatePost(Post postObject)
+        public async Task<Post> CreatePost(PostCreate postObject)
         {
             var postBody = new StringContent(JsonConvert.SerializeObject(postObject).ToString(), Encoding.UTF8, "application/json");
             (var post, HttpResponseMessage response) = await PostRequest<Post>($"{defaultPath}posts", postBody);
             return post;
         }
+
+        public async Task<HttpStatusCode> DeletePost(int id)
+        {
+            var response = await DeleteRequest($"{defaultPath}posts/{id}").ConfigureAwait(false);
+            return response.StatusCode;
+        }
         #endregion
+
+
 
         #region Comment methods
         public async Task<IList<Comment>> ListComments(bool embed = false)
@@ -89,6 +97,19 @@ namespace WordPressPCL
 		{
 			return await GetRequest<Comment>($"{defaultPath}comments/{id}", embed).ConfigureAwait(false);
 		}
+
+        public async Task<Comment> CreateComment(CommentCreate commentObject, int postId)
+        {
+            var postBody = new StringContent(JsonConvert.SerializeObject(commentObject).ToString(), Encoding.UTF8, "application/json");
+            (var comment, HttpResponseMessage response) = await PostRequest<Comment>($"{defaultPath}comments", postBody);
+            return comment;
+        }
+
+        public async Task<HttpStatusCode> DeleteComment(int id)
+        {
+            var response = await DeleteRequest($"{defaultPath}comments/{id}").ConfigureAwait(false);
+            return response.StatusCode;
+        }
         #endregion
 
         #region Tag methods
@@ -103,7 +124,7 @@ namespace WordPressPCL
         #region User methods
         public async Task<User> GetCurrentUser()
         {
-            return await GetRequest<User>($"users/me", true).ConfigureAwait(false);
+            return await GetRequest<User>($"{defaultPath}users/me", true, true).ConfigureAwait(false);
         }
         #endregion
 
@@ -162,15 +183,24 @@ namespace WordPressPCL
 		{
             string embedParam = "";
             if(embed) { embedParam = "?_embed"; }
+            HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.ExpectationFailed);
 
-			using (var client = new HttpClient())
+            using (var client = new HttpClient())
 			{
                 if (isAuthRequired)
                 {
-                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Utility.Authentication.Base64Encode($"{Username}:{Password}"));
+                    //client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Utility.Authentication.Base64Encode($"{Username}:{Password}"));
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", JWToken);
                 }
-                var response = await client.GetAsync($"{WordPressUri}{route}{embedParam}").ConfigureAwait(false);
-                
+                try
+                {
+                    response = await client.GetAsync($"{WordPressUri}{route}{embedParam}").ConfigureAwait(false);
+                } catch (Exception ex)
+                {
+                    Debug.WriteLine("exception thrown: " + ex.Message);
+                }
+
+
                 if (response.IsSuccessStatusCode)
 				{
 					var responseString = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
@@ -186,6 +216,7 @@ namespace WordPressPCL
             HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.ExpectationFailed);
             using (var client = new HttpClient())
             {
+                //client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 if (isAuthRequired) {
                     //client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Utility.Authentication.Base64Encode($"{Username}:{Password}"));
                     //client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
@@ -194,20 +225,49 @@ namespace WordPressPCL
                 try
                 {
                     response = await client.PostAsync($"{WordPressUri}{route}", postBody).ConfigureAwait(false);
-
+                    var responseString = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
                     if (response.IsSuccessStatusCode)
                     {
-                        var responseString = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
                         return (JsonConvert.DeserializeObject<TClass>(responseString), response);
                     }
                 }
                 catch(Exception ex)
                 {
-                    Debug.WriteLine("exception thrown");
+                    Debug.WriteLine("exception thrown: " + ex.Message);
                 }
             }
             return (default(TClass), response);
         }
+
+        protected async Task<HttpResponseMessage> DeleteRequest(string route, bool isAuthRequired = true)
+        {
+            HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.ExpectationFailed);
+            using (var client = new HttpClient())
+            {
+                if (isAuthRequired)
+                {
+                    //client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Utility.Authentication.Base64Encode($"{Username}:{Password}"));
+                    //client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", JWToken);
+                }
+                try
+                {
+                    response = await client.DeleteAsync($"{WordPressUri}{route}").ConfigureAwait(false);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var responseString = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                        return response;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("exception thrown: " + ex.Message);
+                }
+            }
+            return response;
+        }
+
 
         #endregion
 

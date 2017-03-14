@@ -245,3 +245,5 @@ ModelManifest.xml
 .fake/
 WordPressUWPTestApp/Utility/ApiCredentials.cs
 WordPressPCLTest/Utility/ApiCredentials.cs
+WordPressPCLTests/Utility/ApiCredentials.cs
+WordPressPCLTests/Utility/ApiCredentials.cs

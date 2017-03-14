@@ -30,7 +30,8 @@ namespace WordPressPCL.Models
 		[JsonProperty("date_gmt")]
 		public string DateGmt { get; set; }
 
-		public Content Content { get; set; }
+        [JsonProperty("content")]
+        public Content Content { get; set; }
 
 		public string Link { get; set; }
 
