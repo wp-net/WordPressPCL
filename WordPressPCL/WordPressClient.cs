@@ -12,19 +12,19 @@ using WordPressPCL.Models;
 namespace WordPressPCL
 {
 
-	/// <summary>
+    /// <summary>
     ///     Main class containing the wrapper client with all public API endpoints.
     /// </summary>
     public class WordPressClient
-	{
+    {
         private readonly string _wordPressUri;
         /// <summary>
         /// WordPressUri holds the WordPress API endpoint, e.g. "http://demo.wp-api.org/wp-json/wp/v2/"
         /// </summary>
 		public string WordPressUri
-		{
-			get { return _wordPressUri; }
-		}
+        {
+            get { return _wordPressUri; }
+        }
 
         private const string defaultPath = "wp/v2/";
         private const string jwtPath = "jwt-auth/v1/";
@@ -33,6 +33,8 @@ namespace WordPressPCL
         public String Password { get; set; }
         public AuthMethod AuthMethod { get; set; }
         public String JWToken { get; set; }
+
+
 
         /// <summary>
         ///     The WordPressClient holds all connection infos and provides methods to call WordPress APIs.
@@ -55,16 +57,51 @@ namespace WordPressPCL
 
         #region Post methods 
         public async Task<IList<Post>> ListPosts(bool embed = false)
-		{
+        {
             // default values 
             // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
             return await GetRequest<Post[]>($"{defaultPath}posts", embed).ConfigureAwait(false);
-		}
+        }
 
-		public async Task<Post> GetPost(int id, bool embed = false)
-		{
-			return await GetRequest<Post>($"{defaultPath}posts/{id}", embed).ConfigureAwait(false);
-		}
+        public async Task<IList<Post>> ListStickyPosts(bool embed = false)
+        {
+            // default values 
+            // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
+            return await GetRequest<Post[]>($"{defaultPath}posts?sticky=true", embed).ConfigureAwait(false);
+        }
+
+        public async Task<IList<Post>> ListPostsByCategory(int categoryId, bool embed = false)
+        {
+            // default values 
+            // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
+            return await GetRequest<Post[]>($"{defaultPath}posts?categories={categoryId}", embed).ConfigureAwait(false);
+        }
+
+        public async Task<IList<Post>> ListPostsByTag(int tagId, bool embed = false)
+        {
+            // default values 
+            // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
+            return await GetRequest<Post[]>($"{defaultPath}posts?tags={tagId}", embed).ConfigureAwait(false);
+        }
+
+        public async Task<IList<Post>> ListPostsByAuthor(int authorId, bool embed = false)
+        {
+            // default values 
+            // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
+            return await GetRequest<Post[]>($"{defaultPath}posts?author={authorId}", embed).ConfigureAwait(false);
+        }
+
+        public async Task<IList<Post>> ListPostsBySearch(string searchTerm, bool embed = false)
+        {
+            // default values 
+            // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
+            return await GetRequest<Post[]>($"{defaultPath}posts?search={searchTerm}", embed).ConfigureAwait(false);
+        }
+
+        public async Task<Post> GetPost(int postId, bool embed = false)
+        {
+            return await GetRequest<Post>($"{defaultPath}posts/{postId}", embed).ConfigureAwait(false);
+        }
 
         public async Task<Post> CreatePost(PostCreate postObject)
         {
@@ -80,23 +117,21 @@ namespace WordPressPCL
         }
         #endregion
 
-
-
         #region Comment methods
         public async Task<IList<Comment>> ListComments(bool embed = false)
-		{
-			return await GetRequest<Comment[]>($"{defaultPath}comments", embed).ConfigureAwait(false);
-		}
+        {
+            return await GetRequest<Comment[]>($"{defaultPath}comments", embed).ConfigureAwait(false);
+        }
 
         public async Task<IList<Comment>> GetCommentsForPost(string id, bool embed = false)
         {
             return await GetRequest<Comment[]>($"{defaultPath}comments?post={id}", embed);
         }
 
-		public async Task<Comment> GetComment(string id, bool embed = false)
-		{
-			return await GetRequest<Comment>($"{defaultPath}comments/{id}", embed).ConfigureAwait(false);
-		}
+        public async Task<Comment> GetComment(string id, bool embed = false)
+        {
+            return await GetRequest<Comment>($"{defaultPath}comments/{id}", embed).ConfigureAwait(false);
+        }
 
         public async Task<Comment> CreateComment(CommentCreate commentObject, int postId)
         {
@@ -114,8 +149,8 @@ namespace WordPressPCL
 
         #region Tag methods
         public async Task<Tag> CreateTag(Tag tagObject)
-        { 
-            var postBody = new StringContent(JsonConvert.SerializeObject(tagObject).ToString(), Encoding.UTF8, "application/json"); 
+        {
+            var postBody = new StringContent(JsonConvert.SerializeObject(tagObject).ToString(), Encoding.UTF8, "application/json");
             (var tag, HttpResponseMessage response) = await PostRequest<Tag>($"{defaultPath}tags", postBody);
             return tag;
         }
@@ -143,7 +178,6 @@ namespace WordPressPCL
 
 
         #endregion
-
 
         #region auth methods
 
@@ -176,17 +210,17 @@ namespace WordPressPCL
 
         #endregion
 
-
         #region internal http methods
+
         protected async Task<TClass> GetRequest<TClass>(string route, bool embed, bool isAuthRequired = false)
-			where TClass : class
-		{
+            where TClass : class
+        {
             string embedParam = "";
-            if(embed) { embedParam = "?_embed"; }
+            if (embed) { embedParam = "?_embed"; }
             HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.ExpectationFailed);
 
             using (var client = new HttpClient())
-			{
+            {
                 if (isAuthRequired)
                 {
                     //client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Utility.Authentication.Base64Encode($"{Username}:{Password}"));
@@ -210,8 +244,8 @@ namespace WordPressPCL
                     Debug.WriteLine("exception thrown: " + ex.Message);
                 }
             }
-			return default(TClass);
-		}
+            return default(TClass);
+        }
 
         protected async Task<(TClass, HttpResponseMessage)> PostRequest<TClass>(string route, HttpContent postBody, bool isAuthRequired = true)
             where TClass : class
@@ -220,7 +254,8 @@ namespace WordPressPCL
             using (var client = new HttpClient())
             {
                 //client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                if (isAuthRequired) {
+                if (isAuthRequired)
+                {
                     //client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Utility.Authentication.Base64Encode($"{Username}:{Password}"));
                     //client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                     client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", JWToken);
@@ -238,7 +273,7 @@ namespace WordPressPCL
                         Debug.WriteLine(responseString);
                     }
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     Debug.WriteLine("exception thrown: " + ex.Message);
                 }
@@ -277,7 +312,6 @@ namespace WordPressPCL
             }
             return response;
         }
-
 
         #endregion
 
