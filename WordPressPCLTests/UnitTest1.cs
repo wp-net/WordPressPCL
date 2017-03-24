@@ -5,6 +5,7 @@ using WordPressPCL;
 using System.Threading.Tasks;
 using WordPressPCL.Models;
 using System.Net;
+using System.Linq;
 
 namespace WordPressPCLTests
 {
@@ -32,6 +33,85 @@ namespace WordPressPCLTests
             Assert.IsTrue(posts[0].Id == post.Id);
         }
 
+        [TestMethod]
+        public async Task GetStickyPosts()
+        {
+            // Initialize
+            var client = new WordPressClient(ApiCredentials.WordPressUri);
+            var posts = await client.ListStickyPosts();
+
+            foreach (Post post in posts)
+            {
+                Assert.IsTrue(post.Sticky);
+            }
+        }
+
+        [TestMethod]
+        public async Task GetPostsByCategory()
+        {
+            // This CategoryID MUST exists at ApiCredentials.WordPressUri
+            int category = 1;
+            // Initialize
+            var client = new WordPressClient(ApiCredentials.WordPressUri);
+            var posts = await client.ListPostsByCategory(category);
+
+            foreach (Post post in posts)
+            {
+                Assert.IsTrue(post.Categories.ToList().Contains(category));
+            }
+        }
+
+        [TestMethod]
+        public async Task GetPostsByTag()
+        {
+            // This TagID MUST exists at ApiCredentials.WordPressUri
+            int tag = 12;
+            // Initialize
+            var client = new WordPressClient(ApiCredentials.WordPressUri);
+            var posts = await client.ListPostsByTag(tag);
+
+            foreach (Post post in posts)
+            {
+                Assert.IsTrue(post.Tags.ToList().Contains(tag));
+            }
+        }
+
+        [TestMethod]
+        public async Task GetPostsByAuthor()
+        {
+            // This AuthorID MUST exists at ApiCredentials.WordPressUri
+            int author = 2;
+            // Initialize
+            var client = new WordPressClient(ApiCredentials.WordPressUri);
+            var posts = await client.ListPostsByAuthor(author);
+
+            foreach (Post post in posts)
+            {
+                Assert.IsTrue(post.Author == author);
+            }
+        }
+
+        [TestMethod]
+        public async Task GetPostsBySearch()
+        {
+            // This search term MUST be used at least once
+            string search = "hello";
+            // Initialize
+            var client = new WordPressClient(ApiCredentials.WordPressUri);
+            var posts = await client.ListPostsBySearch(search);
+
+            foreach (Post post in posts)
+            {
+                bool containsOnContentOrTitle = false;
+
+                if (post.Content.Rendered.ToUpper().Contains(search.ToUpper()) || post.Title.Rendered.ToUpper().Contains(search.ToUpper()))
+                {
+                    containsOnContentOrTitle = true;
+                }
+
+                Assert.IsTrue(containsOnContentOrTitle);
+            }
+        }
 
         [TestMethod]
         public async Task JWTAuthTest()
@@ -45,7 +125,6 @@ namespace WordPressPCLTests
             var IsValidToken = await client.IsValidJWToken();
             Assert.IsTrue(IsValidToken);
         }
-
 
         [TestMethod]
         public async Task CreateAndDeleteComment()
@@ -83,7 +162,6 @@ namespace WordPressPCLTests
             Assert.IsTrue(del.IsSuccessStatusCode);
         }
 
-
         [TestMethod]
         public async Task CreateAndDeletePostTest()
         {
@@ -105,6 +183,6 @@ namespace WordPressPCLTests
             Assert.IsTrue(del.IsSuccessStatusCode);
 
 
-            }
         }
+    }
 }
