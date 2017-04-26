@@ -64,11 +64,25 @@ namespace WordPressPCL
             return await GetRequest<Post[]>($"{defaultPath}posts", embed).ConfigureAwait(false);
         }
 
+        public async Task<IList<Post>> ListPosts(QueryBuilder builder)
+        {
+            // default values 
+            // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
+            return await GetRequest<Post[]>(builder.SetRootUrl($"{defaultPath}posts").ToString(), false).ConfigureAwait(false);
+        }
+
         public async Task<IList<Post>> ListStickyPosts(bool embed = false)
         {
             // default values 
             // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
             return await GetRequest<Post[]>($"{defaultPath}posts?sticky=true", embed).ConfigureAwait(false);
+        }
+
+        public async Task<IList<Post>> ListStickyPosts(QueryBuilder builder)
+        {
+            // default values 
+            // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
+            return await GetRequest<Post[]>(builder.SetRootUrl($"{defaultPath}posts?sticky=true").ToString(), false).ConfigureAwait(false);
         }
 
         public async Task<IList<Post>> ListPostsByCategory(int categoryId, bool embed = false)
@@ -78,11 +92,25 @@ namespace WordPressPCL
             return await GetRequest<Post[]>($"{defaultPath}posts?categories={categoryId}", embed).ConfigureAwait(false);
         }
 
+        public async Task<IList<Post>> ListPostsByCategory(int categoryId, QueryBuilder builder)
+        {
+            // default values 
+            // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
+            return await GetRequest<Post[]>(builder.SetRootUrl($"{defaultPath}posts?categories={categoryId}").ToString(), false).ConfigureAwait(false);
+        }
+
         public async Task<IList<Post>> ListPostsByTag(int tagId, bool embed = false)
         {
             // default values 
             // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
             return await GetRequest<Post[]>($"{defaultPath}posts?tags={tagId}", embed).ConfigureAwait(false);
+        }
+
+        public async Task<IList<Post>> ListPostsByTag(int tagId, QueryBuilder builder)
+        {
+            // default values 
+            // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
+            return await GetRequest<Post[]>(builder.SetRootUrl($"{defaultPath}posts?tags={tagId}").ToString(), false).ConfigureAwait(false);
         }
 
         public async Task<IList<Post>> ListPostsByAuthor(int authorId, bool embed = false)
@@ -92,11 +120,25 @@ namespace WordPressPCL
             return await GetRequest<Post[]>($"{defaultPath}posts?author={authorId}", embed).ConfigureAwait(false);
         }
 
+        public async Task<IList<Post>> ListPostsByAuthor(int authorId, QueryBuilder builder)
+        {
+            // default values 
+            // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
+            return await GetRequest<Post[]>(builder.SetRootUrl($"{defaultPath}posts?author={authorId}").ToString(), false).ConfigureAwait(false);
+        }
+
         public async Task<IList<Post>> ListPostsBySearch(string searchTerm, bool embed = false)
         {
             // default values 
             // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
             return await GetRequest<Post[]>($"{defaultPath}posts?search={searchTerm}", embed).ConfigureAwait(false);
+        }
+
+        public async Task<IList<Post>> ListPostsBySearch(string searchTerm, QueryBuilder builder)
+        {
+            // default values 
+            // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
+            return await GetRequest<Post[]>(builder.SetRootUrl($"{defaultPath}posts?search={searchTerm}").ToString(), false).ConfigureAwait(false);
         }
 
         public async Task<Post> GetPost(int postId, bool embed = false)
