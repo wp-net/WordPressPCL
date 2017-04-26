@@ -8,6 +8,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using WordPressPCL.Models;
+using WordPressPCL.Utility;
 
 namespace WordPressPCL
 {
