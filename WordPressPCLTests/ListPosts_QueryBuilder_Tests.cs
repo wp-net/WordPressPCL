@@ -32,10 +32,10 @@ namespace WordPressPCLTests
             Assert.IsNotNull(client);
             // Posts
             var postsA = await client.ListPosts(new QueryBuilder() {
-                page = 1
+                Page = 1
             });
             var postsB = await client.ListPosts(new QueryBuilder() {
-                page = 2
+                Page = 2
             });
             Assert.IsNotNull(postsA);
             Assert.IsNotNull(postsB);

@@ -6,20 +6,20 @@ namespace WordPressPCL.Utility
 {
     public class QueryBuilder
     {
-        private string url { get; set; }
-        public int page { get; set; }
-        public int per_page { get; set; }
-        public int offset { get; set; }
-        public OrderBy orderBy { get; set; }
-        public bool embed { get; set; }
+        private string url;
+        public int Page { get; set; }
+        public int Per_Page { get; set; }
+        public int Offset { get; set; }
+        public WordPressPCL.Models.OrderBy OrderBy { get; set; }
+        public bool Embed { get; set; }
         public QueryBuilder(string url = null)
         {
             this.url = url;
-            this.page = 1;
-            this.per_page = 10;
-            this.offset = 0;
-            this.orderBy = OrderBy.date;
-            this.embed = false;
+            this.Page = 1;
+            this.Per_Page = 10;
+            this.Offset = 0;
+            this.OrderBy = OrderBy.date;
+            this.Embed = false;
         }
 
         internal QueryBuilder SetRootUrl(string _url) 
@@ -34,29 +34,29 @@ namespace WordPressPCL.Utility
             else
             {
                 StringBuilder sb = new StringBuilder(url);
-                if (page > 1)
+                if (Page > 1)
                 {
                     sb.Append(appendQuery(this.url, PAGE_QUERYSTRING));
-                    sb.Append(this.page);
+                    sb.Append(this.Page);
                 }
-                if (embed)
+                if (Embed)
                 {
                     sb.Append(appendQuery(this.url, EMBED_QUERYSTRING));
                 }
-                if (per_page != 10)
+                if (Per_Page != 10)
                 {
                     sb.Append(appendQuery(this.url, PER_PAGE_QUERYSTRING));
-                    sb.Append(this.per_page);
+                    sb.Append(this.Per_Page);
                 }
-                if (offset > 0)
+                if (Offset > 0)
                 {
                     sb.Append(appendQuery(this.url, OFFSET_QUERYSTRING));
-                    sb.Append(this.offset);
+                    sb.Append(this.Offset);
                 }
-                if (orderBy != OrderBy.date)
+                if (OrderBy != OrderBy.date)
                 {
                     sb.Append(appendQuery(this.url, ORDER_BY_QUERYSTRING));
-                    sb.Append(Convert.ToInt32(this.orderBy));
+                    sb.Append(Convert.ToInt32(this.OrderBy));
                 }
                 return sb.ToString();
             }
