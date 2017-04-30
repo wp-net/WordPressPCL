@@ -3,7 +3,10 @@ This is a portable library for consuimg the WordPress REST-API in (almost) any C
 The project is still very much in *beta* so use at your own risk! 
 If you find bugs or have any suggestions, feel free to create an issue.
 
-#Quickstart
+## License
+WordPressPCL is published under the [MIT License](https://github.com/wp-net/WordPressPCL/blob/master/LICENSE)
+
+# Quickstart
 
 ## WordPress Plugins
 As the WP REST API (Version 2) Plugin is currently being integrated into WordPress core you'll still need to install the plugin on your site for this library to work. Also, there are two additional plugins for authentication.
