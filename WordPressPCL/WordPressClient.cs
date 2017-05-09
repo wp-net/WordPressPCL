@@ -205,7 +205,7 @@ namespace WordPressPCL
         
         public async Task<Tag> GetTag(int tagId, bool embed = false)
         {
-            return await GetRequest<Tag>($"{defaultPath}tag/{tagId}", embed).ConfigureAwait(false);
+            return await GetRequest<Tag>($"{defaultPath}tags/{tagId}", embed).ConfigureAwait(false);
         }
         #endregion
 
