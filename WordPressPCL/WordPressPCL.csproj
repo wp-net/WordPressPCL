@@ -6,16 +6,21 @@
     <Authors>Thomas Pentenrieder</Authors>
     <Company>medienstudio.net</Company>
     <Description>This is a portable library for consuimg the WordPress REST-API in (almost) any C# application.</Description>
-    <PackageProjectUrl>https://github.com/ThomasPe/WordPressPCL</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/ThomasPe/WordPressPCL</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/wp-net/WordPressPCL</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/wp-net/WordPressPCL</RepositoryUrl>
     <PackageTags>WordPress REST API</PackageTags>
     <RepositoryType>GitHub</RepositoryType>
-    <AssemblyVersion>0.1.1.0</AssemblyVersion>
-    <FileVersion>0.1.1.0</FileVersion>
-    <Version>0.1.2-alpha</Version>
+    <AssemblyVersion>0.1.3.0</AssemblyVersion>
+    <FileVersion>0.1.3.0</FileVersion>
+    <Version>0.1.3</Version>
+    <PackageLicenseUrl>https://github.com/wp-net/WordPressPCL/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageReleaseNotes>- Added get posts sticky posts, posts by tag, category, author and search term
+- added override ListPosts methods with QueryBuilder 
+- added MIT license</PackageReleaseNotes>
+    <Copyright>© Thomas Pentenrieder | 2017</Copyright>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="10.0.2" />
     <PackageReference Include="System.ValueTuple" Version="4.3.0" />
   </ItemGroup>
 </Project>
