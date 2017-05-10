@@ -58,6 +58,7 @@ namespace WordPressPCL.Utility
                     sb.Append(appendQuery(sb.ToString(), ORDER_BY_QUERYSTRING));
                     sb.Append(Convert.ToInt32(this.OrderBy));
                 }
+                //Console.WriteLine(sb.ToString());
                 return sb.ToString();
             }
         }
