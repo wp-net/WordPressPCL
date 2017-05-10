@@ -41,21 +41,21 @@ namespace WordPressPCL.Utility
                 }
                 if (Embed)
                 {
-                    sb.Append(appendQuery(this.url, EMBED_QUERYSTRING));
+                    sb.Append(appendQuery(sb.ToString(), EMBED_QUERYSTRING));
                 }
                 if (Per_Page != 10)
                 {
-                    sb.Append(appendQuery(this.url, PER_PAGE_QUERYSTRING));
+                    sb.Append(appendQuery(sb.ToString(), PER_PAGE_QUERYSTRING));
                     sb.Append(this.Per_Page);
                 }
                 if (Offset > 0)
                 {
-                    sb.Append(appendQuery(this.url, OFFSET_QUERYSTRING));
+                    sb.Append(appendQuery(sb.ToString(), OFFSET_QUERYSTRING));
                     sb.Append(this.Offset);
                 }
                 if (OrderBy != OrderBy.date)
                 {
-                    sb.Append(appendQuery(this.url, ORDER_BY_QUERYSTRING));
+                    sb.Append(appendQuery(sb.ToString(), ORDER_BY_QUERYSTRING));
                     sb.Append(Convert.ToInt32(this.OrderBy));
                 }
                 return sb.ToString();
