@@ -24,5 +24,8 @@ namespace WordPressPCL.Models
 
         [JsonProperty("taxonomy")]
         public string Taxonomy { get; set; }
+
+        [JsonProperty("_links")]
+        public Links _Links { get; set; }
     }
 }

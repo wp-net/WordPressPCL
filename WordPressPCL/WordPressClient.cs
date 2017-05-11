@@ -197,6 +197,16 @@ namespace WordPressPCL
             (var tag, HttpResponseMessage response) = await PostRequest<Tag>($"{defaultPath}tags", postBody);
             return tag;
         }
+
+        public async Task<IList<Tag>> ListTags(bool embed = false)
+        {
+            return await GetRequest<Tag[]>($"{defaultPath}tags", embed).ConfigureAwait(false);
+        }
+        
+        public async Task<Tag> GetTag(int tagId, bool embed = false)
+        {
+            return await GetRequest<Tag>($"{defaultPath}tags/{tagId}", embed).ConfigureAwait(false);
+        }
         #endregion
 
         #region User methods
