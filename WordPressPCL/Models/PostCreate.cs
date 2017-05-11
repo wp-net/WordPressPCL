@@ -27,10 +27,17 @@ namespace WordPressPCL.Models
         [JsonProperty("title")]
         public string Title { get; set; }
 
+        /// <summary>
+        /// ACF - Advanced Custom Fields
+        /// </summary>
+        [JsonProperty("fields")]
+        public Dictionary<string, string> Fields { get; set; }
+
         public PostCreate()
         {
             Date = DateTime.Now;
             DateGmt = DateTime.UtcNow;
+            Fields = new Dictionary<string, string>();
         }
     }
 }

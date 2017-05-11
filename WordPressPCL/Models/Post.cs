@@ -103,6 +103,12 @@ namespace WordPressPCL.Models
 
         [JsonProperty("_embedded")]
         public Embedded Embedded { get; set; }
+
+        /// <summary>
+        /// ACF - Advanced Custom Fields
+        /// </summary>
+        [JsonProperty("acf")]
+        public Dictionary<string, string> Fields { get; set; }
     }
 
     public class Embedded
