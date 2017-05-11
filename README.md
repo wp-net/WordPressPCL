@@ -44,20 +44,20 @@ var postbyid = await client.GetPost(id);
 // Creating post
 var newPost = new PostCreate()
 {
-	Title = "Hi, From C#!",
-	Content = "Test <b>simple content</b>"
+    Title = "Hi, From C#!",
+    Content = "Test <b>simple content</b>"
 };
 var resultPost = await client.CreatePost(newPost);
 
 // Creating post with Advanced Custom Fields
  var newPost = new PostCreate()
 {
-	Title = "Hi, From C#!",
-	Content = "Test with <b>Advanced Custom Fields</b>",
+    Title = "Hi, From C#!",
+    Content = "Test with <b>Advanced Custom Fields</b>",
     Fields = new Dictionary<string, string>()
     {
-		{ "projectyear", "2017" },
-		{ "projectowner", "wp-net" }
+        { "projectyear", "2017" },
+        { "projectowner", "wp-net" }
     }
 };
 var resultPost = await client.CreatePost(newPost);
