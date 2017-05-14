@@ -10,7 +10,7 @@ using System.Linq;
 namespace WordPressPCLTests
 {
     [TestClass]
-    public class UnitTest1
+    public class Basic_Tests
     {
         [TestMethod]
         public async Task BasicSetupTest()

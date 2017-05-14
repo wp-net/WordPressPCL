@@ -269,7 +269,12 @@ namespace WordPressPCL
             where TClass : class
         {
             string embedParam = "";
-            if (embed) { embedParam = "?_embed"; }
+            if (embed) {
+                if (route.Contains("?"))
+                    embedParam = "&_embed";
+                else
+                    embedParam = "?_embed";
+            }
             HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.ExpectationFailed);
 
             using (var client = new HttpClient())

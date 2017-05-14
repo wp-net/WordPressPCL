@@ -16,11 +16,6 @@ namespace WordPressPCLTests
     {
         private const int TAG_ID = 2;
 
-        [TestInitialize]
-        public void Setup() {
-            ApiCredentials.WordPressUri = "https://demo.wp-api.org/wp-json/";
-        }
-
         [TestMethod]
         public async Task Multi_Parameter_Query_Works_Test()
         {

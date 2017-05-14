@@ -4,7 +4,7 @@ using System.Text;
 
 namespace WordPressPCLTests.Utility
 {
-    public class ApiCredentials
+    public class ApiCredentialsSample
     {
         public static string WordPressUri = "http://yoursite.com/wp-json/";
         public static string Username = "Name";

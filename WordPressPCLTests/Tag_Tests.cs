@@ -14,12 +14,7 @@ namespace WordPressPCLTests
     [TestClass]
     public class Tag_Tests
     {
-        private const int TAG_ID = 2;
-
-        [TestInitialize]
-        public void Setup() {
-            ApiCredentials.WordPressUri = "https://demo.wp-api.org/wp-json/";
-        }
+        private const int TAG_ID = 7;
 
         [TestMethod]
         public async Task List_Tags_Test()
@@ -42,6 +37,8 @@ namespace WordPressPCLTests
             Assert.IsNotNull(client);
             // Posts
             var tag = await client.GetTag(TAG_ID);
+
+            //TODO this should use Assert.Inconclusive
             Assert.IsNotNull(tag);
             Assert.AreEqual(tag.Id, TAG_ID);
             Assert.AreNotEqual(tag.Name, string.Empty);

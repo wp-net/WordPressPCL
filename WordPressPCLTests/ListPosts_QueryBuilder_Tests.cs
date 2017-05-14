@@ -1,28 +1,19 @@
-using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using WordPressPCLTests.Utility;
 using WordPressPCL;
 using System.Threading.Tasks;
-using WordPressPCL.Models;
 using WordPressPCL.Utility;
-using System.Net;
 using System.Linq;
-using Newtonsoft.Json;
 
 namespace WordPressPCLTests
 {
     [TestClass]
     public class ListPosts_QueryBuilder_Tests
     {
-        private const int CATEGORY_ID = 7;
-        private const int TAG_ID = 1;
-        private const int AUTHOR_ID = 1;
-        private const string SEARCH_TERM = "demo";
-
-        [TestInitialize]
-        public void Setup() {
-            ApiCredentials.WordPressUri = "https://demo.wp-api.org/wp-json/";
-        }
+        private const int CATEGORY_ID = 1;
+        private const int TAG_ID = 7;
+        private const int AUTHOR_ID = 3;
+        private const string SEARCH_TERM = "Artikel";
 
         [TestMethod]
         public async Task List_Posts_QueryBuilder_Test_Pagination()
