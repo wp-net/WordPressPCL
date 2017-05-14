@@ -116,11 +116,8 @@ namespace WordPressPCLTests
         [TestMethod]
         public async Task JWTAuthTest()
         {
-            var client = new WordPressClient(ApiCredentials.WordPressUri);
-            client.Username = ApiCredentials.Username;
-            client.Password = ApiCredentials.Password;
-            client.AuthMethod = AuthMethod.JWT;
-            await client.RequestJWToken();
+            var client = await GetAuthenticatedWordPressClient();
+
             Assert.IsNotNull(client.JWToken);
             var IsValidToken = await client.IsValidJWToken();
             Assert.IsTrue(IsValidToken);
@@ -129,11 +126,7 @@ namespace WordPressPCLTests
         [TestMethod]
         public async Task CreateAndDeleteComment()
         {
-            var client = new WordPressClient(ApiCredentials.WordPressUri);
-            client.Username = ApiCredentials.Username;
-            client.Password = ApiCredentials.Password;
-            client.AuthMethod = AuthMethod.JWT;
-            await client.RequestJWToken();
+            var client = await GetAuthenticatedWordPressClient();
             var IsValidToken = await client.IsValidJWToken();
             Assert.IsTrue(IsValidToken);
 
@@ -165,11 +158,8 @@ namespace WordPressPCLTests
         [TestMethod]
         public async Task CreateAndDeletePostTest()
         {
-            var client = new WordPressClient(ApiCredentials.WordPressUri);
-            client.Username = ApiCredentials.Username;
-            client.Password = ApiCredentials.Password;
-            client.AuthMethod = AuthMethod.JWT;
-            await client.RequestJWToken();
+            WordPressClient client = await GetAuthenticatedWordPressClient();
+
             var IsValidToken = await client.IsValidJWToken();
             Assert.IsTrue(IsValidToken);
             var newpost = new PostCreate()
@@ -183,6 +173,17 @@ namespace WordPressPCLTests
             Assert.IsTrue(del.IsSuccessStatusCode);
 
 
+        }
+
+        private static async Task<WordPressClient> GetAuthenticatedWordPressClient()
+        {
+            var client = new WordPressClient(ApiCredentials.WordPressUri);
+            client.Username = ApiCredentials.Username;
+            client.Password = ApiCredentials.Password;
+            client.AuthMethod = AuthMethod.JWT;
+            await client.RequestJWToken();
+
+            return client;
         }
     }
 }
