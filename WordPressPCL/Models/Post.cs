@@ -7,7 +7,7 @@ namespace WordPressPCL.Models
 	public class Post
 	{
         /// <summary>
-        ///     The date the object was published, in the site’s timezone.
+        ///     The date the object was published, in the site's timezone.
         /// </summary>
         /// <remarks>Context: view, edit, embed</remarks>
 		[JsonProperty("date")]
@@ -23,84 +23,199 @@ namespace WordPressPCL.Models
         /// <summary>
         /// The globally unique identifier for the object.
         /// </summary>
-        /// <remarks>Context: view, edit</remarks>
+        /// <remarks>
+        /// Read only
+        /// Context: view, edit
+        /// </remarks>
         [JsonProperty("guid")]
         public Guid Guid { get; set; }
 
+        /// <summary>
+        /// Unique identifier for the object.
+        /// </summary>
+        /// <remarks>
+        /// Read only
+        /// Context: view, edit, embed
+        /// </remarks>
         [JsonProperty("id")]
         public int Id { get; set; }
 
+        /// <summary>
+        /// The date the object was last modified, in the site's timezone.
+        /// </summary>
+        /// <remarks>
+        /// Read only
+        /// Context: view, edit
+        /// </remarks>
         [JsonProperty("modified")]
 		public string Modified { get; set; }
 
-		[JsonProperty("modified_gmt")]
+        /// <summary>
+        /// The date the object was last modified, as GMT.
+        /// </summary>
+        /// <remarks>
+        /// Read only
+        /// Context: view, edit
+        /// </remarks>
+        [JsonProperty("modified_gmt")]
 		public string ModifiedGmt { get; set; }
 
+        /// <summary>
+        /// A password to protect access to the content and excerpt.
+        /// </summary>
+        /// <remarks>Context: edit</remarks>
         [JsonProperty("password")]
         public string Password { get; set; }
 
+        /// <summary>
+        /// An alphanumeric identifier for the object unique to its type.
+        /// </summary>
+        /// <remarks>Context: view, edit, embed</remarks>
         [JsonProperty("slug")]
 		public string Slug { get; set; }
 
-        // One of: publish, future, draft, pending, private
+        /// <summary>
+        /// A named status for the object.
+        /// </summary>
+        /// <remarks>
+        /// Context: edit
+        /// One of: publish, future, draft, pending, private
+        /// </remarks>
         [JsonProperty("status")]
         public string Status { get; set; }
 
+        /// <summary>
+        /// Type of Post for the object.
+        /// </summary>
+        /// <remarks>
+        /// Read only
+        /// Context: view, edit, embed
+        /// </remarks>
         [JsonProperty("type")]
 		public string Type { get; set; }
 
+        /// <summary>
+        /// The title for the object.
+        /// </summary>
+        /// <remarks>Context: view, edit, embed</remarks>
         [JsonProperty("title")]
         public Title Title { get; set; }
 
+        /// <summary>
+        /// URL to the object.
+        /// </summary>
+        /// <remarks>
+        /// Read only
+        /// Context: view, edit, embed
+        /// </remarks>
         [JsonProperty("link")]
 		public string Link { get; set; }
 
-		[JsonProperty("content")]
+        /// <summary>
+        /// The content for the object.
+        /// </summary>
+        /// <remarks>Context: view, edit</remarks>
+        [JsonProperty("content")]
 		public Content Content { get; set; }
 
-		[JsonProperty("excerpt")]
+        /// <summary>
+        /// The excerpt for the object.
+        /// </summary>
+        /// <remarks>Context: view, edit, embed</remarks>
+        [JsonProperty("excerpt")]
 		public Excerpt Excerpt { get; set; }
 
-		[JsonProperty("author")]
+        /// <summary>
+        /// The ID for the author of the object.
+        /// </summary>
+        /// <remarks>Context: view, edit, embed</remarks>
+        [JsonProperty("author")]
 		public int Author { get; set; }
 
-		[JsonProperty("featured_media")]
+        /// <summary>
+        /// The ID of the featured media for the object.
+        /// </summary>
+        /// <remarks>Context: view, edit</remarks>
+        [JsonProperty("featured_media")]
 		public int FeaturedMedia { get; set; }
 
-        // One of: open, closed
+        /// <summary>
+        /// Whether or not comments are open on the object.
+        /// </summary>
+        /// <remarks>
+        /// Context: view, edit
+        /// One of: open, closed
+        /// </remarks>
         [JsonProperty("comment_status")]
 		public string CommentStatus { get; set; }
 
-		[JsonProperty("ping_status")]
+        /// <summary>
+        /// Whether or not the object can be pinged.
+        /// </summary>
+        /// <remarks>
+        /// Context: view, edit
+        /// One of: open, closed
+        /// </remarks>
+        [JsonProperty("ping_status")]
 		public string PingStatus { get; set; }
 
-		[JsonProperty("sticky")]
+        /// <summary>
+        /// Whether or not the object should be treated as sticky.
+        /// </summary>
+        /// <remarks>Context: view, edit</remarks>
+        [JsonProperty("sticky")]
 		public bool Sticky { get; set; }
 
         /// <summary>
-        ///     The format for the object.
+        /// The format for the object.
         /// </summary>
         /// <remarks>
-        ///     Context: view, edit
-        ///     One of: standard
+        /// Context: view, edit
+        /// One of: standard
         /// </remarks>
         [JsonProperty("format")]
 		public string Format { get; set; }
 
+        /// <summary>
+        /// The terms assigned to the object in the category taxonomy.
+        /// </summary>
+        /// <remarks>Context: view, edit</remarks>
         [JsonProperty("categories")]
         public int[] Categories { get; set; }
 
+        /// <summary>
+        /// The terms assigned to the object in the post_tag taxonomy.
+        /// </summary>
+        /// <remarks>Context: view, edit</remarks>
         [JsonProperty("tags")]
         public int[] Tags { get; set; }
 
-        
+        /// <summary>
+        /// The theme file to use to display the object.
+        /// </summary>
+        /// <remarks>
+        /// Context: view, edit
+        /// One of: 
+        /// </remarks>
         [JsonProperty("template")]
         public string Template { get; set; }
-        
-        
+
+        /// <summary>
+        /// The number of Liveblog Likes the post has.
+        /// </summary>
+        /// <remarks>Context: view, edit, embed</remarks>
+        [JsonProperty("liveblog_likes")]
+        public int LiveblogLikes { get; set; }
+
+        /// <summary>
+        /// Links to related resources
+        /// </summary>
         [JsonProperty("_links")]
         public Links Links { get; set; }
 
+        /// <summary>
+        /// Embedded information like featured images
+        /// </summary>
         [JsonProperty("_embedded")]
         public Embedded Embedded { get; set; }
     }
