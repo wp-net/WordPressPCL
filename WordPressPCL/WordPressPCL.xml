@@ -6,7 +6,7 @@
     <members>
         <member name="P:WordPressPCL.Models.Post.Date">
             <summary>
-                The date the object was published, in the site’s timezone.
+                The date the object was published, in the site's timezone.
             </summary>
             <remarks>Context: view, edit, embed</remarks>
         </member>
@@ -20,16 +20,176 @@
             <summary>
             The globally unique identifier for the object.
             </summary>
+            <remarks>
+            Read only
+            Context: view, edit
+            </remarks>
+        </member>
+        <member name="P:WordPressPCL.Models.Post.Id">
+            <summary>
+            Unique identifier for the object.
+            </summary>
+            <remarks>
+            Read only
+            Context: view, edit, embed
+            </remarks>
+        </member>
+        <member name="P:WordPressPCL.Models.Post.Modified">
+            <summary>
+            The date the object was last modified, in the site's timezone.
+            </summary>
+            <remarks>
+            Read only
+            Context: view, edit
+            </remarks>
+        </member>
+        <member name="P:WordPressPCL.Models.Post.ModifiedGmt">
+            <summary>
+            The date the object was last modified, as GMT.
+            </summary>
+            <remarks>
+            Read only
+            Context: view, edit
+            </remarks>
+        </member>
+        <member name="P:WordPressPCL.Models.Post.Password">
+            <summary>
+            A password to protect access to the content and excerpt.
+            </summary>
+            <remarks>Context: edit</remarks>
+        </member>
+        <member name="P:WordPressPCL.Models.Post.Slug">
+            <summary>
+            An alphanumeric identifier for the object unique to its type.
+            </summary>
+            <remarks>Context: view, edit, embed</remarks>
+        </member>
+        <member name="P:WordPressPCL.Models.Post.Status">
+            <summary>
+            A named status for the object.
+            </summary>
+            <remarks>
+            Context: edit
+            One of: publish, future, draft, pending, private
+            </remarks>
+        </member>
+        <member name="P:WordPressPCL.Models.Post.Type">
+            <summary>
+            Type of Post for the object.
+            </summary>
+            <remarks>
+            Read only
+            Context: view, edit, embed
+            </remarks>
+        </member>
+        <member name="P:WordPressPCL.Models.Post.Title">
+            <summary>
+            The title for the object.
+            </summary>
+            <remarks>Context: view, edit, embed</remarks>
+        </member>
+        <member name="P:WordPressPCL.Models.Post.Link">
+            <summary>
+            URL to the object.
+            </summary>
+            <remarks>
+            Read only
+            Context: view, edit, embed
+            </remarks>
+        </member>
+        <member name="P:WordPressPCL.Models.Post.Content">
+            <summary>
+            The content for the object.
+            </summary>
+            <remarks>Context: view, edit</remarks>
+        </member>
+        <member name="P:WordPressPCL.Models.Post.Excerpt">
+            <summary>
+            The excerpt for the object.
+            </summary>
+            <remarks>Context: view, edit, embed</remarks>
+        </member>
+        <member name="P:WordPressPCL.Models.Post.Author">
+            <summary>
+            The ID for the author of the object.
+            </summary>
+            <remarks>Context: view, edit, embed</remarks>
+        </member>
+        <member name="P:WordPressPCL.Models.Post.FeaturedMedia">
+            <summary>
+            The ID of the featured media for the object.
+            </summary>
+            <remarks>Context: view, edit</remarks>
+        </member>
+        <member name="P:WordPressPCL.Models.Post.CommentStatus">
+            <summary>
+            Whether or not comments are open on the object.
+            </summary>
+            <remarks>
+            Context: view, edit
+            One of: open, closed
+            </remarks>
+        </member>
+        <member name="P:WordPressPCL.Models.Post.PingStatus">
+            <summary>
+            Whether or not the object can be pinged.
+            </summary>
+            <remarks>
+            Context: view, edit
+            One of: open, closed
+            </remarks>
+        </member>
+        <member name="P:WordPressPCL.Models.Post.Sticky">
+            <summary>
+            Whether or not the object should be treated as sticky.
+            </summary>
             <remarks>Context: view, edit</remarks>
         </member>
         <member name="P:WordPressPCL.Models.Post.Format">
             <summary>
-                The format for the object.
+            The format for the object.
             </summary>
             <remarks>
-                Context: view, edit
-                One of: standard
+            Context: view, edit
+            One of: standard
             </remarks>
+        </member>
+        <member name="P:WordPressPCL.Models.Post.Categories">
+            <summary>
+            The terms assigned to the object in the category taxonomy.
+            </summary>
+            <remarks>Context: view, edit</remarks>
+        </member>
+        <member name="P:WordPressPCL.Models.Post.Tags">
+            <summary>
+            The terms assigned to the object in the post_tag taxonomy.
+            </summary>
+            <remarks>Context: view, edit</remarks>
+        </member>
+        <member name="P:WordPressPCL.Models.Post.Template">
+            <summary>
+            The theme file to use to display the object.
+            </summary>
+            <remarks>
+            Context: view, edit
+            One of: 
+            </remarks>
+        </member>
+        <member name="P:WordPressPCL.Models.Post.LiveblogLikes">
+            <summary>
+            The number of Liveblog Likes the post has.
+            </summary>
+            <remarks>Context: view, edit, embed</remarks>
+        </member>
+        <member name="P:WordPressPCL.Models.Post.Links">
+            <summary>
+            Links to related resources
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Post.Embedded">
+            <summary>
+            Embedded information like featured images
+            </summary>
         </member>
         <member name="P:WordPressPCL.Models.PostCreate.Date">
             <summary>
