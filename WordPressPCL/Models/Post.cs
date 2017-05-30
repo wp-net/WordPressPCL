@@ -48,7 +48,7 @@ namespace WordPressPCL.Models
         /// Context: view, edit
         /// </remarks>
         [JsonProperty("modified")]
-		public string Modified { get; set; }
+		public DateTime Modified { get; set; }
 
         /// <summary>
         /// The date the object was last modified, as GMT.
@@ -58,7 +58,7 @@ namespace WordPressPCL.Models
         /// Context: view, edit
         /// </remarks>
         [JsonProperty("modified_gmt")]
-		public string ModifiedGmt { get; set; }
+		public DateTime ModifiedGmt { get; set; }
 
         /// <summary>
         /// A password to protect access to the content and excerpt.
