@@ -113,6 +113,35 @@ namespace WordPressPCLTests
             }
         }
 
+
+        [TestMethod]
+        public async Task GetComments()
+        {
+            var client = new WordPressClient(ApiCredentials.WordPressUri);
+            var comments = await client.ListComments();
+
+            if(comments.Count == 0)
+            {
+                Assert.Inconclusive("no comments to test");
+            }
+            
+            foreach (var comment in comments)
+            {
+                // test Date parsing was successfull
+                Assert.IsNotNull(comment.Date);
+                Assert.AreNotEqual(DateTime.Now, comment.Date);
+                Assert.AreNotEqual(DateTime.MaxValue, comment.Date);
+                Assert.AreNotEqual(DateTime.MinValue, comment.Date);
+
+                Assert.IsNotNull(comment.DateGmt);
+                Assert.AreNotEqual(DateTime.Now, comment.DateGmt);
+                Assert.AreNotEqual(DateTime.MaxValue, comment.DateGmt);
+                Assert.AreNotEqual(DateTime.MinValue, comment.DateGmt);
+            }
+
+        }
+
+
         [TestMethod]
         public async Task JWTAuthTest()
         {

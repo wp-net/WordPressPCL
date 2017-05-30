@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System;
 
 namespace WordPressPCL.Models
 {
@@ -25,10 +26,10 @@ namespace WordPressPCL.Models
 		[JsonProperty("author_avatar_urls")]
 		public AuthorAvatarUrls AuthorAvatarUrls { get; set; }
 
-		public string Date { get; set; }
+		public DateTime Date { get; set; }
 
 		[JsonProperty("date_gmt")]
-		public string DateGmt { get; set; }
+		public DateTime DateGmt { get; set; }
 
         [JsonProperty("content")]
         public Content Content { get; set; }
