@@ -21,82 +21,49 @@ namespace WordPressPCL.Models
         public IList<Cury> Curies { get; set; }
     }
 
-    public class Self
-    {
-        public string Href { get; set; }
-    }
+    public class Self : HrefBase { }
 
-    public class Collection
-    {
-        public string Href { get; set; }
-    }
+    public class Collection : HrefBase {}
 
-    public class About
-    {
-        [JsonProperty("href")]
-        public string Href { get; set; }
-    }
+    public class About : HrefBase { }
 
-    public class Author
+    public class Author : HrefBase
     {
         [JsonProperty("embeddable")]
         public bool Embeddable { get; set; }
-
-        [JsonProperty("href")]
-        public string Href { get; set; }
     }
 
-    public class Reply
+    public class Reply : HrefBase
     {
         [JsonProperty("embeddable")]
         public bool Embeddable { get; set; }
-
-        [JsonProperty("href")]
-        public string Href { get; set; }
     }
 
 
-    public class Cury
+    public class Cury : HrefBase
     {
         [JsonProperty("name")]
         public string Name { get; set; }
-
-        [JsonProperty("href")]
-        public string Href { get; set; }
 
         [JsonProperty("templated")]
         public bool Templated { get; set; }
     }
 
-    public class WpPostType
-    {
-        [JsonProperty("href")]
-        public string Href { get; set; }
-    }
+    public class WpPostType : HrefBase { }
 
-    public class HttpsApiWOrgAttachment
-    {
-        [JsonProperty("href")]
-        public string Href { get; set; }
-    }
+    public class HttpsApiWOrgAttachment : HrefBase { }
 
-    public class HttpsApiWOrgTerm
+    public class HttpsApiWOrgTerm : HrefBase
     {
         public string Taxonomy { get; set; }
 
         [JsonProperty("embeddable")]
         public bool Embeddable { get; set; }
-
-        [JsonProperty("href")]
-        public string Href { get; set; }
     }
 
-    public class HttpsApiWOrgMeta
+    public class HttpsApiWOrgMeta : HrefBase
     {
         [JsonProperty("embeddable")]
         public bool Embeddable { get; set; }
-
-        [JsonProperty("href")]
-        public string Href { get; set; }
     }
 }

@@ -74,15 +74,11 @@ namespace WordPressPCL.Models
         public Links Links { get; set; }
     }
 
-    public class Caption
-    {
-        [JsonProperty("rendered")]
-        public string Rendered { get; set; }
-    }
+    public class Caption : RenderedRawBase { }
 
-    public class Thumbnail
-    {
 
+    public class MediaSize
+    {
         [JsonProperty("file")]
         public string File { get; set; }
 
@@ -99,122 +95,6 @@ namespace WordPressPCL.Models
         public string SourceUrl { get; set; }
     }
 
-    public class Medium
-    {
-
-        [JsonProperty("file")]
-        public string File { get; set; }
-
-        [JsonProperty("width")]
-        public int Width { get; set; }
-
-        [JsonProperty("height")]
-        public int Height { get; set; }
-
-        [JsonProperty("mime_type")]
-        public string MimeType { get; set; }
-
-        [JsonProperty("source_url")]
-        public string SourceUrl { get; set; }
-    }
-
-    public class MediumLarge
-    {
-
-        [JsonProperty("file")]
-        public string File { get; set; }
-
-        [JsonProperty("width")]
-        public int Width { get; set; }
-
-        [JsonProperty("height")]
-        public int Height { get; set; }
-
-        [JsonProperty("mime_type")]
-        public string MimeType { get; set; }
-
-        [JsonProperty("source_url")]
-        public string SourceUrl { get; set; }
-    }
-
-    public class Large
-    {
-
-        [JsonProperty("file")]
-        public string File { get; set; }
-
-        [JsonProperty("width")]
-        public int Width { get; set; }
-
-        [JsonProperty("height")]
-        public int Height { get; set; }
-
-        [JsonProperty("mime_type")]
-        public string MimeType { get; set; }
-
-        [JsonProperty("source_url")]
-        public string SourceUrl { get; set; }
-    }
-
-    public class PostThumbnail
-    {
-
-        [JsonProperty("file")]
-        public string File { get; set; }
-
-        [JsonProperty("width")]
-        public int Width { get; set; }
-
-        [JsonProperty("height")]
-        public int Height { get; set; }
-
-        [JsonProperty("mime_type")]
-        public string MimeType { get; set; }
-
-        [JsonProperty("source_url")]
-        public string SourceUrl { get; set; }
-    }
-
-    public class Full
-    {
-
-        [JsonProperty("file")]
-        public string File { get; set; }
-
-        [JsonProperty("width")]
-        public int Width { get; set; }
-
-        [JsonProperty("height")]
-        public int Height { get; set; }
-
-        [JsonProperty("mime_type")]
-        public string MimeType { get; set; }
-
-        [JsonProperty("source_url")]
-        public string SourceUrl { get; set; }
-    }
-
-    public class Sizes
-    {
-
-        [JsonProperty("thumbnail")]
-        public Thumbnail Thumbnail { get; set; }
-
-        [JsonProperty("medium")]
-        public Medium Medium { get; set; }
-
-        [JsonProperty("medium_large")]
-        public MediumLarge MediumLarge { get; set; }
-
-        [JsonProperty("large")]
-        public Large Large { get; set; }
-
-        [JsonProperty("post-thumbnail")]
-        public PostThumbnail PostThumbnail { get; set; }
-
-        [JsonProperty("full")]
-        public Full Full { get; set; }
-    }
 
     public class ImageMeta
     {
@@ -269,7 +149,7 @@ namespace WordPressPCL.Models
         public string File { get; set; }
 
         [JsonProperty("sizes")]
-        public Sizes Sizes { get; set; }
+        public Dictionary<string, MediaSize> Sizes { get; set; }
 
         [JsonProperty("image_meta")]
         public ImageMeta ImageMeta { get; set; }

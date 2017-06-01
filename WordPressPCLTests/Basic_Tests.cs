@@ -31,6 +31,7 @@ namespace WordPressPCLTests
             var posts = await client.ListPosts();
             var post = await client.GetPost(posts[0].Id);
             Assert.IsTrue(posts[0].Id == post.Id);
+            Assert.IsTrue(!String.IsNullOrEmpty(posts[0].Content.Rendered));
         }
 
         [TestMethod]

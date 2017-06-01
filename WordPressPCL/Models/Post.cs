@@ -241,43 +241,27 @@ namespace WordPressPCL.Models
         date, id, include, title, slug
     }
 
-    public class Guid
+    public class Guid : RenderedRawBase
 	{
-		[JsonProperty("rendered")]
-		public string Rendered { get; set; }
-        [JsonProperty("raw")]
-        public string Raw { get; set; }
     }
 
-	public class Title
+	public class Title : RenderedRawBase
 	{
-		[JsonProperty("rendered")]
-		public string Rendered { get; set; }
-        [JsonProperty("raw")] 
-        public string Raw { get; set; }
-
     }
 
-    public class Excerpt
+    public class Excerpt : RenderedRawBase
 	{
-		[JsonProperty("rendered")]
-		public string Rendered { get; set; }
-        [JsonProperty("raw")]
-        public string Raw { get; set; }
+        [JsonProperty("protected")]
+        public bool IsProtected { get; set; }
     }
 
-	public class VersionHistory
-	{
-		[JsonProperty("href")]
-		public string Href { get; set; }
+	public class VersionHistory : HrefBase
+    {
 	}
 
-	public class HttpsApiWOrgFeaturedmedia
-	{
+	public class HttpsApiWOrgFeaturedmedia : HrefBase
+    {
 		[JsonProperty("embeddable")]
 		public bool Embeddable { get; set; }
-
-		[JsonProperty("href")]
-		public string Href { get; set; }
 	}
 }

@@ -203,6 +203,21 @@
             </summary>
             <remarks>Context: view, edit</remarks>
         </member>
+        <member name="T:WordPressPCL.Models.Content">
+            <summary>
+            The actual content of the object, Rendered and/or Raw depending on the context
+            </summary>
+        </member>
+        <member name="T:WordPressPCL.Models.RenderedRawBase">
+            <summary>
+            Adds a "Rendered" and a "Raw" property to all classes derived from this one
+            </summary>
+        </member>
+        <member name="T:WordPressPCL.Models.HrefBase">
+            <summary>
+            Adds an Href property to all classes derived from this one
+            </summary>
+        </member>
         <member name="T:WordPressPCL.WordPressClient">
             <summary>
                 Main class containing the wrapper client with all public API endpoints.
