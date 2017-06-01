@@ -19,7 +19,7 @@
     <PackageLicenseUrl>https://github.com/wp-net/WordPressPCL/blob/master/LICENSE</PackageLicenseUrl>
     <PackageReleaseNotes>BREAKING CHANGES:
 - changed FeaturedMedia Sizes to Dictionary&lt;string, MediaSize&gt;
-
+- changed Comments dates from string to DateTime
 Other changes:
 - Refactoring of Models
 - minor fixes
