@@ -146,11 +146,8 @@ namespace WordPressPCLTests
         [TestMethod]
         public async Task JWTAuthTest()
         {
-            var client = new WordPressClient(ApiCredentials.WordPressUri);
-            client.Username = ApiCredentials.Username;
-            client.Password = ApiCredentials.Password;
-            client.AuthMethod = AuthMethod.JWT;
-            await client.RequestJWToken();
+            // get JWT Authenticated client
+            var client = await ClientHelper.GetAuthenticatedWordPressClient();
             Assert.IsNotNull(client.JWToken);
             var IsValidToken = await client.IsValidJWToken();
             Assert.IsTrue(IsValidToken);
@@ -159,11 +156,7 @@ namespace WordPressPCLTests
         [TestMethod]
         public async Task CreateAndDeleteComment()
         {
-            var client = new WordPressClient(ApiCredentials.WordPressUri);
-            client.Username = ApiCredentials.Username;
-            client.Password = ApiCredentials.Password;
-            client.AuthMethod = AuthMethod.JWT;
-            await client.RequestJWToken();
+            var client = await ClientHelper.GetAuthenticatedWordPressClient();
             var IsValidToken = await client.IsValidJWToken();
             Assert.IsTrue(IsValidToken);
 
@@ -195,11 +188,7 @@ namespace WordPressPCLTests
         [TestMethod]
         public async Task CreateAndDeletePostTest()
         {
-            var client = new WordPressClient(ApiCredentials.WordPressUri);
-            client.Username = ApiCredentials.Username;
-            client.Password = ApiCredentials.Password;
-            client.AuthMethod = AuthMethod.JWT;
-            await client.RequestJWToken();
+            var client = await ClientHelper.GetAuthenticatedWordPressClient();
             var IsValidToken = await client.IsValidJWToken();
             Assert.IsTrue(IsValidToken);
             var newpost = new PostCreate()
@@ -211,8 +200,6 @@ namespace WordPressPCLTests
 
             var del = await client.DeletePost(resultPost.Id);
             Assert.IsTrue(del.IsSuccessStatusCode);
-
-
         }
     }
 }
