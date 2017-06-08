@@ -218,6 +218,15 @@
             Adds an Href property to all classes derived from this one
             </summary>
         </member>
+        <member name="T:WordPressPCL.Models.Context">
+            <summary>
+            Scope under which the request is made; determines fields present in response.
+            </summary>
+            <remarks>
+            Default: view
+            One of: view, embed, edit
+            </remarks>
+        </member>
         <member name="T:WordPressPCL.WordPressClient">
             <summary>
                 Main class containing the wrapper client with all public API endpoints.
