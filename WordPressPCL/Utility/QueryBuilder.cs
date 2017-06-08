@@ -29,7 +29,7 @@ namespace WordPressPCL.Utility
 
         internal QueryBuilder SetRootUrl(string url) 
         {
-            this._url = url;
+            _url = url;
             return this;
         }
 
