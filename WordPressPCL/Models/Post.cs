@@ -238,7 +238,7 @@ namespace WordPressPCL.Models
 
     public enum OrderBy
     {
-        date, id, include, title, slug
+        date, relevance, id, include, title, slug
     }
 
     public class Guid : RenderedRawBase
