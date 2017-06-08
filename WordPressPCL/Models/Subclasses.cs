@@ -1,4 +1,6 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using System.Runtime.Serialization;
 
 namespace WordPressPCL.Models
 {
@@ -29,5 +31,24 @@ namespace WordPressPCL.Models
     {
         [JsonProperty("href")]
         public string Href { get; set; }
+    }
+
+
+    /// <summary>
+    /// Scope under which the request is made; determines fields present in response.
+    /// </summary>
+    /// <remarks>
+    /// Default: view
+    /// One of: view, embed, edit
+    /// </remarks>
+    [JsonConverter(typeof(StringEnumConverter))]
+    public enum Context
+    {
+        [EnumMember(Value = "view")]
+        View,
+        [EnumMember(Value = "embed")]
+        Embed,
+        [EnumMember(Value = "edit")]
+        Edit
     }
 }
