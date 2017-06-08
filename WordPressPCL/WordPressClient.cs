@@ -153,6 +153,13 @@ namespace WordPressPCL
             return post;
         }
 
+        public async Task<Post> UpdatePost(Post postObject)
+        {
+            var postBody = new StringContent(JsonConvert.SerializeObject(postObject).ToString(), Encoding.UTF8, "application/json");
+            (var post, HttpResponseMessage response) = await PostRequest<Post>($"{defaultPath}posts/{postObject.Id}", postBody);
+            return post;
+        }
+
         public async Task<HttpResponseMessage> DeletePost(int id)
         {
             var response = await DeleteRequest($"{defaultPath}posts/{id}").ConfigureAwait(false);
