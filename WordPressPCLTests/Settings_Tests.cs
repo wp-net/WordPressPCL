@@ -8,7 +8,7 @@ using WordPressPCLTests.Utility;
 namespace WordPressPCLTests
 {
     [TestClass]
-    public class SettingsTests
+    public class Settings_Tests
     {
         [TestMethod]
         public async Task Get_Settings_Test()

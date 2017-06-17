@@ -221,6 +221,16 @@ namespace WordPressPCL
         {
             return await GetRequest<User>($"{defaultPath}users/me", true, true).ConfigureAwait(false);
         }
+
+        public async Task<IList<User>> ListUsers()
+        {
+            return await GetRequest<IList<User>>($"{defaultPath}users", false, false).ConfigureAwait(false);
+        }
+
+        public async Task<User> GetUser(int id)
+        {
+            return await GetRequest<User>($"{defaultPath}users/{id}", false, false).ConfigureAwait(false);
+        }
         #endregion
 
         #region Media methods
@@ -242,7 +252,7 @@ namespace WordPressPCL
         #region Settings methods
         public async Task<Settings> GetSettings()
         {
-            return await GetRequest<Settings>($"{defaultPath}settings", false, true);
+            return await GetRequest<Settings>($"{defaultPath}settings", false, true).ConfigureAwait(false);
         }
         #endregion
 
