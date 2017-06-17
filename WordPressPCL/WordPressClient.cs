@@ -239,6 +239,13 @@ namespace WordPressPCL
 
         #endregion
 
+        #region Settings methods
+        public async Task<Settings> GetSettings()
+        {
+            return await GetRequest<Settings>($"{defaultPath}settings", false, true);
+        }
+        #endregion
+
         #region auth methods
 
         public async Task RequestJWToken()

@@ -1,6 +1,8 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace WordPressPCL.Models
 {
@@ -147,7 +149,7 @@ namespace WordPressPCL.Models
         /// One of: open, closed
         /// </remarks>
         [JsonProperty("comment_status")]
-		public string CommentStatus { get; set; }
+		public Status CommentStatus { get; set; }
 
         /// <summary>
         /// Whether or not the object can be pinged.
@@ -157,7 +159,7 @@ namespace WordPressPCL.Models
         /// One of: open, closed
         /// </remarks>
         [JsonProperty("ping_status")]
-		public string PingStatus { get; set; }
+		public Status PingStatus { get; set; }
 
         /// <summary>
         /// Whether or not the object should be treated as sticky.
@@ -220,41 +222,92 @@ namespace WordPressPCL.Models
         public Embedded Embedded { get; set; }
     }
 
+    /// <summary>
+    /// Embedded Information
+    /// </summary>
     public class Embedded
     {
+        /// <summary>
+        /// Post Author
+        /// </summary>
         [JsonProperty("author")]
         public IList<User> Author { get; set; }
 
+        /// <summary>
+        /// Comments on the post
+        /// </summary>
         [JsonProperty("replies")]
         public IList<IList<Comment>> Replies { get; set; }
 
+        /// <summary>
+        /// Featured images for the post
+        /// </summary>
         [JsonProperty("wp:featuredmedia")]
         public IList<Media> WpFeaturedmedia { get; set; }
 
+        /// <summary>
+        /// Terms for the post (categories, tags etc.)
+        /// </summary>
         [JsonProperty("wp:term")]
         public IList<IList<Term>> WpTerm { get; set; }
     }
 
-
+    /// <summary>
+    /// Sort collection by object attribute.
+    /// </summary>
+    /// <remarks>Default: date</remarks>
+    [JsonConverter(typeof(StringEnumConverter))]
     public enum OrderBy
     {
-        date, relevance, id, include, title, slug
+        [EnumMember(Value = "date")]
+        Date,
+        [EnumMember(Value = "relevance")]
+        Relevance,
+        [EnumMember(Value = "id")]
+        Id,
+        [EnumMember(Value = "include")]
+        Include,
+        [EnumMember(Value = "title")]
+        Title,
+        [EnumMember(Value = "slug")]
+        Slug
     }
 
+    /// <summary>
+    /// The globally unique identifier for the object.
+    /// </summary>
+    /// <remarks>
+    /// Read only
+    /// Context: view, edit
+    /// </remarks>
     public class Guid : RenderedRawBase
 	{
     }
 
-	public class Title : RenderedRawBase
+    /// <summary>
+    /// The title for the object.
+    /// </summary>
+    /// <remarks>Context: view, edit, embed<remarks>
+    public class Title : RenderedRawBase
 	{
     }
 
+    /// <summary>
+    /// The excerpt for the object.
+    /// </summary>
+    /// <remarks>Context: view, edit, embed<remarks>
     public class Excerpt : RenderedRawBase
 	{
+        /// <summary>
+        /// Can the except be edited?
+        /// </summary>
         [JsonProperty("protected")]
         public bool IsProtected { get; set; }
     }
 
+    /// <summary>
+    /// URL to revisions
+    /// </summary>
 	public class VersionHistory : HrefBase
     {
 	}

@@ -22,7 +22,7 @@ namespace WordPressPCL.Utility
             Page = 1;
             Per_Page = 10;
             Offset = 0;
-            OrderBy = OrderBy.date;
+            OrderBy = OrderBy.Date;
             Embed = false;
             Context = Context.View;
         }
@@ -58,7 +58,7 @@ namespace WordPressPCL.Utility
                     sb.Append(appendQuery(sb.ToString(), OFFSET_QUERYSTRING));
                     sb.Append(Offset);
                 }
-                if (OrderBy != OrderBy.date)
+                if (OrderBy != OrderBy.Date)
                 {
                     sb.Append(appendQuery(sb.ToString(), ORDER_BY_QUERYSTRING));
                     sb.Append(Convert.ToInt32(OrderBy));

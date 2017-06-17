@@ -169,9 +169,9 @@ namespace WordPressPCLTests
             {
                 Content = "Testcomment",
                 PostId = postId,
-                AuthorId = me.id,
+                AuthorId = me.Id,
                 AuthorEmail = "test@test.com",
-                AuthorName = me.name
+                AuthorName = me.Name
             };
             var resultComment = await client.CreateComment(comment, postId);
             Assert.IsNotNull(resultComment);

@@ -51,4 +51,23 @@ namespace WordPressPCL.Models
         [EnumMember(Value = "edit")]
         Edit
     }
+
+
+    /// <summary>
+    /// Status of Comments, Pings etc.
+    /// </summary>
+    [JsonConverter(typeof(StringEnumConverter))]
+    public enum Status
+    {
+        /// <summary>
+        /// Status is open
+        /// </summary>
+        [EnumMember(Value = "open")]
+        Open,
+        /// <summary>
+        /// Status is closed
+        /// </summary>
+        [EnumMember(Value = "closed")]
+        Closed,
+    }
 }
