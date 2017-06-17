@@ -13,16 +13,15 @@
     <RepositoryUrl>https://github.com/wp-net/WordPressPCL</RepositoryUrl>
     <PackageTags>WordPress REST API</PackageTags>
     <RepositoryType>GitHub</RepositoryType>
-    <AssemblyVersion>0.1.7.0</AssemblyVersion>
-    <FileVersion>0.1.7.0</FileVersion>
-    <Version>0.1.7</Version>
+    <AssemblyVersion>0.1.8.0</AssemblyVersion>
+    <FileVersion>0.1.8.0</FileVersion>
+    <Version>0.1.8</Version>
     <PackageLicenseUrl>https://github.com/wp-net/WordPressPCL/blob/master/LICENSE</PackageLicenseUrl>
     <PackageReleaseNotes>BREAKING CHANGES:
-- changed FeaturedMedia Sizes to Dictionary&lt;string, MediaSize&gt;
-- changed Comments dates from string to DateTime
+- Uppercase Properties in User class
 Other changes:
-- Refactoring of Models
-- minor fixes
+- Added GetSettings method
+- Added GetUser &amp; ListUsers methods
 - added tests</PackageReleaseNotes>
     <Copyright>© Thomas Pentenrieder | 2017</Copyright>
     <ApplicationIcon />
