@@ -132,5 +132,17 @@ namespace WordPressPCLTests
             Assert.AreNotEqual(postsB.Count, 0);
             CollectionAssert.AreEqual(postsA.Select(post => post.Id).ToList(), postsB.Select(post => post.Id).ToList());
         }
+
+        [TestMethod]
+        [Description("Test that the ListPosts method with the QueryBuilder set to list posts published After a specific date works.")]
+        public async Task List_Posts_QueryBuilder_After()
+        {
+            // Initialize
+            var client = new WordPressClient(ApiCredentials.WordPressUri);
+            Assert.IsNotNull(client);
+            // Posts
+            var posts = await client.ListPosts(new QueryBuilder { After = System.DateTime.Parse("2017-05-22T13:41:09") });
+            Assert.IsNotNull(posts);
+        }
     }
 }
