@@ -13,16 +13,12 @@
     <RepositoryUrl>https://github.com/wp-net/WordPressPCL</RepositoryUrl>
     <PackageTags>WordPress REST API</PackageTags>
     <RepositoryType>GitHub</RepositoryType>
-    <AssemblyVersion>0.1.8.0</AssemblyVersion>
-    <FileVersion>0.1.8.0</FileVersion>
-    <Version>0.1.8</Version>
+    <AssemblyVersion>0.1.9.0</AssemblyVersion>
+    <FileVersion>0.1.9.0</FileVersion>
+    <Version>0.1.9</Version>
     <PackageLicenseUrl>https://github.com/wp-net/WordPressPCL/blob/master/LICENSE</PackageLicenseUrl>
-    <PackageReleaseNotes>BREAKING CHANGES:
-- Uppercase Properties in User class
-Other changes:
-- Added GetSettings method
-- Added GetUser &amp; ListUsers methods
-- added tests</PackageReleaseNotes>
+    <PackageReleaseNotes>Other changes:
+- Added QueryBuilder option to get posts after a specified date</PackageReleaseNotes>
     <Copyright>© Thomas Pentenrieder | 2017</Copyright>
     <ApplicationIcon />
     <OutputTypeEx>library</OutputTypeEx>
