@@ -10,11 +10,10 @@ namespace WordPressPCL.Utility
         public int Page { get; set; }
         public int Per_Page { get; set; }
         public int Offset { get; set; }
+        public DateTime After { get; set; }
         public OrderBy OrderBy { get; set; }
         public bool Embed { get; set; }
         public Context Context { get; set; }
-
-
 
         public QueryBuilder(string wordpressUrl = null)
         {
@@ -22,6 +21,7 @@ namespace WordPressPCL.Utility
             Page = 1;
             Per_Page = 10;
             Offset = 0;
+            After = DateTime.MinValue;
             OrderBy = OrderBy.Date;
             Embed = false;
             Context = Context.View;
@@ -58,6 +58,11 @@ namespace WordPressPCL.Utility
                     sb.Append(appendQuery(sb.ToString(), OFFSET_QUERYSTRING));
                     sb.Append(Offset);
                 }
+                if (After != DateTime.MinValue)
+                {
+                    sb.Append(appendQuery(sb.ToString(), AFTER_QUERYSTRING));
+                    sb.Append(After.ToString("yyyy-MM-ddTHH:mm:ss"));
+                }
                 if (OrderBy != OrderBy.Date)
                 {
                     sb.Append(appendQuery(sb.ToString(), ORDER_BY_QUERYSTRING));
@@ -77,7 +82,8 @@ namespace WordPressPCL.Utility
         private const string PAGE_QUERYSTRING = "page";
         private const string EMBED_QUERYSTRING = "_embed";        
         private const string PER_PAGE_QUERYSTRING = "per_page";        
-        private const string OFFSET_QUERYSTRING = "offset";        
+        private const string OFFSET_QUERYSTRING = "offset";
+        private const string AFTER_QUERYSTRING = "after";
         private const string ORDER_BY_QUERYSTRING = "orderby";
         private const string QUESTION_MARK = "?";
         private const string AMPERSAND = "&";
