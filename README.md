@@ -35,7 +35,7 @@ WordPressPCL is built on top of the new [.NET Platform Standard](https://github.
 
 ```c#
 // Initialize
-var client = new WordPressClient("http://demo.wp-api.org/wp-json/wp/v2/");
+var client = new WordPressClient("http://demo.wp-api.org/wp-json/");
 
 // Posts
 var posts = await client.ListPosts();
