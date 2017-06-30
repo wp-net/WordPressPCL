@@ -287,15 +287,23 @@ namespace WordPressPCL.Models
     /// <summary>
     /// The title for the object.
     /// </summary>
-    /// <remarks>Context: view, edit, embed<remarks>
+    /// <remarks>Context: view, edit, embed</remarks>
     public class Title : RenderedRawBase
 	{
+        public Title()
+        {
+
+        }
+        public Title(string Title)
+        {
+            Rendered = Title;
+        }
     }
 
     /// <summary>
     /// The excerpt for the object.
     /// </summary>
-    /// <remarks>Context: view, edit, embed<remarks>
+    /// <remarks>Context: view, edit, embed</remarks>
     public class Excerpt : RenderedRawBase
 	{
         /// <summary>

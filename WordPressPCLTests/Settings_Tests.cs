@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using WordPressPCLTests.Utility;
+using System.Linq;
 
 namespace WordPressPCLTests
 {
@@ -14,9 +15,9 @@ namespace WordPressPCLTests
         public async Task Get_Settings_Test()
         {
             var client = await ClientHelper.GetAuthenticatedWordPressClient();
-            var settings = await client.GetSettings();
+            var settings = await client.Settings.GetAll();
             Assert.IsNotNull(settings);
-            Assert.IsNotNull(settings.Title);
+            Assert.IsNotNull(settings.First().Title);
         }
     }
 }

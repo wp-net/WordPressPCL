@@ -11,6 +11,14 @@ namespace WordPressPCL.Models
 	{
         [JsonProperty("protected")]
         public bool IsProtected { get; set; }
+        public Content()
+        {
+
+        }
+        public Content(string Content)
+        {
+            Rendered = Content;
+        }
     }
 
     /// <summary>

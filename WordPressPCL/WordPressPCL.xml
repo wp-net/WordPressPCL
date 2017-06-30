@@ -426,8 +426,18 @@
             Context: view, edit
             </remarks>
         </member>
-        <!-- Badly formed XML comment ignored for member "T:WordPressPCL.Models.Title" -->
-        <!-- Badly formed XML comment ignored for member "T:WordPressPCL.Models.Excerpt" -->
+        <member name="T:WordPressPCL.Models.Title">
+            <summary>
+            The title for the object.
+            </summary>
+            <remarks>Context: view, edit, embed</remarks>
+        </member>
+        <member name="T:WordPressPCL.Models.Excerpt">
+            <summary>
+            The excerpt for the object.
+            </summary>
+            <remarks>Context: view, edit, embed</remarks>
+        </member>
         <member name="P:WordPressPCL.Models.Excerpt.IsProtected">
             <summary>
             Can the except be edited?
@@ -450,82 +460,82 @@
             </summary>
             <remarks>Context: view, edit</remarks>
         </member>
-        <member name="T:WordPressPCL.Models.Settings">
+        <member name="T:WordPressPCL.Models.Setting">
             <summary>
             WordPress main settings
             </summary>
         </member>
-        <member name="P:WordPressPCL.Models.Settings.Title">
+        <member name="P:WordPressPCL.Models.Setting.Title">
             <summary>
             Site title.
             </summary>
         </member>
-        <member name="P:WordPressPCL.Models.Settings.Description">
+        <member name="P:WordPressPCL.Models.Setting.Description">
             <summary>
             Site description.
             </summary>
         </member>
-        <member name="P:WordPressPCL.Models.Settings.Url">
+        <member name="P:WordPressPCL.Models.Setting.Url">
             <summary>
             Site URL.
             </summary>
         </member>
-        <member name="P:WordPressPCL.Models.Settings.Email">
+        <member name="P:WordPressPCL.Models.Setting.Email">
             <summary>
             This address is used for admin purposes. If you change this we will send you an email at your new address to confirm it. The new address will not become active until confirmed.
             </summary>
         </member>
-        <member name="P:WordPressPCL.Models.Settings.Timezone">
+        <member name="P:WordPressPCL.Models.Setting.Timezone">
             <summary>
             A city in the same timezone as you.
             </summary>
         </member>
-        <member name="P:WordPressPCL.Models.Settings.DateFormat">
+        <member name="P:WordPressPCL.Models.Setting.DateFormat">
             <summary>
             A date format for all date strings.
             </summary>
         </member>
-        <member name="P:WordPressPCL.Models.Settings.TimeFormat">
+        <member name="P:WordPressPCL.Models.Setting.TimeFormat">
             <summary>
             A time format for all time strings.
             </summary>
         </member>
-        <member name="P:WordPressPCL.Models.Settings.StartOfWeek">
+        <member name="P:WordPressPCL.Models.Setting.StartOfWeek">
             <summary>
             A day number of the week that the week should start on.
             </summary>
         </member>
-        <member name="P:WordPressPCL.Models.Settings.Language">
+        <member name="P:WordPressPCL.Models.Setting.Language">
             <summary>
             WordPress locale code.
             </summary>
         </member>
-        <member name="P:WordPressPCL.Models.Settings.UseSmilies">
+        <member name="P:WordPressPCL.Models.Setting.UseSmilies">
             <summary>
             Convert emoticons like :-) and :-P to graphics on display.
             </summary>
         </member>
-        <member name="P:WordPressPCL.Models.Settings.DefaultCategory">
+        <member name="P:WordPressPCL.Models.Setting.DefaultCategory">
             <summary>
             Default category.
             </summary>
         </member>
-        <member name="P:WordPressPCL.Models.Settings.DefaultPostFormat">
+        <member name="P:WordPressPCL.Models.Setting.DefaultPostFormat">
             <summary>
             Default post format.
             </summary>
         </member>
-        <member name="P:WordPressPCL.Models.Settings.PostsPerPage">
+        <member name="P:WordPressPCL.Models.Setting.PostsPerPage">
             <summary>
             Blog pages show at most.
             </summary>
         </member>
-        <member name="P:WordPressPCL.Models.Settings.DefaultPingStatus">
+        <member name="P:WordPressPCL.Models.Setting.DefaultPingStatus">
             <summary>
             Default Ping Status
             </summary>
         </member>
-        <member name="P:WordPressPCL.Models.Settings.DefaultCommentStatus">
+        <member name="P:WordPressPCL.Models.Setting.DefaultCommentStatus">
             <summary>
             Default Commment Status
             </summary>

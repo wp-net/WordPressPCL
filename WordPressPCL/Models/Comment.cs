@@ -20,7 +20,10 @@ namespace WordPressPCL.Models
 		[JsonProperty("author_name")]
 		public string AuthorName { get; set; }
 
-		[JsonProperty("author_url")]
+        [JsonProperty("author_email")]
+        public string AuthorEmail { get; set; }
+
+        [JsonProperty("author_url")]
 		public string AuthorUrl { get; set; }
 
 		[JsonProperty("author_avatar_urls")]
@@ -39,6 +42,8 @@ namespace WordPressPCL.Models
 		public string Status { get; set; }
 
 		public string Type { get; set; }
+        
+        public int Karma { get; set; }
 		//public Links _links { get; set; }
 	}
 

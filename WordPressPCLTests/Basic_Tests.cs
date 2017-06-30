@@ -19,7 +19,7 @@ namespace WordPressPCLTests
             var client = new WordPressClient(ApiCredentials.WordPressUri);
             Assert.IsNotNull(client);
             // Posts
-            var posts = await client.ListPosts();
+            var posts = await client.Posts.GetAll();
             Assert.IsNotNull(posts);
         }
 
@@ -28,10 +28,10 @@ namespace WordPressPCLTests
         {
             // Initialize
             var client = new WordPressClient(ApiCredentials.WordPressUri);
-            var posts = await client.ListPosts();
-            var post = await client.GetPost(posts[0].Id);
-            Assert.IsTrue(posts[0].Id == post.Id);
-            Assert.IsTrue(!String.IsNullOrEmpty(posts[0].Content.Rendered));
+            var posts = await client.Posts.GetAll();
+            var post = await client.Posts.GetByID(posts.First().Id);
+            Assert.IsTrue(posts.First().Id == post.Id);
+            Assert.IsTrue(!String.IsNullOrEmpty(posts.First().Content.Rendered));
         }
 
         [TestMethod]
@@ -39,7 +39,7 @@ namespace WordPressPCLTests
         {
             // Initialize
             var client = new WordPressClient(ApiCredentials.WordPressUri);
-            var posts = await client.ListStickyPosts();
+            var posts = await client.Posts.GetStickyPosts();
 
             foreach (Post post in posts)
             {
@@ -54,7 +54,7 @@ namespace WordPressPCLTests
             int category = 1;
             // Initialize
             var client = new WordPressClient(ApiCredentials.WordPressUri);
-            var posts = await client.ListPostsByCategory(category);
+            var posts = await client.Posts.GetPostsByCategory(category);
 
             foreach (Post post in posts)
             {
@@ -69,7 +69,7 @@ namespace WordPressPCLTests
             int tag = 12;
             // Initialize
             var client = new WordPressClient(ApiCredentials.WordPressUri);
-            var posts = await client.ListPostsByTag(tag);
+            var posts = await client.Posts.GetPostsByTag(tag);
 
             foreach (Post post in posts)
             {
@@ -84,7 +84,7 @@ namespace WordPressPCLTests
             int author = 2;
             // Initialize
             var client = new WordPressClient(ApiCredentials.WordPressUri);
-            var posts = await client.ListPostsByAuthor(author);
+            var posts = await client.Posts.GetPostsByAuthor(author);
 
             foreach (Post post in posts)
             {
@@ -99,7 +99,7 @@ namespace WordPressPCLTests
             string search = "hello";
             // Initialize
             var client = new WordPressClient(ApiCredentials.WordPressUri);
-            var posts = await client.ListPostsBySearch(search);
+            var posts = await client.Posts.GetPostsBySearch(search);
 
             foreach (Post post in posts)
             {
@@ -119,9 +119,9 @@ namespace WordPressPCLTests
         public async Task GetComments()
         {
             var client = new WordPressClient(ApiCredentials.WordPressUri);
-            var comments = await client.ListComments();
+            var comments = await client.Comments.GetAll();
 
-            if(comments.Count == 0)
+            if(comments.Count() == 0)
             {
                 Assert.Inconclusive("no comments to test");
             }
@@ -160,28 +160,28 @@ namespace WordPressPCLTests
             var IsValidToken = await client.IsValidJWToken();
             Assert.IsTrue(IsValidToken);
 
-            var posts = await client.ListPosts();
-            var postId = posts[0].Id;
+            var posts = await client.Posts.GetAll();
+            var postId = posts.First().Id;
 
-            var me = await client.GetCurrentUser();
+            var me = await client.Users.GetCurrentUser();
 
-            var comment = new CommentCreate()
+            var comment = new Comment()
             {
-                Content = "Testcomment",
+                Content = new Content("Testcomment"),
                 PostId = postId,
                 AuthorId = me.Id,
                 AuthorEmail = "test@test.com",
                 AuthorName = me.Name
             };
-            var resultComment = await client.CreateComment(comment, postId);
+            var resultComment = await client.Comments.Create(comment);
             Assert.IsNotNull(resultComment);
 
             // Posting same comment twice should fail
-            var secondResultComment = await client.CreateComment(comment, postId);
+            var secondResultComment = await client.Comments.Create(comment);
             Assert.IsNull(secondResultComment);
 
 
-            var del = await client.DeleteComment(resultComment.Id);
+            var del = await client.Comments.Delete(resultComment.Id);
             Assert.IsTrue(del.IsSuccessStatusCode);
         }
 
@@ -191,14 +191,14 @@ namespace WordPressPCLTests
             var client = await ClientHelper.GetAuthenticatedWordPressClient();
             var IsValidToken = await client.IsValidJWToken();
             Assert.IsTrue(IsValidToken);
-            var newpost = new PostCreate()
+            var newpost = new Post()
             {
-                Content = "Testcontent"
+                Content = new Content("Testcontent")
             };
-            var resultPost = await client.CreatePost(newpost);
+            var resultPost = await client.Posts.Create(newpost);
             Assert.IsNotNull(resultPost.Id);
 
-            var del = await client.DeletePost(resultPost.Id);
+            var del = await client.Posts.Delete(resultPost.Id);
             Assert.IsTrue(del.IsSuccessStatusCode);
         }
     }
