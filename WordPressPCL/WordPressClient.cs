@@ -67,7 +67,6 @@ namespace WordPressPCL
             Tags = new Tags(ref _httpHelper, defaultPath);
             Users = new Users(ref _httpHelper, defaultPath);
             Medias = new Medias(ref _httpHelper, defaultPath);
-            Settings = new Settings(ref _httpHelper, defaultPath);
         }
 
         #region Post methods 
