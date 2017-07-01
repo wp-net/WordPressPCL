@@ -44,7 +44,18 @@ namespace WordPressPCL.Models
 
         public async Task<IEnumerable<Post>> GetAll(bool embed=false)
         {
-            return await _httpHelper.GetRequest<IEnumerable<Post>>($"{_defaultPath}posts", embed).ConfigureAwait(false);
+            //100 - Max posts per page in WordPress REST API, so this is hack with multiple requests
+            List<Post> posts = new List<Post>();
+            List<Post> posts_page = new List<Post>();
+            int page = 1;
+            do
+            {
+                posts_page = (await _httpHelper.GetRequest<IEnumerable<Post>>($"{_defaultPath}posts?per_page=100&page={page++}", embed).ConfigureAwait(false))?.ToList<Post>();
+                if (posts_page != null) { posts.AddRange(posts_page); }
+                
+            } while (posts_page!=null);
+            
+            return posts;
         }
 
         public IEnumerable<Post> GetBy(Func<Post, bool> predicate, bool embed=false)

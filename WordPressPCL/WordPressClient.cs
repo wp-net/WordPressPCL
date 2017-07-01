@@ -35,7 +35,7 @@ namespace WordPressPCL
         /*public string Username { get; set; }
         public string Password { get; set; }*/
         public AuthMethod AuthMethod { get; set; }
-        public string JWToken;
+        //public string JWToken;
         public Posts Posts;
         public Comments Comments;
         public Tags Tags;
@@ -61,7 +61,7 @@ namespace WordPressPCL
             }
 
             _wordPressUri = uri;
-            _httpHelper = new HttpHelper(WordPressUri, ref JWToken);
+            _httpHelper = new HttpHelper(WordPressUri);
             Posts = new Posts(ref _httpHelper, defaultPath);
             Comments = new Comments(ref _httpHelper, defaultPath);
             Tags = new Tags(ref _httpHelper, defaultPath);
@@ -289,7 +289,8 @@ namespace WordPressPCL
                 });
 
                 (JWTUser jwtUser, HttpResponseMessage response) = await _httpHelper.PostRequest<JWTUser>(route, formContent, false);
-                JWToken = jwtUser?.Token;
+                //JWToken = jwtUser?.Token;
+                _httpHelper.JWToken = jwtUser?.Token;
             }
         }
 

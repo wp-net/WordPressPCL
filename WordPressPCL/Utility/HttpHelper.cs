@@ -13,11 +13,10 @@ namespace WordPressPCL.Utility
     public class HttpHelper
     {
         private string _WordpressURI;
-        private string _JWToken;
-        public HttpHelper(string WordpressURI, ref string JWToken)
+        public string JWToken { get; set; }
+        public HttpHelper(string WordpressURI)
         {
             _WordpressURI = WordpressURI;
-            _JWToken = JWToken;
         }
         internal async Task<TClass> GetRequest<TClass>(string route, bool embed, bool isAuthRequired = false)
             where TClass : class
@@ -31,13 +30,13 @@ namespace WordPressPCL.Utility
                     embedParam = "?_embed";
             }
             HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.ExpectationFailed);
-
+           
             using (var client = new HttpClient())
             {
                 if (isAuthRequired)
                 {
                     //client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Utility.Authentication.Base64Encode($"{Username}:{Password}"));
-                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _JWToken);
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", JWToken);
                 }
                 try
                 {
@@ -71,7 +70,7 @@ namespace WordPressPCL.Utility
                 {
                     //client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Utility.Authentication.Base64Encode($"{Username}:{Password}"));
                     //client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _JWToken);
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", JWToken);
                 }
                 try
                 {
@@ -103,7 +102,7 @@ namespace WordPressPCL.Utility
                 {
                     //client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Utility.Authentication.Base64Encode($"{Username}:{Password}"));
                     //client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _JWToken);
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", JWToken);
                 }
                 try
                 {
