@@ -1,6 +1,8 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace WordPressPCL.Models
 {
@@ -27,6 +29,9 @@ namespace WordPressPCL.Models
 
         [JsonProperty("slug")]
         public string Slug { get; set; }
+
+        [JsonProperty("status")]
+        public MediaStatus Status { get; set; }
 
         [JsonProperty("type")]
         public string Type { get; set; }
@@ -153,6 +158,21 @@ namespace WordPressPCL.Models
 
         [JsonProperty("image_meta")]
         public ImageMeta ImageMeta { get; set; }
+    }
+    [JsonConverter(typeof(StringEnumConverter))]
+    public enum MediaStatus
+    {
+        [EnumMember(Value = "publish")]
+        Publish,
+        [EnumMember(Value ="private")]
+        Private,
+        [EnumMember(Value ="future")]
+        Future,
+        [EnumMember(Value ="draft")]
+        Draft,
+        [EnumMember(Value ="pending")]
+        Pending
+
     }
 
 

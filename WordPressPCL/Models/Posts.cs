@@ -11,7 +11,7 @@ using Newtonsoft.Json;
 
 namespace WordPressPCL.Models
 {
-    public class Posts : ICRUDOperation<Post>
+    public class Posts : ICRUDOperation<Post>, IEnumerable<Post>
     {
         #region Init
         private string _defaultPath;
@@ -44,7 +44,7 @@ namespace WordPressPCL.Models
 
         public async Task<IEnumerable<Post>> GetAll(bool embed=false)
         {
-            return await _httpHelper.GetRequest<Post[]>($"{_defaultPath}posts", embed).ConfigureAwait(false);
+            return await _httpHelper.GetRequest<IEnumerable<Post>>($"{_defaultPath}posts", embed).ConfigureAwait(false);
         }
 
         public IEnumerable<Post> GetBy(Func<Post, bool> predicate, bool embed=false)
@@ -73,73 +73,77 @@ namespace WordPressPCL.Models
         {
             // default values 
             // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
-            return await _httpHelper.GetRequest<Post[]>($"{_defaultPath}posts?sticky=true", embed).ConfigureAwait(false);
+            return await _httpHelper.GetRequest<IEnumerable<Post>>($"{_defaultPath}posts?sticky=true", embed).ConfigureAwait(false);
         }
 
         public async Task<IEnumerable<Post>> GetStickyPosts(QueryBuilder builder)
         {
             // default values 
             // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
-            return await _httpHelper.GetRequest<Post[]>(builder.SetRootUrl($"{_defaultPath}posts?sticky=true").ToString(), false).ConfigureAwait(false);
+            return await _httpHelper.GetRequest<IEnumerable<Post>>(builder.SetRootUrl($"{_defaultPath}posts?sticky=true").ToString(), false).ConfigureAwait(false);
         }
 
         public async Task<IEnumerable<Post>> GetPostsByCategory(int categoryId, bool embed = false)
         {
             // default values 
             // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
-            return await _httpHelper.GetRequest<Post[]>($"{_defaultPath}posts?categories={categoryId}", embed).ConfigureAwait(false);
+            return await _httpHelper.GetRequest<IEnumerable<Post>>($"{_defaultPath}posts?categories={categoryId}", embed).ConfigureAwait(false);
         }
 
         public async Task<IEnumerable<Post>> GetPostsByCategory(int categoryId, QueryBuilder builder)
         {
             // default values 
             // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
-            return await _httpHelper.GetRequest<Post[]>(builder.SetRootUrl($"{_defaultPath}posts?categories={categoryId}").ToString(), false).ConfigureAwait(false);
+            return await _httpHelper.GetRequest<IEnumerable<Post>>(builder.SetRootUrl($"{_defaultPath}posts?categories={categoryId}").ToString(), false).ConfigureAwait(false);
         }
 
         public async Task<IEnumerable<Post>> GetPostsByTag(int tagId, bool embed = false)
         {
             // default values 
             // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
-            return await _httpHelper.GetRequest<Post[]>($"{_defaultPath}posts?tags={tagId}", embed).ConfigureAwait(false);
+            return await _httpHelper.GetRequest<IEnumerable<Post>>($"{_defaultPath}posts?tags={tagId}", embed).ConfigureAwait(false);
         }
 
         public async Task<IEnumerable<Post>> GetPostsByTag(int tagId, QueryBuilder builder)
         {
             // default values 
             // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
-            return await _httpHelper.GetRequest<Post[]>(builder.SetRootUrl($"{_defaultPath}posts?tags={tagId}").ToString(), false).ConfigureAwait(false);
+            return await _httpHelper.GetRequest<IEnumerable<Post>>(builder.SetRootUrl($"{_defaultPath}posts?tags={tagId}").ToString(), false).ConfigureAwait(false);
         }
 
         public async Task<IEnumerable<Post>> GetPostsByAuthor(int authorId, bool embed = false)
         {
             // default values 
             // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
-            return await _httpHelper.GetRequest<Post[]>($"{_defaultPath}posts?author={authorId}", embed).ConfigureAwait(false);
+            return await _httpHelper.GetRequest<IEnumerable<Post>>($"{_defaultPath}posts?author={authorId}", embed).ConfigureAwait(false);
         }
 
         public async Task<IEnumerable<Post>> GetPostsByAuthor(int authorId, QueryBuilder builder)
         {
             // default values 
             // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
-            return await _httpHelper.GetRequest<Post[]>(builder.SetRootUrl($"{_defaultPath}posts?author={authorId}").ToString(), false).ConfigureAwait(false);
+            return await _httpHelper.GetRequest<IEnumerable<Post>>(builder.SetRootUrl($"{_defaultPath}posts?author={authorId}").ToString(), false).ConfigureAwait(false);
         }
         public async Task<IEnumerable<Post>> GetPostsBySearch(string searchTerm, bool embed = false)
         {
             // default values 
             // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
-            return await _httpHelper.GetRequest<Post[]>($"{_defaultPath}posts?search={searchTerm}", embed).ConfigureAwait(false);
+            return await _httpHelper.GetRequest<IEnumerable<Post>>($"{_defaultPath}posts?search={searchTerm}", embed).ConfigureAwait(false);
         }
 
         public async Task<IEnumerable<Post>> GetPostsBySearch(string searchTerm, QueryBuilder builder)
         {
             // default values 
             // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
-            return await _httpHelper.GetRequest<Post[]>(builder.SetRootUrl($"{_defaultPath}posts?search={searchTerm}").ToString(), false).ConfigureAwait(false);
+            return await _httpHelper.GetRequest<IEnumerable<Post>>(builder.SetRootUrl($"{_defaultPath}posts?search={searchTerm}").ToString(), false).ConfigureAwait(false);
         }
         public async Task<IEnumerable<Post>> GetBy(QueryBuilder builder)
         {
-            return await _httpHelper.GetRequest<Post[]>(builder.SetRootUrl($"{_defaultPath}posts").ToString(), false).ConfigureAwait(false);
+            return await _httpHelper.GetRequest<IEnumerable<Post>>(builder.SetRootUrl($"{_defaultPath}posts").ToString(), false).ConfigureAwait(false);
+        }
+        public async Task<HttpResponseMessage> Delete(int ID,bool force=false)
+        {
+            return await _httpHelper.DeleteRequest($"{_defaultPath}posts/{ID}?force={force}").ConfigureAwait(false);
         }
         #endregion
     }

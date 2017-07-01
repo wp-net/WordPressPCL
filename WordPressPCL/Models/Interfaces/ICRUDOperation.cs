@@ -7,7 +7,7 @@ using WordPressPCL.Utility;
 
 namespace WordPressPCL.Models.Interfaces
 {
-    interface ICRUDOperation<TClass>: IEnumerable<TClass>
+    interface ICRUDOperation<TClass>
     {
         Task<TClass> GetByID(int ID, bool embed=false);
         IEnumerable<TClass> GetBy(Func<TClass, bool> predicate, bool embed=false);

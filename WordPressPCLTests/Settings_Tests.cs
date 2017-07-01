@@ -15,9 +15,9 @@ namespace WordPressPCLTests
         public async Task Get_Settings_Test()
         {
             var client = await ClientHelper.GetAuthenticatedWordPressClient();
-            var settings = await client.Settings.GetAll();
+            var settings = await client.GetSettings();
             Assert.IsNotNull(settings);
-            Assert.IsNotNull(settings.First().Title);
+            Assert.IsNotNull(settings.Title);
         }
     }
 }

@@ -460,82 +460,82 @@
             </summary>
             <remarks>Context: view, edit</remarks>
         </member>
-        <member name="T:WordPressPCL.Models.Setting">
+        <member name="T:WordPressPCL.Models.Settings">
             <summary>
             WordPress main settings
             </summary>
         </member>
-        <member name="P:WordPressPCL.Models.Setting.Title">
+        <member name="P:WordPressPCL.Models.Settings.Title">
             <summary>
             Site title.
             </summary>
         </member>
-        <member name="P:WordPressPCL.Models.Setting.Description">
+        <member name="P:WordPressPCL.Models.Settings.Description">
             <summary>
             Site description.
             </summary>
         </member>
-        <member name="P:WordPressPCL.Models.Setting.Url">
+        <member name="P:WordPressPCL.Models.Settings.Url">
             <summary>
             Site URL.
             </summary>
         </member>
-        <member name="P:WordPressPCL.Models.Setting.Email">
+        <member name="P:WordPressPCL.Models.Settings.Email">
             <summary>
             This address is used for admin purposes. If you change this we will send you an email at your new address to confirm it. The new address will not become active until confirmed.
             </summary>
         </member>
-        <member name="P:WordPressPCL.Models.Setting.Timezone">
+        <member name="P:WordPressPCL.Models.Settings.Timezone">
             <summary>
             A city in the same timezone as you.
             </summary>
         </member>
-        <member name="P:WordPressPCL.Models.Setting.DateFormat">
+        <member name="P:WordPressPCL.Models.Settings.DateFormat">
             <summary>
             A date format for all date strings.
             </summary>
         </member>
-        <member name="P:WordPressPCL.Models.Setting.TimeFormat">
+        <member name="P:WordPressPCL.Models.Settings.TimeFormat">
             <summary>
             A time format for all time strings.
             </summary>
         </member>
-        <member name="P:WordPressPCL.Models.Setting.StartOfWeek">
+        <member name="P:WordPressPCL.Models.Settings.StartOfWeek">
             <summary>
             A day number of the week that the week should start on.
             </summary>
         </member>
-        <member name="P:WordPressPCL.Models.Setting.Language">
+        <member name="P:WordPressPCL.Models.Settings.Language">
             <summary>
             WordPress locale code.
             </summary>
         </member>
-        <member name="P:WordPressPCL.Models.Setting.UseSmilies">
+        <member name="P:WordPressPCL.Models.Settings.UseSmilies">
             <summary>
             Convert emoticons like :-) and :-P to graphics on display.
             </summary>
         </member>
-        <member name="P:WordPressPCL.Models.Setting.DefaultCategory">
+        <member name="P:WordPressPCL.Models.Settings.DefaultCategory">
             <summary>
             Default category.
             </summary>
         </member>
-        <member name="P:WordPressPCL.Models.Setting.DefaultPostFormat">
+        <member name="P:WordPressPCL.Models.Settings.DefaultPostFormat">
             <summary>
             Default post format.
             </summary>
         </member>
-        <member name="P:WordPressPCL.Models.Setting.PostsPerPage">
+        <member name="P:WordPressPCL.Models.Settings.PostsPerPage">
             <summary>
             Blog pages show at most.
             </summary>
         </member>
-        <member name="P:WordPressPCL.Models.Setting.DefaultPingStatus">
+        <member name="P:WordPressPCL.Models.Settings.DefaultPingStatus">
             <summary>
             Default Ping Status
             </summary>
         </member>
-        <member name="P:WordPressPCL.Models.Setting.DefaultCommentStatus">
+        <member name="P:WordPressPCL.Models.Settings.DefaultCommentStatus">
             <summary>
             Default Commment Status
             </summary>

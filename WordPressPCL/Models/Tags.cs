@@ -11,7 +11,7 @@ using Newtonsoft.Json;
 
 namespace WordPressPCL.Models
 {
-    public class Tags : ICRUDOperation<Tag>
+    public class Tags : ICRUDOperation<Tag>, IEnumerable<Tag>
     {
         #region Init
         private string _defaultPath;
@@ -44,7 +44,7 @@ namespace WordPressPCL.Models
 
         public async Task<IEnumerable<Tag>> GetAll(bool embed = false)
         {
-            return await _httpHelper.GetRequest<Tag[]>($"{_defaultPath}tags", embed).ConfigureAwait(false);
+            return await _httpHelper.GetRequest<IEnumerable<Tag>>($"{_defaultPath}tags", embed).ConfigureAwait(false);
         }
 
         public IEnumerable<Tag> GetBy(Func<Tag, bool> predicate, bool embed = false)

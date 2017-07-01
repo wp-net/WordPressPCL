@@ -11,7 +11,7 @@ using Newtonsoft.Json;
 
 namespace WordPressPCL.Models
 {
-    public class Comments : ICRUDOperation<Comment>
+    public class Comments : ICRUDOperation<Comment>,IEnumerable<Comment>
     {
         #region Init
         private string _defaultPath;
@@ -44,7 +44,7 @@ namespace WordPressPCL.Models
 
         public async Task<IEnumerable<Comment>> GetAll(bool embed = false)
         {
-            return await _httpHelper.GetRequest<Comment[]>($"{_defaultPath}comments", embed).ConfigureAwait(false);
+            return await _httpHelper.GetRequest<IEnumerable<Comment>>($"{_defaultPath}comments", embed).ConfigureAwait(false);
         }
 
         public IEnumerable<Comment> GetBy(Func<Comment, bool> predicate, bool embed = false)
@@ -71,7 +71,11 @@ namespace WordPressPCL.Models
         #region Custom
         public async Task<IEnumerable<Comment>> GetCommentsForPost(string PostID, bool embed = false)
         {
-            return await _httpHelper.GetRequest<Comment[]>($"{_defaultPath}comments?post={PostID}", embed);
+            return await _httpHelper.GetRequest<IEnumerable<Comment>>($"{_defaultPath}comments?post={PostID}", embed);
+        }
+        public async Task<HttpResponseMessage> Delete(int ID, bool force=false)
+        {
+            return await _httpHelper.DeleteRequest($"{_defaultPath}comments/{ID}?force={force}").ConfigureAwait(false);
         }
         #endregion
     }

@@ -11,7 +11,7 @@ using Newtonsoft.Json;
 
 namespace WordPressPCL.Models
 {
-    public class Medias : ICRUDOperation<Media>
+    public class Medias : ICRUDOperation<Media>, IEnumerable<Media>
     {
         #region Init
         private string _defaultPath;
@@ -44,7 +44,7 @@ namespace WordPressPCL.Models
 
         public async Task<IEnumerable<Media>> GetAll(bool embed = false)
         {
-            return await _httpHelper.GetRequest<Media[]>($"{_defaultPath}media", embed).ConfigureAwait(false);
+            return await _httpHelper.GetRequest<IEnumerable<Media>>($"{_defaultPath}media", embed).ConfigureAwait(false);
         }
 
         public IEnumerable<Media> GetBy(Func<Media, bool> predicate, bool embed = false)
@@ -69,7 +69,10 @@ namespace WordPressPCL.Models
         #endregion
 
         #region Custom
-        
+        public async Task<HttpResponseMessage> Delete(int ID,bool force=false)
+        {
+            return await _httpHelper.DeleteRequest($"{_defaultPath}media/{ID}?force={force}").ConfigureAwait(false);
+        }
         #endregion
     }
 }
