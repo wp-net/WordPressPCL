@@ -11,10 +11,11 @@ using Newtonsoft.Json;
 
 namespace WordPressPCL.Models
 {
-    public class Users : ICRUDOperation<User>,IEnumerable<User>
+    public class Users : ICRUDOperationAsync<User>,IEnumerable<User>
     {
         #region Init
         private string _defaultPath;
+        private const string _methodPath = "users";
         private Lazy<IEnumerable<User>> _posts;
         private HttpHelper _httpHelper;
         public Users(ref HttpHelper HttpHelper, string defaultPath)
@@ -28,23 +29,35 @@ namespace WordPressPCL.Models
         public async Task<User> Create(User Entity)
         {
             var postBody = new StringContent(JsonConvert.SerializeObject(Entity).ToString(), Encoding.UTF8, "application/json");
-            return (await _httpHelper.PostRequest<User>($"{_defaultPath}users", postBody)).Item1;
+            return (await _httpHelper.PostRequest<User>($"{_defaultPath}{_methodPath}", postBody)).Item1;
         }
 
         public async Task<User> Update(User Entity)
         {
             var postBody = new StringContent(JsonConvert.SerializeObject(Entity).ToString(), Encoding.UTF8, "application/json");
-            return (await _httpHelper.PostRequest<User>($"{_defaultPath}users/{Entity.Id}", postBody)).Item1;
+            return (await _httpHelper.PostRequest<User>($"{_defaultPath}{_methodPath}/{Entity.Id}", postBody)).Item1;
         }
 
         public async Task<HttpResponseMessage> Delete(int ID)
         {
-            return await _httpHelper.DeleteRequest($"{_defaultPath}users/{ID}").ConfigureAwait(false);
+            return await _httpHelper.DeleteRequest($"{_defaultPath}{_methodPath}/{ID}").ConfigureAwait(false);
         }
 
         public async Task<IEnumerable<User>> GetAll(bool embed = false)
         {
-            return await _httpHelper.GetRequest<IEnumerable<User>>($"{_defaultPath}users", embed).ConfigureAwait(false);
+            //100 - Max posts per page in WordPress REST API, so this is hack with multiple requests
+            List<User> users = new List<User>();
+            List<User> users_page = new List<User>();
+            int page = 1;
+            do
+            {
+                users_page = (await _httpHelper.GetRequest<IEnumerable<User>>($"{_defaultPath}{_methodPath}?per_page=100&page={page++}", embed).ConfigureAwait(false))?.ToList<User>();
+                if (users_page != null) { users.AddRange(users_page); }
+
+            } while (users_page != null);
+
+            return users;
+            //return await _httpHelper.GetRequest<IEnumerable<User>>($"{_defaultPath}{_methodPath}", embed).ConfigureAwait(false);
         }
 
         public IEnumerable<User> GetBy(Func<User, bool> predicate, bool embed = false)
@@ -54,7 +67,7 @@ namespace WordPressPCL.Models
 
         public async Task<User> GetByID(int ID, bool embed = false)
         {
-            return await _httpHelper.GetRequest<User>($"{_defaultPath}users/{ID}", embed).ConfigureAwait(false);
+            return await _httpHelper.GetRequest<User>($"{_defaultPath}{_methodPath}/{ID}", embed).ConfigureAwait(false);
         }
 
         public IEnumerator<User> GetEnumerator()
@@ -71,16 +84,16 @@ namespace WordPressPCL.Models
         #region Custom
         public async Task<User> GetCurrentUser()
         {
-            return await _httpHelper.GetRequest<User>($"{_defaultPath}users/me", true, true).ConfigureAwait(false);
+            return await _httpHelper.GetRequest<User>($"{_defaultPath}{_methodPath}/me", true, true).ConfigureAwait(false);
         }
 
         public async Task<HttpResponseMessage> Delete(int ID,int ReassignUserID)
         {
-            return await _httpHelper.DeleteRequest($"{_defaultPath}users/{ID}?reassign={ReassignUserID}").ConfigureAwait(false);
+            return await _httpHelper.DeleteRequest($"{_defaultPath}{_methodPath}/{ID}?reassign={ReassignUserID}").ConfigureAwait(false);
         }
         public async Task<HttpResponseMessage> Delete(int ID, User ReassignUser)
         {
-            return await _httpHelper.DeleteRequest($"{_defaultPath}users/{ID}?reassign={ReassignUser.Id}").ConfigureAwait(false);
+            return await _httpHelper.DeleteRequest($"{_defaultPath}{_methodPath}/{ID}?reassign={ReassignUser.Id}").ConfigureAwait(false);
         }
         #endregion
     }

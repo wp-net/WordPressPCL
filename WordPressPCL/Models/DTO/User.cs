@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 
 namespace WordPressPCL.Models
@@ -15,6 +16,8 @@ namespace WordPressPCL.Models
         [JsonProperty("id")]
         public int Id { get; set; }
 
+        [JsonProperty("username")]
+        public string UserName { get; set; }
         /// <summary>
         /// Display name for the user.
         /// </summary>
@@ -23,6 +26,15 @@ namespace WordPressPCL.Models
         /// </remarks>
         [JsonProperty("name")]
         public string Name { get; set; }
+
+        [JsonProperty("first_name")]
+        public string FirstName { get; set; }
+
+        [JsonProperty("last_name")]
+        public string LastName { get; set; }
+
+        [JsonProperty("email")]
+        public string Email { get; set; }
 
         /// <summary>
         /// URL of the user.
@@ -48,12 +60,33 @@ namespace WordPressPCL.Models
         [JsonProperty("link")]
         public string Link { get; set; }
 
+        [JsonProperty("locale")]
+        public string Locale { get; set; }
+
+        [JsonProperty("nickname")]
+        public string NickName { get; set; }
+
         /// <summary>
         /// An alphanumeric identifier for the user.
         /// </summary>
         /// <remarks>Context: embed, view, edit</remarks>
         [JsonProperty("slug")]
         public string Slug { get; set; }
+
+        [JsonProperty("registered_date")]
+        public DateTime RegisteredDate { get; set; }
+
+        [JsonProperty("roles")]
+        public IEnumerable<string> Roles { get; set; }
+
+        [JsonProperty("password")]
+        public string Password { get; set; }
+
+        [JsonProperty("capabilities")]
+        public IEnumerable<object> Capabilities { get; set; }
+
+        [JsonProperty("extra_capabilities")]
+        public IEnumerable<object> ExtraCapabilities { get; set; }
 
         /// <summary>
         /// Avatar URLs for the user.
@@ -63,45 +96,20 @@ namespace WordPressPCL.Models
         /// Context: embed, view, edit
         /// </remarks>
         [JsonProperty("avatar_urls")]
-        public AvatarUrls AvatarUrls { get; set; }
+        public AvatarURL AvatarUrls { get; set; }
 
         /// <summary>
         /// Meta fields.
         /// </summary>
         /// <remarks>Context: view, edit</remarks>
         [JsonProperty("meta")]
-        public IList<object> Meta { get; set; }
+        public IEnumerable<object> Meta { get; set; }
 
         /// <summary>
         /// Links to related resources
         /// </summary>
         [JsonProperty("_links")]
         public Links Links { get; set; }
-    }
-
-    /// <summary>
-    /// Avatar URLs for the users.
-    /// </summary>
-    /// <remarks>Default sizes: 24, 48, 96</remarks>
-    public class AvatarUrls
-    {
-        /// <summary>
-        /// Avatar URL 24x24 pixels
-        /// </summary>
-        [JsonProperty("24")]
-        public string Size24 { get; set; }
-
-        /// <summary>
-        /// Avatar URL 48x48 pixels
-        /// </summary>
-        [JsonProperty("48")]
-        public string Size48 { get; set; }
-
-        /// <summary>
-        /// Avatar URL 96x96 pixels
-        /// </summary>
-        [JsonProperty("96")]
-        public string Size96 { get; set; }
     }
 
 }

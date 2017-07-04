@@ -54,7 +54,7 @@ namespace WordPressPCLTests
             var createdPost = await client.Posts.Create(post2);
 
 
-            Assert.AreEqual(post2.Content, createdPost.Content.Raw);
+            Assert.AreEqual(post2.Content.Raw, createdPost.Content.Raw);
             Assert.IsTrue(createdPost.Content.Rendered.Contains(post2.Content.Rendered));
         }
 

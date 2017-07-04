@@ -4,6 +4,27 @@
         <name>WordPressPCL</name>
     </assembly>
     <members>
+        <member name="T:WordPressPCL.Models.AvatarURL">
+            <summary>
+            Avatar URLs for the users.
+            </summary>
+            <remarks>Default sizes: 24, 48, 96</remarks>
+        </member>
+        <member name="P:WordPressPCL.Models.AvatarURL.Size24">
+            <summary>
+            Avatar URL 24x24 pixels
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.AvatarURL.Size48">
+            <summary>
+            Avatar URL 48x48 pixels
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.AvatarURL.Size96">
+            <summary>
+            Avatar URL 96x96 pixels
+            </summary>
+        </member>
         <member name="T:WordPressPCL.Models.Category">
             <summary>
             Terms of the type category
@@ -35,6 +56,61 @@
             Meta fields.
             </summary>
             <remarks>Context: view, edit</remarks>
+        </member>
+        <member name="T:WordPressPCL.Models.Embedded">
+            <summary>
+            Embedded Information
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Embedded.Author">
+            <summary>
+            Post Author
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Embedded.Replies">
+            <summary>
+            Comments on the post
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Embedded.WpFeaturedmedia">
+            <summary>
+            Featured images for the post
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Embedded.WpTerm">
+            <summary>
+            Terms for the post (categories, tags etc.)
+            </summary>
+        </member>
+        <member name="T:WordPressPCL.Models.OpenStatus">
+            <summary>
+            Status of Comments, Pings etc.
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.OpenStatus.Open">
+            <summary>
+            Status is open
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.OpenStatus.Closed">
+            <summary>
+            Status is closed
+            </summary>
+        </member>
+        <member name="T:WordPressPCL.Models.OrderBy">
+            <summary>
+            Sort collection by object attribute.
+            </summary>
+            <remarks>Default: date</remarks>
+        </member>
+        <member name="T:WordPressPCL.Models.Context">
+            <summary>
+            Scope under which the request is made; determines fields present in response.
+            </summary>
+            <remarks>
+            Default: view
+            One of: view, embed, edit
+            </remarks>
         </member>
         <member name="P:WordPressPCL.Models.Page.Id">
             <summary>
@@ -386,80 +462,6 @@
             Embedded information like featured images
             </summary>
         </member>
-        <member name="T:WordPressPCL.Models.Embedded">
-            <summary>
-            Embedded Information
-            </summary>
-        </member>
-        <member name="P:WordPressPCL.Models.Embedded.Author">
-            <summary>
-            Post Author
-            </summary>
-        </member>
-        <member name="P:WordPressPCL.Models.Embedded.Replies">
-            <summary>
-            Comments on the post
-            </summary>
-        </member>
-        <member name="P:WordPressPCL.Models.Embedded.WpFeaturedmedia">
-            <summary>
-            Featured images for the post
-            </summary>
-        </member>
-        <member name="P:WordPressPCL.Models.Embedded.WpTerm">
-            <summary>
-            Terms for the post (categories, tags etc.)
-            </summary>
-        </member>
-        <member name="T:WordPressPCL.Models.OrderBy">
-            <summary>
-            Sort collection by object attribute.
-            </summary>
-            <remarks>Default: date</remarks>
-        </member>
-        <member name="T:WordPressPCL.Models.Guid">
-            <summary>
-            The globally unique identifier for the object.
-            </summary>
-            <remarks>
-            Read only
-            Context: view, edit
-            </remarks>
-        </member>
-        <member name="T:WordPressPCL.Models.Title">
-            <summary>
-            The title for the object.
-            </summary>
-            <remarks>Context: view, edit, embed</remarks>
-        </member>
-        <member name="T:WordPressPCL.Models.Excerpt">
-            <summary>
-            The excerpt for the object.
-            </summary>
-            <remarks>Context: view, edit, embed</remarks>
-        </member>
-        <member name="P:WordPressPCL.Models.Excerpt.IsProtected">
-            <summary>
-            Can the except be edited?
-            </summary>
-        </member>
-        <member name="T:WordPressPCL.Models.VersionHistory">
-            <summary>
-            URL to revisions
-            </summary>
-        </member>
-        <member name="P:WordPressPCL.Models.PostCreate.Date">
-            <summary>
-                The date the object was published, in the site’s timezone.
-            </summary>
-            <remarks>Context: view, edit, embed</remarks>
-        </member>
-        <member name="P:WordPressPCL.Models.PostCreate.DateGmt">
-            <summary>
-                The date the object was published, as GMT.
-            </summary>
-            <remarks>Context: view, edit</remarks>
-        </member>
         <member name="T:WordPressPCL.Models.Settings">
             <summary>
             WordPress main settings
@@ -540,11 +542,6 @@
             Default Commment Status
             </summary>
         </member>
-        <member name="T:WordPressPCL.Models.Content">
-            <summary>
-            The actual content of the object, Rendered and/or Raw depending on the context
-            </summary>
-        </member>
         <member name="T:WordPressPCL.Models.RenderedRawBase">
             <summary>
             Adds a "Rendered" and a "Raw" property to all classes derived from this one
@@ -555,28 +552,40 @@
             Adds an Href property to all classes derived from this one
             </summary>
         </member>
-        <member name="T:WordPressPCL.Models.Context">
+        <member name="T:WordPressPCL.Models.Content">
             <summary>
-            Scope under which the request is made; determines fields present in response.
+            The actual content of the object, Rendered and/or Raw depending on the context
+            </summary>
+        </member>
+        <member name="T:WordPressPCL.Models.Guid">
+            <summary>
+            The globally unique identifier for the object.
             </summary>
             <remarks>
-            Default: view
-            One of: view, embed, edit
+            Read only
+            Context: view, edit
             </remarks>
         </member>
-        <member name="T:WordPressPCL.Models.Status">
+        <member name="T:WordPressPCL.Models.Title">
             <summary>
-            Status of Comments, Pings etc.
+            The title for the object.
+            </summary>
+            <remarks>Context: view, edit, embed</remarks>
+        </member>
+        <member name="T:WordPressPCL.Models.Excerpt">
+            <summary>
+            The excerpt for the object.
+            </summary>
+            <remarks>Context: view, edit, embed</remarks>
+        </member>
+        <member name="P:WordPressPCL.Models.Excerpt.IsProtected">
+            <summary>
+            Can the except be edited?
             </summary>
         </member>
-        <member name="F:WordPressPCL.Models.Status.Open">
+        <member name="T:WordPressPCL.Models.VersionHistory">
             <summary>
-            Status is open
-            </summary>
-        </member>
-        <member name="F:WordPressPCL.Models.Status.Closed">
-            <summary>
-            Status is closed
+            URL to revisions
             </summary>
         </member>
         <member name="T:WordPressPCL.Models.Tag">
@@ -711,27 +720,6 @@
         <member name="P:WordPressPCL.Models.User.Links">
             <summary>
             Links to related resources
-            </summary>
-        </member>
-        <member name="T:WordPressPCL.Models.AvatarUrls">
-            <summary>
-            Avatar URLs for the users.
-            </summary>
-            <remarks>Default sizes: 24, 48, 96</remarks>
-        </member>
-        <member name="P:WordPressPCL.Models.AvatarUrls.Size24">
-            <summary>
-            Avatar URL 24x24 pixels
-            </summary>
-        </member>
-        <member name="P:WordPressPCL.Models.AvatarUrls.Size48">
-            <summary>
-            Avatar URL 48x48 pixels
-            </summary>
-        </member>
-        <member name="P:WordPressPCL.Models.AvatarUrls.Size96">
-            <summary>
-            Avatar URL 96x96 pixels
             </summary>
         </member>
         <member name="T:WordPressPCL.WordPressClient">

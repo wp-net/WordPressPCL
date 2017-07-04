@@ -1,8 +1,6 @@
 ﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
 using System;
 using System.Collections.Generic;
-using System.Runtime.Serialization;
 
 namespace WordPressPCL.Models
 {
@@ -12,14 +10,14 @@ namespace WordPressPCL.Models
         ///     The date the object was published, in the site's timezone.
         /// </summary>
         /// <remarks>Context: view, edit, embed</remarks>
-		[JsonProperty("date")]
+		[JsonProperty("date",DefaultValueHandling =DefaultValueHandling.Ignore)]
 		public DateTime Date { get; set; }
 
         /// <summary>
         ///     The date the object was published, as GMT.
         /// </summary>
         /// <remarks>Context: view, edit</remarks>
-        [JsonProperty("date_gmt")]
+        [JsonProperty("date_gmt", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public DateTime DateGmt { get; set; }
 
         /// <summary>
@@ -29,7 +27,7 @@ namespace WordPressPCL.Models
         /// Read only
         /// Context: view, edit
         /// </remarks>
-        [JsonProperty("guid")]
+        [JsonProperty("guid", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public Guid Guid { get; set; }
 
         /// <summary>
@@ -39,7 +37,7 @@ namespace WordPressPCL.Models
         /// Read only
         /// Context: view, edit, embed
         /// </remarks>
-        [JsonProperty("id")]
+        [JsonProperty("id",DefaultValueHandling =DefaultValueHandling.Ignore)]
         public int Id { get; set; }
 
         /// <summary>
@@ -49,7 +47,7 @@ namespace WordPressPCL.Models
         /// Read only
         /// Context: view, edit
         /// </remarks>
-        [JsonProperty("modified")]
+        [JsonProperty("modified", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public DateTime Modified { get; set; }
 
         /// <summary>
@@ -59,7 +57,7 @@ namespace WordPressPCL.Models
         /// Read only
         /// Context: view, edit
         /// </remarks>
-        [JsonProperty("modified_gmt")]
+        [JsonProperty("modified_gmt", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public DateTime ModifiedGmt { get; set; }
 
         /// <summary>
@@ -84,7 +82,7 @@ namespace WordPressPCL.Models
         /// One of: publish, future, draft, pending, private
         /// </remarks>
         [JsonProperty("status")]
-        public string Status { get; set; }
+        public Status Status { get; set; }
 
         /// <summary>
         /// Type of Post for the object.
@@ -131,7 +129,7 @@ namespace WordPressPCL.Models
         /// The ID for the author of the object.
         /// </summary>
         /// <remarks>Context: view, edit, embed</remarks>
-        [JsonProperty("author")]
+        [JsonProperty("author", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int Author { get; set; }
 
         /// <summary>
@@ -148,8 +146,8 @@ namespace WordPressPCL.Models
         /// Context: view, edit
         /// One of: open, closed
         /// </remarks>
-        [JsonProperty("comment_status")]
-		public Status CommentStatus { get; set; }
+        [JsonProperty("comment_status", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		public OpenStatus CommentStatus { get; set; }
 
         /// <summary>
         /// Whether or not the object can be pinged.
@@ -158,8 +156,8 @@ namespace WordPressPCL.Models
         /// Context: view, edit
         /// One of: open, closed
         /// </remarks>
-        [JsonProperty("ping_status")]
-		public Status PingStatus { get; set; }
+        [JsonProperty("ping_status", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		public OpenStatus PingStatus { get; set; }
 
         /// <summary>
         /// Whether or not the object should be treated as sticky.
@@ -182,14 +180,14 @@ namespace WordPressPCL.Models
         /// The terms assigned to the object in the category taxonomy.
         /// </summary>
         /// <remarks>Context: view, edit</remarks>
-        [JsonProperty("categories")]
+        [JsonProperty("categories", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public int[] Categories { get; set; }
 
         /// <summary>
         /// The terms assigned to the object in the post_tag taxonomy.
         /// </summary>
         /// <remarks>Context: view, edit</remarks>
-        [JsonProperty("tags")]
+        [JsonProperty("tags", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public int[] Tags { get; set; }
 
         /// <summary>
@@ -199,7 +197,7 @@ namespace WordPressPCL.Models
         /// Context: view, edit
         /// One of: 
         /// </remarks>
-        [JsonProperty("template")]
+        [JsonProperty("template", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public string Template { get; set; }
 
         /// <summary>
@@ -208,6 +206,9 @@ namespace WordPressPCL.Models
         /// <remarks>Context: view, edit, embed</remarks>
         [JsonProperty("liveblog_likes")]
         public int LiveblogLikes { get; set; }
+
+        [JsonProperty("meta")]
+        public IEnumerable<object> Meta { get; set; }
 
         /// <summary>
         /// Links to related resources
@@ -222,107 +223,5 @@ namespace WordPressPCL.Models
         public Embedded Embedded { get; set; }
     }
 
-    /// <summary>
-    /// Embedded Information
-    /// </summary>
-    public class Embedded
-    {
-        /// <summary>
-        /// Post Author
-        /// </summary>
-        [JsonProperty("author")]
-        public IList<User> Author { get; set; }
-
-        /// <summary>
-        /// Comments on the post
-        /// </summary>
-        [JsonProperty("replies")]
-        public IList<IList<Comment>> Replies { get; set; }
-
-        /// <summary>
-        /// Featured images for the post
-        /// </summary>
-        [JsonProperty("wp:featuredmedia")]
-        public IList<Media> WpFeaturedmedia { get; set; }
-
-        /// <summary>
-        /// Terms for the post (categories, tags etc.)
-        /// </summary>
-        [JsonProperty("wp:term")]
-        public IList<IList<Term>> WpTerm { get; set; }
-    }
-
-    /// <summary>
-    /// Sort collection by object attribute.
-    /// </summary>
-    /// <remarks>Default: date</remarks>
-    [JsonConverter(typeof(StringEnumConverter))]
-    public enum OrderBy
-    {
-        [EnumMember(Value = "date")]
-        Date,
-        [EnumMember(Value = "relevance")]
-        Relevance,
-        [EnumMember(Value = "id")]
-        Id,
-        [EnumMember(Value = "include")]
-        Include,
-        [EnumMember(Value = "title")]
-        Title,
-        [EnumMember(Value = "slug")]
-        Slug
-    }
-
-    /// <summary>
-    /// The globally unique identifier for the object.
-    /// </summary>
-    /// <remarks>
-    /// Read only
-    /// Context: view, edit
-    /// </remarks>
-    public class Guid : RenderedRawBase
-	{
-    }
-
-    /// <summary>
-    /// The title for the object.
-    /// </summary>
-    /// <remarks>Context: view, edit, embed</remarks>
-    public class Title : RenderedRawBase
-	{
-        public Title()
-        {
-
-        }
-        public Title(string Title)
-        {
-            Rendered = Title;
-        }
-    }
-
-    /// <summary>
-    /// The excerpt for the object.
-    /// </summary>
-    /// <remarks>Context: view, edit, embed</remarks>
-    public class Excerpt : RenderedRawBase
-	{
-        /// <summary>
-        /// Can the except be edited?
-        /// </summary>
-        [JsonProperty("protected")]
-        public bool IsProtected { get; set; }
-    }
-
-    /// <summary>
-    /// URL to revisions
-    /// </summary>
-	public class VersionHistory : HrefBase
-    {
-	}
-
-	public class HttpsApiWOrgFeaturedmedia : HrefBase
-    {
-		[JsonProperty("embeddable")]
-		public bool Embeddable { get; set; }
-	}
+   
 }

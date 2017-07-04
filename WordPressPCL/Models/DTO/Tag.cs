@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace WordPressPCL.Models
 {
@@ -23,5 +24,8 @@ namespace WordPressPCL.Models
         /// <remarks>Context: view, edit</remarks>
         [JsonProperty("description")]
         public string Description { get; set; }
+
+        [JsonProperty("meta")]
+        public IEnumerable<object> Meta { get; set; }
     }
 }
