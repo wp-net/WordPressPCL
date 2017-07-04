@@ -26,7 +26,7 @@ namespace WordPressPCL.Models
         /// Featured images for the post
         /// </summary>
         [JsonProperty("wp:featuredmedia")]
-        public IEnumerable<Media> WpFeaturedmedia { get; set; }
+        public IEnumerable<MediaItem> WpFeaturedmedia { get; set; }
 
         /// <summary>
         /// Terms for the post (categories, tags etc.)

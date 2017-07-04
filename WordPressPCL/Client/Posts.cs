@@ -3,13 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-using WordPressPCL.Models.Interfaces;
+using WordPressPCL.Interfaces;
+using WordPressPCL.Models;
 using WordPressPCL.Utility;
 using System.Linq;
 using System.Net.Http;
 using Newtonsoft.Json;
 
-namespace WordPressPCL.Models
+namespace WordPressPCL.Client
 {
     public class Posts : ICRUDOperationAsync<Post>, IEnumerable<Post>
     {

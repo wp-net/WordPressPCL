@@ -1,10 +1,9 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using WordPressPCL.Models;
-using WordPressPCL.Utility;
+using WordPressPCL.Client;
+using WordPressPCL.Interfaces;
 using WordPressPCLTests.Utility;
 using System.Linq;
 

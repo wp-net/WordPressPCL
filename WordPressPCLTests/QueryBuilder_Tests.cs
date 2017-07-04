@@ -17,7 +17,7 @@ namespace WordPressPCLTests
         private const int TAG_ID = 2;
 
         [TestMethod]
-        public async Task Multi_Parameter_Query_Works_Test()
+        public void Multi_Parameter_Query_Works_Test()
         {
             // Initialize
             var builder = new QueryBuilder(ApiCredentials.WordPressUri) {
