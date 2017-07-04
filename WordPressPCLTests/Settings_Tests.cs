@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using WordPressPCLTests.Utility;
+using System.Linq;
 
 namespace WordPressPCLTests
 {

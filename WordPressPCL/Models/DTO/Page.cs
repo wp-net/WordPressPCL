@@ -123,7 +123,7 @@ namespace WordPressPCL.Models
         /// The id for the author of the object.
         /// </summary>
         /// <remarks>Context: view, edit, embed</remarks>
-        [JsonProperty("author")]
+        [JsonProperty("author", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public int Author { get; set; }
 
         /// <summary>
@@ -137,7 +137,7 @@ namespace WordPressPCL.Models
         /// The id for the parent of the object.
         /// </summary>
         /// <remarks>Context: view, edit</remarks>
-        [JsonProperty("parent")]
+        [JsonProperty("parent", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public int Parent { get; set; }
 
         /// <summary>
@@ -171,7 +171,7 @@ namespace WordPressPCL.Models
         /// The theme file to use to display the object.
         /// </summary>
         /// <remarks>Context: view, edit</remarks>
-        [JsonProperty("template")]
+        [JsonProperty("template", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public string Template { get; set; }
 
         /// <summary>

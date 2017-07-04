@@ -23,9 +23,9 @@ namespace WordPressPCLTests
             var client = new WordPressClient(ApiCredentials.WordPressUri);
             Assert.IsNotNull(client);
             // Posts
-            var tags = await client.ListTags();
+            var tags = await client.Tags.GetAll();
             Assert.IsNotNull(tags);
-            Assert.AreNotEqual(tags.Count, 0);
+            Assert.AreNotEqual(tags.Count(), 0);
             CollectionAssert.AllItemsAreUnique(tags.Select(tag => tag.Id).ToList());
         }
 
@@ -36,7 +36,7 @@ namespace WordPressPCLTests
             var client = new WordPressClient(ApiCredentials.WordPressUri);
             Assert.IsNotNull(client);
             // Posts
-            var tag = await client.GetTag(TAG_ID);
+            var tag = await client.Tags.GetByID(TAG_ID);
 
             //TODO this should use Assert.Inconclusive
             Assert.IsNotNull(tag);

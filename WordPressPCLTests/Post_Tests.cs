@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using WordPressPCL.Models;
 using WordPressPCL.Utility;
 using WordPressPCLTests.Utility;
+using System.Linq;
 
 namespace WordPressPCLTests
 {
@@ -17,13 +18,13 @@ namespace WordPressPCLTests
         {
             var testContent = "Test" + new Random().Next() ;
             var client = await ClientHelper.GetAuthenticatedWordPressClient();
-            var posts = await client.ListPosts();
-            Assert.IsTrue(posts.Count > 0);
+            var posts = await client.Posts.GetAll();
+            Assert.IsTrue(posts.Count() > 0);
 
             // edit first post and update it
-            var post = await client.GetPost(posts[0].Id);
+            var post = await client.Posts.GetByID(posts.First().Id);
             post.Content.Raw = testContent;
-            var updatedPost = await client.UpdatePost(post);
+            var updatedPost = await client.Posts.Update(post);
             Assert.AreEqual(updatedPost.Content.Raw, testContent);
             Assert.IsTrue(updatedPost.Content.Rendered.Contains(testContent));
         }
@@ -45,16 +46,16 @@ namespace WordPressPCLTests
                 Date = DateTime.Now,
                 DateGmt = DateTime.UtcNow
             };
-            var post2 = new PostCreate()
+            var post2 = new Post()
             {
-                Title = "Title 1",
-                Content = "Content PostCreate"
+                Title = new Title("Title 1"),
+                Content = new Content("Content PostCreate")
             };
-            var createdPost = await client.CreatePost(post2);
+            var createdPost = await client.Posts.Create(post2);
 
 
-            Assert.AreEqual(post2.Content, createdPost.Content.Raw);
-            Assert.IsTrue(createdPost.Content.Rendered.Contains(post2.Content));
+            Assert.AreEqual(post2.Content.Raw, createdPost.Content.Raw);
+            Assert.IsTrue(createdPost.Content.Rendered.Contains(post2.Content.Rendered));
         }
 
 
