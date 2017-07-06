@@ -6,7 +6,7 @@ using System.Runtime.Serialization;
 
 namespace WordPressPCL.Models
 {
-    public class Media
+    public class MediaItem
     {
 
         [JsonProperty("id")]

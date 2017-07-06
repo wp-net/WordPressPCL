@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WordPressPCL.Utility;
 
-namespace WordPressPCL.Models.Interfaces
+namespace WordPressPCL.Interfaces
 {
     interface ICRUDOperationAsync<TClass>
     {

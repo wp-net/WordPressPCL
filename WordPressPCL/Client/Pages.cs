@@ -3,13 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-using WordPressPCL.Models.Interfaces;
 using WordPressPCL.Utility;
 using System.Linq;
 using System.Net.Http;
 using Newtonsoft.Json;
+using WordPressPCL.Models;
+using WordPressPCL.Interfaces;
 
-namespace WordPressPCL.Models
+namespace WordPressPCL.Client
 {
     public class Pages : ICRUDOperationAsync<Page>, IEnumerable<Page>
     {

@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using WordPressPCL.Models;
 using WordPressPCL.Utility;
 using System.Collections;
+using WordPressPCL.Client;
 
 namespace WordPressPCL
 {
@@ -40,7 +41,7 @@ namespace WordPressPCL
         public Comments Comments;
         public Tags Tags;
         public Users Users;
-        public Medias Medias;
+        public Client.Media Media;
         public Categories Categories;
         public Pages Pages;
 
@@ -67,7 +68,7 @@ namespace WordPressPCL
             Comments = new Comments(ref _httpHelper, defaultPath);
             Tags = new Tags(ref _httpHelper, defaultPath);
             Users = new Users(ref _httpHelper, defaultPath);
-            Medias = new Medias(ref _httpHelper, defaultPath);
+            Media = new Client.Media(ref _httpHelper, defaultPath);
             Categories = new Categories(ref _httpHelper, defaultPath);
             Pages = new Pages(ref _httpHelper, defaultPath);
         }
