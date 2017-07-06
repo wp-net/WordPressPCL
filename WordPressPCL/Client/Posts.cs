@@ -12,18 +12,16 @@ using Newtonsoft.Json;
 
 namespace WordPressPCL.Client
 {
-    public class Posts : ICRUDOperationAsync<Post>, IEnumerable<Post>
+    public class Posts : ICRUDOperationAsync<Post>
     {
         #region Init
         private string _defaultPath;
         private const string _methodPath = "posts";
-        private Lazy<IEnumerable<Post>> _posts;
         private HttpHelper _httpHelper;
         public Posts(ref HttpHelper HttpHelper,string defaultPath)
         {
             _defaultPath = defaultPath;
             _httpHelper = HttpHelper;
-            _posts = new Lazy<IEnumerable<Post>>(() => GetAll().GetAwaiter().GetResult());
         }
         #endregion
         #region Interface Realisation
@@ -60,24 +58,11 @@ namespace WordPressPCL.Client
             return posts;
         }
 
-        public IEnumerable<Post> GetBy(Func<Post, bool> predicate, bool embed=false)
-        {
-            return _posts.Value.Where(predicate);
-        }
+        
 
         public async Task<Post> GetByID(int ID, bool embed=false)
         {
             return await _httpHelper.GetRequest<Post>($"{_defaultPath}{_methodPath}/{ID}", embed).ConfigureAwait(false);
-        }
-
-        public IEnumerator<Post> GetEnumerator()
-        {
-            return GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return _posts.Value.GetEnumerator();
         }
         #endregion
 

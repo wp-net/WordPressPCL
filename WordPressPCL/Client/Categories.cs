@@ -12,18 +12,16 @@ using Newtonsoft.Json;
 
 namespace WordPressPCL.Client
 {
-    public class Categories : ICRUDOperationAsync<Category>, IEnumerable<Category>
+    public class Categories : ICRUDOperationAsync<Category>
     {
         #region Init
         private string _defaultPath;
         private const string _methodPath = "categories";
-        private Lazy<IEnumerable<Category>> _posts;
         private HttpHelper _httpHelper;
         public Categories(ref HttpHelper HttpHelper, string defaultPath)
         {
             _defaultPath = defaultPath;
             _httpHelper = HttpHelper;
-            _posts = new Lazy<IEnumerable<Category>>(() => GetAll().GetAwaiter().GetResult());
         }
         #endregion
         #region Interface Realisation
@@ -61,25 +59,11 @@ namespace WordPressPCL.Client
             //return await _httpHelper.GetRequest<IEnumerable<Category>>($"{_defaultPath}{_methodPath}", embed).ConfigureAwait(false);
         }
 
-        public IEnumerable<Category> GetBy(Func<Category, bool> predicate, bool embed = false)
-        {
-            return _posts.Value.Where(predicate);
-        }
-
         public async Task<Category> GetByID(int ID, bool embed = false)
         {
             return await _httpHelper.GetRequest<Category>($"{_defaultPath}{_methodPath}/{ID}", embed).ConfigureAwait(false);
         }
 
-        public IEnumerator<Category> GetEnumerator()
-        {
-            return GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return _posts.Value.GetEnumerator();
-        }
         #endregion
 
         #region Custom

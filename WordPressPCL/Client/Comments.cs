@@ -12,18 +12,16 @@ using WordPressPCL.Interfaces;
 
 namespace WordPressPCL.Client
 {
-    public class Comments : ICRUDOperationAsync<Comment>,IEnumerable<Comment>
+    public class Comments : ICRUDOperationAsync<Comment>
     {
         #region Init
         private string _defaultPath;
         private const string _methodPath = "comments";
-        private Lazy<IEnumerable<Comment>> _posts;
         private HttpHelper _httpHelper;
         public Comments(ref HttpHelper HttpHelper, string defaultPath)
         {
             _defaultPath = defaultPath;
             _httpHelper = HttpHelper;
-            _posts = new Lazy<IEnumerable<Comment>>(() => GetAll().GetAwaiter().GetResult());
         }
         #endregion
         #region Interface Realisation
@@ -61,25 +59,14 @@ namespace WordPressPCL.Client
             //return await _httpHelper.GetRequest<IEnumerable<Comment>>($"{_defaultPath}{_methodPath}", embed).ConfigureAwait(false);
         }
 
-        public IEnumerable<Comment> GetBy(Func<Comment, bool> predicate, bool embed = false)
-        {
-            return _posts.Value.Where(predicate);
-        }
+        
 
         public async Task<Comment> GetByID(int ID, bool embed = false)
         {
             return await _httpHelper.GetRequest<Comment>($"{_defaultPath}{_methodPath}/{ID}", embed).ConfigureAwait(false);
         }
 
-        public IEnumerator<Comment> GetEnumerator()
-        {
-            return GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return _posts.Value.GetEnumerator();
-        }
+        
         #endregion
 
         #region Custom

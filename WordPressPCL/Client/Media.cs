@@ -59,12 +59,6 @@ namespace WordPressPCL.Client
             //return await _httpHelper.GetRequest<IEnumerable<Media>>($"{_defaultPath}{_methodPath}", embed).ConfigureAwait(false);
         }
 
-        public IEnumerable<MediaItem> GetBy(Func<MediaItem, bool> predicate, bool embed = false)
-        {
-            // TODO
-            return null;
-        }
-
         public async Task<MediaItem> GetByID(int ID, bool embed = false)
         {
             return await _httpHelper.GetRequest<MediaItem>($"{_defaultPath}{_methodPath}/{ID}", embed).ConfigureAwait(false);

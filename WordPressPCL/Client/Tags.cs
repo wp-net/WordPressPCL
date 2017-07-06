@@ -12,18 +12,18 @@ using WordPressPCL.Interfaces;
 
 namespace WordPressPCL.Client
 {
-    public class Tags : ICRUDOperationAsync<Tag>, IEnumerable<Tag>
+    public class Tags : ICRUDOperationAsync<Tag>
     {
         #region Init
         private string _defaultPath;
         private const string _methodPath = "tags";
-        private Lazy<IEnumerable<Tag>> _posts;
+        
         private HttpHelper _httpHelper;
         public Tags(ref HttpHelper HttpHelper, string defaultPath)
         {
             _defaultPath = defaultPath;
             _httpHelper = HttpHelper;
-            _posts = new Lazy<IEnumerable<Tag>>(() => GetAll().GetAwaiter().GetResult());
+            
         }
         #endregion
         #region Interface Realisation
@@ -61,25 +61,13 @@ namespace WordPressPCL.Client
             //return await _httpHelper.GetRequest<IEnumerable<Tag>>($"{_defaultPath}{_methodPath}", embed).ConfigureAwait(false);
         }
 
-        public IEnumerable<Tag> GetBy(Func<Tag, bool> predicate, bool embed = false)
-        {
-            return _posts.Value.Where(predicate);
-        }
+       
 
         public async Task<Tag> GetByID(int ID, bool embed = false)
         {
             return await _httpHelper.GetRequest<Tag>($"{_defaultPath}{_methodPath}/{ID}", embed).ConfigureAwait(false);
         }
 
-        public IEnumerator<Tag> GetEnumerator()
-        {
-            return GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return _posts.Value.GetEnumerator();
-        }
         #endregion
 
         #region Custom
