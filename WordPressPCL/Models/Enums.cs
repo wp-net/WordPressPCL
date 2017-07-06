@@ -79,4 +79,14 @@ namespace WordPressPCL.Models
         [EnumMember(Value = "edit")]
         Edit
     }
+
+    [JsonConverter(typeof(StringEnumConverter))]
+    public enum MediaType
+    {
+        [EnumMember(Value = "image")]
+        Image,
+        [EnumMember(Value = "file")]
+        File
+
+    }
 }

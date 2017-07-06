@@ -24,7 +24,10 @@ namespace WordPressPCL.Models
         /// <remarks>Context: view, edit</remarks>
         [JsonProperty("description")]
         public string Description { get; set; }
-
+        /// <summary>
+        /// Meta object
+        /// </summary>
+        /// <remarks>Context: view</remarks>
         [JsonProperty("meta")]
         public IEnumerable<object> Meta { get; set; }
     }

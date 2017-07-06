@@ -5,6 +5,9 @@ using System.Text;
 
 namespace WordPressPCL.Models
 {
+    /// <summary>
+    /// Type represents Page Entity of WP REST API
+    /// </summary>
     public class Page
     {
         /// <summary>
