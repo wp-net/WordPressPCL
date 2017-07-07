@@ -12,38 +12,61 @@ using Newtonsoft.Json;
 
 namespace WordPressPCL.Client
 {
-    public class Categories : ICRUDOperationAsync<Category>, IEnumerable<Category>
+    /// <summary>
+    /// Client class for interaction with Categories endpoint WP REST API
+    /// </summary>
+    public class Categories : ICRUDOperationAsync<Category>
     {
         #region Init
         private string _defaultPath;
         private const string _methodPath = "categories";
-        private Lazy<IEnumerable<Category>> _posts;
         private HttpHelper _httpHelper;
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="HttpHelper">reference to HttpHelper class for interaction with HTTP</param>
+        /// <param name="defaultPath">path to site, EX. http://demo.com/wp-json/ </param>
         public Categories(ref HttpHelper HttpHelper, string defaultPath)
         {
             _defaultPath = defaultPath;
             _httpHelper = HttpHelper;
-            _posts = new Lazy<IEnumerable<Category>>(() => GetAll().GetAwaiter().GetResult());
         }
         #endregion
         #region Interface Realisation
+        /// <summary>
+        /// Create Category
+        /// </summary>
+        /// <param name="Entity">Category object</param>
+        /// <returns>Created category object</returns>
         public async Task<Category> Create(Category Entity)
         {
             var postBody = new StringContent(JsonConvert.SerializeObject(Entity).ToString(), Encoding.UTF8, "application/json");
             return (await _httpHelper.PostRequest<Category>($"{_defaultPath}{_methodPath}", postBody)).Item1;
         }
-
+        /// <summary>
+        /// Update Category
+        /// </summary>
+        /// <param name="Entity">Category object</param>
+        /// <returns>Updated category object</returns>
         public async Task<Category> Update(Category Entity)
         {
             var postBody = new StringContent(JsonConvert.SerializeObject(Entity).ToString(), Encoding.UTF8, "application/json");
             return (await _httpHelper.PostRequest<Category>($"{_defaultPath}{_methodPath}/{Entity.Id}", postBody)).Item1;
         }
-
+        /// <summary>
+        /// Delete Category
+        /// </summary>
+        /// <param name="ID">Category Id</param>
+        /// <returns>Result of operation</returns>
         public async Task<HttpResponseMessage> Delete(int ID)
         {
             return await _httpHelper.DeleteRequest($"{_defaultPath}{_methodPath}/{ID}").ConfigureAwait(false);
         }
-
+        /// <summary>
+        /// Get All Categories
+        /// </summary>
+        /// <param name="embed">Include embed info</param>
+        /// <returns>List of all Categories</returns>
         public async Task<IEnumerable<Category>> GetAll(bool embed = false)
         {
             //100 - Max posts per page in WordPress REST API, so this is hack with multiple requests
@@ -60,26 +83,17 @@ namespace WordPressPCL.Client
             return categories;
             //return await _httpHelper.GetRequest<IEnumerable<Category>>($"{_defaultPath}{_methodPath}", embed).ConfigureAwait(false);
         }
-
-        public IEnumerable<Category> GetBy(Func<Category, bool> predicate, bool embed = false)
-        {
-            return _posts.Value.Where(predicate);
-        }
-
+        /// <summary>
+        /// Get Category by Id
+        /// </summary>
+        /// <param name="ID">Category ID</param>
+        /// <param name="embed">include embed info</param>
+        /// <returns>Category by Id</returns>
         public async Task<Category> GetByID(int ID, bool embed = false)
         {
             return await _httpHelper.GetRequest<Category>($"{_defaultPath}{_methodPath}/{ID}", embed).ConfigureAwait(false);
         }
 
-        public IEnumerator<Category> GetEnumerator()
-        {
-            return GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return _posts.Value.GetEnumerator();
-        }
         #endregion
 
         #region Custom

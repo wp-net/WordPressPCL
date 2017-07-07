@@ -10,7 +10,7 @@ namespace WordPressPCL.Interfaces
     interface ICRUDOperationAsync<TClass>
     {
         Task<TClass> GetByID(int ID, bool embed=false);
-        IEnumerable<TClass> GetBy(Func<TClass, bool> predicate, bool embed=false);
+        //IEnumerable<TClass> GetBy(Func<TClass, bool> predicate, bool embed=false);
         //Task<IEnumerable<TClass>> GetBy(QueryBuilder builder);
         Task<IEnumerable<TClass>> GetAll(bool embed=false);
         Task<TClass> Create(TClass Entity);

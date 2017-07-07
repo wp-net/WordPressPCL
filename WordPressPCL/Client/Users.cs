@@ -12,38 +12,62 @@ using WordPressPCL.Interfaces;
 
 namespace WordPressPCL.Client
 {
-    public class Users : ICRUDOperationAsync<User>,IEnumerable<User>
+    /// <summary>
+    /// Client class for interaction with Users endpoint WP REST API
+    /// </summary>
+    public class Users : ICRUDOperationAsync<User>
     {
         #region Init
         private string _defaultPath;
         private const string _methodPath = "users";
-        private Lazy<IEnumerable<User>> _posts;
         private HttpHelper _httpHelper;
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="HttpHelper">reference to HttpHelper class for interaction with HTTP</param>
+        /// <param name="defaultPath">path to site, EX. http://demo.com/wp-json/ </param>
         public Users(ref HttpHelper HttpHelper, string defaultPath)
         {
             _defaultPath = defaultPath;
             _httpHelper = HttpHelper;
-            _posts = new Lazy<IEnumerable<User>>(() => GetAll().GetAwaiter().GetResult());
+            
         }
         #endregion
         #region Interface Realisation
+        /// <summary>
+        /// Create User
+        /// </summary>
+        /// <param name="Entity">User object</param>
+        /// <returns>Created user object</returns>
         public async Task<User> Create(User Entity)
         {
             var postBody = new StringContent(JsonConvert.SerializeObject(Entity).ToString(), Encoding.UTF8, "application/json");
             return (await _httpHelper.PostRequest<User>($"{_defaultPath}{_methodPath}", postBody)).Item1;
         }
-
+        /// <summary>
+        /// Update User
+        /// </summary>
+        /// <param name="Entity">User object</param>
+        /// <returns>Updated user object</returns>
         public async Task<User> Update(User Entity)
         {
             var postBody = new StringContent(JsonConvert.SerializeObject(Entity).ToString(), Encoding.UTF8, "application/json");
             return (await _httpHelper.PostRequest<User>($"{_defaultPath}{_methodPath}/{Entity.Id}", postBody)).Item1;
         }
-
+        /// <summary>
+        /// Delete User
+        /// </summary>
+        /// <param name="ID">User Id</param>
+        /// <returns>Result of operation</returns>
         public async Task<HttpResponseMessage> Delete(int ID)
         {
             return await _httpHelper.DeleteRequest($"{_defaultPath}{_methodPath}/{ID}").ConfigureAwait(false);
         }
-
+        /// <summary>
+        /// Get All Users
+        /// </summary>
+        /// <param name="embed">Include embed info</param>
+        /// <returns>List of all Users</returns>
         public async Task<IEnumerable<User>> GetAll(bool embed = false)
         {
             //100 - Max posts per page in WordPress REST API, so this is hack with multiple requests
@@ -61,37 +85,46 @@ namespace WordPressPCL.Client
             //return await _httpHelper.GetRequest<IEnumerable<User>>($"{_defaultPath}{_methodPath}", embed).ConfigureAwait(false);
         }
 
-        public IEnumerable<User> GetBy(Func<User, bool> predicate, bool embed = false)
-        {
-            return _posts.Value.Where(predicate);
-        }
-
+        
+        /// <summary>
+        /// GetUser by Id
+        /// </summary>
+        /// <param name="ID">User ID</param>
+        /// <param name="embed">include embed info</param>
+        /// <returns>User by Id</returns>
         public async Task<User> GetByID(int ID, bool embed = false)
         {
             return await _httpHelper.GetRequest<User>($"{_defaultPath}{_methodPath}/{ID}", embed).ConfigureAwait(false);
         }
 
-        public IEnumerator<User> GetEnumerator()
-        {
-            return GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return _posts.Value.GetEnumerator();
-        }
+        
         #endregion
 
         #region Custom
+        /// <summary>
+        /// Get current User
+        /// </summary>
+        /// <returns>Current User</returns>
         public async Task<User> GetCurrentUser()
         {
             return await _httpHelper.GetRequest<User>($"{_defaultPath}{_methodPath}/me", true, true).ConfigureAwait(false);
         }
-
+        /// <summary>
+        /// Delete user with reassign articles
+        /// </summary>
+        /// <param name="ID">User id for delete</param>
+        /// <param name="ReassignUserID">User id for reassign</param>
+        /// <returns>Result of operation</returns>
         public async Task<HttpResponseMessage> Delete(int ID,int ReassignUserID)
         {
             return await _httpHelper.DeleteRequest($"{_defaultPath}{_methodPath}/{ID}?reassign={ReassignUserID}").ConfigureAwait(false);
         }
+        /// <summary>
+        /// Delete user with reassign articles
+        /// </summary>
+        /// <param name="ID">User id for delete</param>
+        /// <param name="ReassignUser">User object for reassign</param>
+        /// <returns>Result of operation</returns>
         public async Task<HttpResponseMessage> Delete(int ID, User ReassignUser)
         {
             return await _httpHelper.DeleteRequest($"{_defaultPath}{_methodPath}/{ID}?reassign={ReassignUser.Id}").ConfigureAwait(false);

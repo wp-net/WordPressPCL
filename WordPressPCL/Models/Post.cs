@@ -4,6 +4,9 @@ using System.Collections.Generic;
 
 namespace WordPressPCL.Models
 {
+    /// <summary>
+    /// Type respresents Entity Post of WP REST API
+    /// </summary>
 	public class Post
 	{
         /// <summary>
@@ -206,7 +209,10 @@ namespace WordPressPCL.Models
         /// <remarks>Context: view, edit, embed</remarks>
         [JsonProperty("liveblog_likes")]
         public int LiveblogLikes { get; set; }
-
+        /// <summary>
+        /// Meta fields.
+        /// </summary>
+        /// <remarks>Context: view, edit</remarks>
         [JsonProperty("meta")]
         public IEnumerable<object> Meta { get; set; }
 

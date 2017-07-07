@@ -12,38 +12,63 @@ using WordPressPCL.Interfaces;
 
 namespace WordPressPCL.Client
 {
-    public class Tags : ICRUDOperationAsync<Tag>, IEnumerable<Tag>
+    /// <summary>
+    /// Client class for interaction with Tags endpoint WP REST API
+    /// </summary>
+    public class Tags : ICRUDOperationAsync<Tag>
     {
         #region Init
         private string _defaultPath;
         private const string _methodPath = "tags";
-        private Lazy<IEnumerable<Tag>> _posts;
+        
         private HttpHelper _httpHelper;
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="HttpHelper">reference to HttpHelper class for interaction with HTTP</param>
+        /// <param name="defaultPath">path to site, EX. http://demo.com/wp-json/ </param>
         public Tags(ref HttpHelper HttpHelper, string defaultPath)
         {
             _defaultPath = defaultPath;
             _httpHelper = HttpHelper;
-            _posts = new Lazy<IEnumerable<Tag>>(() => GetAll().GetAwaiter().GetResult());
+            
         }
         #endregion
         #region Interface Realisation
+        /// <summary>
+        /// Create Tag
+        /// </summary>
+        /// <param name="Entity">Tag object</param>
+        /// <returns>Created tag object</returns>
         public async Task<Tag> Create(Tag Entity)
         {
             var postBody = new StringContent(JsonConvert.SerializeObject(Entity).ToString(), Encoding.UTF8, "application/json");
             return (await _httpHelper.PostRequest<Tag>($"{_defaultPath}{_methodPath}", postBody)).Item1;
         }
-
+        /// <summary>
+        /// Update Tag
+        /// </summary>
+        /// <param name="Entity">Tag object</param>
+        /// <returns>Updated Tag object</returns>
         public async Task<Tag> Update(Tag Entity)
         {
             var postBody = new StringContent(JsonConvert.SerializeObject(Entity).ToString(), Encoding.UTF8, "application/json");
             return (await _httpHelper.PostRequest<Tag>($"{_defaultPath}{_methodPath}/{Entity.Id}", postBody)).Item1;
         }
-
+        /// <summary>
+        /// Delete Tag
+        /// </summary>
+        /// <param name="ID">Tag Id</param>
+        /// <returns>Result of operation</returns>
         public async Task<HttpResponseMessage> Delete(int ID)
         {
             return await _httpHelper.DeleteRequest($"{_defaultPath}{_methodPath}/{ID}").ConfigureAwait(false);
         }
-
+        /// <summary>
+        /// Get All Tags
+        /// </summary>
+        /// <param name="embed">Include embed info</param>
+        /// <returns>List of all Tags</returns>
         public async Task<IEnumerable<Tag>> GetAll(bool embed = false)
         {
             //100 - Max posts per page in WordPress REST API, so this is hack with multiple requests
@@ -61,25 +86,18 @@ namespace WordPressPCL.Client
             //return await _httpHelper.GetRequest<IEnumerable<Tag>>($"{_defaultPath}{_methodPath}", embed).ConfigureAwait(false);
         }
 
-        public IEnumerable<Tag> GetBy(Func<Tag, bool> predicate, bool embed = false)
-        {
-            return _posts.Value.Where(predicate);
-        }
 
+        /// <summary>
+        /// Get Tag by Id
+        /// </summary>
+        /// <param name="ID">Tag ID</param>
+        /// <param name="embed">include embed info</param>
+        /// <returns>Tag by Id</returns>
         public async Task<Tag> GetByID(int ID, bool embed = false)
         {
             return await _httpHelper.GetRequest<Tag>($"{_defaultPath}{_methodPath}/{ID}", embed).ConfigureAwait(false);
         }
 
-        public IEnumerator<Tag> GetEnumerator()
-        {
-            return GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return _posts.Value.GetEnumerator();
-        }
         #endregion
 
         #region Custom
