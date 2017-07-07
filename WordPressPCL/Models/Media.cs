@@ -163,7 +163,9 @@ namespace WordPressPCL.Models
         /// <remarks>Context: view, edit</remarks>
         [JsonProperty("meta")]
         public IEnumerable<object> Meta { get; set; }
-
+        /// <summary>
+        /// Links to related resources
+        /// </summary>
         [JsonProperty("_links")]
         public Links Links { get; set; }
     }

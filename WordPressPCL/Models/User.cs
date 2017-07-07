@@ -16,9 +16,12 @@ namespace WordPressPCL.Models
         /// Read only
         /// Context: embed, view, edit
         /// </remarks>
-        [JsonProperty("id")]
+        [JsonProperty("id", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public int Id { get; set; }
-
+        /// <summary>
+        /// Login name for the user.
+        /// </summary>
+        /// <remarks>Context: edit</remarks>
         [JsonProperty("username")]
         public string UserName { get; set; }
         /// <summary>
@@ -81,7 +84,7 @@ namespace WordPressPCL.Models
         /// The nickname for the user.
         /// </summary>
         /// <remarks>Context: edit</remarks>
-        [JsonProperty("nickname")]
+        [JsonProperty("nickname",DefaultValueHandling =DefaultValueHandling.Ignore)]
         public string NickName { get; set; }
 
         /// <summary>
@@ -94,7 +97,7 @@ namespace WordPressPCL.Models
         /// Registration date for the user.
         /// </summary>
         /// <remarks>Context: edit</remarks>
-        [JsonProperty("registered_date")]
+        [JsonProperty("registered_date", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public DateTime RegisteredDate { get; set; }
         /// <summary>
         /// Roles assigned to the user.
@@ -128,20 +131,20 @@ namespace WordPressPCL.Models
         /// Read only
         /// Context: embed, view, edit
         /// </remarks>
-        [JsonProperty("avatar_urls")]
+        [JsonProperty("avatar_urls", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public AvatarURL AvatarUrls { get; set; }
 
         /// <summary>
         /// Meta fields.
         /// </summary>
         /// <remarks>Context: view, edit</remarks>
-        [JsonProperty("meta")]
+        [JsonProperty("meta", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public IEnumerable<object> Meta { get; set; }
 
         /// <summary>
         /// Links to related resources
         /// </summary>
-        [JsonProperty("_links")]
+        [JsonProperty("_links", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public Links Links { get; set; }
     }
 

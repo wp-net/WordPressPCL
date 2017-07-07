@@ -13,7 +13,7 @@ namespace WordPressPCL.Models
         /// Unique identifier for the object.
         /// </summary>
         /// <remarks>Context: view, edit, embed</remarks>
-        [JsonProperty("id")]
+        [JsonProperty("id",DefaultValueHandling =DefaultValueHandling.Ignore)]
         public int Id { get; set; }
         /// <summary>
         /// The id of the associated post object.
@@ -21,12 +21,14 @@ namespace WordPressPCL.Models
         /// <remarks>Context: view, edit</remarks>
         [JsonProperty("post")]
         public int PostId { get; set; }
-
-        [JsonProperty("parent")]
+        /// <summary>
+        /// The id for the parent of the object.
+        /// </summary>
+        /// <remarks>Context: view, edit, embed</remarks>
+        [JsonProperty("parent", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public int ParentId { get; set; }
         /// <summary>
         /// The id of the user object, if author was a user.
-
         /// <see cref="WordPressPCL.Models.User.Id"/>
         /// </summary>
         /// <remarks>Context: view, edit, embed</remarks>
@@ -61,7 +63,7 @@ namespace WordPressPCL.Models
         /// <see cref="WordPressPCL.Models.AvatarURL"/>
         /// </summary>
         /// <remarks>Context: view, edit, embed</remarks>
-        [JsonProperty("author_avatar_urls")]
+        [JsonProperty("author_avatar_urls", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public AvatarURL AuthorAvatarUrls { get; set; }
         /// <summary>
         /// User agent for the object author.
@@ -88,12 +90,6 @@ namespace WordPressPCL.Models
         [JsonProperty("content")]
         public Content Content { get; set; }
         /// <summary>
-        /// The id for the parent of the object.
-        /// </summary>
-        /// <remarks>Context: view, edit, embed</remarks>
-        [JsonProperty("parent")]
-        public int Parent { get; set; }
-        /// <summary>
         /// URL to the object.
         /// </summary>
         /// <remarks>Context: view, edit, embed</remarks>
@@ -112,7 +108,7 @@ namespace WordPressPCL.Models
         /// Meta fields.
         /// </summary>
         /// <remarks>Context: view, edit</remarks>
-        [JsonProperty("meta")]
+        [JsonProperty("meta", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public IEnumerable<object> Meta { get; set; }
         /// <summary>
         /// Karma for the object.

@@ -4,6 +4,528 @@
         <name>WordPressPCL</name>
     </assembly>
     <members>
+        <member name="T:WordPressPCL.Client.Categories">
+            <summary>
+            Client class for interaction with Categories endpoint WP REST API
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Client.Categories.#ctor(WordPressPCL.Utility.HttpHelper@,System.String)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="HttpHelper">reference to HttpHelper class for interaction with HTTP</param>
+            <param name="defaultPath">path to site, EX. http://demo.com/wp-json/ </param>
+        </member>
+        <member name="M:WordPressPCL.Client.Categories.Create(WordPressPCL.Models.Category)">
+            <summary>
+            Create Category
+            </summary>
+            <param name="Entity">Category object</param>
+            <returns>Created category object</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Categories.Update(WordPressPCL.Models.Category)">
+            <summary>
+            Update Category
+            </summary>
+            <param name="Entity">Category object</param>
+            <returns>Updated category object</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Categories.Delete(System.Int32)">
+            <summary>
+            Delete Category
+            </summary>
+            <param name="ID">Category Id</param>
+            <returns>Result of operation</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Categories.GetAll(System.Boolean)">
+            <summary>
+            Get All Categories
+            </summary>
+            <param name="embed">Include embed info</param>
+            <returns>List of all Categories</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Categories.GetByID(System.Int32,System.Boolean)">
+            <summary>
+            Get Category by Id
+            </summary>
+            <param name="ID">Category ID</param>
+            <param name="embed">include embed info</param>
+            <returns>Category by Id</returns>
+        </member>
+        <member name="T:WordPressPCL.Client.Comments">
+            <summary>
+            Client class for interaction with Comments endpoint WP REST API
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Client.Comments.#ctor(WordPressPCL.Utility.HttpHelper@,System.String)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="HttpHelper">reference to HttpHelper class for interaction with HTTP</param>
+            <param name="defaultPath">path to site, EX. http://demo.com/wp-json/ </param>
+        </member>
+        <member name="M:WordPressPCL.Client.Comments.Create(WordPressPCL.Models.Comment)">
+            <summary>
+            Create Comment
+            </summary>
+            <param name="Entity">Comment object</param>
+            <returns>Created comment object</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Comments.Update(WordPressPCL.Models.Comment)">
+            <summary>
+            Update Comment
+            </summary>
+            <param name="Entity">Comment object</param>
+            <returns>Updated comment object</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Comments.Delete(System.Int32)">
+            <summary>
+            Delete Comment
+            </summary>
+            <param name="ID">Comment Id</param>
+            <returns>Result of operation</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Comments.GetAll(System.Boolean)">
+            <summary>
+            Get All Comments
+            </summary>
+            <param name="embed">Include embed info</param>
+            <returns>List of all Comments</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Comments.GetByID(System.Int32,System.Boolean)">
+            <summary>
+            Get Comment by Id
+            </summary>
+            <param name="ID">Comment ID</param>
+            <param name="embed">include embed info</param>
+            <returns>Comment by Id</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Comments.GetCommentsForPost(System.String,System.Boolean)">
+            <summary>
+            Get comments for Post
+            </summary>
+            <param name="PostID">Post id</param>
+            <param name="embed">include embed info</param>
+            <returns>List of comments for post</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Comments.Delete(System.Int32,System.Boolean)">
+            <summary>
+            Force deletion of comments
+            </summary>
+            <param name="ID">Comment Id</param>
+            <param name="force">force deletion</param>
+            <returns>Result of operation</returns>
+        </member>
+        <member name="T:WordPressPCL.Client.Media">
+            <summary>
+            Client class for interaction with Media endpoint WP REST API
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Client.Media.#ctor(WordPressPCL.Utility.HttpHelper@,System.String)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="HttpHelper">reference to HttpHelper class for interaction with HTTP</param>
+            <param name="defaultPath">path to site, EX. http://demo.com/wp-json/ </param>
+        </member>
+        <member name="M:WordPressPCL.Client.Media.Create(WordPressPCL.Models.MediaItem)">
+            <summary>
+            Create Media
+            </summary>
+            <param name="Entity">Media object</param>
+            <returns>Created media object</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Media.Update(WordPressPCL.Models.MediaItem)">
+            <summary>
+            Update Media
+            </summary>
+            <param name="Entity">Media object</param>
+            <returns>Updated media object</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Media.Delete(System.Int32)">
+            <summary>
+            Delete Media
+            </summary>
+            <param name="ID">Media Id</param>
+            <returns>Result of operation</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Media.GetAll(System.Boolean)">
+            <summary>
+            Get All Media
+            </summary>
+            <param name="embed">Include embed info</param>
+            <returns>List of all Media</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Media.GetByID(System.Int32,System.Boolean)">
+            <summary>
+            Get Media by Id
+            </summary>
+            <param name="ID">Media ID</param>
+            <param name="embed">include embed info</param>
+            <returns>Media by Id</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Media.Delete(System.Int32,System.Boolean)">
+            <summary>
+            Force deletion of media
+            </summary>
+            <param name="ID">Media id</param>
+            <param name="force">force deletion</param>
+            <returns>Result of operation</returns>
+        </member>
+        <member name="T:WordPressPCL.Client.Pages">
+            <summary>
+            Client class for interaction with Pages endpoint WP REST API
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Client.Pages.#ctor(WordPressPCL.Utility.HttpHelper@,System.String)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="HttpHelper">reference to HttpHelper class for interaction with HTTP</param>
+            <param name="defaultPath">path to site, EX. http://demo.com/wp-json/ </param>
+        </member>
+        <member name="M:WordPressPCL.Client.Pages.Create(WordPressPCL.Models.Page)">
+            <summary>
+            Create Page
+            </summary>
+            <param name="Entity">Page object</param>
+            <returns>Created page object</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Pages.Update(WordPressPCL.Models.Page)">
+            <summary>
+            Update Page
+            </summary>
+            <param name="Entity">Page object</param>
+            <returns>Updated page object</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Pages.Delete(System.Int32)">
+            <summary>
+            Delete Page
+            </summary>
+            <param name="ID">Page Id</param>
+            <returns>Result of operation</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Pages.GetAll(System.Boolean)">
+            <summary>
+            Get All Pages
+            </summary>
+            <param name="embed">Include embed info</param>
+            <returns>List of all Pages</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Pages.GetByID(System.Int32,System.Boolean)">
+            <summary>
+            Get Page by Id
+            </summary>
+            <param name="ID">Page ID</param>
+            <param name="embed">include embed info</param>
+            <returns>Page by Id</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Pages.GetPagesByAuthor(System.Int32,System.Boolean)">
+            <summary>
+            Get pages by its author
+            </summary>
+            <param name="authorId">Author id</param>
+            <param name="embed">includ embed info</param>
+            <returns>List of pages</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Pages.GetPagesByAuthor(System.Int32,WordPressPCL.Utility.QueryBuilder)">
+            <summary>
+            Get pages by author with query builder
+            </summary>
+            <param name="authorId">Author id</param>
+            <param name="builder">Builder object</param>
+            <returns>List of pages</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Pages.GetPagesBySearch(System.String,System.Boolean)">
+            <summary>
+            Get pages by search term
+            </summary>
+            <param name="searchTerm">Search term</param>
+            <param name="embed">include embed info</param>
+            <returns>List of pages</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Pages.GetPagesBySearch(System.String,WordPressPCL.Utility.QueryBuilder)">
+            <summary>
+            Get pages by search term with query builder
+            </summary>
+            <param name="searchTerm">Search term</param>
+            <param name="builder">Query builder object</param>
+            <returns>List of pages</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Pages.GetBy(WordPressPCL.Utility.QueryBuilder)">
+            <summary>
+            Get pages  with query builder
+            </summary>
+            <param name="builder">Query builder object</param>
+            <returns>List of pages</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Pages.Delete(System.Int32,System.Boolean)">
+            <summary>
+            Delete page with force deletion
+            </summary>
+            <param name="ID">Page id</param>
+            <param name="force">force deletion</param>
+            <returns>Result of opertion</returns>
+        </member>
+        <member name="T:WordPressPCL.Client.Posts">
+            <summary>
+            Client class for interaction with Posts endpoint WP REST API
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Client.Posts.#ctor(WordPressPCL.Utility.HttpHelper@,System.String)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="HttpHelper">reference to HttpHelper class for interaction with HTTP</param>
+            <param name="defaultPath">path to site, EX. http://demo.com/wp-json/ </param>
+        </member>
+        <member name="M:WordPressPCL.Client.Posts.Create(WordPressPCL.Models.Post)">
+            <summary>
+            Create Post
+            </summary>
+            <param name="Entity">Post object</param>
+            <returns>Created post object</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Posts.Update(WordPressPCL.Models.Post)">
+            <summary>
+            Update Post
+            </summary>
+            <param name="Entity">Post object</param>
+            <returns>Updated Post object</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Posts.Delete(System.Int32)">
+            <summary>
+            Delete Post
+            </summary>
+            <param name="ID">Post Id</param>
+            <returns>Result of operation</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Posts.GetAll(System.Boolean)">
+            <summary>
+            Get All Posts
+            </summary>
+            <param name="embed">Include embed info</param>
+            <returns>List of all Posts</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Posts.GetByID(System.Int32,System.Boolean)">
+            <summary>
+            Get Post by Id
+            </summary>
+            <param name="ID">Post ID</param>
+            <param name="embed">include embed info</param>
+            <returns>Post by Id</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Posts.GetStickyPosts(System.Boolean)">
+            <summary>
+            Get sticky posts
+            </summary>
+            <param name="embed">includ embed info</param>
+            <returns>List of posts</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Posts.GetStickyPosts(WordPressPCL.Utility.QueryBuilder)">
+            <summary>
+            Get sticky posts with query builder
+            </summary>
+            <param name="builder">Query builder object</param>
+            <returns>List of posts</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Posts.GetPostsByCategory(System.Int32,System.Boolean)">
+            <summary>
+            Get posts by category
+            </summary>
+            <param name="categoryId">Category Id</param>
+            <param name="embed">includ embed info</param>
+            <returns>List of posts</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Posts.GetPostsByCategory(System.Int32,WordPressPCL.Utility.QueryBuilder)">
+            <summary>
+            Get posts by category
+            </summary>
+            <param name="categoryId">Category Id</param>
+            <param name="builder">Query builder object</param>
+            <returns>List of posts</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Posts.GetPostsByTag(System.Int32,System.Boolean)">
+            <summary>
+            Get posts by tag
+            </summary>
+            <param name="tagId">Tag Id</param>
+            <param name="embed">includ embed info</param>
+            <returns>List of posts</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Posts.GetPostsByTag(System.Int32,WordPressPCL.Utility.QueryBuilder)">
+            <summary>
+            Get posts by tag
+            </summary>
+            <param name="tagId">Tag Id</param>
+            <param name="builder">Query builder object</param>
+            <returns>List of posts</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Posts.GetPostsByAuthor(System.Int32,System.Boolean)">
+            <summary>
+            Get posts by its author
+            </summary>
+            <param name="authorId">Author id</param>
+            <param name="embed">includ embed info</param>
+            <returns>List of posts</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Posts.GetPostsByAuthor(System.Int32,WordPressPCL.Utility.QueryBuilder)">
+            <summary>
+            Get posts by author with query builder
+            </summary>
+            <param name="authorId">Author id</param>
+            <param name="builder">Builder object</param>
+            <returns>List of posts</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Posts.GetPostsBySearch(System.String,System.Boolean)">
+            <summary>
+            Get posts by search term
+            </summary>
+            <param name="searchTerm">Search term</param>
+            <param name="embed">include embed info</param>
+            <returns>List of posts</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Posts.GetPostsBySearch(System.String,WordPressPCL.Utility.QueryBuilder)">
+            <summary>
+            Get posts by search term with query builder
+            </summary>
+            <param name="searchTerm">Search term</param>
+            <param name="builder">Query builder object</param>
+            <returns>List of posts</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Posts.GetBy(WordPressPCL.Utility.QueryBuilder)">
+            <summary>
+            Get posts  with query builder
+            </summary>
+            <param name="builder">Query builder object</param>
+            <returns>List of posts</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Posts.Delete(System.Int32,System.Boolean)">
+            <summary>
+            Delete post with force deletion
+            </summary>
+            <param name="ID">Post id</param>
+            <param name="force">force deletion</param>
+            <returns>Result of opertion</returns>
+        </member>
+        <member name="T:WordPressPCL.Client.Tags">
+            <summary>
+            Client class for interaction with Tags endpoint WP REST API
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Client.Tags.#ctor(WordPressPCL.Utility.HttpHelper@,System.String)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="HttpHelper">reference to HttpHelper class for interaction with HTTP</param>
+            <param name="defaultPath">path to site, EX. http://demo.com/wp-json/ </param>
+        </member>
+        <member name="M:WordPressPCL.Client.Tags.Create(WordPressPCL.Models.Tag)">
+            <summary>
+            Create Tag
+            </summary>
+            <param name="Entity">Tag object</param>
+            <returns>Created tag object</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Tags.Update(WordPressPCL.Models.Tag)">
+            <summary>
+            Update Tag
+            </summary>
+            <param name="Entity">Tag object</param>
+            <returns>Updated Tag object</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Tags.Delete(System.Int32)">
+            <summary>
+            Delete Tag
+            </summary>
+            <param name="ID">Tag Id</param>
+            <returns>Result of operation</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Tags.GetAll(System.Boolean)">
+            <summary>
+            Get All Tags
+            </summary>
+            <param name="embed">Include embed info</param>
+            <returns>List of all Tags</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Tags.GetByID(System.Int32,System.Boolean)">
+            <summary>
+            Get Tag by Id
+            </summary>
+            <param name="ID">Tag ID</param>
+            <param name="embed">include embed info</param>
+            <returns>Tag by Id</returns>
+        </member>
+        <member name="T:WordPressPCL.Client.Users">
+            <summary>
+            Client class for interaction with Users endpoint WP REST API
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Client.Users.#ctor(WordPressPCL.Utility.HttpHelper@,System.String)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="HttpHelper">reference to HttpHelper class for interaction with HTTP</param>
+            <param name="defaultPath">path to site, EX. http://demo.com/wp-json/ </param>
+        </member>
+        <member name="M:WordPressPCL.Client.Users.Create(WordPressPCL.Models.User)">
+            <summary>
+            Create User
+            </summary>
+            <param name="Entity">User object</param>
+            <returns>Created user object</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Users.Update(WordPressPCL.Models.User)">
+            <summary>
+            Update User
+            </summary>
+            <param name="Entity">User object</param>
+            <returns>Updated user object</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Users.Delete(System.Int32)">
+            <summary>
+            Delete User
+            </summary>
+            <param name="ID">User Id</param>
+            <returns>Result of operation</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Users.GetAll(System.Boolean)">
+            <summary>
+            Get All Users
+            </summary>
+            <param name="embed">Include embed info</param>
+            <returns>List of all Users</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Users.GetByID(System.Int32,System.Boolean)">
+            <summary>
+            GetUser by Id
+            </summary>
+            <param name="ID">User ID</param>
+            <param name="embed">include embed info</param>
+            <returns>User by Id</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Users.GetCurrentUser">
+            <summary>
+            Get current User
+            </summary>
+            <returns>Current User</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Users.Delete(System.Int32,System.Int32)">
+            <summary>
+            Delete user with reassign articles
+            </summary>
+            <param name="ID">User id for delete</param>
+            <param name="ReassignUserID">User id for reassign</param>
+            <returns>Result of operation</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Users.Delete(System.Int32,WordPressPCL.Models.User)">
+            <summary>
+            Delete user with reassign articles
+            </summary>
+            <param name="ID">User id for delete</param>
+            <param name="ReassignUser">User object for reassign</param>
+            <returns>Result of operation</returns>
+        </member>
         <member name="T:WordPressPCL.Models.AuthMethod">
             <summary>
             Authentcation Methods
@@ -90,7 +612,19 @@
             </summary>
             <remarks>Context: view, edit</remarks>
         </member>
-        <!-- Проигнорирован некорректный комментарий XML для члена "P:WordPressPCL.Models.Comment.AuthorId" -->
+        <member name="P:WordPressPCL.Models.Comment.ParentId">
+            <summary>
+            The id for the parent of the object.
+            </summary>
+            <remarks>Context: view, edit, embed</remarks>
+        </member>
+        <member name="P:WordPressPCL.Models.Comment.AuthorId">
+            <summary>
+            The id of the user object, if author was a user.
+            <see cref="P:WordPressPCL.Models.User.Id"/>
+            </summary>
+            <remarks>Context: view, edit, embed</remarks>
+        </member>
         <member name="P:WordPressPCL.Models.Comment.AuthorName">
             <summary>
             Display name for the object author.
@@ -208,6 +742,36 @@
             Terms for the post (categories, tags etc.)
             </summary>
         </member>
+        <member name="T:WordPressPCL.Models.Status">
+            <summary>
+            Status of Post/Page/Media
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.Status.Publish">
+            <summary>
+            Publish
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.Status.Private">
+            <summary>
+            Private
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.Status.Future">
+            <summary>
+            Future publication
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.Status.Draft">
+            <summary>
+            Draft
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.Status.Pending">
+            <summary>
+            Pending
+            </summary>
+        </member>
         <member name="T:WordPressPCL.Models.OpenStatus">
             <summary>
             Status of Comments, Pings etc.
@@ -229,6 +793,36 @@
             </summary>
             <remarks>Default: date</remarks>
         </member>
+        <member name="F:WordPressPCL.Models.OrderBy.Date">
+            <summary>
+            Order By Date
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.OrderBy.Relevance">
+            <summary>
+            Order By Relevance
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.OrderBy.Id">
+            <summary>
+            Order By Id
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.OrderBy.Include">
+            <summary>
+            Order By Include
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.OrderBy.Title">
+            <summary>
+            Order By Title
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.OrderBy.Slug">
+            <summary>
+            Order By Slug
+            </summary>
+        </member>
         <member name="T:WordPressPCL.Models.Context">
             <summary>
             Scope under which the request is made; determines fields present in response.
@@ -237,6 +831,36 @@
             Default: view
             One of: view, embed, edit
             </remarks>
+        </member>
+        <member name="F:WordPressPCL.Models.Context.View">
+            <summary>
+            Available in view
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.Context.Embed">
+            <summary>
+            Available in Embed
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.Context.Edit">
+            <summary>
+            Available in edit
+            </summary>
+        </member>
+        <member name="T:WordPressPCL.Models.MediaType">
+            <summary>
+            Type of Media Item
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.MediaType.Image">
+            <summary>
+            Image
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.MediaType.File">
+            <summary>
+            File
+            </summary>
         </member>
         <member name="T:WordPressPCL.Models.ImageMeta">
             <summary>
@@ -492,6 +1116,11 @@
             Meta fields.
             </summary>
             <remarks>Context: view, edit</remarks>
+        </member>
+        <member name="P:WordPressPCL.Models.MediaItem.Links">
+            <summary>
+            Links to related resources
+            </summary>
         </member>
         <member name="T:WordPressPCL.Models.MediaDetails">
             <summary>
@@ -1293,6 +1922,12 @@
             Context: embed, view, edit
             </remarks>
         </member>
+        <member name="P:WordPressPCL.Models.User.UserName">
+            <summary>
+            Login name for the user.
+            </summary>
+            <remarks>Context: edit</remarks>
+        </member>
         <member name="P:WordPressPCL.Models.User.Name">
             <summary>
             Display name for the user.
@@ -1425,6 +2060,58 @@
             </summary>
             <param name="WordpressURI">base WP RESR API endpoint EX. http://demo.com/wp-json/ </param>
         </member>
+        <member name="T:WordPressPCL.Utility.QueryBuilder">
+            <summary>
+            Query builder class. Use it for create custom query
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.QueryBuilder.Page">
+            <summary>
+            Number of page to retrive
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.QueryBuilder.Per_Page">
+            <summary>
+            Number of entities retrive in one page
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.QueryBuilder.Offset">
+            <summary>
+            Offset in result
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.QueryBuilder.After">
+            <summary>
+            retrive entites after that Date
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.QueryBuilder.OrderBy">
+            <summary>
+            Order results by
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.QueryBuilder.Embed">
+            <summary>
+            include embed info
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.QueryBuilder.Context">
+            <summary>
+            Context of request
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Utility.QueryBuilder.#ctor(System.String)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="wordpressUrl">base path to WP REST API EX. http://demo.com/wp-json/ </param>
+        </member>
+        <member name="M:WordPressPCL.Utility.QueryBuilder.ToString">
+            <summary>
+            Override ToString Method
+            </summary>
+            <returns>Query string</returns>
+        </member>
         <member name="T:WordPressPCL.WordPressClient">
             <summary>
                 Main class containing the wrapper client with all public API endpoints.
@@ -1435,11 +2122,77 @@
             WordPressUri holds the WordPress API endpoint, e.g. "http://demo.wp-api.org/wp-json/wp/v2/"
             </summary>
         </member>
+        <member name="P:WordPressPCL.WordPressClient.AuthMethod">
+            <summary>
+            Authentication method
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.WordPressClient.Posts">
+            <summary>
+            Posts client interaction object
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.WordPressClient.Comments">
+            <summary>
+            Comments client interaction object
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.WordPressClient.Tags">
+            <summary>
+            Tags client interaction object
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.WordPressClient.Users">
+            <summary>
+            Users client interaction object
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.WordPressClient.Media">
+            <summary>
+            Media client interaction object
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.WordPressClient.Categories">
+            <summary>
+            Categories client interaction object
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.WordPressClient.Pages">
+            <summary>
+            Pages client interaction object
+            </summary>
+        </member>
         <member name="M:WordPressPCL.WordPressClient.#ctor(System.String)">
             <summary>
                 The WordPressClient holds all connection infos and provides methods to call WordPress APIs.
             </summary>
             <param name="uri">URI for WordPress API endpoint, e.g. "http://demo.wp-api.org/wp-json/"</param>
+        </member>
+        <member name="M:WordPressPCL.WordPressClient.GetSettings">
+            <summary>
+            Get site settings
+            </summary>
+            <returns>Site settings</returns>
+        </member>
+        <member name="M:WordPressPCL.WordPressClient.UpdateSettings(WordPressPCL.Models.Settings)">
+            <summary>
+            Update site settings
+            </summary>
+            <param name="settings">Settings object</param>
+            <returns>Updated settings</returns>
+        </member>
+        <member name="M:WordPressPCL.WordPressClient.RequestJWToken(System.String,System.String)">
+            <summary>
+            Perform authentication by JWToken
+            </summary>
+            <param name="Username">username</param>
+            <param name="Password">password</param>
+        </member>
+        <member name="M:WordPressPCL.WordPressClient.IsValidJWToken">
+            <summary>
+            Check if token is valid
+            </summary>
+            <returns>Result of checking</returns>
         </member>
     </members>
 </doc>

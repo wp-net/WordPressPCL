@@ -35,14 +35,38 @@ namespace WordPressPCL
 
         /*public string Username { get; set; }
         public string Password { get; set; }*/
+        /// <summary>
+        /// Authentication method
+        /// </summary>
         public AuthMethod AuthMethod { get; set; }
         //public string JWToken;
+        /// <summary>
+        /// Posts client interaction object
+        /// </summary>
         public Posts Posts;
+        /// <summary>
+        /// Comments client interaction object
+        /// </summary>
         public Comments Comments;
+        /// <summary>
+        /// Tags client interaction object
+        /// </summary>
         public Tags Tags;
+        /// <summary>
+        /// Users client interaction object
+        /// </summary>
         public Users Users;
+        /// <summary>
+        /// Media client interaction object
+        /// </summary>
         public Client.Media Media;
+        /// <summary>
+        /// Categories client interaction object
+        /// </summary>
         public Categories Categories;
+        /// <summary>
+        /// Pages client interaction object
+        /// </summary>
         public Pages Pages;
 
 
@@ -76,10 +100,19 @@ namespace WordPressPCL
        
 
         #region Settings methods
+        /// <summary>
+        /// Get site settings
+        /// </summary>
+        /// <returns>Site settings</returns>
         public async Task<Settings> GetSettings()
         {
             return await _httpHelper.GetRequest<Settings>($"{defaultPath}settings", false, true).ConfigureAwait(false);
         }
+        /// <summary>
+        /// Update site settings
+        /// </summary>
+        /// <param name="settings">Settings object</param>
+        /// <returns>Updated settings</returns>
         public async Task<Settings> UpdateSettings(Settings settings)
         {
             var postBody = new StringContent(JsonConvert.SerializeObject(settings).ToString(), Encoding.UTF8, "application/json");
@@ -89,7 +122,11 @@ namespace WordPressPCL
         #endregion
 
         #region auth methods
-
+        /// <summary>
+        /// Perform authentication by JWToken
+        /// </summary>
+        /// <param name="Username">username</param>
+        /// <param name="Password">password</param>
         public async Task RequestJWToken(string Username, string Password)
         {
             var route = $"{jwtPath}token";
@@ -106,7 +143,10 @@ namespace WordPressPCL
                 _httpHelper.JWToken = jwtUser?.Token;
             }
         }
-
+        /// <summary>
+        /// Check if token is valid
+        /// </summary>
+        /// <returns>Result of checking</returns>
         public async Task<bool> IsValidJWToken()
         {
             var route = $"{jwtPath}token/validate";
@@ -116,12 +156,6 @@ namespace WordPressPCL
                 return repsonse.IsSuccessStatusCode;
             }
         }
-
-        #endregion
-
-        #region internal http methods
-
-
 
         #endregion
     }

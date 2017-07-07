@@ -28,7 +28,7 @@ namespace WordPressPCL.Models
         /// Meta object
         /// </summary>
         /// <remarks>Context: view</remarks>
-        [JsonProperty("meta")]
+        [JsonProperty("meta", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public IEnumerable<object> Meta { get; set; }
     }
 }

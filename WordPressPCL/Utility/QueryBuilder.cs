@@ -4,17 +4,44 @@ using WordPressPCL.Models;
 
 namespace WordPressPCL.Utility
 {
+    /// <summary>
+    /// Query builder class. Use it for create custom query
+    /// </summary>
     public class QueryBuilder
     {
         private string _url;
+        /// <summary>
+        /// Number of page to retrive
+        /// </summary>
         public int Page { get; set; }
+        /// <summary>
+        /// Number of entities retrive in one page
+        /// </summary>
         public int Per_Page { get; set; }
+        /// <summary>
+        /// Offset in result
+        /// </summary>
         public int Offset { get; set; }
+        /// <summary>
+        /// retrive entites after that Date
+        /// </summary>
         public DateTime After { get; set; }
+        /// <summary>
+        /// Order results by
+        /// </summary>
         public OrderBy OrderBy { get; set; }
+        /// <summary>
+        /// include embed info
+        /// </summary>
         public bool Embed { get; set; }
+        /// <summary>
+        /// Context of request
+        /// </summary>
         public Context Context { get; set; }
-
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="wordpressUrl">base path to WP REST API EX. http://demo.com/wp-json/ </param>
         public QueryBuilder(string wordpressUrl = null)
         {
             _url = wordpressUrl;
@@ -32,7 +59,10 @@ namespace WordPressPCL.Utility
             _url = url;
             return this;
         }
-
+        /// <summary>
+        /// Override ToString Method
+        /// </summary>
+        /// <returns>Query string</returns>
         public override string ToString()
         {
             if (String.IsNullOrEmpty(_url)) return string.Empty;

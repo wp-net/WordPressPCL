@@ -7,17 +7,35 @@ using System.Text;
 
 namespace WordPressPCL.Models
 {
+    /// <summary>
+    /// Status of Post/Page/Media
+    /// </summary>
     [JsonConverter(typeof(StringEnumConverter))]
     public enum Status
     {
+        /// <summary>
+        /// Publish
+        /// </summary>
         [EnumMember(Value = "publish")]
         Publish,
+        /// <summary>
+        /// Private
+        /// </summary>
         [EnumMember(Value = "private")]
         Private,
+        /// <summary>
+        /// Future publication
+        /// </summary>
         [EnumMember(Value = "future")]
         Future,
+        /// <summary>
+        /// Draft
+        /// </summary>
         [EnumMember(Value = "draft")]
         Draft,
+        /// <summary>
+        /// Pending
+        /// </summary>
         [EnumMember(Value = "pending")]
         Pending
 
@@ -48,16 +66,35 @@ namespace WordPressPCL.Models
     [JsonConverter(typeof(StringEnumConverter))]
     public enum OrderBy
     {
+        /// <summary>
+        /// Order By Date
+        /// </summary>
         [EnumMember(Value = "date")]
         Date,
+        /// <summary>
+        /// Order By Relevance
+        /// </summary>
         [EnumMember(Value = "relevance")]
         Relevance,
+
+        /// <summary>
+        /// Order By Id
+        /// </summary>
         [EnumMember(Value = "id")]
         Id,
+        /// <summary>
+        /// Order By Include
+        /// </summary>
         [EnumMember(Value = "include")]
         Include,
+        /// <summary>
+        /// Order By Title
+        /// </summary>
         [EnumMember(Value = "title")]
         Title,
+        /// <summary>
+        /// Order By Slug
+        /// </summary>
         [EnumMember(Value = "slug")]
         Slug
     }
@@ -72,19 +109,36 @@ namespace WordPressPCL.Models
     [JsonConverter(typeof(StringEnumConverter))]
     public enum Context
     {
+        /// <summary>
+        /// Available in view
+        /// </summary>
         [EnumMember(Value = "view")]
         View,
+        /// <summary>
+        /// Available in Embed
+        /// </summary>
         [EnumMember(Value = "embed")]
         Embed,
+        /// <summary>
+        /// Available in edit
+        /// </summary>
         [EnumMember(Value = "edit")]
         Edit
     }
-
+    /// <summary>
+    /// Type of Media Item
+    /// </summary>
     [JsonConverter(typeof(StringEnumConverter))]
     public enum MediaType
     {
+        /// <summary>
+        /// Image
+        /// </summary>
         [EnumMember(Value = "image")]
         Image,
+        /// <summary>
+        /// File
+        /// </summary>
         [EnumMember(Value = "file")]
         File
 
