@@ -681,12 +681,6 @@
             </summary>
             <remarks>Context: view, edit, embed</remarks>
         </member>
-        <member name="P:WordPressPCL.Models.Comment.Parent">
-            <summary>
-            The id for the parent of the object.
-            </summary>
-            <remarks>Context: view, edit, embed</remarks>
-        </member>
         <member name="P:WordPressPCL.Models.Comment.Link">
             <summary>
             URL to the object.
@@ -960,6 +954,37 @@
             Curries
             </summary>
         </member>
+        <member name="T:WordPressPCL.Models.MediaDetails">
+            <summary>
+            Details of media item
+            <see cref="P:WordPressPCL.Models.MediaItem.MediaDetails"/>
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.MediaDetails.Width">
+            <summary>
+            Media width
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.MediaDetails.Height">
+            <summary>
+            Media height
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.MediaDetails.File">
+            <summary>
+            File
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.MediaDetails.Sizes">
+            <summary>
+            Sizes
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.MediaDetails.ImageMeta">
+            <summary>
+            Meta info of Image
+            </summary>
+        </member>
         <member name="T:WordPressPCL.Models.MediaItem">
             <summary>
             Type represent Media Entity of WP REST API
@@ -1120,37 +1145,6 @@
         <member name="P:WordPressPCL.Models.MediaItem.Links">
             <summary>
             Links to related resources
-            </summary>
-        </member>
-        <member name="T:WordPressPCL.Models.MediaDetails">
-            <summary>
-            Details of media item
-            <see cref="P:WordPressPCL.Models.MediaItem.MediaDetails"/>
-            </summary>
-        </member>
-        <member name="P:WordPressPCL.Models.MediaDetails.Width">
-            <summary>
-            Media width
-            </summary>
-        </member>
-        <member name="P:WordPressPCL.Models.MediaDetails.Height">
-            <summary>
-            Media height
-            </summary>
-        </member>
-        <member name="P:WordPressPCL.Models.MediaDetails.File">
-            <summary>
-            File
-            </summary>
-        </member>
-        <member name="P:WordPressPCL.Models.MediaDetails.Sizes">
-            <summary>
-            Sizes
-            </summary>
-        </member>
-        <member name="P:WordPressPCL.Models.MediaDetails.ImageMeta">
-            <summary>
-            Meta info of Image
             </summary>
         </member>
         <member name="T:WordPressPCL.Models.MediaSize">

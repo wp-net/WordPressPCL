@@ -92,7 +92,7 @@ namespace WordPressPCL
             Comments = new Comments(ref _httpHelper, defaultPath);
             Tags = new Tags(ref _httpHelper, defaultPath);
             Users = new Users(ref _httpHelper, defaultPath);
-            Media = new Client.Media(ref _httpHelper, defaultPath);
+            Media = new Media(ref _httpHelper, defaultPath);
             Categories = new Categories(ref _httpHelper, defaultPath);
             Pages = new Pages(ref _httpHelper, defaultPath);
         }
