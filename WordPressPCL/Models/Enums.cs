@@ -60,11 +60,11 @@ namespace WordPressPCL.Models
     }
 
     /// <summary>
-    /// Sort collection by object attribute.
+    /// Sort posts collection by object attribute.
     /// </summary>
     /// <remarks>Default: date</remarks>
     [JsonConverter(typeof(StringEnumConverter))]
-    public enum OrderBy
+    public enum PostsOrderBy
     {
         /// <summary>
         /// Order By Date
@@ -97,6 +97,22 @@ namespace WordPressPCL.Models
         /// </summary>
         [EnumMember(Value = "slug")]
         Slug
+    }
+    /// <summary>
+    /// Order By direction
+    /// </summary>
+    public enum Order
+    {
+        /// <summary>
+        /// Ascending direction
+        /// </summary>
+        [EnumMember(Value ="asc")]
+        ASC,
+        /// <summary>
+        /// Descending direction
+        /// </summary>
+        [EnumMember(Value ="desc")]
+        DESC
     }
 
     /// <summary>

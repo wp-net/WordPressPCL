@@ -22,10 +22,10 @@ namespace WordPressPCLTests
             var client = new WordPressClient(ApiCredentials.WordPressUri);
             Assert.IsNotNull(client);
             // Posts
-            var postsA = await client.Posts.GetBy(new QueryBuilder() {
+            var postsA = await client.Posts.Query(new PostsQueryBuilder() {
                 Page = 1
             });
-            var postsB = await client.Posts.GetBy(new QueryBuilder() {
+            var postsB = await client.Posts.Query(new PostsQueryBuilder() {
                 Page = 2
             });
             Assert.IsNotNull(postsA);
@@ -43,7 +43,7 @@ namespace WordPressPCLTests
             var client = new WordPressClient(ApiCredentials.WordPressUri);
             Assert.IsNotNull(client);
             // Posts
-            var postsA = await client.Posts.GetBy(new QueryBuilder());
+            var postsA = await client.Posts.Query(new PostsQueryBuilder());
             var postsB = await client.Posts.GetAll();
             Assert.IsNotNull(postsA);
             Assert.IsNotNull(postsB);
@@ -60,7 +60,7 @@ namespace WordPressPCLTests
             var client = new WordPressClient(ApiCredentials.WordPressUri);
             Assert.IsNotNull(client);
             // Posts
-            var postsA = await client.Posts.GetStickyPosts(new QueryBuilder());
+            var postsA = await client.Posts.GetStickyPosts(new PostsQueryBuilder());
             var postsB = await client.Posts.GetStickyPosts();
             Assert.IsNotNull(postsA);
             Assert.IsNotNull(postsB);
@@ -75,7 +75,7 @@ namespace WordPressPCLTests
             var client = new WordPressClient(ApiCredentials.WordPressUri);
             Assert.IsNotNull(client);
             // Posts
-            var postsA = await client.Posts.GetPostsByCategory(CATEGORY_ID, new QueryBuilder());
+            var postsA = await client.Posts.GetPostsByCategory(CATEGORY_ID, new PostsQueryBuilder());
             var postsB = await client.Posts.GetPostsByCategory(CATEGORY_ID);
             Assert.IsNotNull(postsA);
             Assert.IsNotNull(postsB);
@@ -92,7 +92,7 @@ namespace WordPressPCLTests
             var client = new WordPressClient(ApiCredentials.WordPressUri);
             Assert.IsNotNull(client);
             // Posts
-            var postsA = await client.Posts.GetPostsByTag(TAG_ID, new QueryBuilder());
+            var postsA = await client.Posts.GetPostsByTag(TAG_ID, new PostsQueryBuilder());
             var postsB = await client.Posts.GetPostsByTag(TAG_ID);
             Assert.IsNotNull(postsA);
             Assert.IsNotNull(postsB);
@@ -107,7 +107,7 @@ namespace WordPressPCLTests
             var client = new WordPressClient(ApiCredentials.WordPressUri);
             Assert.IsNotNull(client);
             // Posts
-            var postsA = await client.Posts.GetPostsByAuthor(AUTHOR_ID, new QueryBuilder());
+            var postsA = await client.Posts.GetPostsByAuthor(AUTHOR_ID, new PostsQueryBuilder());
             var postsB = await client.Posts.GetPostsByAuthor(AUTHOR_ID);
             Assert.IsNotNull(postsA);
             Assert.IsNotNull(postsB);
@@ -124,7 +124,7 @@ namespace WordPressPCLTests
             var client = new WordPressClient(ApiCredentials.WordPressUri);
             Assert.IsNotNull(client);
             // Posts
-            var postsA = await client.Posts.GetPostsBySearch(SEARCH_TERM, new QueryBuilder());
+            var postsA = await client.Posts.GetPostsBySearch(SEARCH_TERM, new PostsQueryBuilder());
             var postsB = await client.Posts.GetPostsBySearch(SEARCH_TERM);
             Assert.IsNotNull(postsA);
             Assert.IsNotNull(postsB);
@@ -141,7 +141,7 @@ namespace WordPressPCLTests
             var client = new WordPressClient(ApiCredentials.WordPressUri);
             Assert.IsNotNull(client);
             // Posts
-            var posts = await client.Posts.GetBy(new QueryBuilder { After = System.DateTime.Parse("2017-05-22T13:41:09") });
+            var posts = await client.Posts.GetBy(new PostsQueryBuilder { After = System.DateTime.Parse("2017-05-22T13:41:09") });
             Assert.IsNotNull(posts);
         }
     }

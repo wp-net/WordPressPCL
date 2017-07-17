@@ -20,13 +20,29 @@ namespace WordPressPCLTests
         public void Multi_Parameter_Query_Works_Test()
         {
             // Initialize
-            var builder = new QueryBuilder(ApiCredentials.WordPressUri) {
+            var builder = new PostsQueryBuilder() {
                 Page = 2,
                 Embed = true
             };
-            Console.WriteLine(builder.ToString());
+            Console.WriteLine(builder.BuildQueryURL());
             Assert.AreEqual(builder.ToString(), $"{ApiCredentials.WordPressUri}?page=2&_embed=");
         }
+       
+        [TestMethod]
+        public void NewQueryBuilder()
+        {
+            PostsQueryBuilder p = new PostsQueryBuilder();
+            p.Page = 1;
+            p.Authors = new int[] { 1, 2, 3 };
+            p.OrderBy = PostsOrderBy.Date;
+            p.Order = Order.ASC;
+            p.Search = "sdfsdfsdf";
+            p.Categories = new int[] { 1, 2, 3 };
+            p.Statuses = new Status[] { Status.Draft, Status.Pending };
+            p.After = DateTime.Now;
+            var s = p.BuildQueryURL();
+        }
     }
+
 
 }

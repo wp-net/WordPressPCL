@@ -228,35 +228,12 @@
             <param name="embed">includ embed info</param>
             <returns>List of pages</returns>
         </member>
-        <member name="M:WordPressPCL.Client.Pages.GetPagesByAuthor(System.Int32,WordPressPCL.Utility.QueryBuilder)">
-            <summary>
-            Get pages by author with query builder
-            </summary>
-            <param name="authorId">Author id</param>
-            <param name="builder">Builder object</param>
-            <returns>List of pages</returns>
-        </member>
         <member name="M:WordPressPCL.Client.Pages.GetPagesBySearch(System.String,System.Boolean)">
             <summary>
             Get pages by search term
             </summary>
             <param name="searchTerm">Search term</param>
             <param name="embed">include embed info</param>
-            <returns>List of pages</returns>
-        </member>
-        <member name="M:WordPressPCL.Client.Pages.GetPagesBySearch(System.String,WordPressPCL.Utility.QueryBuilder)">
-            <summary>
-            Get pages by search term with query builder
-            </summary>
-            <param name="searchTerm">Search term</param>
-            <param name="builder">Query builder object</param>
-            <returns>List of pages</returns>
-        </member>
-        <member name="M:WordPressPCL.Client.Pages.GetBy(WordPressPCL.Utility.QueryBuilder)">
-            <summary>
-            Get pages  with query builder
-            </summary>
-            <param name="builder">Query builder object</param>
             <returns>List of pages</returns>
         </member>
         <member name="M:WordPressPCL.Client.Pages.Delete(System.Int32,System.Boolean)">
@@ -322,27 +299,12 @@
             <param name="embed">includ embed info</param>
             <returns>List of posts</returns>
         </member>
-        <member name="M:WordPressPCL.Client.Posts.GetStickyPosts(WordPressPCL.Utility.QueryBuilder)">
-            <summary>
-            Get sticky posts with query builder
-            </summary>
-            <param name="builder">Query builder object</param>
-            <returns>List of posts</returns>
-        </member>
         <member name="M:WordPressPCL.Client.Posts.GetPostsByCategory(System.Int32,System.Boolean)">
             <summary>
             Get posts by category
             </summary>
             <param name="categoryId">Category Id</param>
             <param name="embed">includ embed info</param>
-            <returns>List of posts</returns>
-        </member>
-        <member name="M:WordPressPCL.Client.Posts.GetPostsByCategory(System.Int32,WordPressPCL.Utility.QueryBuilder)">
-            <summary>
-            Get posts by category
-            </summary>
-            <param name="categoryId">Category Id</param>
-            <param name="builder">Query builder object</param>
             <returns>List of posts</returns>
         </member>
         <member name="M:WordPressPCL.Client.Posts.GetPostsByTag(System.Int32,System.Boolean)">
@@ -353,14 +315,6 @@
             <param name="embed">includ embed info</param>
             <returns>List of posts</returns>
         </member>
-        <member name="M:WordPressPCL.Client.Posts.GetPostsByTag(System.Int32,WordPressPCL.Utility.QueryBuilder)">
-            <summary>
-            Get posts by tag
-            </summary>
-            <param name="tagId">Tag Id</param>
-            <param name="builder">Query builder object</param>
-            <returns>List of posts</returns>
-        </member>
         <member name="M:WordPressPCL.Client.Posts.GetPostsByAuthor(System.Int32,System.Boolean)">
             <summary>
             Get posts by its author
@@ -369,35 +323,12 @@
             <param name="embed">includ embed info</param>
             <returns>List of posts</returns>
         </member>
-        <member name="M:WordPressPCL.Client.Posts.GetPostsByAuthor(System.Int32,WordPressPCL.Utility.QueryBuilder)">
-            <summary>
-            Get posts by author with query builder
-            </summary>
-            <param name="authorId">Author id</param>
-            <param name="builder">Builder object</param>
-            <returns>List of posts</returns>
-        </member>
         <member name="M:WordPressPCL.Client.Posts.GetPostsBySearch(System.String,System.Boolean)">
             <summary>
             Get posts by search term
             </summary>
             <param name="searchTerm">Search term</param>
             <param name="embed">include embed info</param>
-            <returns>List of posts</returns>
-        </member>
-        <member name="M:WordPressPCL.Client.Posts.GetPostsBySearch(System.String,WordPressPCL.Utility.QueryBuilder)">
-            <summary>
-            Get posts by search term with query builder
-            </summary>
-            <param name="searchTerm">Search term</param>
-            <param name="builder">Query builder object</param>
-            <returns>List of posts</returns>
-        </member>
-        <member name="M:WordPressPCL.Client.Posts.GetBy(WordPressPCL.Utility.QueryBuilder)">
-            <summary>
-            Get posts  with query builder
-            </summary>
-            <param name="builder">Query builder object</param>
             <returns>List of posts</returns>
         </member>
         <member name="M:WordPressPCL.Client.Posts.Delete(System.Int32,System.Boolean)">
@@ -681,12 +612,6 @@
             </summary>
             <remarks>Context: view, edit, embed</remarks>
         </member>
-        <member name="P:WordPressPCL.Models.Comment.Parent">
-            <summary>
-            The id for the parent of the object.
-            </summary>
-            <remarks>Context: view, edit, embed</remarks>
-        </member>
         <member name="P:WordPressPCL.Models.Comment.Link">
             <summary>
             URL to the object.
@@ -787,40 +712,55 @@
             Status is closed
             </summary>
         </member>
-        <member name="T:WordPressPCL.Models.OrderBy">
+        <member name="T:WordPressPCL.Models.PostsOrderBy">
             <summary>
-            Sort collection by object attribute.
+            Sort posts collection by object attribute.
             </summary>
             <remarks>Default: date</remarks>
         </member>
-        <member name="F:WordPressPCL.Models.OrderBy.Date">
+        <member name="F:WordPressPCL.Models.PostsOrderBy.Date">
             <summary>
             Order By Date
             </summary>
         </member>
-        <member name="F:WordPressPCL.Models.OrderBy.Relevance">
+        <member name="F:WordPressPCL.Models.PostsOrderBy.Relevance">
             <summary>
             Order By Relevance
             </summary>
         </member>
-        <member name="F:WordPressPCL.Models.OrderBy.Id">
+        <member name="F:WordPressPCL.Models.PostsOrderBy.Id">
             <summary>
             Order By Id
             </summary>
         </member>
-        <member name="F:WordPressPCL.Models.OrderBy.Include">
+        <member name="F:WordPressPCL.Models.PostsOrderBy.Include">
             <summary>
             Order By Include
             </summary>
         </member>
-        <member name="F:WordPressPCL.Models.OrderBy.Title">
+        <member name="F:WordPressPCL.Models.PostsOrderBy.Title">
             <summary>
             Order By Title
             </summary>
         </member>
-        <member name="F:WordPressPCL.Models.OrderBy.Slug">
+        <member name="F:WordPressPCL.Models.PostsOrderBy.Slug">
             <summary>
             Order By Slug
+            </summary>
+        </member>
+        <member name="T:WordPressPCL.Models.Order">
+            <summary>
+            Order By direction
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.Order.ASC">
+            <summary>
+            Ascending direction
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.Order.DESC">
+            <summary>
+            Descending direction
             </summary>
         </member>
         <member name="T:WordPressPCL.Models.Context">
@@ -2065,29 +2005,9 @@
             Query builder class. Use it for create custom query
             </summary>
         </member>
-        <member name="P:WordPressPCL.Utility.QueryBuilder.Page">
+        <member name="P:WordPressPCL.Utility.QueryBuilder.Order">
             <summary>
-            Number of page to retrive
-            </summary>
-        </member>
-        <member name="P:WordPressPCL.Utility.QueryBuilder.Per_Page">
-            <summary>
-            Number of entities retrive in one page
-            </summary>
-        </member>
-        <member name="P:WordPressPCL.Utility.QueryBuilder.Offset">
-            <summary>
-            Offset in result
-            </summary>
-        </member>
-        <member name="P:WordPressPCL.Utility.QueryBuilder.After">
-            <summary>
-            retrive entites after that Date
-            </summary>
-        </member>
-        <member name="P:WordPressPCL.Utility.QueryBuilder.OrderBy">
-            <summary>
-            Order results by
+            Order direction
             </summary>
         </member>
         <member name="P:WordPressPCL.Utility.QueryBuilder.Embed">
@@ -2100,17 +2020,21 @@
             Context of request
             </summary>
         </member>
-        <member name="M:WordPressPCL.Utility.QueryBuilder.#ctor(System.String)">
+        <member name="T:WordPressPCL.Utility.QueryTextAttribute">
+            <summary>
+            Attribute for set Text in querybuilder
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.QueryTextAttribute.Text">
+            <summary>
+            Text property uses in HTTP query string
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Utility.QueryTextAttribute.#ctor(System.String)">
             <summary>
             Constructor
             </summary>
-            <param name="wordpressUrl">base path to WP REST API EX. http://demo.com/wp-json/ </param>
-        </member>
-        <member name="M:WordPressPCL.Utility.QueryBuilder.ToString">
-            <summary>
-            Override ToString Method
-            </summary>
-            <returns>Query string</returns>
+            <param name="text">text uses in HTTP query string</param>
         </member>
         <member name="T:WordPressPCL.WordPressClient">
             <summary>
