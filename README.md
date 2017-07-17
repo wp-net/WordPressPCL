@@ -58,3 +58,5 @@ We're very happy to get input from the community on this project! To keep the co
 First, create an issue describing what feature you want to add of what problem you're trying to solve, just to make sure no one is already working on that. That also gives us a chance to debate whether a feature is wihtin the scope of this project.
 
 Second, please try to stick to the official C# coding guidelines. https://msdn.microsoft.com/en-us/library/ms229002(v=vs.110).aspx
+
+Also, make sure to write some tests covering your new or modified code.
