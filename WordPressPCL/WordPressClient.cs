@@ -196,6 +196,40 @@ namespace WordPressPCL
             return response;
         }
         #endregion
+		
+	#region Category methods
+	public async Task<IList<Category>> ListCategories(bool embed = false)
+        {
+            // default values 
+            // int page = 1, int per_page = 10, int offset = 0, Category.Order order = Category.Order.Asc, Category.OrderBy orderby = Category.OrderBy.Name
+            return await GetRequest<Post[]>($"{defaultPath}categories", embed).ConfigureAwait(false);
+        }
+
+public async Task<Category> GetCategory(int categoryId, bool embed = false)
+        {
+            return await GetRequest<Post[]>($"{defaultPath}categories?category={categoryId}", embed).ConfigureAwait(false);
+        }
+
+public async Task<Category> CreateCategory(CategoryCreate postObject)
+        {
+            var postBody = new StringContent(JsonConvert.SerializeObject(postObject).ToString(), Encoding.UTF8, "application/json");
+            (var post, HttpResponseMessage response) = await PostRequest<Category>($"{defaultPath}categories", postBody);
+            return post;
+        }
+
+        public async Task<Category> UpdateCategory(Category postObject)
+        {
+            var postBody = new StringContent(JsonConvert.SerializeObject(postObject).ToString(), Encoding.UTF8, "application/json");
+            (var post, HttpResponseMessage response) = await PostRequest<Category>($"{defaultPath}categories/{postObject.Id}", postBody);
+            return post;
+        }
+
+        public async Task<HttpResponseMessage> DeleteCategory(int id)
+        {
+            var response = await DeleteRequest($"{defaultPath}categories/{id}").ConfigureAwait(false);
+            return response;
+        }
+	#endregion
 
         #region Tag methods
         public async Task<Tag> CreateTag(Tag tagObject)
