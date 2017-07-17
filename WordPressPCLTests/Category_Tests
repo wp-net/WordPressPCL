@@ -1,0 +1,63 @@
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Threading.Tasks;
+using WordPressPCL.Models;
+using WordPressPCL.Utility;
+using WordPressPCLTests.Utility;
+
+namespace WordPressPCLTests
+{
+    [TestClass]
+    public class Category_Tests
+    {
+        [TestMethod]
+        public async Task Update_Category_TestAsync()
+        {
+            var testContent = "Test" + new Random().Next() ;
+            var client = await ClientHelper.GetAuthenticatedWordPressClient();
+            var categories = await client.ListCategories();
+            Assert.IsTrue(categories.Count > 0);
+
+            // edit first post and update it
+            var category = await client.GetCategory(categories[0].Id);
+            category.Content.Raw = testContent;
+            var updatedCategory = await client.UpdateCategory(category);
+            Assert.AreEqual(updatedCategory.Content.Raw, testContent);
+            Assert.IsTrue(updatedCategory.Content.Rendered.Contains(testContent));
+        }
+
+        [TestMethod]
+        public async Task Create_Category_Test()
+        {
+            var client = await ClientHelper.GetAuthenticatedWordPressClient();
+            var category = new Category()
+            {
+                Name = new Name()
+                {
+                    Raw = "New Title"
+                },
+                Description = new Description()
+                {
+                    Raw = "Test Raw Description"
+                }
+            };
+            var Category2 = new CategoryCreate()
+            {
+                Name = "Title 1",
+                Description = "Content PostCreate"
+            };
+            var createdCategory = await client.CreateCategory(Category2);
+
+
+            Assert.AreEqual(Category2.Content, createdCategory.Content.Raw);
+            Assert.IsTrue(createdCategory.Content.Rendered.Contains(Category2.Content));
+        }
+
+
+
+
+
+    }
+}
