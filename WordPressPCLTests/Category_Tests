@@ -54,10 +54,5 @@ namespace WordPressPCLTests
             Assert.AreEqual(Category2.Content, createdCategory.Content.Raw);
             Assert.IsTrue(createdCategory.Content.Rendered.Contains(Category2.Content));
         }
-
-
-
-
-
     }
 }
