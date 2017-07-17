@@ -46,7 +46,7 @@ namespace WordPressPCLTests
             var Category2 = new CategoryCreate()
             {
                 Name = "Title 1",
-                Description = "Content PostCreate"
+                Description = "Content CategoryCreate"
             };
             var createdCategory = await client.CreateCategory(Category2);
 
