@@ -42,5 +42,42 @@ namespace WordPressPCL.Models
         public IList<object> Meta { get; set; }
 
     }
+     
+    /// <summary>
+    /// Order sort attribute ascending or descending.
+    /// </summary>
+    /// <remarks>Default: asc</remarks>
+    [JsonConverter(typeof(StringEnumConverter))]
+    public enum Order
+    {
+        [EnumMember(Value = "asc")]
+        Asc,
+        [EnumMember(Value = "desc")]
+        Desc
+    }
+    
+    /// <summary>
+    /// Sort collection by term attribute.
+    /// </summary>
+    /// <remarks>Default: name</remarks>
+    [JsonConverter(typeof(StringEnumConverter))]
+    public enum OrderBy
+    {
+        [EnumMember(Value = "name")]
+        Name,
+        [EnumMember(Value = "id")]
+        Id,
+        [EnumMember(Value = "include")]
+        Include,
+        [EnumMember(Value = "slug")]
+        Slug
+        [EnumMember(Value = "term_group")]
+        TermGroup,
+        [EnumMember(Value = "description")]
+        Description,
+        [EnumMember(Value = "count")]
+        Count
+        
+    }
 
 }
