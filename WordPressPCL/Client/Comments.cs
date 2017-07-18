@@ -33,6 +33,15 @@ namespace WordPressPCL.Client
             _httpHelper = HttpHelper;
         }
         #endregion
+        /// <summary>
+        /// Create a parametrized query and get a result
+        /// </summary>
+        /// <param name="queryBuilder">Comments query builder with specific parameters</param>
+        /// <returns>List of filtered comments</returns>
+        public async Task<IEnumerable<Comment>> Query(CommentsQueryBuilder queryBuilder)
+        {
+            return await _httpHelper.GetRequest<IEnumerable<Comment>>($"{_defaultPath}{_methodPath}{queryBuilder.BuildQueryURL()}", false).ConfigureAwait(false);
+        }
         #region Interface Realisation
         /// <summary>
         /// Create Comment
@@ -77,9 +86,9 @@ namespace WordPressPCL.Client
             do
             {
                 comments_page = (await _httpHelper.GetRequest<IEnumerable<Comment>>($"{_defaultPath}{_methodPath}?per_page=100&page={page++}", embed).ConfigureAwait(false))?.ToList<Comment>();
-                if (comments_page != null) { comments.AddRange(comments_page); }
+                if (comments_page != null && comments_page.Count>0) { comments.AddRange(comments_page); }
 
-            } while (comments_page != null);
+            } while (comments_page != null && comments_page.Count > 0);
 
             return comments;
             //return await _httpHelper.GetRequest<IEnumerable<Comment>>($"{_defaultPath}{_methodPath}", embed).ConfigureAwait(false);

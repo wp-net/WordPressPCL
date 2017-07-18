@@ -98,7 +98,7 @@ namespace WordPressPCL.Models
         /// State of the object.
         /// </summary>
         /// <remarks>Context: view, edit</remarks>
-		public string Status { get; set; }
+		public CommentStatus Status { get; set; }
         /// <summary>
         /// Type of Comment for the object.
         /// </summary>

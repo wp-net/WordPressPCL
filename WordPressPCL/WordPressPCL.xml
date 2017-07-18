@@ -16,6 +16,13 @@
             <param name="HttpHelper">reference to HttpHelper class for interaction with HTTP</param>
             <param name="defaultPath">path to site, EX. http://demo.com/wp-json/ </param>
         </member>
+        <member name="M:WordPressPCL.Client.Categories.Query(WordPressPCL.Utility.CategoriesQueryBuilder)">
+            <summary>
+            Create a parametrized query and get a result
+            </summary>
+            <param name="queryBuilder">Categories query builder with specific parameters</param>
+            <returns>List of filtered categories</returns>
+        </member>
         <member name="M:WordPressPCL.Client.Categories.Create(WordPressPCL.Models.Category)">
             <summary>
             Create Category
@@ -63,6 +70,13 @@
             </summary>
             <param name="HttpHelper">reference to HttpHelper class for interaction with HTTP</param>
             <param name="defaultPath">path to site, EX. http://demo.com/wp-json/ </param>
+        </member>
+        <member name="M:WordPressPCL.Client.Comments.Query(WordPressPCL.Utility.CommentsQueryBuilder)">
+            <summary>
+            Create a parametrized query and get a result
+            </summary>
+            <param name="queryBuilder">Comments query builder with specific parameters</param>
+            <returns>List of filtered comments</returns>
         </member>
         <member name="M:WordPressPCL.Client.Comments.Create(WordPressPCL.Models.Comment)">
             <summary>
@@ -128,6 +142,13 @@
             <param name="HttpHelper">reference to HttpHelper class for interaction with HTTP</param>
             <param name="defaultPath">path to site, EX. http://demo.com/wp-json/ </param>
         </member>
+        <member name="M:WordPressPCL.Client.Media.Query(WordPressPCL.Utility.MediaQueryBuilder)">
+            <summary>
+            Create a parametrized query and get a result
+            </summary>
+            <param name="queryBuilder">Media query builder with specific parameters</param>
+            <returns>List of filtered Media</returns>
+        </member>
         <member name="M:WordPressPCL.Client.Media.Create(WordPressPCL.Models.MediaItem)">
             <summary>
             Create Media
@@ -184,6 +205,13 @@
             <param name="HttpHelper">reference to HttpHelper class for interaction with HTTP</param>
             <param name="defaultPath">path to site, EX. http://demo.com/wp-json/ </param>
         </member>
+        <member name="M:WordPressPCL.Client.Pages.Query(WordPressPCL.Utility.PagesQueryBuilder)">
+            <summary>
+            Create a parametrized query and get a result
+            </summary>
+            <param name="queryBuilder">Pages query builder with specific parameters</param>
+            <returns>List of filtered pages</returns>
+        </member>
         <member name="M:WordPressPCL.Client.Pages.Create(WordPressPCL.Models.Page)">
             <summary>
             Create Page
@@ -228,35 +256,12 @@
             <param name="embed">includ embed info</param>
             <returns>List of pages</returns>
         </member>
-        <member name="M:WordPressPCL.Client.Pages.GetPagesByAuthor(System.Int32,WordPressPCL.Utility.QueryBuilder)">
-            <summary>
-            Get pages by author with query builder
-            </summary>
-            <param name="authorId">Author id</param>
-            <param name="builder">Builder object</param>
-            <returns>List of pages</returns>
-        </member>
         <member name="M:WordPressPCL.Client.Pages.GetPagesBySearch(System.String,System.Boolean)">
             <summary>
             Get pages by search term
             </summary>
             <param name="searchTerm">Search term</param>
             <param name="embed">include embed info</param>
-            <returns>List of pages</returns>
-        </member>
-        <member name="M:WordPressPCL.Client.Pages.GetPagesBySearch(System.String,WordPressPCL.Utility.QueryBuilder)">
-            <summary>
-            Get pages by search term with query builder
-            </summary>
-            <param name="searchTerm">Search term</param>
-            <param name="builder">Query builder object</param>
-            <returns>List of pages</returns>
-        </member>
-        <member name="M:WordPressPCL.Client.Pages.GetBy(WordPressPCL.Utility.QueryBuilder)">
-            <summary>
-            Get pages  with query builder
-            </summary>
-            <param name="builder">Query builder object</param>
             <returns>List of pages</returns>
         </member>
         <member name="M:WordPressPCL.Client.Pages.Delete(System.Int32,System.Boolean)">
@@ -278,6 +283,13 @@
             </summary>
             <param name="HttpHelper">reference to HttpHelper class for interaction with HTTP</param>
             <param name="defaultPath">path to site, EX. http://demo.com/wp-json/ </param>
+        </member>
+        <member name="M:WordPressPCL.Client.Posts.Query(WordPressPCL.Utility.PostsQueryBuilder)">
+            <summary>
+            Create a parametrized query and get a result
+            </summary>
+            <param name="queryBuilder">Posts query builder with specific parameters</param>
+            <returns>List of filtered posts</returns>
         </member>
         <member name="M:WordPressPCL.Client.Posts.Create(WordPressPCL.Models.Post)">
             <summary>
@@ -322,27 +334,12 @@
             <param name="embed">includ embed info</param>
             <returns>List of posts</returns>
         </member>
-        <member name="M:WordPressPCL.Client.Posts.GetStickyPosts(WordPressPCL.Utility.QueryBuilder)">
-            <summary>
-            Get sticky posts with query builder
-            </summary>
-            <param name="builder">Query builder object</param>
-            <returns>List of posts</returns>
-        </member>
         <member name="M:WordPressPCL.Client.Posts.GetPostsByCategory(System.Int32,System.Boolean)">
             <summary>
             Get posts by category
             </summary>
             <param name="categoryId">Category Id</param>
             <param name="embed">includ embed info</param>
-            <returns>List of posts</returns>
-        </member>
-        <member name="M:WordPressPCL.Client.Posts.GetPostsByCategory(System.Int32,WordPressPCL.Utility.QueryBuilder)">
-            <summary>
-            Get posts by category
-            </summary>
-            <param name="categoryId">Category Id</param>
-            <param name="builder">Query builder object</param>
             <returns>List of posts</returns>
         </member>
         <member name="M:WordPressPCL.Client.Posts.GetPostsByTag(System.Int32,System.Boolean)">
@@ -353,14 +350,6 @@
             <param name="embed">includ embed info</param>
             <returns>List of posts</returns>
         </member>
-        <member name="M:WordPressPCL.Client.Posts.GetPostsByTag(System.Int32,WordPressPCL.Utility.QueryBuilder)">
-            <summary>
-            Get posts by tag
-            </summary>
-            <param name="tagId">Tag Id</param>
-            <param name="builder">Query builder object</param>
-            <returns>List of posts</returns>
-        </member>
         <member name="M:WordPressPCL.Client.Posts.GetPostsByAuthor(System.Int32,System.Boolean)">
             <summary>
             Get posts by its author
@@ -369,35 +358,12 @@
             <param name="embed">includ embed info</param>
             <returns>List of posts</returns>
         </member>
-        <member name="M:WordPressPCL.Client.Posts.GetPostsByAuthor(System.Int32,WordPressPCL.Utility.QueryBuilder)">
-            <summary>
-            Get posts by author with query builder
-            </summary>
-            <param name="authorId">Author id</param>
-            <param name="builder">Builder object</param>
-            <returns>List of posts</returns>
-        </member>
         <member name="M:WordPressPCL.Client.Posts.GetPostsBySearch(System.String,System.Boolean)">
             <summary>
             Get posts by search term
             </summary>
             <param name="searchTerm">Search term</param>
             <param name="embed">include embed info</param>
-            <returns>List of posts</returns>
-        </member>
-        <member name="M:WordPressPCL.Client.Posts.GetPostsBySearch(System.String,WordPressPCL.Utility.QueryBuilder)">
-            <summary>
-            Get posts by search term with query builder
-            </summary>
-            <param name="searchTerm">Search term</param>
-            <param name="builder">Query builder object</param>
-            <returns>List of posts</returns>
-        </member>
-        <member name="M:WordPressPCL.Client.Posts.GetBy(WordPressPCL.Utility.QueryBuilder)">
-            <summary>
-            Get posts  with query builder
-            </summary>
-            <param name="builder">Query builder object</param>
             <returns>List of posts</returns>
         </member>
         <member name="M:WordPressPCL.Client.Posts.Delete(System.Int32,System.Boolean)">
@@ -419,6 +385,13 @@
             </summary>
             <param name="HttpHelper">reference to HttpHelper class for interaction with HTTP</param>
             <param name="defaultPath">path to site, EX. http://demo.com/wp-json/ </param>
+        </member>
+        <member name="M:WordPressPCL.Client.Tags.Query(WordPressPCL.Utility.TagsQueryBuilder)">
+            <summary>
+            Create a parametrized query and get a result
+            </summary>
+            <param name="queryBuilder">Tags query builder with specific parameters</param>
+            <returns>List of filtered tags</returns>
         </member>
         <member name="M:WordPressPCL.Client.Tags.Create(WordPressPCL.Models.Tag)">
             <summary>
@@ -467,6 +440,13 @@
             </summary>
             <param name="HttpHelper">reference to HttpHelper class for interaction with HTTP</param>
             <param name="defaultPath">path to site, EX. http://demo.com/wp-json/ </param>
+        </member>
+        <member name="M:WordPressPCL.Client.Users.Query(WordPressPCL.Utility.UsersQueryBuilder)">
+            <summary>
+            Create a parametrized query and get a result
+            </summary>
+            <param name="queryBuilder">Users query builder with specific parameters</param>
+            <returns>List of filtered users</returns>
         </member>
         <member name="M:WordPressPCL.Client.Users.Create(WordPressPCL.Models.User)">
             <summary>
@@ -781,40 +761,295 @@
             Status is closed
             </summary>
         </member>
-        <member name="T:WordPressPCL.Models.OrderBy">
+        <member name="T:WordPressPCL.Models.CommentStatus">
             <summary>
-            Sort collection by object attribute.
+            Status of Comments
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.CommentStatus.Approve">
+            <summary>
+            Comment Approved
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.CommentStatus.Pending">
+            <summary>
+            Comment is pending to approve
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.CommentStatus.Spam">
+            <summary>
+            Comment is spam
+            </summary>
+        </member>
+        <member name="T:WordPressPCL.Models.MediaStatus">
+            <summary>
+            Status of Media for query builder
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.MediaStatus.Inherit">
+            <summary>
+            Media inherit
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.MediaStatus.Private">
+            <summary>
+            Media is private
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.MediaStatus.Trash">
+            <summary>
+            Media is in trash
+            </summary>
+        </member>
+        <member name="T:WordPressPCL.Models.PostsOrderBy">
+            <summary>
+            Sort posts collection by object attribute.
             </summary>
             <remarks>Default: date</remarks>
         </member>
-        <member name="F:WordPressPCL.Models.OrderBy.Date">
+        <member name="F:WordPressPCL.Models.PostsOrderBy.Date">
             <summary>
             Order By Date
             </summary>
         </member>
-        <member name="F:WordPressPCL.Models.OrderBy.Relevance">
+        <member name="F:WordPressPCL.Models.PostsOrderBy.Relevance">
             <summary>
             Order By Relevance
             </summary>
         </member>
-        <member name="F:WordPressPCL.Models.OrderBy.Id">
+        <member name="F:WordPressPCL.Models.PostsOrderBy.Id">
             <summary>
             Order By Id
             </summary>
         </member>
-        <member name="F:WordPressPCL.Models.OrderBy.Include">
+        <member name="F:WordPressPCL.Models.PostsOrderBy.Include">
             <summary>
             Order By Include
             </summary>
         </member>
-        <member name="F:WordPressPCL.Models.OrderBy.Title">
+        <member name="F:WordPressPCL.Models.PostsOrderBy.Title">
             <summary>
             Order By Title
             </summary>
         </member>
-        <member name="F:WordPressPCL.Models.OrderBy.Slug">
+        <member name="F:WordPressPCL.Models.PostsOrderBy.Slug">
             <summary>
             Order By Slug
+            </summary>
+        </member>
+        <member name="T:WordPressPCL.Models.UsersOrderBy">
+            <summary>
+            Sort users collection by object attribute.
+            </summary>
+            <remarks>Default: name</remarks>
+        </member>
+        <member name="F:WordPressPCL.Models.UsersOrderBy.Name">
+            <summary>
+            Order By Name
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.UsersOrderBy.Id">
+            <summary>
+            Order By Id
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.UsersOrderBy.Include">
+            <summary>
+            Order By Include
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.UsersOrderBy.RegisteredDate">
+            <summary>
+            Order By Registered Date
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.UsersOrderBy.Slug">
+            <summary>
+            Order By Slug
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.UsersOrderBy.Email">
+            <summary>
+            Order By email
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.UsersOrderBy.Url">
+            <summary>
+            Order By url
+            </summary>
+        </member>
+        <member name="T:WordPressPCL.Models.TermsOrderBy">
+            <summary>
+            Sort terms collection by object attribute.
+            </summary>
+            <remarks>Default: name</remarks>
+        </member>
+        <member name="F:WordPressPCL.Models.TermsOrderBy.Name">
+            <summary>
+            Order By Name
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.TermsOrderBy.Id">
+            <summary>
+            Order By Id
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.TermsOrderBy.Include">
+            <summary>
+            Order By Include
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.TermsOrderBy.Slug">
+            <summary>
+            Order By Slug
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.TermsOrderBy.TermGroup">
+            <summary>
+            Order By term group
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.TermsOrderBy.Description">
+            <summary>
+            Order By description
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.TermsOrderBy.Count">
+            <summary>
+            Order By count
+            </summary>
+        </member>
+        <member name="T:WordPressPCL.Models.MediaOrderBy">
+            <summary>
+            Sort posts collection by object attribute.
+            </summary>
+            <remarks>Default: date</remarks>
+        </member>
+        <member name="F:WordPressPCL.Models.MediaOrderBy.Date">
+            <summary>
+            Order By Date
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.MediaOrderBy.Relevance">
+            <summary>
+            Order By Relevance
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.MediaOrderBy.Id">
+            <summary>
+            Order By Id
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.MediaOrderBy.Include">
+            <summary>
+            Order By Include
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.MediaOrderBy.Title">
+            <summary>
+            Order By Title
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.MediaOrderBy.Slug">
+            <summary>
+            Order By Slug
+            </summary>
+        </member>
+        <member name="T:WordPressPCL.Models.PagesOrderBy">
+            <summary>
+            Sort pages collection by object attribute.
+            </summary>
+            <remarks>Default: date</remarks>
+        </member>
+        <member name="F:WordPressPCL.Models.PagesOrderBy.Date">
+            <summary>
+            Order By Date
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.PagesOrderBy.Relevance">
+            <summary>
+            Order By Relevance
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.PagesOrderBy.Id">
+            <summary>
+            Order By Id
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.PagesOrderBy.Include">
+            <summary>
+            Order By Include
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.PagesOrderBy.Title">
+            <summary>
+            Order By Title
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.PagesOrderBy.Slug">
+            <summary>
+            Order By Slug
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.PagesOrderBy.MenuOrder">
+            <summary>
+            Order By Menu order
+            </summary>
+        </member>
+        <member name="T:WordPressPCL.Models.CommentsOrderBy">
+            <summary>
+            Sort comments collection by object attribute.
+            </summary>
+            <remarks>Default: date</remarks>
+        </member>
+        <member name="F:WordPressPCL.Models.CommentsOrderBy.DateGmt">
+            <summary>
+            Order By Date
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.CommentsOrderBy.Date">
+            <summary>
+            Order By Date
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.CommentsOrderBy.Id">
+            <summary>
+            Order By Id
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.CommentsOrderBy.Include">
+            <summary>
+            Order By Include
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.CommentsOrderBy.Post">
+            <summary>
+            Order By Post
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.CommentsOrderBy.Parent">
+            <summary>
+            Order By Parent
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.CommentsOrderBy.Type">
+            <summary>
+            Order ByType
+            </summary>
+        </member>
+        <member name="T:WordPressPCL.Models.Order">
+            <summary>
+            Order By direction
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.Order.ASC">
+            <summary>
+            Ascending direction
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.Order.DESC">
+            <summary>
+            Descending direction
             </summary>
         </member>
         <member name="T:WordPressPCL.Models.Context">
@@ -1677,6 +1912,34 @@
             <param name="ContentRaw">Raw HTML content text</param>
             <param name="ContentRendered">Rendered content text</param>
         </member>
+        <member name="T:WordPressPCL.Models.Description">
+            <summary>
+            The actual description of the object, Rendered and/or Raw depending on the context
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Description.IsProtected">
+            <summary>
+            Can description be edited
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Models.Description.#ctor">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Models.Description.#ctor(System.String)">
+            <summary>
+            Constructor with same fields for Raw end Rendered
+            </summary>
+            <param name="Description">Text for Raw and rendered description</param>
+        </member>
+        <member name="M:WordPressPCL.Models.Description.#ctor(System.String,System.String)">
+            <summary>
+            Constructor with Raw and Rendered description text fields
+            </summary>
+            <param name="DescriptionRaw">Raw HTML description text</param>
+            <param name="DescriptionRendered">Rendered description text</param>
+        </member>
         <member name="T:WordPressPCL.Models.Guid">
             <summary>
             The globally unique identifier for the object.
@@ -2037,6 +2300,176 @@
             Links to related resources
             </summary>
         </member>
+        <member name="T:WordPressPCL.Utility.CategoriesQueryBuilder">
+            <summary>
+            Category Query Builder class to construct queries with valid parameters
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.CategoriesQueryBuilder.Page">
+            <summary>
+            Current page of the collection.
+            </summary>
+            <remarks>Default: 1</remarks>
+        </member>
+        <member name="P:WordPressPCL.Utility.CategoriesQueryBuilder.PerPage">
+            <summary>
+            Maximum number of items to be returned in result set.
+            </summary>
+            <remarks>Default: 10</remarks>
+        </member>
+        <member name="P:WordPressPCL.Utility.CategoriesQueryBuilder.Search">
+            <summary>
+            Limit results to those matching a string.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.CategoriesQueryBuilder.Exclude">
+            <summary>
+            Ensure result set excludes specific IDs.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.CategoriesQueryBuilder.Include">
+            <summary>
+            Limit result set to specific IDs.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.CategoriesQueryBuilder.Offset">
+            <summary>
+            Offset the result set by a specific number of items.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.CategoriesQueryBuilder.OrderBy">
+            <summary>
+            Sort collection by object attribute.
+            </summary>
+            <remarks>Default: name
+            One of: id, include, name, slug, term_group, description, count</remarks>
+        </member>
+        <member name="P:WordPressPCL.Utility.CategoriesQueryBuilder.Slugs">
+            <summary>
+            Limit result set to users with a specific slug.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.CategoriesQueryBuilder.HideEmpty">
+            <summary>
+            Whether to hide terms not assigned to any posts.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.CategoriesQueryBuilder.Post">
+            <summary>
+            Limit result set to terms assigned to a specific post.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.CategoriesQueryBuilder.Parent">
+            <summary>
+            Limit result set to terms assigned to a specific parent.
+            </summary>
+        </member>
+        <member name="T:WordPressPCL.Utility.CommentsQueryBuilder">
+            <summary>
+            Comments Query Builder class to construct queries with valid parameters
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.CommentsQueryBuilder.Page">
+            <summary>
+            Current page of the collection.
+            </summary>
+            <remarks>Default: 1</remarks>
+        </member>
+        <member name="P:WordPressPCL.Utility.CommentsQueryBuilder.PerPage">
+            <summary>
+            Maximum number of items to be returned in result set.
+            </summary>
+            <remarks>Default: 10</remarks>
+        </member>
+        <member name="P:WordPressPCL.Utility.CommentsQueryBuilder.Search">
+            <summary>
+            Limit results to those matching a string.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.CommentsQueryBuilder.After">
+            <summary>
+            Limit response to posts published after a given date
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.CommentsQueryBuilder.Authors">
+            <summary>
+            Limit result set to posts assigned to specific authors.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.CommentsQueryBuilder.AuthorsExclude">
+            <summary>
+            Ensure result set excludes posts assigned to specific authors.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.CommentsQueryBuilder.AuthorEmail">
+            <summary>
+            Limit result set to that from a specific author email. Requires authorization.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.CommentsQueryBuilder.Before">
+            <summary>
+            Limit response to posts published before a given date
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.CommentsQueryBuilder.Exclude">
+            <summary>
+            Ensure result set excludes specific IDs.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.CommentsQueryBuilder.Include">
+            <summary>
+            Limit result set to specific IDs.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.CommentsQueryBuilder.Karma">
+            <summary>
+            Limit result set to that of a particular comment karma. Requires authorization.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.CommentsQueryBuilder.Offset">
+            <summary>
+            Offset the result set by a specific number of items.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.CommentsQueryBuilder.MenuOrder">
+            <summary>
+            Limit result set to resources with a specific menu_order value.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.CommentsQueryBuilder.OrderBy">
+            <summary>
+            Sort collection by object attribute.
+            </summary>
+            <remarks>Default: date_gmt
+            One of:  date, date_gmt, id, include, post, parent, type</remarks>
+        </member>
+        <member name="P:WordPressPCL.Utility.CommentsQueryBuilder.Parents">
+            <summary>
+            Limit result set to those of particular parent ids.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.CommentsQueryBuilder.ParentsExclude">
+            <summary>
+            Limit result set to all items except those of a particular parent id.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.CommentsQueryBuilder.Posts">
+            <summary>
+            Limit result set to resources assigned to specific post ids.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.CommentsQueryBuilder.Statuses">
+            <summary>
+            Limit result set to posts assigned one or more statuses.
+            </summary>
+            <remarks>Default: approve</remarks>
+        </member>
+        <member name="P:WordPressPCL.Utility.CommentsQueryBuilder.Type">
+            <summary>
+            Limit result set to comments assigned a specific type. Requires authorization.
+            </summary>
+            <remarks>Default: comment</remarks>
+        </member>
         <member name="T:WordPressPCL.Utility.HttpHelper">
             <summary>
             Helper class incapsulates common HTTP requests methods
@@ -2054,57 +2487,466 @@
             </summary>
             <param name="WordpressURI">base WP RESR API endpoint EX. http://demo.com/wp-json/ </param>
         </member>
+        <member name="T:WordPressPCL.Utility.MediaQueryBuilder">
+            <summary>
+            Media Query Builder class to construct queries with valid parameters
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.MediaQueryBuilder.Page">
+            <summary>
+            Current page of the collection.
+            </summary>
+            <remarks>Default: 1</remarks>
+        </member>
+        <member name="P:WordPressPCL.Utility.MediaQueryBuilder.PerPage">
+            <summary>
+            Maximum number of items to be returned in result set.
+            </summary>
+            <remarks>Default: 10</remarks>
+        </member>
+        <member name="P:WordPressPCL.Utility.MediaQueryBuilder.Search">
+            <summary>
+            Limit results to those matching a string.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.MediaQueryBuilder.After">
+            <summary>
+            Limit response to posts published after a given date
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.MediaQueryBuilder.Authors">
+            <summary>
+            Limit result set to posts assigned to specific authors.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.MediaQueryBuilder.AuthorsExclude">
+            <summary>
+            Ensure result set excludes posts assigned to specific authors.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.MediaQueryBuilder.Before">
+            <summary>
+            Limit response to posts published before a given date
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.MediaQueryBuilder.Exclude">
+            <summary>
+            Ensure result set excludes specific IDs.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.MediaQueryBuilder.Include">
+            <summary>
+            Limit result set to specific IDs.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.MediaQueryBuilder.Offset">
+            <summary>
+            Offset the result set by a specific number of items.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.MediaQueryBuilder.OrderBy">
+            <summary>
+            Sort collection by object attribute.
+            </summary>
+            <remarks>Default: date
+            One of: date, relevance, id, include, title, slug</remarks>
+        </member>
+        <member name="P:WordPressPCL.Utility.MediaQueryBuilder.Parents">
+            <summary>
+            Limit result set to those of particular parent ids.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.MediaQueryBuilder.ParentsExclude">
+            <summary>
+            Limit result set to all items except those of a particular parent id.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.MediaQueryBuilder.Slugs">
+            <summary>
+            Limit result set to posts with one or more specific slugs.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.MediaQueryBuilder.Statuses">
+            <summary>
+            Limit result set to posts assigned a specific status; can be comma-delimited list of status types.
+            </summary>
+            <remarks>Default:  inherit
+            One of: inherit, private, trash</remarks>
+        </member>
+        <member name="P:WordPressPCL.Utility.MediaQueryBuilder.Filter">
+            <summary>
+            Use WP Query arguments to modify the response; private query vars require appropriate authorization.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.MediaQueryBuilder.MediaType">
+            <summary>
+            Limit result set to attachments of a particular media type.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.MediaQueryBuilder.MimeType">
+            <summary>
+            Limit result set to attachments of a particular MIME type.
+            </summary>
+        </member>
+        <member name="T:WordPressPCL.Utility.PagesQueryBuilder">
+            <summary>
+            Pages Query Builder class to construct queries with valid parameters
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.PagesQueryBuilder.Page">
+            <summary>
+            Current page of the collection.
+            </summary>
+            <remarks>Default: 1</remarks>
+        </member>
+        <member name="P:WordPressPCL.Utility.PagesQueryBuilder.PerPage">
+            <summary>
+            Maximum number of items to be returned in result set.
+            </summary>
+            <remarks>Default: 10</remarks>
+        </member>
+        <member name="P:WordPressPCL.Utility.PagesQueryBuilder.Search">
+            <summary>
+            Limit results to those matching a string.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.PagesQueryBuilder.After">
+            <summary>
+            Limit response to posts published after a given date
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.PagesQueryBuilder.Authors">
+            <summary>
+            Limit result set to posts assigned to specific authors.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.PagesQueryBuilder.AuthorsExclude">
+            <summary>
+            Ensure result set excludes posts assigned to specific authors.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.PagesQueryBuilder.Before">
+            <summary>
+            Limit response to posts published before a given date
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.PagesQueryBuilder.Exclude">
+            <summary>
+            Ensure result set excludes specific IDs.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.PagesQueryBuilder.Include">
+            <summary>
+            Limit result set to specific IDs.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.PagesQueryBuilder.Offset">
+            <summary>
+            Offset the result set by a specific number of items.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.PagesQueryBuilder.MenuOrder">
+            <summary>
+            Limit result set to resources with a specific menu_order value.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.PagesQueryBuilder.OrderBy">
+            <summary>
+            Sort collection by object attribute.
+            </summary>
+            <remarks>Default: date
+            One of: date, relevance, id, include, title, slug, menu_order</remarks>
+        </member>
+        <member name="P:WordPressPCL.Utility.PagesQueryBuilder.Parents">
+            <summary>
+            Limit result set to those of particular parent ids.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.PagesQueryBuilder.ParentsExclude">
+            <summary>
+            Limit result set to all items except those of a particular parent id.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.PagesQueryBuilder.Slugs">
+            <summary>
+            Limit result set to posts with one or more specific slugs.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.PagesQueryBuilder.Statuses">
+            <summary>
+            Limit result set to posts assigned one or more statuses.
+            </summary>
+            <remarks>Default: publish</remarks>
+        </member>
+        <member name="P:WordPressPCL.Utility.PagesQueryBuilder.Filter">
+            <summary>
+            Use WP Query arguments to modify the response; private query vars require appropriate authorization.
+            </summary>
+        </member>
+        <member name="T:WordPressPCL.Utility.PostsQueryBuilder">
+            <summary>
+            Post Query Builder class to construct queries with valid parameters
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.PostsQueryBuilder.Page">
+            <summary>
+            Current page of the collection.
+            </summary>
+            <remarks>Default: 1</remarks>
+        </member>
+        <member name="P:WordPressPCL.Utility.PostsQueryBuilder.PerPage">
+            <summary>
+            Maximum number of items to be returned in result set.
+            </summary>
+            <remarks>Default: 10</remarks>
+        </member>
+        <member name="P:WordPressPCL.Utility.PostsQueryBuilder.Search">
+            <summary>
+            Limit results to those matching a string.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.PostsQueryBuilder.After">
+            <summary>
+            Limit response to posts published after a given date
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.PostsQueryBuilder.Authors">
+            <summary>
+            Limit result set to posts assigned to specific authors.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.PostsQueryBuilder.AuthorsExclude">
+            <summary>
+            Ensure result set excludes posts assigned to specific authors.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.PostsQueryBuilder.Before">
+            <summary>
+            Limit response to posts published before a given date
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.PostsQueryBuilder.Exclude">
+            <summary>
+            Ensure result set excludes specific IDs.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.PostsQueryBuilder.Include">
+            <summary>
+            Limit result set to specific IDs.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.PostsQueryBuilder.Offset">
+            <summary>
+            Offset the result set by a specific number of items.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.PostsQueryBuilder.OrderBy">
+            <summary>
+            Sort collection by object attribute.
+            </summary>
+            <remarks>Default: date
+            One of: date, relevance, id, include, title, slug</remarks>
+        </member>
+        <member name="P:WordPressPCL.Utility.PostsQueryBuilder.Slugs">
+            <summary>
+            Limit result set to posts with one or more specific slugs.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.PostsQueryBuilder.Statuses">
+            <summary>
+            Limit result set to posts assigned one or more statuses.
+            </summary>
+            <remarks>Default: publish</remarks>
+        </member>
+        <member name="P:WordPressPCL.Utility.PostsQueryBuilder.Categories">
+            <summary>
+            Limit result set to all items that have the specified term assigned in the categories taxonomy.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.PostsQueryBuilder.CategoriesExclude">
+            <summary>
+            Limit result set to all items except those that have the specified term assigned in the categories taxonomy.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.PostsQueryBuilder.Tags">
+            <summary>
+            Limit result set to all items that have the specified term assigned in the tags taxonomy.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.PostsQueryBuilder.TagsExclude">
+            <summary>
+            Limit result set to all items except those that have the specified term assigned in the tags taxonomy.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.PostsQueryBuilder.Sticky">
+            <summary>
+            Limit result set to items that are sticky.
+            </summary>
+        </member>
         <member name="T:WordPressPCL.Utility.QueryBuilder">
             <summary>
             Query builder class. Use it for create custom query
             </summary>
         </member>
-        <member name="P:WordPressPCL.Utility.QueryBuilder.Page">
+        <member name="P:WordPressPCL.Utility.QueryBuilder.Order">
             <summary>
-            Number of page to retrive
+            Order direction
             </summary>
-        </member>
-        <member name="P:WordPressPCL.Utility.QueryBuilder.Per_Page">
-            <summary>
-            Number of entities retrive in one page
-            </summary>
-        </member>
-        <member name="P:WordPressPCL.Utility.QueryBuilder.Offset">
-            <summary>
-            Offset in result
-            </summary>
-        </member>
-        <member name="P:WordPressPCL.Utility.QueryBuilder.After">
-            <summary>
-            retrive entites after that Date
-            </summary>
-        </member>
-        <member name="P:WordPressPCL.Utility.QueryBuilder.OrderBy">
-            <summary>
-            Order results by
-            </summary>
+            <remarks>Default: asc</remarks>
         </member>
         <member name="P:WordPressPCL.Utility.QueryBuilder.Embed">
             <summary>
             include embed info
             </summary>
+            <remarks>Default: false</remarks>
         </member>
         <member name="P:WordPressPCL.Utility.QueryBuilder.Context">
             <summary>
             Context of request
             </summary>
+            <remarks>Default^ view</remarks>
         </member>
-        <member name="M:WordPressPCL.Utility.QueryBuilder.#ctor(System.String)">
+        <member name="M:WordPressPCL.Utility.QueryBuilder.BuildQueryURL">
+            <summary>
+            Builds the query URL from all properties
+            </summary>
+            <returns>query HTTP string</returns>
+        </member>
+        <member name="M:WordPressPCL.Utility.QueryBuilder.GetPropertyValue(System.Object)">
+            <summary>
+            Use reflection to get property value
+            </summary>
+            <param name="property">PropertyInfo or object</param>
+            <returns>property value</returns>
+        </member>
+        <member name="T:WordPressPCL.Utility.QueryTextAttribute">
+            <summary>
+            Attribute for set Text in querybuilder
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.QueryTextAttribute.Text">
+            <summary>
+            Text property uses in HTTP query string
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Utility.QueryTextAttribute.#ctor(System.String)">
             <summary>
             Constructor
             </summary>
-            <param name="wordpressUrl">base path to WP REST API EX. http://demo.com/wp-json/ </param>
+            <param name="text">text uses in HTTP query string</param>
         </member>
-        <member name="M:WordPressPCL.Utility.QueryBuilder.ToString">
+        <member name="T:WordPressPCL.Utility.TagsQueryBuilder">
             <summary>
-            Override ToString Method
+            Tag Query Builder class to construct queries with valid parameters
             </summary>
-            <returns>Query string</returns>
+        </member>
+        <member name="P:WordPressPCL.Utility.TagsQueryBuilder.Page">
+            <summary>
+            Current page of the collection.
+            </summary>
+            <remarks>Default: 1</remarks>
+        </member>
+        <member name="P:WordPressPCL.Utility.TagsQueryBuilder.PerPage">
+            <summary>
+            Maximum number of items to be returned in result set.
+            </summary>
+            <remarks>Default: 10</remarks>
+        </member>
+        <member name="P:WordPressPCL.Utility.TagsQueryBuilder.Search">
+            <summary>
+            Limit results to those matching a string.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.TagsQueryBuilder.Exclude">
+            <summary>
+            Ensure result set excludes specific IDs.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.TagsQueryBuilder.Include">
+            <summary>
+            Limit result set to specific IDs.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.TagsQueryBuilder.Offset">
+            <summary>
+            Offset the result set by a specific number of items.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.TagsQueryBuilder.OrderBy">
+            <summary>
+            Sort collection by object attribute.
+            </summary>
+            <remarks>Default: name
+            One of: id, include, name, slug, term_group, description, count</remarks>
+        </member>
+        <member name="P:WordPressPCL.Utility.TagsQueryBuilder.Slugs">
+            <summary>
+            Limit result set to users with a specific slug.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.TagsQueryBuilder.HideEmpty">
+            <summary>
+            Whether to hide terms not assigned to any posts.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.TagsQueryBuilder.Post">
+            <summary>
+            Limit result set to terms assigned to a specific post.
+            </summary>
+        </member>
+        <member name="T:WordPressPCL.Utility.UsersQueryBuilder">
+            <summary>
+            Users Query Builder class to construct queries with valid parameters
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.UsersQueryBuilder.Page">
+            <summary>
+            Current page of the collection.
+            </summary>
+            <remarks>Default: 1</remarks>
+        </member>
+        <member name="P:WordPressPCL.Utility.UsersQueryBuilder.PerPage">
+            <summary>
+            Maximum number of items to be returned in result set.
+            </summary>
+            <remarks>Default: 10</remarks>
+        </member>
+        <member name="P:WordPressPCL.Utility.UsersQueryBuilder.Search">
+            <summary>
+            Limit results to those matching a string.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.UsersQueryBuilder.Exclude">
+            <summary>
+            Ensure result set excludes specific IDs.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.UsersQueryBuilder.Include">
+            <summary>
+            Limit result set to specific IDs.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.UsersQueryBuilder.Offset">
+            <summary>
+            Offset the result set by a specific number of items.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.UsersQueryBuilder.OrderBy">
+            <summary>
+            Sort collection by object attribute.
+            </summary>
+            <remarks>Default: name
+            One of: id, include, name, registered_date, slug, email, url</remarks>
+        </member>
+        <member name="P:WordPressPCL.Utility.UsersQueryBuilder.Slugs">
+            <summary>
+            Limit result set to users with a specific slug.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.UsersQueryBuilder.Roles">
+            <summary>
+            Limit result set to users matching at least one specific role provided. Accepts csv list or single role.
+            </summary>
         </member>
         <member name="T:WordPressPCL.WordPressClient">
             <summary>

@@ -61,7 +61,7 @@ namespace WordPressPCL.Models
         /// Context: edit
         /// One of: publish, future, draft, pending, private</remarks>
         [JsonProperty("status")]
-        public Status Status { get; set; }
+        public MediaStatus Status { get; set; }
         /// <summary>
         /// Type of Post for the object.
         /// </summary>
@@ -122,7 +122,7 @@ namespace WordPressPCL.Models
         /// </summary>
         /// <remarks>Context: view, edit</remarks>
         [JsonProperty("description")]
-        public string Description { get; set; }
+        public Description Description { get; set; }
         /// <summary>
         /// Type of resource.
         /// <see cref="WordPressPCL.Models.MediaType"/>
@@ -149,7 +149,7 @@ namespace WordPressPCL.Models
         /// <see cref="WordPressPCL.Models.Post.Id"/>
         /// </summary>
         /// <remarks>Context: view, edit</remarks>
-        [JsonProperty("post")]
+        [JsonProperty("post",NullValueHandling =NullValueHandling.Ignore)]
         public int Post { get; set; }
         /// <summary>
         /// URL to the original resource file.

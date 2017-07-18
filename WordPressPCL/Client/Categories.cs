@@ -32,6 +32,15 @@ namespace WordPressPCL.Client
             _httpHelper = HttpHelper;
         }
         #endregion
+        /// <summary>
+        /// Create a parametrized query and get a result
+        /// </summary>
+        /// <param name="queryBuilder">Categories query builder with specific parameters</param>
+        /// <returns>List of filtered categories</returns>
+        public async Task<IEnumerable<Category>> Query(CategoriesQueryBuilder queryBuilder)
+        {
+            return await _httpHelper.GetRequest<IEnumerable<Category>>($"{_defaultPath}{_methodPath}{queryBuilder.BuildQueryURL()}", false).ConfigureAwait(false);
+        }
         #region Interface Realisation
         /// <summary>
         /// Create Category
@@ -76,9 +85,9 @@ namespace WordPressPCL.Client
             do
             {
                 categories_page = (await _httpHelper.GetRequest<IEnumerable<Category>>($"{_defaultPath}{_methodPath}?per_page=100&page={page++}", embed).ConfigureAwait(false))?.ToList<Category>();
-                if (categories_page != null) { categories.AddRange(categories_page); }
+                if (categories_page != null && categories_page.Count > 0) { categories.AddRange(categories_page); }
 
-            } while (categories_page != null);
+            } while (categories_page != null && categories_page.Count > 0);
 
             return categories;
             //return await _httpHelper.GetRequest<IEnumerable<Category>>($"{_defaultPath}{_methodPath}", embed).ConfigureAwait(false);

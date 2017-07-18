@@ -34,6 +34,15 @@ namespace WordPressPCL.Client
             
         }
         #endregion
+        /// <summary>
+        /// Create a parametrized query and get a result
+        /// </summary>
+        /// <param name="queryBuilder">Tags query builder with specific parameters</param>
+        /// <returns>List of filtered tags</returns>
+        public async Task<IEnumerable<Tag>> Query(TagsQueryBuilder queryBuilder)
+        {
+            return await _httpHelper.GetRequest<IEnumerable<Tag>>($"{_defaultPath}{_methodPath}{queryBuilder.BuildQueryURL()}", false).ConfigureAwait(false);
+        }
         #region Interface Realisation
         /// <summary>
         /// Create Tag
@@ -78,9 +87,9 @@ namespace WordPressPCL.Client
             do
             {
                 tags_page = (await _httpHelper.GetRequest<IEnumerable<Tag>>($"{_defaultPath}{_methodPath}?per_page=100&page={page++}", embed).ConfigureAwait(false))?.ToList<Tag>();
-                if (tags_page != null) { tags.AddRange(tags_page); }
+                if (tags_page != null && tags_page.Count > 0) { tags.AddRange(tags_page); }
 
-            } while (tags_page != null);
+            } while (tags_page != null && tags_page.Count > 0);
 
             return tags;
             //return await _httpHelper.GetRequest<IEnumerable<Tag>>($"{_defaultPath}{_methodPath}", embed).ConfigureAwait(false);

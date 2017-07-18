@@ -21,6 +21,7 @@ namespace WordPressPCL.Client
         private string _defaultPath;
         private const string _methodPath = "posts";
         private HttpHelper _httpHelper;
+        
         /// <summary>
         /// Constructor
         /// </summary>
@@ -30,8 +31,18 @@ namespace WordPressPCL.Client
         {
             _defaultPath = defaultPath;
             _httpHelper = HttpHelper;
+            
         }
         #endregion
+        /// <summary>
+        /// Create a parametrized query and get a result
+        /// </summary>
+        /// <param name="queryBuilder">Posts query builder with specific parameters</param>
+        /// <returns>List of filtered posts</returns>
+        public async Task<IEnumerable<Post>> Query(PostsQueryBuilder queryBuilder)
+        {
+            return await _httpHelper.GetRequest<IEnumerable<Post>>($"{_defaultPath}{_methodPath}{queryBuilder.BuildQueryURL()}",false).ConfigureAwait(false);
+        }
         #region Interface Realisation
         /// <summary>
         /// Create Post
@@ -77,9 +88,9 @@ namespace WordPressPCL.Client
             do
             {
                 posts_page = (await _httpHelper.GetRequest<IEnumerable<Post>>($"{_defaultPath}{_methodPath}?per_page=100&page={page++}", embed).ConfigureAwait(false))?.ToList<Post>();
-                if (posts_page != null) { posts.AddRange(posts_page); }
+                if (posts_page != null && posts_page.Count>0) { posts.AddRange(posts_page); }
                 
-            } while (posts_page!=null);
+            } while (posts_page!=null && posts_page.Count > 0);
             
             return posts;
         }
@@ -109,17 +120,7 @@ namespace WordPressPCL.Client
             // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
             return await _httpHelper.GetRequest<IEnumerable<Post>>($"{_defaultPath}{_methodPath}?sticky=true", embed).ConfigureAwait(false);
         }
-        /// <summary>
-        /// Get sticky posts with query builder
-        /// </summary>
-        /// <param name="builder">Query builder object</param>
-        /// <returns>List of posts</returns>
-        public async Task<IEnumerable<Post>> GetStickyPosts(QueryBuilder builder)
-        {
-            // default values 
-            // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
-            return await _httpHelper.GetRequest<IEnumerable<Post>>(builder.SetRootUrl($"{_defaultPath}{_methodPath}?sticky=true").ToString(), false).ConfigureAwait(false);
-        }
+        
         /// <summary>
         /// Get posts by category
         /// </summary>
@@ -132,18 +133,7 @@ namespace WordPressPCL.Client
             // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
             return await _httpHelper.GetRequest<IEnumerable<Post>>($"{_defaultPath}{_methodPath}?categories={categoryId}", embed).ConfigureAwait(false);
         }
-        /// <summary>
-        /// Get posts by category
-        /// </summary>
-        /// <param name="categoryId">Category Id</param>
-        /// <param name="builder">Query builder object</param>
-        /// <returns>List of posts</returns>
-        public async Task<IEnumerable<Post>> GetPostsByCategory(int categoryId, QueryBuilder builder)
-        {
-            // default values 
-            // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
-            return await _httpHelper.GetRequest<IEnumerable<Post>>(builder.SetRootUrl($"{_defaultPath}{_methodPath}?categories={categoryId}").ToString(), false).ConfigureAwait(false);
-        }
+        
         /// <summary>
         /// Get posts by tag
         /// </summary>
@@ -156,18 +146,7 @@ namespace WordPressPCL.Client
             // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
             return await _httpHelper.GetRequest<IEnumerable<Post>>($"{_defaultPath}{_methodPath}?tags={tagId}", embed).ConfigureAwait(false);
         }
-        /// <summary>
-        /// Get posts by tag
-        /// </summary>
-        /// <param name="tagId">Tag Id</param>
-        /// <param name="builder">Query builder object</param>
-        /// <returns>List of posts</returns>
-        public async Task<IEnumerable<Post>> GetPostsByTag(int tagId, QueryBuilder builder)
-        {
-            // default values 
-            // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
-            return await _httpHelper.GetRequest<IEnumerable<Post>>(builder.SetRootUrl($"{_defaultPath}{_methodPath}?tags={tagId}").ToString(), false).ConfigureAwait(false);
-        }
+        
         /// <summary>
         /// Get posts by its author
         /// </summary>
@@ -180,18 +159,7 @@ namespace WordPressPCL.Client
             // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
             return await _httpHelper.GetRequest<IEnumerable<Post>>($"{_defaultPath}{_methodPath}?author={authorId}", embed).ConfigureAwait(false);
         }
-        /// <summary>
-        /// Get posts by author with query builder
-        /// </summary>
-        /// <param name="authorId">Author id</param>
-        /// <param name="builder">Builder object</param>
-        /// <returns>List of posts</returns>
-        public async Task<IEnumerable<Post>> GetPostsByAuthor(int authorId, QueryBuilder builder)
-        {
-            // default values 
-            // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
-            return await _httpHelper.GetRequest<IEnumerable<Post>>(builder.SetRootUrl($"{_defaultPath}{_methodPath}?author={authorId}").ToString(), false).ConfigureAwait(false);
-        }
+        
         /// <summary>
         /// Get posts by search term
         /// </summary>
@@ -204,27 +172,7 @@ namespace WordPressPCL.Client
             // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
             return await _httpHelper.GetRequest<IEnumerable<Post>>($"{_defaultPath}{_methodPath}?search={searchTerm}", embed).ConfigureAwait(false);
         }
-        /// <summary>
-        /// Get posts by search term with query builder
-        /// </summary>
-        /// <param name="searchTerm">Search term</param>
-        /// <param name="builder">Query builder object</param>
-        /// <returns>List of posts</returns>
-        public async Task<IEnumerable<Post>> GetPostsBySearch(string searchTerm, QueryBuilder builder)
-        {
-            // default values 
-            // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
-            return await _httpHelper.GetRequest<IEnumerable<Post>>(builder.SetRootUrl($"{_defaultPath}{_methodPath}?search={searchTerm}").ToString(), false).ConfigureAwait(false);
-        }
-        /// <summary>
-        /// Get posts  with query builder
-        /// </summary>
-        /// <param name="builder">Query builder object</param>
-        /// <returns>List of posts</returns>
-        public async Task<IEnumerable<Post>> GetBy(QueryBuilder builder)
-        {
-            return await _httpHelper.GetRequest<IEnumerable<Post>>(builder.SetRootUrl($"{_defaultPath}{_methodPath}").ToString(), false).ConfigureAwait(false);
-        }
+        
         /// <summary>
         /// Delete post with force deletion
         /// </summary>
