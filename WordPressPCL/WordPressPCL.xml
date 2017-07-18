@@ -781,22 +781,22 @@
             Comment is spam
             </summary>
         </member>
-        <member name="T:WordPressPCL.Models.MediaQueryStatus">
+        <member name="T:WordPressPCL.Models.MediaStatus">
             <summary>
             Status of Media for query builder
             </summary>
         </member>
-        <member name="F:WordPressPCL.Models.MediaQueryStatus.Inherit">
+        <member name="F:WordPressPCL.Models.MediaStatus.Inherit">
             <summary>
             Media inherit
             </summary>
         </member>
-        <member name="F:WordPressPCL.Models.MediaQueryStatus.Private">
+        <member name="F:WordPressPCL.Models.MediaStatus.Private">
             <summary>
             Media is private
             </summary>
         </member>
-        <member name="F:WordPressPCL.Models.MediaQueryStatus.Trash">
+        <member name="F:WordPressPCL.Models.MediaStatus.Trash">
             <summary>
             Media is in trash
             </summary>
@@ -1911,6 +1911,34 @@
             </summary>
             <param name="ContentRaw">Raw HTML content text</param>
             <param name="ContentRendered">Rendered content text</param>
+        </member>
+        <member name="T:WordPressPCL.Models.Description">
+            <summary>
+            The actual description of the object, Rendered and/or Raw depending on the context
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Description.IsProtected">
+            <summary>
+            Can description be edited
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Models.Description.#ctor">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Models.Description.#ctor(System.String)">
+            <summary>
+            Constructor with same fields for Raw end Rendered
+            </summary>
+            <param name="Description">Text for Raw and rendered description</param>
+        </member>
+        <member name="M:WordPressPCL.Models.Description.#ctor(System.String,System.String)">
+            <summary>
+            Constructor with Raw and Rendered description text fields
+            </summary>
+            <param name="DescriptionRaw">Raw HTML description text</param>
+            <param name="DescriptionRendered">Rendered description text</param>
         </member>
         <member name="T:WordPressPCL.Models.Guid">
             <summary>

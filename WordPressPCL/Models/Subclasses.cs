@@ -73,6 +73,44 @@ namespace WordPressPCL.Models
     }
 
     /// <summary>
+    /// The actual description of the object, Rendered and/or Raw depending on the context
+    /// </summary>
+    public class Description : RenderedRawBase
+    {
+        /// <summary>
+        /// Can description be edited
+        /// </summary>
+        [JsonProperty("protected")]
+        public bool IsProtected { get; set; }
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        public Description()
+        {
+
+        }
+        /// <summary>
+        /// Constructor with same fields for Raw end Rendered
+        /// </summary>
+        /// <param name="Description">Text for Raw and rendered description</param>
+        public Description(string Description) : this(Description, Description)
+        {
+
+        }
+        /// <summary>
+        /// Constructor with Raw and Rendered description text fields
+        /// </summary>
+        /// <param name="DescriptionRaw">Raw HTML description text</param>
+        /// <param name="DescriptionRendered">Rendered description text</param>
+        public Description(string DescriptionRaw, string DescriptionRendered)
+        {
+            Raw = DescriptionRaw;
+            Rendered = DescriptionRendered;
+        }
+    }
+
+    /// <summary>
     /// The globally unique identifier for the object.
     /// </summary>
     /// <remarks>

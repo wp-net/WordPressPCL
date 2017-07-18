@@ -67,7 +67,7 @@ namespace WordPressPCL.Models
         /// <summary>
         /// Comment Approved
         /// </summary>
-        [EnumMember(Value = "approve")]
+        [EnumMember(Value = "approved")]
         Approve,
         /// <summary>
         /// Comment is pending to approve
@@ -84,7 +84,7 @@ namespace WordPressPCL.Models
     /// Status of Media for query builder
     /// </summary>
     [JsonConverter(typeof(StringEnumConverter))]
-    public enum MediaQueryStatus
+    public enum MediaStatus
     {
         /// <summary>
         /// Media inherit

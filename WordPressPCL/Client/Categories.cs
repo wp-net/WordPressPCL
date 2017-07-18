@@ -85,9 +85,9 @@ namespace WordPressPCL.Client
             do
             {
                 categories_page = (await _httpHelper.GetRequest<IEnumerable<Category>>($"{_defaultPath}{_methodPath}?per_page=100&page={page++}", embed).ConfigureAwait(false))?.ToList<Category>();
-                if (categories_page != null) { categories.AddRange(categories_page); }
+                if (categories_page != null && categories_page.Count > 0) { categories.AddRange(categories_page); }
 
-            } while (categories_page != null);
+            } while (categories_page != null && categories_page.Count > 0);
 
             return categories;
             //return await _httpHelper.GetRequest<IEnumerable<Category>>($"{_defaultPath}{_methodPath}", embed).ConfigureAwait(false);

@@ -88,9 +88,9 @@ namespace WordPressPCL.Client
             do
             {
                 posts_page = (await _httpHelper.GetRequest<IEnumerable<Post>>($"{_defaultPath}{_methodPath}?per_page=100&page={page++}", embed).ConfigureAwait(false))?.ToList<Post>();
-                if (posts_page != null) { posts.AddRange(posts_page); }
+                if (posts_page != null && posts_page.Count>0) { posts.AddRange(posts_page); }
                 
-            } while (posts_page!=null);
+            } while (posts_page!=null && posts_page.Count > 0);
             
             return posts;
         }

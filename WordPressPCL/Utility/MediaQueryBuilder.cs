@@ -91,7 +91,7 @@ namespace WordPressPCL.Utility
         /// <remarks>Default:  inherit
         /// One of: inherit, private, trash</remarks>
         [QueryText("status")]
-        public MediaQueryStatus[] Statuses { get; set; }
+        public MediaStatus[] Statuses { get; set; }
         /// <summary>
         /// Use WP Query arguments to modify the response; private query vars require appropriate authorization.
         /// </summary>

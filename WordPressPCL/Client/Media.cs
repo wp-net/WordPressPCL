@@ -85,9 +85,9 @@ namespace WordPressPCL.Client
             do
             {
                 medias_page = (await _httpHelper.GetRequest<IEnumerable<MediaItem>>($"{_defaultPath}{_methodPath}?per_page=100&page={page++}", embed).ConfigureAwait(false))?.ToList<MediaItem>();
-                if (medias_page != null) { medias.AddRange(medias_page); }
+                if (medias_page != null && medias_page.Count > 0) { medias.AddRange(medias_page); }
 
-            } while (medias_page != null);
+            } while (medias_page != null && medias_page.Count > 0);
 
             return medias;
             //return await _httpHelper.GetRequest<IEnumerable<Media>>($"{_defaultPath}{_methodPath}", embed).ConfigureAwait(false);

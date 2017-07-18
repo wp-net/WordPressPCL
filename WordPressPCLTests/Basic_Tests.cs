@@ -116,34 +116,6 @@ namespace WordPressPCLTests
 
 
         [TestMethod]
-        public async Task GetComments()
-        {
-            var client = new WordPressClient(ApiCredentials.WordPressUri);
-            var comments = await client.Comments.GetAll();
-
-            if(comments.Count() == 0)
-            {
-                Assert.Inconclusive("no comments to test");
-            }
-            
-            foreach (var comment in comments)
-            {
-                // test Date parsing was successfull
-                Assert.IsNotNull(comment.Date);
-                Assert.AreNotEqual(DateTime.Now, comment.Date);
-                Assert.AreNotEqual(DateTime.MaxValue, comment.Date);
-                Assert.AreNotEqual(DateTime.MinValue, comment.Date);
-
-                Assert.IsNotNull(comment.DateGmt);
-                Assert.AreNotEqual(DateTime.Now, comment.DateGmt);
-                Assert.AreNotEqual(DateTime.MaxValue, comment.DateGmt);
-                Assert.AreNotEqual(DateTime.MinValue, comment.DateGmt);
-            }
-
-        }
-
-
-        [TestMethod]
         public async Task JWTAuthTest()
         {
             // get JWT Authenticated client
@@ -151,55 +123,6 @@ namespace WordPressPCLTests
             //Assert.IsNotNull(client.JWToken);
             var IsValidToken = await client.IsValidJWToken();
             Assert.IsTrue(IsValidToken);
-        }
-
-        [TestMethod]
-        public async Task CreateAndDeleteComment()
-        {
-            var client = await ClientHelper.GetAuthenticatedWordPressClient();
-            var IsValidToken = await client.IsValidJWToken();
-            Assert.IsTrue(IsValidToken);
-
-            var posts = await client.Posts.GetAll();
-            var postId = posts.First().Id;
-
-            var me = await client.Users.GetCurrentUser();
-
-            var comment = new Comment()
-            {
-                Content = new Content("Testcomment"),
-                PostId = postId,
-                AuthorId = me.Id,
-                AuthorEmail = "test@test.com",
-                AuthorName = me.Name
-            };
-            var resultComment = await client.Comments.Create(comment);
-            Assert.IsNotNull(resultComment);
-
-            // Posting same comment twice should fail
-            var secondResultComment = await client.Comments.Create(comment);
-            Assert.IsNull(secondResultComment);
-
-
-            var del = await client.Comments.Delete(resultComment.Id);
-            Assert.IsTrue(del.IsSuccessStatusCode);
-        }
-
-        [TestMethod]
-        public async Task CreateAndDeletePostTest()
-        {
-            var client = await ClientHelper.GetAuthenticatedWordPressClient();
-            var IsValidToken = await client.IsValidJWToken();
-            Assert.IsTrue(IsValidToken);
-            var newpost = new Post()
-            {
-                Content = new Content("Testcontent")
-            };
-            var resultPost = await client.Posts.Create(newpost);
-            Assert.IsNotNull(resultPost.Id);
-
-            var del = await client.Posts.Delete(resultPost.Id);
-            Assert.IsTrue(del.IsSuccessStatusCode);
         }
     }
 }

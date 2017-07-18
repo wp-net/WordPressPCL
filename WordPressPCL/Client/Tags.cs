@@ -87,9 +87,9 @@ namespace WordPressPCL.Client
             do
             {
                 tags_page = (await _httpHelper.GetRequest<IEnumerable<Tag>>($"{_defaultPath}{_methodPath}?per_page=100&page={page++}", embed).ConfigureAwait(false))?.ToList<Tag>();
-                if (tags_page != null) { tags.AddRange(tags_page); }
+                if (tags_page != null && tags_page.Count > 0) { tags.AddRange(tags_page); }
 
-            } while (tags_page != null);
+            } while (tags_page != null && tags_page.Count > 0);
 
             return tags;
             //return await _httpHelper.GetRequest<IEnumerable<Tag>>($"{_defaultPath}{_methodPath}", embed).ConfigureAwait(false);

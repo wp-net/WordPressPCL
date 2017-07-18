@@ -34,24 +34,6 @@ namespace WordPressPCLTests
             Assert.AreNotEqual(postsB.Count(), 0);
             CollectionAssert.AreNotEqual(postsA.Select(post => post.Id).ToList(), postsB.Select(post => post.Id).ToList());
         }
-
-        [TestMethod]
-        [Description("Test that the ListPosts method with the QueryBuilder override works the same way as before when `QueryBuilder` is set with default values")]
-        public async Task List_Posts_QueryBuilder_Works_The_Same_As_Before()
-        {
-            // Initialize
-            var client = new WordPressClient(ApiCredentials.WordPressUri);
-            Assert.IsNotNull(client);
-            // Posts
-            var postsA = await client.Posts.Query(new PostsQueryBuilder());
-            var postsB = await client.Posts.GetAll();
-            Assert.IsNotNull(postsA);
-            Assert.IsNotNull(postsB);
-            Assert.AreNotEqual(postsA.Count(), 0);
-            Assert.AreNotEqual(postsB.Count(), 0);
-            CollectionAssert.AreEqual(postsA.Select(post => post.Id).ToList(), postsB.Select(post => post.Id).ToList());
-        }
-
         
 
         [TestMethod]
