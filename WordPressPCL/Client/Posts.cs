@@ -54,6 +54,7 @@ namespace WordPressPCL.Client
             var postBody = new StringContent(JsonConvert.SerializeObject(Entity).ToString(), Encoding.UTF8, "application/json");
             return (await _httpHelper.PostRequest<Post>($"{_defaultPath}{_methodPath}", postBody)).Item1;
         }
+
         /// <summary>
         /// Update Post
         /// </summary>
