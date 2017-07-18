@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 using WordPressPCL.Models;
@@ -7,9 +6,9 @@ using WordPressPCL.Models;
 namespace WordPressPCL.Utility
 {
     /// <summary>
-    /// Post Query Builder class to construct queries with valid parameters
+    /// Comments Query Builder class to construct queries with valid parameters
     /// </summary>
-    public class PostsQueryBuilder : QueryBuilder
+    public class CommentsQueryBuilder : QueryBuilder
     {
         /// <summary>
         /// Current page of the collection.
@@ -44,6 +43,11 @@ namespace WordPressPCL.Utility
         [QueryText("author_exclude")]
         public int[] AuthorsExclude { get; set; }
         /// <summary>
+        /// Limit result set to that from a specific author email. Requires authorization.
+        /// </summary>
+        [QueryText("author_email")]
+        public string AuthorEmail { get; set; }
+        /// <summary>
         /// Limit response to posts published before a given date
         /// </summary>
         [QueryText("before")]
@@ -59,52 +63,53 @@ namespace WordPressPCL.Utility
         [QueryText("include")]
         public int[] Include { get; set; }
         /// <summary>
+        /// Limit result set to that of a particular comment karma. Requires authorization.
+        /// </summary>
+        [QueryText("karma")]
+        public int Karma { get; set; }
+        /// <summary>
         /// Offset the result set by a specific number of items.
         /// </summary>
         [QueryText("offset")]
         public int Offset { get; set; }
         /// <summary>
+        /// Limit result set to resources with a specific menu_order value.
+        /// </summary>
+        [QueryText("menu_order")]
+        public int MenuOrder { get; set; }
+        /// <summary>
         /// Sort collection by object attribute.
         /// </summary>
-        /// <remarks>Default: date
-        /// One of: date, relevance, id, include, title, slug</remarks>
+        /// <remarks>Default: date_gmt
+        /// One of:  date, date_gmt, id, include, post, parent, type</remarks>
         [QueryText("orderby")]
-        public PostsOrderBy OrderBy { get; set; }
+        public CommentsOrderBy OrderBy { get; set; }
         /// <summary>
-        /// Limit result set to posts with one or more specific slugs.
+        /// Limit result set to those of particular parent ids.
         /// </summary>
-        [QueryText("slug")]
-        public string[] Slugs { get; set; }
+        [QueryText("parent")]
+        public int[] Parents { get; set; }
+        /// <summary>
+        /// Limit result set to all items except those of a particular parent id.
+        /// </summary>
+        [QueryText("parent_exclude")]
+        public int[] ParentsExclude { get; set; }
+        /// <summary>
+        /// Limit result set to resources assigned to specific post ids.
+        /// </summary>
+        [QueryText("post")]
+        public int[] Posts { get; set; }
         /// <summary>
         /// Limit result set to posts assigned one or more statuses.
         /// </summary>
-        /// <remarks>Default: publish</remarks>
+        /// <remarks>Default: approve</remarks>
         [QueryText("status")]
-        public Status[] Statuses { get; set; }
+        public CommentStatus[] Statuses { get; set; }
         /// <summary>
-        /// Limit result set to all items that have the specified term assigned in the categories taxonomy.
+        /// Limit result set to comments assigned a specific type. Requires authorization.
         /// </summary>
-        [QueryText("categories")]
-        public int[] Categories { get; set; }
-        /// <summary>
-        /// Limit result set to all items except those that have the specified term assigned in the categories taxonomy.
-        /// </summary>
-        [QueryText("categories_exclude")]
-        public int[] CategoriesExclude { get; set; }
-        /// <summary>
-        /// Limit result set to all items that have the specified term assigned in the tags taxonomy.
-        /// </summary>
-        [QueryText("tags")]
-        public int[] Tags { get; set; }
-        /// <summary>
-        /// Limit result set to all items except those that have the specified term assigned in the tags taxonomy.
-        /// </summary>
-        [QueryText("tags_exclude")]
-        public int[] TagsExclude { get; set; }
-        /// <summary>
-        /// Limit result set to items that are sticky.
-        /// </summary>
-        [QueryText("sticky")]
-        public bool Sticky { get; set; }
+        /// <remarks>Default: comment</remarks>
+        [QueryText("type")]
+        public string Type { get; set; }
     }
 }

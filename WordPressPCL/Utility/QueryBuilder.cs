@@ -11,7 +11,7 @@ namespace WordPressPCL.Utility
     /// <summary>
     /// Query builder class. Use it for create custom query
     /// </summary>
-    public class QueryBuilder
+    public abstract class QueryBuilder
     {
         /// <summary>
         /// Order direction

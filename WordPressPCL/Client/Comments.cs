@@ -33,6 +33,15 @@ namespace WordPressPCL.Client
             _httpHelper = HttpHelper;
         }
         #endregion
+        /// <summary>
+        /// Create a parametrized query and get a result
+        /// </summary>
+        /// <param name="queryBuilder">Comments query builder with specific parameters</param>
+        /// <returns>List of filtered comments</returns>
+        public async Task<IEnumerable<Comment>> Query(CommentsQueryBuilder queryBuilder)
+        {
+            return await _httpHelper.GetRequest<IEnumerable<Comment>>($"{_defaultPath}{_methodPath}{queryBuilder.BuildQueryURL()}", false).ConfigureAwait(false);
+        }
         #region Interface Realisation
         /// <summary>
         /// Create Comment

@@ -34,6 +34,15 @@ namespace WordPressPCL.Client
             
         }
         #endregion
+        /// <summary>
+        /// Create a parametrized query and get a result
+        /// </summary>
+        /// <param name="queryBuilder">Tags query builder with specific parameters</param>
+        /// <returns>List of filtered tags</returns>
+        public async Task<IEnumerable<Tag>> Query(TagsQueryBuilder queryBuilder)
+        {
+            return await _httpHelper.GetRequest<IEnumerable<Tag>>($"{_defaultPath}{_methodPath}{queryBuilder.BuildQueryURL()}", false).ConfigureAwait(false);
+        }
         #region Interface Realisation
         /// <summary>
         /// Create Tag

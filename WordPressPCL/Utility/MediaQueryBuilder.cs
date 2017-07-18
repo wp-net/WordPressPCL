@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 using WordPressPCL.Models;
@@ -7,9 +6,9 @@ using WordPressPCL.Models;
 namespace WordPressPCL.Utility
 {
     /// <summary>
-    /// Post Query Builder class to construct queries with valid parameters
+    /// Media Query Builder class to construct queries with valid parameters
     /// </summary>
-    public class PostsQueryBuilder : QueryBuilder
+    public class MediaQueryBuilder : QueryBuilder
     {
         /// <summary>
         /// Current page of the collection.
@@ -63,48 +62,50 @@ namespace WordPressPCL.Utility
         /// </summary>
         [QueryText("offset")]
         public int Offset { get; set; }
+
         /// <summary>
         /// Sort collection by object attribute.
         /// </summary>
         /// <remarks>Default: date
         /// One of: date, relevance, id, include, title, slug</remarks>
         [QueryText("orderby")]
-        public PostsOrderBy OrderBy { get; set; }
+        public MediaOrderBy OrderBy { get; set; }
+        /// <summary>
+        /// Limit result set to those of particular parent ids.
+        /// </summary>
+        [QueryText("parent")]
+        public int[] Parents { get; set; }
+        /// <summary>
+        /// Limit result set to all items except those of a particular parent id.
+        /// </summary>
+        [QueryText("parent_exclude")]
+        public int[] ParentsExclude { get; set; }
         /// <summary>
         /// Limit result set to posts with one or more specific slugs.
         /// </summary>
         [QueryText("slug")]
         public string[] Slugs { get; set; }
         /// <summary>
-        /// Limit result set to posts assigned one or more statuses.
+        /// Limit result set to posts assigned a specific status; can be comma-delimited list of status types.
         /// </summary>
-        /// <remarks>Default: publish</remarks>
+        /// <remarks>Default:  inherit
+        /// One of: inherit, private, trash</remarks>
         [QueryText("status")]
-        public Status[] Statuses { get; set; }
+        public MediaQueryStatus[] Statuses { get; set; }
         /// <summary>
-        /// Limit result set to all items that have the specified term assigned in the categories taxonomy.
+        /// Use WP Query arguments to modify the response; private query vars require appropriate authorization.
         /// </summary>
-        [QueryText("categories")]
-        public int[] Categories { get; set; }
+        [QueryText("filter")]
+        public string Filter { get; set; }
         /// <summary>
-        /// Limit result set to all items except those that have the specified term assigned in the categories taxonomy.
+        /// Limit result set to attachments of a particular media type.
         /// </summary>
-        [QueryText("categories_exclude")]
-        public int[] CategoriesExclude { get; set; }
+        [QueryText("media_type")]
+        public MediaType MediaType { get; set; }
         /// <summary>
-        /// Limit result set to all items that have the specified term assigned in the tags taxonomy.
+        /// Limit result set to attachments of a particular MIME type.
         /// </summary>
-        [QueryText("tags")]
-        public int[] Tags { get; set; }
-        /// <summary>
-        /// Limit result set to all items except those that have the specified term assigned in the tags taxonomy.
-        /// </summary>
-        [QueryText("tags_exclude")]
-        public int[] TagsExclude { get; set; }
-        /// <summary>
-        /// Limit result set to items that are sticky.
-        /// </summary>
-        [QueryText("sticky")]
-        public bool Sticky { get; set; }
+        [QueryText("mime_type")]
+        public string MimeType { get; set; }
     }
 }

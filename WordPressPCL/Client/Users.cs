@@ -33,6 +33,15 @@ namespace WordPressPCL.Client
             
         }
         #endregion
+        /// <summary>
+        /// Create a parametrized query and get a result
+        /// </summary>
+        /// <param name="queryBuilder">Users query builder with specific parameters</param>
+        /// <returns>List of filtered users</returns>
+        public async Task<IEnumerable<User>> Query(UsersQueryBuilder queryBuilder)
+        {
+            return await _httpHelper.GetRequest<IEnumerable<User>>($"{_defaultPath}{_methodPath}{queryBuilder.BuildQueryURL()}", false).ConfigureAwait(false);
+        }
         #region Interface Realisation
         /// <summary>
         /// Create User

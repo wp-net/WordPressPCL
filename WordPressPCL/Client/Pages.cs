@@ -32,6 +32,15 @@ namespace WordPressPCL.Client
             _httpHelper = HttpHelper;
         }
         #endregion
+        /// <summary>
+        /// Create a parametrized query and get a result
+        /// </summary>
+        /// <param name="queryBuilder">Pages query builder with specific parameters</param>
+        /// <returns>List of filtered pages</returns>
+        public async Task<IEnumerable<Page>> Query(PagesQueryBuilder queryBuilder)
+        {
+            return await _httpHelper.GetRequest<IEnumerable<Page>>($"{_defaultPath}{_methodPath}{queryBuilder.BuildQueryURL()}", false).ConfigureAwait(false);
+        }
         #region Interface Realisation
         /// <summary>
         /// Create Page
@@ -108,18 +117,7 @@ namespace WordPressPCL.Client
             // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
             return await _httpHelper.GetRequest<IEnumerable<Page>>($"{_defaultPath}{_methodPath}?author={authorId}", embed).ConfigureAwait(false);
         }
-        /// <summary>
-        /// Get pages by author with query builder
-        /// </summary>
-        /// <param name="authorId">Author id</param>
-        /// <param name="builder">Builder object</param>
-        /// <returns>List of pages</returns>
-        /*public async Task<IEnumerable<Page>> GetPagesByAuthor(int authorId, QueryBuilder builder)
-        {
-            // default values 
-            // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
-            return await _httpHelper.GetRequest<IEnumerable<Page>>(builder.SetRootUrl($"{_defaultPath}{_methodPath}?author={authorId}").ToString(), false).ConfigureAwait(false);
-        }*/
+        
         /// <summary>
         /// Get pages by search term
         /// </summary>
@@ -132,27 +130,7 @@ namespace WordPressPCL.Client
             // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
             return await _httpHelper.GetRequest<IEnumerable<Page>>($"{_defaultPath}{_methodPath}?search={searchTerm}", embed).ConfigureAwait(false);
         }
-        /// <summary>
-        /// Get pages by search term with query builder
-        /// </summary>
-        /// <param name="searchTerm">Search term</param>
-        /// <param name="builder">Query builder object</param>
-        /// <returns>List of pages</returns>
-        /*public async Task<IEnumerable<Page>> GetPagesBySearch(string searchTerm, QueryBuilder builder)
-        {
-            // default values 
-            // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
-            return await _httpHelper.GetRequest<IEnumerable<Page>>(builder.SetRootUrl($"{_defaultPath}{_methodPath}?search={searchTerm}").ToString(), false).ConfigureAwait(false);
-        }*/
-        /// <summary>
-        /// Get pages  with query builder
-        /// </summary>
-        /// <param name="builder">Query builder object</param>
-        /// <returns>List of pages</returns>
-        /*public async Task<IEnumerable<Page>> GetBy(QueryBuilder builder)
-        {
-            return await _httpHelper.GetRequest<IEnumerable<Page>>(builder.SetRootUrl($"{_defaultPath}{_methodPath}").ToString(), false).ConfigureAwait(false);
-        }*/
+        
         /// <summary>
         /// Delete page with force deletion
         /// </summary>

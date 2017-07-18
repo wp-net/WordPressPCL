@@ -32,6 +32,15 @@ namespace WordPressPCL.Client
             _httpHelper = HttpHelper;
         }
         #endregion
+        /// <summary>
+        /// Create a parametrized query and get a result
+        /// </summary>
+        /// <param name="queryBuilder">Categories query builder with specific parameters</param>
+        /// <returns>List of filtered categories</returns>
+        public async Task<IEnumerable<Category>> Query(CategoriesQueryBuilder queryBuilder)
+        {
+            return await _httpHelper.GetRequest<IEnumerable<Category>>($"{_defaultPath}{_methodPath}{queryBuilder.BuildQueryURL()}", false).ConfigureAwait(false);
+        }
         #region Interface Realisation
         /// <summary>
         /// Create Category

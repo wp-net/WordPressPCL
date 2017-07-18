@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 using WordPressPCL.Models;
@@ -7,9 +6,9 @@ using WordPressPCL.Models;
 namespace WordPressPCL.Utility
 {
     /// <summary>
-    /// Post Query Builder class to construct queries with valid parameters
+    /// Pages Query Builder class to construct queries with valid parameters
     /// </summary>
-    public class PostsQueryBuilder : QueryBuilder
+    public class PagesQueryBuilder : QueryBuilder
     {
         /// <summary>
         /// Current page of the collection.
@@ -64,12 +63,27 @@ namespace WordPressPCL.Utility
         [QueryText("offset")]
         public int Offset { get; set; }
         /// <summary>
+        /// Limit result set to resources with a specific menu_order value.
+        /// </summary>
+        [QueryText("menu_order")]
+        public int MenuOrder { get; set; }
+        /// <summary>
         /// Sort collection by object attribute.
         /// </summary>
         /// <remarks>Default: date
-        /// One of: date, relevance, id, include, title, slug</remarks>
+        /// One of: date, relevance, id, include, title, slug, menu_order</remarks>
         [QueryText("orderby")]
-        public PostsOrderBy OrderBy { get; set; }
+        public PagesOrderBy OrderBy { get; set; }
+        /// <summary>
+        /// Limit result set to those of particular parent ids.
+        /// </summary>
+        [QueryText("parent")]
+        public int[] Parents { get; set; }
+        /// <summary>
+        /// Limit result set to all items except those of a particular parent id.
+        /// </summary>
+        [QueryText("parent_exclude")]
+        public int[] ParentsExclude { get; set; }
         /// <summary>
         /// Limit result set to posts with one or more specific slugs.
         /// </summary>
@@ -82,29 +96,9 @@ namespace WordPressPCL.Utility
         [QueryText("status")]
         public Status[] Statuses { get; set; }
         /// <summary>
-        /// Limit result set to all items that have the specified term assigned in the categories taxonomy.
+        /// Use WP Query arguments to modify the response; private query vars require appropriate authorization.
         /// </summary>
-        [QueryText("categories")]
-        public int[] Categories { get; set; }
-        /// <summary>
-        /// Limit result set to all items except those that have the specified term assigned in the categories taxonomy.
-        /// </summary>
-        [QueryText("categories_exclude")]
-        public int[] CategoriesExclude { get; set; }
-        /// <summary>
-        /// Limit result set to all items that have the specified term assigned in the tags taxonomy.
-        /// </summary>
-        [QueryText("tags")]
-        public int[] Tags { get; set; }
-        /// <summary>
-        /// Limit result set to all items except those that have the specified term assigned in the tags taxonomy.
-        /// </summary>
-        [QueryText("tags_exclude")]
-        public int[] TagsExclude { get; set; }
-        /// <summary>
-        /// Limit result set to items that are sticky.
-        /// </summary>
-        [QueryText("sticky")]
-        public bool Sticky { get; set; }
+        [QueryText("filter")]
+        public string Filter { get; set; }
     }
 }

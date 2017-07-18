@@ -32,6 +32,15 @@ namespace WordPressPCL.Client
             _httpHelper = HttpHelper;
         }
         #endregion
+        /// <summary>
+        /// Create a parametrized query and get a result
+        /// </summary>
+        /// <param name="queryBuilder">Media query builder with specific parameters</param>
+        /// <returns>List of filtered Media</returns>
+        public async Task<IEnumerable<Media>> Query(MediaQueryBuilder queryBuilder)
+        {
+            return await _httpHelper.GetRequest<IEnumerable<Media>>($"{_defaultPath}{_methodPath}{queryBuilder.BuildQueryURL()}", false).ConfigureAwait(false);
+        }
         #region Interface Realisation
         /// <summary>
         /// Create Media
