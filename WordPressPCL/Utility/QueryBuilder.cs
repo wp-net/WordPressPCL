@@ -16,16 +16,19 @@ namespace WordPressPCL.Utility
         /// <summary>
         /// Order direction
         /// </summary>
+        /// <remarks>Default: asc</remarks>
         [QueryText("order")]
         public Order Order { get; set; }
         /// <summary>
         /// include embed info
         /// </summary>
+        /// <remarks>Default: false</remarks>
         [QueryText("_embed")]
         public bool Embed { get; set; }
         /// <summary>
         /// Context of request
         /// </summary>
+        /// <remarks>Default^ view</remarks>
         [QueryText("context")]
         public Context Context { get; set; }
         /// <summary>
@@ -41,17 +44,22 @@ namespace WordPressPCL.Utility
                 if (attribute != null)
                 {
                     var value = GetPropertyValue(property);
+                    var ttt = property.PropertyType.GetTypeInfo().IsEnum ;
+                    var ppp = property.GetValue(this);
+                    //pass default values
                     if (value is int && (int)value==default(int)) continue;
                     if (value is string && ((string)value == string.Empty || (string)value == DateTime.MinValue.ToString("yyyy-MM-ddTHH:mm:ss"))) continue;
                     if (value is DateTime && (string)value == DateTime.MinValue.ToString("yyyy-MM-ddTHH:mm:ss")) continue;
-                    if (value is bool && (bool)value == default(bool)) continue;
-                    if (value is Enum && (int)value == 0) continue;
-                    if (property.GetType().IsArray && ((Array)value).Length == 0) continue;
+                    if (property.PropertyType == typeof(bool) && (string)value == default(bool).ToString().ToLower()) continue;
+                    if (property.PropertyType.GetTypeInfo().IsEnum && (int)property.GetValue(this) == 0) continue;
+                    //if (property.PropertyType.IsArray && ((Array)value).Length == 0) continue;
                     if (value == null) continue;
                     sb.Append($"{attribute.Text}={value}&");
                 }   
             }
-            return sb.ToString();
+            //insert ? quote to the start of http query text
+            if (sb.Length > 0) sb.Insert(0, "?");
+            return sb.ToString().TrimEnd('&');
         }
         /// <summary>
         /// Use reflection to get property value
@@ -60,6 +68,7 @@ namespace WordPressPCL.Utility
         /// <returns>property value</returns>
         private object GetPropertyValue(object property)
         {
+            //secion for propertyInfo object
             PropertyInfo pi = property as PropertyInfo;
             if (pi != null)
             {
@@ -79,7 +88,8 @@ namespace WordPressPCL.Utility
                     {
                         sb.Append($"{GetPropertyValue(item)},");
                     }
-                    return sb.ToString();
+                    
+                    return sb.ToString().TrimEnd(',');
                 }
                 if (pi.PropertyType == typeof(DateTime))
                 {
@@ -91,6 +101,7 @@ namespace WordPressPCL.Utility
                 }
                 return pi.GetValue(this);
             }
+            //section for simple object
             else
             {
                 if (property.GetType().GetTypeInfo().IsEnum)
