@@ -18,7 +18,7 @@ namespace WordPressPCLTests
         public async Task Users_Create()
         {
             var client = await ClientHelper.GetAuthenticatedWordPressClient();
-            var user = await client.Users.Create(new User("test","test@mail.ru","test")
+            var user = await client.Users.Create(new User("test", "test@test.test", "test")
             {
                 NickName = "test",
                 Name = "test",
