@@ -8,16 +8,21 @@ using WordPressPCLTests.Utility;
 using System.Linq;
 using WordPressPCL.Utility;
 using WordPressPCL.Models;
+using System.IO;
 
 namespace WordPressPCLTests
 {
     [TestClass]
     public class Media_Tests
     {
+        
         [TestMethod]
         public async Task Media_Create()
         {
-            Assert.Inconclusive();
+            var client = await ClientHelper.GetAuthenticatedWordPressClient();
+            Stream s = File.OpenRead(@"1.jpg");
+            var mediaitem = await client.Media.Create(s,"1.jpg");
+            Assert.IsNotNull(mediaitem);
         }
         [TestMethod]
         public async Task Media_Read()

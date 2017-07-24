@@ -38,10 +38,11 @@ namespace WordPressPCL.Client
         /// Create a parametrized query and get a result
         /// </summary>
         /// <param name="queryBuilder">Tags query builder with specific parameters</param>
+        /// <param name="useAuth">Send request with authenication header</param>
         /// <returns>List of filtered tags</returns>
-        public async Task<IEnumerable<Tag>> Query(TagsQueryBuilder queryBuilder)
+        public async Task<IEnumerable<Tag>> Query(TagsQueryBuilder queryBuilder, bool useAuth = false)
         {
-            return await _httpHelper.GetRequest<IEnumerable<Tag>>($"{_defaultPath}{_methodPath}{queryBuilder.BuildQueryURL()}", false).ConfigureAwait(false);
+            return await _httpHelper.GetRequest<IEnumerable<Tag>>($"{_defaultPath}{_methodPath}{queryBuilder.BuildQueryURL()}", false,useAuth).ConfigureAwait(false);
         }
         #region Interface Realisation
         /// <summary>
@@ -77,8 +78,9 @@ namespace WordPressPCL.Client
         /// Get All Tags
         /// </summary>
         /// <param name="embed">Include embed info</param>
+        /// <param name="useAuth">Send request with authenication header</param>
         /// <returns>List of all Tags</returns>
-        public async Task<IEnumerable<Tag>> GetAll(bool embed = false)
+        public async Task<IEnumerable<Tag>> GetAll(bool embed = false, bool useAuth = false)
         {
             //100 - Max posts per page in WordPress REST API, so this is hack with multiple requests
             List<Tag> tags = new List<Tag>();
@@ -86,7 +88,7 @@ namespace WordPressPCL.Client
             int page = 1;
             do
             {
-                tags_page = (await _httpHelper.GetRequest<IEnumerable<Tag>>($"{_defaultPath}{_methodPath}?per_page=100&page={page++}", embed).ConfigureAwait(false))?.ToList<Tag>();
+                tags_page = (await _httpHelper.GetRequest<IEnumerable<Tag>>($"{_defaultPath}{_methodPath}?per_page=100&page={page++}", embed,useAuth).ConfigureAwait(false))?.ToList<Tag>();
                 if (tags_page != null && tags_page.Count > 0) { tags.AddRange(tags_page); }
 
             } while (tags_page != null && tags_page.Count > 0);
@@ -101,10 +103,11 @@ namespace WordPressPCL.Client
         /// </summary>
         /// <param name="ID">Tag ID</param>
         /// <param name="embed">include embed info</param>
+        /// <param name="useAuth">Send request with authenication header</param>
         /// <returns>Tag by Id</returns>
-        public async Task<Tag> GetByID(int ID, bool embed = false)
+        public async Task<Tag> GetByID(int ID, bool embed = false, bool useAuth = false)
         {
-            return await _httpHelper.GetRequest<Tag>($"{_defaultPath}{_methodPath}/{ID}", embed).ConfigureAwait(false);
+            return await _httpHelper.GetRequest<Tag>($"{_defaultPath}{_methodPath}/{ID}", embed,useAuth).ConfigureAwait(false);
         }
 
         #endregion

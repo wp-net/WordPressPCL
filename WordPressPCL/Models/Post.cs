@@ -227,6 +227,15 @@ namespace WordPressPCL.Models
         /// </summary>
         [JsonProperty("_embedded")]
         public Embedded Embedded { get; set; }
+        /// <summary>
+        /// Parameterless constructor
+        /// </summary>
+        public Post()
+        {
+                
+        }
+        
+        
     }
 
    

@@ -83,10 +83,11 @@ namespace WordPressPCLTests
                 PerPage = 15,
                 OrderBy = PagesOrderBy.Title,
                 Order = Order.DESC,
-                Statuses = new Status[] { Status.Publish }
+                Statuses = new Status[] { Status.Publish },
+                Embed=true
             };
             var queryresult = await client.Pages.Query(queryBuilder);
-            Assert.AreEqual(queryBuilder.BuildQueryURL(), "?page=1&per_page=15&orderby=title&status=publish&order=desc");
+            Assert.AreEqual(queryBuilder.BuildQueryURL(), "?page=1&per_page=15&orderby=title&status=publish&order=desc&_embed=true");
             Assert.IsNotNull(queryresult);
             Assert.AreNotSame(queryresult.Count(), 0);
         }

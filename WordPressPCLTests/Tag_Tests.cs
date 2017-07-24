@@ -17,7 +17,14 @@ namespace WordPressPCLTests
         [TestMethod]
         public async Task Tags_Create()
         {
-            Assert.Inconclusive();
+            var client = await ClientHelper.GetAuthenticatedWordPressClient();
+            var tag = await client.Tags.Create(new Tag()
+            {
+                Name = "Test",
+                Description = "Test"
+            });
+            Assert.IsNotNull(tag);
+            Assert.AreEqual("Test", tag.Name);
         }
         [TestMethod]
         public async Task Tags_Read()

@@ -17,7 +17,22 @@ namespace WordPressPCLTests
         [TestMethod]
         public async Task Users_Create()
         {
-            Assert.Inconclusive();
+            var client = await ClientHelper.GetAuthenticatedWordPressClient();
+            var user = await client.Users.Create(new User("test","test@mail.ru","test")
+            {
+                NickName = "test",
+                Name = "test",
+                FirstName = "First",
+                LastName = "Last"
+            });
+            Assert.IsNotNull(user);
+            Assert.AreEqual("test", user.NickName);
+            Assert.AreEqual("test", user.Name);
+            Assert.AreEqual("First", user.FirstName);
+            Assert.AreEqual("Last", user.LastName);
+            Assert.AreEqual("test", user.UserName);
+            Assert.AreEqual("test@test.test", user.Email);
+
         }
         [TestMethod]
         public async Task Users_Read()

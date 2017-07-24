@@ -37,10 +37,11 @@ namespace WordPressPCL.Client
         /// Create a parametrized query and get a result
         /// </summary>
         /// <param name="queryBuilder">Users query builder with specific parameters</param>
+        /// <param name="useAuth">Send request with authenication header</param>
         /// <returns>List of filtered users</returns>
-        public async Task<IEnumerable<User>> Query(UsersQueryBuilder queryBuilder)
+        public async Task<IEnumerable<User>> Query(UsersQueryBuilder queryBuilder, bool useAuth = false)
         {
-            return await _httpHelper.GetRequest<IEnumerable<User>>($"{_defaultPath}{_methodPath}{queryBuilder.BuildQueryURL()}", false).ConfigureAwait(false);
+            return await _httpHelper.GetRequest<IEnumerable<User>>($"{_defaultPath}{_methodPath}{queryBuilder.BuildQueryURL()}", false,useAuth).ConfigureAwait(false);
         }
         #region Interface Realisation
         /// <summary>
@@ -76,8 +77,9 @@ namespace WordPressPCL.Client
         /// Get All Users
         /// </summary>
         /// <param name="embed">Include embed info</param>
+        /// <param name="useAuth">Send request with authenication header</param>
         /// <returns>List of all Users</returns>
-        public async Task<IEnumerable<User>> GetAll(bool embed = false)
+        public async Task<IEnumerable<User>> GetAll(bool embed = false, bool useAuth = false)
         {
             //100 - Max posts per page in WordPress REST API, so this is hack with multiple requests
             List<User> users = new List<User>();
@@ -85,7 +87,7 @@ namespace WordPressPCL.Client
             int page = 1;
             do
             {
-                users_page = (await _httpHelper.GetRequest<IEnumerable<User>>($"{_defaultPath}{_methodPath}?per_page=100&page={page++}", embed).ConfigureAwait(false))?.ToList<User>();
+                users_page = (await _httpHelper.GetRequest<IEnumerable<User>>($"{_defaultPath}{_methodPath}?per_page=100&page={page++}", embed,useAuth).ConfigureAwait(false))?.ToList<User>();
                 if (users_page != null && users_page.Count > 0) { users.AddRange(users_page); }
 
             } while (users_page != null && users_page.Count > 0);
@@ -94,16 +96,17 @@ namespace WordPressPCL.Client
             //return await _httpHelper.GetRequest<IEnumerable<User>>($"{_defaultPath}{_methodPath}", embed).ConfigureAwait(false);
         }
 
-        
+
         /// <summary>
         /// GetUser by Id
         /// </summary>
         /// <param name="ID">User ID</param>
         /// <param name="embed">include embed info</param>
+        /// <param name="useAuth">Send request with authenication header</param>
         /// <returns>User by Id</returns>
-        public async Task<User> GetByID(int ID, bool embed = false)
+        public async Task<User> GetByID(int ID, bool embed = false, bool useAuth = false)
         {
-            return await _httpHelper.GetRequest<User>($"{_defaultPath}{_methodPath}/{ID}", embed).ConfigureAwait(false);
+            return await _httpHelper.GetRequest<User>($"{_defaultPath}{_methodPath}/{ID}", embed,useAuth).ConfigureAwait(false);
         }
 
         

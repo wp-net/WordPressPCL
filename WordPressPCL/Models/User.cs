@@ -72,13 +72,13 @@ namespace WordPressPCL.Models
         /// Read only
         /// Context: embed, view, edit
         /// </remarks>
-        [JsonProperty("link")]
+        [JsonProperty("link",DefaultValueHandling =DefaultValueHandling.Ignore)]
         public string Link { get; set; }
         /// <summary>
         /// Locale for the user.
         /// </summary>
         /// <remarks>Context: edit</remarks>
-        [JsonProperty("locale")]
+        [JsonProperty("locale", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public string Locale { get; set; }
         /// <summary>
         /// The nickname for the user.
@@ -103,26 +103,26 @@ namespace WordPressPCL.Models
         /// Roles assigned to the user.
         /// </summary>
         /// <remarks>Context: edit</remarks>
-        [JsonProperty("roles")]
+        [JsonProperty("roles", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public IEnumerable<string> Roles { get; set; }
         /// <summary>
         /// Password for the user (never included).
         /// </summary>
         /// <remarks>Context:</remarks>
-        [JsonProperty("password")]
+        [JsonProperty("password", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public string Password { get; set; }
         /// <summary>
         /// All capabilities assigned to the user.
         /// </summary>
         /// <remarks>Context: edit</remarks>
-        [JsonProperty("capabilities")]
-        public IEnumerable<object> Capabilities { get; set; }
+        [JsonProperty("capabilities", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public IDictionary<string,bool> Capabilities { get; set; }
         /// <summary>
         /// Any extra capabilities assigned to the user.
         /// </summary>
         /// <remarks>Context: edit</remarks>
-        [JsonProperty("extra_capabilities")]
-        public IEnumerable<object> ExtraCapabilities { get; set; }
+        [JsonProperty("extra_capabilities", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public IDictionary<string,bool> ExtraCapabilities { get; set; }
 
         /// <summary>
         /// Avatar URLs for the user.
@@ -146,6 +146,25 @@ namespace WordPressPCL.Models
         /// </summary>
         [JsonProperty("_links", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public Links Links { get; set; }
+        /// <summary>
+        /// Constructor with required parameters
+        /// </summary>
+        /// <param name="userName">Username</param>
+        /// <param name="email">Email</param>
+        /// <param name="password">Password</param>
+        public User(string userName,string email, string password):this()
+        {
+            UserName = userName;
+            Email = email;
+            Password = password;
+        }
+        /// <summary>
+        /// parameterless constructor
+        /// </summary>
+        public User()
+        {
+
+        }
     }
 
 }
