@@ -165,6 +165,32 @@ namespace WordPressPCL.Models
         /// </summary>
         [JsonProperty("protected")]
         public bool IsProtected { get; set; }
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        public Excerpt()
+        {
+
+        }
+        /// <summary>
+        /// Constructor with same Raw and rendered Excerpt
+        /// </summary>
+        /// <param name="Excerpt">Text for Excerpt</param>
+        public Excerpt(string Excerpt) : this(Excerpt, Excerpt)
+        {
+
+        }
+        /// <summary>
+        /// Constructor with Raw and rendered text
+        /// </summary>
+        /// <param name="ExcerptRaw">Raw HTML text for Excerpt</param>
+        /// <param name="ExcerptRendered">Rendered text for Excerpt</param>
+        public Excerpt(string ExcerptRaw, string ExcerptRendered)
+        {
+            Raw = ExcerptRaw;
+            Rendered = ExcerptRendered;
+        }
     }
 
     /// <summary>
@@ -176,7 +202,33 @@ namespace WordPressPCL.Models
     /// <summary>
     /// Caption
     /// </summary>
-    public class Caption : RenderedRawBase { }
+    public class Caption : RenderedRawBase {
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        public Caption()
+        {
+
+        }
+        /// <summary>
+        /// Constructor with the same raw and rendered Caption
+        /// </summary>
+        /// <param name="Caption">Text for caption</param>
+        public Caption(string Caption):this(Caption,Caption)
+        {
+
+        }
+        /// <summary>
+        /// Constructor with raw and rendered caption
+        /// </summary>
+        /// <param name="CaptionRaw">Raw text for caption</param>
+        /// <param name="CaptionRendered">Rendered text for caption</param>
+        public Caption(string CaptionRaw,string CaptionRendered)
+        {
+            Raw = CaptionRaw;
+            Rendered = CaptionRendered;
+        }
+    }
     /// <summary>
     /// Multimedia http info
     /// </summary>
@@ -255,6 +307,7 @@ namespace WordPressPCL.Models
         /// <summary>
         /// Taxonomy name
         /// </summary>
+        [JsonProperty("taxonomy")]
         public string Taxonomy { get; set; }
         /// <summary>
         /// Has embedded info

@@ -30,5 +30,20 @@ namespace WordPressPCL.Models
         /// <remarks>Context: view</remarks>
         [JsonProperty("meta", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public IEnumerable<object> Meta { get; set; }
+        /// <summary>
+        /// Parameterless constructor
+        /// </summary>
+        public Tag():base()
+        {
+
+        }
+        /// <summary>
+        /// Constructor with required parameters
+        /// </summary>
+        /// <param name="name">Tag name</param>
+        public Tag(string name):this()
+        {
+            Name = name;
+        }
     }
 }

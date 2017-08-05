@@ -36,10 +36,11 @@ namespace WordPressPCL.Client
         /// Create a parametrized query and get a result
         /// </summary>
         /// <param name="queryBuilder">Pages query builder with specific parameters</param>
+        /// <param name="useAuth">Send request with authenication header</param>
         /// <returns>List of filtered pages</returns>
-        public async Task<IEnumerable<Page>> Query(PagesQueryBuilder queryBuilder)
+        public async Task<IEnumerable<Page>> Query(PagesQueryBuilder queryBuilder, bool useAuth = false)
         {
-            return await _httpHelper.GetRequest<IEnumerable<Page>>($"{_defaultPath}{_methodPath}{queryBuilder.BuildQueryURL()}", false).ConfigureAwait(false);
+            return await _httpHelper.GetRequest<IEnumerable<Page>>($"{_defaultPath}{_methodPath}{queryBuilder.BuildQueryURL()}", false,useAuth).ConfigureAwait(false);
         }
         #region Interface Realisation
         /// <summary>
@@ -75,8 +76,9 @@ namespace WordPressPCL.Client
         /// Get All Pages
         /// </summary>
         /// <param name="embed">Include embed info</param>
+        /// <param name="useAuth">Send request with authenication header</param>
         /// <returns>List of all Pages</returns>
-        public async Task<IEnumerable<Page>> GetAll(bool embed = false)
+        public async Task<IEnumerable<Page>> GetAll(bool embed = false, bool useAuth = false)
         {
             //100 - Max posts per page in WordPress REST API, so this is hack with multiple requests
             List<Page> posts = new List<Page>();
@@ -84,7 +86,7 @@ namespace WordPressPCL.Client
             int page = 1;
             do
             {
-                posts_page = (await _httpHelper.GetRequest<IEnumerable<Page>>($"{_defaultPath}{_methodPath}?per_page=100&page={page++}", embed).ConfigureAwait(false))?.ToList<Page>();
+                posts_page = (await _httpHelper.GetRequest<IEnumerable<Page>>($"{_defaultPath}{_methodPath}?per_page=100&page={page++}", embed,useAuth).ConfigureAwait(false))?.ToList<Page>();
                 if (posts_page != null && posts_page.Count > 0) { posts.AddRange(posts_page); }
 
             } while (posts_page != null && posts_page.Count > 0);
@@ -96,39 +98,42 @@ namespace WordPressPCL.Client
         /// </summary>
         /// <param name="ID">Page ID</param>
         /// <param name="embed">include embed info</param>
+        /// <param name="useAuth">Send request with authenication header</param>
         /// <returns>Page by Id</returns>
-        public async Task<Page> GetByID(int ID, bool embed = false)
+        public async Task<Page> GetByID(int ID, bool embed = false, bool useAuth = false)
         {
-            return await _httpHelper.GetRequest<Page>($"{_defaultPath}{_methodPath}/{ID}", embed).ConfigureAwait(false);
+            return await _httpHelper.GetRequest<Page>($"{_defaultPath}{_methodPath}/{ID}", embed,useAuth).ConfigureAwait(false);
         }
         #endregion
 
         #region Custom
-        
+
         /// <summary>
         /// Get pages by its author
         /// </summary>
         /// <param name="authorId">Author id</param>
         /// <param name="embed">includ embed info</param>
+        /// <param name="useAuth">Send request with authenication header</param>
         /// <returns>List of pages</returns>
-        public async Task<IEnumerable<Page>> GetPagesByAuthor(int authorId, bool embed = false)
+        public async Task<IEnumerable<Page>> GetPagesByAuthor(int authorId, bool embed = false, bool useAuth = false)
         {
             // default values 
             // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
-            return await _httpHelper.GetRequest<IEnumerable<Page>>($"{_defaultPath}{_methodPath}?author={authorId}", embed).ConfigureAwait(false);
+            return await _httpHelper.GetRequest<IEnumerable<Page>>($"{_defaultPath}{_methodPath}?author={authorId}", embed,useAuth).ConfigureAwait(false);
         }
-        
+
         /// <summary>
         /// Get pages by search term
         /// </summary>
         /// <param name="searchTerm">Search term</param>
         /// <param name="embed">include embed info</param>
+        /// <param name="useAuth">Send request with authenication header</param>
         /// <returns>List of pages</returns>
-        public async Task<IEnumerable<Page>> GetPagesBySearch(string searchTerm, bool embed = false)
+        public async Task<IEnumerable<Page>> GetPagesBySearch(string searchTerm, bool embed = false, bool useAuth = false)
         {
             // default values 
             // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
-            return await _httpHelper.GetRequest<IEnumerable<Page>>($"{_defaultPath}{_methodPath}?search={searchTerm}", embed).ConfigureAwait(false);
+            return await _httpHelper.GetRequest<IEnumerable<Page>>($"{_defaultPath}{_methodPath}?search={searchTerm}", embed,useAuth).ConfigureAwait(false);
         }
         
         /// <summary>

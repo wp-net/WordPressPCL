@@ -24,7 +24,7 @@ namespace WordPressPCL.Models
         /// The date the object was published, in the site’s timezone.
         /// </summary>
         /// <remarks>Context: view, edit, embed</remarks>
-        [JsonProperty("date")]
+        [JsonProperty("date", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public DateTime Date { get; set; }
 
         /// <summary>
@@ -51,7 +51,7 @@ namespace WordPressPCL.Models
         /// Read only
         /// Context: view, edit
         /// </remarks>
-        [JsonProperty("modified")]
+        [JsonProperty("modified", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public DateTime Modified { get; set; }
 
         /// <summary>
@@ -61,7 +61,7 @@ namespace WordPressPCL.Models
         /// Read only
         /// Context: view, edit
         /// </remarks>
-        [JsonProperty("modified_gmt")]
+        [JsonProperty("modified_gmt", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public DateTime ModifiedGmt { get; set; }
 
         /// <summary>
@@ -195,6 +195,13 @@ namespace WordPressPCL.Models
         /// </summary>
         [JsonProperty("_embedded")]
         public Embedded Embedded { get; set; }
+        /// <summary>
+        /// Parameterless constructor
+        /// </summary>
+        public Page()
+        {
+
+        }
     }
 
 }

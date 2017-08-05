@@ -30,7 +30,7 @@ namespace WordPressPCL.Models
         /// Sizes
         /// </summary>
         [JsonProperty("sizes")]
-        public Dictionary<string, MediaSize> Sizes { get; set; }
+        public IDictionary<string, MediaSize> Sizes { get; set; }
         /// <summary>
         /// Meta info of Image
         /// </summary>

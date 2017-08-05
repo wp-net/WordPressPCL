@@ -17,7 +17,14 @@ namespace WordPressPCLTests
         [TestMethod]
         public async Task Categories_Create()
         {
-            Assert.Inconclusive();
+            var client = await ClientHelper.GetAuthenticatedWordPressClient();
+            var category = await client.Categories.Create(new Category()
+            {
+                Name = "Test",
+                Description = "Test"
+            });
+            Assert.IsNotNull(category);
+            Assert.AreEqual("Test", category.Name);
         }
         [TestMethod]
         public async Task Categories_Read()

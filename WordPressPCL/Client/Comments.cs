@@ -37,10 +37,11 @@ namespace WordPressPCL.Client
         /// Create a parametrized query and get a result
         /// </summary>
         /// <param name="queryBuilder">Comments query builder with specific parameters</param>
+        /// <param name="useAuth">Send request with authenication header</param>
         /// <returns>List of filtered comments</returns>
-        public async Task<IEnumerable<Comment>> Query(CommentsQueryBuilder queryBuilder)
+        public async Task<IEnumerable<Comment>> Query(CommentsQueryBuilder queryBuilder, bool useAuth = false)
         {
-            return await _httpHelper.GetRequest<IEnumerable<Comment>>($"{_defaultPath}{_methodPath}{queryBuilder.BuildQueryURL()}", false).ConfigureAwait(false);
+            return await _httpHelper.GetRequest<IEnumerable<Comment>>($"{_defaultPath}{_methodPath}{queryBuilder.BuildQueryURL()}", false,useAuth).ConfigureAwait(false);
         }
         #region Interface Realisation
         /// <summary>
@@ -76,8 +77,9 @@ namespace WordPressPCL.Client
         /// Get All Comments
         /// </summary>
         /// <param name="embed">Include embed info</param>
+        /// <param name="useAuth">Send request with authenication header</param>
         /// <returns>List of all Comments</returns>
-        public async Task<IEnumerable<Comment>> GetAll(bool embed = false)
+        public async Task<IEnumerable<Comment>> GetAll(bool embed = false, bool useAuth = false)
         {
             //100 - Max posts per page in WordPress REST API, so this is hack with multiple requests
             List<Comment> comments = new List<Comment>();
@@ -85,7 +87,7 @@ namespace WordPressPCL.Client
             int page = 1;
             do
             {
-                comments_page = (await _httpHelper.GetRequest<IEnumerable<Comment>>($"{_defaultPath}{_methodPath}?per_page=100&page={page++}", embed).ConfigureAwait(false))?.ToList<Comment>();
+                comments_page = (await _httpHelper.GetRequest<IEnumerable<Comment>>($"{_defaultPath}{_methodPath}?per_page=100&page={page++}", embed,useAuth).ConfigureAwait(false))?.ToList<Comment>();
                 if (comments_page != null && comments_page.Count>0) { comments.AddRange(comments_page); }
 
             } while (comments_page != null && comments_page.Count > 0);
@@ -100,13 +102,14 @@ namespace WordPressPCL.Client
         /// </summary>
         /// <param name="ID">Comment ID</param>
         /// <param name="embed">include embed info</param>
+        /// <param name="useAuth">Send request with authenication header</param>
         /// <returns>Comment by Id</returns>
-        public async Task<Comment> GetByID(int ID, bool embed = false)
+        public async Task<Comment> GetByID(int ID, bool embed = false, bool useAuth = false)
         {
-            return await _httpHelper.GetRequest<Comment>($"{_defaultPath}{_methodPath}/{ID}", embed).ConfigureAwait(false);
+            return await _httpHelper.GetRequest<Comment>($"{_defaultPath}{_methodPath}/{ID}", embed,useAuth).ConfigureAwait(false);
         }
 
-        
+
         #endregion
 
         #region Custom
@@ -115,10 +118,11 @@ namespace WordPressPCL.Client
         /// </summary>
         /// <param name="PostID">Post id</param>
         /// <param name="embed">include embed info</param>
+        /// <param name="useAuth">Send request with authenication header</param>
         /// <returns>List of comments for post</returns>
-        public async Task<IEnumerable<Comment>> GetCommentsForPost(string PostID, bool embed = false)
+        public async Task<IEnumerable<Comment>> GetCommentsForPost(string PostID, bool embed = false, bool useAuth = false)
         {
-            return await _httpHelper.GetRequest<IEnumerable<Comment>>($"{_defaultPath}{_methodPath}?post={PostID}", embed);
+            return await _httpHelper.GetRequest<IEnumerable<Comment>>($"{_defaultPath}{_methodPath}?post={PostID}", embed,useAuth);
         }
         /// <summary>
         /// Force deletion of comments

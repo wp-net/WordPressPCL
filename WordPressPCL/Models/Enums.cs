@@ -84,7 +84,7 @@ namespace WordPressPCL.Models
     /// Status of Media for query builder
     /// </summary>
     [JsonConverter(typeof(StringEnumConverter))]
-    public enum MediaStatus
+    public enum MediaQueryStatus
     {
         /// <summary>
         /// Media inherit

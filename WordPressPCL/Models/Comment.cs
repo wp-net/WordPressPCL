@@ -75,12 +75,13 @@ namespace WordPressPCL.Models
         /// The date the object was published.
         /// </summary>
         /// <remarks>Context: view, edit, embed</remarks>
+        [JsonProperty("date", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public DateTime Date { get; set; }
         /// <summary>
         /// The date the object was published as GMT.
         /// </summary>
         /// <remarks>Context: view, edit</remarks>
-		[JsonProperty("date_gmt")]
+		[JsonProperty("date_gmt", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public DateTime DateGmt { get; set; }
         /// <summary>
         /// The content for the object.
@@ -115,7 +116,27 @@ namespace WordPressPCL.Models
         /// </summary>
         /// <remarks>Context: edit</remarks>
         public int Karma { get; set; }
-		//public Links _links { get; set; }
+        /// <summary>
+        /// Links to another entities
+        /// </summary>
+        public Links _links { get; set; }
+        /// <summary>
+        /// Parameterless constructor
+        /// </summary>
+        public Comment()
+        {
+
+        }
+        /// <summary>
+        /// Constructor with required parameters
+        /// </summary>
+        /// <param name="postId">Post ID</param>
+        /// <param name="content">Comment content</param>
+        public Comment(int postId,string content):this()
+        {
+            PostId = postId;
+            Content = new Content(content);
+        }
 	}
 
 	

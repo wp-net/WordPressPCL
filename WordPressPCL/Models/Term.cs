@@ -57,5 +57,12 @@ namespace WordPressPCL.Models
         /// </summary>
         [JsonProperty("_links")]
         public Links Links { get; set; }
+        /// <summary>
+        /// parameterless constructor
+        /// </summary>
+        public Term()
+        {
+
+        }
     }
 }
