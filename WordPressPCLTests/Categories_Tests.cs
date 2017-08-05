@@ -17,14 +17,17 @@ namespace WordPressPCLTests
         [TestMethod]
         public async Task Categories_Create()
         {
+            Random random = new Random();
+            var name = $"TestCategory {random.Next(0, 10000)}";
             var client = await ClientHelper.GetAuthenticatedWordPressClient();
             var category = await client.Categories.Create(new Category()
             {
-                Name = "Test",
+                Name = name,
                 Description = "Test"
             });
             Assert.IsNotNull(category);
-            Assert.AreEqual("Test", category.Name);
+            Assert.AreEqual(name, category.Name);
+            Assert.AreEqual("Test", category.Description);
         }
         [TestMethod]
         public async Task Categories_Read()
@@ -40,7 +43,15 @@ namespace WordPressPCLTests
         [TestMethod]
         public async Task Categories_Update()
         {
-            Assert.Inconclusive();
+            var client = await ClientHelper.GetAuthenticatedWordPressClient();
+            var categories = await client.Categories.GetAll();
+            var category = categories.First();
+            Random random = new Random();
+            var name = $"UpdatedCategory {random.Next(0, 10000)}";
+            category.Name = name;
+            var updatedCategory = await client.Categories.Update(category);
+            Assert.AreEqual(updatedCategory.Name, name);
+            Assert.AreEqual(updatedCategory.Id, category.Id);
         }
         [TestMethod]
         public async Task Categories_Delete()
