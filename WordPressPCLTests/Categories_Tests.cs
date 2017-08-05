@@ -56,7 +56,18 @@ namespace WordPressPCLTests
         [TestMethod]
         public async Task Categories_Delete()
         {
-            Assert.Inconclusive();
+            var client = await ClientHelper.GetAuthenticatedWordPressClient();
+            var categories = await client.Categories.GetAll();
+            var category = categories.FirstOrDefault();
+            if(category == null)
+            {
+                Assert.Inconclusive();
+            }
+            var response = await client.Categories.Delete(category.Id);
+            Assert.IsTrue(response.IsSuccessStatusCode);
+            categories = await client.Categories.GetAll();
+            var c = categories.Where(x => x.Id == category.Id).ToList();
+            Assert.AreEqual(c.Count, 0);
         }
         [TestMethod]
         public async Task Categories_Query()
