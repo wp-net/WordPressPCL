@@ -14,7 +14,7 @@ namespace WordPressPCL.Models
         /// Read only
         /// Context: view, embed, edit
         /// </remarks>
-        [JsonProperty("id")]
+        [JsonProperty("id",DefaultValueHandling =DefaultValueHandling.Ignore)]
         public int Id { get; set; }
 
         /// <summary>

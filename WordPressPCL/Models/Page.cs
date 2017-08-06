@@ -5,6 +5,9 @@ using System.Text;
 
 namespace WordPressPCL.Models
 {
+    /// <summary>
+    /// Type represents Page Entity of WP REST API
+    /// </summary>
     public class Page
     {
         /// <summary>
@@ -14,7 +17,7 @@ namespace WordPressPCL.Models
         /// Read only
         /// Context: view, edit, embed
         /// </remarks>
-        [JsonProperty("id")]
+        [JsonProperty("id",DefaultValueHandling =DefaultValueHandling.Ignore)]
         public int Id { get; set; }
 
         /// <summary>
@@ -38,7 +41,7 @@ namespace WordPressPCL.Models
         /// Read only
         /// Context: view, edit
         /// </remarks>
-        [JsonProperty("guid")]
+        [JsonProperty("guid",DefaultValueHandling = DefaultValueHandling.Ignore)]
         public Guid Guid { get; set; }
 
         /// <summary>
@@ -76,7 +79,7 @@ namespace WordPressPCL.Models
         /// One of: publish, future, draft, pending, private
         /// </remarks>
         [JsonProperty("status")]
-        public string Status { get; set; }
+        public Status Status { get; set; }
 
         /// <summary>
         /// Type of Post for the object.
@@ -123,7 +126,7 @@ namespace WordPressPCL.Models
         /// The id for the author of the object.
         /// </summary>
         /// <remarks>Context: view, edit, embed</remarks>
-        [JsonProperty("author")]
+        [JsonProperty("author", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public int Author { get; set; }
 
         /// <summary>
@@ -137,7 +140,7 @@ namespace WordPressPCL.Models
         /// The id for the parent of the object.
         /// </summary>
         /// <remarks>Context: view, edit</remarks>
-        [JsonProperty("parent")]
+        [JsonProperty("parent", DefaultValueHandling = DefaultValueHandling.Ignore,NullValueHandling =NullValueHandling.Ignore)]
         public int Parent { get; set; }
 
         /// <summary>
@@ -155,7 +158,7 @@ namespace WordPressPCL.Models
         /// One of: open, closed
         /// </remarks>
         [JsonProperty("comment_status")]
-        public Status CommentStatus { get; set; }
+        public OpenStatus CommentStatus { get; set; }
 
         /// <summary>
         /// Whether or not the object can be pinged.
@@ -165,13 +168,13 @@ namespace WordPressPCL.Models
         /// One of: open, closed
         /// </remarks>
         [JsonProperty("ping_status")]
-        public Status PingStatus { get; set; }
+        public OpenStatus PingStatus { get; set; }
 
         /// <summary>
         /// The theme file to use to display the object.
         /// </summary>
         /// <remarks>Context: view, edit</remarks>
-        [JsonProperty("template")]
+        [JsonProperty("template", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public string Template { get; set; }
 
         /// <summary>

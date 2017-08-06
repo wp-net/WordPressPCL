@@ -32,14 +32,14 @@ namespace WordPressPCL.Models
         /// The parent term ID.
         /// </summary>
         /// <remarks>Context: view, edit</remarks>
-        [JsonProperty("parent")]
+        [JsonProperty("parent", NullValueHandling = NullValueHandling.Ignore)]
         public int Parent { get; set; }
 
         /// <summary>
         /// Meta fields.
         /// </summary>
         /// <remarks>Context: view, edit</remarks>
-        [JsonProperty("meta")]
+        [JsonProperty("meta", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public IList<object> Meta { get; set; }
 
     }

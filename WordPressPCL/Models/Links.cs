@@ -1,69 +1,41 @@
 ﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace WordPressPCL.Models
 {
+    /// <summary>
+    /// Links helper class
+    /// </summary>
     public class Links
     {
+        /// <summary>
+        /// Self link
+        /// </summary>
         [JsonProperty("self")]
-        public IList<Self> Self { get; set; }
-
+        public IEnumerable<Self> Self { get; set; }
+        /// <summary>
+        /// Collection of links
+        /// <see cref="WordPressPCL.Models.Collection"/>
+        /// </summary>
         [JsonProperty("collection")]
-        public IList<Collection> Collection { get; set; }
-
+        public IEnumerable<Collection> Collection { get; set; }
+        /// <summary>
+        /// About info
+        /// <see cref="WordPressPCL.Models.About"/>
+        /// </summary>
         [JsonProperty("about")]
-        public IList<About> About { get; set; }
-
+        public IEnumerable<About> About { get; set; }
+        /// <summary>
+        /// WordPress post Type
+        /// </summary>
         [JsonProperty("wp:post_type")]
-        public IList<WpPostType> WpPostType { get; set; }
-
+        public IEnumerable<WpPostType> WpPostType { get; set; }
+        /// <summary>
+        /// Curries
+        /// </summary>
         [JsonProperty("curies")]
-        public IList<Cury> Curies { get; set; }
-    }
-
-    public class Self : HrefBase { }
-
-    public class Collection : HrefBase {}
-
-    public class About : HrefBase { }
-
-    public class Author : HrefBase
-    {
-        [JsonProperty("embeddable")]
-        public bool Embeddable { get; set; }
-    }
-
-    public class Reply : HrefBase
-    {
-        [JsonProperty("embeddable")]
-        public bool Embeddable { get; set; }
-    }
-
-
-    public class Cury : HrefBase
-    {
-        [JsonProperty("name")]
-        public string Name { get; set; }
-
-        [JsonProperty("templated")]
-        public bool Templated { get; set; }
-    }
-
-    public class WpPostType : HrefBase { }
-
-    public class HttpsApiWOrgAttachment : HrefBase { }
-
-    public class HttpsApiWOrgTerm : HrefBase
-    {
-        public string Taxonomy { get; set; }
-
-        [JsonProperty("embeddable")]
-        public bool Embeddable { get; set; }
-    }
-
-    public class HttpsApiWOrgMeta : HrefBase
-    {
-        [JsonProperty("embeddable")]
-        public bool Embeddable { get; set; }
+        public IEnumerable<Cury> Curies { get; set; }
     }
 }

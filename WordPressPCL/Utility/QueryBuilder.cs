@@ -1,94 +1,125 @@
 using System;
 using System.Text;
+using System.Reflection;
 using WordPressPCL.Models;
+using System.Runtime.Serialization;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace WordPressPCL.Utility
 {
-    public class QueryBuilder
+    /// <summary>
+    /// Query builder class. Use it for create custom query
+    /// </summary>
+    public abstract class QueryBuilder
     {
-        private string _url;
-        public int Page { get; set; }
-        public int Per_Page { get; set; }
-        public int Offset { get; set; }
-        public DateTime After { get; set; }
-        public OrderBy OrderBy { get; set; }
+        /// <summary>
+        /// Order direction
+        /// </summary>
+        /// <remarks>Default: asc</remarks>
+        [QueryText("order")]
+        public Order Order { get; set; }
+        /// <summary>
+        /// include embed info
+        /// </summary>
+        /// <remarks>Default: false</remarks>
+        [QueryText("_embed")]
         public bool Embed { get; set; }
+        /// <summary>
+        /// Context of request
+        /// </summary>
+        /// <remarks>Default^ view</remarks>
+        [QueryText("context")]
         public Context Context { get; set; }
-
-        public QueryBuilder(string wordpressUrl = null)
+        /// <summary>
+        /// Builds the query URL from all properties
+        /// </summary>
+        /// <returns>query HTTP string</returns>
+        public string BuildQueryURL() 
         {
-            _url = wordpressUrl;
-            Page = 1;
-            Per_Page = 10;
-            Offset = 0;
-            After = DateTime.MinValue;
-            OrderBy = OrderBy.Date;
-            Embed = false;
-            Context = Context.View;
+            StringBuilder sb = new StringBuilder();
+            foreach(var property in this.GetType().GetRuntimeProperties())
+            {
+                var attribute=property.GetCustomAttribute<QueryTextAttribute>();
+                if (attribute != null)
+                {
+                    var value = GetPropertyValue(property);
+                    var ttt = property.PropertyType.GetTypeInfo().IsEnum ;
+                    var ppp = property.GetValue(this);
+                    //pass default values
+                    if (value is int && (int)value==default(int)) continue;
+                    if (value is string && ((string)value == string.Empty || (string)value == DateTime.MinValue.ToString("yyyy-MM-ddTHH:mm:ss"))) continue;
+                    if (value is DateTime && (string)value == DateTime.MinValue.ToString("yyyy-MM-ddTHH:mm:ss")) continue;
+                    if (property.PropertyType == typeof(bool) && (string)value == default(bool).ToString().ToLower()) continue;
+                    if (property.PropertyType.GetTypeInfo().IsEnum && (int)property.GetValue(this) == 0) continue;
+                    //if (property.PropertyType.IsArray && ((Array)value).Length == 0) continue;
+                    if (value == null) continue;
+                    sb.Append($"{attribute.Text}={value}&");
+                }   
+            }
+            //insert ? quote to the start of http query text
+            if (sb.Length > 0) sb.Insert(0, "?");
+            return sb.ToString().TrimEnd('&');
         }
-
-        internal QueryBuilder SetRootUrl(string url) 
+        /// <summary>
+        /// Use reflection to get property value
+        /// </summary>
+        /// <param name="property">PropertyInfo or object</param>
+        /// <returns>property value</returns>
+        private object GetPropertyValue(object property)
         {
-            _url = url;
-            return this;
-        }
+            //secion for propertyInfo object
+            PropertyInfo pi = property as PropertyInfo;
+            if (pi != null)
+            {
+                
+                if (pi.PropertyType.GetTypeInfo().IsEnum)
+                {
+                    var attribute = pi.PropertyType.GetRuntimeField(((Enum)pi.GetValue(this)).ToString()).GetCustomAttribute<EnumMemberAttribute>();// .GetType().GetRuntimeProperties().First().GetCustomAttribute<EnumMemberAttribute>();
 
-        public override string ToString()
-        {
-            if (String.IsNullOrEmpty(_url)) return string.Empty;
+                    return attribute.Value;
+                }
+                if (pi.PropertyType.IsArray)
+                {
+                    var array = (Array)pi.GetValue(this);
+                    if (array == null) return null;
+                    StringBuilder sb = new StringBuilder();
+                    foreach (var item in array)
+                    {
+                        sb.Append($"{GetPropertyValue(item)},");
+                    }
+                    
+                    return sb.ToString().TrimEnd(',');
+                }
+                if (pi.PropertyType == typeof(DateTime))
+                {
+                    return ((DateTime)pi.GetValue(this)).ToString("yyyy-MM-ddTHH:mm:ss");
+                }
+                if (pi.PropertyType == typeof(bool))
+                {
+                    return ((bool)pi.GetValue(this)).ToString().ToLower();
+                }
+                return pi.GetValue(this);
+            }
+            //section for simple object
             else
             {
-                StringBuilder sb = new StringBuilder(_url);
-                if (Page > 1)
+                if (property.GetType().GetTypeInfo().IsEnum)
                 {
-                    sb.Append(appendQuery(_url, PAGE_QUERYSTRING));
-                    sb.Append(Page);
+                    var attribute = property.GetType().GetRuntimeField(((Enum)property).ToString()).GetCustomAttribute<EnumMemberAttribute>();
+                    return attribute.Value;
                 }
-                if (Embed)
+                if (property.GetType() == typeof(DateTime))
                 {
-                    sb.Append(appendQuery(sb.ToString(), EMBED_QUERYSTRING));
+                    return ((DateTime)property).ToString("yyyy-MM-ddTHH:mm:ss");
                 }
-                if (Per_Page != 10)
+                if (property.GetType() == typeof(bool))
                 {
-                    sb.Append(appendQuery(sb.ToString(), PER_PAGE_QUERYSTRING));
-                    sb.Append(Per_Page);
+                    return ((bool)property).ToString().ToLower();
                 }
-                if (Offset > 0)
-                {
-                    sb.Append(appendQuery(sb.ToString(), OFFSET_QUERYSTRING));
-                    sb.Append(Offset);
-                }
-                if (After != DateTime.MinValue)
-                {
-                    sb.Append(appendQuery(sb.ToString(), AFTER_QUERYSTRING));
-                    sb.Append(After.ToString("yyyy-MM-ddTHH:mm:ss"));
-                }
-                if (OrderBy != OrderBy.Date)
-                {
-                    sb.Append(appendQuery(sb.ToString(), ORDER_BY_QUERYSTRING));
-                    sb.Append(Convert.ToInt32(OrderBy));
-                }
-                //Console.WriteLine(sb.ToString());
-                return sb.ToString();
+                return property;
             }
+
         }
-
-        private string appendQuery(string url, string queryString)
-        {
-            return (url.Contains(QUESTION_MARK) ? AMPERSAND : QUESTION_MARK) + queryString + EQUALS_SYMBOL;
-        }
-
-        #region constants
-        private const string PAGE_QUERYSTRING = "page";
-        private const string EMBED_QUERYSTRING = "_embed";        
-        private const string PER_PAGE_QUERYSTRING = "per_page";        
-        private const string OFFSET_QUERYSTRING = "offset";
-        private const string AFTER_QUERYSTRING = "after";
-        private const string ORDER_BY_QUERYSTRING = "orderby";
-        private const string QUESTION_MARK = "?";
-        private const string AMPERSAND = "&";
-        private const string EQUALS_SYMBOL = "=";
-        #endregion
-
     }
 }

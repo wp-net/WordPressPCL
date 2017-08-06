@@ -9,6 +9,8 @@ using System.Text;
 using System.Threading.Tasks;
 using WordPressPCL.Models;
 using WordPressPCL.Utility;
+using System.Collections;
+using WordPressPCL.Client;
 
 namespace WordPressPCL
 {
@@ -19,10 +21,11 @@ namespace WordPressPCL
     public class WordPressClient
     {
         private readonly string _wordPressUri;
+        private readonly HttpHelper _httpHelper;
         /// <summary>
         /// WordPressUri holds the WordPress API endpoint, e.g. "http://demo.wp-api.org/wp-json/wp/v2/"
         /// </summary>
-		public string WordPressUri
+		    public string WordPressUri
         {
             get { return _wordPressUri; }
         }
@@ -30,11 +33,41 @@ namespace WordPressPCL
         private const string defaultPath = "wp/v2/";
         private const string jwtPath = "jwt-auth/v1/";
 
-        public String Username { get; set; }
-        public String Password { get; set; }
+        /*public string Username { get; set; }
+        public string Password { get; set; }*/
+        /// <summary>
+        /// Authentication method
+        /// </summary>
         public AuthMethod AuthMethod { get; set; }
-        public String JWToken { get; set; }
-
+        //public string JWToken;
+        /// <summary>
+        /// Posts client interaction object
+        /// </summary>
+        public Posts Posts;
+        /// <summary>
+        /// Comments client interaction object
+        /// </summary>
+        public Comments Comments;
+        /// <summary>
+        /// Tags client interaction object
+        /// </summary>
+        public Tags Tags;
+        /// <summary>
+        /// Users client interaction object
+        /// </summary>
+        public Users Users;
+        /// <summary>
+        /// Media client interaction object
+        /// </summary>
+        public Client.Media Media;
+        /// <summary>
+        /// Categories client interaction object
+        /// </summary>
+        public Categories Categories;
+        /// <summary>
+        /// Pages client interaction object
+        /// </summary>
+        public Pages Pages;
 
 
         /// <summary>
@@ -54,6 +87,14 @@ namespace WordPressPCL
             }
 
             _wordPressUri = uri;
+            _httpHelper = new HttpHelper(WordPressUri);
+            Posts = new Posts(ref _httpHelper, defaultPath);
+            Comments = new Comments(ref _httpHelper, defaultPath);
+            Tags = new Tags(ref _httpHelper, defaultPath);
+            Users = new Users(ref _httpHelper, defaultPath);
+            Media = new Media(ref _httpHelper, defaultPath);
+            Categories = new Categories(ref _httpHelper, defaultPath);
+            Pages = new Pages(ref _httpHelper, defaultPath);
         }
 
         #region Post methods 
@@ -197,20 +238,20 @@ namespace WordPressPCL
         }
         #endregion
 		
-	#region Category methods
-	public async Task<IList<Category>> ListCategories(bool embed = false)
+	      #region Category methods
+	      public async Task<IList<Category>> ListCategories(bool embed = false)
         {
             // default values 
             // int page = 1, int per_page = 10, int offset = 0, Category.Order order = Category.Order.Asc, Category.OrderBy orderby = Category.OrderBy.Name
             return await GetRequest<Post[]>($"{defaultPath}categories", embed).ConfigureAwait(false);
         }
 
-public async Task<Category> GetCategory(int categoryId, bool embed = false)
+        public async Task<Category> GetCategory(int categoryId, bool embed = false)
         {
             return await GetRequest<Post[]>($"{defaultPath}categories?category={categoryId}", embed).ConfigureAwait(false);
         }
 
-public async Task<Category> CreateCategory(CategoryCreate postObject)
+        public async Task<Category> CreateCategory(CategoryCreate postObject)
         {
             var postBody = new StringContent(JsonConvert.SerializeObject(postObject).ToString(), Encoding.UTF8, "application/json");
             (var post, HttpResponseMessage response) = await PostRequest<Category>($"{defaultPath}categories", postBody);
@@ -229,7 +270,7 @@ public async Task<Category> CreateCategory(CategoryCreate postObject)
             var response = await DeleteRequest($"{defaultPath}categories/{id}").ConfigureAwait(false);
             return response;
         }
-	#endregion
+	      #endregion
 
         #region Tag methods
         public async Task<Tag> CreateTag(Tag tagObject)
@@ -278,21 +319,37 @@ public async Task<Category> CreateCategory(CategoryCreate postObject)
             var media = await GetRequest<Media>($"{defaultPath}media/{id}", embed).ConfigureAwait(false);
             return (media, HttpStatusCode.Accepted);
         }
-
-
-
         #endregion
 
         #region Settings methods
+        /// <summary>
+        /// Get site settings
+        /// </summary>
+        /// <returns>Site settings</returns>
         public async Task<Settings> GetSettings()
         {
-            return await GetRequest<Settings>($"{defaultPath}settings", false, true).ConfigureAwait(false);
+            return await _httpHelper.GetRequest<Settings>($"{defaultPath}settings", false, true).ConfigureAwait(false);
+        }
+        /// <summary>
+        /// Update site settings
+        /// </summary>
+        /// <param name="settings">Settings object</param>
+        /// <returns>Updated settings</returns>
+        public async Task<Settings> UpdateSettings(Settings settings)
+        {
+            var postBody = new StringContent(JsonConvert.SerializeObject(settings).ToString(), Encoding.UTF8, "application/json");
+            (var setting, HttpResponseMessage response) = await _httpHelper.PostRequest<Settings>($"{defaultPath}settings", postBody);
+            return setting;
         }
         #endregion
 
         #region auth methods
-
-        public async Task RequestJWToken()
+        /// <summary>
+        /// Perform authentication by JWToken
+        /// </summary>
+        /// <param name="Username">username</param>
+        /// <param name="Password">password</param>
+        public async Task RequestJWToken(string Username, string Password)
         {
             var route = $"{jwtPath}token";
             using (var client = new HttpClient())
@@ -303,133 +360,25 @@ public async Task<Category> CreateCategory(CategoryCreate postObject)
                     new KeyValuePair<string, string>("password", Password)
                 });
 
-                (JWTUser jwtUser, HttpResponseMessage response) = await PostRequest<JWTUser>(route, formContent, false);
-                JWToken = jwtUser.Token;
-                return;
+                (JWTUser jwtUser, HttpResponseMessage response) = await _httpHelper.PostRequest<JWTUser>(route, formContent, false);
+                //JWToken = jwtUser?.Token;
+                _httpHelper.JWToken = jwtUser?.Token;
             }
         }
-
+        /// <summary>
+        /// Check if token is valid
+        /// </summary>
+        /// <returns>Result of checking</returns>
         public async Task<bool> IsValidJWToken()
         {
             var route = $"{jwtPath}token/validate";
             using (var client = new HttpClient())
             {
-                (JWTUser jwtUser, HttpResponseMessage repsonse) = await PostRequest<JWTUser>(route, null, true);
+                (JWTUser jwtUser, HttpResponseMessage repsonse) = await _httpHelper.PostRequest<JWTUser>(route, null, true);
                 return repsonse.IsSuccessStatusCode;
             }
         }
 
         #endregion
-
-        #region internal http methods
-
-        protected async Task<TClass> GetRequest<TClass>(string route, bool embed, bool isAuthRequired = false)
-            where TClass : class
-        {
-            string embedParam = "";
-            if (embed) {
-                if (route.Contains("?"))
-                    embedParam = "&_embed";
-                else
-                    embedParam = "?_embed";
-            }
-            HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.ExpectationFailed);
-
-            using (var client = new HttpClient())
-            {
-                if (isAuthRequired)
-                {
-                    //client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Utility.Authentication.Base64Encode($"{Username}:{Password}"));
-                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", JWToken);
-                }
-                try
-                {
-                    response = await client.GetAsync($"{WordPressUri}{route}{embedParam}").ConfigureAwait(false);
-                    var responseString = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    if (response.IsSuccessStatusCode)
-                    {
-                        return JsonConvert.DeserializeObject<TClass>(responseString);
-                    }
-                    else
-                    {
-                        Debug.WriteLine(responseString);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Debug.WriteLine("exception thrown: " + ex.Message);
-                }
-            }
-            return default(TClass);
-        }
-
-        protected async Task<(TClass, HttpResponseMessage)> PostRequest<TClass>(string route, HttpContent postBody, bool isAuthRequired = true)
-            where TClass : class
-        {
-            HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.ExpectationFailed);
-            using (var client = new HttpClient())
-            {
-                //client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                if (isAuthRequired)
-                {
-                    //client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Utility.Authentication.Base64Encode($"{Username}:{Password}"));
-                    //client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", JWToken);
-                }
-                try
-                {
-                    response = await client.PostAsync($"{WordPressUri}{route}", postBody).ConfigureAwait(false);
-                    var responseString = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    if (response.IsSuccessStatusCode)
-                    {
-                        return (JsonConvert.DeserializeObject<TClass>(responseString), response);
-                    }
-                    else
-                    {
-                        Debug.WriteLine(responseString);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Debug.WriteLine("exception thrown: " + ex.Message);
-                }
-            }
-            return (default(TClass), response);
-        }
-
-        protected async Task<HttpResponseMessage> DeleteRequest(string route, bool isAuthRequired = true)
-        {
-            HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.ExpectationFailed);
-            using (var client = new HttpClient())
-            {
-                if (isAuthRequired)
-                {
-                    //client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Utility.Authentication.Base64Encode($"{Username}:{Password}"));
-                    //client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", JWToken);
-                }
-                try
-                {
-                    response = await client.DeleteAsync($"{WordPressUri}{route}").ConfigureAwait(false);
-                    var responseString = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    if (response.IsSuccessStatusCode)
-                    {
-                        return response;
-                    }
-                    else
-                    {
-                        Debug.WriteLine(responseString);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Debug.WriteLine("exception thrown: " + ex.Message);
-                }
-            }
-            return response;
-        }
-
-        #endregion
-
     }
 }

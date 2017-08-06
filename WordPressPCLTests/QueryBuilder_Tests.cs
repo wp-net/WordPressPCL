@@ -17,16 +17,17 @@ namespace WordPressPCLTests
         private const int TAG_ID = 2;
 
         [TestMethod]
-        public async Task Multi_Parameter_Query_Works_Test()
+        public void Multi_Parameter_Query_Works_Test()
         {
             // Initialize
-            var builder = new QueryBuilder(ApiCredentials.WordPressUri) {
+            var builder = new PostsQueryBuilder() {
                 Page = 2,
                 Embed = true
             };
-            Console.WriteLine(builder.ToString());
-            Assert.AreEqual(builder.ToString(), $"{ApiCredentials.WordPressUri}?page=2&_embed=");
+            Console.WriteLine(builder.BuildQueryURL());
+            Assert.AreEqual(builder.BuildQueryURL(), "?page=2&_embed=true");
         }
     }
+
 
 }
