@@ -1,7 +1,8 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Runtime.Serialization;
 
 namespace WordPressPCL.Models
 {
@@ -77,19 +78,6 @@ namespace WordPressPCL.Models
         Description,
         [EnumMember(Value = "count")]
         Count
-    }
-    
-        /// <summary>
-    /// Order sort attribute ascending or descending.
-    /// </summary>
-    /// <remarks>Default: asc</remarks>
-    [JsonConverter(typeof(StringEnumConverter))]
-    public enum Order
-    {
-        [EnumMember(Value = "asc")]
-        Asc,
-        [EnumMember(Value = "desc")]
-        Desc
     }
 
 }
