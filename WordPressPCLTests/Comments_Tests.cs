@@ -26,9 +26,12 @@ namespace WordPressPCLTests
 
             var me = await client.Users.GetCurrentUser();
 
+            // Create random content to prevent duplicate commment errors
+            var random = new Random();
+            var content = $"TestComment {random.Next(0, 10000)}";
             var comment = new Comment()
             {
-                Content = new Content("Testcomment"),
+                Content = new Content(content),
                 PostId = postId,
                 AuthorId = me.Id,
                 AuthorEmail = "test@test.com",
@@ -69,12 +72,52 @@ namespace WordPressPCLTests
         [TestMethod]
         public async Task Comments_Update()
         {
+            // this test does not work yet...
+
+            //var client = await ClientHelper.GetAuthenticatedWordPressClient();
+            //var me = await client.Users.GetCurrentUser();
+            //var queryBuilder = new CommentsQueryBuilder()
+            //{
+            //    Authors = new int[me.Id]
+            //};
+            //var comments = await client.Comments.Query(queryBuilder, true);
+            //var comment = comments.FirstOrDefault();
+            //if(comment == null)
+            //{
+            //    Assert.Inconclusive();
+            //}
+            //var random = new Random();
+            //var title = $"TestComment {random.Next(0, 10000)}";
+            //comment.Content.Raw = title;
+            //var commentUpdated = await client.Comments.Update(comment);
+            //Assert.AreEqual(commentUpdated.Content.Raw, title);
             Assert.Inconclusive();
         }
         [TestMethod]
         public async Task Comments_Delete()
         {
-            Assert.Inconclusive();
+            var client = await ClientHelper.GetAuthenticatedWordPressClient();
+            
+            var posts = await client.Posts.GetAll();
+            var postId = posts.First().Id;
+
+            var me = await client.Users.GetCurrentUser();
+
+            // Create random content to prevent duplicate commment errors
+            var random = new Random();
+            var comment = new Comment()
+            {
+                Content = new Content($"Testcomment {random.Next(0, 10000)}"),
+                PostId = postId,
+                AuthorId = me.Id,
+                AuthorEmail = "test@test.com",
+                AuthorName = me.Name
+            };
+            var resultComment = await client.Comments.Create(comment);
+
+            var response = await client.Comments.Delete(resultComment.Id);
+            Assert.IsTrue(response.IsSuccessStatusCode);
+
         }
         [TestMethod]
         public async Task Comments_Query()
