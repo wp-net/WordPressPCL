@@ -18,13 +18,17 @@ namespace WordPressPCLTests
         public async Task Tags_Create()
         {
             var client = await ClientHelper.GetAuthenticatedWordPressClient();
+
+            var random = new Random();
+            var tagname = $"Test {random.Next(0, 1000)}";
             var tag = await client.Tags.Create(new Tag()
             {
-                Name = "Test",
-                Description = "Test"
+                Name = tagname,
+                Description = "Test Description"
             });
             Assert.IsNotNull(tag);
-            Assert.AreEqual("Test", tag.Name);
+            Assert.AreEqual(tagname, tag.Name);
+            Assert.AreEqual("Test Description", tag.Description);
         }
         [TestMethod]
         public async Task Tags_Read()
@@ -41,12 +45,38 @@ namespace WordPressPCLTests
         [TestMethod]
         public async Task Tags_Update()
         {
-            Assert.Inconclusive();
+            var client = await ClientHelper.GetAuthenticatedWordPressClient();
+            var tags = await client.Tags.GetAll();
+            var tag = tags.FirstOrDefault();
+            if(tag == null)
+            {
+                Assert.Inconclusive();
+            }
+            var random = new Random();
+            var tagname = $"Testname {random.Next(0, 1000)}";
+            var tagdesc = "Test Description";
+            tag.Name = tagname;
+            tag.Description = tagdesc;
+            var tagUpdated = await client.Tags.Update(tag);
+            Assert.AreEqual(tagname, tagUpdated.Name);
+            Assert.AreEqual(tagdesc, tagUpdated.Description);
         }
         [TestMethod]
         public async Task Tags_Delete()
         {
-            Assert.Inconclusive();
+            var client = await ClientHelper.GetAuthenticatedWordPressClient();
+            var tags = await client.Tags.GetAll();
+            var tag = tags.FirstOrDefault();
+            if (tag == null)
+            {
+                Assert.Inconclusive();
+            }
+            var tagId = tag.Id;
+            var response = await client.Tags.Delete(tagId);
+            Assert.IsTrue(response.IsSuccessStatusCode);
+            tags = await client.Tags.GetAll();
+            var tagsWithId = tags.Where(x => x.Id == tagId).ToList();
+            Assert.AreEqual(tagsWithId.Count, 0);
         }
         [TestMethod]
         public async Task Tags_Query()
