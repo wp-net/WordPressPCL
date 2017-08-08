@@ -9,6 +9,7 @@ using System.Linq;
 using WordPressPCL.Utility;
 using WordPressPCL.Models;
 using System.IO;
+using System.Diagnostics;
 
 namespace WordPressPCLTests
 {
@@ -20,8 +21,10 @@ namespace WordPressPCLTests
         public async Task Media_Create()
         {
             var client = await ClientHelper.GetAuthenticatedWordPressClient();
-            Stream s = File.OpenRead(@"1.jpg");
-            var mediaitem = await client.Media.Create(s,"1.jpg");
+            var path = Directory.GetCurrentDirectory() + "/Assets/cat.jpg";
+            Debug.WriteLine(File.Exists(path));
+            Stream s = File.OpenRead(path);
+            var mediaitem = await client.Media.Create(s,"cat.jpg");
             Assert.IsNotNull(mediaitem);
         }
         [TestMethod]
@@ -37,12 +40,34 @@ namespace WordPressPCLTests
         [TestMethod]
         public async Task Media_Update()
         {
-            Assert.Inconclusive();
+            var client = await ClientHelper.GetAuthenticatedWordPressClient();
+            var media = await client.Media.GetAll();
+            var file = media.FirstOrDefault();
+            Assert.IsNotNull(file);
+
+            var random = new Random();
+            var title = $"New Title {random.Next(0, 1000)}";
+            Assert.AreNotEqual(title, file.Title.Raw);
+            file.Title.Raw = title;
+            var fileUpdated = await client.Media.Update(file);
+            Assert.IsNotNull(fileUpdated);
+            Assert.AreEqual(fileUpdated.Title.Raw, title);
         }
         [TestMethod]
         public async Task Media_Delete()
         {
-            Assert.Inconclusive();
+            var client = await ClientHelper.GetAuthenticatedWordPressClient();
+
+            // Create file
+            var path = Directory.GetCurrentDirectory() + "/Assets/cat.jpg";
+            Debug.WriteLine(File.Exists(path));
+            Stream s = File.OpenRead(path);
+            var mediaitem = await client.Media.Create(s, "cat.jpg");
+            Assert.IsNotNull(mediaitem);
+
+            // Delete file
+            var response = await client.Media.Delete(mediaitem.Id);
+            Assert.IsTrue(response.IsSuccessStatusCode);
         }
         [TestMethod]
         public async Task Media_Query()
@@ -75,10 +100,10 @@ namespace WordPressPCLTests
                     var img = post.Embedded.WpFeaturedmedia.First();
                     Assert.IsFalse(String.IsNullOrEmpty(img.MediaDetails.Sizes["full"].SourceUrl));
                 }
-                if(i == 0)
-                {
-                    Assert.Inconclusive("no images to test");
-                }
+            }
+            if (i == 0)
+            {
+                Assert.Inconclusive("no images to test");
             }
         }
     }
