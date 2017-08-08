@@ -74,24 +74,23 @@ namespace WordPressPCLTests
         {
             // this test does not work yet...
 
-            //var client = await ClientHelper.GetAuthenticatedWordPressClient();
-            //var me = await client.Users.GetCurrentUser();
-            //var queryBuilder = new CommentsQueryBuilder()
-            //{
-            //    Authors = new int[me.Id]
-            //};
-            //var comments = await client.Comments.Query(queryBuilder, true);
-            //var comment = comments.FirstOrDefault();
-            //if(comment == null)
-            //{
-            //    Assert.Inconclusive();
-            //}
-            //var random = new Random();
-            //var title = $"TestComment {random.Next(0, 10000)}";
-            //comment.Content.Raw = title;
-            //var commentUpdated = await client.Comments.Update(comment);
-            //Assert.AreEqual(commentUpdated.Content.Raw, title);
-            Assert.Inconclusive();
+            var client = await ClientHelper.GetAuthenticatedWordPressClient();
+            var me = await client.Users.GetCurrentUser();
+            var queryBuilder = new CommentsQueryBuilder()
+            {
+                Authors = new int[] { me.Id }
+            };
+            var comments = await client.Comments.Query(queryBuilder, true);
+            var comment = comments.FirstOrDefault();
+            if (comment == null)
+            {
+                Assert.Inconclusive();
+            }
+            var random = new Random();
+            var title = $"TestComment {random.Next(0, 10000)}";
+            comment.Content.Raw = title;
+            var commentUpdated = await client.Comments.Update(comment);
+            Assert.AreEqual(commentUpdated.Content.Raw, title);
         }
         [TestMethod]
         public async Task Comments_Delete()
