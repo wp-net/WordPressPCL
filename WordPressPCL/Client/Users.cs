@@ -65,13 +65,23 @@ namespace WordPressPCL.Client
             return (await _httpHelper.PostRequest<User>($"{_defaultPath}{_methodPath}/{Entity.Id}", postBody)).Item1;
         }
         /// <summary>
-        /// Delete User
+        /// Delete User and all his posts
         /// </summary>
         /// <param name="ID">User Id</param>
         /// <returns>Result of operation</returns>
         public async Task<HttpResponseMessage> Delete(int ID)
         {
-            return await _httpHelper.DeleteRequest($"{_defaultPath}{_methodPath}/{ID}").ConfigureAwait(false);
+            return await _httpHelper.DeleteRequest($"{_defaultPath}{_methodPath}/{ID}?force=true&reassign=").ConfigureAwait(false);
+        }
+        /// <summary>
+        /// Delete User and all his posts
+        /// </summary>
+        /// <param name="userToDelteID">User Id you want to delete</param>
+        /// <param name="userToAssignPostsID">User Id you want the posts to assign to</param>
+        /// <returns>Result of operation</returns>
+        public async Task<HttpResponseMessage> DeleteAndReassignPosts(int userToDelteID, int userToAssignPostsID )
+        {
+            return await _httpHelper.DeleteRequest($"{_defaultPath}{_methodPath}/{userToDelteID}?force=true&reassign={userToAssignPostsID}").ConfigureAwait(false);
         }
         /// <summary>
         /// Get All Users
