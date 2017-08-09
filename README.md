@@ -9,11 +9,10 @@ WordPressPCL is published under the [MIT License](https://github.com/wp-net/Word
 # Quickstart
 
 ## WordPress Plugins
-As the WP REST API (Version 2) Plugin is currently being integrated into WordPress core you'll still need to install the plugin on your site for this library to work. Also, there are two additional plugins for authentication.
+Since WordPress 4.7 the REST API has been integrated into the core so there's no need for any plugins to get basic functionality. If you want to access protected endpoints, this library supports authentication through JSON Web Tokens (JWT) (plugin required).
 
-* [WordPress REST API (Version 2)](https://wordpress.org/plugins/rest-api/)
-* [Basic Authentication handler](https://github.com/WP-API/Basic-Auth)
-* [WP REST API - OAuth 1.0a Server](https://github.com/WP-API/OAuth1)
+* [WordPress 4.7 or newer](https://wordpress.org/)
+* [JWT Authentication for WP REST API](https://wordpress.org/plugins/jwt-authentication-for-wp-rest-api/)
 
 ## Including WordPressPCL
 The WordPressPCL API Wrapper is avaiable through nuget:
@@ -31,25 +30,32 @@ WordPressPCL is built on top of the new [.NET Platform Standard](https://github.
 * Windows Phone (WinRT, not Silverlight)
 * Mono / Xamarin
 
-## Using the API Wrapper
+## Quickstart: Using the API Wrapper
 
 ```c#
 // Initialize
 var client = new WordPressClient("http://demo.wp-api.org/wp-json/");
 
 // Posts
-var posts = await client.ListPosts();
-var postbyid = await client.GetPost(id);
+var posts = await client.Posts.GetAll();
+var postbyid = await client.Posts.GetById(id);
 
 // Comments
-var comments = await client.ListComments();
-var commentbyid = await client.GetComment(id);
+var comments = await client.Comments.GetAll();
+var commentbyid = await client.Comments.GetById(id);
+var commentsbypost = await client.Comments.GetCommentsForPost(postid, true, false);
 
 // Users
-// Basic authentication - not recommended for production use
-client.Username = "TheUserName";
-client.Password = "TheUserPassword";
-var currentuser = await client.GetCurrentUser();
+// JWT authentication
+var client = new WordPressClient(ApiCredentials.WordPressUri);
+client.AuthMethod = AuthMethod.JWT;
+await client.RequestJWToken(ApiCredentials.Username,ApiCredentials.Password);
+
+// check if authentication has been successful
+var isValidToken = await client.IsValidJWToken();
+
+// now you can send requests that require authentication
+var response = client.Posts.Delete(postid);
 ```
     
 ## Contribution Guidelines
