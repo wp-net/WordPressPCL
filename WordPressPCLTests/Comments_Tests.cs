@@ -72,8 +72,6 @@ namespace WordPressPCLTests
         [TestMethod]
         public async Task Comments_Update()
         {
-            // this test does not work yet...
-
             var client = await ClientHelper.GetAuthenticatedWordPressClient();
             var me = await client.Users.GetCurrentUser();
             var queryBuilder = new CommentsQueryBuilder()
