@@ -57,7 +57,24 @@ var isValidToken = await client.IsValidJWToken();
 // now you can send requests that require authentication
 var response = client.Posts.Delete(postid);
 ```
-    
+
+## Supported REST Methods
+
+|                    | Create  | Read    | Update  | Delete  |
+|--------------------|---------|---------|---------|---------|
+| **Posts**          | yes     | yes     | yes     | yes     |
+| **Pages**          | yes     | yes     | yes     | yes     |
+| **Comments**       | yes     | yes     | yes     | yes     |
+| **Categories**     | yes     | yes     | yes     | yes     |
+| **Tags**           | yes     | yes     | yes     | yes     |
+| **Users**          | yes     | yes     | yes     | yes     |
+| **Media**          | yes     | yes     | yes     | yes     |
+| **Post Revisions** | planned | planned | planned | planned |
+| **Taxonomies**     | planned | planned | planned | planned |
+| **Post Types**     | planned | planned | planned | planned |
+| **Post Statuses**  | planned | planned | planned | planned |
+| **Settings**       |         | yes     |         |         |
+
 ## Contribution Guidelines
 We're very happy to get input from the community on this project! To keep the code clean we ask you to follow a few simple contribution guidelines.
 
