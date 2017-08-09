@@ -33,5 +33,10 @@ namespace WordPressPCL.Models
         /// </summary>
         [JsonProperty("wp:term")]
         public IEnumerable<IEnumerable<Term>> WpTerm { get; set; }
+        /// <summary>
+        /// Parent page
+        /// </summary>
+        [JsonProperty("up")]
+        public IEnumerable<Page> Up { get; set; }
     }
 }

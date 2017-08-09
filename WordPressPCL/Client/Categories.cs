@@ -36,10 +36,11 @@ namespace WordPressPCL.Client
         /// Create a parametrized query and get a result
         /// </summary>
         /// <param name="queryBuilder">Categories query builder with specific parameters</param>
+        /// <param name="useAuth">Send request with authenication header</param>
         /// <returns>List of filtered categories</returns>
-        public async Task<IEnumerable<Category>> Query(CategoriesQueryBuilder queryBuilder)
+        public async Task<IEnumerable<Category>> Query(CategoriesQueryBuilder queryBuilder, bool useAuth = false)
         {
-            return await _httpHelper.GetRequest<IEnumerable<Category>>($"{_defaultPath}{_methodPath}{queryBuilder.BuildQueryURL()}", false).ConfigureAwait(false);
+            return await _httpHelper.GetRequest<IEnumerable<Category>>($"{_defaultPath}{_methodPath}{queryBuilder.BuildQueryURL()}", false,useAuth).ConfigureAwait(false);
         }
         #region Interface Realisation
         /// <summary>
@@ -69,14 +70,15 @@ namespace WordPressPCL.Client
         /// <returns>Result of operation</returns>
         public async Task<HttpResponseMessage> Delete(int ID)
         {
-            return await _httpHelper.DeleteRequest($"{_defaultPath}{_methodPath}/{ID}").ConfigureAwait(false);
+            return await _httpHelper.DeleteRequest($"{_defaultPath}{_methodPath}/{ID}?force=true").ConfigureAwait(false);
         }
         /// <summary>
         /// Get All Categories
         /// </summary>
         /// <param name="embed">Include embed info</param>
+        /// <param name="useAuth">Send request with authenication header</param>
         /// <returns>List of all Categories</returns>
-        public async Task<IEnumerable<Category>> GetAll(bool embed = false)
+        public async Task<IEnumerable<Category>> GetAll(bool embed = false, bool useAuth = false)
         {
             //100 - Max posts per page in WordPress REST API, so this is hack with multiple requests
             List<Category> categories = new List<Category>();
@@ -84,7 +86,7 @@ namespace WordPressPCL.Client
             int page = 1;
             do
             {
-                categories_page = (await _httpHelper.GetRequest<IEnumerable<Category>>($"{_defaultPath}{_methodPath}?per_page=100&page={page++}", embed).ConfigureAwait(false))?.ToList<Category>();
+                categories_page = (await _httpHelper.GetRequest<IEnumerable<Category>>($"{_defaultPath}{_methodPath}?per_page=100&page={page++}", embed,useAuth).ConfigureAwait(false))?.ToList<Category>();
                 if (categories_page != null && categories_page.Count > 0) { categories.AddRange(categories_page); }
 
             } while (categories_page != null && categories_page.Count > 0);
@@ -97,10 +99,11 @@ namespace WordPressPCL.Client
         /// </summary>
         /// <param name="ID">Category ID</param>
         /// <param name="embed">include embed info</param>
+        /// <param name="useAuth">Send request with authenication header</param>
         /// <returns>Category by Id</returns>
-        public async Task<Category> GetByID(int ID, bool embed = false)
+        public async Task<Category> GetByID(int ID, bool embed = false, bool useAuth = false)
         {
-            return await _httpHelper.GetRequest<Category>($"{_defaultPath}{_methodPath}/{ID}", embed).ConfigureAwait(false);
+            return await _httpHelper.GetRequest<Category>($"{_defaultPath}{_methodPath}/{ID}", embed,useAuth).ConfigureAwait(false);
         }
 
         #endregion

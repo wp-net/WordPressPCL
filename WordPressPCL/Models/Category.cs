@@ -40,7 +40,21 @@ namespace WordPressPCL.Models
         /// <remarks>Context: view, edit</remarks>
         [JsonProperty("meta", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public IList<object> Meta { get; set; }
+        /// <summary>
+        /// Parameterless constructor
+        /// </summary>
+        public Category():base()
+        {
 
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="name"></param>
+        public Category(string name):this()
+        {
+            Name = name;
+        }
     }
 
 }

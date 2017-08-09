@@ -37,5 +37,35 @@ namespace WordPressPCL.Models
         /// </summary>
         [JsonProperty("curies")]
         public IEnumerable<Cury> Curies { get; set; }
+        /// <summary>
+        /// Author
+        /// </summary>
+        [JsonProperty("author")]
+        public IEnumerable<Author> Author { get; set; }
+        /// <summary>
+        /// Replies
+        /// </summary>
+        [JsonProperty("replies")]
+        public IEnumerable<Reply> Replies { get; set; }
+        /// <summary>
+        /// Versions
+        /// </summary>
+        [JsonProperty("version-history")]
+        public IEnumerable<VersionHistory> Versions { get; set; }
+        /// <summary>
+        /// Attachment
+        /// </summary>
+        [JsonProperty("wp:attachment")]
+        public IEnumerable<HttpsApiWOrgAttachment> Attachment { get; set; }
+        /// <summary>
+        /// Featured media
+        /// </summary>
+        [JsonProperty("wp:featuredmedia")]
+        public IEnumerable<HttpsApiWOrgFeaturedmedia> FeaturedMedia { get; set; }
+        /// <summary>
+        /// Featured media
+        /// </summary>
+        [JsonProperty("wp:term")]
+        public IEnumerable<HttpsApiWOrgTerm> Term { get; set; }
     }
 }

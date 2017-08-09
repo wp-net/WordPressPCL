@@ -13,7 +13,7 @@ namespace WordPressPCL.Models
         /// Unique identifier for the object.
         /// </summary>
         /// <remarks>Context: view, edit, embed</remarks>
-        [JsonProperty("id",DefaultValueHandling =DefaultValueHandling.Ignore)]
+        [JsonProperty("id", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public int Id { get; set; }
         /// <summary>
         /// The id of the associated post object.
@@ -32,31 +32,31 @@ namespace WordPressPCL.Models
         /// <see cref="WordPressPCL.Models.User.Id"/>
         /// </summary>
         /// <remarks>Context: view, edit, embed</remarks>
-        [JsonProperty("author")]
+        [JsonProperty("author", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public int AuthorId { get; set; }
         /// <summary>
         /// Display name for the object author.
         /// </summary>
         /// <remarks>Context: view, edit, embed</remarks>
-		[JsonProperty("author_name")]
+		[JsonProperty("author_name", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string AuthorName { get; set; }
         /// <summary>
         /// Email address for the object author.
         /// </summary>
         /// <remarks>Context: edit</remarks>
-        [JsonProperty("author_email")]
+        [JsonProperty("author_email", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public string AuthorEmail { get; set; }
         /// <summary>
         /// URL for the object author.
         /// </summary>
         /// <remarks>Context: view, edit, embed</remarks>
-        [JsonProperty("author_url")]
+        [JsonProperty("author_url", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string AuthorUrl { get; set; }
         /// <summary>
         /// IP address for the object author.
         /// </summary>
         /// <remarks>Context: edit</remarks>
-        [JsonProperty("author_ip")]
+        [JsonProperty("author_ip", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public string AuthorIP { get; set; }
         /// <summary>
         /// Avatar URLs for the object author.
@@ -69,18 +69,19 @@ namespace WordPressPCL.Models
         /// User agent for the object author.
         /// </summary>
         /// <remarks>Context: edit</remarks>
-        [JsonProperty("author_user_agent")]
+        [JsonProperty("author_user_agent", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public string AuthorUserAgent { get; set; }
         /// <summary>
         /// The date the object was published.
         /// </summary>
         /// <remarks>Context: view, edit, embed</remarks>
+        [JsonProperty("date", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public DateTime Date { get; set; }
         /// <summary>
         /// The date the object was published as GMT.
         /// </summary>
         /// <remarks>Context: view, edit</remarks>
-		[JsonProperty("date_gmt")]
+		[JsonProperty("date_gmt", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public DateTime DateGmt { get; set; }
         /// <summary>
         /// The content for the object.
@@ -115,7 +116,27 @@ namespace WordPressPCL.Models
         /// </summary>
         /// <remarks>Context: edit</remarks>
         public int Karma { get; set; }
-		//public Links _links { get; set; }
+        /// <summary>
+        /// Links to another entities
+        /// </summary>
+        public Links _links { get; set; }
+        /// <summary>
+        /// Parameterless constructor
+        /// </summary>
+        public Comment()
+        {
+
+        }
+        /// <summary>
+        /// Constructor with required parameters
+        /// </summary>
+        /// <param name="postId">Post ID</param>
+        /// <param name="content">Comment content</param>
+        public Comment(int postId,string content):this()
+        {
+            PostId = postId;
+            Content = new Content(content);
+        }
 	}
 
 	

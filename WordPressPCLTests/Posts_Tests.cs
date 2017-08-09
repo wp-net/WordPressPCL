@@ -16,29 +16,29 @@ namespace WordPressPCLTests
         public async Task Posts_Create()
         {
             var client = await ClientHelper.GetAuthenticatedWordPressClient();
+            //var post = new Post()
+            //{
+            //    Title = new Title()
+            //    {
+            //        Raw = "New Title"
+            //    },
+            //    Content = new Content()
+            //    {
+            //        Raw = "Test Raw Content"
+            //    },
+            //    Date = DateTime.Now,
+            //    DateGmt = DateTime.UtcNow
+            //};
             var post = new Post()
-            {
-                Title = new Title()
-                {
-                    Raw = "New Title"
-                },
-                Content = new Content()
-                {
-                    Raw = "Test Raw Content"
-                },
-                Date = DateTime.Now,
-                DateGmt = DateTime.UtcNow
-            };
-            var post2 = new Post()
             {
                 Title = new Title("Title 1"),
                 Content = new Content("Content PostCreate")
             };
-            var createdPost = await client.Posts.Create(post2);
+            var createdPost = await client.Posts.Create(post);
 
 
-            Assert.AreEqual(post2.Content.Raw, createdPost.Content.Raw);
-            Assert.IsTrue(createdPost.Content.Rendered.Contains(post2.Content.Rendered));
+            Assert.AreEqual(post.Content.Raw, createdPost.Content.Raw);
+            Assert.IsTrue(createdPost.Content.Rendered.Contains(post.Content.Rendered));
         }
 
         [TestMethod]
@@ -70,7 +70,20 @@ namespace WordPressPCLTests
         [TestMethod]
         public async Task Posts_Delete()
         {
-            Assert.Inconclusive();
+            var client = await ClientHelper.GetAuthenticatedWordPressClient();
+            var post = new Post()
+            {
+                Title = new Title("Title 1"),
+                Content = new Content("Content PostCreate")
+            };
+            var createdPost = await client.Posts.Create(post);
+            Assert.IsNotNull(createdPost);
+
+            var resonse = await client.Posts.Delete(createdPost.Id);
+            Assert.IsTrue(resonse.IsSuccessStatusCode);
+
+            var postById = await client.Posts.GetByID(createdPost.Id);
+            Assert.IsNull(postById);
         }
 
         [TestMethod]
@@ -83,10 +96,11 @@ namespace WordPressPCLTests
                 PerPage = 15,
                 OrderBy = PostsOrderBy.Title,
                 Order = Order.DESC,
-                Statuses = new Status[] { Status.Publish }
+                Statuses = new Status[] { Status.Publish },
+                Embed = true
             };
             var queryresult = await client.Posts.Query(queryBuilder);
-            Assert.AreEqual(queryBuilder.BuildQueryURL(), "?page=1&per_page=15&orderby=title&status=publish&order=desc");
+            Assert.AreEqual(queryBuilder.BuildQueryURL(), "?page=1&per_page=15&orderby=title&status=publish&order=desc&_embed=true");
             Assert.IsNotNull(queryresult);
             Assert.AreNotSame(queryresult.Count(), 0);
         }
