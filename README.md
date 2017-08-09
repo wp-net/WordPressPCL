@@ -8,7 +8,7 @@ WordPressPCL is published under the [MIT License](https://github.com/wp-net/Word
 
 # Quickstart
 
-## WordPress Plugins
+## WordPress Requirements
 Since WordPress 4.7 the REST API has been integrated into the core so there's no need for any plugins to get basic functionality. If you want to access protected endpoints, this library supports authentication through JSON Web Tokens (JWT) (plugin required).
 
 * [WordPress 4.7 or newer](https://wordpress.org/)
