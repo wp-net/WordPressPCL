@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 
@@ -13,15 +13,15 @@ namespace WordPressPCL.Models
         ///     The date the object was published, in the site's timezone.
         /// </summary>
         /// <remarks>Context: view, edit, embed</remarks>
-		[JsonProperty("date",DefaultValueHandling =DefaultValueHandling.Ignore)]
-		public DateTime Date { get; set; }
+	[JsonProperty("date",DefaultValueHandling =DefaultValueHandling.Ignore)]
+	public DateTime Date { get; set; }
 
         /// <summary>
         ///     The date the object was published, as GMT.
         /// </summary>
         /// <remarks>Context: view, edit</remarks>
         [JsonProperty("date_gmt", DefaultValueHandling = DefaultValueHandling.Ignore)]
-		public DateTime DateGmt { get; set; }
+	public DateTime DateGmt { get; set; }
 
         /// <summary>
         /// The globally unique identifier for the object.
@@ -51,7 +51,7 @@ namespace WordPressPCL.Models
         /// Context: view, edit
         /// </remarks>
         [JsonProperty("modified", DefaultValueHandling = DefaultValueHandling.Ignore)]
-		public DateTime Modified { get; set; }
+	public DateTime Modified { get; set; }
 
         /// <summary>
         /// The date the object was last modified, as GMT.
@@ -61,7 +61,7 @@ namespace WordPressPCL.Models
         /// Context: view, edit
         /// </remarks>
         [JsonProperty("modified_gmt", DefaultValueHandling = DefaultValueHandling.Ignore)]
-		public DateTime ModifiedGmt { get; set; }
+	public DateTime ModifiedGmt { get; set; }
 
         /// <summary>
         /// A password to protect access to the content and excerpt.
@@ -75,7 +75,7 @@ namespace WordPressPCL.Models
         /// </summary>
         /// <remarks>Context: view, edit, embed</remarks>
         [JsonProperty("slug")]
-		public string Slug { get; set; }
+	public string Slug { get; set; }
 
         /// <summary>
         /// A named status for the object.
@@ -95,7 +95,7 @@ namespace WordPressPCL.Models
         /// Context: view, edit, embed
         /// </remarks>
         [JsonProperty("type")]
-		public string Type { get; set; }
+	public string Type { get; set; }
 
         /// <summary>
         /// The title for the object.
@@ -112,35 +112,35 @@ namespace WordPressPCL.Models
         /// Context: view, edit, embed
         /// </remarks>
         [JsonProperty("link")]
-		public string Link { get; set; }
+	public string Link { get; set; }
 
         /// <summary>
         /// The content for the object.
         /// </summary>
         /// <remarks>Context: view, edit</remarks>
         [JsonProperty("content")]
-		public Content Content { get; set; }
+	public Content Content { get; set; }
 
         /// <summary>
         /// The excerpt for the object.
         /// </summary>
         /// <remarks>Context: view, edit, embed</remarks>
         [JsonProperty("excerpt")]
-		public Excerpt Excerpt { get; set; }
+	public Excerpt Excerpt { get; set; }
 
         /// <summary>
         /// The ID for the author of the object.
         /// </summary>
         /// <remarks>Context: view, edit, embed</remarks>
         [JsonProperty("author", DefaultValueHandling = DefaultValueHandling.Ignore)]
-		public int Author { get; set; }
+	public int Author { get; set; }
 
         /// <summary>
         /// The ID of the featured media for the object.
         /// </summary>
         /// <remarks>Context: view, edit</remarks>
         [JsonProperty("featured_media")]
-		public int FeaturedMedia { get; set; }
+	public int FeaturedMedia { get; set; }
 
         /// <summary>
         /// Whether or not comments are open on the object.
@@ -150,7 +150,7 @@ namespace WordPressPCL.Models
         /// One of: open, closed
         /// </remarks>
         [JsonProperty("comment_status", DefaultValueHandling = DefaultValueHandling.Ignore)]
-		public OpenStatus CommentStatus { get; set; }
+	public OpenStatus CommentStatus { get; set; }
 
         /// <summary>
         /// Whether or not the object can be pinged.
@@ -160,14 +160,14 @@ namespace WordPressPCL.Models
         /// One of: open, closed
         /// </remarks>
         [JsonProperty("ping_status", DefaultValueHandling = DefaultValueHandling.Ignore)]
-		public OpenStatus PingStatus { get; set; }
+	public OpenStatus PingStatus { get; set; }
 
         /// <summary>
         /// Whether or not the object should be treated as sticky.
         /// </summary>
         /// <remarks>Context: view, edit</remarks>
         [JsonProperty("sticky")]
-		public bool Sticky { get; set; }
+	public bool Sticky { get; set; }
 
         /// <summary>
         /// The format for the object.
@@ -177,7 +177,7 @@ namespace WordPressPCL.Models
         /// One of: standard
         /// </remarks>
         [JsonProperty("format")]
-		public string Format { get; set; }
+	public string Format { get; set; }
 
         /// <summary>
         /// The terms assigned to the object in the category taxonomy.
@@ -237,6 +237,5 @@ namespace WordPressPCL.Models
         
         
     }
-
    
 }

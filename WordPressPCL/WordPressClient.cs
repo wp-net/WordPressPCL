@@ -25,7 +25,7 @@ namespace WordPressPCL
         /// <summary>
         /// WordPressUri holds the WordPress API endpoint, e.g. "http://demo.wp-api.org/wp-json/wp/v2/"
         /// </summary>
-		public string WordPressUri
+		    public string WordPressUri
         {
             get { return _wordPressUri; }
         }
@@ -97,7 +97,229 @@ namespace WordPressPCL
             Pages = new Pages(ref _httpHelper, defaultPath);
         }
 
-       
+        #region Post methods 
+        public async Task<IList<Post>> ListPosts(bool embed = false)
+        {
+            // default values 
+            // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
+            return await GetRequest<Post[]>($"{defaultPath}posts", embed).ConfigureAwait(false);
+        }
+
+        public async Task<IList<Post>> ListPosts(QueryBuilder builder)
+        {
+            // default values 
+            // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
+            return await GetRequest<Post[]>(builder.SetRootUrl($"{defaultPath}posts").ToString(), false).ConfigureAwait(false);
+        }
+
+        public async Task<IList<Post>> ListStickyPosts(bool embed = false)
+        {
+            // default values 
+            // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
+            return await GetRequest<Post[]>($"{defaultPath}posts?sticky=true", embed).ConfigureAwait(false);
+        }
+
+        public async Task<IList<Post>> ListStickyPosts(QueryBuilder builder)
+        {
+            // default values 
+            // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
+            return await GetRequest<Post[]>(builder.SetRootUrl($"{defaultPath}posts?sticky=true").ToString(), false).ConfigureAwait(false);
+        }
+
+        public async Task<IList<Post>> ListPostsByCategory(int categoryId, bool embed = false)
+        {
+            // default values 
+            // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
+            return await GetRequest<Post[]>($"{defaultPath}posts?categories={categoryId}", embed).ConfigureAwait(false);
+        }
+
+        public async Task<IList<Post>> ListPostsByCategory(int categoryId, QueryBuilder builder)
+        {
+            // default values 
+            // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
+            return await GetRequest<Post[]>(builder.SetRootUrl($"{defaultPath}posts?categories={categoryId}").ToString(), false).ConfigureAwait(false);
+        }
+
+        public async Task<IList<Post>> ListPostsByTag(int tagId, bool embed = false)
+        {
+            // default values 
+            // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
+            return await GetRequest<Post[]>($"{defaultPath}posts?tags={tagId}", embed).ConfigureAwait(false);
+        }
+
+        public async Task<IList<Post>> ListPostsByTag(int tagId, QueryBuilder builder)
+        {
+            // default values 
+            // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
+            return await GetRequest<Post[]>(builder.SetRootUrl($"{defaultPath}posts?tags={tagId}").ToString(), false).ConfigureAwait(false);
+        }
+
+        public async Task<IList<Post>> ListPostsByAuthor(int authorId, bool embed = false)
+        {
+            // default values 
+            // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
+            return await GetRequest<Post[]>($"{defaultPath}posts?author={authorId}", embed).ConfigureAwait(false);
+        }
+
+        public async Task<IList<Post>> ListPostsByAuthor(int authorId, QueryBuilder builder)
+        {
+            // default values 
+            // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
+            return await GetRequest<Post[]>(builder.SetRootUrl($"{defaultPath}posts?author={authorId}").ToString(), false).ConfigureAwait(false);
+        }
+
+        public async Task<IList<Post>> ListPostsBySearch(string searchTerm, bool embed = false)
+        {
+            // default values 
+            // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
+            return await GetRequest<Post[]>($"{defaultPath}posts?search={searchTerm}", embed).ConfigureAwait(false);
+        }
+
+        public async Task<IList<Post>> ListPostsBySearch(string searchTerm, QueryBuilder builder)
+        {
+            // default values 
+            // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
+            return await GetRequest<Post[]>(builder.SetRootUrl($"{defaultPath}posts?search={searchTerm}").ToString(), false).ConfigureAwait(false);
+        }
+
+        public async Task<Post> GetPost(int postId, bool embed = false)
+        {
+            return await GetRequest<Post>($"{defaultPath}posts/{postId}", embed).ConfigureAwait(false);
+        }
+
+        public async Task<Post> CreatePost(PostCreate postObject)
+        {
+            var postBody = new StringContent(JsonConvert.SerializeObject(postObject).ToString(), Encoding.UTF8, "application/json");
+            (var post, HttpResponseMessage response) = await PostRequest<Post>($"{defaultPath}posts", postBody);
+            return post;
+        }
+
+        public async Task<Post> UpdatePost(Post postObject)
+        {
+            var postBody = new StringContent(JsonConvert.SerializeObject(postObject).ToString(), Encoding.UTF8, "application/json");
+            (var post, HttpResponseMessage response) = await PostRequest<Post>($"{defaultPath}posts/{postObject.Id}", postBody);
+            return post;
+        }
+
+        public async Task<HttpResponseMessage> DeletePost(int id)
+        {
+            var response = await DeleteRequest($"{defaultPath}posts/{id}").ConfigureAwait(false);
+            return response;
+        }
+        #endregion
+
+        #region Comment methods
+        public async Task<IList<Comment>> ListComments(bool embed = false)
+        {
+            return await GetRequest<Comment[]>($"{defaultPath}comments", embed).ConfigureAwait(false);
+        }
+
+        public async Task<IList<Comment>> GetCommentsForPost(string id, bool embed = false)
+        {
+            return await GetRequest<Comment[]>($"{defaultPath}comments?post={id}", embed);
+        }
+
+        public async Task<Comment> GetComment(string id, bool embed = false)
+        {
+            return await GetRequest<Comment>($"{defaultPath}comments/{id}", embed).ConfigureAwait(false);
+        }
+
+        public async Task<Comment> CreateComment(CommentCreate commentObject, int postId)
+        {
+            var postBody = new StringContent(JsonConvert.SerializeObject(commentObject).ToString(), Encoding.UTF8, "application/json");
+            (var comment, HttpResponseMessage response) = await PostRequest<Comment>($"{defaultPath}comments", postBody);
+            return comment;
+        }
+
+        public async Task<HttpResponseMessage> DeleteComment(int id)
+        {
+            var response = await DeleteRequest($"{defaultPath}comments/{id}").ConfigureAwait(false);
+            return response;
+        }
+        #endregion
+		
+	      #region Category methods
+	      public async Task<IList<Category>> ListCategories(bool embed = false)
+        {
+            // default values 
+            // int page = 1, int per_page = 10, int offset = 0, Category.Order order = Category.Order.Asc, Category.OrderBy orderby = Category.OrderBy.Name
+            return await GetRequest<Post[]>($"{defaultPath}categories", embed).ConfigureAwait(false);
+        }
+
+        public async Task<Category> GetCategory(int categoryId, bool embed = false)
+        {
+            return await GetRequest<Post[]>($"{defaultPath}categories?category={categoryId}", embed).ConfigureAwait(false);
+        }
+
+        public async Task<Category> CreateCategory(CategoryCreate postObject)
+        {
+            var postBody = new StringContent(JsonConvert.SerializeObject(postObject).ToString(), Encoding.UTF8, "application/json");
+            (var post, HttpResponseMessage response) = await PostRequest<Category>($"{defaultPath}categories", postBody);
+            return post;
+        }
+
+        public async Task<Category> UpdateCategory(Category postObject)
+        {
+            var postBody = new StringContent(JsonConvert.SerializeObject(postObject).ToString(), Encoding.UTF8, "application/json");
+            (var post, HttpResponseMessage response) = await PostRequest<Category>($"{defaultPath}categories/{postObject.Id}", postBody);
+            return post;
+        }
+
+        public async Task<HttpResponseMessage> DeleteCategory(int id)
+        {
+            var response = await DeleteRequest($"{defaultPath}categories/{id}").ConfigureAwait(false);
+            return response;
+        }
+	      #endregion
+
+        #region Tag methods
+        public async Task<Tag> CreateTag(Tag tagObject)
+        {
+            var postBody = new StringContent(JsonConvert.SerializeObject(tagObject).ToString(), Encoding.UTF8, "application/json");
+            (var tag, HttpResponseMessage response) = await PostRequest<Tag>($"{defaultPath}tags", postBody);
+            return tag;
+        }
+
+        public async Task<IList<Tag>> ListTags(bool embed = false)
+        {
+            return await GetRequest<Tag[]>($"{defaultPath}tags", embed).ConfigureAwait(false);
+        }
+        
+        public async Task<Tag> GetTag(int tagId, bool embed = false)
+        {
+            return await GetRequest<Tag>($"{defaultPath}tags/{tagId}", embed).ConfigureAwait(false);
+        }
+        #endregion
+
+        #region User methods
+        public async Task<User> GetCurrentUser()
+        {
+            return await GetRequest<User>($"{defaultPath}users/me", true, true).ConfigureAwait(false);
+        }
+
+        public async Task<IList<User>> ListUsers()
+        {
+            return await GetRequest<IList<User>>($"{defaultPath}users", false, false).ConfigureAwait(false);
+        }
+
+        public async Task<User> GetUser(int id)
+        {
+            return await GetRequest<User>($"{defaultPath}users/{id}", false, false).ConfigureAwait(false);
+        }
+        #endregion
+
+        #region Media methods
+        public async Task<Media> GetMedia(string id, bool embed = false)
+        {
+            return await GetRequest<Media>($"{defaultPath}media/{id}", embed).ConfigureAwait(false);
+        }
+
+        public async Task<(Media, HttpStatusCode)> GetMedia(string id, bool statusCode, bool embed = false)
+        {
+            var media = await GetRequest<Media>($"{defaultPath}media/{id}", embed).ConfigureAwait(false);
+            return (media, HttpStatusCode.Accepted);
+        }
+        #endregion
 
         #region Settings methods
         /// <summary>
