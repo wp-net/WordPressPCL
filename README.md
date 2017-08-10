@@ -73,7 +73,7 @@ var response = client.Posts.Delete(postid);
 | **Taxonomies**     | planned | planned | planned | planned |
 | **Post Types**     | planned | planned | planned | planned |
 | **Post Statuses**  | planned | planned | planned | planned |
-| **Settings**       |         | yes     |         |         |
+| **Settings**       | ---     | yes     | yes     | ---     |
 
 ## Contribution Guidelines
 We're very happy to get input from the community on this project! To keep the code clean we ask you to follow a few simple contribution guidelines.
