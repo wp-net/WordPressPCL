@@ -16,29 +16,29 @@ namespace WordPressPCLTests
         public async Task Pages_Create()
         {
             var client = await ClientHelper.GetAuthenticatedWordPressClient();
-            var post = new Page()
-            {
-                Title = new Title()
-                {
-                    Raw = "New Title"
-                },
-                Content = new Content()
-                {
-                    Raw = "Test Raw Content"
-                },
-                Date = DateTime.Now,
-                DateGmt = DateTime.UtcNow
-            };
-            var post2 = new Page()
+            //var post = new Page()
+            //{
+            //    Title = new Title()
+            //    {
+            //        Raw = "New Title"
+            //    },
+            //    Content = new Content()
+            //    {
+            //        Raw = "Test Raw Content"
+            //    },
+            //    Date = DateTime.Now,
+            //    DateGmt = DateTime.UtcNow
+            //};
+            var page = new Page()
             {
                 Title = new Title("Title 1"),
                 Content = new Content("Content PostCreate")
             };
-            var createdPost = await client.Pages.Create(post2);
+            var createdPage = await client.Pages.Create(page);
 
 
-            Assert.AreEqual(post2.Content.Raw, createdPost.Content.Raw);
-            Assert.IsTrue(createdPost.Content.Rendered.Contains(post2.Content.Rendered));
+            Assert.AreEqual(page.Content.Raw, createdPage.Content.Raw);
+            Assert.IsTrue(createdPage.Content.Rendered.Contains(page.Content.Rendered));
         }
 
         [TestMethod]
@@ -70,7 +70,19 @@ namespace WordPressPCLTests
         [TestMethod]
         public async Task Pages_Delete()
         {
-            Assert.Inconclusive();
+            var client = await ClientHelper.GetAuthenticatedWordPressClient();
+            var page = new Page()
+            {
+                Title = new Title("Title 1"),
+                Content = new Content("Content PostCreate")
+            };
+            var createdPage = await client.Pages.Create(page);
+            Assert.IsNotNull(createdPage);
+
+            var response = await client.Pages.Delete(createdPage.Id);
+            Assert.IsTrue(response.IsSuccessStatusCode);
+            var pageById = await client.Pages.GetByID(createdPage.Id);
+            Assert.IsNull(pageById);
         }
 
         [TestMethod]

@@ -499,9 +499,17 @@
         </member>
         <member name="M:WordPressPCL.Client.Users.Delete(System.Int32)">
             <summary>
-            Delete User
+            Delete User and all his posts
             </summary>
             <param name="ID">User Id</param>
+            <returns>Result of operation</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Users.DeleteAndReassignPosts(System.Int32,System.Int32)">
+            <summary>
+            Delete User and all his posts
+            </summary>
+            <param name="userToDelteID">User Id you want to delete</param>
+            <param name="userToAssignPostsID">User Id you want the posts to assign to</param>
             <returns>Result of operation</returns>
         </member>
         <member name="M:WordPressPCL.Client.Users.GetAll(System.Boolean,System.Boolean)">

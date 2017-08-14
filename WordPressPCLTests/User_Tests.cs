@@ -18,20 +18,33 @@ namespace WordPressPCLTests
         public async Task Users_Create()
         {
             var client = await ClientHelper.GetAuthenticatedWordPressClient();
-            var user = await client.Users.Create(new User("test", "test@test.test", "test")
+
+            var random = new Random();
+            var r = random.Next(0, 1000);
+            var username = $"Testuser{r}";
+            var nickname = $"Nickname{r}";
+            var email = $"testuser{r}@test.com";
+            var firstname = $"Firstname{r}";
+            var lastname = $"Lastname{r}";
+            var password = $"testpassword{r}";
+            var name = $"{firstname} {lastname}";
+
+
+
+            var user = await client.Users.Create(new User(username, email, password)
             {
-                NickName = "test",
-                Name = "test",
-                FirstName = "First",
-                LastName = "Last"
+                NickName = nickname,
+                Name = name,
+                FirstName = firstname,
+                LastName = lastname
             });
             Assert.IsNotNull(user);
-            Assert.AreEqual("test", user.NickName);
-            Assert.AreEqual("test", user.Name);
-            Assert.AreEqual("First", user.FirstName);
-            Assert.AreEqual("Last", user.LastName);
-            Assert.AreEqual("test", user.UserName);
-            Assert.AreEqual("test@test.test", user.Email);
+            Assert.AreEqual(nickname, user.NickName);
+            Assert.AreEqual(name, user.Name);
+            Assert.AreEqual(firstname, user.FirstName);
+            Assert.AreEqual(lastname, user.LastName);
+            Assert.AreEqual(username, user.UserName);
+            Assert.AreEqual(email, user.Email);
 
         }
         [TestMethod]
@@ -48,12 +61,74 @@ namespace WordPressPCLTests
         [TestMethod]
         public async Task Users_Update()
         {
-            Assert.Inconclusive();
+            var client = await ClientHelper.GetAuthenticatedWordPressClient();
+            var user = await CreateRandomUser(client);
+            Assert.IsNotNull(user);
+
+            var random = new Random();
+            var r = random.Next(0, 1000);
+            var name = $"Testuser{r}";
+            user.Name = name;
+            user.NickName = name;
+            user.FirstName = name;
+            user.LastName = name;
+
+            var updatedUser = await client.Users.Update(user);
+            Assert.IsNotNull(updatedUser);
+            Assert.AreEqual(updatedUser.Name, name);
+            Assert.AreEqual(updatedUser.NickName, name);
+            Assert.AreEqual(updatedUser.FirstName, name);
+            Assert.AreEqual(updatedUser.LastName, name);
         }
         [TestMethod]
         public async Task Users_Delete()
         {
-            Assert.Inconclusive();
+            var client = await ClientHelper.GetAuthenticatedWordPressClient();
+
+            var random = new Random();
+            var r = random.Next(0, 1000);
+            var username = $"Testuser{r}";
+            var email = $"testuser{r}@test.com";
+            var password = $"testpassword{r}";
+
+            var user = await client.Users.Create(new User(username, email, password));
+            Assert.IsNotNull(user);
+
+            var response = await client.Users.Delete(user.Id);
+            Assert.IsTrue(response.IsSuccessStatusCode);
+        }
+        [TestMethod]
+        public async Task Users_Delete_And_Reassign_Posts()
+        {
+            var client = await ClientHelper.GetAuthenticatedWordPressClient();
+
+            var random = new Random();
+
+            // Create new user
+            var user1 = await CreateRandomUser(client);
+            Assert.IsNotNull(user1);
+            var user2 = await CreateRandomUser(client);
+            Assert.IsNotNull(user2);
+
+            // Create post for user
+            var post = new Post()
+            {
+                Title = new Title("Title 1"),
+                Content = new Content("Content PostCreate"),
+                Author = user1.Id
+            };
+            var postCreated = await client.Posts.Create(post);
+            Assert.IsNotNull(post);
+            Assert.AreEqual(postCreated.Author, user1.Id);
+
+            // Delete User1 and reassign posts to user2
+            var response = await client.Users.DeleteAndReassignPosts(user1.Id, user2.Id);
+            Assert.IsTrue(response.IsSuccessStatusCode);
+
+            // Get posts for user 2 and check if ID of postCreated is in there
+            var postsOfUser2 = await client.Posts.GetPostsByAuthor(user2.Id);
+            var postsById = postsOfUser2.Where(x => x.Id == postCreated.Id).ToList();
+            Assert.AreEqual(postsById.Count, 1);
         }
         [TestMethod]
         public async Task Users_Query()
@@ -71,6 +146,22 @@ namespace WordPressPCLTests
             Assert.IsNotNull(queryresult);
             Assert.AreNotSame(queryresult.Count(), 0);
         }
+
+
+#region Utils
+
+        private async Task<User> CreateRandomUser(WordPressClient client)
+        {
+            var random = new Random();
+            var r = random.Next(0, 1000);
+            var username = $"Testuser{r}";
+            var email = $"testuser{r}@test.com";
+            var password = $"testpassword{r}";
+            return await client.Users.Create(new User(username, email, password));
+        }
+
+#endregion
+
 
     }
 }
