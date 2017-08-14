@@ -69,10 +69,10 @@ var response = client.Posts.Delete(postid);
 | **Tags**           | yes     | yes     | yes     | yes     |
 | **Users**          | yes     | yes     | yes     | yes     |
 | **Media**          | yes     | yes     | yes     | yes     |
-| **Post Revisions** | planned | planned | planned | planned |
-| **Taxonomies**     | planned | planned | planned | planned |
-| **Post Types**     | planned | planned | planned | planned |
-| **Post Statuses**  | planned | planned | planned | planned |
+| **Post Revisions** | ---     | yes     | ---     | yes     |
+| **Taxonomies**     | ---     | yes     | ---     | ---     |
+| **Post Types**     | ---     | yes     | ---     | ---     |
+| **Post Statuses**  | ---     | yes     | ---     | ---     |
 | **Settings**       | ---     | yes     | yes     | ---     |
 
 ## Contribution Guidelines
