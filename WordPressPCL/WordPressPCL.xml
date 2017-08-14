@@ -891,6 +891,21 @@
             Order By Slug
             </summary>
         </member>
+        <member name="F:WordPressPCL.Models.PostsOrderBy.Author">
+            <summary>
+            Order By Author
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.PostsOrderBy.Modified">
+            <summary>
+            Order By modified
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.PostsOrderBy.Parent">
+            <summary>
+            Order By parent
+            </summary>
+        </member>
         <member name="T:WordPressPCL.Models.UsersOrderBy">
             <summary>
             Sort users collection by object attribute.

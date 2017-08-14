@@ -140,7 +140,22 @@ namespace WordPressPCL.Models
         /// Order By Slug
         /// </summary>
         [EnumMember(Value = "slug")]
-        Slug
+        Slug,
+        /// <summary>
+        /// Order By Author
+        /// </summary>
+        [EnumMember(Value = "author")]
+        Author,
+        /// <summary>
+        /// Order By modified
+        /// </summary>
+        [EnumMember(Value = "modified")]
+        Modified,
+        /// <summary>
+        /// Order By parent
+        /// </summary>
+        [EnumMember(Value = "parent")]
+        Parent
     }
     /// <summary>
     /// Sort users collection by object attribute.
