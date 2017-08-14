@@ -1,20 +1,15 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Net;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using WordPressPCL.Client;
 using WordPressPCL.Models;
 using WordPressPCL.Utility;
-using System.Collections;
-using WordPressPCL.Client;
 
 namespace WordPressPCL
 {
-
     /// <summary>
     ///     Main class containing the wrapper client with all public API endpoints.
     /// </summary>
@@ -22,6 +17,7 @@ namespace WordPressPCL
     {
         private readonly string _wordPressUri;
         private readonly HttpHelper _httpHelper;
+
         /// <summary>
         /// WordPressUri holds the WordPress API endpoint, e.g. "http://demo.wp-api.org/wp-json/wp/v2/"
         /// </summary>
@@ -35,40 +31,62 @@ namespace WordPressPCL
 
         /*public string Username { get; set; }
         public string Password { get; set; }*/
+
         /// <summary>
         /// Authentication method
         /// </summary>
         public AuthMethod AuthMethod { get; set; }
+
         //public string JWToken;
         /// <summary>
         /// Posts client interaction object
         /// </summary>
         public Posts Posts;
+
         /// <summary>
         /// Comments client interaction object
         /// </summary>
         public Comments Comments;
+
         /// <summary>
         /// Tags client interaction object
         /// </summary>
         public Tags Tags;
+
         /// <summary>
         /// Users client interaction object
         /// </summary>
         public Users Users;
+
         /// <summary>
         /// Media client interaction object
         /// </summary>
         public Client.Media Media;
+
         /// <summary>
         /// Categories client interaction object
         /// </summary>
         public Categories Categories;
+
         /// <summary>
         /// Pages client interaction object
         /// </summary>
         public Pages Pages;
 
+        /// <summary>
+        /// Taxonomies client interaction object
+        /// </summary>
+        public Taxonomies Taxonomies;
+
+        /// <summary>
+        /// Post Types client interaction object
+        /// </summary>
+        public PostTypes PostTypes;
+
+        /// <summary>
+        /// Post Statuses client interaction object
+        /// </summary>
+        public PostStatuses PostStatuses;
 
         /// <summary>
         ///     The WordPressClient holds all connection infos and provides methods to call WordPress APIs.
@@ -95,11 +113,13 @@ namespace WordPressPCL
             Media = new Media(ref _httpHelper, defaultPath);
             Categories = new Categories(ref _httpHelper, defaultPath);
             Pages = new Pages(ref _httpHelper, defaultPath);
+            Taxonomies = new Taxonomies(ref _httpHelper, defaultPath);
+            PostTypes = new PostTypes(ref _httpHelper, defaultPath);
+            PostStatuses = new PostStatuses(ref _httpHelper, defaultPath);
         }
 
-       
-
         #region Settings methods
+
         /// <summary>
         /// Get site settings
         /// </summary>
@@ -108,6 +128,7 @@ namespace WordPressPCL
         {
             return await _httpHelper.GetRequest<Settings>($"{defaultPath}settings", false, true).ConfigureAwait(false);
         }
+
         /// <summary>
         /// Update site settings
         /// </summary>
@@ -119,9 +140,11 @@ namespace WordPressPCL
             (var setting, HttpResponseMessage response) = await _httpHelper.PostRequest<Settings>($"{defaultPath}settings", postBody);
             return setting;
         }
-        #endregion
+
+        #endregion Settings methods
 
         #region auth methods
+
         /// <summary>
         /// Perform authentication by JWToken
         /// </summary>
@@ -143,6 +166,7 @@ namespace WordPressPCL
                 _httpHelper.JWToken = jwtUser?.Token;
             }
         }
+
         /// <summary>
         /// Check if token is valid
         /// </summary>
@@ -157,6 +181,6 @@ namespace WordPressPCL
             }
         }
 
-        #endregion
+        #endregion auth methods
     }
 }

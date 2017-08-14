@@ -10,14 +10,14 @@ namespace WordPressPCL.Models
 	public class Post : Base
     {
         /// <summary>
-        ///     The date the object was published, in the site's timezone.
+        /// The date the object was published, in the site's timezone.
         /// </summary>
         /// <remarks>Context: view, edit, embed</remarks>
 		[JsonProperty("date", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public DateTime Date { get; set; }
 
         /// <summary>
-        ///     The date the object was published, as GMT.
+        /// The date the object was published, as GMT.
         /// </summary>
         /// <remarks>Context: view, edit</remarks>
         [JsonProperty("date_gmt", DefaultValueHandling = DefaultValueHandling.Ignore)]

@@ -94,7 +94,7 @@ namespace WordPressPCL.Client
         /// <param name="embed">include embed info</param>
         /// <param name="useAuth">Send request with authenication header</param>
         /// <returns>Entity by Id</returns>
-        public async Task<TClass> GetByID(int ID, bool embed = false, bool useAuth = false)
+        public async Task<TClass> GetByID(object ID, bool embed = false, bool useAuth = false)
         {
             return await _httpHelper.GetRequest<TClass>($"{_defaultPath}{_methodPath}/{ID}", embed, useAuth).ConfigureAwait(false);
         }

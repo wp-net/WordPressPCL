@@ -108,6 +108,16 @@ namespace WordPressPCL.Client
             return await _httpHelper.DeleteRequest($"{_defaultPath}{_methodPath}/{ID}?force={force}").ConfigureAwait(false);
         }
 
+        /// <summary>
+        /// Get instance ob object to manipulate with post revisions
+        /// </summary>
+        /// <param name="postId">ID of parent Post</param>
+        /// <returns>Post revisions object</returns>
+        public PostRevisions Revisions(int postId)
+        {
+            return new PostRevisions(ref _httpHelper, _defaultPath, postId);
+        }
+
         #endregion Custom
     }
 }
