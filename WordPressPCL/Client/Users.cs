@@ -1,128 +1,32 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Net.Http;
 using System.Threading.Tasks;
-using WordPressPCL.Utility;
-using System.Linq;
-using System.Net.Http;
-using Newtonsoft.Json;
 using WordPressPCL.Models;
-using WordPressPCL.Interfaces;
+using WordPressPCL.Utility;
 
 namespace WordPressPCL.Client
 {
     /// <summary>
     /// Client class for interaction with Users endpoint WP REST API
     /// </summary>
-    public class Users : ICRUDOperationAsync<User>
+    public class Users : CRUDOperation<User, UsersQueryBuilder>
     {
         #region Init
-        private string _defaultPath;
-        private const string _methodPath = "users";
-        private HttpHelper _httpHelper;
+
+        private new const string _methodPath = "users";
+
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="HttpHelper">reference to HttpHelper class for interaction with HTTP</param>
         /// <param name="defaultPath">path to site, EX. http://demo.com/wp-json/ </param>
-        public Users(ref HttpHelper HttpHelper, string defaultPath)
+        public Users(ref HttpHelper HttpHelper, string defaultPath) : base(ref HttpHelper, defaultPath, _methodPath)
         {
-            _defaultPath = defaultPath;
-            _httpHelper = HttpHelper;
-            
-        }
-        #endregion
-        /// <summary>
-        /// Create a parametrized query and get a result
-        /// </summary>
-        /// <param name="queryBuilder">Users query builder with specific parameters</param>
-        /// <param name="useAuth">Send request with authenication header</param>
-        /// <returns>List of filtered users</returns>
-        public async Task<IEnumerable<User>> Query(UsersQueryBuilder queryBuilder, bool useAuth = false)
-        {
-            return await _httpHelper.GetRequest<IEnumerable<User>>($"{_defaultPath}{_methodPath}{queryBuilder.BuildQueryURL()}", false,useAuth).ConfigureAwait(false);
-        }
-        #region Interface Realisation
-        /// <summary>
-        /// Create User
-        /// </summary>
-        /// <param name="Entity">User object</param>
-        /// <returns>Created user object</returns>
-        public async Task<User> Create(User Entity)
-        {
-            var postBody = new StringContent(JsonConvert.SerializeObject(Entity).ToString(), Encoding.UTF8, "application/json");
-            return (await _httpHelper.PostRequest<User>($"{_defaultPath}{_methodPath}", postBody)).Item1;
-        }
-        /// <summary>
-        /// Update User
-        /// </summary>
-        /// <param name="Entity">User object</param>
-        /// <returns>Updated user object</returns>
-        public async Task<User> Update(User Entity)
-        {
-            var postBody = new StringContent(JsonConvert.SerializeObject(Entity).ToString(), Encoding.UTF8, "application/json");
-            return (await _httpHelper.PostRequest<User>($"{_defaultPath}{_methodPath}/{Entity.Id}", postBody)).Item1;
-        }
-        /// <summary>
-        /// Delete User and all his posts
-        /// </summary>
-        /// <param name="ID">User Id</param>
-        /// <returns>Result of operation</returns>
-        public async Task<HttpResponseMessage> Delete(int ID)
-        {
-            return await _httpHelper.DeleteRequest($"{_defaultPath}{_methodPath}/{ID}?force=true&reassign=").ConfigureAwait(false);
-        }
-        /// <summary>
-        /// Delete User and all his posts
-        /// </summary>
-        /// <param name="userToDelteID">User Id you want to delete</param>
-        /// <param name="userToAssignPostsID">User Id you want the posts to assign to</param>
-        /// <returns>Result of operation</returns>
-        public async Task<HttpResponseMessage> DeleteAndReassignPosts(int userToDelteID, int userToAssignPostsID )
-        {
-            return await _httpHelper.DeleteRequest($"{_defaultPath}{_methodPath}/{userToDelteID}?force=true&reassign={userToAssignPostsID}").ConfigureAwait(false);
-        }
-        /// <summary>
-        /// Get All Users
-        /// </summary>
-        /// <param name="embed">Include embed info</param>
-        /// <param name="useAuth">Send request with authenication header</param>
-        /// <returns>List of all Users</returns>
-        public async Task<IEnumerable<User>> GetAll(bool embed = false, bool useAuth = false)
-        {
-            //100 - Max posts per page in WordPress REST API, so this is hack with multiple requests
-            List<User> users = new List<User>();
-            List<User> users_page = new List<User>();
-            int page = 1;
-            do
-            {
-                users_page = (await _httpHelper.GetRequest<IEnumerable<User>>($"{_defaultPath}{_methodPath}?per_page=100&page={page++}", embed,useAuth).ConfigureAwait(false))?.ToList<User>();
-                if (users_page != null && users_page.Count > 0) { users.AddRange(users_page); }
-
-            } while (users_page != null && users_page.Count > 0);
-
-            return users;
-            //return await _httpHelper.GetRequest<IEnumerable<User>>($"{_defaultPath}{_methodPath}", embed).ConfigureAwait(false);
         }
 
-
-        /// <summary>
-        /// GetUser by Id
-        /// </summary>
-        /// <param name="ID">User ID</param>
-        /// <param name="embed">include embed info</param>
-        /// <param name="useAuth">Send request with authenication header</param>
-        /// <returns>User by Id</returns>
-        public async Task<User> GetByID(int ID, bool embed = false, bool useAuth = false)
-        {
-            return await _httpHelper.GetRequest<User>($"{_defaultPath}{_methodPath}/{ID}", embed,useAuth).ConfigureAwait(false);
-        }
-
-        
-        #endregion
+        #endregion Init
 
         #region Custom
+
         /// <summary>
         /// Get current User
         /// </summary>
@@ -131,16 +35,18 @@ namespace WordPressPCL.Client
         {
             return await _httpHelper.GetRequest<User>($"{_defaultPath}{_methodPath}/me", true, true).ConfigureAwait(false);
         }
+
         /// <summary>
         /// Delete user with reassign articles
         /// </summary>
         /// <param name="ID">User id for delete</param>
         /// <param name="ReassignUserID">User id for reassign</param>
         /// <returns>Result of operation</returns>
-        public async Task<HttpResponseMessage> Delete(int ID,int ReassignUserID)
+        public async Task<HttpResponseMessage> Delete(int ID, int ReassignUserID)
         {
             return await _httpHelper.DeleteRequest($"{_defaultPath}{_methodPath}/{ID}?reassign={ReassignUserID}").ConfigureAwait(false);
         }
+
         /// <summary>
         /// Delete user with reassign articles
         /// </summary>
@@ -151,6 +57,18 @@ namespace WordPressPCL.Client
         {
             return await _httpHelper.DeleteRequest($"{_defaultPath}{_methodPath}/{ID}?reassign={ReassignUser.Id}").ConfigureAwait(false);
         }
-        #endregion
+
+        /// <summary>
+        /// Delete User and all his posts
+        /// </summary>
+        /// <param name="userToDelteID">User Id you want to delete</param>
+        /// <param name="userToAssignPostsID">User Id you want the posts to assign to</param>
+        /// <returns>Result of operation</returns>
+        public async Task<HttpResponseMessage> DeleteAndReassignPosts(int userToDelteID, int userToAssignPostsID)
+        {
+            return await _httpHelper.DeleteRequest($"{_defaultPath}{_methodPath}/{userToDelteID}?force=true&reassign={userToAssignPostsID}").ConfigureAwait(false);
+        }
+
+        #endregion Custom
     }
 }

@@ -1,117 +1,33 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
+using System.Net.Http;
 using System.Threading.Tasks;
-using WordPressPCL.Interfaces;
 using WordPressPCL.Models;
 using WordPressPCL.Utility;
-using System.Linq;
-using System.Net.Http;
-using Newtonsoft.Json;
 
 namespace WordPressPCL.Client
 {
     /// <summary>
     /// Client class for interaction with Posts endpoint WP REST API
     /// </summary>
-    public class Posts : ICRUDOperationAsync<Post>
+    public class Posts : CRUDOperation<Post, PostsQueryBuilder>
     {
         #region Init
-        private string _defaultPath;
-        private const string _methodPath = "posts";
-        private HttpHelper _httpHelper;
-        
+
+        private new const string _methodPath = "posts";
+
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="HttpHelper">reference to HttpHelper class for interaction with HTTP</param>
         /// <param name="defaultPath">path to site, EX. http://demo.com/wp-json/ </param>
-        public Posts(ref HttpHelper HttpHelper,string defaultPath)
+        public Posts(ref HttpHelper HttpHelper, string defaultPath) : base(ref HttpHelper, defaultPath, _methodPath)
         {
-            _defaultPath = defaultPath;
-            _httpHelper = HttpHelper;
-            
-        }
-        #endregion
-        /// <summary>
-        /// Create a parametrized query and get a result
-        /// </summary>
-        /// <param name="queryBuilder">Posts query builder with specific parameters</param>
-        /// <param name="useAuth">Send request with authenication header</param>
-        /// <returns>List of filtered posts</returns>
-        public async Task<IEnumerable<Post>> Query(PostsQueryBuilder queryBuilder, bool useAuth = false)
-        {
-            return await _httpHelper.GetRequest<IEnumerable<Post>>($"{_defaultPath}{_methodPath}{queryBuilder.BuildQueryURL()}",false,useAuth).ConfigureAwait(false);
-        }
-        #region Interface Realisation
-        /// <summary>
-        /// Create Post
-        /// </summary>
-        /// <param name="Entity">Post object</param>
-        /// <returns>Created post object</returns>
-        public async Task<Post> Create(Post Entity)
-        {
-            var postBody = new StringContent(JsonConvert.SerializeObject(Entity).ToString(), Encoding.UTF8, "application/json");
-            return (await _httpHelper.PostRequest<Post>($"{_defaultPath}{_methodPath}", postBody)).Item1;
         }
 
-        /// <summary>
-        /// Update Post
-        /// </summary>
-        /// <param name="Entity">Post object</param>
-        /// <returns>Updated Post object</returns>
-        public async Task<Post> Update(Post Entity)
-        {
-            var postBody = new StringContent(JsonConvert.SerializeObject(Entity).ToString(), Encoding.UTF8, "application/json");
-            return (await _httpHelper.PostRequest<Post>($"{_defaultPath}{_methodPath}/{Entity.Id}", postBody)).Item1;
-        }
-        /// <summary>
-        /// Delete Post
-        /// </summary>
-        /// <param name="ID">Post Id</param>
-        /// <returns>Result of operation</returns>
-        public async Task<HttpResponseMessage> Delete(int ID)
-        {
-            return await _httpHelper.DeleteRequest($"{_defaultPath}{_methodPath}/{ID}").ConfigureAwait(false);
-        }
-        /// <summary>
-        /// Get All Posts
-        /// </summary>
-        /// <param name="embed">Include embed info</param>
-        /// <param name="useAuth">Send request with authenication header</param>
-        /// <returns>List of all Posts</returns>
-        public async Task<IEnumerable<Post>> GetAll(bool embed=false, bool useAuth = false)
-        {
-            //100 - Max posts per page in WordPress REST API, so this is hack with multiple requests
-            List<Post> posts = new List<Post>();
-            List<Post> posts_page = new List<Post>();
-            int page = 1;
-            do
-            {
-                posts_page = (await _httpHelper.GetRequest<IEnumerable<Post>>($"{_defaultPath}{_methodPath}?per_page=100&page={page++}", embed,useAuth).ConfigureAwait(false))?.ToList<Post>();
-                if (posts_page != null && posts_page.Count>0) { posts.AddRange(posts_page); }
-                
-            } while (posts_page!=null && posts_page.Count > 0);
-            
-            return posts;
-        }
-
-
-        /// <summary>
-        /// Get Post by Id
-        /// </summary>
-        /// <param name="ID">Post ID</param>
-        /// <param name="embed">include embed info</param>
-        /// <param name="useAuth">Send request with authenication header</param>
-        /// <returns>Post by Id</returns>
-        public async Task<Post> GetByID(int ID, bool embed=false, bool useAuth = false)
-        {
-            return await _httpHelper.GetRequest<Post>($"{_defaultPath}{_methodPath}/{ID}", embed,useAuth).ConfigureAwait(false);
-        }
-        #endregion
+        #endregion Init
 
         #region Custom
+
         /// <summary>
         /// Get sticky posts
         /// </summary>
@@ -120,9 +36,9 @@ namespace WordPressPCL.Client
         /// <returns>List of posts</returns>
         public async Task<IEnumerable<Post>> GetStickyPosts(bool embed = false, bool useAuth = false)
         {
-            // default values 
+            // default values
             // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
-            return await _httpHelper.GetRequest<IEnumerable<Post>>($"{_defaultPath}{_methodPath}?sticky=true", embed,useAuth).ConfigureAwait(false);
+            return await _httpHelper.GetRequest<IEnumerable<Post>>($"{_defaultPath}{_methodPath}?sticky=true", embed, useAuth).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -134,9 +50,9 @@ namespace WordPressPCL.Client
         /// <returns>List of posts</returns>
         public async Task<IEnumerable<Post>> GetPostsByCategory(int categoryId, bool embed = false, bool useAuth = false)
         {
-            // default values 
+            // default values
             // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
-            return await _httpHelper.GetRequest<IEnumerable<Post>>($"{_defaultPath}{_methodPath}?categories={categoryId}", embed,useAuth).ConfigureAwait(false);
+            return await _httpHelper.GetRequest<IEnumerable<Post>>($"{_defaultPath}{_methodPath}?categories={categoryId}", embed, useAuth).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -148,9 +64,9 @@ namespace WordPressPCL.Client
         /// <returns>List of posts</returns>
         public async Task<IEnumerable<Post>> GetPostsByTag(int tagId, bool embed = false, bool useAuth = false)
         {
-            // default values 
+            // default values
             // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
-            return await _httpHelper.GetRequest<IEnumerable<Post>>($"{_defaultPath}{_methodPath}?tags={tagId}", embed,useAuth).ConfigureAwait(false);
+            return await _httpHelper.GetRequest<IEnumerable<Post>>($"{_defaultPath}{_methodPath}?tags={tagId}", embed, useAuth).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -162,9 +78,9 @@ namespace WordPressPCL.Client
         /// <returns>List of posts</returns>
         public async Task<IEnumerable<Post>> GetPostsByAuthor(int authorId, bool embed = false, bool useAuth = false)
         {
-            // default values 
+            // default values
             // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
-            return await _httpHelper.GetRequest<IEnumerable<Post>>($"{_defaultPath}{_methodPath}?author={authorId}", embed,useAuth).ConfigureAwait(false);
+            return await _httpHelper.GetRequest<IEnumerable<Post>>($"{_defaultPath}{_methodPath}?author={authorId}", embed, useAuth).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -176,21 +92,22 @@ namespace WordPressPCL.Client
         /// <returns>List of posts</returns>
         public async Task<IEnumerable<Post>> GetPostsBySearch(string searchTerm, bool embed = false, bool useAuth = false)
         {
-            // default values 
+            // default values
             // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
-            return await _httpHelper.GetRequest<IEnumerable<Post>>($"{_defaultPath}{_methodPath}?search={searchTerm}", embed,useAuth).ConfigureAwait(false);
+            return await _httpHelper.GetRequest<IEnumerable<Post>>($"{_defaultPath}{_methodPath}?search={searchTerm}", embed, useAuth).ConfigureAwait(false);
         }
-        
+
         /// <summary>
         /// Delete post with force deletion
         /// </summary>
         /// <param name="ID">Post id</param>
         /// <param name="force">force deletion</param>
         /// <returns>Result of opertion</returns>
-        public async Task<HttpResponseMessage> Delete(int ID,bool force=false)
+        public async Task<HttpResponseMessage> Delete(int ID, bool force = false)
         {
             return await _httpHelper.DeleteRequest($"{_defaultPath}{_methodPath}/{ID}?force={force}").ConfigureAwait(false);
         }
-        #endregion
+
+        #endregion Custom
     }
 }
