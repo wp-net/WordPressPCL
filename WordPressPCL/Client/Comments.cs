@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-using WordPressPCL.Utility;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Net.Http;
-using Newtonsoft.Json;
+using System.Threading.Tasks;
 using WordPressPCL.Models;
-using WordPressPCL.Interfaces;
+using WordPressPCL.Utility;
 
 namespace WordPressPCL.Client
 {
@@ -16,103 +10,25 @@ namespace WordPressPCL.Client
     /// Client class for interaction with Comments endpoint WP REST API
     /// </summary>
 
-    public class Comments : ICRUDOperationAsync<Comment>
+    public class Comments : CRUDOperation<Comment, CommentsQueryBuilder>
     {
         #region Init
-        private string _defaultPath;
-        private const string _methodPath = "comments";
-        private HttpHelper _httpHelper;
+
+        private new const string _methodPath = "comments";
+
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="HttpHelper">reference to HttpHelper class for interaction with HTTP</param>
         /// <param name="defaultPath">path to site, EX. http://demo.com/wp-json/ </param>
-        public Comments(ref HttpHelper HttpHelper, string defaultPath)
+        public Comments(ref HttpHelper HttpHelper, string defaultPath) : base(ref HttpHelper, defaultPath, _methodPath)
         {
-            _defaultPath = defaultPath;
-            _httpHelper = HttpHelper;
-        }
-        #endregion
-        /// <summary>
-        /// Create a parametrized query and get a result
-        /// </summary>
-        /// <param name="queryBuilder">Comments query builder with specific parameters</param>
-        /// <param name="useAuth">Send request with authenication header</param>
-        /// <returns>List of filtered comments</returns>
-        public async Task<IEnumerable<Comment>> Query(CommentsQueryBuilder queryBuilder, bool useAuth = false)
-        {
-            return await _httpHelper.GetRequest<IEnumerable<Comment>>($"{_defaultPath}{_methodPath}{queryBuilder.BuildQueryURL()}", false,useAuth).ConfigureAwait(false);
-        }
-        #region Interface Realisation
-        /// <summary>
-        /// Create Comment
-        /// </summary>
-        /// <param name="Entity">Comment object</param>
-        /// <returns>Created comment object</returns>
-        public async Task<Comment> Create(Comment Entity)
-        {
-            var postBody = new StringContent(JsonConvert.SerializeObject(Entity).ToString(), Encoding.UTF8, "application/json");
-            return (await _httpHelper.PostRequest<Comment>($"{_defaultPath}{_methodPath}", postBody)).Item1;
-        }
-        /// <summary>
-        /// Update Comment
-        /// </summary>
-        /// <param name="Entity">Comment object</param>
-        /// <returns>Updated comment object</returns>
-        public async Task<Comment> Update(Comment Entity)
-        {
-            var postBody = new StringContent(JsonConvert.SerializeObject(Entity).ToString(), Encoding.UTF8, "application/json");
-            return (await _httpHelper.PostRequest<Comment>($"{_defaultPath}{_methodPath}/{Entity.Id}", postBody)).Item1;
-        }
-        /// <summary>
-        /// Delete Comment
-        /// </summary>
-        /// <param name="ID">Comment Id</param>
-        /// <returns>Result of operation</returns>
-        public async Task<HttpResponseMessage> Delete(int ID)
-        {
-            return await _httpHelper.DeleteRequest($"{_defaultPath}{_methodPath}/{ID}").ConfigureAwait(false);
-        }
-        /// <summary>
-        /// Get All Comments
-        /// </summary>
-        /// <param name="embed">Include embed info</param>
-        /// <param name="useAuth">Send request with authenication header</param>
-        /// <returns>List of all Comments</returns>
-        public async Task<IEnumerable<Comment>> GetAll(bool embed = false, bool useAuth = false)
-        {
-            //100 - Max posts per page in WordPress REST API, so this is hack with multiple requests
-            List<Comment> comments = new List<Comment>();
-            List<Comment> comments_page = new List<Comment>();
-            int page = 1;
-            do
-            {
-                comments_page = (await _httpHelper.GetRequest<IEnumerable<Comment>>($"{_defaultPath}{_methodPath}?per_page=100&page={page++}", embed,useAuth).ConfigureAwait(false))?.ToList<Comment>();
-                if (comments_page != null && comments_page.Count>0) { comments.AddRange(comments_page); }
-
-            } while (comments_page != null && comments_page.Count > 0);
-
-            return comments;
-            //return await _httpHelper.GetRequest<IEnumerable<Comment>>($"{_defaultPath}{_methodPath}", embed).ConfigureAwait(false);
         }
 
-
-        /// <summary>
-        /// Get Comment by Id
-        /// </summary>
-        /// <param name="ID">Comment ID</param>
-        /// <param name="embed">include embed info</param>
-        /// <param name="useAuth">Send request with authenication header</param>
-        /// <returns>Comment by Id</returns>
-        public async Task<Comment> GetByID(int ID, bool embed = false, bool useAuth = false)
-        {
-            return await _httpHelper.GetRequest<Comment>($"{_defaultPath}{_methodPath}/{ID}", embed,useAuth).ConfigureAwait(false);
-        }
-
-
-        #endregion
+        #endregion Init
 
         #region Custom
+
         /// <summary>
         /// Get comments for Post
         /// </summary>
@@ -122,18 +38,20 @@ namespace WordPressPCL.Client
         /// <returns>List of comments for post</returns>
         public async Task<IEnumerable<Comment>> GetCommentsForPost(string PostID, bool embed = false, bool useAuth = false)
         {
-            return await _httpHelper.GetRequest<IEnumerable<Comment>>($"{_defaultPath}{_methodPath}?post={PostID}", embed,useAuth);
+            return await _httpHelper.GetRequest<IEnumerable<Comment>>($"{_defaultPath}{_methodPath}?post={PostID}", embed, useAuth);
         }
+
         /// <summary>
         /// Force deletion of comments
         /// </summary>
         /// <param name="ID">Comment Id</param>
         /// <param name="force">force deletion</param>
         /// <returns>Result of operation</returns>
-        public async Task<HttpResponseMessage> Delete(int ID, bool force=false)
+        public async Task<HttpResponseMessage> Delete(int ID, bool force = false)
         {
             return await _httpHelper.DeleteRequest($"{_defaultPath}{_methodPath}/{ID}?force={force}").ConfigureAwait(false);
         }
-        #endregion
+
+        #endregion Custom
     }
 }
