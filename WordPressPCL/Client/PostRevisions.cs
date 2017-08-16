@@ -39,7 +39,7 @@ namespace WordPressPCL.Client
         /// <returns>Result of operation</returns>
         public async Task<HttpResponseMessage> Delete(int ID)
         {
-            return await _httpHelper.DeleteRequest($"{_defaultPath}posts/{_postId}/{_methodPath}/{ID}").ConfigureAwait(false);
+            return await _httpHelper.DeleteRequest($"{_defaultPath}posts/{_postId}/{_methodPath}/{ID}?force=true").ConfigureAwait(false);
         }
         /// <summary>
         /// Get All

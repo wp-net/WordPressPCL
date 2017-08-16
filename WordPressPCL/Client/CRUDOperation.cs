@@ -33,16 +33,23 @@ namespace WordPressPCL.Client
         protected HttpHelper _httpHelper;
 
         /// <summary>
+        /// Is object must be force deleted
+        /// </summary>
+        protected bool _forceDeletion;
+
+        /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="HttpHelper">reference to HttpHelper class for interaction with HTTP</param>
         /// <param name="defaultPath">path to site, EX. http://demo.com/wp-json/ </param>
         /// <param name="methodPath">path to endpoint, EX. posts</param>
-        public CRUDOperation(ref HttpHelper HttpHelper, string defaultPath, string methodPath)
+        /// <param name="forceDeletion">is objectes must be force deleted</param>
+        public CRUDOperation(ref HttpHelper HttpHelper, string defaultPath, string methodPath, bool forceDeletion = false)
         {
             _defaultPath = defaultPath;
             _httpHelper = HttpHelper;
             _methodPath = methodPath;
+            _forceDeletion = forceDeletion;
         }
 
         /// <summary>
@@ -63,7 +70,7 @@ namespace WordPressPCL.Client
         /// <returns>Result of operation</returns>
         public async Task<HttpResponseMessage> Delete(int ID)
         {
-            return await _httpHelper.DeleteRequest($"{_defaultPath}{_methodPath}/{ID}").ConfigureAwait(false);
+            return await _httpHelper.DeleteRequest($"{_defaultPath}{_methodPath}/{ID}" + (_forceDeletion == true ? "?force=true" : string.Empty)).ConfigureAwait(false);
         }
 
         /// <summary>

@@ -170,19 +170,19 @@ namespace WordPressPCL.Models
         /// Meta fields.
         /// </summary>
         /// <remarks>Context: view, edit</remarks>
-        [JsonProperty("meta")]
+        [JsonProperty("meta", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public IList<object> Meta { get; set; }
 
         /// <summary>
         /// Links to related resources
         /// </summary>
-        [JsonProperty("_links")]
+        [JsonProperty("_links", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public Links Links { get; set; }
 
         /// <summary>
         /// Embedded information like featured images
         /// </summary>
-        [JsonProperty("_embedded")]
+        [JsonProperty("_embedded", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public Embedded Embedded { get; set; }
 
         /// <summary>

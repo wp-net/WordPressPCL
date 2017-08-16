@@ -67,13 +67,19 @@
             HttpHelper object with helper method over HTTP requests
             </summary>
         </member>
-        <member name="M:WordPressPCL.Client.CRUDOperation`2.#ctor(WordPressPCL.Utility.HttpHelper@,System.String,System.String)">
+        <member name="F:WordPressPCL.Client.CRUDOperation`2._forceDeletion">
+            <summary>
+            Is object must be force deleted
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Client.CRUDOperation`2.#ctor(WordPressPCL.Utility.HttpHelper@,System.String,System.String,System.Boolean)">
             <summary>
             Constructor
             </summary>
             <param name="HttpHelper">reference to HttpHelper class for interaction with HTTP</param>
             <param name="defaultPath">path to site, EX. http://demo.com/wp-json/ </param>
             <param name="methodPath">path to endpoint, EX. posts</param>
+            <param name="forceDeletion">is objectes must be force deleted</param>
         </member>
         <member name="M:WordPressPCL.Client.CRUDOperation`2.Create(`0)">
             <summary>
@@ -140,14 +146,6 @@
             <param name="fileStream">stream with file content</param>
             <param name="filename">Name of file in WP Media Library</param>
             <returns>Created media object</returns>
-        </member>
-        <member name="M:WordPressPCL.Client.Media.Delete(System.Int32,System.Boolean)">
-            <summary>
-            Force deletion of media
-            </summary>
-            <param name="ID">Media id</param>
-            <param name="force">force deletion</param>
-            <returns>Result of operation</returns>
         </member>
         <member name="T:WordPressPCL.Client.Pages">
             <summary>
