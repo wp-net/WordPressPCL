@@ -49,7 +49,7 @@ namespace WordPressPCL.Client
         /// <returns>Result of operation</returns>
         public async Task<HttpResponseMessage> Delete(int ID, bool force = false)
         {
-            return await _httpHelper.DeleteRequest($"{_defaultPath}{_methodPath}/{ID}?force={force}").ConfigureAwait(false);
+            return await _httpHelper.DeleteRequest($"{_defaultPath}{_methodPath}/{ID}?force={force.ToString().ToLower()}").ConfigureAwait(false);
         }
 
         #endregion Custom

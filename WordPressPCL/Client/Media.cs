@@ -22,7 +22,7 @@ namespace WordPressPCL.Client
         /// </summary>
         /// <param name="HttpHelper">reference to HttpHelper class for interaction with HTTP</param>
         /// <param name="defaultPath">path to site, EX. http://demo.com/wp-json/ </param>
-        public Media(ref HttpHelper HttpHelper, string defaultPath) : base(ref HttpHelper, defaultPath, _methodPath)
+        public Media(ref HttpHelper HttpHelper, string defaultPath) : base(ref HttpHelper, defaultPath, _methodPath, true)
         {
         }
 
@@ -49,20 +49,5 @@ namespace WordPressPCL.Client
             content.Headers.TryAddWithoutValidation("Content-Disposition", $"attachment; filename={filename}");
             return (await _httpHelper.PostRequest<MediaItem>($"{_defaultPath}{_methodPath}", content)).Item1;
         }
-
-        #region Custom
-
-        /// <summary>
-        /// Force deletion of media
-        /// </summary>
-        /// <param name="ID">Media id</param>
-        /// <param name="force">force deletion</param>
-        /// <returns>Result of operation</returns>
-        public async Task<HttpResponseMessage> Delete(int ID, bool force = false)
-        {
-            return await _httpHelper.DeleteRequest($"{_defaultPath}{_methodPath}/{ID}?force={force}").ConfigureAwait(false);
-        }
-
-        #endregion Custom
     }
 }
