@@ -79,7 +79,7 @@
             <param name="HttpHelper">reference to HttpHelper class for interaction with HTTP</param>
             <param name="defaultPath">path to site, EX. http://demo.com/wp-json/ </param>
             <param name="methodPath">path to endpoint, EX. posts</param>
-            <param name="forceDeleteion">is objectes must be force deleted</param>
+            <param name="forceDeletion">is objectes must be force deleted</param>
         </member>
         <member name="M:WordPressPCL.Client.CRUDOperation`2.Create(`0)">
             <summary>

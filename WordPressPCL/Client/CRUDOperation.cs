@@ -43,13 +43,13 @@ namespace WordPressPCL.Client
         /// <param name="HttpHelper">reference to HttpHelper class for interaction with HTTP</param>
         /// <param name="defaultPath">path to site, EX. http://demo.com/wp-json/ </param>
         /// <param name="methodPath">path to endpoint, EX. posts</param>
-        /// <param name="forceDeleteion">is objectes must be force deleted</param>
-        public CRUDOperation(ref HttpHelper HttpHelper, string defaultPath, string methodPath, bool forceDeleteion = false)
+        /// <param name="forceDeletion">is objectes must be force deleted</param>
+        public CRUDOperation(ref HttpHelper HttpHelper, string defaultPath, string methodPath, bool forceDeletion = false)
         {
             _defaultPath = defaultPath;
             _httpHelper = HttpHelper;
             _methodPath = methodPath;
-            _forceDeletion = forceDeleteion;
+            _forceDeletion = forceDeletion;
         }
 
         /// <summary>
