@@ -129,7 +129,8 @@ namespace WordPressPCL.Models
         /// <summary>
         /// Links to another entities
         /// </summary>
-        public Links _links { get; set; }
+        [JsonProperty("_links", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public Links Links { get; set; }
 
         /// <summary>
         /// Parameterless constructor

@@ -45,7 +45,7 @@ namespace WordPressPCL.Models
         /// <summary>
         /// Links to related resources
         /// </summary>
-        [JsonProperty("_links")]
+        [JsonProperty("_links", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public Links Links { get; set; }
 
         /// <summary>
