@@ -89,6 +89,11 @@ namespace WordPressPCL
         public PostStatuses PostStatuses;
 
         /// <summary>
+        /// Custom Request client interaction object
+        /// </summary>
+        public CustomRequest CustomRequest;
+
+        /// <summary>
         ///     The WordPressClient holds all connection infos and provides methods to call WordPress APIs.
         /// </summary>
         /// <param name="uri">URI for WordPress API endpoint, e.g. "http://demo.wp-api.org/wp-json/"</param>
@@ -116,6 +121,7 @@ namespace WordPressPCL
             Taxonomies = new Taxonomies(ref _httpHelper, defaultPath);
             PostTypes = new PostTypes(ref _httpHelper, defaultPath);
             PostStatuses = new PostStatuses(ref _httpHelper, defaultPath);
+            CustomRequest = new CustomRequest(ref _httpHelper);
         }
 
         #region Settings methods
