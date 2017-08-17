@@ -1,13 +1,11 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-using WordPressPCLTests.Utility;
 using System.Linq;
-using WordPressPCL.Models;
+using System.Threading.Tasks;
 using WordPressPCL;
+using WordPressPCL.Models;
 using WordPressPCL.Utility;
+using WordPressPCLTests.Utility;
 
 namespace WordPressPCLTests
 {
@@ -29,8 +27,6 @@ namespace WordPressPCLTests
             var password = $"testpassword{r}";
             var name = $"{firstname} {lastname}";
 
-
-
             var user = await client.Users.Create(new User(username, email, password)
             {
                 NickName = nickname,
@@ -45,8 +41,8 @@ namespace WordPressPCLTests
             Assert.AreEqual(lastname, user.LastName);
             Assert.AreEqual(username, user.UserName);
             Assert.AreEqual(email, user.Email);
-
         }
+
         [TestMethod]
         public async Task Users_Read()
         {
@@ -58,6 +54,7 @@ namespace WordPressPCLTests
             Assert.IsNotNull(user);
             Assert.AreEqual(user.Id, users.First().Id);
         }
+
         [TestMethod]
         public async Task Users_Update()
         {
@@ -80,6 +77,7 @@ namespace WordPressPCLTests
             Assert.AreEqual(updatedUser.FirstName, name);
             Assert.AreEqual(updatedUser.LastName, name);
         }
+
         [TestMethod]
         public async Task Users_Delete()
         {
@@ -93,10 +91,11 @@ namespace WordPressPCLTests
 
             var user = await client.Users.Create(new User(username, email, password));
             Assert.IsNotNull(user);
-
-            var response = await client.Users.Delete(user.Id);
+            var me = await client.Users.GetCurrentUser();
+            var response = await client.Users.Delete(user.Id, me.Id);
             Assert.IsTrue(response.IsSuccessStatusCode);
         }
+
         [TestMethod]
         public async Task Users_Delete_And_Reassign_Posts()
         {
@@ -122,7 +121,7 @@ namespace WordPressPCLTests
             Assert.AreEqual(postCreated.Author, user1.Id);
 
             // Delete User1 and reassign posts to user2
-            var response = await client.Users.DeleteAndReassignPosts(user1.Id, user2.Id);
+            var response = await client.Users.Delete(user1.Id, user2.Id);
             Assert.IsTrue(response.IsSuccessStatusCode);
 
             // Get posts for user 2 and check if ID of postCreated is in there
@@ -130,6 +129,7 @@ namespace WordPressPCLTests
             var postsById = postsOfUser2.Where(x => x.Id == postCreated.Id).ToList();
             Assert.AreEqual(postsById.Count, 1);
         }
+
         [TestMethod]
         public async Task Users_Query()
         {
@@ -147,8 +147,7 @@ namespace WordPressPCLTests
             Assert.AreNotSame(queryresult.Count(), 0);
         }
 
-
-#region Utils
+        #region Utils
 
         private async Task<User> CreateRandomUser(WordPressClient client)
         {
@@ -160,8 +159,6 @@ namespace WordPressPCLTests
             return await client.Users.Create(new User(username, email, password));
         }
 
-#endregion
-
-
+        #endregion Utils
     }
 }

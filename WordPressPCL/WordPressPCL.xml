@@ -147,6 +147,45 @@
             <param name="filename">Name of file in WP Media Library</param>
             <returns>Created media object</returns>
         </member>
+        <member name="M:WordPressPCL.Client.Media.Delete(System.Int32)">
+            <summary>
+            Delete Entity
+            </summary>
+            <param name="ID">Entity Id</param>
+            <returns>Result of operation</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Media.GetAll(System.Boolean,System.Boolean)">
+            <summary>
+            Get All
+            </summary>
+            <param name="embed">Include embed info</param>
+            <param name="useAuth">Send request with authenication header</param>
+            <returns>List of all result</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Media.GetByID(System.Object,System.Boolean,System.Boolean)">
+            <summary>
+            Get Entity by Id
+            </summary>
+            <param name="ID">ID</param>
+            <param name="embed">include embed info</param>
+            <param name="useAuth">Send request with authenication header</param>
+            <returns>Entity by Id</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Media.Query(WordPressPCL.Utility.MediaQueryBuilder,System.Boolean)">
+            <summary>
+            Create a parametrized query and get a result
+            </summary>
+            <param name="queryBuilder">Query builder with specific parameters</param>
+            <param name="useAuth">Send request with authenication header</param>
+            <returns>List of filtered result</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Media.Update(WordPressPCL.Models.MediaItem)">
+            <summary>
+            Update Entity
+            </summary>
+            <param name="Entity">Entity object</param>
+            <returns>Updated object</returns>
+        </member>
         <member name="T:WordPressPCL.Client.Pages">
             <summary>
             Client class for interaction with Pages endpoint WP REST API
@@ -412,6 +451,45 @@
             <param name="HttpHelper">reference to HttpHelper class for interaction with HTTP</param>
             <param name="defaultPath">path to site, EX. http://demo.com/wp-json/ </param>
         </member>
+        <member name="M:WordPressPCL.Client.Users.Create(WordPressPCL.Models.User)">
+            <summary>
+            Create Entity
+            </summary>
+            <param name="Entity">Entity object</param>
+            <returns>Created object</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Users.GetAll(System.Boolean,System.Boolean)">
+            <summary>
+            Get All
+            </summary>
+            <param name="embed">Include embed info</param>
+            <param name="useAuth">Send request with authenication header</param>
+            <returns>List of all result</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Users.GetByID(System.Object,System.Boolean,System.Boolean)">
+            <summary>
+            Get Entity by Id
+            </summary>
+            <param name="ID">ID</param>
+            <param name="embed">include embed info</param>
+            <param name="useAuth">Send request with authenication header</param>
+            <returns>Entity by Id</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Users.Query(WordPressPCL.Utility.UsersQueryBuilder,System.Boolean)">
+            <summary>
+            Create a parametrized query and get a result
+            </summary>
+            <param name="queryBuilder">Query builder with specific parameters</param>
+            <param name="useAuth">Send request with authenication header</param>
+            <returns>List of filtered result</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Users.Update(WordPressPCL.Models.User)">
+            <summary>
+            Update Entity
+            </summary>
+            <param name="Entity">Entity object</param>
+            <returns>Updated object</returns>
+        </member>
         <member name="M:WordPressPCL.Client.Users.GetCurrentUser">
             <summary>
             Get current User
@@ -432,14 +510,6 @@
             </summary>
             <param name="ID">User id for delete</param>
             <param name="ReassignUser">User object for reassign</param>
-            <returns>Result of operation</returns>
-        </member>
-        <member name="M:WordPressPCL.Client.Users.DeleteAndReassignPosts(System.Int32,System.Int32)">
-            <summary>
-            Delete User and all his posts
-            </summary>
-            <param name="userToDelteID">User Id you want to delete</param>
-            <param name="userToAssignPostsID">User Id you want the posts to assign to</param>
             <returns>Result of operation</returns>
         </member>
         <member name="T:WordPressPCL.Interfaces.ICreateOperation`1">
@@ -721,7 +791,7 @@
             </summary>
             <remarks>Context: edit</remarks>
         </member>
-        <member name="P:WordPressPCL.Models.Comment._links">
+        <member name="P:WordPressPCL.Models.Comment.Links">
             <summary>
             Links to another entities
             </summary>
