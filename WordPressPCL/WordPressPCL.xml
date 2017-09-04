@@ -127,6 +127,54 @@
             <param name="Entity">Entity object</param>
             <returns>Updated object</returns>
         </member>
+        <member name="T:WordPressPCL.Client.CustomRequest">
+            <summary>
+            Class to create custom requests
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Client.CustomRequest.#ctor(WordPressPCL.Utility.HttpHelper@)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="httpHelper">HttpHelper class to operate with Http methods</param>
+        </member>
+        <member name="M:WordPressPCL.Client.CustomRequest.Create``2(System.String,``0)">
+            <summary>
+            Create object
+            </summary>
+            <typeparam name="TInput">type of input object</typeparam>
+            <typeparam name="TOutput">type of result object</typeparam>
+            <param name="route">path to exec request</param>
+            <param name="Entity">object for creation</param>
+            <returns>Created object</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.CustomRequest.Delete(System.String)">
+            <summary>
+            Delete object
+            </summary>
+            <param name="route">path to exec delete request</param>
+            <returns>Result of deletion</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.CustomRequest.Get``1(System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Get object/s
+            </summary>
+            <typeparam name="TClass">type of object</typeparam>
+            <param name="route">path to exec request</param>
+            <param name="embed">is get embed params</param>
+            <param name="useAuth">i use auth</param>
+            <returns>List of objects</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.CustomRequest.Update``2(System.String,``0)">
+            <summary>
+            Update object
+            </summary>
+            <typeparam name="TInput">type of input object</typeparam>
+            <typeparam name="TOutput">type of result object</typeparam>
+            <param name="route">path to exec request</param>
+            <param name="Entity">object for update</param>
+            <returns>Updated object</returns>
+        </member>
         <member name="T:WordPressPCL.Client.Media">
             <summary>
             Client class for interaction with Media endpoint WP REST API
@@ -3587,6 +3635,11 @@
         <member name="F:WordPressPCL.WordPressClient.PostStatuses">
             <summary>
             Post Statuses client interaction object
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.WordPressClient.CustomRequest">
+            <summary>
+            Custom Request client interaction object
             </summary>
         </member>
         <member name="M:WordPressPCL.WordPressClient.#ctor(System.String)">
