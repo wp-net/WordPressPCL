@@ -20,6 +20,13 @@ namespace WordPressPCL.Utility
         /// JSON Web Token
         /// </summary>
         public string JWToken { get; set; }
+
+        /// <summary>
+        /// Function called when a HttpRequest response is readed 
+        /// Executed before trying to convert json content to a TClass object.
+        /// </summary>
+        public Func<string, string> HttpResponsePreProcessing { get; set; }
+
         /// <summary>
         /// Constructor
         /// <paramref name="WordpressURI"/>
@@ -29,6 +36,7 @@ namespace WordPressPCL.Utility
         {
             _WordpressURI = WordpressURI;
         }
+
         internal async Task<TClass> GetRequest<TClass>(string route, bool embed, bool isAuthRequired = false)
             where TClass : class
         {
@@ -55,6 +63,9 @@ namespace WordPressPCL.Utility
                     var responseString = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
                     if (response.IsSuccessStatusCode)
                     {
+                        if(HttpResponsePreProcessing != null)
+                            responseString = HttpResponsePreProcessing(responseString);
+
                         return JsonConvert.DeserializeObject<TClass>(responseString);
                     }
                     else
@@ -89,6 +100,9 @@ namespace WordPressPCL.Utility
                     var responseString = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
                     if (response.IsSuccessStatusCode)
                     {
+                        if (HttpResponsePreProcessing != null)
+                            responseString = HttpResponsePreProcessing(responseString);
+
                         return (JsonConvert.DeserializeObject<TClass>(responseString), response);
                     }
                     else
