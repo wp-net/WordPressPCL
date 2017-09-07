@@ -79,7 +79,7 @@ namespace WordPressPCLTests.Utility
 
             tags = await client.Tags.GetAll();
             Assert.IsNotNull(tags);
-            Assert.AreEqual(0, tags.Count());
+            Assert.AreNotEqual(tags.Count(), 0);
             CollectionAssert.AllItemsAreUnique(tags.Select(e => e.Id).ToList());
         }
     }
