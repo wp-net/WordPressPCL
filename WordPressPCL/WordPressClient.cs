@@ -33,43 +33,61 @@ namespace WordPressPCL
         private const string defaultPath = "wp/v2/";
         private const string jwtPath = "jwt-auth/v1/";
 
+        /// <summary>
+        /// Function called when a HttpRequest response to WordPress APIs are readed 
+        /// Executed before trying to convert json content to a TClass object.
+        /// </summary>
+        public Func<string, string> HttpResponsePreProcessing
+        {
+            set
+            {
+                _httpHelper.HttpResponsePreProcessing = value;
+            }
+        }
+
         /*public string Username { get; set; }
         public string Password { get; set; }*/
         /// <summary>
         /// Authentication method
         /// </summary>
         public AuthMethod AuthMethod { get; set; }
+
         //public string JWToken;
         /// <summary>
         /// Posts client interaction object
         /// </summary>
         public Posts Posts;
+
         /// <summary>
         /// Comments client interaction object
         /// </summary>
         public Comments Comments;
+
         /// <summary>
         /// Tags client interaction object
         /// </summary>
         public Tags Tags;
+
         /// <summary>
         /// Users client interaction object
         /// </summary>
         public Users Users;
+
         /// <summary>
         /// Media client interaction object
         /// </summary>
         public Client.Media Media;
+
         /// <summary>
         /// Categories client interaction object
         /// </summary>
         public Categories Categories;
+
         /// <summary>
         /// Pages client interaction object
         /// </summary>
         public Pages Pages;
-
-
+        
         /// <summary>
         ///     The WordPressClient holds all connection infos and provides methods to call WordPress APIs.
         /// </summary>
@@ -96,8 +114,6 @@ namespace WordPressPCL
             Categories = new Categories(ref _httpHelper, defaultPath);
             Pages = new Pages(ref _httpHelper, defaultPath);
         }
-
-       
 
         #region Settings methods
         /// <summary>

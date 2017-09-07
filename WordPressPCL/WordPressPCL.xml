@@ -2668,6 +2668,12 @@
             JSON Web Token
             </summary>
         </member>
+        <member name="P:WordPressPCL.Utility.HttpHelper.HttpResponsePreProcessing">
+            <summary>
+            Function called when a HttpRequest response is readed 
+            Executed before trying to convert json content to a TClass object.
+            </summary>
+        </member>
         <member name="M:WordPressPCL.Utility.HttpHelper.#ctor(System.String)">
             <summary>
             Constructor
@@ -3156,6 +3162,12 @@
         <member name="P:WordPressPCL.WordPressClient.WordPressUri">
             <summary>
             WordPressUri holds the WordPress API endpoint, e.g. "http://demo.wp-api.org/wp-json/wp/v2/"
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.WordPressClient.HttpResponsePreProcessing">
+            <summary>
+            Function called when a HttpRequest response to WordPress APIs are readed 
+            Executed before trying to convert json content to a TClass object.
             </summary>
         </member>
         <member name="P:WordPressPCL.WordPressClient.AuthMethod">
