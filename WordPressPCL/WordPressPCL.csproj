@@ -17,7 +17,9 @@
     <FileVersion>1.1.0.0</FileVersion>
     <Version>1.1.0</Version>
     <PackageLicenseUrl>https://github.com/wp-net/WordPressPCL/blob/master/LICENSE</PackageLicenseUrl>
-    <PackageReleaseNotes>Complete refactoring</PackageReleaseNotes>
+    <PackageReleaseNotes>- endpoint for non-standard requests
+- added Taxonomies, Post Revisions, Post Types &amp; Post Statuses
+- added standard Get-Request with default params</PackageReleaseNotes>
     <Copyright>© Thomas Pentenrieder | 2017</Copyright>
     <ApplicationIcon />
     <OutputTypeEx>library</OutputTypeEx>
