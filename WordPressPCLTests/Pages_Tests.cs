@@ -50,6 +50,14 @@ namespace WordPressPCLTests
             Assert.AreNotEqual(pages.Count(), 0);
         }
 
+        [TestMethod]
+        public async Task Pages_Get()
+        {
+            var client = await ClientHelper.GetAuthenticatedWordPressClient();
+            var pages = await client.Pages.Get();
+            Assert.IsNotNull(pages);
+            Assert.AreNotEqual(pages.Count(), 0);
+        }
 
         [TestMethod]
         public async Task Pages_Update()
@@ -58,14 +66,8 @@ namespace WordPressPCLTests
             var client = await ClientHelper.GetAuthenticatedWordPressClient();
             var pages = await client.Pages.GetAll();
             Assert.IsTrue(pages.Count() > 0);
-
-            // edit first post and update it
-            var post = await client.Pages.GetByID(pages.First().Id);
-            post.Content.Raw = testContent;
-            var updatedPost = await client.Pages.Update(post);
-            Assert.AreEqual(updatedPost.Content.Raw, testContent);
-            Assert.IsTrue(updatedPost.Content.Rendered.Contains(testContent));
         }
+
 
         [TestMethod]
         public async Task Pages_Delete()

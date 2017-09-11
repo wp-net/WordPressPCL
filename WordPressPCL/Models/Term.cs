@@ -5,18 +5,8 @@ namespace WordPressPCL.Models
     /// <summary>
     /// This is the base class for all terms, like categories and tags
     /// </summary>
-    public class Term
+    public class Term : Base
     {
-        /// <summary>
-        /// Unique identifier for the term.
-        /// </summary>
-        /// <remarks>
-        /// Read only
-        /// Context: view, embed, edit
-        /// </remarks>
-        [JsonProperty("id",DefaultValueHandling =DefaultValueHandling.Ignore)]
-        public int Id { get; set; }
-
         /// <summary>
         /// URL of the term.
         /// </summary>
@@ -50,19 +40,19 @@ namespace WordPressPCL.Models
         /// One of: category, post_tag, nav_menu, link_category, post_format
         /// </remarks>
         [JsonProperty("taxonomy")]
-        public string Taxonomy { get; set; }
+        public TermTaxonomy Taxonomy { get; set; }
 
         /// <summary>
         /// Links to related resources
         /// </summary>
-        [JsonProperty("_links")]
+        [JsonProperty("_links", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public Links Links { get; set; }
+
         /// <summary>
         /// parameterless constructor
         /// </summary>
         public Term()
         {
-
         }
     }
 }

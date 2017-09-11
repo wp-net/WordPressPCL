@@ -1,9 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-using System;
-using System.Collections.Generic;
 using System.Runtime.Serialization;
-using System.Text;
 
 namespace WordPressPCL.Models
 {
@@ -18,27 +15,30 @@ namespace WordPressPCL.Models
         /// </summary>
         [EnumMember(Value = "publish")]
         Publish,
+
         /// <summary>
         /// Private
         /// </summary>
         [EnumMember(Value = "private")]
         Private,
+
         /// <summary>
         /// Future publication
         /// </summary>
         [EnumMember(Value = "future")]
         Future,
+
         /// <summary>
         /// Draft
         /// </summary>
         [EnumMember(Value = "draft")]
         Draft,
+
         /// <summary>
         /// Pending
         /// </summary>
         [EnumMember(Value = "pending")]
         Pending
-
     }
 
     /// <summary>
@@ -52,12 +52,14 @@ namespace WordPressPCL.Models
         /// </summary>
         [EnumMember(Value = "open")]
         Open,
+
         /// <summary>
         /// Status is closed
         /// </summary>
         [EnumMember(Value = "closed")]
         Closed,
     }
+
     /// <summary>
     /// Status of Comments
     /// </summary>
@@ -69,17 +71,20 @@ namespace WordPressPCL.Models
         /// </summary>
         [EnumMember(Value = "approved")]
         Approve,
+
         /// <summary>
         /// Comment is pending to approve
         /// </summary>
         [EnumMember(Value = "pending")]
         Pending,
+
         /// <summary>
         /// Comment is spam
         /// </summary>
         [EnumMember(Value = "spam")]
         Spam,
     }
+
     /// <summary>
     /// Status of Media for query builder
     /// </summary>
@@ -91,11 +96,13 @@ namespace WordPressPCL.Models
         /// </summary>
         [EnumMember(Value = "inherit")]
         Inherit,
+
         /// <summary>
         /// Media is private
         /// </summary>
         [EnumMember(Value = "private")]
         Private,
+
         /// <summary>
         /// Media is in trash
         /// </summary>
@@ -115,6 +122,7 @@ namespace WordPressPCL.Models
         /// </summary>
         [EnumMember(Value = "date")]
         Date,
+
         /// <summary>
         /// Order By Relevance
         /// </summary>
@@ -126,22 +134,44 @@ namespace WordPressPCL.Models
         /// </summary>
         [EnumMember(Value = "id")]
         Id,
+
         /// <summary>
         /// Order By Include
         /// </summary>
         [EnumMember(Value = "include")]
         Include,
+
         /// <summary>
         /// Order By Title
         /// </summary>
         [EnumMember(Value = "title")]
         Title,
+
         /// <summary>
         /// Order By Slug
         /// </summary>
         [EnumMember(Value = "slug")]
-        Slug
+        Slug,
+
+        /// <summary>
+        /// Order By Author
+        /// </summary>
+        [EnumMember(Value = "author")]
+        Author,
+
+        /// <summary>
+        /// Order By modified
+        /// </summary>
+        [EnumMember(Value = "modified")]
+        Modified,
+
+        /// <summary>
+        /// Order By parent
+        /// </summary>
+        [EnumMember(Value = "parent")]
+        Parent
     }
+
     /// <summary>
     /// Sort users collection by object attribute.
     /// </summary>
@@ -154,39 +184,44 @@ namespace WordPressPCL.Models
         /// </summary>
         [EnumMember(Value = "name")]
         Name,
+
         /// <summary>
         /// Order By Id
         /// </summary>
         [EnumMember(Value = "id")]
         Id,
+
         /// <summary>
         /// Order By Include
         /// </summary>
         [EnumMember(Value = "include")]
         Include,
+
         /// <summary>
         /// Order By Registered Date
         /// </summary>
         [EnumMember(Value = "registered_date")]
         RegisteredDate,
-        
+
         /// <summary>
         /// Order By Slug
         /// </summary>
         [EnumMember(Value = "slug")]
         Slug,
+
         /// <summary>
         /// Order By email
         /// </summary>
         [EnumMember(Value = "email")]
         Email,
+
         /// <summary>
         /// Order By url
         /// </summary>
         [EnumMember(Value = "url")]
         Url
-
     }
+
     /// <summary>
     /// Sort terms collection by object attribute.
     /// </summary>
@@ -199,38 +234,44 @@ namespace WordPressPCL.Models
         /// </summary>
         [EnumMember(Value = "name")]
         Name,
+
         /// <summary>
         /// Order By Id
         /// </summary>
         [EnumMember(Value = "id")]
         Id,
+
         /// <summary>
         /// Order By Include
         /// </summary>
         [EnumMember(Value = "include")]
         Include,
+
         /// <summary>
         /// Order By Slug
         /// </summary>
         [EnumMember(Value = "slug")]
         Slug,
+
         /// <summary>
         /// Order By term group
         /// </summary>
         [EnumMember(Value = "term_group")]
         TermGroup,
+
         /// <summary>
         /// Order By description
         /// </summary>
         [EnumMember(Value = "description")]
         Description,
+
         /// <summary>
         /// Order By count
         /// </summary>
         [EnumMember(Value = "count")]
         Count
-
     }
+
     /// <summary>
     /// Sort posts collection by object attribute.
     /// </summary>
@@ -243,6 +284,7 @@ namespace WordPressPCL.Models
         /// </summary>
         [EnumMember(Value = "date")]
         Date,
+
         /// <summary>
         /// Order By Relevance
         /// </summary>
@@ -254,22 +296,26 @@ namespace WordPressPCL.Models
         /// </summary>
         [EnumMember(Value = "id")]
         Id,
+
         /// <summary>
         /// Order By Include
         /// </summary>
         [EnumMember(Value = "include")]
         Include,
+
         /// <summary>
         /// Order By Title
         /// </summary>
         [EnumMember(Value = "title")]
         Title,
+
         /// <summary>
         /// Order By Slug
         /// </summary>
         [EnumMember(Value = "slug")]
         Slug
     }
+
     /// <summary>
     /// Sort pages collection by object attribute.
     /// </summary>
@@ -282,6 +328,7 @@ namespace WordPressPCL.Models
         /// </summary>
         [EnumMember(Value = "date")]
         Date,
+
         /// <summary>
         /// Order By Relevance
         /// </summary>
@@ -293,27 +340,32 @@ namespace WordPressPCL.Models
         /// </summary>
         [EnumMember(Value = "id")]
         Id,
+
         /// <summary>
         /// Order By Include
         /// </summary>
         [EnumMember(Value = "include")]
         Include,
+
         /// <summary>
         /// Order By Title
         /// </summary>
         [EnumMember(Value = "title")]
         Title,
+
         /// <summary>
         /// Order By Slug
         /// </summary>
         [EnumMember(Value = "slug")]
         Slug,
+
         /// <summary>
         /// Order By Menu order
         /// </summary>
         [EnumMember(Value = "menu_order")]
         MenuOrder
     }
+
     /// <summary>
     /// Sort comments collection by object attribute.
     /// </summary>
@@ -326,39 +378,44 @@ namespace WordPressPCL.Models
         /// </summary>
         [EnumMember(Value = "date_gmt")]
         DateGmt,
+
         /// <summary>
         /// Order By Date
         /// </summary>
         [EnumMember(Value = "date")]
         Date,
-        
 
         /// <summary>
         /// Order By Id
         /// </summary>
         [EnumMember(Value = "id")]
         Id,
+
         /// <summary>
         /// Order By Include
         /// </summary>
         [EnumMember(Value = "include")]
         Include,
+
         /// <summary>
         /// Order By Post
         /// </summary>
         [EnumMember(Value = "post")]
         Post,
+
         /// <summary>
         /// Order By Parent
         /// </summary>
         [EnumMember(Value = "parent")]
         Parent,
+
         /// <summary>
         /// Order ByType
         /// </summary>
         [EnumMember(Value = "type")]
         Type
     }
+
     /// <summary>
     /// Order By direction
     /// </summary>
@@ -367,12 +424,13 @@ namespace WordPressPCL.Models
         /// <summary>
         /// Ascending direction
         /// </summary>
-        [EnumMember(Value ="asc")]
+        [EnumMember(Value = "asc")]
         ASC,
+
         /// <summary>
         /// Descending direction
         /// </summary>
-        [EnumMember(Value ="desc")]
+        [EnumMember(Value = "desc")]
         DESC
     }
 
@@ -391,17 +449,20 @@ namespace WordPressPCL.Models
         /// </summary>
         [EnumMember(Value = "view")]
         View,
+
         /// <summary>
         /// Available in Embed
         /// </summary>
         [EnumMember(Value = "embed")]
         Embed,
+
         /// <summary>
         /// Available in edit
         /// </summary>
         [EnumMember(Value = "edit")]
         Edit
     }
+
     /// <summary>
     /// Type of Media Item
     /// </summary>
@@ -413,11 +474,79 @@ namespace WordPressPCL.Models
         /// </summary>
         [EnumMember(Value = "image")]
         Image,
+
         /// <summary>
         /// File
         /// </summary>
         [EnumMember(Value = "file")]
         File
+    }
 
+    /// <summary>
+    /// Type of Media Query Item
+    /// </summary>
+    [JsonConverter(typeof(StringEnumConverter))]
+    public enum MediaQueryType
+    {
+        /// <summary>
+        /// Image
+        /// </summary>
+        [EnumMember(Value = "image")]
+        Image,
+
+        /// <summary>
+        /// Video
+        /// </summary>
+        [EnumMember(Value = "video")]
+        Video,
+
+        /// <summary>
+        /// Audio
+        /// </summary>
+        [EnumMember(Value = "audio")]
+        Audio,
+
+        /// <summary>
+        /// Application
+        /// </summary>
+        [EnumMember(Value = "application")]
+        Application
+    }
+
+    /// <summary>
+    /// Type attribution for the term.
+    /// </summary>
+    [JsonConverter(typeof(StringEnumConverter))]
+    public enum TermTaxonomy
+    {
+        /// <summary>
+        /// Category
+        /// </summary>
+        [EnumMember(Value = "category")]
+        Category,
+
+        /// <summary>
+        /// Post Tag
+        /// </summary>
+        [EnumMember(Value = "post_tag")]
+        PostTag,
+
+        /// <summary>
+        /// Nav Menu
+        /// </summary>
+        [EnumMember(Value = "nav_menu")]
+        NavMenu,
+
+        /// <summary>
+        /// Link Category
+        /// </summary>
+        [EnumMember(Value = "link_category")]
+        LinkCategory,
+
+        /// <summary>
+        /// Post Format
+        /// </summary>
+        [EnumMember(Value = "post_format")]
+        PostFormat
     }
 }

@@ -1,25 +1,14 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace WordPressPCL.Models
 {
     /// <summary>
     /// Type represents Page Entity of WP REST API
     /// </summary>
-    public class Page
+    public class Page : Base
     {
-        /// <summary>
-        /// Unique identifier for the object.
-        /// </summary>
-        /// <remarks>
-        /// Read only
-        /// Context: view, edit, embed
-        /// </remarks>
-        [JsonProperty("id",DefaultValueHandling =DefaultValueHandling.Ignore)]
-        public int Id { get; set; }
-
         /// <summary>
         /// The date the object was published, in the site’s timezone.
         /// </summary>
@@ -41,7 +30,7 @@ namespace WordPressPCL.Models
         /// Read only
         /// Context: view, edit
         /// </remarks>
-        [JsonProperty("guid",DefaultValueHandling = DefaultValueHandling.Ignore)]
+        [JsonProperty("guid", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public Guid Guid { get; set; }
 
         /// <summary>
@@ -140,7 +129,7 @@ namespace WordPressPCL.Models
         /// The id for the parent of the object.
         /// </summary>
         /// <remarks>Context: view, edit</remarks>
-        [JsonProperty("parent", DefaultValueHandling = DefaultValueHandling.Ignore,NullValueHandling =NullValueHandling.Ignore)]
+        [JsonProperty("parent", DefaultValueHandling = DefaultValueHandling.Ignore, NullValueHandling = NullValueHandling.Ignore)]
         public int Parent { get; set; }
 
         /// <summary>
@@ -181,27 +170,26 @@ namespace WordPressPCL.Models
         /// Meta fields.
         /// </summary>
         /// <remarks>Context: view, edit</remarks>
-        [JsonProperty("meta")]
+        [JsonProperty("meta", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public IList<object> Meta { get; set; }
 
         /// <summary>
         /// Links to related resources
         /// </summary>
-        [JsonProperty("_links")]
+        [JsonProperty("_links", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public Links Links { get; set; }
 
         /// <summary>
         /// Embedded information like featured images
         /// </summary>
-        [JsonProperty("_embedded")]
+        [JsonProperty("_embedded", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public Embedded Embedded { get; set; }
+
         /// <summary>
         /// Parameterless constructor
         /// </summary>
         public Page()
         {
-
         }
     }
-
 }

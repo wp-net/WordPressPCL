@@ -30,6 +30,7 @@ namespace WordPressPCLTests
             Assert.AreEqual(tagname, tag.Name);
             Assert.AreEqual("Test Description", tag.Description);
         }
+
         [TestMethod]
         public async Task Tags_Read()
         {
@@ -42,6 +43,20 @@ namespace WordPressPCLTests
             Assert.AreNotEqual(tags.Count(), 0);
             CollectionAssert.AllItemsAreUnique(tags.Select(tag => tag.Id).ToList());
         }
+
+        [TestMethod]
+        public async Task Tags_Get()
+        {
+            // Initialize
+            var client = new WordPressClient(ApiCredentials.WordPressUri);
+            Assert.IsNotNull(client);
+            // Posts
+            var tags = await client.Tags.Get();
+            Assert.IsNotNull(tags);
+            Assert.AreNotEqual(tags.Count(), 0);
+            CollectionAssert.AllItemsAreUnique(tags.Select(tag => tag.Id).ToList());
+        }
+
         [TestMethod]
         public async Task Tags_Update()
         {

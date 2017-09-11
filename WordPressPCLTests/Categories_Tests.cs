@@ -1,13 +1,11 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using WordPressPCLTests.Utility;
-using WordPressPCL;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
+using System.Linq;
 using System.Threading.Tasks;
+using WordPressPCL;
 using WordPressPCL.Models;
 using WordPressPCL.Utility;
-using System.Net;
-using System.Linq;
-using Newtonsoft.Json;
+using WordPressPCLTests.Utility;
 
 namespace WordPressPCLTests
 {
@@ -29,6 +27,7 @@ namespace WordPressPCLTests
             Assert.AreEqual(name, category.Name);
             Assert.AreEqual("Test", category.Description);
         }
+
         [TestMethod]
         public async Task Categories_Read()
         {
@@ -40,6 +39,19 @@ namespace WordPressPCLTests
             Assert.AreNotEqual(categories.Count(), 0);
             CollectionAssert.AllItemsAreUnique(categories.Select(tag => tag.Id).ToList());
         }
+
+        [TestMethod]
+        public async Task Categories_Get()
+        {
+            // Initialize
+            var client = new WordPressClient(ApiCredentials.WordPressUri);
+            Assert.IsNotNull(client);
+            var categories = await client.Categories.Get();
+            Assert.IsNotNull(categories);
+            Assert.AreNotEqual(categories.Count(), 0);
+            CollectionAssert.AllItemsAreUnique(categories.Select(tag => tag.Id).ToList());
+        }
+
         [TestMethod]
         public async Task Categories_Update()
         {
@@ -53,13 +65,14 @@ namespace WordPressPCLTests
             Assert.AreEqual(updatedCategory.Name, name);
             Assert.AreEqual(updatedCategory.Id, category.Id);
         }
+
         [TestMethod]
         public async Task Categories_Delete()
         {
             var client = await ClientHelper.GetAuthenticatedWordPressClient();
             var categories = await client.Categories.GetAll();
             var category = categories.FirstOrDefault();
-            if(category == null)
+            if (category == null)
             {
                 Assert.Inconclusive();
             }
@@ -69,6 +82,7 @@ namespace WordPressPCLTests
             var c = categories.Where(x => x.Id == category.Id).ToList();
             Assert.AreEqual(c.Count, 0);
         }
+
         [TestMethod]
         public async Task Categories_Query()
         {
@@ -85,7 +99,5 @@ namespace WordPressPCLTests
             Assert.IsNotNull(queryresult);
             Assert.AreNotSame(queryresult.Count(), 0);
         }
-
     }
-
 }
