@@ -27,6 +27,7 @@ namespace WordPressPCLTests
             var mediaitem = await client.Media.Create(s,"cat.jpg");
             Assert.IsNotNull(mediaitem);
         }
+
         [TestMethod]
         public async Task Media_Read()
         {
@@ -37,6 +38,18 @@ namespace WordPressPCLTests
             Assert.IsNotNull(media);
             Assert.AreNotEqual(media.Count(), 0);
         }
+
+        [TestMethod]
+        public async Task Media_Get()
+        {
+            // Initialize
+            var client = new WordPressClient(ApiCredentials.WordPressUri);
+            Assert.IsNotNull(client);
+            var media = await client.Media.Get();
+            Assert.IsNotNull(media);
+            Assert.AreNotEqual(media.Count(), 0);
+        }
+
         [TestMethod]
         public async Task Media_Update()
         {

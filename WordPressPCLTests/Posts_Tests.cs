@@ -50,6 +50,14 @@ namespace WordPressPCLTests
             Assert.AreNotEqual(posts.Count(), 0);
         }
 
+        [TestMethod]
+        public async Task Posts_Get()
+        {
+            var client = await ClientHelper.GetAuthenticatedWordPressClient();
+            var posts = await client.Posts.Get();
+            Assert.IsNotNull(posts);
+            Assert.AreNotEqual(posts.Count(), 0);
+        }
 
         [TestMethod]
         public async Task Posts_Update()

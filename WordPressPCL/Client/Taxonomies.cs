@@ -25,6 +25,22 @@ namespace WordPressPCL.Client
             _httpHelper = httpHelper;
             _defaultPath = defaultPath;
         }
+        /// <summary>
+        /// Get latest
+        /// </summary>
+        /// <param name="embed">include embed info</param>
+        /// <param name="useAuth">Send request with authenication header</param>
+        /// <returns>Get latest taxonomies</returns>
+        public async Task<IEnumerable<Taxonomy>> Get(bool embed = false, bool useAuth = false)
+        {
+            List<Taxonomy> entities = new List<Taxonomy>();
+            Dictionary<string, Taxonomy> entities_page = (await _httpHelper.GetRequest<Dictionary<string, Taxonomy>>($"{_defaultPath}{_methodPath}", embed, useAuth).ConfigureAwait(false));
+            foreach (var ent in entities_page)
+            {
+                entities.Add(ent.Value);
+            }
+            return entities;
+        }
 
         /// <summary>
         /// Get All

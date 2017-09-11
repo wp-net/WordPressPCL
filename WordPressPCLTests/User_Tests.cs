@@ -56,6 +56,18 @@ namespace WordPressPCLTests
         }
 
         [TestMethod]
+        public async Task Users_Get()
+        {
+            var client = new WordPressClient(ApiCredentials.WordPressUri);
+            var users = await client.Users.Get();
+            Assert.IsNotNull(users);
+            Assert.IsTrue(users.Count() >= 1);
+            var user = await client.Users.GetByID(users.First().Id);
+            Assert.IsNotNull(user);
+            Assert.AreEqual(user.Id, users.First().Id);
+        }
+
+        [TestMethod]
         public async Task Users_Update()
         {
             var client = await ClientHelper.GetAuthenticatedWordPressClient();

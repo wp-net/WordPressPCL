@@ -19,6 +19,15 @@ namespace WordPressPCLTests
         }
 
         [TestMethod]
+        public async Task Taxonomies_Get()
+        {
+            var client = await ClientHelper.GetAuthenticatedWordPressClient();
+            var taxonomies = await client.Taxonomies.Get();
+            Assert.IsNotNull(taxonomies);
+            Assert.AreNotEqual(taxonomies.Count(), 0);
+        }
+
+        [TestMethod]
         public async Task Taxonomies_Query()
         {
             var client = await ClientHelper.GetAuthenticatedWordPressClient();

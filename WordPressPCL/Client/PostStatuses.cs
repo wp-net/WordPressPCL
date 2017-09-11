@@ -27,6 +27,23 @@ namespace WordPressPCL.Client
         }
 
         /// <summary>
+        /// Get latest
+        /// </summary>
+        /// <param name="embed">include embed info</param>
+        /// <param name="useAuth">Send request with authenication header</param>
+        /// <returns>Entity by Id</returns>
+        public async Task<IEnumerable<PostStatus>> Get(bool embed = false, bool useAuth = false)
+        {
+            List<PostStatus> entities = new List<PostStatus>();
+            Dictionary<string, PostStatus> entities_page = (await _httpHelper.GetRequest<Dictionary<string, PostStatus>>($"{_defaultPath}{_methodPath}", embed, useAuth).ConfigureAwait(false));
+            foreach (var ent in entities_page)
+            {
+                entities.Add(ent.Value);
+            }
+            return entities;
+        }
+
+        /// <summary>
         /// Get All
         /// </summary>
         /// <param name="embed">Include embed info</param>

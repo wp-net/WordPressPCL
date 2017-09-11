@@ -16,5 +16,14 @@ namespace WordPressPCLTests
             Assert.IsNotNull(posttypes);
             Assert.AreNotEqual(posttypes.Count(), 0);
         }
+
+        [TestMethod]
+        public async Task PostTypes_Get()
+        {
+            var client = await ClientHelper.GetAuthenticatedWordPressClient();
+            var posttypes = await client.PostTypes.Get();
+            Assert.IsNotNull(posttypes);
+            Assert.AreNotEqual(posttypes.Count(), 0);
+        }
     }
 }
