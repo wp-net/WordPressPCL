@@ -77,6 +77,7 @@ var response = client.Posts.Delete(postid);
 
 ## Additional Features
 
+- Authenticaiton using [JSON Web Tokens (JWT)](https://jwt.io/)
 - [HttpResponsePreProcessing](https://github.com/wp-net/WordPressPCL/wiki/HttpResponsePreProcessing): manipulate the API response before deserializing it
 
 ## Contribution Guidelines
