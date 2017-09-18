@@ -15,7 +15,7 @@ Since WordPress 4.7 the REST API has been integrated into the core so there's no
 * [JWT Authentication for WP REST API](https://wordpress.org/plugins/jwt-authentication-for-wp-rest-api/)
 
 ## Including WordPressPCL
-The WordPressPCL API Wrapper is avaiable through nuget:
+The WordPressPCL API Wrapper is avaiable through [NuGet](https://www.nuget.org/packages/WordPressPCL/):
 
 ```
 > Install-Package WordPressPCL
