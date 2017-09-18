@@ -22,7 +22,7 @@ The WordPressPCL API Wrapper is avaiable through nuget:
 ```
 
 ## Supported Plattforms
-WordPressPCL is built on top of the new [.NET Platform Standard](https://github.com/dotnet/corefx/blob/master/Documentation/architecture/net-platform-standard.md) targeting netstandard version 1.1 - therefore it should work on the following plaforms:
+WordPressPCL is built on top of the new [.NET Standard](https://github.com/dotnet/standard) targeting netstandard version 1.1 - therefore it should work on the following plaforms:
 * .NET Framework 4.5 and newer
 * .NET Core
 * Universal Windows Platform (uap)
@@ -74,6 +74,10 @@ var response = client.Posts.Delete(postid);
 | **Post Types**     | ---     | yes     | ---     | ---     |
 | **Post Statuses**  | ---     | yes     | ---     | ---     |
 | **Settings**       | ---     | yes     | yes     | ---     |
+
+## Additional Features
+
+- [HttpResponsePreProcessing](https://github.com/wp-net/WordPressPCL/wiki/HttpResponsePreProcessing): manipulate the API response before deserializing it
 
 ## Contribution Guidelines
 We're very happy to get input from the community on this project! To keep the code clean we ask you to follow a few simple contribution guidelines.
