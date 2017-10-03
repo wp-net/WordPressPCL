@@ -142,9 +142,9 @@ namespace WordPressPCL
         /// Get site settings
         /// </summary>
         /// <returns>Site settings</returns>
-        public async Task<Settings> GetSettings()
+        public Task<Settings> GetSettings()
         {
-            return await _httpHelper.GetRequest<Settings>($"{defaultPath}settings", false, true).ConfigureAwait(false);
+            return _httpHelper.GetRequest<Settings>($"{defaultPath}settings", false, true);
         }
 
         /// <summary>

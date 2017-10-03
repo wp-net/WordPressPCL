@@ -36,9 +36,9 @@ namespace WordPressPCL.Client
         /// <param name="embed">include embed info</param>
         /// <param name="useAuth">Send request with authenication header</param>
         /// <returns>List of comments for post</returns>
-        public async Task<IEnumerable<Comment>> GetCommentsForPost(string PostID, bool embed = false, bool useAuth = false)
+        public Task<IEnumerable<Comment>> GetCommentsForPost(string PostID, bool embed = false, bool useAuth = false)
         {
-            return await _httpHelper.GetRequest<IEnumerable<Comment>>($"{_defaultPath}{_methodPath}?post={PostID}", embed, useAuth);
+            return _httpHelper.GetRequest<IEnumerable<Comment>>($"{_defaultPath}{_methodPath}?post={PostID}", embed, useAuth);
         }
 
         /// <summary>
@@ -47,9 +47,9 @@ namespace WordPressPCL.Client
         /// <param name="ID">Comment Id</param>
         /// <param name="force">force deletion</param>
         /// <returns>Result of operation</returns>
-        public async Task<HttpResponseMessage> Delete(int ID, bool force = false)
+        public Task<HttpResponseMessage> Delete(int ID, bool force = false)
         {
-            return await _httpHelper.DeleteRequest($"{_defaultPath}{_methodPath}/{ID}?force={force.ToString().ToLower()}").ConfigureAwait(false);
+            return _httpHelper.DeleteRequest($"{_defaultPath}{_methodPath}/{ID}?force={force.ToString().ToLower()}");
         }
 
         #endregion Custom

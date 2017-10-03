@@ -55,9 +55,9 @@ namespace WordPressPCL.Client
         /// </summary>
         /// <param name="ID">Entity Id</param>
         /// <returns>Result of operation</returns>
-        public async Task<HttpResponseMessage> Delete(int ID)
+        public Task<HttpResponseMessage> Delete(int ID)
         {
-            return await _httpHelper.DeleteRequest($"{_defaultPath}{_methodPath}/{ID}?force=true").ConfigureAwait(false);
+            return _httpHelper.DeleteRequest($"{_defaultPath}{_methodPath}/{ID}?force=true");
         }
 
         /// <summary>
@@ -66,9 +66,9 @@ namespace WordPressPCL.Client
         /// <param name="embed">include embed info</param>
         /// <param name="useAuth">Send request with authenication header</param>
         /// <returns>Latest media items</returns>
-        public async Task<IEnumerable<MediaItem>> Get(bool embed = false, bool useAuth = false)
+        public Task<IEnumerable<MediaItem>> Get(bool embed = false, bool useAuth = false)
         {
-            return await _httpHelper.GetRequest<IEnumerable<MediaItem>>($"{_defaultPath}{_methodPath}", embed, useAuth).ConfigureAwait(false);
+            return _httpHelper.GetRequest<IEnumerable<MediaItem>>($"{_defaultPath}{_methodPath}", embed, useAuth);
         }
 
         /// <summary>
@@ -99,9 +99,9 @@ namespace WordPressPCL.Client
         /// <param name="embed">include embed info</param>
         /// <param name="useAuth">Send request with authenication header</param>
         /// <returns>Entity by Id</returns>
-        public async Task<MediaItem> GetByID(object ID, bool embed = false, bool useAuth = false)
+        public Task<MediaItem> GetByID(object ID, bool embed = false, bool useAuth = false)
         {
-            return await _httpHelper.GetRequest<MediaItem>($"{_defaultPath}{_methodPath}/{ID}", embed, useAuth).ConfigureAwait(false);
+            return _httpHelper.GetRequest<MediaItem>($"{_defaultPath}{_methodPath}/{ID}", embed, useAuth);
         }
 
         /// <summary>
@@ -110,9 +110,9 @@ namespace WordPressPCL.Client
         /// <param name="queryBuilder">Query builder with specific parameters</param>
         /// <param name="useAuth">Send request with authenication header</param>
         /// <returns>List of filtered result</returns>
-        public async Task<IEnumerable<MediaItem>> Query(MediaQueryBuilder queryBuilder, bool useAuth = false)
+        public Task<IEnumerable<MediaItem>> Query(MediaQueryBuilder queryBuilder, bool useAuth = false)
         {
-            return await _httpHelper.GetRequest<IEnumerable<MediaItem>>($"{_defaultPath}{_methodPath}{queryBuilder.BuildQueryURL()}", false, useAuth).ConfigureAwait(false);
+            return _httpHelper.GetRequest<IEnumerable<MediaItem>>($"{_defaultPath}{_methodPath}{queryBuilder.BuildQueryURL()}", false, useAuth);
         }
 
         /// <summary>

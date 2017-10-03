@@ -68,9 +68,9 @@ namespace WordPressPCL.Client
         /// </summary>
         /// <param name="ID">Entity Id</param>
         /// <returns>Result of operation</returns>
-        public async Task<HttpResponseMessage> Delete(int ID)
+        public Task<HttpResponseMessage> Delete(int ID)
         {
-            return await _httpHelper.DeleteRequest($"{_defaultPath}{_methodPath}/{ID}" + (_forceDeletion == true ? "?force=true" : string.Empty)).ConfigureAwait(false);
+            return _httpHelper.DeleteRequest($"{_defaultPath}{_methodPath}/{ID}" + (_forceDeletion == true ? "?force=true" : string.Empty));
         }
 
         /// <summary>
@@ -79,9 +79,9 @@ namespace WordPressPCL.Client
         /// <param name="embed">include embed info</param>
         /// <param name="useAuth">Send request with authenication header</param>
         /// <returns>Entity by Id</returns>
-        public async Task<IEnumerable<TClass>> Get(bool embed = false, bool useAuth = false)
+        public Task<IEnumerable<TClass>> Get(bool embed = false, bool useAuth = false)
         {
-            return await _httpHelper.GetRequest<IEnumerable<TClass>>($"{_defaultPath}{_methodPath}", embed, useAuth).ConfigureAwait(false);
+            return _httpHelper.GetRequest<IEnumerable<TClass>>($"{_defaultPath}{_methodPath}", embed, useAuth);
         }
 
         /// <summary>
@@ -112,9 +112,9 @@ namespace WordPressPCL.Client
         /// <param name="embed">include embed info</param>
         /// <param name="useAuth">Send request with authenication header</param>
         /// <returns>Entity by Id</returns>
-        public async Task<TClass> GetByID(object ID, bool embed = false, bool useAuth = false)
+        public Task<TClass> GetByID(object ID, bool embed = false, bool useAuth = false)
         {
-            return await _httpHelper.GetRequest<TClass>($"{_defaultPath}{_methodPath}/{ID}", embed, useAuth).ConfigureAwait(false);
+            return _httpHelper.GetRequest<TClass>($"{_defaultPath}{_methodPath}/{ID}", embed, useAuth);
         }
 
         /// <summary>
@@ -123,9 +123,9 @@ namespace WordPressPCL.Client
         /// <param name="queryBuilder">Query builder with specific parameters</param>
         /// <param name="useAuth">Send request with authenication header</param>
         /// <returns>List of filtered result</returns>
-        public async Task<IEnumerable<TClass>> Query(QClass queryBuilder, bool useAuth = false)
+        public Task<IEnumerable<TClass>> Query(QClass queryBuilder, bool useAuth = false)
         {
-            return await _httpHelper.GetRequest<IEnumerable<TClass>>($"{_defaultPath}{_methodPath}{queryBuilder.BuildQueryURL()}", false, useAuth).ConfigureAwait(false);
+            return _httpHelper.GetRequest<IEnumerable<TClass>>($"{_defaultPath}{_methodPath}{queryBuilder.BuildQueryURL()}", false, useAuth);
         }
 
         /// <summary>
