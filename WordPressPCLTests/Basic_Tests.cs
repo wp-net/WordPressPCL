@@ -124,5 +124,19 @@ namespace WordPressPCLTests
             var IsValidToken = await client.IsValidJWToken();
             Assert.IsTrue(IsValidToken);
         }
+
+        [TestMethod]
+        public async Task LogoutTest()
+        {
+            // get JWT Authenticated client
+            var client = await ClientHelper.GetAuthenticatedWordPressClient();
+            //Assert.IsNotNull(client.JWToken);
+            var IsValidToken = await client.IsValidJWToken();
+            Assert.IsTrue(IsValidToken);
+
+            client.Logout();
+            IsValidToken = await client.IsValidJWToken();
+            Assert.IsFalse(IsValidToken);
+        }
     }
 }
