@@ -33,6 +33,18 @@ namespace WordPressPCL
         public string Password { get; set; }*/
 
         /// <summary>
+        /// Function called when a HttpRequest response to WordPress APIs are readed 
+        /// Executed before trying to convert json content to a TClass object.
+        /// </summary>
+        public Func<string, string> HttpResponsePreProcessing
+        {
+            set
+            {
+                _httpHelper.HttpResponsePreProcessing = value;
+            }
+        }
+
+        /// <summary>
         /// Authentication method
         /// </summary>
         public AuthMethod AuthMethod { get; set; }

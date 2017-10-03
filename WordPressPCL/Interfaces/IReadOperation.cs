@@ -10,6 +10,14 @@ namespace WordPressPCL.Interfaces
     public interface IReadOperation<TClass>
     {
         /// <summary>
+        /// Get latest
+        /// </summary>
+        /// <param name="embed">Is use embed info</param>
+        /// <param name="useAuth">Is use auth header</param>
+        /// <returns>requested object</returns>
+        Task<IEnumerable<TClass>> Get(bool embed = false, bool useAuth = false);
+
+        /// <summary>
         /// Get object by Id
         /// </summary>
         /// <param name="ID">Object Id</param>

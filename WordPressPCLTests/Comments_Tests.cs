@@ -69,6 +69,21 @@ namespace WordPressPCLTests
                 Assert.AreNotEqual(DateTime.MinValue, comment.DateGmt);
             }
         }
+
+        [TestMethod]
+        public async Task Comments_Get()
+        {
+            var client = new WordPressClient(ApiCredentials.WordPressUri);
+            var comments = await client.Comments.Get();
+
+            if (comments.Count() == 0)
+            {
+                Assert.Inconclusive("no comments to test");
+            }
+            Assert.IsNotNull(comments);
+
+        }
+
         [TestMethod]
         public async Task Comments_Update()
         {

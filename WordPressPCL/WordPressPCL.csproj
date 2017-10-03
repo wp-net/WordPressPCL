@@ -13,11 +13,11 @@
     <RepositoryUrl>https://github.com/wp-net/WordPressPCL</RepositoryUrl>
     <PackageTags>WordPress REST API</PackageTags>
     <RepositoryType>GitHub</RepositoryType>
-    <AssemblyVersion>1.0.0.0</AssemblyVersion>
-    <FileVersion>1.0.0.0</FileVersion>
-    <Version>1.0.0</Version>
+    <AssemblyVersion>1.1.1.0</AssemblyVersion>
+    <FileVersion>1.1.1.0</FileVersion>
+    <Version>1.1.1</Version>
     <PackageLicenseUrl>https://github.com/wp-net/WordPressPCL/blob/master/LICENSE</PackageLicenseUrl>
-    <PackageReleaseNotes>Complete refactoring</PackageReleaseNotes>
+    <PackageReleaseNotes>- added option for pre-processing the JSON string before deserializing it</PackageReleaseNotes>
     <Copyright>© Thomas Pentenrieder | 2017</Copyright>
     <ApplicationIcon />
     <OutputTypeEx>library</OutputTypeEx>

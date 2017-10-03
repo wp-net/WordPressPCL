@@ -95,6 +95,14 @@
             <param name="ID">Entity Id</param>
             <returns>Result of operation</returns>
         </member>
+        <member name="M:WordPressPCL.Client.CRUDOperation`2.Get(System.Boolean,System.Boolean)">
+            <summary>
+            Get latest
+            </summary>
+            <param name="embed">include embed info</param>
+            <param name="useAuth">Send request with authenication header</param>
+            <returns>Entity by Id</returns>
+        </member>
         <member name="M:WordPressPCL.Client.CRUDOperation`2.GetAll(System.Boolean,System.Boolean)">
             <summary>
             Get All
@@ -202,6 +210,14 @@
             <param name="ID">Entity Id</param>
             <returns>Result of operation</returns>
         </member>
+        <member name="M:WordPressPCL.Client.Media.Get(System.Boolean,System.Boolean)">
+            <summary>
+            Get latest
+            </summary>
+            <param name="embed">include embed info</param>
+            <param name="useAuth">Send request with authenication header</param>
+            <returns>Latest media items</returns>
+        </member>
         <member name="M:WordPressPCL.Client.Media.GetAll(System.Boolean,System.Boolean)">
             <summary>
             Get All
@@ -291,6 +307,14 @@
             </summary>
             <param name="ID">Entity Id</param>
             <returns>Result of operation</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.PostRevisions.Get(System.Boolean,System.Boolean)">
+            <summary>
+            Get latest
+            </summary>
+            <param name="embed">include embed info</param>
+            <param name="useAuth">Send request with authenication header</param>
+            <returns>Latest PostRevisions</returns>
         </member>
         <member name="M:WordPressPCL.Client.PostRevisions.GetAll(System.Boolean,System.Boolean)">
             <summary>
@@ -392,6 +416,14 @@
             <param name="httpHelper">reference to HttpHelper class for interaction with HTTP</param>
             <param name="defaultPath">path to site, EX. http://demo.com/wp-json/ </param>
         </member>
+        <member name="M:WordPressPCL.Client.PostStatuses.Get(System.Boolean,System.Boolean)">
+            <summary>
+            Get latest
+            </summary>
+            <param name="embed">include embed info</param>
+            <param name="useAuth">Send request with authenication header</param>
+            <returns>Entity by Id</returns>
+        </member>
         <member name="M:WordPressPCL.Client.PostStatuses.GetAll(System.Boolean,System.Boolean)">
             <summary>
             Get All
@@ -421,13 +453,21 @@
             <param name="httpHelper">reference to HttpHelper class for interaction with HTTP</param>
             <param name="defaultPath">path to site, EX. http://demo.com/wp-json/ </param>
         </member>
+        <member name="M:WordPressPCL.Client.PostTypes.Get(System.Boolean,System.Boolean)">
+            <summary>
+            Get latest
+            </summary>
+            <param name="embed">Include embed info</param>
+            <param name="useAuth">Send request with authenication header</param>
+            <returns>List of latest PostTypes</returns>
+        </member>
         <member name="M:WordPressPCL.Client.PostTypes.GetAll(System.Boolean,System.Boolean)">
             <summary>
             Get All
             </summary>
             <param name="embed">Include embed info</param>
             <param name="useAuth">Send request with authenication header</param>
-            <returns>List of all result</returns>
+            <returns>List of all PostTypes</returns>
         </member>
         <member name="M:WordPressPCL.Client.PostTypes.GetByID(System.Object,System.Boolean,System.Boolean)">
             <summary>
@@ -461,6 +501,14 @@
             </summary>
             <param name="httpHelper">reference to HttpHelper class for interaction with HTTP</param>
             <param name="defaultPath">path to site, EX. http://demo.com/wp-json/ </param>
+        </member>
+        <member name="M:WordPressPCL.Client.Taxonomies.Get(System.Boolean,System.Boolean)">
+            <summary>
+            Get latest
+            </summary>
+            <param name="embed">include embed info</param>
+            <param name="useAuth">Send request with authenication header</param>
+            <returns>Get latest taxonomies</returns>
         </member>
         <member name="M:WordPressPCL.Client.Taxonomies.GetAll(System.Boolean,System.Boolean)">
             <summary>
@@ -505,6 +553,14 @@
             </summary>
             <param name="Entity">Entity object</param>
             <returns>Created object</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Users.Get(System.Boolean,System.Boolean)">
+            <summary>
+            Get latest
+            </summary>
+            <param name="embed">include embed info</param>
+            <param name="useAuth">Send request with authenication header</param>
+            <returns>Get latest users</returns>
         </member>
         <member name="M:WordPressPCL.Client.Users.GetAll(System.Boolean,System.Boolean)">
             <summary>
@@ -605,6 +661,14 @@
             Interface with required Get methods
             </summary>
             <typeparam name="TClass">return class type</typeparam>
+        </member>
+        <member name="M:WordPressPCL.Interfaces.IReadOperation`1.Get(System.Boolean,System.Boolean)">
+            <summary>
+            Get latest
+            </summary>
+            <param name="embed">Is use embed info</param>
+            <param name="useAuth">Is use auth header</param>
+            <returns>requested object</returns>
         </member>
         <member name="M:WordPressPCL.Interfaces.IReadOperation`1.GetByID(System.Object,System.Boolean,System.Boolean)">
             <summary>
@@ -3082,6 +3146,12 @@
             JSON Web Token
             </summary>
         </member>
+        <member name="P:WordPressPCL.Utility.HttpHelper.HttpResponsePreProcessing">
+            <summary>
+            Function called when a HttpRequest response is readed 
+            Executed before trying to convert json content to a TClass object.
+            </summary>
+        </member>
         <member name="M:WordPressPCL.Utility.HttpHelper.#ctor(System.String)">
             <summary>
             Constructor
@@ -3580,6 +3650,12 @@
         <member name="P:WordPressPCL.WordPressClient.WordPressUri">
             <summary>
             WordPressUri holds the WordPress API endpoint, e.g. "http://demo.wp-api.org/wp-json/wp/v2/"
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.WordPressClient.HttpResponsePreProcessing">
+            <summary>
+            Function called when a HttpRequest response to WordPress APIs are readed 
+            Executed before trying to convert json content to a TClass object.
             </summary>
         </member>
         <member name="P:WordPressPCL.WordPressClient.AuthMethod">

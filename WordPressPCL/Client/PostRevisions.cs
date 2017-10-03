@@ -41,6 +41,18 @@ namespace WordPressPCL.Client
         {
             return await _httpHelper.DeleteRequest($"{_defaultPath}posts/{_postId}/{_methodPath}/{ID}?force=true").ConfigureAwait(false);
         }
+
+        /// <summary>
+        /// Get latest
+        /// </summary>
+        /// <param name="embed">include embed info</param>
+        /// <param name="useAuth">Send request with authenication header</param>
+        /// <returns>Latest PostRevisions</returns>
+        public async Task<IEnumerable<PostRevision>> Get(bool embed = false, bool useAuth = true)
+        {
+            return await _httpHelper.GetRequest<IEnumerable<PostRevision>>($"{_defaultPath}posts/{_postId}/{_methodPath}", embed, useAuth).ConfigureAwait(false);
+        }
+
         /// <summary>
         /// Get All
         /// </summary>
@@ -51,6 +63,7 @@ namespace WordPressPCL.Client
         {
             return await _httpHelper.GetRequest<IEnumerable<PostRevision>>($"{_defaultPath}posts/{_postId}/{_methodPath}", embed, useAuth).ConfigureAwait(false);
         }
+
         /// <summary>
         /// Get Entity by Id
         /// </summary>

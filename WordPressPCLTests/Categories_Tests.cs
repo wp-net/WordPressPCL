@@ -41,6 +41,18 @@ namespace WordPressPCLTests
         }
 
         [TestMethod]
+        public async Task Categories_Get()
+        {
+            // Initialize
+            var client = new WordPressClient(ApiCredentials.WordPressUri);
+            Assert.IsNotNull(client);
+            var categories = await client.Categories.Get();
+            Assert.IsNotNull(categories);
+            Assert.AreNotEqual(categories.Count(), 0);
+            CollectionAssert.AllItemsAreUnique(categories.Select(tag => tag.Id).ToList());
+        }
+
+        [TestMethod]
         public async Task Categories_Update()
         {
             var client = await ClientHelper.GetAuthenticatedWordPressClient();
