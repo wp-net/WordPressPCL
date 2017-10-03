@@ -54,7 +54,7 @@ namespace WordPressPCLTests
                 Context = Context.Edit,
                 PerPage = 1,
                 Page = 1
-            });
+            }, true);
             Assert.AreEqual(1, postsEdit.Count());
             Assert.IsNotNull(postsEdit.FirstOrDefault());
             Assert.IsNotNull(postsEdit.FirstOrDefault().Content.Raw);
