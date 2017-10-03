@@ -186,6 +186,14 @@ namespace WordPressPCL
         }
 
         /// <summary>
+        /// Forget the JWT Auth Token
+        /// </summary>
+        public void Logout()
+        {
+            _httpHelper.JWToken = default(string);
+        }
+
+        /// <summary>
         /// Check if token is valid
         /// </summary>
         /// <returns>Result of checking</returns>
