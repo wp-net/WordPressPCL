@@ -51,9 +51,9 @@ namespace WordPressPCL.Client
         /// <param name="embed">include embed info</param>
         /// <param name="useAuth">Send request with authenication header</param>
         /// <returns>Get latest users</returns>
-        public async Task<IEnumerable<User>> Get(bool embed = false, bool useAuth = false)
+        public Task<IEnumerable<User>> Get(bool embed = false, bool useAuth = false)
         {
-            return await _httpHelper.GetRequest<IEnumerable<User>>($"{_defaultPath}{_methodPath}", embed, useAuth).ConfigureAwait(false);
+            return _httpHelper.GetRequest<IEnumerable<User>>($"{_defaultPath}{_methodPath}", embed, useAuth);
         }
 
         /// <summary>
@@ -84,9 +84,9 @@ namespace WordPressPCL.Client
         /// <param name="embed">include embed info</param>
         /// <param name="useAuth">Send request with authenication header</param>
         /// <returns>Entity by Id</returns>
-        public async Task<User> GetByID(object ID, bool embed = false, bool useAuth = false)
+        public Task<User> GetByID(object ID, bool embed = false, bool useAuth = false)
         {
-            return await _httpHelper.GetRequest<User>($"{_defaultPath}{_methodPath}/{ID}", embed, useAuth).ConfigureAwait(false);
+            return _httpHelper.GetRequest<User>($"{_defaultPath}{_methodPath}/{ID}", embed, useAuth);
         }
 
         /// <summary>
@@ -95,9 +95,9 @@ namespace WordPressPCL.Client
         /// <param name="queryBuilder">Query builder with specific parameters</param>
         /// <param name="useAuth">Send request with authenication header</param>
         /// <returns>List of filtered result</returns>
-        public async Task<IEnumerable<User>> Query(UsersQueryBuilder queryBuilder, bool useAuth = false)
+        public Task<IEnumerable<User>> Query(UsersQueryBuilder queryBuilder, bool useAuth = false)
         {
-            return await _httpHelper.GetRequest<IEnumerable<User>>($"{_defaultPath}{_methodPath}{queryBuilder.BuildQueryURL()}", false, useAuth).ConfigureAwait(false);
+            return _httpHelper.GetRequest<IEnumerable<User>>($"{_defaultPath}{_methodPath}{queryBuilder.BuildQueryURL()}", false, useAuth);
         }
 
         /// <summary>
@@ -117,9 +117,9 @@ namespace WordPressPCL.Client
         /// Get current User
         /// </summary>
         /// <returns>Current User</returns>
-        public async Task<User> GetCurrentUser()
+        public Task<User> GetCurrentUser()
         {
-            return await _httpHelper.GetRequest<User>($"{_defaultPath}{_methodPath}/me", true, true).ConfigureAwait(false);
+            return _httpHelper.GetRequest<User>($"{_defaultPath}{_methodPath}/me", true, true);
         }
 
         /// <summary>
@@ -128,9 +128,9 @@ namespace WordPressPCL.Client
         /// <param name="ID">User id for delete</param>
         /// <param name="ReassignUserID">User id for reassign</param>
         /// <returns>Result of operation</returns>
-        public async Task<HttpResponseMessage> Delete(int ID, int ReassignUserID)
+        public Task<HttpResponseMessage> Delete(int ID, int ReassignUserID)
         {
-            return await _httpHelper.DeleteRequest($"{_defaultPath}{_methodPath}/{ID}?force=true&reassign={ReassignUserID}").ConfigureAwait(false);
+            return _httpHelper.DeleteRequest($"{_defaultPath}{_methodPath}/{ID}?force=true&reassign={ReassignUserID}");
         }
 
         /// <summary>
@@ -139,9 +139,9 @@ namespace WordPressPCL.Client
         /// <param name="ID">User id for delete</param>
         /// <param name="ReassignUser">User object for reassign</param>
         /// <returns>Result of operation</returns>
-        public async Task<HttpResponseMessage> Delete(int ID, User ReassignUser)
+        public Task<HttpResponseMessage> Delete(int ID, User ReassignUser)
         {
-            return await _httpHelper.DeleteRequest($"{_defaultPath}{_methodPath}/{ID}?force=true&reassign={ReassignUser.Id}").ConfigureAwait(false);
+            return _httpHelper.DeleteRequest($"{_defaultPath}{_methodPath}/{ID}?force=true&reassign={ReassignUser.Id}");
         }
 
         #endregion Custom
