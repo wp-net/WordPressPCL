@@ -48,6 +48,16 @@ namespace WordPressPCLTests
             var posts = await client.Posts.Query(new PostsQueryBuilder());
             Assert.IsNotNull(posts);
             Assert.AreNotEqual(posts.Count(), 0);
+
+            var postsEdit = await client.Posts.Query(new PostsQueryBuilder()
+            { 
+                Context = Context.Edit,
+                PerPage = 1,
+                Page = 1
+            });
+            Assert.AreEqual(1, postsEdit.Count());
+            Assert.IsNotNull(postsEdit.FirstOrDefault());
+            Assert.IsNotNull(postsEdit.FirstOrDefault().Content.Raw);
         }
 
         [TestMethod]
