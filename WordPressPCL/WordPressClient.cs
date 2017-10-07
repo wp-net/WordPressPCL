@@ -142,9 +142,9 @@ namespace WordPressPCL
         /// Get site settings
         /// </summary>
         /// <returns>Site settings</returns>
-        public async Task<Settings> GetSettings()
+        public Task<Settings> GetSettings()
         {
-            return await _httpHelper.GetRequest<Settings>($"{defaultPath}settings", false, true).ConfigureAwait(false);
+            return _httpHelper.GetRequest<Settings>($"{defaultPath}settings", false, true);
         }
 
         /// <summary>
@@ -183,6 +183,14 @@ namespace WordPressPCL
                 //JWToken = jwtUser?.Token;
                 _httpHelper.JWToken = jwtUser?.Token;
             }
+        }
+
+        /// <summary>
+        /// Forget the JWT Auth Token
+        /// </summary>
+        public void Logout()
+        {
+            _httpHelper.JWToken = default(string);
         }
 
         /// <summary>

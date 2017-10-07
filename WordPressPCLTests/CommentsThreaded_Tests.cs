@@ -65,10 +65,7 @@ namespace WordPressPCLTests
                 Content = new Content("t ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum do")
             });
 
-            var allComments = await client.Comments.Query(new CommentsQueryBuilder()
-            {
-                Posts = new int[] { post.Id }
-            });
+            var allComments = await client.Comments.GetAllCommentsForPost(post.Id);
 
             var threaded = ThreadedCommentsHelper.GetThreadedComments(allComments);
             Debug.WriteLine($"threaded count: {threaded.Count}");
@@ -108,13 +105,6 @@ namespace WordPressPCLTests
                 // The following comment date has to be newer or older with a lower depth 
                 var validDate = (idate <= nidate || (idate > nidate && id > nid));
                 Assert.IsTrue(validDate);
-
-                // Comment is after parent
-                if(threaded[ni].ParentId != 0)
-                {
-                    Assert.AreEqual(threaded[ni].ParentId, threaded[i].Id);
-                }
-
             }
 
             // cleanup

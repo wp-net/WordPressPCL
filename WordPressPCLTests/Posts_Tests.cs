@@ -16,19 +16,6 @@ namespace WordPressPCLTests
         public async Task Posts_Create()
         {
             var client = await ClientHelper.GetAuthenticatedWordPressClient();
-            //var post = new Post()
-            //{
-            //    Title = new Title()
-            //    {
-            //        Raw = "New Title"
-            //    },
-            //    Content = new Content()
-            //    {
-            //        Raw = "Test Raw Content"
-            //    },
-            //    Date = DateTime.Now,
-            //    DateGmt = DateTime.UtcNow
-            //};
             var post = new Post()
             {
                 Title = new Title("Title 1"),
@@ -48,6 +35,16 @@ namespace WordPressPCLTests
             var posts = await client.Posts.Query(new PostsQueryBuilder());
             Assert.IsNotNull(posts);
             Assert.AreNotEqual(posts.Count(), 0);
+
+            var postsEdit = await client.Posts.Query(new PostsQueryBuilder()
+            { 
+                Context = Context.Edit,
+                PerPage = 1,
+                Page = 1
+            }, true);
+            Assert.AreEqual(1, postsEdit.Count());
+            Assert.IsNotNull(postsEdit.FirstOrDefault());
+            Assert.IsNotNull(postsEdit.FirstOrDefault().Content.Raw);
         }
 
         [TestMethod]
