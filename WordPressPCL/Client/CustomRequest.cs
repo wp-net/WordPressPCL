@@ -41,9 +41,9 @@ namespace WordPressPCL.Client
         /// </summary>
         /// <param name="route">path to exec delete request</param>
         /// <returns>Result of deletion</returns>
-        public async Task<HttpResponseMessage> Delete(string route)
+        public Task<HttpResponseMessage> Delete(string route)
         {
-            return await _httpHelper.DeleteRequest($"{route}", true);
+            return _httpHelper.DeleteRequest($"{route}", true);
         }
 
         /// <summary>

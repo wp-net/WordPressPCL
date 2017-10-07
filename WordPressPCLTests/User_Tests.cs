@@ -161,14 +161,14 @@ namespace WordPressPCLTests
 
         #region Utils
 
-        private async Task<User> CreateRandomUser(WordPressClient client)
+        private Task<User> CreateRandomUser(WordPressClient client)
         {
             var random = new Random();
             var r = random.Next(0, 1000);
             var username = $"Testuser{r}";
             var email = $"testuser{r}@test.com";
             var password = $"testpassword{r}";
-            return await client.Users.Create(new User(username, email, password));
+            return client.Users.Create(new User(username, email, password));
         }
 
         #endregion Utils

@@ -148,6 +148,51 @@ namespace WordPressPCLTests
             Assert.AreNotSame(queryresult.Count(), 0);
         }
 
+        [TestMethod]
+        public async Task Comments_GetAllForPost()
+        {
+            var client = await ClientHelper.GetAuthenticatedWordPressClient();
+            var me = await client.Users.GetCurrentUser();
+
+            // create test post and add comments
+            var post = new Post()
+            {
+                Title = new Title("Title 1"),
+                Content = new Content("Content PostCreate")
+            };
+            var createdPost = await client.Posts.Create(post);
+            Assert.IsNotNull(createdPost);
+
+            for(int i = 0; i < 30; i++)
+            {
+                // Create random content to prevent duplicate commment errors
+                var random = new Random();
+                var content = $"TestComment {random.Next(0, 10000)}";
+                var comment = new Comment()
+                {
+                    Content = new Content(content),
+                    PostId = createdPost.Id,
+                    AuthorId = me.Id,
+                    AuthorEmail = "test@test.com",
+                    AuthorName = me.Name
+                };
+                var resultComment = await client.Comments.Create(comment);
+                Assert.IsNotNull(resultComment);
+            }
+
+            // shoud work without auth
+            var nonauthclient = ClientHelper.GetWordPressClient();
+            var comments = await nonauthclient.Comments.GetCommentsForPost(createdPost.Id);
+            Assert.IsTrue(comments.Count() <= 10);
+
+            var allComments = await nonauthclient.Comments.GetAllCommentsForPost(createdPost.Id);
+            Assert.IsTrue(allComments.Count() > 20);
+
+            // cleanup
+            var result = await client.Posts.Delete(createdPost.Id);
+            Assert.IsTrue(result.IsSuccessStatusCode);
+        }
+
     }
 
 }

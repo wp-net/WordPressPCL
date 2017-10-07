@@ -16,5 +16,10 @@ namespace WordPressPCLTests.Utility
 
             return client;
         }
+
+        public static WordPressClient GetWordPressClient()
+        {
+            return new WordPressClient(ApiCredentials.WordPressUri);
+        }
     }
 }
