@@ -16,19 +16,6 @@ namespace WordPressPCLTests
         public async Task Posts_Create()
         {
             var client = await ClientHelper.GetAuthenticatedWordPressClient();
-            //var post = new Post()
-            //{
-            //    Title = new Title()
-            //    {
-            //        Raw = "New Title"
-            //    },
-            //    Content = new Content()
-            //    {
-            //        Raw = "Test Raw Content"
-            //    },
-            //    Date = DateTime.Now,
-            //    DateGmt = DateTime.UtcNow
-            //};
             var post = new Post()
             {
                 Title = new Title("Title 1"),

@@ -37,6 +37,15 @@
             <param name="useAuth">Send request with authenication header</param>
             <returns>List of comments for post</returns>
         </member>
+        <member name="M:WordPressPCL.Client.Comments.GetAllCommentsForPost(System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Get all comments for Post
+            </summary>
+            <param name="PostID">Post id</param>
+            <param name="embed">include embed info</param>
+            <param name="useAuth">Send request with authenication header</param>
+            <returns>List of comments for post</returns>
+        </member>
         <member name="M:WordPressPCL.Client.Comments.Delete(System.Int32,System.Boolean)">
             <summary>
             Force deletion of comments
