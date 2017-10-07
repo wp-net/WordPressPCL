@@ -182,10 +182,10 @@ namespace WordPressPCLTests
 
             // shoud work without auth
             var nonauthclient = ClientHelper.GetWordPressClient();
-            var comments = await nonauthclient.Comments.GetCommentsForPost(createdPost.Id.ToString());
+            var comments = await nonauthclient.Comments.GetCommentsForPost(createdPost.Id);
             Assert.IsTrue(comments.Count() <= 10);
 
-            var allComments = await nonauthclient.Comments.GetAllCommentsForPost(createdPost.Id.ToString());
+            var allComments = await nonauthclient.Comments.GetAllCommentsForPost(createdPost.Id);
             Assert.IsTrue(allComments.Count() > 20);
 
             // cleanup

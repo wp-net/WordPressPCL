@@ -37,7 +37,7 @@ namespace WordPressPCL.Client
         /// <param name="embed">include embed info</param>
         /// <param name="useAuth">Send request with authenication header</param>
         /// <returns>List of comments for post</returns>
-        public Task<IEnumerable<Comment>> GetCommentsForPost(string PostID, bool embed = false, bool useAuth = false)
+        public Task<IEnumerable<Comment>> GetCommentsForPost(int PostID, bool embed = false, bool useAuth = false)
         {
             return _httpHelper.GetRequest<IEnumerable<Comment>>($"{_defaultPath}{_methodPath}?post={PostID}", embed, useAuth);
         }
@@ -49,7 +49,7 @@ namespace WordPressPCL.Client
         /// <param name="embed">include embed info</param>
         /// <param name="useAuth">Send request with authenication header</param>
         /// <returns>List of comments for post</returns>
-        public async Task<IEnumerable<Comment>> GetAllCommentsForPost(string PostID, bool embed = false, bool useAuth = false)
+        public async Task<IEnumerable<Comment>> GetAllCommentsForPost(int PostID, bool embed = false, bool useAuth = false)
         {
             //100 - Max comments per page in WordPress REST API, so this is hack with multiple requests
             List<Comment> comments = new List<Comment>();
