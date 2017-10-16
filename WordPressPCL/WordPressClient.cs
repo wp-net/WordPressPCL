@@ -207,6 +207,24 @@ namespace WordPressPCL
             }
         }
 
+        /// <summary>
+        /// Sets an exisitng JWToken
+        /// </summary>
+        /// <param name="token"></param>
+        public void SetJWToken(string token)
+        {
+            _httpHelper.JWToken = token;
+        }
+
+        /// <summary>
+        /// Gets the JWToken from the client
+        /// </summary>
+        /// <returns></returns>
+        public string GetToken()
+        {
+            return _httpHelper.JWToken;
+        }
+
         #endregion auth methods
     }
 }
