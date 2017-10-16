@@ -1,6 +1,5 @@
 # WordPressPCL
 This is a portable library for consuimg the WordPress REST-API in (almost) any C# application.
-The project is still very much in *beta* so use at your own risk! 
 If you find bugs or have any suggestions, feel free to create an issue.
 
 ## License
