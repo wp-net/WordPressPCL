@@ -929,6 +929,18 @@
             <param name="postId">Post ID</param>
             <param name="content">Comment content</param>
         </member>
+        <member name="T:WordPressPCL.Models.CommentThreaded">
+            <summary>
+            An extension class for Comment that holds a depth porperty
+            for displaying threaded comments
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.CommentThreaded.Depth">
+            <summary>
+            The depht of a comment
+            0 is a top level comments without parent
+            </summary>
+        </member>
         <member name="T:WordPressPCL.Models.Embedded">
             <summary>
             Embedded Information
