@@ -3,7 +3,7 @@
     <OutputType>Library</OutputType>
   </PropertyGroup>
   <PropertyGroup>
-    <TargetFramework>netstandard1.1</TargetFramework>
+    <TargetFrameworks>netstandard1.1;netstandard2.0</TargetFrameworks>
     <DocumentationFile>WordPressPCL.xml</DocumentationFile>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Authors>Thomas Pentenrieder</Authors>
@@ -13,11 +13,20 @@
     <RepositoryUrl>https://github.com/wp-net/WordPressPCL</RepositoryUrl>
     <PackageTags>WordPress REST API</PackageTags>
     <RepositoryType>GitHub</RepositoryType>
-    <AssemblyVersion>1.1.1.0</AssemblyVersion>
-    <FileVersion>1.1.1.0</FileVersion>
-    <Version>1.1.1</Version>
+    <AssemblyVersion>1.3.0.0</AssemblyVersion>
+    <FileVersion>1.3.0.0</FileVersion>
+    <Version>1.3.0-alpha</Version>
     <PackageLicenseUrl>https://github.com/wp-net/WordPressPCL/blob/master/LICENSE</PackageLicenseUrl>
-    <PackageReleaseNotes>- added option for pre-processing the JSON string before deserializing it</PackageReleaseNotes>
+    <PackageReleaseNotes>V1.3.0-alpha
+- Added .netstandard 2.0 support
+
+V1.2.1
+- added JWT getter &amp; setter methods
+V1.2
+- added helper method to sort comments for a threaded view
+- added method to get all comments for a post id
+- fixed some async issues for better performance
+- added logout method</PackageReleaseNotes>
     <Copyright>© Thomas Pentenrieder | 2017</Copyright>
     <ApplicationIcon />
     <OutputTypeEx>library</OutputTypeEx>
@@ -25,6 +34,6 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
-    <PackageReference Include="System.ValueTuple" Version="4.3.1" />
+    <PackageReference Include="System.ValueTuple" Version="4.4.0" />
   </ItemGroup>
 </Project>

@@ -28,9 +28,18 @@
             <param name="HttpHelper">reference to HttpHelper class for interaction with HTTP</param>
             <param name="defaultPath">path to site, EX. http://demo.com/wp-json/ </param>
         </member>
-        <member name="M:WordPressPCL.Client.Comments.GetCommentsForPost(System.String,System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.Comments.GetCommentsForPost(System.Int32,System.Boolean,System.Boolean)">
             <summary>
             Get comments for Post
+            </summary>
+            <param name="PostID">Post id</param>
+            <param name="embed">include embed info</param>
+            <param name="useAuth">Send request with authenication header</param>
+            <returns>List of comments for post</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Comments.GetAllCommentsForPost(System.Int32,System.Boolean,System.Boolean)">
+            <summary>
+            Get all comments for Post
             </summary>
             <param name="PostID">Post id</param>
             <param name="embed">include embed info</param>
@@ -919,6 +928,18 @@
             </summary>
             <param name="postId">Post ID</param>
             <param name="content">Comment content</param>
+        </member>
+        <member name="T:WordPressPCL.Models.CommentThreaded">
+            <summary>
+            An extension class for Comment that holds a depth porperty
+            for displaying threaded comments
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.CommentThreaded.Depth">
+            <summary>
+            The depht of a comment
+            0 is a top level comments without parent
+            </summary>
         </member>
         <member name="T:WordPressPCL.Models.Embedded">
             <summary>
@@ -3588,6 +3609,17 @@
             Limit results to taxonomies associated with a specific post type.
             </summary>
         </member>
+        <member name="T:WordPressPCL.Utility.ThreadedCommentsHelper">
+            <summary>
+            Helper class to creat threaded comment views
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Utility.ThreadedCommentsHelper.GetThreadedComments(System.Collections.Generic.IEnumerable{WordPressPCL.Models.Comment})">
+            <summary>
+            This method returns the comments sorted for a threaded view (oldest first)
+            inlcuding the depth of a comment
+            </summary>
+        </member>
         <member name="T:WordPressPCL.Utility.UsersQueryBuilder">
             <summary>
             Users Query Builder class to construct queries with valid parameters
@@ -3744,11 +3776,28 @@
             <param name="Username">username</param>
             <param name="Password">password</param>
         </member>
+        <member name="M:WordPressPCL.WordPressClient.Logout">
+            <summary>
+            Forget the JWT Auth Token
+            </summary>
+        </member>
         <member name="M:WordPressPCL.WordPressClient.IsValidJWToken">
             <summary>
             Check if token is valid
             </summary>
             <returns>Result of checking</returns>
+        </member>
+        <member name="M:WordPressPCL.WordPressClient.SetJWToken(System.String)">
+            <summary>
+            Sets an exisitng JWToken
+            </summary>
+            <param name="token"></param>
+        </member>
+        <member name="M:WordPressPCL.WordPressClient.GetToken">
+            <summary>
+            Gets the JWToken from the client
+            </summary>
+            <returns></returns>
         </member>
     </members>
 </doc>
