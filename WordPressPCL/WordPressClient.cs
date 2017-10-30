@@ -43,6 +43,7 @@ namespace WordPressPCL
                 _httpHelper.HttpResponsePreProcessing = value;
             }
         }
+
         /// <summary>
         /// Serialization/Deserialization settings for Json.NET library
         /// https://www.newtonsoft.com/json/help/html/SerializationSettings.htm
@@ -58,6 +59,7 @@ namespace WordPressPCL
                 return _httpHelper.JsonSerializerSettings;
             }
         }
+
         /// <summary>
         /// Authentication method
         /// </summary>

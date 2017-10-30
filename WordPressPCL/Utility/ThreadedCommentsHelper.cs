@@ -109,5 +109,14 @@ namespace WordPressPCL.Utility
 
             }
         }
+        /// <summary>
+        /// Extension method: Get Threaded comments from ordinary comments
+        /// </summary>
+        /// <param name="comments">Comments which will be threaded</param>
+        /// <returns>List of threaded comments</returns>
+        public static List<CommentThreaded> ToThreaded(this IEnumerable<Comment> comments)
+        {
+            return GetThreadedComments(comments);
+        }
     }
 }

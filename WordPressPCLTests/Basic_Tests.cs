@@ -4,6 +4,7 @@ using WordPressPCLTests.Utility;
 using WordPressPCL;
 using System.Threading.Tasks;
 using WordPressPCL.Models;
+using WordPressPCL.Utility;
 using System.Net;
 using System.Linq;
 
