@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace WordPressPCL.Utility
+﻿namespace WordPressPCL.Utility
 {
     /// <summary>
     /// Helper class with common methods to operate with MIME Type
@@ -20,43 +16,43 @@ namespace WordPressPCL.Utility
             switch (extension.ToLower())
             {
                 // Image formats
-                case "jpg": case "jpeg": case"jpe": return "image/jpeg";
+                case "jpg": case "jpeg": case "jpe": return "image/jpeg";
                 case "gif": return "image/gif";
                 case "png": return "image/png";
                 case "bmp": return "image/bmp";
-                case "tif": case"tiff": return "image/tiff";
+                case "tif": case "tiff": return "image/tiff";
                 case "ico": return "image/x-icon";
 
                 // Video formats
-                case "asf": case"asx": return "video/x-ms-asf";
+                case "asf": case "asx": return "video/x-ms-asf";
                 case "wmv": return "video/x-ms-wmv";
                 case "wmx": return "video/x-ms-wmx";
                 case "wm": return "video/x-ms-wm";
                 case "avi": return "video/avi";
                 case "divx": return "video/divx";
                 case "flv": return "video/x-flv";
-                case "mov":case"qt": return "video/quicktime";
-                case "mpeg": case "mpg": case"mpe": return "video/mpeg";
-                case "mp4": case"m4v": return "video/mp4";
+                case "mov": case "qt": return "video/quicktime";
+                case "mpeg": case "mpg": case "mpe": return "video/mpeg";
+                case "mp4": case "m4v": return "video/mp4";
                 case "ogv": return "video/ogg";
                 case "webm": return "video/webm";
                 case "mkv": return "video/x-matroska";
 
                 // Text formats
-                case "txt": case "asc": case "c": case "cc": case "h":               return "text/plain";
+                case "txt": case "asc": case "c": case "cc": case "h": return "text/plain";
                 case "csv": return "text/csv";
                 case "tsv": return "text/tab-separated-values";
                 case "ics": return "text/calendar";
                 case "rtx": return "text/richtext";
                 case "css": return "text/css";
-                case "htm": case"html": return "text/html";
+                case "htm": case "html": return "text/html";
 
                 // Audio formats
                 case "mp3": case "m4a": case "m4b": return "audio/mpeg";
-                case "ra": case"ram": return "audio/x-realaudio";
+                case "ra": case "ram": return "audio/x-realaudio";
                 case "wav": return "audio/wav";
-                case "ogg": case"oga": return "audio/ogg";
-                case "mid": case"midi": return "audio/midi";
+                case "ogg": case "oga": return "audio/ogg";
+                case "mid": case "midi": return "audio/midi";
                 case "wma": return "audio/x-ms-wma";
                 case "wax": return "audio/x-ms-wax";
                 case "mka": return "audio/x-matroska";
@@ -69,16 +65,16 @@ namespace WordPressPCL.Utility
                 case "class": return "application/java";
                 case "tar": return "application/x-tar";
                 case "zip": return "application/zip";
-                case "gz": case"gzip": return "application/x-gzip";
+                case "gz": case "gzip": return "application/x-gzip";
                 case "rar": return "application/rar";
                 case "7z": return "application/x-7z-compressed";
                 case "exe": return "application/x-msdownload";
 
                 // MS Office formats
                 case "doc": return "application/msword";
-                case "pot": case "pps": case"ppt": return "application/vnd.ms-powerpoint";
+                case "pot": case "pps": case "ppt": return "application/vnd.ms-powerpoint";
                 case "wri": return "application/vnd.ms-write";
-                case "xla": case "xls": case "xlt": case"xlw":              return "application/vnd.ms-excel";
+                case "xla": case "xls": case "xlt": case "xlw": return "application/vnd.ms-excel";
                 case "mdb": return "application/vnd.ms-access";
                 case "mpp": return "application/vnd.ms-project";
                 case "docx": return "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
@@ -100,7 +96,7 @@ namespace WordPressPCL.Utility
                 case "ppam": return "application/vnd.ms-powerpoint.addin.macroEnabled.12";
                 case "sldx": return "application/vnd.openxmlformats-officedocument.presentationml.slide";
                 case "sldm": return "application/vnd.ms-powerpoint.slide.macroEnabled.12";
-                case "onetoc": case "onetoc2": case "onetmp": case"onepkg": return "application/onenote";
+                case "onetoc": case "onetoc2": case "onetmp": case "onepkg": return "application/onenote";
 
                 // OpenOffice formats
                 case "odt": return "application/vnd.oasis.opendocument.text";
@@ -112,7 +108,7 @@ namespace WordPressPCL.Utility
                 case "odf": return "application/vnd.oasis.opendocument.formula";
 
                 // WordPerfect formats
-                case "wp": case"wpd": return "application/wordperfect";
+                case "wp": case "wpd": return "application/wordperfect";
 
                 // iWork formats
                 case "key": return "application/vnd.apple.keynote";

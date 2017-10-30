@@ -27,6 +27,16 @@ namespace WordPressPCLTests
             var mediaitem = await client.Media.Create(s,"cat.jpg");
             Assert.IsNotNull(mediaitem);
         }
+        [TestMethod]
+        public async Task Media_Create_2_0()
+        {
+            var client = await ClientHelper.GetAuthenticatedWordPressClient();
+            var path = Directory.GetCurrentDirectory() + "/Assets/cat.jpg";
+            Debug.WriteLine(File.Exists(path));
+            
+            var mediaitem = await client.Media.Create(path, "cat.jpg");
+            Assert.IsNotNull(mediaitem);
+        }
 
         [TestMethod]
         public async Task Media_Read()
