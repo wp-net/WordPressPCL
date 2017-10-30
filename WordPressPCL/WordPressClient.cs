@@ -33,7 +33,7 @@ namespace WordPressPCL
         public string Password { get; set; }*/
 
         /// <summary>
-        /// Function called when a HttpRequest response to WordPress APIs are readed 
+        /// Function called when a HttpRequest response to WordPress APIs are readed
         /// Executed before trying to convert json content to a TClass object.
         /// </summary>
         public Func<string, string> HttpResponsePreProcessing
@@ -171,18 +171,15 @@ namespace WordPressPCL
         public async Task RequestJWToken(string Username, string Password)
         {
             var route = $"{jwtPath}token";
-            using (var client = new HttpClient())
-            {
-                var formContent = new FormUrlEncodedContent(new[]
+            var formContent = new FormUrlEncodedContent(new[]
                 {
                     new KeyValuePair<string, string>("username", Username),
                     new KeyValuePair<string, string>("password", Password)
                 });
 
-                (JWTUser jwtUser, HttpResponseMessage response) = await _httpHelper.PostRequest<JWTUser>(route, formContent, false);
-                //JWToken = jwtUser?.Token;
-                _httpHelper.JWToken = jwtUser?.Token;
-            }
+            (JWTUser jwtUser, HttpResponseMessage response) = await _httpHelper.PostRequest<JWTUser>(route, formContent, false);
+            //JWToken = jwtUser?.Token;
+            _httpHelper.JWToken = jwtUser?.Token;
         }
 
         /// <summary>
