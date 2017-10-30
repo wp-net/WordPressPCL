@@ -59,7 +59,8 @@ namespace WordPressPCL.Client
         /// <returns>Created object</returns>
         public async Task<TClass> Create(TClass Entity)
         {
-            var postBody = new StringContent(JsonConvert.SerializeObject(Entity).ToString(), Encoding.UTF8, "application/json");
+            var entity = _httpHelper.JsonSerializerSettings==null ? JsonConvert.SerializeObject(Entity) : JsonConvert.SerializeObject(Entity,_httpHelper.JsonSerializerSettings);
+            var postBody = new StringContent(entity, Encoding.UTF8, "application/json");
             return (await _httpHelper.PostRequest<TClass>($"{_defaultPath}{_methodPath}", postBody)).Item1;
         }
 
@@ -135,7 +136,8 @@ namespace WordPressPCL.Client
         /// <returns>Updated object</returns>
         public async Task<TClass> Update(TClass Entity)
         {
-            var postBody = new StringContent(JsonConvert.SerializeObject(Entity).ToString(), Encoding.UTF8, "application/json");
+            var entity = _httpHelper.JsonSerializerSettings == null ? JsonConvert.SerializeObject(Entity) : JsonConvert.SerializeObject(Entity, _httpHelper.JsonSerializerSettings);
+            var postBody = new StringContent(entity, Encoding.UTF8, "application/json");
             return (await _httpHelper.PostRequest<TClass>($"{_defaultPath}{_methodPath}/{(Entity as Base).Id}", postBody)).Item1;
         }
     }

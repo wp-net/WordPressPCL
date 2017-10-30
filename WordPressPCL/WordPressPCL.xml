@@ -212,6 +212,14 @@
             <param name="filename">Name of file in WP Media Library</param>
             <returns>Created media object</returns>
         </member>
+        <member name="M:WordPressPCL.Client.Media.Create(System.String,System.String)">
+            <summary>
+            Create Media entity with attachment
+            </summary>
+            <param name="filePath">Local Path to file</param>
+            <param name="filename">Name of file in WP Media Library</param>
+            <returns>Created media object</returns>
+        </member>
         <member name="M:WordPressPCL.Client.Media.Delete(System.Int32)">
             <summary>
             Delete Entity
@@ -1153,17 +1161,6 @@
             Sort terms collection by object attribute.
             </summary>
             <remarks>Default: name</remarks>
-        </mem        </member>
-        <member name="F:WordPressPCL.Models.UsersOrderBy.Url">
-            <summary>
-            Order By url
-            </summary>
-        </member>
-        <member name="T:WordPressPCL.Models.TermsOrderBy">
-            <summary>
-            Sort terms collection by object attribute.
-            </summary>
-            <remarks>Default: name</remarks>
         </member>
         <member name="F:WordPressPCL.Models.TermsOrderBy.Name">
             <summary>
@@ -1531,7 +1528,21 @@
             </summary>
         </member>
         <member name="P:WordPressPCL.Models.Links.Replies">
-          name="P:WordPressPCL.Models.Links.FeaturedMedia">
+            <summary>
+            Replies
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Links.Versions">
+            <summary>
+            Versions
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Links.Attachment">
+            <summary>
+            Attachment
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Links.FeaturedMedia">
             <summary>
             Featured media
             </summary>
@@ -2634,18 +2645,6 @@
             </summary>
         </member>
         <member name="T:WordPressPCL.Models.Reply">
-            <summ        </member>
-        <member name="T:WordPressPCL.Models.Author">
-            <summary>
-            Author link
-            </summary>
-        </member>
-        <member name="P:WordPressPCL.Models.Author.Embeddable">
-            <summary>
-            Have embedded info
-            </summary>
-        </member>
-        <member name="T:WordPressPCL.Models.Reply">
             <summary>
             Link to reply
             </summary>
@@ -3182,6 +3181,12 @@
             Executed before trying to convert json content to a TClass object.
             </summary>
         </member>
+        <member name="P:WordPressPCL.Utility.HttpHelper.JsonSerializerSettings">
+            <summary>
+            Serialization/Deserialization settings for Json.NET library
+            https://www.newtonsoft.com/json/help/html/SerializationSettings.htm
+            </summary>
+        </member>
         <member name="M:WordPressPCL.Utility.HttpHelper.#ctor(System.String)">
             <summary>
             Constructor
@@ -3697,6 +3702,12 @@
             <summary>
             Function called when a HttpRequest response to WordPress APIs are readed
             Executed before trying to convert json content to a TClass object.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.WordPressClient.JsonSerializerSettings">
+            <summary>
+            Serialization/Deserialization settings for Json.NET library
+            https://www.newtonsoft.com/json/help/html/SerializationSettings.htm
             </summary>
         </member>
         <member name="P:WordPressPCL.WordPressClient.AuthMethod">

@@ -43,7 +43,21 @@ namespace WordPressPCL
                 _httpHelper.HttpResponsePreProcessing = value;
             }
         }
-
+        /// <summary>
+        /// Serialization/Deserialization settings for Json.NET library
+        /// https://www.newtonsoft.com/json/help/html/SerializationSettings.htm
+        /// </summary>
+        public JsonSerializerSettings JsonSerializerSettings
+        {
+            set
+            {
+                _httpHelper.JsonSerializerSettings = value;
+            }
+            get
+            {
+                return _httpHelper.JsonSerializerSettings;
+            }
+        }
         /// <summary>
         /// Authentication method
         /// </summary>
@@ -197,11 +211,8 @@ namespace WordPressPCL
         public async Task<bool> IsValidJWToken()
         {
             var route = $"{jwtPath}token/validate";
-            using (var client = new HttpClient())
-            {
-                (JWTUser jwtUser, HttpResponseMessage repsonse) = await _httpHelper.PostRequest<JWTUser>(route, null, true);
-                return repsonse.IsSuccessStatusCode;
-            }
+            (JWTUser jwtUser, HttpResponseMessage repsonse) = await _httpHelper.PostRequest<JWTUser>(route, null, true);
+            return repsonse.IsSuccessStatusCode;
         }
 
         /// <summary>

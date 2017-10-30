@@ -32,7 +32,8 @@ namespace WordPressPCL.Client
         /// <returns>Created object</returns>
         public async Task<TOutput> Create<TInput, TOutput>(string route, TInput Entity) where TOutput : class
         {
-            StringContent sc = new StringContent(JsonConvert.SerializeObject(Entity).ToString(), Encoding.UTF8, "application/json");
+            var entity = _httpHelper.JsonSerializerSettings == null ? JsonConvert.SerializeObject(Entity) : JsonConvert.SerializeObject(Entity, _httpHelper.JsonSerializerSettings);
+            StringContent sc = new StringContent(entity, Encoding.UTF8, "application/json");
             return (await _httpHelper.PostRequest<TOutput>($"{route}", sc)).Item1;
         }
 

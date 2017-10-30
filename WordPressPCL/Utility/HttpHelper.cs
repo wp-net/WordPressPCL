@@ -26,6 +26,11 @@ namespace WordPressPCL.Utility
         /// </summary>
         public Func<string, string> HttpResponsePreProcessing { get; set; }
         /// <summary>
+        /// Serialization/Deserialization settings for Json.NET library
+        /// https://www.newtonsoft.com/json/help/html/SerializationSettings.htm
+        /// </summary>
+        public JsonSerializerSettings JsonSerializerSettings { get; set; }
+        /// <summary>
         /// Constructor
         /// <paramref name="WordpressURI"/>
         /// </summary>
@@ -62,7 +67,8 @@ namespace WordPressPCL.Utility
                     {
                         if (HttpResponsePreProcessing != null)
                             responseString = HttpResponsePreProcessing(responseString);
-
+                        if (JsonSerializerSettings != null)
+                            return JsonConvert.DeserializeObject<TClass>(responseString, JsonSerializerSettings);
                         return JsonConvert.DeserializeObject<TClass>(responseString);
                     }
                     else
@@ -99,7 +105,8 @@ namespace WordPressPCL.Utility
                     {
                         if (HttpResponsePreProcessing != null)
                             responseString = HttpResponsePreProcessing(responseString);
-
+                        if (JsonSerializerSettings != null)
+                            return (JsonConvert.DeserializeObject<TClass>(responseString, JsonSerializerSettings), response);
                         return (JsonConvert.DeserializeObject<TClass>(responseString), response);
                     }
                     else
