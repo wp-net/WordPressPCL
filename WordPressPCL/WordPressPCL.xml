@@ -1153,17 +1153,6 @@
             Sort terms collection by object attribute.
             </summary>
             <remarks>Default: name</remarks>
-        </mem        </member>
-        <member name="F:WordPressPCL.Models.UsersOrderBy.Url">
-            <summary>
-            Order By url
-            </summary>
-        </member>
-        <member name="T:WordPressPCL.Models.TermsOrderBy">
-            <summary>
-            Sort terms collection by object attribute.
-            </summary>
-            <remarks>Default: name</remarks>
         </member>
         <member name="F:WordPressPCL.Models.TermsOrderBy.Name">
             <summary>
@@ -1531,7 +1520,21 @@
             </summary>
         </member>
         <member name="P:WordPressPCL.Models.Links.Replies">
-          name="P:WordPressPCL.Models.Links.FeaturedMedia">
+            <summary>
+            Replies
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Links.Versions">
+            <summary>
+            Versions
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Links.Attachment">
+            <summary>
+            Attachment
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Links.FeaturedMedia">
             <summary>
             Featured media
             </summary>
@@ -1735,6 +1738,18 @@
             <summary>
             Info about Media Size
             <see cref="P:WordPressPCL.Models.MediaDetails.Sizes"/>
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.MediaSize.File">
+            <summary>
+            File
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.MediaSize.Width">
+            <summary>
+            Media Width
+            </summary>
+        </       <see cref="P:WordPressPCL.Models.MediaDetails.Sizes"/>
             </summary>
         </member>
         <member name="P:WordPressPCL.Models.MediaSize.File">
@@ -2634,18 +2649,6 @@
             </summary>
         </member>
         <member name="T:WordPressPCL.Models.Reply">
-            <summ        </member>
-        <member name="T:WordPressPCL.Models.Author">
-            <summary>
-            Author link
-            </summary>
-        </member>
-        <member name="P:WordPressPCL.Models.Author.Embeddable">
-            <summary>
-            Have embedded info
-            </summary>
-        </member>
-        <member name="T:WordPressPCL.Models.Reply">
             <summary>
             Link to reply
             </summary>
@@ -3182,6 +3185,12 @@
             Executed before trying to convert json content to a TClass object.
             </summary>
         </member>
+        <member name="P:WordPressPCL.Utility.HttpHelper.JsonSerializerSettings">
+            <summary>
+            Serialization/Deserialization settings for Json.NET library
+            https://www.newtonsoft.com/json/help/html/SerializationSettings.htm
+            </summary>
+        </member>
         <member name="M:WordPressPCL.Utility.HttpHelper.#ctor(System.String)">
             <summary>
             Constructor
@@ -3367,16 +3376,7 @@
         <member name="P:WordPressPCL.Utility.PagesQueryBuilder.OrderBy">
             <summary>
             Sort collection by object attribute.
-            </summary>
-            <remarks>Default: date
-            One of: date, relevance, id, include, title, slug, menu_order</remarks>
-        </member>
-        <member name="P:WordPressPCL.Utility.PagesQueryBuilder.Parents">
-            <summary>
-            Limit result set to those of particular parent ids.
-            </summary>
-        </member>
-        <member name="P:WordPressPCL.Utility.PagesQueryBuilder.ParentsExclude">
+            </summagesQueryBuilder.ParentsExclude">
             <summary>
             Limit result set to all items except those of a particular parent id.
             </summary>
@@ -3629,6 +3629,13 @@
             inlcuding the depth of a comment
             </summary>
         </member>
+        <member name="M:WordPressPCL.Utility.ThreadedCommentsHelper.ToThreaded(System.Collections.Generic.IEnumerable{WordPressPCL.Models.Comment})">
+            <summary>
+            Extension method: Get Threaded comments from ordinary comments
+            </summary>
+            <param name="comments">Comments which will be threaded</param>
+            <returns>List of threaded comments</returns>
+        </member>
         <member name="T:WordPressPCL.Utility.UsersQueryBuilder">
             <summary>
             Users Query Builder class to construct queries with valid parameters
@@ -3697,6 +3704,12 @@
             <summary>
             Function called when a HttpRequest response to WordPress APIs are readed
             Executed before trying to convert json content to a TClass object.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.WordPressClient.JsonSerializerSettings">
+            <summary>
+            Serialization/Deserialization settings for Json.NET library
+            https://www.newtonsoft.com/json/help/html/SerializationSettings.htm
             </summary>
         </member>
         <member name="P:WordPressPCL.WordPressClient.AuthMethod">
@@ -3797,6 +3810,20 @@
             <returns>Result of checking</returns>
         </member>
         <member name="M:WordPressPCL.WordPressClient.SetJWToken(System.String)">
+            <summary>
+            Sets an exisitng JWToken
+            </summary>
+            <param name="token"></param>
+        </member>
+        <member name="M:WordPressPCL.WordPressClient.GetToken">
+            <summary>
+            Gets the JWToken from the client
+            </summary>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
+ystem.String)">
             <summary>
             Sets an exisitng JWToken
             </summary>

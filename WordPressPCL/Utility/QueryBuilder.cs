@@ -71,8 +71,7 @@ namespace WordPressPCL.Utility
         private object GetPropertyValue(object property)
         {
             //secion for propertyInfo object
-            PropertyInfo pi = property as PropertyInfo;
-            if (pi != null)
+            if (property is PropertyInfo pi)
             {
                 if (pi.PropertyType.GetTypeInfo().IsEnum)
                 {
