@@ -1153,6 +1153,17 @@
             Sort terms collection by object attribute.
             </summary>
             <remarks>Default: name</remarks>
+        </mem        </member>
+        <member name="F:WordPressPCL.Models.UsersOrderBy.Url">
+            <summary>
+            Order By url
+            </summary>
+        </member>
+        <member name="T:WordPressPCL.Models.TermsOrderBy">
+            <summary>
+            Sort terms collection by object attribute.
+            </summary>
+            <remarks>Default: name</remarks>
         </member>
         <member name="F:WordPressPCL.Models.TermsOrderBy.Name">
             <summary>
@@ -1520,21 +1531,7 @@
             </summary>
         </member>
         <member name="P:WordPressPCL.Models.Links.Replies">
-            <summary>
-            Replies
-            </summary>
-        </member>
-        <member name="P:WordPressPCL.Models.Links.Versions">
-            <summary>
-            Versions
-            </summary>
-        </member>
-        <member name="P:WordPressPCL.Models.Links.Attachment">
-            <summary>
-            Attachment
-            </summary>
-        </member>
-        <member name="P:WordPressPCL.Models.Links.FeaturedMedia">
+          name="P:WordPressPCL.Models.Links.FeaturedMedia">
             <summary>
             Featured media
             </summary>
@@ -2637,6 +2634,18 @@
             </summary>
         </member>
         <member name="T:WordPressPCL.Models.Reply">
+            <summ        </member>
+        <member name="T:WordPressPCL.Models.Author">
+            <summary>
+            Author link
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Author.Embeddable">
+            <summary>
+            Have embedded info
+            </summary>
+        </member>
+        <member name="T:WordPressPCL.Models.Reply">
             <summary>
             Link to reply
             </summary>
@@ -3686,7 +3695,7 @@
         </member>
         <member name="P:WordPressPCL.WordPressClient.HttpResponsePreProcessing">
             <summary>
-            Function called when a HttpRequest response to WordPress APIs are readed 
+            Function called when a HttpRequest response to WordPress APIs are readed
             Executed before trying to convert json content to a TClass object.
             </summary>
         </member>
