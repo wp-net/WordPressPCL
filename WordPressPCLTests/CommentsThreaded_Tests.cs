@@ -11,17 +11,17 @@ namespace WordPressPCLTests
     [TestClass]
     public class CommentsThreaded_Tests
     {
-        private int postid;
-        private int comment0id;
-        private int comment00id;
-        private int comment1id;
-        private int comment2id;
-        private int comment3id;
-        private int comment4id;
-        private WordPressClient client;
+        private static int postid;
+        private static int comment0id;
+        private static int comment00id;
+        private static int comment1id;
+        private static int comment2id;
+        private static int comment3id;
+        private static int comment4id;
+        private static WordPressClient client;
 
         [ClassInitialize]
-        public async Task CommentsThreaded_SetupAsync()
+        public static async Task CommentsThreaded_SetupAsync(TestContext context)
         {
             client = await ClientHelper.GetAuthenticatedWordPressClient();
             var IsValidToken = await client.IsValidJWToken();
@@ -171,7 +171,7 @@ namespace WordPressPCLTests
         }
 
         [ClassCleanup]
-        public async void CommentsThreaded_Cleanup()
+        public static async Task CommentsThreaded_Cleanup()
         {
             await client.Posts.Delete(postid);
         }

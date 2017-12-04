@@ -15,11 +15,13 @@
     <RepositoryType>GitHub</RepositoryType>
     <AssemblyVersion>1.3.0.0</AssemblyVersion>
     <FileVersion>1.3.0.0</FileVersion>
-    <Version>1.3.0-alpha</Version>
+    <Version>1.3.0</Version>
     <PackageLicenseUrl>https://github.com/wp-net/WordPressPCL/blob/master/LICENSE</PackageLicenseUrl>
-    <PackageReleaseNotes>V1.3.0-alpha
+    <PackageReleaseNotes>V1.3.0
+- added ToThreaded-method for transforming comments
+- pass deserialization settings into HttpHelper class
 - Added .netstandard 2.0 support
-
+- upload media directly from file path (.netstandard 2.0 only)
 V1.2.1
 - added JWT getter &amp; setter methods
 V1.2
