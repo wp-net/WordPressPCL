@@ -36,6 +36,17 @@ namespace WordPressPCLTests
             
             var mediaitem = await client.Media.Create(path, "cat.jpg");
             Assert.IsNotNull(mediaitem);
+
+            // Create a new post with media item as featured image
+            var post = new Post()
+            {
+                Title = new Title("Post with Featured Image"),
+                Content = new Content("Content PostCreate"),
+                FeaturedMedia = mediaitem.Id
+            };
+            var createdPost = await client.Posts.Create(post);
+
+            Assert.AreEqual(createdPost.FeaturedMedia, mediaitem.Id);
         }
 
         [TestMethod]
