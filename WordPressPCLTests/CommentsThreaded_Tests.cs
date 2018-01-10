@@ -125,6 +125,34 @@ namespace WordPressPCLTests
         }
 
         [TestMethod]
+        public async Task CommentsThreaded_MaxDepth()
+        {
+            var allComments = await client.Comments.GetAllCommentsForPost(postid);
+
+            var threaded = ThreadedCommentsHelper.GetThreadedComments(allComments, 1);
+            Debug.WriteLine($"threaded count: {threaded.Count}");
+            Assert.IsNotNull(threaded);
+            var ct0 = threaded.Find(x => x.Id == comment0id);
+            Assert.AreEqual(ct0.Depth, 0);
+            Debug.WriteLine(threaded.IndexOf(ct0));
+            var ct1 = threaded.Find(x => x.Id == comment1id);
+            Assert.AreEqual(ct1.Depth, 1);
+            Debug.WriteLine(threaded.IndexOf(ct1));
+            var ct2 = threaded.Find(x => x.Id == comment2id);
+            Assert.AreEqual(ct2.Depth, 1);
+            Debug.WriteLine(threaded.IndexOf(ct2));
+            var ct3 = threaded.Find(x => x.Id == comment3id);
+            Assert.AreEqual(ct3.Depth, 1);
+            Debug.WriteLine(threaded.IndexOf(ct3));
+            var ct4 = threaded.Find(x => x.Id == comment4id);
+            Assert.AreEqual(ct4.Depth, 1);
+            Debug.WriteLine(threaded.IndexOf(ct4));
+
+            var ct00 = threaded.Find(x => x.Id == comment00id);
+            Assert.AreEqual(ct00.Depth, 0);
+        }
+
+        [TestMethod]
         public async Task CommentsThreaded_Sort_Extension()
         {
             var allComments = await client.Comments.GetAllCommentsForPost(postid);

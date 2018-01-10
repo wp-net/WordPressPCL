@@ -3628,7 +3628,7 @@
             Helper class to creat threaded comment views
             </summary>
         </member>
-        <member name="M:WordPressPCL.Utility.ThreadedCommentsHelper.GetThreadedComments(System.Collections.Generic.IEnumerable{WordPressPCL.Models.Comment})">
+        <member name="M:WordPressPCL.Utility.ThreadedCommentsHelper.GetThreadedComments(System.Collections.Generic.IEnumerable{WordPressPCL.Models.Comment},System.Int32)">
             <summary>
             This method returns the comments sorted for a threaded view (oldest first)
             inlcuding the depth of a comment
