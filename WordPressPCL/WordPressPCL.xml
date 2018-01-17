@@ -212,14 +212,6 @@
             <param name="filename">Name of file in WP Media Library</param>
             <returns>Created media object</returns>
         </member>
-        <member name="M:WordPressPCL.Client.Media.Create(System.String,System.String)">
-            <summary>
-            Create Media entity with attachment
-            </summary>
-            <param name="filePath">Local Path to file</param>
-            <param name="filename">Name of file in WP Media Library</param>
-            <returns>Created media object</returns>
-        </member>
         <member name="M:WordPressPCL.Client.Media.Delete(System.Int32)">
             <summary>
             Delete Entity
@@ -431,6 +423,13 @@
             Constructor
             </summary>
             <param name="httpHelper">reference to HttpHelper class for interaction with HTTP</param>
+            <param name="defaultPath">path to site, EX. http://demo.com/wp-json/ </param>
+        </member>
+        <member name="M:WordPressPCL.Client.PostStatuses.Get(System.Boolean,System.Boolean)">
+            <summary>
+            Get latest
+            </summary>
+            <param name="emb   <param name="httpHelper">reference to HttpHelper class for interaction with HTTP</param>
             <param name="defaultPath">path to site, EX. http://demo.com/wp-json/ </param>
         </member>
         <member name="M:WordPressPCL.Client.PostStatuses.Get(System.Boolean,System.Boolean)">
@@ -1042,6 +1041,11 @@
         <member name="F:WordPressPCL.Models.CommentStatus.Spam">
             <summary>
             Comment is spam
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.CommentStatus.Trash">
+            <summary>
+            Comment is is trash
             </summary>
         </member>
         <member name="T:WordPressPCL.Models.MediaQueryStatus">

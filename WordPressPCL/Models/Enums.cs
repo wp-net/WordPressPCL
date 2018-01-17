@@ -75,7 +75,7 @@ namespace WordPressPCL.Models
         /// <summary>
         /// Comment is pending to approve
         /// </summary>
-        [EnumMember(Value = "pending")]
+        [EnumMember(Value = "hold")]
         Pending,
 
         /// <summary>
@@ -83,6 +83,12 @@ namespace WordPressPCL.Models
         /// </summary>
         [EnumMember(Value = "spam")]
         Spam,
+
+        /// <summary>
+        /// Comment is is trash
+        /// </summary>
+        [EnumMember(Value = "trash")]
+        Trash,
     }
 
     /// <summary>
