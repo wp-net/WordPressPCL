@@ -27,7 +27,7 @@ namespace WordPressPCL.Client
         }
 
         /// <summary>
-        /// Get latest
+        /// Get latest Post Statuses
         /// </summary>
         /// <param name="embed">include embed info</param>
         /// <param name="useAuth">Send request with authenication header</param>

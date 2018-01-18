@@ -427,14 +427,7 @@
         </member>
         <member name="M:WordPressPCL.Client.PostStatuses.Get(System.Boolean,System.Boolean)">
             <summary>
-            Get latest
-            </summary>
-            <param name="emb   <param name="httpHelper">reference to HttpHelper class for interaction with HTTP</param>
-            <param name="defaultPath">path to site, EX. http://demo.com/wp-json/ </param>
-        </member>
-        <member name="M:WordPressPCL.Client.PostStatuses.Get(System.Boolean,System.Boolean)">
-            <summary>
-            Get latest
+            Get latest Post Statuses
             </summary>
             <param name="embed">include embed info</param>
             <param name="useAuth">Send request with authenication header</param>
@@ -1045,7 +1038,7 @@
         </member>
         <member name="F:WordPressPCL.Models.CommentStatus.Trash">
             <summary>
-            Comment is is trash
+            Comment is in trash
             </summary>
         </member>
         <member name="T:WordPressPCL.Models.MediaQueryStatus">
@@ -1874,6 +1867,16 @@
         </member>
         <member name="P:WordPressPCL.Models.Page.Author">
             <summary>
+            The id for the a  <remarks>Context: view, edit</remarks>
+        </member>
+        <member name="P:WordPressPCL.Models.Page.Excerpt">
+            <summary>
+            The excerpt for the object.
+            </summary>
+            <remarks>Context: view, edit, embed</remarks>
+        </member>
+        <member name="P:WordPressPCL.Models.Page.Author">
+            <summary>
             The id for the author of the object.
             </summary>
             <remarks>Context: view, edit, embed</remarks>
@@ -2417,19 +2420,7 @@
             Convert emoticons like :-) and :-P to graphics on display.
             </summary>
         </member>
-        <member name="P:WordPressPCL.Models.Settings.DefaultCategory">
-            <summary>
-            Default category.
-            </summary>
-        </member>
-        <member name="P:WordPressPCL.Models.Settings.DefaultPostFormat">
-            <summary>
-            Default post format.
-            </summary>
-        </member>
-        <member name="P:WordPressPCL.Models.Settings.PostsPerPage">
-            <summary>
-            Blog pages show at most.
+        <member name="P:WordPressPCL.Models.Settings.Defages show at most.
             </summary>
         </member>
         <member name="P:WordPressPCL.Models.Settings.DefaultPingStatus">
@@ -3661,6 +3652,17 @@
             Maximum number of items to be returned in result set.
             </summary>
             <remarks>Default: 10</remarks>
+        </member>
+        <member name="P:WordPressPCL.Utility.UsersQueryBuilder.Search">
+            <summary>
+            Limit results to those matching a string.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.UsersQueryBuilder.Exclude">
+            <summary>
+            Ensure result set excludes specific IDs.
+            </summary>
+       
         </member>
         <member name="P:WordPressPCL.Utility.UsersQueryBuilder.Search">
             <summary>

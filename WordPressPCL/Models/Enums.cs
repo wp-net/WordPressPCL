@@ -85,7 +85,7 @@ namespace WordPressPCL.Models
         Spam,
 
         /// <summary>
-        /// Comment is is trash
+        /// Comment is in trash
         /// </summary>
         [EnumMember(Value = "trash")]
         Trash,

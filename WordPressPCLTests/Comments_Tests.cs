@@ -149,6 +149,24 @@ namespace WordPressPCLTests
         }
 
         [TestMethod]
+        public async Task Comments_Query_Pending()
+        {
+            var client = await ClientHelper.GetAuthenticatedWordPressClient();
+            var queryBuilder = new CommentsQueryBuilder()
+            {
+                Page = 1,
+                PerPage = 15,
+                OrderBy = CommentsOrderBy.Id,
+                Order = Order.DESC,
+                Statuses=new CommentStatus[] {CommentStatus.Pending}
+            };
+            var queryresult = await client.Comments.Query(queryBuilder);
+            Assert.AreEqual(queryBuilder.BuildQueryURL(), "?page=1&per_page=15&orderby=id&order=desc&status=hold");
+            Assert.IsNotNull(queryresult);
+            Assert.AreNotSame(queryresult.Count(), 0);
+        }
+
+        [TestMethod]
         public async Task Comments_GetAllForPost()
         {
             var client = await ClientHelper.GetAuthenticatedWordPressClient();
