@@ -70,7 +70,7 @@ namespace WordPressPCL.Models
         /// Comment Approved
         /// </summary>
         [EnumMember(Value = "approved")]
-        Approve,
+        Approved,
 
         /// <summary>
         /// Comment is pending to approve
