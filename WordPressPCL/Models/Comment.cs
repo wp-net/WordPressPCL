@@ -99,18 +99,21 @@ namespace WordPressPCL.Models
         /// URL to the object.
         /// </summary>
         /// <remarks>Context: view, edit, embed</remarks>
+        [JsonProperty("link")]
         public string Link { get; set; }
 
         /// <summary>
         /// State of the object.
         /// </summary>
         /// <remarks>Context: view, edit</remarks>
+        [JsonProperty("status")]
 		public CommentStatus Status { get; set; }
 
         /// <summary>
         /// Type of Comment for the object.
         /// </summary>
         /// <remarks>Context: view, edit, embed</remarks>
+        [JsonProperty("type")]
 		public string Type { get; set; }
 
         /// <summary>
@@ -124,6 +127,7 @@ namespace WordPressPCL.Models
         /// Karma for the object.
         /// </summary>
         /// <remarks>Context: edit</remarks>
+        [JsonProperty("karma")]
         public int Karma { get; set; }
 
         /// <summary>
