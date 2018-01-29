@@ -151,6 +151,7 @@ namespace WordPressPCLTests
         [TestMethod]
         public async Task Comments_Query_Pending()
         {
+            // this test needs a pending comment added manually for now.
             var client = await ClientHelper.GetAuthenticatedWordPressClient();
             var queryBuilder = new CommentsQueryBuilder()
             {
@@ -160,10 +161,11 @@ namespace WordPressPCLTests
                 Order = Order.DESC,
                 Statuses=new CommentStatus[] {CommentStatus.Pending}
             };
-            var queryresult = await client.Comments.Query(queryBuilder);
-            Assert.AreEqual(queryBuilder.BuildQueryURL(), "?page=1&per_page=15&orderby=id&order=desc&status=hold");
+            var queryresult = await client.Comments.Query(queryBuilder, true);
+            var querystring = "?page=1&per_page=15&orderby=id&status=hold&order=desc";
+            Assert.AreEqual(queryBuilder.BuildQueryURL(), querystring);
             Assert.IsNotNull(queryresult);
-            Assert.AreNotSame(queryresult.Count(), 0);
+            Assert.AreNotEqual(queryresult.Count(), 0);
         }
 
         [TestMethod]
