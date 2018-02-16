@@ -426,18 +426,18 @@ namespace WordPressPCL.Models
     /// Order By direction
     /// </summary>
     public enum Order
-    {
-        /// <summary>
-        /// Ascending direction
-        /// </summary>
-        [EnumMember(Value = "asc")]
-        ASC,
-
+    {        
         /// <summary>
         /// Descending direction
         /// </summary>
         [EnumMember(Value = "desc")]
-        DESC
+        DESC,
+
+        /// <summary>
+        /// Ascending direction
+        /// </summary>
+        [EnumMember(Value = "asc")]
+        ASC
     }
 
     /// <summary>
