@@ -5,18 +5,26 @@ using System.Threading.Tasks;
 using WordPressPCL;
 using WordPressPCL.Models;
 using WordPressPCL.Utility;
-using WordPressPCLTests.Utility;
+using WordPressPCL.Tests.Selfhosted.Utility;
 
-namespace WordPressPCLTests
+namespace WordPressPCL.Tests.Selfhosted
 {
     [TestClass]
     public class User_Tests
     {
+        private static WordPressClient _client;
+        private static WordPressClient _clientAuth;
+
+        [ClassInitialize]
+        public static async Task Init(TestContext testContext)
+        {
+            _client = ClientHelper.GetWordPressClient();
+            _clientAuth = await ClientHelper.GetAuthenticatedWordPressClient();
+        }
+
         [TestMethod]
         public async Task Users_Create()
         {
-            var client = await ClientHelper.GetAuthenticatedWordPressClient();
-
             var random = new Random();
             var r = random.Next(0, 1000);
             var username = $"Testuser{r}";
@@ -27,7 +35,7 @@ namespace WordPressPCLTests
             var password = $"testpassword{r}";
             var name = $"{firstname} {lastname}";
 
-            var user = await client.Users.Create(new User(username, email, password)
+            var user = await _clientAuth.Users.Create(new User(username, email, password)
             {
                 NickName = nickname,
                 Name = name,
@@ -46,11 +54,10 @@ namespace WordPressPCLTests
         [TestMethod]
         public async Task Users_Read()
         {
-            var client = new WordPressClient(ApiCredentials.WordPressUri);
-            var users = await client.Users.GetAll();
+            var users = await _client.Users.GetAll();
             Assert.IsNotNull(users);
             Assert.IsTrue(users.Count() >= 1);
-            var user = await client.Users.GetByID(users.First().Id);
+            var user = await _client.Users.GetByID(users.First().Id);
             Assert.IsNotNull(user);
             Assert.AreEqual(user.Id, users.First().Id);
         }
@@ -58,11 +65,10 @@ namespace WordPressPCLTests
         [TestMethod]
         public async Task Users_Get()
         {
-            var client = new WordPressClient(ApiCredentials.WordPressUri);
-            var users = await client.Users.Get();
+            var users = await _client.Users.Get();
             Assert.IsNotNull(users);
             Assert.IsTrue(users.Count() >= 1);
-            var user = await client.Users.GetByID(users.First().Id);
+            var user = await _client.Users.GetByID(users.First().Id);
             Assert.IsNotNull(user);
             Assert.AreEqual(user.Id, users.First().Id);
         }
@@ -70,8 +76,7 @@ namespace WordPressPCLTests
         [TestMethod]
         public async Task Users_Update()
         {
-            var client = await ClientHelper.GetAuthenticatedWordPressClient();
-            var user = await CreateRandomUser(client);
+            var user = await CreateRandomUser();
             Assert.IsNotNull(user);
 
             var random = new Random();
@@ -82,7 +87,7 @@ namespace WordPressPCLTests
             user.FirstName = name;
             user.LastName = name;
 
-            var updatedUser = await client.Users.Update(user);
+            var updatedUser = await _clientAuth.Users.Update(user);
             Assert.IsNotNull(updatedUser);
             Assert.AreEqual(updatedUser.Name, name);
             Assert.AreEqual(updatedUser.NickName, name);
@@ -93,32 +98,28 @@ namespace WordPressPCLTests
         [TestMethod]
         public async Task Users_Delete()
         {
-            var client = await ClientHelper.GetAuthenticatedWordPressClient();
-
             var random = new Random();
             var r = random.Next(0, 1000);
             var username = $"Testuser{r}";
             var email = $"testuser{r}@test.com";
             var password = $"testpassword{r}";
 
-            var user = await client.Users.Create(new User(username, email, password));
+            var user = await _clientAuth.Users.Create(new User(username, email, password));
             Assert.IsNotNull(user);
-            var me = await client.Users.GetCurrentUser();
-            var response = await client.Users.Delete(user.Id, me.Id);
+            var me = await _clientAuth.Users.GetCurrentUser();
+            var response = await _clientAuth.Users.Delete(user.Id, me.Id);
             Assert.IsTrue(response.IsSuccessStatusCode);
         }
 
         [TestMethod]
         public async Task Users_Delete_And_Reassign_Posts()
         {
-            var client = await ClientHelper.GetAuthenticatedWordPressClient();
-
             var random = new Random();
 
             // Create new user
-            var user1 = await CreateRandomUser(client);
+            var user1 = await CreateRandomUser();
             Assert.IsNotNull(user1);
-            var user2 = await CreateRandomUser(client);
+            var user2 = await CreateRandomUser();
             Assert.IsNotNull(user2);
 
             // Create post for user
@@ -128,16 +129,16 @@ namespace WordPressPCLTests
                 Content = new Content("Content PostCreate"),
                 Author = user1.Id
             };
-            var postCreated = await client.Posts.Create(post);
+            var postCreated = await _clientAuth.Posts.Create(post);
             Assert.IsNotNull(post);
             Assert.AreEqual(postCreated.Author, user1.Id);
 
             // Delete User1 and reassign posts to user2
-            var response = await client.Users.Delete(user1.Id, user2.Id);
+            var response = await _clientAuth.Users.Delete(user1.Id, user2.Id);
             Assert.IsTrue(response.IsSuccessStatusCode);
 
             // Get posts for user 2 and check if ID of postCreated is in there
-            var postsOfUser2 = await client.Posts.GetPostsByAuthor(user2.Id);
+            var postsOfUser2 = await _clientAuth.Posts.GetPostsByAuthor(user2.Id);
             var postsById = postsOfUser2.Where(x => x.Id == postCreated.Id).ToList();
             Assert.AreEqual(postsById.Count, 1);
         }
@@ -161,14 +162,14 @@ namespace WordPressPCLTests
 
         #region Utils
 
-        private Task<User> CreateRandomUser(WordPressClient client)
+        private Task<User> CreateRandomUser()
         {
             var random = new Random();
             var r = random.Next(0, 1000);
             var username = $"Testuser{r}";
             var email = $"testuser{r}@test.com";
             var password = $"testpassword{r}";
-            return client.Users.Create(new User(username, email, password));
+            return _clientAuth.Users.Create(new User(username, email, password));
         }
 
         #endregion Utils
