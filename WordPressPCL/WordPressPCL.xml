@@ -1029,7 +1029,7 @@
             Status of Comments
             </summary>
         </member>
-        <member name="F:WordPressPCL.Models.CommentStatus.Approve">
+        <member name="F:WordPressPCL.Models.CommentStatus.Approved">
             <summary>
             Comment Approved
             </summary>
@@ -3182,7 +3182,7 @@
         </member>
         <member name="P:WordPressPCL.Utility.HttpHelper.HttpResponsePreProcessing">
             <summary>
-            Function called when a HttpRequest response is readed 
+            Function called when a HttpRequest response is readed
             Executed before trying to convert json content to a TClass object.
             </summary>
         </member>
