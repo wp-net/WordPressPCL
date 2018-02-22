@@ -39,6 +39,7 @@ namespace WordPressPCL.Utility
         {
             _WordpressURI = WordpressURI;
         }
+
         internal async Task<TClass> GetRequest<TClass>(string route, bool embed, bool isAuthRequired = false)
             where TClass : class
         {
@@ -73,15 +74,28 @@ namespace WordPressPCL.Utility
                     }
                     else
                     {
-                        Debug.WriteLine(responseString);
+                        //it's a crude version , I'm not sure whether in some cases more informations would be provided
+                        var anony = new { code=string.Empty,message=string.Empty,data=new { status=0 } };
+                        var responseJson = JsonConvert.DeserializeAnonymousType(responseString, anony);
+                        throw new WPException(responseJson.message
+                                , responseJson.code
+                                , responseJson.data.status);
                     }
+                }
+                catch (WPException we)
+                {
+                    //just throw , let invoker handle it
+                    throw we;
                 }
                 catch (Exception ex)
                 {
+                    //take a log
+                    //other exceptions occured,throw it,and developers can handle or ignore it.
+                    //can be more detailed in the future (like sock error,json error,etc)
                     Debug.WriteLine("exception thrown: " + ex.Message);
+                    throw new Exception("Unhandled error", ex);
                 }
             }
-            return default(TClass);
         }
 
         internal async Task<(TClass, HttpResponseMessage)> PostRequest<TClass>(string route, HttpContent postBody, bool isAuthRequired = true)
