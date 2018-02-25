@@ -221,10 +221,9 @@ namespace WordPressPCL.Models
 
         /// <summary>
         /// Custom Fields. You have to add action to functions.php 
-        /// <see cref="http://www.cihantopcu.com/wordpress-json-rest-api-add-custom-fields.html"/>
         /// </summary>
         [JsonProperty("custom_fields", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public IDictionary<string,string> CustomFields { get; set; }
+        public IDictionary<string,string[]> CustomFields { get; set; }
 
         /// <summary>
         /// Parameterless constructor

@@ -243,6 +243,15 @@
             <param name="useAuth">Send request with authenication header</param>
             <returns>List of all result</returns>
         </member>
+        <member name="M:WordPressPCL.Client.Media.GetAllByPostID(System.Int32,System.Boolean,System.Boolean)">
+            <summary>
+            Get All by Post ID
+            </summary>
+            <param name="ID">ID</param>
+            <param name="embed">Include embed info</param>
+            <param name="useAuth">Send request with authenication header</param>
+            <returns>List of all result</returns>
+        </member>
         <member name="M:WordPressPCL.Client.Media.GetByID(System.Object,System.Boolean,System.Boolean)">
             <summary>
             Get Entity by Id
@@ -1029,7 +1038,7 @@
             Status of Comments
             </summary>
         </member>
-        <member name="F:WordPressPCL.Models.CommentStatus.Approve">
+        <member name="F:WordPressPCL.Models.CommentStatus.Approved">
             <summary>
             Comment Approved
             </summary>
@@ -2129,6 +2138,11 @@
         <member name="P:WordPressPCL.Models.Post.Embedded">
             <summary>
             Embedded information like featured images
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Post.CustomFields">
+            <summary>
+            Custom Fields. You have to add action to functions.php 
             </summary>
         </member>
         <member name="M:WordPressPCL.Models.Post.#ctor">

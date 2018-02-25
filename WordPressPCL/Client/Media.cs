@@ -117,6 +117,18 @@ namespace WordPressPCL.Client
         }
 
         /// <summary>
+        /// Get All by Post ID
+        /// </summary>
+        /// <param name="ID">ID</param>
+        /// <param name="embed">Include embed info</param>
+        /// <param name="useAuth">Send request with authenication header</param>
+        /// <returns>List of all result</returns>
+        public async Task<IEnumerable<MediaItem>> GetAllByPostID(int ID, bool embed = false, bool useAuth = false)
+        {
+            return (await _httpHelper.GetRequest<IEnumerable<MediaItem>>($"{_defaultPath}{_methodPath}?parent={ID}", embed, useAuth).ConfigureAwait(false))?.ToList<MediaItem>();
+        }
+
+        /// <summary>
         /// Get Entity by Id
         /// </summary>
         /// <param name="ID">ID</param>
