@@ -1,20 +1,28 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
 using System.Threading.Tasks;
+using WordPressPCL;
 using WordPressPCL.Models;
-using WordPressPCLTests.Utility;
+using WordPressPCL.Tests.Selfhosted.Utility;
 
-namespace WordPressPCLTests
+namespace WordPressPCL.Tests.Selfhosted
 {
     [TestClass]
     public class PostRevisions_Tests
     {
+        private static WordPressClient _clientAuth;
+
+        [ClassInitialize]
+        public static async Task Init(TestContext testContext)
+        {
+            _clientAuth = await ClientHelper.GetAuthenticatedWordPressClient();
+        }
+
         [TestMethod]
         public async Task PostRevisions_Read()
         {
-            var client = await ClientHelper.GetAuthenticatedWordPressClient();
             var id = await CreatePostWithRevision();
-            var revisionsclient = client.Posts.Revisions(id);
+            var revisionsclient = _clientAuth.Posts.Revisions(id);
             var revisions = await revisionsclient.GetAll();
             Assert.AreNotEqual(revisions.Count(), 0);
         }
@@ -22,9 +30,8 @@ namespace WordPressPCLTests
         [TestMethod]
         public async Task PostRevisions_Get()
         {
-            var client = await ClientHelper.GetAuthenticatedWordPressClient();
             var id = await CreatePostWithRevision();
-            var revisionsclient = client.Posts.Revisions(id);
+            var revisionsclient = _clientAuth.Posts.Revisions(id);
             var revisions = await revisionsclient.Get();
             Assert.AreNotEqual(revisions.Count(), 0);
         }
@@ -32,10 +39,9 @@ namespace WordPressPCLTests
         [TestMethod]
         public async Task PostRevisions_Delete()
         {
-            var client = await ClientHelper.GetAuthenticatedWordPressClient();
             var id = await CreatePostWithRevision();
 
-            var revisionsclient = client.Posts.Revisions(id);
+            var revisionsclient = _clientAuth.Posts.Revisions(id);
             var revisions = await revisionsclient.GetAll();
             Assert.AreNotEqual(revisions.Count(), 0);
             var res = await revisionsclient.Delete(revisions.First().Id);
@@ -44,16 +50,14 @@ namespace WordPressPCLTests
 
         private async Task<int> CreatePostWithRevision()
         {
-            var client = await ClientHelper.GetAuthenticatedWordPressClient();
-
             var post = new Post()
             {
                 Title = new Title("Title 1"),
                 Content = new Content("Content PostCreate"),
             };
-            var createdPost = await client.Posts.Create(post);
+            var createdPost = await _clientAuth.Posts.Create(post);
             createdPost.Content.Raw = "Updated Content";
-            var updatedPost = await client.Posts.Update(createdPost);
+            var updatedPost = await _clientAuth.Posts.Update(createdPost);
             return updatedPost.Id;
         }
     }

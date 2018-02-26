@@ -1,11 +1,11 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using WordPressPCLTests.Utility;
+using WordPressPCL.Tests.Selfhosted.Utility;
 using WordPressPCL;
 using System.Threading.Tasks;
 using WordPressPCL.Utility;
 using System.Linq;
 
-namespace WordPressPCLTests
+namespace WordPressPCL.Tests.Selfhosted
 {
     [TestClass]
     public class ListPosts_QueryBuilder_Tests
@@ -15,17 +15,22 @@ namespace WordPressPCLTests
         private const int AUTHOR_ID = 3;
         private const string SEARCH_TERM = "Artikel";
 
+        private static WordPressClient _client;
+
+        [ClassInitialize]
+        public static async Task Init(TestContext testContext)
+        {
+            _client = ClientHelper.GetWordPressClient();
+        }
+
         [TestMethod]
         public async Task List_Posts_QueryBuilder_Test_Pagination()
         {
-            // Initialize
-            var client = new WordPressClient(ApiCredentials.WordPressUri);
-            Assert.IsNotNull(client);
             // Posts
-            var postsA = await client.Posts.Query(new PostsQueryBuilder() {
+            var postsA = await _client.Posts.Query(new PostsQueryBuilder() {
                 Page = 1
             });
-            var postsB = await client.Posts.Query(new PostsQueryBuilder() {
+            var postsB = await _client.Posts.Query(new PostsQueryBuilder() {
                 Page = 2
             });
             Assert.IsNotNull(postsA);
@@ -34,17 +39,13 @@ namespace WordPressPCLTests
             Assert.AreNotEqual(postsB.Count(), 0);
             CollectionAssert.AreNotEqual(postsA.Select(post => post.Id).ToList(), postsB.Select(post => post.Id).ToList());
         }
-        
 
         [TestMethod]
         [Description("Test that the ListPosts method with the QueryBuilder set to list posts published After a specific date works.")]
         public async Task List_Posts_QueryBuilder_After()
         {
-            // Initialize
-            var client = new WordPressClient(ApiCredentials.WordPressUri);
-            Assert.IsNotNull(client);
             // Posts
-            var posts = await client.Posts.Query(new PostsQueryBuilder { After = System.DateTime.Parse("2017-05-22T13:41:09") });
+            var posts = await _client.Posts.Query(new PostsQueryBuilder { After = System.DateTime.Parse("2017-05-22T13:41:09") });
             Assert.IsNotNull(posts);
         }
     }

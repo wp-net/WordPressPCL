@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace WordPressPCLTests.Utility
+namespace WordPressPCL.Tests.Selfhosted.Utility
 {
     public class ApiCredentialsSample
     {
