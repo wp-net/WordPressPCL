@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using WordPressPCL;
 using WordPressPCL.Models;
+using WordPressPCLTests.Utility;
 
 namespace WordPressPCL.Tests.Selfhosted.Utility
 {
