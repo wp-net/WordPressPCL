@@ -2,26 +2,34 @@
 using WordPressPCL;
 using WordPressPCL.Models;
 
-namespace WordPressPCLTests.Utility
+namespace WordPressPCL.Tests.Selfhosted.Utility
 {
-    public class ClientHelper
+    public static class ClientHelper
     {
+        private static WordPressClient _client;
+        private static WordPressClient _clientAuth;
+
         public static async Task<WordPressClient> GetAuthenticatedWordPressClient(AuthMethod method = AuthMethod.JWT)
         {
-            var client = new WordPressClient(ApiCredentials.WordPressUri)
+            if(_clientAuth == null)
             {
-                /*client.Username = ApiCredentials.Username;
-                client.Password = ApiCredentials.Password;*/
-                AuthMethod = AuthMethod.JWT
-            };
-            await client.RequestJWToken(ApiCredentials.Username,ApiCredentials.Password);
+                _clientAuth = new WordPressClient(ApiCredentials.WordPressUri)
+                {
+                    /*client.Username = ApiCredentials.Username;
+                    client.Password = ApiCredentials.Password;*/
+                    AuthMethod = AuthMethod.JWT
+                };
+                await _clientAuth.RequestJWToken(ApiCredentials.Username, ApiCredentials.Password);
+            }
 
-            return client;
+            return _clientAuth;
         }
 
         public static WordPressClient GetWordPressClient()
         {
-            return new WordPressClient(ApiCredentials.WordPressUri);
+            if(_client == null)
+                _client = new WordPressClient(ApiCredentials.WordPressUri);
+            return _client;
         }
     }
 }

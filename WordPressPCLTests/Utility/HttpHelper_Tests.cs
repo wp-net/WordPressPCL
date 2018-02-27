@@ -4,11 +4,21 @@ using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using WordPressPCL.Models;
 
-namespace WordPressPCLTests.Utility
+namespace WordPressPCL.Tests.Selfhosted.Utility
 {
     [TestClass]
     public class HttpHelper_Tests
     {
+        private static WordPressClient _client;
+        private static WordPressClient _clientAuth;
+
+        [ClassInitialize]
+        public static async Task Init(TestContext testContext)
+        {
+            _client = ClientHelper.GetWordPressClient();
+            _clientAuth = await ClientHelper.GetAuthenticatedWordPressClient();
+        }
+
         [TestMethod]
         public async Task HttpHelper_InvalidPreProcessing()
         {
@@ -48,9 +58,11 @@ namespace WordPressPCLTests.Utility
         [TestMethod]
         public async Task HttpHelper_ValidPreProcessing()
         {
-            var client = await ClientHelper.GetAuthenticatedWordPressClient();
+            var client = new WordPressClient(ApiCredentials.WordPressUri);
+            client.AuthMethod = AuthMethod.JWT;
+            await client.RequestJWToken(ApiCredentials.Username, ApiCredentials.Password);
 
-            // Create a random tag , must works:
+            // Create a random tag
             var random = new Random();
             var tagname = $"Test {random.Next(0, 1000)}";
             var tag = await client.Tags.Create(new Tag()
