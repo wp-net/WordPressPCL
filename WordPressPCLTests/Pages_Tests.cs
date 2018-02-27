@@ -2,40 +2,35 @@
 using System;
 using System.Threading.Tasks;
 using WordPressPCL.Models;
-using WordPressPCLTests.Utility;
+using WordPressPCL.Tests.Selfhosted.Utility;
 using System.Linq;
 using WordPressPCL;
 using WordPressPCL.Utility;
 
-namespace WordPressPCLTests
+namespace WordPressPCL.Tests.Selfhosted
 {
     [TestClass]
     public class Pages_Tests
     {
+        private static WordPressClient _client;
+        private static WordPressClient _clientAuth;
+
+        [ClassInitialize]
+        public static async Task Init(TestContext testContext)
+        {
+            _client = ClientHelper.GetWordPressClient();
+            _clientAuth = await ClientHelper.GetAuthenticatedWordPressClient();
+        }
+
         [TestMethod]
         public async Task Pages_Create()
         {
-            var client = await ClientHelper.GetAuthenticatedWordPressClient();
-            //var post = new Page()
-            //{
-            //    Title = new Title()
-            //    {
-            //        Raw = "New Title"
-            //    },
-            //    Content = new Content()
-            //    {
-            //        Raw = "Test Raw Content"
-            //    },
-            //    Date = DateTime.Now,
-            //    DateGmt = DateTime.UtcNow
-            //};
             var page = new Page()
             {
                 Title = new Title("Title 1"),
                 Content = new Content("Content PostCreate")
             };
-            var createdPage = await client.Pages.Create(page);
-
+            var createdPage = await _clientAuth.Pages.Create(page);
 
             Assert.AreEqual(page.Content.Raw, createdPage.Content.Raw);
             Assert.IsTrue(createdPage.Content.Rendered.Contains(page.Content.Rendered));
@@ -44,8 +39,7 @@ namespace WordPressPCLTests
         [TestMethod]
         public async Task Pages_Read()
         {
-            var client = await ClientHelper.GetAuthenticatedWordPressClient();
-            var pages = await client.Pages.Query(new PagesQueryBuilder());
+            var pages = await _client.Pages.Query(new PagesQueryBuilder());
             Assert.IsNotNull(pages);
             Assert.AreNotEqual(pages.Count(), 0);
         }
@@ -53,8 +47,7 @@ namespace WordPressPCLTests
         [TestMethod]
         public async Task Pages_Get()
         {
-            var client = await ClientHelper.GetAuthenticatedWordPressClient();
-            var pages = await client.Pages.Get();
+            var pages = await _client.Pages.Get();
             Assert.IsNotNull(pages);
             Assert.AreNotEqual(pages.Count(), 0);
         }
@@ -63,34 +56,36 @@ namespace WordPressPCLTests
         public async Task Pages_Update()
         {
             var testContent = "Test" + new Random().Next();
-            var client = await ClientHelper.GetAuthenticatedWordPressClient();
-            var pages = await client.Pages.GetAll();
+            var pages = await _client.Pages.GetAll();
             Assert.IsTrue(pages.Count() > 0);
+
+            var page = pages.FirstOrDefault();
+            page.Content.Raw = testContent;
+            var updatedPage = await _clientAuth.Pages.Update(page);
+            Assert.AreEqual(testContent, updatedPage.Content.Raw);
         }
 
 
         [TestMethod]
         public async Task Pages_Delete()
         {
-            var client = await ClientHelper.GetAuthenticatedWordPressClient();
             var page = new Page()
             {
                 Title = new Title("Title 1"),
                 Content = new Content("Content PostCreate")
             };
-            var createdPage = await client.Pages.Create(page);
+            var createdPage = await _clientAuth.Pages.Create(page);
             Assert.IsNotNull(createdPage);
 
-            var response = await client.Pages.Delete(createdPage.Id);
+            var response = await _clientAuth.Pages.Delete(createdPage.Id);
             Assert.IsTrue(response.IsSuccessStatusCode);
-            var pageById = await client.Pages.GetByID(createdPage.Id);
+            var pageById = await _client.Pages.GetByID(createdPage.Id);
             Assert.IsNull(pageById);
         }
 
         [TestMethod]
         public async Task Pages_Query()
         {
-            var client = await ClientHelper.GetAuthenticatedWordPressClient();
             var queryBuilder = new PagesQueryBuilder()
             {
                 Page = 1,
@@ -100,7 +95,7 @@ namespace WordPressPCLTests
                 Statuses = new Status[] { Status.Publish },
                 Embed=true
             };
-            var queryresult = await client.Pages.Query(queryBuilder);
+            var queryresult = await _client.Pages.Query(queryBuilder);
             Assert.AreEqual(queryBuilder.BuildQueryURL(), "?page=1&per_page=15&orderby=title&status=publish&order=desc&_embed=true");
             Assert.IsNotNull(queryresult);
             Assert.AreNotSame(queryresult.Count(), 0);

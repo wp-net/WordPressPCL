@@ -1,15 +1,8 @@
 using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using WordPressPCLTests.Utility;
-using WordPressPCL;
-using System.Threading.Tasks;
-using WordPressPCL.Models;
 using WordPressPCL.Utility;
-using System.Net;
-using System.Linq;
-using Newtonsoft.Json;
 
-namespace WordPressPCLTests
+namespace WordPressPCL.Tests.Selfhosted
 {
     [TestClass]
     public class QueryBuilder_Tests
