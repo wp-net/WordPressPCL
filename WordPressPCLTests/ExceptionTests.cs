@@ -39,16 +39,33 @@ namespace WordPressPCL.Tests.Selfhosted
         public async Task Exception_PostCreateExceptionTest()
         {
             // Initialize
-            Assert.IsNotNull(_client);
+            Assert.IsNotNull(_clientAuth);
             // Create empty post
             try
             {
-                var post = await _client.Posts.Create(new Post());
+                var post = await _clientAuth.Posts.Create(new Post());
             }
             catch (WPException wpex)
             {
                 Assert.IsNotNull(wpex.RequestData);
-                Assert.AreEqual(wpex.RequestData.Name, "jwt_auth_bad_auth_header");
+                Assert.AreEqual(wpex.RequestData.Name, "empty_content");
+            }
+        }
+
+        [TestMethod]
+        public async Task Exception_DeleteExceptionTest()
+        {
+            // Initialize
+            Assert.IsNotNull(_clientAuth);
+            // Delete nonexisted post
+            try
+            {
+                var result = await _clientAuth.Posts.Delete(int.MaxValue);
+            }
+            catch (WPException wpex)
+            {
+                Assert.IsNotNull(wpex.RequestData);
+                Assert.AreEqual(wpex.RequestData.Name, "rest_post_invalid_id");
             }
         }
     }
