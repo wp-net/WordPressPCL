@@ -774,16 +774,6 @@
             Additional info
             </summary>
         </member>
-        <member name="T:WordPressPCL.Models.BadRequestData">
-            <summary>
-            Helper class
-            </summary>
-        </member>
-        <member name="P:WordPressPCL.Models.BadRequestData.Status">
-            <summary>
-            HTTP status code
-            </summary>
-        </member>
         <member name="T:WordPressPCL.Models.Base">
             <summary>
             Base class for Models

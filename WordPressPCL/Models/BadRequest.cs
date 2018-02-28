@@ -23,18 +23,6 @@ namespace WordPressPCL.Models
         /// Additional info
         /// </summary>
         [JsonProperty("data")]
-        public BadRequestData Data { get; set; }
-    }
-
-    /// <summary>
-    /// Helper class
-    /// </summary>
-    public class BadRequestData
-    {
-        /// <summary>
-        /// HTTP status code
-        /// </summary>
-        [JsonProperty("status")]
-        public int Status { get; set; }
+        public dynamic Data { get; set; }
     }
 }
