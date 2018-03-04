@@ -18,7 +18,7 @@ namespace WordPressPCL.Tests.Selfhosted
         private static WordPressClient _client;
 
         [ClassInitialize]
-        public static async Task Init(TestContext testContext)
+        public static void Init(TestContext testContext)
         {
             _client = ClientHelper.GetWordPressClient();
         }

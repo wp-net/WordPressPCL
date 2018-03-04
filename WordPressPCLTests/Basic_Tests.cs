@@ -7,6 +7,7 @@ using WordPressPCL.Models;
 using WordPressPCL.Utility;
 using System.Net;
 using System.Linq;
+using WordPressPCLTests.Utility;
 
 namespace WordPressPCL.Tests.Selfhosted
 {
@@ -121,8 +122,10 @@ namespace WordPressPCL.Tests.Selfhosted
         [TestMethod]
         public async Task JWTAuthTest()
         {
-            var client = new WordPressClient(ApiCredentials.WordPressUri);
-            client.AuthMethod = AuthMethod.JWT;
+            var client = new WordPressClient(ApiCredentials.WordPressUri)
+            {
+                AuthMethod = AuthMethod.JWT
+            };
             await client.RequestJWToken(ApiCredentials.Username, ApiCredentials.Password);
             var IsValidToken = await _clientAuth.IsValidJWToken();
             Assert.IsTrue(IsValidToken);

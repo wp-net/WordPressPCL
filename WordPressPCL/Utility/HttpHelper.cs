@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using WordPressPCL.Models;
 
 namespace WordPressPCL.Utility
 {
@@ -64,7 +65,7 @@ namespace WordPressPCL.Utility
             if (isAuthRequired)
             {
                 //client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Utility.Authentication.Base64Encode($"{Username}:{Password}"));
-                if (_httpClient.DefaultRequestHeaders.Authorization == null || _httpClient.DefaultRequestHeaders.Authorization.Parameter!=JWToken)
+                if (_httpClient.DefaultRequestHeaders.Authorization == null || _httpClient.DefaultRequestHeaders.Authorization.Parameter != JWToken)
                     _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", JWToken);
             }
             try
@@ -82,14 +83,16 @@ namespace WordPressPCL.Utility
                 else
                 {
                     Debug.WriteLine(responseString);
+                    var badrequest = JsonConvert.DeserializeObject<BadRequest>(responseString);
+                    throw new WPException(badrequest.Message, badrequest);
                 }
             }
+            catch (WPException wpex) { throw wpex; }
             catch (Exception ex)
             {
                 Debug.WriteLine("exception thrown: " + ex.Message);
+                throw ex;
             }
-
-            return default(TClass);
         }
 
         internal async Task<(TClass, HttpResponseMessage)> PostRequest<TClass>(string route, HttpContent postBody, bool isAuthRequired = true)
@@ -120,14 +123,16 @@ namespace WordPressPCL.Utility
                 else
                 {
                     Debug.WriteLine(responseString);
+                    var badrequest = JsonConvert.DeserializeObject<BadRequest>(responseString);
+                    throw new WPException(badrequest.Message, badrequest);
                 }
             }
+            catch (WPException wpex) { throw wpex; }
             catch (Exception ex)
             {
                 Debug.WriteLine("exception thrown: " + ex.Message);
+                throw ex;
             }
-
-            return (default(TClass), response);
         }
 
         internal async Task<HttpResponseMessage> DeleteRequest(string route, bool isAuthRequired = true)
@@ -152,14 +157,16 @@ namespace WordPressPCL.Utility
                 else
                 {
                     Debug.WriteLine(responseString);
+                    var badrequest = JsonConvert.DeserializeObject<BadRequest>(responseString);
+                    throw new WPException(badrequest.Message, badrequest);
                 }
             }
+            catch (WPException wpex) { throw wpex; }
             catch (Exception ex)
             {
                 Debug.WriteLine("exception thrown: " + ex.Message);
+                throw ex;
             }
-
-            return response;
         }
     }
 }

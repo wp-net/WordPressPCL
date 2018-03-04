@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using WordPressPCL.Models;
+using WordPressPCLTests.Utility;
 
 namespace WordPressPCL.Tests.Selfhosted.Utility
 {
@@ -58,8 +59,10 @@ namespace WordPressPCL.Tests.Selfhosted.Utility
         [TestMethod]
         public async Task HttpHelper_ValidPreProcessing()
         {
-            var client = new WordPressClient(ApiCredentials.WordPressUri);
-            client.AuthMethod = AuthMethod.JWT;
+            var client = new WordPressClient(ApiCredentials.WordPressUri)
+            {
+                AuthMethod = AuthMethod.JWT
+            };
             await client.RequestJWToken(ApiCredentials.Username, ApiCredentials.Password);
 
             // Create a random tag
