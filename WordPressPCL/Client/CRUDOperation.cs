@@ -99,9 +99,16 @@ namespace WordPressPCL.Client
             int page = 1;
             do
             {
-                entities_page = (await _httpHelper.GetRequest<IEnumerable<TClass>>($"{_defaultPath}{_methodPath}?per_page=100&page={page++}", embed, useAuth).ConfigureAwait(false))?.ToList<TClass>();
+                try
+                {
+                    entities_page = (await _httpHelper.GetRequest<IEnumerable<TClass>>($"{_defaultPath}{_methodPath}?per_page=100&page={page++}", embed, useAuth).ConfigureAwait(false))?.ToList<TClass>();
+                }
+                catch (WPException ex)
+                {
+                    entities_page = null;
+                }
                 if (entities_page != null && entities_page.Count > 0) { entities.AddRange(entities_page); }
-            } while (entities_page != null && entities_page.Count > 0);
+            } while (entities_page != null && entities_page.Count == 100);
 
             return entities;
         }
