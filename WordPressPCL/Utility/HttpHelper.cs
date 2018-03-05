@@ -68,6 +68,10 @@ namespace WordPressPCL.Utility
                 if (_httpClient.DefaultRequestHeaders.Authorization == null || _httpClient.DefaultRequestHeaders.Authorization.Parameter != JWToken)
                     _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", JWToken);
             }
+            else
+            {
+                _httpClient.DefaultRequestHeaders.Authorization = null;
+            }
             try
             {
                 response = await _httpClient.GetAsync($"{_WordpressURI}{route}{embedParam}").ConfigureAwait(false);
@@ -100,13 +104,16 @@ namespace WordPressPCL.Utility
         {
             HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.ExpectationFailed);
 
-            //client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             if (isAuthRequired)
             {
                 //client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Utility.Authentication.Base64Encode($"{Username}:{Password}"));
                 //client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 if (_httpClient.DefaultRequestHeaders.Authorization == null || _httpClient.DefaultRequestHeaders.Authorization.Parameter != JWToken)
                     _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", JWToken);
+            }
+            else
+            {
+                _httpClient.DefaultRequestHeaders.Authorization = null;
             }
             try
             {
@@ -145,6 +152,10 @@ namespace WordPressPCL.Utility
                 //client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 if (_httpClient.DefaultRequestHeaders.Authorization == null || _httpClient.DefaultRequestHeaders.Authorization.Parameter != JWToken)
                     _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", JWToken);
+            }
+            else
+            {
+                _httpClient.DefaultRequestHeaders.Authorization = null;
             }
             try
             {
