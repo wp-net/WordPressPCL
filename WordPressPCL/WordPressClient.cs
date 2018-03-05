@@ -217,8 +217,15 @@ namespace WordPressPCL
         public async Task<bool> IsValidJWToken()
         {
             var route = $"{jwtPath}token/validate";
-            (JWTUser jwtUser, HttpResponseMessage repsonse) = await _httpHelper.PostRequest<JWTUser>(route, null, true);
-            return repsonse.IsSuccessStatusCode;
+            try
+            { 
+                (JWTUser jwtUser, HttpResponseMessage repsonse) = await _httpHelper.PostRequest<JWTUser>(route, null, true);
+                return repsonse.IsSuccessStatusCode;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         /// <summary>
