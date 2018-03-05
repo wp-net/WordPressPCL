@@ -1,10 +1,10 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using WordPressPCL;
 using WordPressPCL.Models;
 using WordPressPCL.Utility;
 using WordPressPCL.Tests.Selfhosted.Utility;
+using System.Linq;
 
 namespace WordPressPCL.Tests.Selfhosted
 {
@@ -156,6 +156,8 @@ namespace WordPressPCL.Tests.Selfhosted
         public async Task CommentsThreaded_Sort_Extension()
         {
             var allComments = await _clientAuth.Comments.GetAllCommentsForPost(postid);
+
+            Assert.IsTrue(allComments.Count() > 0);
             //ExtensionMethod
             var threaded = ThreadedCommentsHelper.ToThreaded(allComments);
             Debug.WriteLine($"threaded count: {threaded.Count}");
@@ -192,7 +194,7 @@ namespace WordPressPCL.Tests.Selfhosted
                 var idate = threaded[i].Date;
                 var nidate = threaded[ni].Date;
 
-                // The following comment date has to be newer or older with a lower depth
+                // The following comment date has to be (newer) or (older with a lower depth)
                 var validDate = (idate <= nidate || (idate > nidate && id > nid));
                 Assert.IsTrue(validDate);
             }

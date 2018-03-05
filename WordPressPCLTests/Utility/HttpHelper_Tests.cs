@@ -3,7 +3,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using WordPressPCL.Models;
-using WordPressPCLTests.Utility;
 
 namespace WordPressPCL.Tests.Selfhosted.Utility
 {
@@ -23,7 +22,11 @@ namespace WordPressPCL.Tests.Selfhosted.Utility
         [TestMethod]
         public async Task HttpHelper_InvalidPreProcessing()
         {
-            var client = await ClientHelper.GetAuthenticatedWordPressClient();
+            var client = new WordPressClient(ApiCredentials.WordPressUri)
+            {
+                AuthMethod = AuthMethod.JWT
+            };
+            await client.RequestJWToken(ApiCredentials.Username, ApiCredentials.Password);
 
             // Create a random tag , must works:
             var random = new Random();
@@ -47,13 +50,12 @@ namespace WordPressPCL.Tests.Selfhosted.Utility
             // Now we add a PreProcessing task
             client.HttpResponsePreProcessing = (response) =>
             {
-                throw new InvalidOperationException("PreProcessing must failed");
+                throw new InvalidOperationException("PreProcessing must fail");
             };
-
-            tags = await client.Tags.GetAll();
-            Assert.IsNotNull(tags);
-            Assert.AreEqual(0, tags.Count());
-            CollectionAssert.AllItemsAreUnique(tags.Select(e => e.Id).ToList());
+            await Assert.ThrowsExceptionAsync<InvalidOperationException>(async () =>
+            {
+                await client.Tags.GetAll();
+            });
         }
 
         [TestMethod]
