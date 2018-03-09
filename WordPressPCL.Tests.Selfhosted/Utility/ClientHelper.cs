@@ -14,8 +14,6 @@ namespace WordPressPCL.Tests.Selfhosted.Utility
             {
                 _clientAuth = new WordPressClient(ApiCredentials.WordPressUri)
                 {
-                    /*client.Username = ApiCredentials.Username;
-                    client.Password = ApiCredentials.Password;*/
                     AuthMethod = AuthMethod.JWT
                 };
                 await _clientAuth.RequestJWToken(ApiCredentials.Username, ApiCredentials.Password);
