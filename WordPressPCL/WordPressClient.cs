@@ -136,11 +136,7 @@ namespace WordPressPCL
             {
                 uri += "/";
             }
-            if (!uri.EndsWith("wp-json/"))
-            {
-                uri += "wp-json/";
-            }
-
+            
             _wordPressUri = uri;
             _httpHelper = new HttpHelper(WordPressUri);
             Posts = new Posts(ref _httpHelper, defaultPath);
