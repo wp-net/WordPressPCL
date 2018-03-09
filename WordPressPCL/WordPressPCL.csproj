@@ -20,6 +20,7 @@
     <PackageReleaseNotes>V1.4.0
 - making HttpClient static
 - Exceptions will be thrown instead of hiding them
+- don't auto-append /wp-json to WordPress Uri
 V1.3.3
 - Fixing update of Comment.Status 
 V1.3.2
