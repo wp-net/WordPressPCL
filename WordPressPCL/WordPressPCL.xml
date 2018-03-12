@@ -346,15 +346,6 @@
             <summary>
             Client class for interaction with Posts endpoint WP REST API
             </summary>
-"ID">ID</param>
-            <param name="embed">include embed info</param>
-            <param name="useAuth">Send request with authenication header</param>
-            <returns>Entity by Id</returns>
-        </member>
-        <member name="T:WordPressPCL.Client.Posts">
-            <summary>
-            Client class for interaction with Posts endpoint WP REST API
-            </summary>
         </member>
         <member name="M:WordPressPCL.Client.Posts.#ctor(WordPressPCL.Utility.HttpHelper@,System.String)">
             <summary>
@@ -431,7 +422,14 @@
             <summary>
             Constructor
             </summary>
-         aram name="embed">include embed info</param>
+            <param name="httpHelper">reference to HttpHelper class for interaction with HTTP</param>
+            <param name="defaultPath">path to site, EX. http://demo.com/wp-json/ </param>
+        </member>
+        <member name="M:WordPressPCL.Client.PostStatuses.Get(System.Boolean,System.Boolean)">
+            <summary>
+            Get latest Post Statuses
+            </summary>
+            <param name="embed">include embed info</param>
             <param name="useAuth">Send request with authenication header</param>
             <returns>Entity by Id</returns>
         </member>
@@ -508,14 +506,6 @@
         </member>
         <member name="M:WordPressPCL.Client.Taxonomies.#ctor(WordPressPCL.Utility.HttpHelper@,System.String)">
             <summary>
-            Constructor
-            </summary>
-            <param name="httpHelper">reference to HttpHelper class for interaction with HTTP</param>
-            <param name="defaultPath">path to site, EX. http://demo.com/wp-json/ </param>
-        </member>
-        <member name="M:WordPressPCL.Client.Taxonomies.Get(System.Boolean,System.Boolean)">
-            <summary>
-         <summary>
             Constructor
             </summary>
             <param name="httpHelper">reference to HttpHelper class for interaction with HTTP</param>
@@ -1974,7 +1964,18 @@
             </summary>
             <remarks>Context: view, edit</remarks>
         </member>
-        <member name="P:Wo>
+        <member name="P:WordPressPCL.Models.Page.Meta">
+            <summary>
+            Meta fields.
+            </summary>
+            <remarks>Context: view, edit</remarks>
+        </member>
+        <member name="P:WordPressPCL.Models.Page.Links">
+            <summary>
+            Links to related resources
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Page.Embedded">
             <summary>
             Embedded information like featured images
             </summary>
@@ -2201,15 +2202,6 @@
             </summary>
             <remarks>Context: view, edit</remarks>
         </member>
-        <member name="P:WordPressPCL.Models.PostRevision.Guid"> </summary>
-            <remarks>Context: view, edit, embed</remarks>
-        </member>
-        <member name="P:WordPressPCL.Models.PostRevision.DateGmt">
-            <summary>
-            The date the object was published, as GMT.
-            </summary>
-            <remarks>Context: view, edit</remarks>
-        </member>
         <member name="P:WordPressPCL.Models.PostRevision.Guid">
             <summary>
             The globally unique identifier for the object.
@@ -2311,7 +2303,16 @@
             </summary>
             <remarks>Context: edit</remarks>
         </member>
-        <member name="P:Wordmary>
+        <member name="P:WordPressPCL.Models.PostStatus.Public">
+            <summary>
+            Whether posts with this resource should be public.
+            </summary>
+            <remarks>Context: edit</remarks>
+        </member>
+        <member name="P:WordPressPCL.Models.PostStatus.Queryable">
+            <summary>
+            Whether posts with this resource should be publicly-queryable.
+            </summary>
             <remarks>Context: edit</remarks>
         </member>
         <member name="P:WordPressPCL.Models.PostStatus.ShowInList">
@@ -3825,11 +3826,12 @@
             Custom Request client interaction object
             </summary>
         </member>
-        <member name="M:WordPressPCL.WordPressClient.#ctor(System.String)">
+        <member name="M:WordPressPCL.WordPressClient.#ctor(System.String,System.String)">
             <summary>
                 The WordPressClient holds all connection infos and provides methods to call WordPress APIs.
             </summary>
             <param name="uri">URI for WordPress API endpoint, e.g. "http://demo.wp-api.org/wp-json/"</param>
+            <param name="defaultPath">Points to the standard API endpoints</param>
         </member>
         <member name="M:WordPressPCL.WordPressClient.GetSettings">
             <summary>
@@ -3863,20 +3865,6 @@
             <returns>Result of checking</returns>
         </member>
         <member name="M:WordPressPCL.WordPressClient.SetJWToken(System.String)">
-            <summary>
-            Sets an exisitng JWToken
-            </summary>
-            <param name="token"></param>
-        </member>
-        <member name="M:WordPressPCL.WordPressClient.GetToken">
-            <summary>
-            Gets the JWToken from the client
-            </summary>
-            <returns></returns>
-        </member>
-    </members>
-</doc>
-ystem.String)">
             <summary>
             Sets an exisitng JWToken
             </summary>
