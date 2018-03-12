@@ -212,14 +212,6 @@
             <param name="filename">Name of file in WP Media Library</param>
             <returns>Created media object</returns>
         </member>
-        <member name="M:WordPressPCL.Client.Media.Create(System.String,System.String)">
-            <summary>
-            Create Media entity with attachment
-            </summary>
-            <param name="filePath">Local Path to file</param>
-            <param name="filename">Name of file in WP Media Library</param>
-            <returns>Created media object</returns>
-        </member>
         <member name="M:WordPressPCL.Client.Media.Delete(System.Int32)">
             <summary>
             Delete Entity
@@ -354,6 +346,15 @@
             <summary>
             Client class for interaction with Posts endpoint WP REST API
             </summary>
+"ID">ID</param>
+            <param name="embed">include embed info</param>
+            <param name="useAuth">Send request with authenication header</param>
+            <returns>Entity by Id</returns>
+        </member>
+        <member name="T:WordPressPCL.Client.Posts">
+            <summary>
+            Client class for interaction with Posts endpoint WP REST API
+            </summary>
         </member>
         <member name="M:WordPressPCL.Client.Posts.#ctor(WordPressPCL.Utility.HttpHelper@,System.String)">
             <summary>
@@ -430,14 +431,7 @@
             <summary>
             Constructor
             </summary>
-            <param name="httpHelper">reference to HttpHelper class for interaction with HTTP</param>
-            <param name="defaultPath">path to site, EX. http://demo.com/wp-json/ </param>
-        </member>
-        <member name="M:WordPressPCL.Client.PostStatuses.Get(System.Boolean,System.Boolean)">
-            <summary>
-            Get latest Post Statuses
-            </summary>
-            <param name="embed">include embed info</param>
+         aram name="embed">include embed info</param>
             <param name="useAuth">Send request with authenication header</param>
             <returns>Entity by Id</returns>
         </member>
@@ -514,6 +508,14 @@
         </member>
         <member name="M:WordPressPCL.Client.Taxonomies.#ctor(WordPressPCL.Utility.HttpHelper@,System.String)">
             <summary>
+            Constructor
+            </summary>
+            <param name="httpHelper">reference to HttpHelper class for interaction with HTTP</param>
+            <param name="defaultPath">path to site, EX. http://demo.com/wp-json/ </param>
+        </member>
+        <member name="M:WordPressPCL.Client.Taxonomies.Get(System.Boolean,System.Boolean)">
+            <summary>
+         <summary>
             Constructor
             </summary>
             <param name="httpHelper">reference to HttpHelper class for interaction with HTTP</param>
@@ -1972,18 +1974,7 @@
             </summary>
             <remarks>Context: view, edit</remarks>
         </member>
-        <member name="P:WordPressPCL.Models.Page.Meta">
-            <summary>
-            Meta fields.
-            </summary>
-            <remarks>Context: view, edit</remarks>
-        </member>
-        <member name="P:WordPressPCL.Models.Page.Links">
-            <summary>
-            Links to related resources
-            </summary>
-        </member>
-        <member name="P:WordPressPCL.Models.Page.Embedded">
+        <member name="P:Wo>
             <summary>
             Embedded information like featured images
             </summary>
@@ -2210,6 +2201,15 @@
             </summary>
             <remarks>Context: view, edit</remarks>
         </member>
+        <member name="P:WordPressPCL.Models.PostRevision.Guid"> </summary>
+            <remarks>Context: view, edit, embed</remarks>
+        </member>
+        <member name="P:WordPressPCL.Models.PostRevision.DateGmt">
+            <summary>
+            The date the object was published, as GMT.
+            </summary>
+            <remarks>Context: view, edit</remarks>
+        </member>
         <member name="P:WordPressPCL.Models.PostRevision.Guid">
             <summary>
             The globally unique identifier for the object.
@@ -2311,16 +2311,7 @@
             </summary>
             <remarks>Context: edit</remarks>
         </member>
-        <member name="P:WordPressPCL.Models.PostStatus.Public">
-            <summary>
-            Whether posts with this resource should be public.
-            </summary>
-            <remarks>Context: edit</remarks>
-        </member>
-        <member name="P:WordPressPCL.Models.PostStatus.Queryable">
-            <summary>
-            Whether posts with this resource should be publicly-queryable.
-            </summary>
+        <member name="P:Wordmary>
             <remarks>Context: edit</remarks>
         </member>
         <member name="P:WordPressPCL.Models.PostStatus.ShowInList">
@@ -3684,17 +3675,18 @@
             Helper class to creat threaded comment views
             </summary>
         </member>
-        <member name="M:WordPressPCL.Utility.ThreadedCommentsHelper.GetThreadedComments(System.Collections.Generic.IEnumerable{WordPressPCL.Models.Comment},System.Int32)">
+        <member name="M:WordPressPCL.Utility.ThreadedCommentsHelper.GetThreadedComments(System.Collections.Generic.IEnumerable{WordPressPCL.Models.Comment},System.Int32,System.Boolean)">
             <summary>
             This method returns the comments sorted for a threaded view (oldest first)
             inlcuding the depth of a comment
             </summary>
         </member>
-        <member name="M:WordPressPCL.Utility.ThreadedCommentsHelper.ToThreaded(System.Collections.Generic.IEnumerable{WordPressPCL.Models.Comment})">
+        <member name="M:WordPressPCL.Utility.ThreadedCommentsHelper.ToThreaded(System.Collections.Generic.IEnumerable{WordPressPCL.Models.Comment},System.Boolean)">
             <summary>
             Extension method: Get Threaded comments from ordinary comments
             </summary>
             <param name="comments">Comments which will be threaded</param>
+            <param name="isDescending">Newest comments should be shown first</param>
             <returns>List of threaded comments</returns>
         </member>
         <member name="T:WordPressPCL.Utility.UsersQueryBuilder">
@@ -3871,6 +3863,20 @@
             <returns>Result of checking</returns>
         </member>
         <member name="M:WordPressPCL.WordPressClient.SetJWToken(System.String)">
+            <summary>
+            Sets an exisitng JWToken
+            </summary>
+            <param name="token"></param>
+        </member>
+        <member name="M:WordPressPCL.WordPressClient.GetToken">
+            <summary>
+            Gets the JWToken from the client
+            </summary>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
+ystem.String)">
             <summary>
             Sets an exisitng JWToken
             </summary>

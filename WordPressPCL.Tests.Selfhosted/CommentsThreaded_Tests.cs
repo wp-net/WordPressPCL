@@ -118,8 +118,12 @@ namespace WordPressPCL.Tests.Selfhosted
                 var idate = threaded[i].Date;
                 var nidate = threaded[ni].Date;
 
-                // The following comment date has to be newer or older with a lower depth
-                var validDate = (idate <= nidate || (idate > nidate && id > nid));
+                // The following comment date has to be
+                var validDate = (
+                    // newer
+                    idate <= nidate
+                    // or older and a child comment
+                    || (idate > nidate && id > nid));
                 Assert.IsTrue(validDate);
             }
         }
@@ -194,9 +198,85 @@ namespace WordPressPCL.Tests.Selfhosted
                 var idate = threaded[i].Date;
                 var nidate = threaded[ni].Date;
 
-                // The following comment date has to be (newer) or (older with a lower depth)
-                var validDate = (idate <= nidate || (idate > nidate && id > nid));
+                // The following comment date has to be
+                var validDate = (
+                    // newer
+                    idate <= nidate
+                    // or older and a child comment
+                    || (idate > nidate && id > nid));
                 Assert.IsTrue(validDate);
+            }
+        }
+
+        [TestMethod]
+        public async Task CommentsThreaded_Sort_Extension_Desc()
+        {
+            var allComments = await _clientAuth.Comments.GetAllCommentsForPost(postid);
+            Assert.IsTrue(allComments.Count() > 0);
+
+            var threaded = ThreadedCommentsHelper.ToThreaded(allComments, true);
+
+            // Depth should be the same regardless of desc or asc
+            Debug.WriteLine($"threaded count: {threaded.Count}");
+            Assert.IsNotNull(threaded);
+            var ct0 = threaded.Find(x => x.Id == comment0id);
+            Assert.AreEqual(ct0.Depth, 0);
+            Debug.WriteLine(threaded.IndexOf(ct0));
+            var ct1 = threaded.Find(x => x.Id == comment1id);
+            Assert.AreEqual(ct1.Depth, 1);
+            Debug.WriteLine(threaded.IndexOf(ct1));
+            var ct2 = threaded.Find(x => x.Id == comment2id);
+            Assert.AreEqual(ct2.Depth, 2);
+            Debug.WriteLine(threaded.IndexOf(ct2));
+            var ct3 = threaded.Find(x => x.Id == comment3id);
+            Assert.AreEqual(ct3.Depth, 3);
+            Debug.WriteLine(threaded.IndexOf(ct3));
+            var ct4 = threaded.Find(x => x.Id == comment4id);
+            Assert.AreEqual(ct4.Depth, 2);
+            Debug.WriteLine(threaded.IndexOf(ct4));
+
+            var ct00 = threaded.Find(x => x.Id == comment00id);
+            Assert.AreEqual(ct00.Depth, 0);
+            //Assert.AreEqual(threaded.Count, threaded.IndexOf(ct00) + 1);
+
+            for (int i = 0; i < threaded.Count - 1; i++)
+            {
+                // The following comment depth has to be the lower, equal or +1 at most
+                var ni = i + 1;
+                var idepth = threaded[i].Depth;
+                var nidepth = threaded[ni].Depth;
+                var niparent = threaded[ni].ParentId;
+                var validDepth = (idepth >= nidepth || idepth + 1 == nidepth);
+                Assert.IsTrue(validDepth);
+
+                var idate = threaded[i].Date;
+                var nidate = threaded[ni].Date;
+
+                // The following comment date has to be
+                var validDate = (
+                        // older
+                        idate >= nidate 
+                        // or newer, if it's a direct child comment
+                    || (idate < nidate && threaded[ni].ParentId == threaded[i].Id ) 
+                        // or newer, if the comments share the same parent
+                    || (idate < nidate && nidepth != 0 && idepth >= nidepth));
+                if (!validDate)
+                    Debug.WriteLine("debug test");
+                Assert.IsTrue(validDate);
+            }
+
+            // Comments with depth 0 must be ordered desc
+            var firstLvl = threaded.FindAll(x => x.Depth == 0);
+            for (int i = 0; i < firstLvl.Count - 1; i++)
+            {
+                // The following comment depth has to be the lower, equal or +1
+                var ni = i + 1;
+                var idate = threaded[i].Date;
+                var nidate = threaded[ni].Date;
+
+                // The following comment date has to be older
+                Assert.IsTrue(threaded[i].Id > threaded[ni].Id);
+                Assert.IsTrue(idate <= nidate);
             }
         }
 
