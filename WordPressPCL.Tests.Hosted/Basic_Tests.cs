@@ -19,17 +19,18 @@ namespace WordPressPCL.Hosted.Selfhosted
         }
 
         [TestMethod]
-        public async Task BasicSetupTest()
+        public async Task Hosted_BasicSetupTest()
         {
             // Initialize
             Assert.IsNotNull(_client);
             // Posts
             var posts = await _client.Posts.GetAll();
+            Assert.AreNotEqual(posts.Count(), 0);
             Assert.IsNotNull(posts);
         }
 
         [TestMethod]
-        public async Task GetFirstPostTest()
+        public async Task Hosted_GetFirstPostTest()
         {
             // Initialize
             var posts = await _client.Posts.GetAll();
@@ -39,7 +40,7 @@ namespace WordPressPCL.Hosted.Selfhosted
         }
 
         [TestMethod]
-        public async Task GetStickyPosts()
+        public async Task Hosted_GetStickyPosts()
         {
             // Initialize
             var posts = await _client.Posts.GetStickyPosts();
@@ -51,7 +52,7 @@ namespace WordPressPCL.Hosted.Selfhosted
         }
 
         [TestMethod]
-        public async Task GetPostsByCategory()
+        public async Task Hosted_GetPostsByCategory()
         {
             // This CategoryID MUST exists at ApiCredentials.WordPressUri
             int category = 1;
@@ -65,13 +66,13 @@ namespace WordPressPCL.Hosted.Selfhosted
         }
 
         [TestMethod]
-        public async Task GetPostsByTag()
+        public async Task Hosted_GetPostsByTag()
         {
             // This TagID MUST exists at ApiCredentials.WordPressUri
             int tag = 12;
             // Initialize
             var posts = await _client.Posts.GetPostsByTag(tag);
-
+            Assert.AreNotEqual(0, posts.Count());
             foreach (Post post in posts)
             {
                 Assert.IsTrue(post.Tags.ToList().Contains(tag));
@@ -79,13 +80,13 @@ namespace WordPressPCL.Hosted.Selfhosted
         }
 
         [TestMethod]
-        public async Task GetPostsByAuthor()
+        public async Task Hosted_GetPostsByAuthor()
         {
             // This AuthorID MUST exists at ApiCredentials.WordPressUri
-            int author = 2;
+            int author = 3722200;
             // Initialize
             var posts = await _client.Posts.GetPostsByAuthor(author);
-
+            Assert.AreNotEqual(0, posts.Count());
             foreach (Post post in posts)
             {
                 Assert.IsTrue(post.Author == author);
@@ -93,13 +94,13 @@ namespace WordPressPCL.Hosted.Selfhosted
         }
 
         [TestMethod]
-        public async Task GetPostsBySearch()
+        public async Task Hosted_GetPostsBySearch()
         {
             // This search term MUST be used at least once
             string search = "hello";
             // Initialize
             var posts = await _client.Posts.GetPostsBySearch(search);
-
+            Assert.AreNotEqual(0, posts.Count());
             foreach (Post post in posts)
             {
                 bool containsOnContentOrTitle = false;
