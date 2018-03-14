@@ -98,13 +98,7 @@ namespace WordPressPCL.Tests.Selfhosted
         [TestMethod]
         public async Task Users_Delete()
         {
-            var random = new Random();
-            var r = random.Next(0, 1000);
-            var username = $"Testuser{r}";
-            var email = $"testuser{r}@test.com";
-            var password = $"testpassword{r}";
-
-            var user = await _clientAuth.Users.Create(new User(username, email, password));
+            var user = await CreateRandomUser();
             Assert.IsNotNull(user);
             var me = await _clientAuth.Users.GetCurrentUser();
             var response = await _clientAuth.Users.Delete(user.Id, me.Id);
@@ -155,9 +149,34 @@ namespace WordPressPCL.Tests.Selfhosted
                 Order = Order.DESC,
             };
             var queryresult = await client.Users.Query(queryBuilder);
-            Assert.AreEqual(queryBuilder.BuildQueryURL(), "?page=1&per_page=15&order=desc");
+            Assert.AreEqual(queryBuilder.BuildQueryURL(), "?page=1&per_page=15");
             Assert.IsNotNull(queryresult);
             Assert.AreNotSame(queryresult.Count(), 0);
+        }
+
+        [TestMethod]
+        public async Task Users_Authenticate()
+        {
+            var clientAuth = new WordPressClient(ApiCredentials.WordPressUri)
+            {
+                AuthMethod = AuthMethod.JWT
+            };
+            await clientAuth.RequestJWToken(ApiCredentials.Username, ApiCredentials.Password);
+            var isLoggedIn = await clientAuth.IsValidJWToken();
+            Assert.IsTrue(isLoggedIn);
+
+            var clientNotAuth = new WordPressClient(ApiCredentials.WordPressUri)
+            {
+                AuthMethod = AuthMethod.JWT
+            };
+
+            await Assert.ThrowsExceptionAsync<WPException>(async () =>
+            {
+                await clientNotAuth.RequestJWToken(ApiCredentials.Username, "123");
+
+            });
+            isLoggedIn = await clientNotAuth.IsValidJWToken();
+            Assert.IsFalse(isLoggedIn);
         }
 
         #region Utils

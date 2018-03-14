@@ -47,8 +47,10 @@ namespace WordPressPCL.Tests.Selfhosted
             Assert.IsNotNull(resultComment);
 
             // Posting same comment twice should fail
-            var secondResultComment = await _clientAuth.Comments.Create(comment);
-            Assert.IsNull(secondResultComment);
+            await Assert.ThrowsExceptionAsync<WPException>(async () =>
+            {
+                var secondResultComment = await _clientAuth.Comments.Create(comment);
+            });
         }
         [TestMethod]
         public async Task Comments_Read()
@@ -143,7 +145,7 @@ namespace WordPressPCL.Tests.Selfhosted
                 Order = Order.DESC,
             };
             var queryresult = await _clientAuth.Comments.Query(queryBuilder);
-            Assert.AreEqual(queryBuilder.BuildQueryURL(), "?page=1&per_page=15&orderby=id&order=desc");
+            Assert.AreEqual("?page=1&per_page=15&orderby=id", queryBuilder.BuildQueryURL());
             Assert.IsNotNull(queryresult);
             Assert.AreNotSame(queryresult.Count(), 0);
         }
@@ -161,8 +163,8 @@ namespace WordPressPCL.Tests.Selfhosted
                 Statuses=new CommentStatus[] {CommentStatus.Pending}
             };
             var queryresult = await _clientAuth.Comments.Query(queryBuilder, true);
-            var querystring = "?page=1&per_page=15&orderby=id&status=hold&order=desc";
-            Assert.AreEqual(queryBuilder.BuildQueryURL(), querystring);
+            var querystring = "?page=1&per_page=15&orderby=id&status=hold";
+            Assert.AreEqual(querystring, queryBuilder.BuildQueryURL());
             Assert.IsNotNull(queryresult);
             Assert.AreNotEqual(queryresult.Count(), 0);
         }

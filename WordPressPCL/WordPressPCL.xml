@@ -212,14 +212,6 @@
             <param name="filename">Name of file in WP Media Library</param>
             <returns>Created media object</returns>
         </member>
-        <member name="M:WordPressPCL.Client.Media.Create(System.String,System.String)">
-            <summary>
-            Create Media entity with attachment
-            </summary>
-            <param name="filePath">Local Path to file</param>
-            <param name="filename">Name of file in WP Media Library</param>
-            <returns>Created media object</returns>
-        </member>
         <member name="M:WordPressPCL.Client.Media.Delete(System.Int32)">
             <summary>
             Delete Entity
@@ -3684,17 +3676,18 @@
             Helper class to creat threaded comment views
             </summary>
         </member>
-        <member name="M:WordPressPCL.Utility.ThreadedCommentsHelper.GetThreadedComments(System.Collections.Generic.IEnumerable{WordPressPCL.Models.Comment},System.Int32)">
+        <member name="M:WordPressPCL.Utility.ThreadedCommentsHelper.GetThreadedComments(System.Collections.Generic.IEnumerable{WordPressPCL.Models.Comment},System.Int32,System.Boolean)">
             <summary>
             This method returns the comments sorted for a threaded view (oldest first)
             inlcuding the depth of a comment
             </summary>
         </member>
-        <member name="M:WordPressPCL.Utility.ThreadedCommentsHelper.ToThreaded(System.Collections.Generic.IEnumerable{WordPressPCL.Models.Comment})">
+        <member name="M:WordPressPCL.Utility.ThreadedCommentsHelper.ToThreaded(System.Collections.Generic.IEnumerable{WordPressPCL.Models.Comment},System.Boolean)">
             <summary>
             Extension method: Get Threaded comments from ordinary comments
             </summary>
             <param name="comments">Comments which will be threaded</param>
+            <param name="isDescending">Newest comments should be shown first</param>
             <returns>List of threaded comments</returns>
         </member>
         <member name="T:WordPressPCL.Utility.UsersQueryBuilder">
@@ -3833,11 +3826,12 @@
             Custom Request client interaction object
             </summary>
         </member>
-        <member name="M:WordPressPCL.WordPressClient.#ctor(System.String)">
+        <member name="M:WordPressPCL.WordPressClient.#ctor(System.String,System.String)">
             <summary>
                 The WordPressClient holds all connection infos and provides methods to call WordPress APIs.
             </summary>
             <param name="uri">URI for WordPress API endpoint, e.g. "http://demo.wp-api.org/wp-json/"</param>
+            <param name="defaultPath">Points to the standard API endpoints</param>
         </member>
         <member name="M:WordPressPCL.WordPressClient.GetSettings">
             <summary>
@@ -3871,6 +3865,20 @@
             <returns>Result of checking</returns>
         </member>
         <member name="M:WordPressPCL.WordPressClient.SetJWToken(System.String)">
+            <summary>
+            Sets an exisitng JWToken
+            </summary>
+            <param name="token"></param>
+        </member>
+        <member name="M:WordPressPCL.WordPressClient.GetToken">
+            <summary>
+            Gets the JWToken from the client
+            </summary>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
+ystem.String)">
             <summary>
             Sets an exisitng JWToken
             </summary>

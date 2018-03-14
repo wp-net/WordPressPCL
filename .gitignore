@@ -247,3 +247,8 @@ ModelManifest.xml
 # FAKE - F# Make
 .fake/
 WordPressPCLTests/Utility/ApiCredentials.cs
+WordPressPCL.Tests.Selfhosted/Utility/ApiCredentials.cs
+WordPressPCL.Tests.Selfhosted/Utility/ApiCredentials.cs
+WordPressPCL.Tests.Hosted/Utility/ApiCredentials.cs
+WordPressPCL.Tests.Selfhosted/Utility/ApiCredentials.cs
+WordPressPCL.Tests.Selfhosted/Utility/ApiCredentials.cs

@@ -57,9 +57,17 @@ namespace WordPressPCL.Client
             int page = 1;
             do
             {
-                comments_page = (await _httpHelper.GetRequest<IEnumerable<Comment>>($"{_defaultPath}{_methodPath}?post={PostID}&per_page=100&page={page++}", embed, useAuth).ConfigureAwait(false))?.ToList<Comment>();
+                try
+                {
+                    comments_page = (await _httpHelper.GetRequest<IEnumerable<Comment>>($"{_defaultPath}{_methodPath}?post={PostID}&per_page=100&page={page++}", embed, useAuth).ConfigureAwait(false))?.ToList<Comment>();
+
+                }
+                catch (WPException ex)
+                {
+                    comments_page = null;
+                }
                 if (comments_page != null && comments_page.Count > 0) { comments.AddRange(comments_page); }
-            } while (comments_page != null && comments_page.Count > 0);
+            } while (comments_page != null && comments_page.Count == 100);
 
             return comments;
         }

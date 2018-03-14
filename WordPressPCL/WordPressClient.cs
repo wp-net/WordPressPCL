@@ -17,6 +17,8 @@ namespace WordPressPCL
     {
         private readonly string _wordPressUri;
         private readonly HttpHelper _httpHelper;
+        private readonly string _defaultPath;
+        private const string _jwtPath = "jwt-auth/v1/";
 
         /// <summary>
         /// WordPressUri holds the WordPress API endpoint, e.g. "http://demo.wp-api.org/wp-json/wp/v2/"
@@ -25,12 +27,6 @@ namespace WordPressPCL
         {
             get { return _wordPressUri; }
         }
-
-        private const string defaultPath = "wp/v2/";
-        private const string jwtPath = "jwt-auth/v1/";
-
-        /*public string Username { get; set; }
-        public string Password { get; set; }*/
 
         /// <summary>
         /// Function called when a HttpRequest response to WordPress APIs are readed
@@ -125,34 +121,31 @@ namespace WordPressPCL
         ///     The WordPressClient holds all connection infos and provides methods to call WordPress APIs.
         /// </summary>
         /// <param name="uri">URI for WordPress API endpoint, e.g. "http://demo.wp-api.org/wp-json/"</param>
-        public WordPressClient(string uri)
+        /// <param name="defaultPath">Points to the standard API endpoints</param>
+        public WordPressClient(string uri, string defaultPath = "wp/v2/")
         {
             if (string.IsNullOrWhiteSpace(uri))
             {
                 throw new ArgumentNullException(nameof(uri));
             }
-
             if (!uri.EndsWith("/"))
             {
                 uri += "/";
             }
-            if (!uri.EndsWith("wp-json/"))
-            {
-                uri += "wp-json/";
-            }
-
             _wordPressUri = uri;
+            _defaultPath = defaultPath;
+
             _httpHelper = new HttpHelper(WordPressUri);
-            Posts = new Posts(ref _httpHelper, defaultPath);
-            Comments = new Comments(ref _httpHelper, defaultPath);
-            Tags = new Tags(ref _httpHelper, defaultPath);
-            Users = new Users(ref _httpHelper, defaultPath);
-            Media = new Media(ref _httpHelper, defaultPath);
-            Categories = new Categories(ref _httpHelper, defaultPath);
-            Pages = new Pages(ref _httpHelper, defaultPath);
-            Taxonomies = new Taxonomies(ref _httpHelper, defaultPath);
-            PostTypes = new PostTypes(ref _httpHelper, defaultPath);
-            PostStatuses = new PostStatuses(ref _httpHelper, defaultPath);
+            Posts = new Posts(ref _httpHelper, _defaultPath);
+            Comments = new Comments(ref _httpHelper, _defaultPath);
+            Tags = new Tags(ref _httpHelper, _defaultPath);
+            Users = new Users(ref _httpHelper, _defaultPath);
+            Media = new Media(ref _httpHelper, _defaultPath);
+            Categories = new Categories(ref _httpHelper, _defaultPath);
+            Pages = new Pages(ref _httpHelper, _defaultPath);
+            Taxonomies = new Taxonomies(ref _httpHelper, _defaultPath);
+            PostTypes = new PostTypes(ref _httpHelper, _defaultPath);
+            PostStatuses = new PostStatuses(ref _httpHelper, _defaultPath);
             CustomRequest = new CustomRequest(ref _httpHelper);
         }
 
@@ -164,7 +157,7 @@ namespace WordPressPCL
         /// <returns>Site settings</returns>
         public Task<Settings> GetSettings()
         {
-            return _httpHelper.GetRequest<Settings>($"{defaultPath}settings", false, true);
+            return _httpHelper.GetRequest<Settings>($"{_defaultPath}settings", false, true);
         }
 
         /// <summary>
@@ -175,7 +168,7 @@ namespace WordPressPCL
         public async Task<Settings> UpdateSettings(Settings settings)
         {
             var postBody = new StringContent(JsonConvert.SerializeObject(settings).ToString(), Encoding.UTF8, "application/json");
-            (var setting, HttpResponseMessage response) = await _httpHelper.PostRequest<Settings>($"{defaultPath}settings", postBody);
+            (var setting, HttpResponseMessage response) = await _httpHelper.PostRequest<Settings>($"{_defaultPath}settings", postBody);
             return setting;
         }
 
@@ -190,7 +183,7 @@ namespace WordPressPCL
         /// <param name="Password">password</param>
         public async Task RequestJWToken(string Username, string Password)
         {
-            var route = $"{jwtPath}token";
+            var route = $"{_jwtPath}token";
             var formContent = new FormUrlEncodedContent(new[]
                 {
                     new KeyValuePair<string, string>("username", Username),
@@ -216,9 +209,16 @@ namespace WordPressPCL
         /// <returns>Result of checking</returns>
         public async Task<bool> IsValidJWToken()
         {
-            var route = $"{jwtPath}token/validate";
-            (JWTUser jwtUser, HttpResponseMessage repsonse) = await _httpHelper.PostRequest<JWTUser>(route, null, true);
-            return repsonse.IsSuccessStatusCode;
+            var route = $"{_jwtPath}token/validate";
+            try
+            { 
+                (JWTUser jwtUser, HttpResponseMessage repsonse) = await _httpHelper.PostRequest<JWTUser>(route, null, true);
+                return repsonse.IsSuccessStatusCode;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         /// <summary>
