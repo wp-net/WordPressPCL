@@ -67,14 +67,15 @@ namespace WordPressPCL.Client
         {
             //100 - Max posts per page in WordPress REST API, so this is hack with multiple requests
             List<User> entities = new List<User>();
-            List<User> entities_page = new List<User>();
-            int page = 1;
-            do
+            entities = (await _httpHelper.GetRequest<IEnumerable<User>>($"{_defaultPath}{_methodPath}?per_page=100&page=1", embed, useAuth).ConfigureAwait(false))?.ToList<User>();
+            if (_httpHelper.LastResponseHeaders.Contains("X-WP-TotalPages") && System.Convert.ToInt32(_httpHelper.LastResponseHeaders.GetValues("X-WP-TotalPages").FirstOrDefault()) > 1)
             {
-                entities_page = (await _httpHelper.GetRequest<IEnumerable<User>>($"{_defaultPath}{_methodPath}?per_page=100&page={page++}", embed, useAuth).ConfigureAwait(false))?.ToList<User>();
-                if (entities_page != null && entities_page.Count > 0) { entities.AddRange(entities_page); }
-            } while (entities_page != null && entities_page.Count > 0);
-
+                int totalpages = System.Convert.ToInt32(_httpHelper.LastResponseHeaders.GetValues("X-WP-TotalPages").FirstOrDefault());
+                for (int page = 2; page <= totalpages; page++)
+                {
+                    entities.AddRange((await _httpHelper.GetRequest<IEnumerable<User>>($"{_defaultPath}{_methodPath}?per_page=100&page={page}", embed, useAuth).ConfigureAwait(false))?.ToList<User>());
+                }
+            }
             return entities;
         }
 

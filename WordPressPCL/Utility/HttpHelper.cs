@@ -14,7 +14,7 @@ namespace WordPressPCL.Utility
     /// </summary>
     public class HttpHelper
     {
-        private static HttpClient _httpClient;
+        private static HttpClient _httpClient = new HttpClient();
         private string _WordpressURI;
 
         /// <summary>
@@ -33,6 +33,10 @@ namespace WordPressPCL.Utility
         /// https://www.newtonsoft.com/json/help/html/SerializationSettings.htm
         /// </summary>
         public JsonSerializerSettings JsonSerializerSettings { get; set; }
+        /// <summary>
+        /// Headers returns by WP and http server from last response
+        /// </summary>
+        public HttpResponseHeaders LastResponseHeaders { get; set; }
 
         /// <summary>
         /// Constructor
@@ -42,11 +46,6 @@ namespace WordPressPCL.Utility
         public HttpHelper(string WordpressURI)
         {
             _WordpressURI = WordpressURI;
-        }
-
-        static HttpHelper()
-        {
-            _httpClient = new HttpClient();
         }
 
         internal async Task<TClass> GetRequest<TClass>(string route, bool embed, bool isAuthRequired = false)
@@ -75,6 +74,7 @@ namespace WordPressPCL.Utility
             try
             {
                 response = await _httpClient.GetAsync($"{_WordpressURI}{route}{embedParam}").ConfigureAwait(false);
+                LastResponseHeaders = response.Headers;
                 var responseString = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
                 if (response.IsSuccessStatusCode)
                 {
@@ -118,6 +118,7 @@ namespace WordPressPCL.Utility
             try
             {
                 response = await _httpClient.PostAsync($"{_WordpressURI}{route}", postBody).ConfigureAwait(false);
+                LastResponseHeaders = response.Headers;
                 var responseString = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
                 if (response.IsSuccessStatusCode)
                 {
@@ -160,6 +161,7 @@ namespace WordPressPCL.Utility
             try
             {
                 response = await _httpClient.DeleteAsync($"{_WordpressURI}{route}").ConfigureAwait(false);
+                LastResponseHeaders = response.Headers;
                 var responseString = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
                 if (response.IsSuccessStatusCode)
                 {

@@ -49,7 +49,7 @@ namespace WordPressPCL.Utility
                     //var ppp = property.GetValue(this);
                     //pass default values
                     if (value is int && (int)value == default(int)) continue;
-                    if (value is string && ((string)value == string.Empty || (string)value == DateTime.MinValue.ToString("yyyy-MM-ddTHH:mm:ss"))) continue;
+                    if (value is string && (string.IsNullOrEmpty((string)value) || (string)value == DateTime.MinValue.ToString("yyyy-MM-ddTHH:mm:ss"))) continue;
                     if (value is DateTime && (string)value == DateTime.MinValue.ToString("yyyy-MM-ddTHH:mm:ss")) continue;
                     if (property.PropertyType == typeof(bool) && (string)value == default(bool).ToString().ToLower()) continue;
                     if (property.PropertyType.GetTypeInfo().IsEnum && (int)property.GetValue(this) == 0) continue;
