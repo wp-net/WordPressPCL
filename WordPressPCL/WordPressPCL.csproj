@@ -13,11 +13,14 @@
     <RepositoryUrl>https://github.com/wp-net/WordPressPCL</RepositoryUrl>
     <PackageTags>WordPress REST API</PackageTags>
     <RepositoryType>GitHub</RepositoryType>
-    <AssemblyVersion>1.4.0.0</AssemblyVersion>
-    <FileVersion>1.4.0.0</FileVersion>
-    <Version>1.4.0</Version>
+    <AssemblyVersion>1.4.1.0</AssemblyVersion>
+    <FileVersion>1.4.1.0</FileVersion>
+    <Version>1.4.1-alpha</Version>
     <PackageLicenseUrl>https://github.com/wp-net/WordPressPCL/blob/master/LICENSE</PackageLicenseUrl>
-    <PackageReleaseNotes>V1.4.0
+    <PackageReleaseNotes>V1.4.1-alpha
+- Experimental WordPress.com support (readonly)
+- Experimental Descending Threaded Comments support
+V1.4.0
 - making HttpClient static
 - Exceptions will be thrown instead of hiding them
 - don't auto-append /wp-json to WordPress Uri
