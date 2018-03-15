@@ -5,6 +5,7 @@ namespace WordPressPCL.Utility
     /// <summary>
     /// Attribute for set Text in querybuilder
     /// </summary>
+    [AttributeUsage(AttributeTargets.Property)]
     public sealed class QueryTextAttribute : Attribute
     {
         /// <summary>

@@ -43,7 +43,7 @@ namespace WordPressPCL.Client
         {
             var entity = _httpHelper.JsonSerializerSettings == null ? JsonConvert.SerializeObject(Entity) : JsonConvert.SerializeObject(Entity, _httpHelper.JsonSerializerSettings);
             var postBody = new StringContent(entity, Encoding.UTF8, "application/json");
-            return (await _httpHelper.PostRequest<User>($"{_defaultPath}{_methodPath}", postBody)).Item1;
+            return (await _httpHelper.PostRequest<User>($"{_defaultPath}{_methodPath}", postBody).ConfigureAwait(false)).Item1;
         }
 
         /// <summary>
@@ -111,7 +111,7 @@ namespace WordPressPCL.Client
         {
             var entity = _httpHelper.JsonSerializerSettings == null ? JsonConvert.SerializeObject(Entity) : JsonConvert.SerializeObject(Entity, _httpHelper.JsonSerializerSettings);
             var postBody = new StringContent(entity, Encoding.UTF8, "application/json");
-            return (await _httpHelper.PostRequest<User>($"{_defaultPath}{_methodPath}/{(Entity as Base).Id}", postBody)).Item1;
+            return (await _httpHelper.PostRequest<User>($"{_defaultPath}{_methodPath}/{(Entity as Base)?.Id}", postBody).ConfigureAwait(false)).Item1;
         }
 
         #region Custom

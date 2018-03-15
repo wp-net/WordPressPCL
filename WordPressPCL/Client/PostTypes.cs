@@ -73,6 +73,5 @@ namespace WordPressPCL.Client
         {
             return _httpHelper.GetRequest<PostType>($"{_defaultPath}{_methodPath}/{ID}", embed, useAuth);
         }
-
     }
 }

@@ -1,7 +1,4 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace WordPressPCL.Models
 {
@@ -100,5 +97,4 @@ namespace WordPressPCL.Models
         [JsonProperty("default_comment_status")]
         public OpenStatus DefaultCommentStatus { get; set; }
     }
-
 }

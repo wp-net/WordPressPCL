@@ -91,11 +91,11 @@ namespace WordPressPCL.Utility
                     throw new WPException(badrequest.Message, badrequest);
                 }
             }
-            catch (WPException wpex) { throw wpex; }
+            catch (WPException) { throw; }
             catch (Exception ex)
             {
                 Debug.WriteLine("exception thrown: " + ex.Message);
-                throw ex;
+                throw;
             }
         }
 
@@ -135,11 +135,11 @@ namespace WordPressPCL.Utility
                     throw new WPException(badrequest.Message, badrequest);
                 }
             }
-            catch (WPException wpex) { throw wpex; }
+            catch (WPException) { throw; }
             catch (Exception ex)
             {
                 Debug.WriteLine("exception thrown: " + ex.Message);
-                throw ex;
+                throw;
             }
         }
 
@@ -174,11 +174,11 @@ namespace WordPressPCL.Utility
                     throw new WPException(badrequest.Message, badrequest);
                 }
             }
-            catch (WPException wpex) { throw wpex; }
+            catch (WPException) { throw; }
             catch (Exception ex)
             {
                 Debug.WriteLine("exception thrown: " + ex.Message);
-                throw ex;
+                throw;
             }
         }
     }
