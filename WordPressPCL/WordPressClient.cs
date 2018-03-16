@@ -167,8 +167,8 @@ namespace WordPressPCL
         /// <returns>Updated settings</returns>
         public async Task<Settings> UpdateSettings(Settings settings)
         {
-            var postBody = new StringContent(JsonConvert.SerializeObject(settings).ToString(), Encoding.UTF8, "application/json");
-            (var setting, HttpResponseMessage response) = await _httpHelper.PostRequest<Settings>($"{_defaultPath}settings", postBody);
+            var postBody = new StringContent(JsonConvert.SerializeObject(settings), Encoding.UTF8, "application/json");
+            (var setting, HttpResponseMessage response) = await _httpHelper.PostRequest<Settings>($"{_defaultPath}settings", postBody).ConfigureAwait(false);
             return setting;
         }
 
@@ -190,7 +190,7 @@ namespace WordPressPCL
                     new KeyValuePair<string, string>("password", Password)
                 });
 
-            (JWTUser jwtUser, HttpResponseMessage response) = await _httpHelper.PostRequest<JWTUser>(route, formContent, false);
+            (JWTUser jwtUser, HttpResponseMessage response) = await _httpHelper.PostRequest<JWTUser>(route, formContent, false).ConfigureAwait(false);
             //JWToken = jwtUser?.Token;
             _httpHelper.JWToken = jwtUser?.Token;
         }
@@ -211,8 +211,8 @@ namespace WordPressPCL
         {
             var route = $"{_jwtPath}token/validate";
             try
-            { 
-                (JWTUser jwtUser, HttpResponseMessage repsonse) = await _httpHelper.PostRequest<JWTUser>(route, null, true);
+            {
+                (JWTUser jwtUser, HttpResponseMessage repsonse) = await _httpHelper.PostRequest<JWTUser>(route, null, true).ConfigureAwait(false);
                 return repsonse.IsSuccessStatusCode;
             }
             catch

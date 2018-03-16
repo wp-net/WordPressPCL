@@ -1,9 +1,4 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace WordPressPCL.Models
+﻿namespace WordPressPCL.Models
 {
     /// <summary>
     /// An extension class for Comment that holds a depth porperty
@@ -16,6 +11,5 @@ namespace WordPressPCL.Models
         /// 0 is a top level comments without parent
         /// </summary>
         public int Depth { get; set; }
-
     }
 }

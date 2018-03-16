@@ -819,7 +819,7 @@
         </member>
         <member name="M:WordPressPCL.Models.Category.#ctor(System.String)">
             <summary>
-            
+            Default constructor
             </summary>
             <param name="name"></param>
         </member>
@@ -1265,6 +1265,18 @@
             <summary>
             Order By Relevance
             </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.PagesOrderBy.Id">
+            <summary>
+            Order By Id
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.PagesOrderBy.Include">
+            <summary>
+            Order By Include
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.PagesOrummary>
         </member>
         <member name="F:WordPressPCL.Models.PagesOrderBy.Id">
             <summary>
@@ -3235,6 +3247,11 @@
             https://www.newtonsoft.com/json/help/html/SerializationSettings.htm
             </summary>
         </member>
+        <member name="P:WordPressPCL.Utility.HttpHelper.LastResponseHeaders">
+            <summary>
+            Headers returns by WP and http server from last response
+            </summary>
+        </member>
         <member name="M:WordPressPCL.Utility.HttpHelper.#ctor(System.String)">
             <summary>
             Constructor
@@ -3681,6 +3698,9 @@
             This method returns the comments sorted for a threaded view (oldest first)
             inlcuding the depth of a comment
             </summary>
+            <param name="comments">list of comments which will be ordered</param>
+            <param name="maxDepth">max hierachy depth</param>
+            <param name="isDescending">order by descending</param>
         </member>
         <member name="M:WordPressPCL.Utility.ThreadedCommentsHelper.ToThreaded(System.Collections.Generic.IEnumerable{WordPressPCL.Models.Comment},System.Boolean)">
             <summary>
@@ -3865,20 +3885,6 @@
             <returns>Result of checking</returns>
         </member>
         <member name="M:WordPressPCL.WordPressClient.SetJWToken(System.String)">
-            <summary>
-            Sets an exisitng JWToken
-            </summary>
-            <param name="token"></param>
-        </member>
-        <member name="M:WordPressPCL.WordPressClient.GetToken">
-            <summary>
-            Gets the JWToken from the client
-            </summary>
-            <returns></returns>
-        </member>
-    </members>
-</doc>
-ystem.String)">
             <summary>
             Sets an exisitng JWToken
             </summary>

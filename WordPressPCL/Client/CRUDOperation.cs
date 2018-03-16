@@ -44,7 +44,7 @@ namespace WordPressPCL.Client
         /// <param name="defaultPath">path to site, EX. http://demo.com/wp-json/ </param>
         /// <param name="methodPath">path to endpoint, EX. posts</param>
         /// <param name="forceDeletion">is objectes must be force deleted</param>
-        public CRUDOperation(ref HttpHelper HttpHelper, string defaultPath, string methodPath, bool forceDeletion = false)
+        protected CRUDOperation(ref HttpHelper HttpHelper, string defaultPath, string methodPath, bool forceDeletion = false)
         {
             _defaultPath = defaultPath;
             _httpHelper = HttpHelper;
@@ -59,9 +59,9 @@ namespace WordPressPCL.Client
         /// <returns>Created object</returns>
         public async Task<TClass> Create(TClass Entity)
         {
-            var entity = _httpHelper.JsonSerializerSettings==null ? JsonConvert.SerializeObject(Entity) : JsonConvert.SerializeObject(Entity,_httpHelper.JsonSerializerSettings);
+            var entity = _httpHelper.JsonSerializerSettings == null ? JsonConvert.SerializeObject(Entity) : JsonConvert.SerializeObject(Entity, _httpHelper.JsonSerializerSettings);
             var postBody = new StringContent(entity, Encoding.UTF8, "application/json");
-            return (await _httpHelper.PostRequest<TClass>($"{_defaultPath}{_methodPath}", postBody)).Item1;
+            return (await _httpHelper.PostRequest<TClass>($"{_defaultPath}{_methodPath}", postBody).ConfigureAwait(false)).Item1;
         }
 
         /// <summary>
@@ -71,7 +71,7 @@ namespace WordPressPCL.Client
         /// <returns>Result of operation</returns>
         public Task<HttpResponseMessage> Delete(int ID)
         {
-            return _httpHelper.DeleteRequest($"{_defaultPath}{_methodPath}/{ID}" + (_forceDeletion == true ? "?force=true" : string.Empty));
+            return _httpHelper.DeleteRequest($"{_defaultPath}{_methodPath}/{ID}" + (_forceDeletion ? "?force=true" : string.Empty));
         }
 
         /// <summary>
@@ -95,21 +95,15 @@ namespace WordPressPCL.Client
         {
             //100 - Max posts per page in WordPress REST API, so this is hack with multiple requests
             List<TClass> entities = new List<TClass>();
-            List<TClass> entities_page = new List<TClass>();
-            int page = 1;
-            do
+            entities = (await _httpHelper.GetRequest<IEnumerable<TClass>>($"{_defaultPath}{_methodPath}?per_page=100&page=1", embed, useAuth).ConfigureAwait(false))?.ToList<TClass>();
+            if (_httpHelper.LastResponseHeaders.Contains("X-WP-TotalPages") && System.Convert.ToInt32(_httpHelper.LastResponseHeaders.GetValues("X-WP-TotalPages").FirstOrDefault()) > 1)
             {
-                try
+                int totalpages = System.Convert.ToInt32(_httpHelper.LastResponseHeaders.GetValues("X-WP-TotalPages").FirstOrDefault());
+                for (int page = 2; page <= totalpages; page++)
                 {
-                    entities_page = (await _httpHelper.GetRequest<IEnumerable<TClass>>($"{_defaultPath}{_methodPath}?per_page=100&page={page++}", embed, useAuth).ConfigureAwait(false))?.ToList<TClass>();
+                    entities.AddRange((await _httpHelper.GetRequest<IEnumerable<TClass>>($"{_defaultPath}{_methodPath}?per_page=100&page={page}", embed, useAuth).ConfigureAwait(false))?.ToList<TClass>());
                 }
-                catch (WPException ex)
-                {
-                    entities_page = null;
-                }
-                if (entities_page != null && entities_page.Count > 0) { entities.AddRange(entities_page); }
-            } while (entities_page != null && entities_page.Count == 100);
-
+            }
             return entities;
         }
 
@@ -145,7 +139,7 @@ namespace WordPressPCL.Client
         {
             var entity = _httpHelper.JsonSerializerSettings == null ? JsonConvert.SerializeObject(Entity) : JsonConvert.SerializeObject(Entity, _httpHelper.JsonSerializerSettings);
             var postBody = new StringContent(entity, Encoding.UTF8, "application/json");
-            return (await _httpHelper.PostRequest<TClass>($"{_defaultPath}{_methodPath}/{(Entity as Base).Id}", postBody)).Item1;
+            return (await _httpHelper.PostRequest<TClass>($"{_defaultPath}{_methodPath}/{(Entity as Base)?.Id}", postBody).ConfigureAwait(false)).Item1;
         }
     }
 }

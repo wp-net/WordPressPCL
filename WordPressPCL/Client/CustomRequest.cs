@@ -11,7 +11,7 @@ namespace WordPressPCL.Client
     /// </summary>
     public class CustomRequest
     {
-        private HttpHelper _httpHelper;
+        private readonly HttpHelper _httpHelper;
 
         /// <summary>
         /// Constructor
@@ -34,7 +34,7 @@ namespace WordPressPCL.Client
         {
             var entity = _httpHelper.JsonSerializerSettings == null ? JsonConvert.SerializeObject(Entity) : JsonConvert.SerializeObject(Entity, _httpHelper.JsonSerializerSettings);
             StringContent sc = new StringContent(entity, Encoding.UTF8, "application/json");
-            return (await _httpHelper.PostRequest<TOutput>($"{route}", sc)).Item1;
+            return (await _httpHelper.PostRequest<TOutput>(route, sc).ConfigureAwait(false)).Item1;
         }
 
         /// <summary>
@@ -44,7 +44,7 @@ namespace WordPressPCL.Client
         /// <returns>Result of deletion</returns>
         public Task<HttpResponseMessage> Delete(string route)
         {
-            return _httpHelper.DeleteRequest($"{route}", true);
+            return _httpHelper.DeleteRequest(route, true);
         }
 
         /// <summary>

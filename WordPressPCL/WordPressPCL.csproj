@@ -48,7 +48,7 @@ V1.2
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.1" />
     <PackageReference Include="System.ValueTuple" Version="4.4.0" />
   </ItemGroup>
 </Project>
