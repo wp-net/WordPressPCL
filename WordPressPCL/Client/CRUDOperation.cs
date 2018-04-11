@@ -69,7 +69,7 @@ namespace WordPressPCL.Client
         /// </summary>
         /// <param name="ID">Entity Id</param>
         /// <returns>Result of operation</returns>
-        public Task<HttpResponseMessage> Delete(int ID)
+        public Task<bool> Delete(int ID)
         {
             return _httpHelper.DeleteRequest($"{_defaultPath}{_methodPath}/{ID}" + (_forceDeletion ? "?force=true" : string.Empty));
         }

@@ -85,7 +85,7 @@ namespace WordPressPCL.Tests.Selfhosted
             }
             var tagId = tag.Id;
             var response = await _clientAuth.Tags.Delete(tagId);
-            Assert.IsTrue(response.IsSuccessStatusCode);
+            Assert.IsTrue(response);
             tags = await _clientAuth.Tags.GetAll();
             var tagsWithId = tags.Where(x => x.Id == tagId).ToList();
             Assert.AreEqual(tagsWithId.Count, 0);

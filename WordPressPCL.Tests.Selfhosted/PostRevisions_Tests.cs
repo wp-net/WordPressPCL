@@ -45,7 +45,7 @@ namespace WordPressPCL.Tests.Selfhosted
             var revisions = await revisionsclient.GetAll();
             Assert.AreNotEqual(revisions.Count(), 0);
             var res = await revisionsclient.Delete(revisions.First().Id);
-            Assert.IsTrue(res.IsSuccessStatusCode);
+            Assert.IsTrue(res);
         }
 
         private async Task<int> CreatePostWithRevision()

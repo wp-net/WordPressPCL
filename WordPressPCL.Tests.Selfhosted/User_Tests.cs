@@ -102,7 +102,7 @@ namespace WordPressPCL.Tests.Selfhosted
             Assert.IsNotNull(user);
             var me = await _clientAuth.Users.GetCurrentUser();
             var response = await _clientAuth.Users.Delete(user.Id, me.Id);
-            Assert.IsTrue(response.IsSuccessStatusCode);
+            Assert.IsTrue(response);
         }
 
         [TestMethod]
@@ -129,7 +129,7 @@ namespace WordPressPCL.Tests.Selfhosted
 
             // Delete User1 and reassign posts to user2
             var response = await _clientAuth.Users.Delete(user1.Id, user2.Id);
-            Assert.IsTrue(response.IsSuccessStatusCode);
+            Assert.IsTrue(response);
 
             // Get posts for user 2 and check if ID of postCreated is in there
             var postsOfUser2 = await _clientAuth.Posts.GetPostsByAuthor(user2.Id);

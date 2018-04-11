@@ -91,7 +91,7 @@ namespace WordPressPCL.Tests.Selfhosted
             Assert.IsNotNull(createdPost);
 
             var resonse = await _clientAuth.Posts.Delete(createdPost.Id);
-            Assert.IsTrue(resonse.IsSuccessStatusCode);
+            Assert.IsTrue(resonse);
             
             await Assert.ThrowsExceptionAsync<WPException>(async () =>
             {

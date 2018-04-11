@@ -131,7 +131,7 @@ namespace WordPressPCL.Client
         /// <param name="ID">User id for delete</param>
         /// <param name="ReassignUserID">User id for reassign</param>
         /// <returns>Result of operation</returns>
-        public Task<HttpResponseMessage> Delete(int ID, int ReassignUserID)
+        public Task<bool> Delete(int ID, int ReassignUserID)
         {
             return _httpHelper.DeleteRequest($"{_defaultPath}{_methodPath}/{ID}?force=true&reassign={ReassignUserID}");
         }
@@ -142,7 +142,7 @@ namespace WordPressPCL.Client
         /// <param name="ID">User id for delete</param>
         /// <param name="ReassignUser">User object for reassign</param>
         /// <returns>Result of operation</returns>
-        public Task<HttpResponseMessage> Delete(int ID, User ReassignUser)
+        public Task<bool> Delete(int ID, User ReassignUser)
         {
             return _httpHelper.DeleteRequest($"{_defaultPath}{_methodPath}/{ID}?force=true&reassign={ReassignUser.Id}");
         }

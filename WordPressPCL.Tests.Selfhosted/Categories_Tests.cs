@@ -86,7 +86,7 @@ namespace WordPressPCL.Tests.Selfhosted
                 Assert.Inconclusive();
             }
             var response = await _clientAuth.Categories.Delete(category.Id);
-            Assert.IsTrue(response.IsSuccessStatusCode);
+            Assert.IsTrue(response);
             categories = await _clientAuth.Categories.GetAll();
             var c = categories.Where(x => x.Id == category.Id).ToList();
             Assert.AreEqual(c.Count, 0);

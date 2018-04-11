@@ -62,7 +62,7 @@ namespace WordPressPCL.Client
         /// <param name="ID">Page id</param>
         /// <param name="force">force deletion</param>
         /// <returns>Result of opertion</returns>
-        public Task<HttpResponseMessage> Delete(int ID, bool force = false)
+        public Task<bool> Delete(int ID, bool force = false)
         {
             return _httpHelper.DeleteRequest($"{_defaultPath}{_methodPath}/{ID}?force={force.ToString().ToLower()}");
         }
