@@ -143,7 +143,7 @@ namespace WordPressPCL.Utility
             }
         }
 
-        internal async Task<HttpResponseMessage> DeleteRequest(string route, bool isAuthRequired = true)
+        internal async Task<bool> DeleteRequest(string route, bool isAuthRequired = true)
         {
             HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.ExpectationFailed);
 
@@ -165,7 +165,7 @@ namespace WordPressPCL.Utility
                 var responseString = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
                 if (response.IsSuccessStatusCode)
                 {
-                    return response;
+                    return true;
                 }
                 else
                 {

@@ -131,7 +131,7 @@ namespace WordPressPCL.Tests.Selfhosted
             var resultComment = await _clientAuth.Comments.Create(comment);
 
             var response = await _clientAuth.Comments.Delete(resultComment.Id);
-            Assert.IsTrue(response.IsSuccessStatusCode);
+            Assert.IsTrue(response);
 
         }
         [TestMethod]
@@ -210,7 +210,7 @@ namespace WordPressPCL.Tests.Selfhosted
 
             // cleanup
             var result = await _clientAuth.Posts.Delete(createdPost.Id);
-            Assert.IsTrue(result.IsSuccessStatusCode);
+            Assert.IsTrue(result);
         }
 
     }

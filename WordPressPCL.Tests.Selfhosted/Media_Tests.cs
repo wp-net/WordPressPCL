@@ -99,7 +99,7 @@ namespace WordPressPCL.Tests.Selfhosted
 
             // Delete file
             var response = await _clientAuth.Media.Delete(mediaitem.Id);
-            Assert.IsTrue(response.IsSuccessStatusCode);
+            Assert.IsTrue(response);
         }
         [TestMethod]
         public async Task Media_Query()

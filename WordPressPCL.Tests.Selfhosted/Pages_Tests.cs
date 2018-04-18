@@ -78,7 +78,7 @@ namespace WordPressPCL.Tests.Selfhosted
             Assert.IsNotNull(createdPage);
 
             var response = await _clientAuth.Pages.Delete(createdPage.Id);
-            Assert.IsTrue(response.IsSuccessStatusCode);
+            Assert.IsTrue(response);
             await Assert.ThrowsExceptionAsync<WPException>(async () =>
             {
                 var pageById = await _client.Pages.GetByID(createdPage.Id);
