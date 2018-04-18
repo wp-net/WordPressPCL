@@ -597,14 +597,7 @@
             <returns>Entity by Id</returns>
         </member>
         <member name="M:WordPressPCL.Client.Users.Query(WordPressPCL.Utility.UsersQueryBuilder,System.Boolean)">
-            <summary>
-            Create a parametrized query and get a result
-            </summary>
-            <param name="queryBuilder">Query builder with specific parameters</param>
-            <param name="useAuth">Send request with authenication header</param>
-            <returns>List of filtered result</returns>
-        </member>
-        <member name="M:WordPressPCL.Client.Users.Update(WordPressPCL.Models.User)">
+     ate(WordPressPCL.Models.User)">
             <summary>
             Update Entity
             </summary>
@@ -1528,6 +1521,18 @@
         </member>
         <member name="P:WordPressPCL.Models.ImageMeta.ShutterSpeed">
             <summary>
+            er name="P:WordPressPCL.Models.ImageMeta.FocalLength">
+            <summary>
+            Focal Length
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ImageMeta.Iso">
+            <summary>
+            ISO
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ImageMeta.ShutterSpeed">
+            <summary>
             Shutter Speed
             </summary>
         </member>
@@ -1644,16 +1649,7 @@
             Type represent Media Entity of WP REST API
             </summary>
         </member>
-        <member name="P:WordPressPCL.Models.MediaItem.Date">
-            <summary>
-            The date the object was published, in the site’s timezone.
-            </summary>
-            <remarks>Context: view, edit, embed</remarks>
-        </member>
-        <member name="P:WordPressPCL.Models.MediaItem.DateGmt">
-            <summary>
-            The date the object was published, as GMT.
-            </summary>
+        <member name="P:Wmary>
             <remarks>Context: view, edit</remarks>
         </member>
         <member name="P:WordPressPCL.Models.MediaItem.Guid">
@@ -1744,6 +1740,17 @@
             <remarks>Context: view, edit</remarks>
         </member>
         <member name="P:WordPressPCL.Models.MediaItem.Description">
+            <summary>
+            The description for the resource.
+            </summary>
+            <remarks>Context: view, edit</remarks>
+        </member>
+        <member name="P:WordPressPCL.Models.MediaItem.MediaType">
+            <summary>
+            Type of resource.
+            <see cref="T:WordPressPCL.Models.MediaType"/>
+            </summary>
+            <remarks>Con">
             <summary>
             The description for the resource.
             </summary>
@@ -3472,17 +3479,7 @@
             <summary>
             Current page of the collection.
             </summary>
-            <remarks>Default: 1</remarks>
-        </member>
-        <member name="P:WordPressPCL.Utility.PostsQueryBuilder.PerPage">
-            <summary>
-            Maximum number of items to be returned in result set.
-            </summary>
-            <remarks>Default: 10</remarks>
-        </member>
-        <member name="P:WordPressPCL.Utility.PostsQueryBuilder.Search">
-            <summary>
-            Limit results to those matching a string.
+            <remarks>D  Limit results to those matching a string.
             </summary>
         </member>
         <member name="P:WordPressPCL.Utility.PostsQueryBuilder.After">
@@ -3881,6 +3878,20 @@
             <returns>Result of checking</returns>
         </member>
         <member name="M:WordPressPCL.WordPressClient.SetJWToken(System.String)">
+            <summary>
+            Sets an exisitng JWToken
+            </summary>
+            <param name="token"></param>
+        </member>
+        <member name="M:WordPressPCL.WordPressClient.GetToken">
+            <summary>
+            Gets the JWToken from the client
+            </summary>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
+ystem.String)">
             <summary>
             Sets an exisitng JWToken
             </summary>
