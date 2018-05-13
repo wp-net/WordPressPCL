@@ -83,6 +83,9 @@ namespace WordPressPCL.Tests.Selfhosted
             var title = $"New Title {random.Next(0, 1000)}";
             Assert.AreNotEqual(title, file.Title.Raw);
             file.Title.Raw = title;
+
+            file.Description.Raw = "This is a nice cat!";
+
             var fileUpdated = await _clientAuth.Media.Update(file);
             Assert.IsNotNull(fileUpdated);
             Assert.AreEqual(fileUpdated.Title.Raw, title);
