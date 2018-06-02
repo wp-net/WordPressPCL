@@ -17,7 +17,10 @@
     <FileVersion>1.4.4.0</FileVersion>
     <Version>1.4.4</Version>
     <PackageLicenseUrl>https://github.com/wp-net/WordPressPCL/blob/master/LICENSE</PackageLicenseUrl>
-    <PackageReleaseNotes>V1.4.3
+    <PackageReleaseNotes>V1.4.4
+- Add 
+
+V1.4.3
 - Bugfix: Add default JsonSerzializerSettings, setting MissingMemberHandling to ignore
 
 V1.4.2
