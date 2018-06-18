@@ -129,8 +129,8 @@ namespace WordPressPCL.Models
         /// The ID of the featured media for the object.
         /// </summary>
         /// <remarks>Context: view, edit</remarks>
-        [JsonProperty("featured_media")]
-        public int FeaturedMedia { get; set; }
+        [JsonProperty("featured_media", NullValueHandling = NullValueHandling.Ignore)]
+        public int? FeaturedMedia { get; set; }
 
         /// <summary>
         /// Whether or not comments are open on the object.
