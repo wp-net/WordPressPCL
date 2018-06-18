@@ -553,6 +553,23 @@ namespace WordPressPCL.Models
         /// Post Format
         /// </summary>
         [EnumMember(Value = "post_format")]
-        PostFormat
+        PostFormat,
+
+        /// <summary>
+        /// Placeholder for unknown terms
+        /// </summary>
+        [EnumMember(Value = "unknown")]
+        Unknown,
+
+        ///
+        /// Custom Tags below
+        ///
+
+        /// <summary>
+        /// Yoast Seo Plugin - Prominent Words
+        /// </summary>
+        [EnumMember(Value = "yst_prominent_words")]
+        YoastProminentWords
+
     }
 }

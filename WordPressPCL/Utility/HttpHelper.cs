@@ -46,6 +46,10 @@ namespace WordPressPCL.Utility
         public HttpHelper(string WordpressURI)
         {
             _WordpressURI = WordpressURI;
+
+            // by default don't crash on missing member
+            JsonSerializerSettings = new JsonSerializerSettings();
+            JsonSerializerSettings.MissingMemberHandling = MissingMemberHandling.Ignore;
         }
 
         internal async Task<TClass> GetRequest<TClass>(string route, bool embed, bool isAuthRequired = false)

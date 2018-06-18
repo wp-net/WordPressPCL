@@ -59,9 +59,22 @@ namespace WordPressPCL.Tests.Selfhosted
         [TestMethod]
         public async Task Posts_Get()
         {
-            var posts = await _clientAuth.Posts.Get();
+            var posts = await _client.Posts.Get();
             Assert.IsNotNull(posts);
             Assert.AreNotEqual(posts.Count(), 0);
+        }
+
+        [TestMethod]
+        public async Task Posts_Read_Embedded()
+        {
+            var posts = await _client.Posts.Query(new PostsQueryBuilder()
+            {
+                PerPage = 10,
+                Page = 1,
+                Embed = true
+            }, false);
+            Assert.IsNotNull(posts);
+
         }
 
         [TestMethod]

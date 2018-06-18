@@ -1449,6 +1449,19 @@
             Post Format
             </summary>
         </member>
+        <member name="F:WordPressPCL.Models.TermTaxonomy.Unknown">
+            <summary>
+            Placeholder for unknown terms
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.TermTaxonomy.YoastProminentWords">
+            
+             Custom Tags below
+            
+            <summary>
+            Yoast Seo Plugin - Prominent Words
+            </summary>
+        </member>
         <member name="T:WordPressPCL.Models.WPException">
             <summary>
             WordPress request exceptions

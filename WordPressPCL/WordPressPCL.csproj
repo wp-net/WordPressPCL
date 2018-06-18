@@ -13,11 +13,23 @@
     <RepositoryUrl>https://github.com/wp-net/WordPressPCL</RepositoryUrl>
     <PackageTags>WordPress REST API</PackageTags>
     <RepositoryType>GitHub</RepositoryType>
-    <AssemblyVersion>1.4.0.0</AssemblyVersion>
-    <FileVersion>1.4.0.0</FileVersion>
-    <Version>1.4.0</Version>
+    <AssemblyVersion>1.4.4.0</AssemblyVersion>
+    <FileVersion>1.4.4.0</FileVersion>
+    <Version>1.4.4</Version>
     <PackageLicenseUrl>https://github.com/wp-net/WordPressPCL/blob/master/LICENSE</PackageLicenseUrl>
-    <PackageReleaseNotes>V1.4.0
+    <PackageReleaseNotes>V1.4.4
+- Add 
+
+V1.4.3
+- Bugfix: Add default JsonSerzializerSettings, setting MissingMemberHandling to ignore
+
+V1.4.2
+- Bugfix: delete requests return bool instead of HTTPResponseMessage
+
+V1.4.1-alpha
+- Experimental WordPress.com support (readonly)
+- Experimental Descending Threaded Comments support
+V1.4.0
 - making HttpClient static
 - Exceptions will be thrown instead of hiding them
 - don't auto-append /wp-json to WordPress Uri
@@ -45,7 +57,7 @@ V1.2
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="11.0.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
     <PackageReference Include="System.ValueTuple" Version="4.4.0" />
   </ItemGroup>
 </Project>
