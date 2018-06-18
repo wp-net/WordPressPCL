@@ -13,12 +13,15 @@
     <RepositoryUrl>https://github.com/wp-net/WordPressPCL</RepositoryUrl>
     <PackageTags>WordPress REST API</PackageTags>
     <RepositoryType>GitHub</RepositoryType>
-    <AssemblyVersion>1.4.4.0</AssemblyVersion>
-    <FileVersion>1.4.4.0</FileVersion>
-    <Version>1.4.4</Version>
+    <AssemblyVersion>1.4.5.0</AssemblyVersion>
+    <FileVersion>1.4.5.0</FileVersion>
+    <Version>1.4.5</Version>
     <PackageLicenseUrl>https://github.com/wp-net/WordPressPCL/blob/master/LICENSE</PackageLicenseUrl>
-    <PackageReleaseNotes>V1.4.4
-- Add 
+    <PackageReleaseNotes>V1.4.5
+- Bugfix: Add NullValueHandling to FeaturedMedia property 
+
+V1.4.4
+- Add Yoast Taxonomy Terms
 
 V1.4.3
 - Bugfix: Add default JsonSerzializerSettings, setting MissingMemberHandling to ignore
