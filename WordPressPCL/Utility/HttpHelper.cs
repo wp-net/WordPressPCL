@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using WordPressPCL.Models;
 
 namespace WordPressPCL.Utility
 {
@@ -13,7 +14,7 @@ namespace WordPressPCL.Utility
     /// </summary>
     public class HttpHelper
     {
-        private static HttpClient _httpClient;
+        private static HttpClient _httpClient = new HttpClient();
         private string _WordpressURI;
 
         /// <summary>
@@ -32,6 +33,10 @@ namespace WordPressPCL.Utility
         /// https://www.newtonsoft.com/json/help/html/SerializationSettings.htm
         /// </summary>
         public JsonSerializerSettings JsonSerializerSettings { get; set; }
+        /// <summary>
+        /// Headers returns by WP and http server from last response
+        /// </summary>
+        public HttpResponseHeaders LastResponseHeaders { get; set; }
 
         /// <summary>
         /// Constructor
@@ -41,11 +46,10 @@ namespace WordPressPCL.Utility
         public HttpHelper(string WordpressURI)
         {
             _WordpressURI = WordpressURI;
-        }
 
-        static HttpHelper()
-        {
-            _httpClient = new HttpClient();
+            // by default don't crash on missing member
+            JsonSerializerSettings = new JsonSerializerSettings();
+            JsonSerializerSettings.MissingMemberHandling = MissingMemberHandling.Ignore;
         }
 
         internal async Task<TClass> GetRequest<TClass>(string route, bool embed, bool isAuthRequired = false)
@@ -64,12 +68,17 @@ namespace WordPressPCL.Utility
             if (isAuthRequired)
             {
                 //client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Utility.Authentication.Base64Encode($"{Username}:{Password}"));
-                if (_httpClient.DefaultRequestHeaders.Authorization == null || _httpClient.DefaultRequestHeaders.Authorization.Parameter!=JWToken)
+                if (_httpClient.DefaultRequestHeaders.Authorization == null || _httpClient.DefaultRequestHeaders.Authorization.Parameter != JWToken)
                     _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", JWToken);
+            }
+            else
+            {
+                _httpClient.DefaultRequestHeaders.Authorization = null;
             }
             try
             {
                 response = await _httpClient.GetAsync($"{_WordpressURI}{route}{embedParam}").ConfigureAwait(false);
+                LastResponseHeaders = response.Headers;
                 var responseString = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
                 if (response.IsSuccessStatusCode)
                 {
@@ -82,14 +91,16 @@ namespace WordPressPCL.Utility
                 else
                 {
                     Debug.WriteLine(responseString);
+                    var badrequest = JsonConvert.DeserializeObject<BadRequest>(responseString);
+                    throw new WPException(badrequest.Message, badrequest);
                 }
             }
+            catch (WPException) { throw; }
             catch (Exception ex)
             {
                 Debug.WriteLine("exception thrown: " + ex.Message);
+                throw;
             }
-
-            return default(TClass);
         }
 
         internal async Task<(TClass, HttpResponseMessage)> PostRequest<TClass>(string route, HttpContent postBody, bool isAuthRequired = true)
@@ -97,7 +108,6 @@ namespace WordPressPCL.Utility
         {
             HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.ExpectationFailed);
 
-            //client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             if (isAuthRequired)
             {
                 //client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Utility.Authentication.Base64Encode($"{Username}:{Password}"));
@@ -105,9 +115,14 @@ namespace WordPressPCL.Utility
                 if (_httpClient.DefaultRequestHeaders.Authorization == null || _httpClient.DefaultRequestHeaders.Authorization.Parameter != JWToken)
                     _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", JWToken);
             }
+            else
+            {
+                _httpClient.DefaultRequestHeaders.Authorization = null;
+            }
             try
             {
                 response = await _httpClient.PostAsync($"{_WordpressURI}{route}", postBody).ConfigureAwait(false);
+                LastResponseHeaders = response.Headers;
                 var responseString = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
                 if (response.IsSuccessStatusCode)
                 {
@@ -120,17 +135,19 @@ namespace WordPressPCL.Utility
                 else
                 {
                     Debug.WriteLine(responseString);
+                    var badrequest = JsonConvert.DeserializeObject<BadRequest>(responseString);
+                    throw new WPException(badrequest.Message, badrequest);
                 }
             }
+            catch (WPException) { throw; }
             catch (Exception ex)
             {
                 Debug.WriteLine("exception thrown: " + ex.Message);
+                throw;
             }
-
-            return (default(TClass), response);
         }
 
-        internal async Task<HttpResponseMessage> DeleteRequest(string route, bool isAuthRequired = true)
+        internal async Task<bool> DeleteRequest(string route, bool isAuthRequired = true)
         {
             HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.ExpectationFailed);
 
@@ -141,25 +158,32 @@ namespace WordPressPCL.Utility
                 if (_httpClient.DefaultRequestHeaders.Authorization == null || _httpClient.DefaultRequestHeaders.Authorization.Parameter != JWToken)
                     _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", JWToken);
             }
+            else
+            {
+                _httpClient.DefaultRequestHeaders.Authorization = null;
+            }
             try
             {
                 response = await _httpClient.DeleteAsync($"{_WordpressURI}{route}").ConfigureAwait(false);
+                LastResponseHeaders = response.Headers;
                 var responseString = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
                 if (response.IsSuccessStatusCode)
                 {
-                    return response;
+                    return true;
                 }
                 else
                 {
                     Debug.WriteLine(responseString);
+                    var badrequest = JsonConvert.DeserializeObject<BadRequest>(responseString);
+                    throw new WPException(badrequest.Message, badrequest);
                 }
             }
+            catch (WPException) { throw; }
             catch (Exception ex)
             {
                 Debug.WriteLine("exception thrown: " + ex.Message);
+                throw;
             }
-
-            return response;
         }
     }
 }

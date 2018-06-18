@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 
 namespace WordPressPCL.Models
 {
@@ -14,10 +13,10 @@ namespace WordPressPCL.Models
         /// </summary>
         [Obsolete("Use JWT instead of Basic")]
         Basic,
+
         /// <summary>
         /// JSON Web Token Authentication method. Need configure your site with this plugin https://wordpress.org/plugins/jwt-authentication-for-wp-rest-api/
         /// </summary>
         JWT
     }
-
 }

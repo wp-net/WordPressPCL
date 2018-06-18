@@ -1,7 +1,4 @@
 ﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using System.Collections.Generic;
-using System.Runtime.Serialization;
 
 namespace WordPressPCL.Models
 {
@@ -15,6 +12,7 @@ namespace WordPressPCL.Models
         /// </summary>
         [JsonProperty("rendered")]
         public string Rendered { get; set; }
+
         /// <summary>
         /// Raw HTML text
         /// </summary>
@@ -38,7 +36,7 @@ namespace WordPressPCL.Models
     /// The actual content of the object, Rendered and/or Raw depending on the context
     /// </summary>
     public class Content : RenderedRawBase
-	{
+    {
         /// <summary>
         /// Can content be edited
         /// </summary>
@@ -50,22 +48,22 @@ namespace WordPressPCL.Models
         /// </summary>
         public Content()
         {
-
         }
+
         /// <summary>
         /// Constructor with same fields for Raw end Rendered
         /// </summary>
         /// <param name="Content">Text for Raw and rendered Content</param>
-        public Content(string Content):this(Content,Content)
+        public Content(string Content) : this(Content, Content)
         {
-            
         }
+
         /// <summary>
         /// Constructor with Raw and Rendered content text fields
         /// </summary>
         /// <param name="ContentRaw">Raw HTML content text</param>
         /// <param name="ContentRendered">Rendered content text</param>
-        public Content(string ContentRaw,string ContentRendered)
+        public Content(string ContentRaw, string ContentRendered)
         {
             Raw = ContentRaw;
             Rendered = ContentRendered;
@@ -88,16 +86,16 @@ namespace WordPressPCL.Models
         /// </summary>
         public Description()
         {
-
         }
+
         /// <summary>
         /// Constructor with same fields for Raw end Rendered
         /// </summary>
         /// <param name="Description">Text for Raw and rendered description</param>
         public Description(string Description) : this(Description, Description)
         {
-
         }
+
         /// <summary>
         /// Constructor with Raw and Rendered description text fields
         /// </summary>
@@ -132,16 +130,16 @@ namespace WordPressPCL.Models
         /// </summary>
         public Title()
         {
-
         }
+
         /// <summary>
         /// Constructor with same Raw and rendered title
         /// </summary>
         /// <param name="Title">Text for title</param>
         public Title(string Title) : this(Title, Title)
         {
-
         }
+
         /// <summary>
         /// Constructor with Raw and rendered text
         /// </summary>
@@ -171,16 +169,16 @@ namespace WordPressPCL.Models
         /// </summary>
         public Excerpt()
         {
-
         }
+
         /// <summary>
         /// Constructor with same Raw and rendered Excerpt
         /// </summary>
         /// <param name="Excerpt">Text for Excerpt</param>
         public Excerpt(string Excerpt) : this(Excerpt, Excerpt)
         {
-
         }
+
         /// <summary>
         /// Constructor with Raw and rendered text
         /// </summary>
@@ -199,36 +197,39 @@ namespace WordPressPCL.Models
 	public class VersionHistory : HrefBase
     {
     }
+
     /// <summary>
     /// Caption
     /// </summary>
-    public class Caption : RenderedRawBase {
+    public class Caption : RenderedRawBase
+    {
         /// <summary>
         /// Constructor
         /// </summary>
         public Caption()
         {
-
         }
+
         /// <summary>
         /// Constructor with the same raw and rendered Caption
         /// </summary>
         /// <param name="Caption">Text for caption</param>
-        public Caption(string Caption):this(Caption,Caption)
+        public Caption(string Caption) : this(Caption, Caption)
         {
-
         }
+
         /// <summary>
         /// Constructor with raw and rendered caption
         /// </summary>
         /// <param name="CaptionRaw">Raw text for caption</param>
         /// <param name="CaptionRendered">Rendered text for caption</param>
-        public Caption(string CaptionRaw,string CaptionRendered)
+        public Caption(string CaptionRaw, string CaptionRendered)
         {
             Raw = CaptionRaw;
             Rendered = CaptionRendered;
         }
     }
+
     /// <summary>
     /// Multimedia http info
     /// </summary>
@@ -240,18 +241,22 @@ namespace WordPressPCL.Models
         [JsonProperty("embeddable")]
         public bool Embeddable { get; set; }
     }
+
     /// <summary>
     /// Self link
     /// </summary>
     public class Self : HrefBase { }
+
     /// <summary>
     /// Collection links
     /// </summary>
     public class Collection : HrefBase { }
+
     /// <summary>
     /// About link
     /// </summary>
     public class About : HrefBase { }
+
     /// <summary>
     /// Author link
     /// </summary>
@@ -263,6 +268,7 @@ namespace WordPressPCL.Models
         [JsonProperty("embeddable")]
         public bool Embeddable { get; set; }
     }
+
     /// <summary>
     /// Link to reply
     /// </summary>
@@ -285,20 +291,24 @@ namespace WordPressPCL.Models
         /// </summary>
         [JsonProperty("name")]
         public string Name { get; set; }
+
         /// <summary>
         /// Is cury templated
         /// </summary>
         [JsonProperty("templated")]
         public bool Templated { get; set; }
     }
+
     /// <summary>
     /// Post type link WP
     /// </summary>
     public class WpPostType : HrefBase { }
+
     /// <summary>
     /// Attachment http Link
     /// </summary>
     public class HttpsApiWOrgAttachment : HrefBase { }
+
     /// <summary>
     /// Term http link
     /// </summary>
@@ -309,12 +319,14 @@ namespace WordPressPCL.Models
         /// </summary>
         [JsonProperty("taxonomy")]
         public string Taxonomy { get; set; }
+
         /// <summary>
         /// Has embedded info
         /// </summary>
         [JsonProperty("embeddable")]
         public bool Embeddable { get; set; }
     }
+
     /// <summary>
     /// Meta http link
     /// </summary>
@@ -326,5 +338,4 @@ namespace WordPressPCL.Models
         [JsonProperty("embeddable")]
         public bool Embeddable { get; set; }
     }
-
 }

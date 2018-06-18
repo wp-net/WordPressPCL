@@ -18,9 +18,9 @@ namespace WordPressPCL.Client
     {
         #region Init
 
-        private string _defaultPath;
+        private readonly string _defaultPath;
         private const string _methodPath = "media";
-        private HttpHelper _httpHelper;
+        private readonly HttpHelper _httpHelper;
 
         /// <summary>
         /// Constructor
@@ -47,7 +47,7 @@ namespace WordPressPCL.Client
             string extension = filename.Split('.').Last();
             content.Headers.TryAddWithoutValidation("Content-Type", MimeTypeHelper.GetMIMETypeFromExtension(extension));
             content.Headers.TryAddWithoutValidation("Content-Disposition", $"attachment; filename={filename}");
-            return (await _httpHelper.PostRequest<MediaItem>($"{_defaultPath}{_methodPath}", content)).Item1;
+            return (await _httpHelper.PostRequest<MediaItem>($"{_defaultPath}{_methodPath}", content).ConfigureAwait(false)).Item1;
         }
 
 #if NETSTANDARD2_0
@@ -65,7 +65,7 @@ namespace WordPressPCL.Client
                 string extension = filename.Split('.').Last();
                 content.Headers.TryAddWithoutValidation("Content-Type", MimeTypeHelper.GetMIMETypeFromExtension(extension));
                 content.Headers.TryAddWithoutValidation("Content-Disposition", $"attachment; filename={filename}");
-                return (await _httpHelper.PostRequest<MediaItem>($"{_defaultPath}{_methodPath}", content)).Item1;
+                return (await _httpHelper.PostRequest<MediaItem>($"{_defaultPath}{_methodPath}", content).ConfigureAwait(false)).Item1;
             }
             else
             {
@@ -79,7 +79,7 @@ namespace WordPressPCL.Client
         /// </summary>
         /// <param name="ID">Entity Id</param>
         /// <returns>Result of operation</returns>
-        public Task<HttpResponseMessage> Delete(int ID)
+        public Task<bool> Delete(int ID)
         {
             return _httpHelper.DeleteRequest($"{_defaultPath}{_methodPath}/{ID}?force=true");
         }
@@ -105,14 +105,15 @@ namespace WordPressPCL.Client
         {
             //100 - Max posts per page in WordPress REST API, so this is hack with multiple requests
             List<MediaItem> entities = new List<MediaItem>();
-            List<MediaItem> entities_page = new List<MediaItem>();
-            int page = 1;
-            do
+            entities = (await _httpHelper.GetRequest<IEnumerable<MediaItem>>($"{_defaultPath}{_methodPath}?per_page=100&page=1", embed, useAuth).ConfigureAwait(false))?.ToList<MediaItem>();
+            if (_httpHelper.LastResponseHeaders.Contains("X-WP-TotalPages") && System.Convert.ToInt32(_httpHelper.LastResponseHeaders.GetValues("X-WP-TotalPages").FirstOrDefault()) > 1)
             {
-                entities_page = (await _httpHelper.GetRequest<IEnumerable<MediaItem>>($"{_defaultPath}{_methodPath}?per_page=100&page={page++}", embed, useAuth).ConfigureAwait(false))?.ToList<MediaItem>();
-                if (entities_page != null && entities_page.Count > 0) { entities.AddRange(entities_page); }
-            } while (entities_page != null && entities_page.Count > 0);
-
+                int totalpages = System.Convert.ToInt32(_httpHelper.LastResponseHeaders.GetValues("X-WP-TotalPages").FirstOrDefault());
+                for (int page = 2; page <= totalpages; page++)
+                {
+                    entities.AddRange((await _httpHelper.GetRequest<IEnumerable<MediaItem>>($"{_defaultPath}{_methodPath}?per_page=100&page={page}", embed, useAuth).ConfigureAwait(false))?.ToList<MediaItem>());
+                }
+            }
             return entities;
         }
 
@@ -148,7 +149,7 @@ namespace WordPressPCL.Client
         {
             var entity = _httpHelper.JsonSerializerSettings == null ? JsonConvert.SerializeObject(Entity) : JsonConvert.SerializeObject(Entity, _httpHelper.JsonSerializerSettings);
             var postBody = new StringContent(entity, Encoding.UTF8, "application/json");
-            return (await _httpHelper.PostRequest<MediaItem>($"{_defaultPath}{_methodPath}/{(Entity as Base).Id}", postBody)).Item1;
+            return (await _httpHelper.PostRequest<MediaItem>($"{_defaultPath}{_methodPath}/{(Entity as Base)?.Id}", postBody).ConfigureAwait(false)).Item1;
         }
     }
 }

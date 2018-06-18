@@ -13,6 +13,6 @@ namespace WordPressPCL.Interfaces
         /// </summary>
         /// <param name="ID">ID ob object to delete</param>
         /// <returns>Result of operation</returns>
-        Task<HttpResponseMessage> Delete(int ID);
+        Task<bool> Delete(int ID);
     }
 }

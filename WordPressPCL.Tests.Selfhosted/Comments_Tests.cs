@@ -47,8 +47,10 @@ namespace WordPressPCL.Tests.Selfhosted
             Assert.IsNotNull(resultComment);
 
             // Posting same comment twice should fail
-            var secondResultComment = await _clientAuth.Comments.Create(comment);
-            Assert.IsNull(secondResultComment);
+            await Assert.ThrowsExceptionAsync<WPException>(async () =>
+            {
+                var secondResultComment = await _clientAuth.Comments.Create(comment);
+            });
         }
         [TestMethod]
         public async Task Comments_Read()
@@ -129,7 +131,7 @@ namespace WordPressPCL.Tests.Selfhosted
             var resultComment = await _clientAuth.Comments.Create(comment);
 
             var response = await _clientAuth.Comments.Delete(resultComment.Id);
-            Assert.IsTrue(response.IsSuccessStatusCode);
+            Assert.IsTrue(response);
 
         }
         [TestMethod]
@@ -143,7 +145,7 @@ namespace WordPressPCL.Tests.Selfhosted
                 Order = Order.DESC,
             };
             var queryresult = await _clientAuth.Comments.Query(queryBuilder);
-            Assert.AreEqual(queryBuilder.BuildQueryURL(), "?page=1&per_page=15&orderby=id&order=desc");
+            Assert.AreEqual("?page=1&per_page=15&orderby=id", queryBuilder.BuildQueryURL());
             Assert.IsNotNull(queryresult);
             Assert.AreNotSame(queryresult.Count(), 0);
         }
@@ -151,6 +153,27 @@ namespace WordPressPCL.Tests.Selfhosted
         [TestMethod]
         public async Task Comments_Query_Pending()
         {
+            // Create new pending comment
+            var posts = await _clientAuth.Posts.GetAll();
+            var postId = posts.First().Id;
+            var me = await _clientAuth.Users.GetCurrentUser();
+
+            // Create random content to prevent duplicate commment errors
+            var random = new Random();
+            var content = $"TestComment {random.Next(0, 10000)}";
+            var comment = new Comment()
+            {
+                Content = new Content(content),
+                PostId = postId,
+                AuthorId = me.Id,
+                AuthorEmail = "test@test.com",
+                AuthorName = me.Name,
+                Status = CommentStatus.Pending
+            };
+            var resultComment = await _clientAuth.Comments.Create(comment);
+            Assert.IsNotNull(resultComment);
+            Assert.AreEqual(CommentStatus.Pending, resultComment.Status);
+
             // this test needs a pending comment added manually for now.
             var queryBuilder = new CommentsQueryBuilder()
             {
@@ -161,10 +184,13 @@ namespace WordPressPCL.Tests.Selfhosted
                 Statuses=new CommentStatus[] {CommentStatus.Pending}
             };
             var queryresult = await _clientAuth.Comments.Query(queryBuilder, true);
-            var querystring = "?page=1&per_page=15&orderby=id&status=hold&order=desc";
-            Assert.AreEqual(queryBuilder.BuildQueryURL(), querystring);
+            var querystring = "?page=1&per_page=15&orderby=id&status=hold";
+            Assert.AreEqual(querystring, queryBuilder.BuildQueryURL());
             Assert.IsNotNull(queryresult);
             Assert.AreNotEqual(queryresult.Count(), 0);
+
+            // Delete Pending comment
+            await _clientAuth.Comments.Delete(resultComment.Id);
         }
 
         [TestMethod]
@@ -208,7 +234,7 @@ namespace WordPressPCL.Tests.Selfhosted
 
             // cleanup
             var result = await _clientAuth.Posts.Delete(createdPost.Id);
-            Assert.IsTrue(result.IsSuccessStatusCode);
+            Assert.IsTrue(result);
         }
 
     }

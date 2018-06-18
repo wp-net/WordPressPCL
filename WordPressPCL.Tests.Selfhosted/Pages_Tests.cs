@@ -78,9 +78,11 @@ namespace WordPressPCL.Tests.Selfhosted
             Assert.IsNotNull(createdPage);
 
             var response = await _clientAuth.Pages.Delete(createdPage.Id);
-            Assert.IsTrue(response.IsSuccessStatusCode);
-            var pageById = await _client.Pages.GetByID(createdPage.Id);
-            Assert.IsNull(pageById);
+            Assert.IsTrue(response);
+            await Assert.ThrowsExceptionAsync<WPException>(async () =>
+            {
+                var pageById = await _client.Pages.GetByID(createdPage.Id);
+            });
         }
 
         [TestMethod]
@@ -91,12 +93,12 @@ namespace WordPressPCL.Tests.Selfhosted
                 Page = 1,
                 PerPage = 15,
                 OrderBy = PagesOrderBy.Title,
-                Order = Order.DESC,
+                Order = Order.ASC,
                 Statuses = new Status[] { Status.Publish },
                 Embed=true
             };
             var queryresult = await _client.Pages.Query(queryBuilder);
-            Assert.AreEqual(queryBuilder.BuildQueryURL(), "?page=1&per_page=15&orderby=title&status=publish&order=desc&_embed=true");
+            Assert.AreEqual(queryBuilder.BuildQueryURL(), "?page=1&per_page=15&orderby=title&status=publish&order=asc&_embed=true");
             Assert.IsNotNull(queryresult);
             Assert.AreNotSame(queryresult.Count(), 0);
         }

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace WordPressPCL.Tests.Selfhosted.Utility
+﻿namespace WordPressPCL.Tests.Selfhosted.Utility
 {
     public class ApiCredentialsSample
     {

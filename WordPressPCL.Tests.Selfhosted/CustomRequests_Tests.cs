@@ -67,7 +67,7 @@ namespace WordPressPCL.Tests.Selfhosted
             Assert.AreNotEqual(forms.Count(), 0);
             var deleteform = forms.First();
             var result = await _clientAuth.CustomRequest.Delete($"contact-form-7/v1/contact-forms/{deleteform.Id.Value}");
-            Assert.IsTrue(result.IsSuccessStatusCode);
+            Assert.IsTrue(result);
         }
     }
 }

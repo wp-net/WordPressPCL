@@ -49,13 +49,13 @@ namespace WordPressPCL.Utility
                     //var ppp = property.GetValue(this);
                     //pass default values
                     if (value is int && (int)value == default(int)) continue;
-                    if (value is string && ((string)value == string.Empty || (string)value == DateTime.MinValue.ToString("yyyy-MM-ddTHH:mm:ss"))) continue;
+                    if (value is string && (string.IsNullOrEmpty((string)value) || (string)value == DateTime.MinValue.ToString("yyyy-MM-ddTHH:mm:ss"))) continue;
                     if (value is DateTime && (string)value == DateTime.MinValue.ToString("yyyy-MM-ddTHH:mm:ss")) continue;
                     if (property.PropertyType == typeof(bool) && (string)value == default(bool).ToString().ToLower()) continue;
                     if (property.PropertyType.GetTypeInfo().IsEnum && (int)property.GetValue(this) == 0) continue;
                     //if (property.PropertyType.IsArray && ((Array)value).Length == 0) continue;
                     if (value == null) continue;
-                    sb.Append($"{attribute.Text}={value}&");
+                    sb.Append(attribute.Text).Append("=").Append(value).Append("&");
                 }
             }
             //insert ? quote to the start of http query text
@@ -86,7 +86,7 @@ namespace WordPressPCL.Utility
                     StringBuilder sb = new StringBuilder();
                     foreach (var item in array)
                     {
-                        sb.Append($"{GetPropertyValue(item)},");
+                        sb.Append(GetPropertyValue(item)).Append(",");
                     }
 
                     return sb.ToString().TrimEnd(',');

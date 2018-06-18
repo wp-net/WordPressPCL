@@ -3,7 +3,7 @@
     /// <summary>
     /// Helper class with common methods to operate with MIME Type
     /// </summary>
-    public class MimeTypeHelper
+    public static class MimeTypeHelper
     {
         /// <summary>
         /// Get MIME type of file from extension

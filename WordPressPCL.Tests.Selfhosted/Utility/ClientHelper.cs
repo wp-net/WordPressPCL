@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using WordPressPCL;
 using WordPressPCL.Models;
 
 namespace WordPressPCL.Tests.Selfhosted.Utility
@@ -15,8 +14,6 @@ namespace WordPressPCL.Tests.Selfhosted.Utility
             {
                 _clientAuth = new WordPressClient(ApiCredentials.WordPressUri)
                 {
-                    /*client.Username = ApiCredentials.Username;
-                    client.Password = ApiCredentials.Password;*/
                     AuthMethod = AuthMethod.JWT
                 };
                 await _clientAuth.RequestJWToken(ApiCredentials.Username, ApiCredentials.Password);

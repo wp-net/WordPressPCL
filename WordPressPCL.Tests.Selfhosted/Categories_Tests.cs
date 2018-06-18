@@ -86,7 +86,7 @@ namespace WordPressPCL.Tests.Selfhosted
                 Assert.Inconclusive();
             }
             var response = await _clientAuth.Categories.Delete(category.Id);
-            Assert.IsTrue(response.IsSuccessStatusCode);
+            Assert.IsTrue(response);
             categories = await _clientAuth.Categories.GetAll();
             var c = categories.Where(x => x.Id == category.Id).ToList();
             Assert.AreEqual(c.Count, 0);
@@ -103,7 +103,7 @@ namespace WordPressPCL.Tests.Selfhosted
                 Order = Order.DESC,
             };
             var queryresult = await _clientAuth.Categories.Query(queryBuilder);
-            Assert.AreEqual(queryBuilder.BuildQueryURL(), "?page=1&per_page=15&orderby=id&order=desc");
+            Assert.AreEqual("?page=1&per_page=15&orderby=id", queryBuilder.BuildQueryURL());
             Assert.IsNotNull(queryresult);
             Assert.AreNotSame(queryresult.Count(), 0);
         }

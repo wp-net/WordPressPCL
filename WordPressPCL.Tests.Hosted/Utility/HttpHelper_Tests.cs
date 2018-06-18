@@ -4,25 +4,28 @@ using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using WordPressPCL.Models;
 
-namespace WordPressPCL.Tests.Selfhosted.Utility
+namespace WordPressPCL.Tests.Hosted.Utility
 {
     [TestClass]
     public class HttpHelper_Tests
     {
         private static WordPressClient _client;
-        private static WordPressClient _clientAuth;
 
         [ClassInitialize]
-        public static async Task Init(TestContext testContext)
+        public static void Init(TestContext testContext)
         {
             _client = ClientHelper.GetWordPressClient();
-            _clientAuth = await ClientHelper.GetAuthenticatedWordPressClient();
         }
 
         [TestMethod]
-        public async Task HttpHelper_InvalidPreProcessing()
+        public async Task Hosted_HttpHelper_InvalidPreProcessing()
         {
-            var client = await ClientHelper.GetAuthenticatedWordPressClient();
+            // AUTHENTICATION DOES NOT YET WORK FOR HOSTED SITES
+            var client = new WordPressClient(ApiCredentials.WordPressUri)
+            {
+                AuthMethod = AuthMethod.JWT
+            };
+            await client.RequestJWToken(ApiCredentials.Username, ApiCredentials.Password);
 
             // Create a random tag , must works:
             var random = new Random();
@@ -46,20 +49,21 @@ namespace WordPressPCL.Tests.Selfhosted.Utility
             // Now we add a PreProcessing task
             client.HttpResponsePreProcessing = (response) =>
             {
-                throw new InvalidOperationException("PreProcessing must failed");
+                throw new InvalidOperationException("PreProcessing must fail");
             };
-
-            tags = await client.Tags.GetAll();
-            Assert.IsNotNull(tags);
-            Assert.AreEqual(0, tags.Count());
-            CollectionAssert.AllItemsAreUnique(tags.Select(e => e.Id).ToList());
+            await Assert.ThrowsExceptionAsync<InvalidOperationException>(async () =>
+            {
+                await client.Tags.GetAll();
+            });
         }
 
         [TestMethod]
-        public async Task HttpHelper_ValidPreProcessing()
+        public async Task Hosted_HttpHelper_ValidPreProcessing()
         {
-            var client = new WordPressClient(ApiCredentials.WordPressUri);
-            client.AuthMethod = AuthMethod.JWT;
+            var client = new WordPressClient(ApiCredentials.WordPressUri)
+            {
+                AuthMethod = AuthMethod.JWT
+            };
             await client.RequestJWToken(ApiCredentials.Username, ApiCredentials.Password);
 
             // Create a random tag
