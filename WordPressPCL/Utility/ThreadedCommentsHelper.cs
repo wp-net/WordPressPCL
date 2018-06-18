@@ -16,13 +16,13 @@ namespace WordPressPCL.Utility
         /// This method returns the comments sorted for a threaded view (oldest first)
         /// inlcuding the depth of a comment
         /// </summary>
-        public static List<CommentThreaded> GetThreadedComments(IEnumerable<Comment> comments)
+        public static List<CommentThreaded> GetThreadedComments(IEnumerable<Comment> comments, int maxDepth = int.MaxValue)
         {
             if (comments == null)
                 return null;
 
             var threadedCommentsFinal = new List<CommentThreaded>();
-            var dateSortedThreadedComments = DateSortedWithDepth(comments);
+            var dateSortedThreadedComments = DateSortedWithDepth(comments, maxDepth);
 
             int lastrun = int.MaxValue;
             while (dateSortedThreadedComments.Count > 0)
@@ -70,7 +70,7 @@ namespace WordPressPCL.Utility
             return threadedCommentsFinal;
         }
 
-        private static List<CommentThreaded> DateSortedWithDepth(IEnumerable<Comment> comments)
+        private static List<CommentThreaded> DateSortedWithDepth(IEnumerable<Comment> comments, int maxDepth)
         {
             var dateSortedComments = comments.OrderBy(x => x.Date).ToList();
             var dateSortedthreadedComments = new List<CommentThreaded>();
@@ -78,36 +78,45 @@ namespace WordPressPCL.Utility
             {
                 var serialized = JsonConvert.SerializeObject(c);
                 CommentThreaded commentThreaded = JsonConvert.DeserializeObject<CommentThreaded>(serialized);
-                commentThreaded.Depth = GetCommentThreadedDepth(c, comments.ToList());
+                commentThreaded.Depth = GetCommentThreadedDepth(c, comments.ToList(), maxDepth);
                 dateSortedthreadedComments.Add(commentThreaded);
             }
             return dateSortedthreadedComments;
         }
 
-        private static int GetCommentThreadedDepth(Comment comment, List<Comment> list)
+        private static int GetCommentThreadedDepth(Comment comment, List<Comment> list, int maxDepth)
         {
-            return GetCommentThreadedDepthRecursive(comment, list, 0);
+            return GetCommentThreadedDepthRecursive(comment, list, 0, maxDepth);
         }
 
-        private static int GetCommentThreadedDepthRecursive(Comment comment, List<Comment> list, int depth)
+        private static int GetCommentThreadedDepthRecursive(Comment comment, List<Comment> list, int depth, int maxDepth)
         {
             if (comment.ParentId == 0)
             {
-                return depth;
+                return Math.Min(depth, maxDepth);
             }
             else
             {
                 var parentComment = list.Find(x => x.Id == comment.ParentId);
                 if (parentComment == null)
                 {
-                    return depth;
+                    return Math.Min(depth, maxDepth);
                 }
                 else
                 {
-                    return GetCommentThreadedDepthRecursive(parentComment, list, depth + 1);
+                    return GetCommentThreadedDepthRecursive(parentComment, list, depth + 1, maxDepth);
                 }
 
             }
+        }
+        /// <summary>
+        /// Extension method: Get Threaded comments from ordinary comments
+        /// </summary>
+        /// <param name="comments">Comments which will be threaded</param>
+        /// <returns>List of threaded comments</returns>
+        public static List<CommentThreaded> ToThreaded(this IEnumerable<Comment> comments)
+        {
+            return GetThreadedComments(comments);
         }
     }
 }

@@ -427,7 +427,7 @@
         </member>
         <member name="M:WordPressPCL.Client.PostStatuses.Get(System.Boolean,System.Boolean)">
             <summary>
-            Get latest
+            Get latest Post Statuses
             </summary>
             <param name="embed">include embed info</param>
             <param name="useAuth">Send request with authenication header</param>
@@ -1021,7 +1021,7 @@
             Status of Comments
             </summary>
         </member>
-        <member name="F:WordPressPCL.Models.CommentStatus.Approve">
+        <member name="F:WordPressPCL.Models.CommentStatus.Approved">
             <summary>
             Comment Approved
             </summary>
@@ -1034,6 +1034,11 @@
         <member name="F:WordPressPCL.Models.CommentStatus.Spam">
             <summary>
             Comment is spam
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.CommentStatus.Trash">
+            <summary>
+            Comment is in trash
             </summary>
         </member>
         <member name="T:WordPressPCL.Models.MediaQueryStatus">
@@ -3169,8 +3174,14 @@
         </member>
         <member name="P:WordPressPCL.Utility.HttpHelper.HttpResponsePreProcessing">
             <summary>
-            Function called when a HttpRequest response is readed 
+            Function called when a HttpRequest response is readed
             Executed before trying to convert json content to a TClass object.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.HttpHelper.JsonSerializerSettings">
+            <summary>
+            Serialization/Deserialization settings for Json.NET library
+            https://www.newtonsoft.com/json/help/html/SerializationSettings.htm
             </summary>
         </member>
         <member name="M:WordPressPCL.Utility.HttpHelper.#ctor(System.String)">
@@ -3614,11 +3625,18 @@
             Helper class to creat threaded comment views
             </summary>
         </member>
-        <member name="M:WordPressPCL.Utility.ThreadedCommentsHelper.GetThreadedComments(System.Collections.Generic.IEnumerable{WordPressPCL.Models.Comment})">
+        <member name="M:WordPressPCL.Utility.ThreadedCommentsHelper.GetThreadedComments(System.Collections.Generic.IEnumerable{WordPressPCL.Models.Comment},System.Int32)">
             <summary>
             This method returns the comments sorted for a threaded view (oldest first)
             inlcuding the depth of a comment
             </summary>
+        </member>
+        <member name="M:WordPressPCL.Utility.ThreadedCommentsHelper.ToThreaded(System.Collections.Generic.IEnumerable{WordPressPCL.Models.Comment})">
+            <summary>
+            Extension method: Get Threaded comments from ordinary comments
+            </summary>
+            <param name="comments">Comments which will be threaded</param>
+            <returns>List of threaded comments</returns>
         </member>
         <member name="T:WordPressPCL.Utility.UsersQueryBuilder">
             <summary>
@@ -3686,8 +3704,14 @@
         </member>
         <member name="P:WordPressPCL.WordPressClient.HttpResponsePreProcessing">
             <summary>
-            Function called when a HttpRequest response to WordPress APIs are readed 
+            Function called when a HttpRequest response to WordPress APIs are readed
             Executed before trying to convert json content to a TClass object.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.WordPressClient.JsonSerializerSettings">
+            <summary>
+            Serialization/Deserialization settings for Json.NET library
+            https://www.newtonsoft.com/json/help/html/SerializationSettings.htm
             </summary>
         </member>
         <member name="P:WordPressPCL.WordPressClient.AuthMethod">

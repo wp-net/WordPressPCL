@@ -70,12 +70,12 @@ namespace WordPressPCL.Models
         /// Comment Approved
         /// </summary>
         [EnumMember(Value = "approved")]
-        Approve,
+        Approved,
 
         /// <summary>
         /// Comment is pending to approve
         /// </summary>
-        [EnumMember(Value = "pending")]
+        [EnumMember(Value = "hold")]
         Pending,
 
         /// <summary>
@@ -83,6 +83,12 @@ namespace WordPressPCL.Models
         /// </summary>
         [EnumMember(Value = "spam")]
         Spam,
+
+        /// <summary>
+        /// Comment is in trash
+        /// </summary>
+        [EnumMember(Value = "trash")]
+        Trash,
     }
 
     /// <summary>
@@ -420,18 +426,18 @@ namespace WordPressPCL.Models
     /// Order By direction
     /// </summary>
     public enum Order
-    {
-        /// <summary>
-        /// Ascending direction
-        /// </summary>
-        [EnumMember(Value = "asc")]
-        ASC,
-
+    {        
         /// <summary>
         /// Descending direction
         /// </summary>
         [EnumMember(Value = "desc")]
-        DESC
+        DESC,
+
+        /// <summary>
+        /// Ascending direction
+        /// </summary>
+        [EnumMember(Value = "asc")]
+        ASC
     }
 
     /// <summary>

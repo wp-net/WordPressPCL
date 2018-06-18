@@ -1,25 +1,35 @@
 using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using WordPressPCLTests.Utility;
+using WordPressPCL.Tests.Selfhosted.Utility;
 using WordPressPCL;
 using System.Threading.Tasks;
 using WordPressPCL.Models;
+using WordPressPCL.Utility;
 using System.Net;
 using System.Linq;
 
-namespace WordPressPCLTests
+namespace WordPressPCL.Tests.Selfhosted
 {
     [TestClass]
     public class Basic_Tests
     {
+        private static WordPressClient _client;
+        private static WordPressClient _clientAuth;
+
+        [ClassInitialize]
+        public static async Task Init(TestContext testContext)
+        {
+            _client = ClientHelper.GetWordPressClient();
+            _clientAuth = await ClientHelper.GetAuthenticatedWordPressClient();
+        }
+
         [TestMethod]
         public async Task BasicSetupTest()
         {
             // Initialize
-            var client = new WordPressClient(ApiCredentials.WordPressUri);
-            Assert.IsNotNull(client);
+            Assert.IsNotNull(_client);
             // Posts
-            var posts = await client.Posts.GetAll();
+            var posts = await _client.Posts.GetAll();
             Assert.IsNotNull(posts);
         }
 
@@ -27,9 +37,8 @@ namespace WordPressPCLTests
         public async Task GetFirstPostTest()
         {
             // Initialize
-            var client = new WordPressClient(ApiCredentials.WordPressUri);
-            var posts = await client.Posts.GetAll();
-            var post = await client.Posts.GetByID(posts.First().Id);
+            var posts = await _client.Posts.GetAll();
+            var post = await _client.Posts.GetByID(posts.First().Id);
             Assert.IsTrue(posts.First().Id == post.Id);
             Assert.IsTrue(!String.IsNullOrEmpty(posts.First().Content.Rendered));
         }
@@ -38,8 +47,7 @@ namespace WordPressPCLTests
         public async Task GetStickyPosts()
         {
             // Initialize
-            var client = new WordPressClient(ApiCredentials.WordPressUri);
-            var posts = await client.Posts.GetStickyPosts();
+            var posts = await _client.Posts.GetStickyPosts();
 
             foreach (Post post in posts)
             {
@@ -53,8 +61,7 @@ namespace WordPressPCLTests
             // This CategoryID MUST exists at ApiCredentials.WordPressUri
             int category = 1;
             // Initialize
-            var client = new WordPressClient(ApiCredentials.WordPressUri);
-            var posts = await client.Posts.GetPostsByCategory(category);
+            var posts = await _client.Posts.GetPostsByCategory(category);
 
             foreach (Post post in posts)
             {
@@ -68,8 +75,7 @@ namespace WordPressPCLTests
             // This TagID MUST exists at ApiCredentials.WordPressUri
             int tag = 12;
             // Initialize
-            var client = new WordPressClient(ApiCredentials.WordPressUri);
-            var posts = await client.Posts.GetPostsByTag(tag);
+            var posts = await _client.Posts.GetPostsByTag(tag);
 
             foreach (Post post in posts)
             {
@@ -83,8 +89,7 @@ namespace WordPressPCLTests
             // This AuthorID MUST exists at ApiCredentials.WordPressUri
             int author = 2;
             // Initialize
-            var client = new WordPressClient(ApiCredentials.WordPressUri);
-            var posts = await client.Posts.GetPostsByAuthor(author);
+            var posts = await _client.Posts.GetPostsByAuthor(author);
 
             foreach (Post post in posts)
             {
@@ -98,8 +103,7 @@ namespace WordPressPCLTests
             // This search term MUST be used at least once
             string search = "hello";
             // Initialize
-            var client = new WordPressClient(ApiCredentials.WordPressUri);
-            var posts = await client.Posts.GetPostsBySearch(search);
+            var posts = await _client.Posts.GetPostsBySearch(search);
 
             foreach (Post post in posts)
             {
@@ -114,24 +118,13 @@ namespace WordPressPCLTests
             }
         }
 
-
         [TestMethod]
         public async Task JWTAuthTest()
         {
-            // get JWT Authenticated client
-            var client = await ClientHelper.GetAuthenticatedWordPressClient();
-            //Assert.IsNotNull(client.JWToken);
-            var IsValidToken = await client.IsValidJWToken();
-            Assert.IsTrue(IsValidToken);
-        }
-
-        [TestMethod]
-        public async Task LogoutTest()
-        {
-            // get JWT Authenticated client
-            var client = await ClientHelper.GetAuthenticatedWordPressClient();
-            //Assert.IsNotNull(client.JWToken);
-            var IsValidToken = await client.IsValidJWToken();
+            var client = new WordPressClient(ApiCredentials.WordPressUri);
+            client.AuthMethod = AuthMethod.JWT;
+            await client.RequestJWToken(ApiCredentials.Username, ApiCredentials.Password);
+            var IsValidToken = await _clientAuth.IsValidJWToken();
             Assert.IsTrue(IsValidToken);
 
             client.Logout();

@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26228.4
+VisualStudioVersion = 15.0.27130.2027
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WordPressPCL", "WordPressPCL\WordPressPCL.csproj", "{E34E9B5D-0086-47D8-86A0-359B7D812CFC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WordPressPCLTests", "WordPressPCLTests\WordPressPCLTests.csproj", "{B17CFA0E-0644-4F53-87B2-49BDDD1BB762}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WordPressPCL.Tests.Selfhosted", "WordPressPCLTests\WordPressPCL.Tests.Selfhosted.csproj", "{B17CFA0E-0644-4F53-87B2-49BDDD1BB762}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -54,5 +54,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6236C904-4FF3-4608-80FF-D48EABAB9BFF}
 	EndGlobalSection
 EndGlobal

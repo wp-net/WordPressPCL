@@ -33,7 +33,7 @@ namespace WordPressPCL
         public string Password { get; set; }*/
 
         /// <summary>
-        /// Function called when a HttpRequest response to WordPress APIs are readed 
+        /// Function called when a HttpRequest response to WordPress APIs are readed
         /// Executed before trying to convert json content to a TClass object.
         /// </summary>
         public Func<string, string> HttpResponsePreProcessing
@@ -41,6 +41,22 @@ namespace WordPressPCL
             set
             {
                 _httpHelper.HttpResponsePreProcessing = value;
+            }
+        }
+
+        /// <summary>
+        /// Serialization/Deserialization settings for Json.NET library
+        /// https://www.newtonsoft.com/json/help/html/SerializationSettings.htm
+        /// </summary>
+        public JsonSerializerSettings JsonSerializerSettings
+        {
+            set
+            {
+                _httpHelper.JsonSerializerSettings = value;
+            }
+            get
+            {
+                return _httpHelper.JsonSerializerSettings;
             }
         }
 
@@ -120,6 +136,10 @@ namespace WordPressPCL
             {
                 uri += "/";
             }
+            if (!uri.EndsWith("wp-json/"))
+            {
+                uri += "wp-json/";
+            }
 
             _wordPressUri = uri;
             _httpHelper = new HttpHelper(WordPressUri);
@@ -171,18 +191,15 @@ namespace WordPressPCL
         public async Task RequestJWToken(string Username, string Password)
         {
             var route = $"{jwtPath}token";
-            using (var client = new HttpClient())
-            {
-                var formContent = new FormUrlEncodedContent(new[]
+            var formContent = new FormUrlEncodedContent(new[]
                 {
                     new KeyValuePair<string, string>("username", Username),
                     new KeyValuePair<string, string>("password", Password)
                 });
 
-                (JWTUser jwtUser, HttpResponseMessage response) = await _httpHelper.PostRequest<JWTUser>(route, formContent, false);
-                //JWToken = jwtUser?.Token;
-                _httpHelper.JWToken = jwtUser?.Token;
-            }
+            (JWTUser jwtUser, HttpResponseMessage response) = await _httpHelper.PostRequest<JWTUser>(route, formContent, false);
+            //JWToken = jwtUser?.Token;
+            _httpHelper.JWToken = jwtUser?.Token;
         }
 
         /// <summary>
@@ -200,11 +217,8 @@ namespace WordPressPCL
         public async Task<bool> IsValidJWToken()
         {
             var route = $"{jwtPath}token/validate";
-            using (var client = new HttpClient())
-            {
-                (JWTUser jwtUser, HttpResponseMessage repsonse) = await _httpHelper.PostRequest<JWTUser>(route, null, true);
-                return repsonse.IsSuccessStatusCode;
-            }
+            (JWTUser jwtUser, HttpResponseMessage repsonse) = await _httpHelper.PostRequest<JWTUser>(route, null, true);
+            return repsonse.IsSuccessStatusCode;
         }
 
         /// <summary>

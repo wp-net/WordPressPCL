@@ -45,8 +45,8 @@ namespace WordPressPCL.Utility
                 if (attribute != null)
                 {
                     var value = GetPropertyValue(property);
-                    var ttt = property.PropertyType.GetTypeInfo().IsEnum;
-                    var ppp = property.GetValue(this);
+                    //var ttt = property.PropertyType.GetTypeInfo().IsEnum;
+                    //var ppp = property.GetValue(this);
                     //pass default values
                     if (value is int && (int)value == default(int)) continue;
                     if (value is string && ((string)value == string.Empty || (string)value == DateTime.MinValue.ToString("yyyy-MM-ddTHH:mm:ss"))) continue;
@@ -71,8 +71,7 @@ namespace WordPressPCL.Utility
         private object GetPropertyValue(object property)
         {
             //secion for propertyInfo object
-            PropertyInfo pi = property as PropertyInfo;
-            if (pi != null)
+            if (property is PropertyInfo pi)
             {
                 if (pi.PropertyType.GetTypeInfo().IsEnum)
                 {
