@@ -220,6 +220,12 @@ namespace WordPressPCL.Models
         public Embedded Embedded { get; set; }
 
         /// <summary>
+        /// Custom Fields. You have to add action to functions.php 
+        /// </summary>
+        [JsonProperty("custom_fields", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public IDictionary<string,string[]> CustomFields { get; set; }
+
+        /// <summary>
         /// Parameterless constructor
         /// </summary>
         public Post()
