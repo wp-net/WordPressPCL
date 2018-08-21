@@ -212,14 +212,6 @@
             <param name="filename">Name of file in WP Media Library</param>
             <returns>Created media object</returns>
         </member>
-        <member name="M:WordPressPCL.Client.Media.Create(System.String,System.String)">
-            <summary>
-            Create Media entity with attachment
-            </summary>
-            <param name="filePath">Local Path to file</param>
-            <param name="filename">Name of file in WP Media Library</param>
-            <returns>Created media object</returns>
-        </member>
         <member name="M:WordPressPCL.Client.Media.Delete(System.Int32)">
             <summary>
             Delete Entity
@@ -521,6 +513,14 @@
         </member>
         <member name="M:WordPressPCL.Client.Taxonomies.Get(System.Boolean,System.Boolean)">
             <summary>
+         <summary>
+            Constructor
+            </summary>
+            <param name="httpHelper">reference to HttpHelper class for interaction with HTTP</param>
+            <param name="defaultPath">path to site, EX. http://demo.com/wp-json/ </param>
+        </member>
+        <member name="M:WordPressPCL.Client.Taxonomies.Get(System.Boolean,System.Boolean)">
+            <summary>
             Get latest
             </summary>
             <param name="embed">include embed info</param>
@@ -597,14 +597,7 @@
             <returns>Entity by Id</returns>
         </member>
         <member name="M:WordPressPCL.Client.Users.Query(WordPressPCL.Utility.UsersQueryBuilder,System.Boolean)">
-            <summary>
-            Create a parametrized query and get a result
-            </summary>
-            <param name="queryBuilder">Query builder with specific parameters</param>
-            <param name="useAuth">Send request with authenication header</param>
-            <returns>List of filtered result</returns>
-        </member>
-        <member name="M:WordPressPCL.Client.Users.Update(WordPressPCL.Models.User)">
+     ate(WordPressPCL.Models.User)">
             <summary>
             Update Entity
             </summary>
@@ -1049,14 +1042,14 @@
             Status of Comments
             </summary>
         </member>
-        <member name="F:WordPressPCL.Models.CommentStatus.Approved">
-            <summary>
-            Comment Approved
-            </summary>
-        </member>
         <member name="F:WordPressPCL.Models.CommentStatus.Pending">
             <summary>
             Comment is pending to approve
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.CommentStatus.Approved">
+            <summary>
+            Comment Approved
             </summary>
         </member>
         <member name="F:WordPressPCL.Models.CommentStatus.Spam">
@@ -1149,6 +1142,19 @@
         <member name="F:WordPressPCL.Models.UsersOrderBy.Name">
             <summary>
             Order By Name
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.UsersOrderBy.Id">
+            <summary>
+            Order By Id
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.UsersOrderBy.Include">
+            <summary>
+            Order By Include
+            </summary>
+        </member>
+        <member name="F:WordPresse
             </summary>
         </member>
         <member name="F:WordPressPCL.Models.UsersOrderBy.Id">
@@ -1272,19 +1278,7 @@
         <member name="F:WordPressPCL.Models.PagesOrderBy.Relevance">
             <summary>
             Order By Relevance
-            </summary>
-        </member>
-        <member name="F:WordPressPCL.Models.PagesOrderBy.Id">
-            <summary>
-            Order By Id
-            </summary>
-        </member>
-        <member name="F:WordPressPCL.Models.PagesOrderBy.Include">
-            <summary>
-            Order By Include
-            </summary>
-        </member>
-        <member name="F:WordPressPCL.Models.PagesOrderBy.Title">
+            </sderBy.Title">
             <summary>
             Order By Title
             </summary>
@@ -1515,6 +1509,19 @@
             </summary>
         </member>
         <member name="P:WordPressPCL.Models.ImageMeta.Caption">
+            <summary>
+            Image Caption
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ImageMeta.CreatedTimestamp">
+            <summary>
+            Created Date
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ImageMeta.Copyright">
+            <summary>
+            Copyright
+            </summary>>
             <summary>
             Image Caption
             </summary>
@@ -3763,14 +3770,7 @@
             <remarks>Default: name
             One of: id, include, name, registered_date, slug, email, url</remarks>
         </member>
-        <member name="P:WordPressPCL.Utility.UsersQueryBuilder.Slugs">
-            <summary>
-            Limit result set to users with a specific slug.
-            </summary>
-        </member>
-        <member name="P:WordPressPCL.Utility.UsersQueryBuilder.Roles">
-            <summary>
-            Limit result set to users matching at least one specific role provided. Accepts csv list or single role.
+        <mle.
             </summary>
         </member>
         <member name="T:WordPressPCL.WordPressClient">
@@ -3862,6 +3862,16 @@
             <param name="uri">URI for WordPress API endpoint, e.g. "http://demo.wp-api.org/wp-json/"</param>
             <param name="defaultPath">Points to the standard API endpoints</param>
         </member>
+        <member name="M:WordPressPCL.WordPressClient.GetSettings">
+            <summary>
+            Get site settings
+            </summary>
+            <returns>Site settings</returns>
+        </member>
+        <member name="M:WordPressPCL.WordPressClient.UpdateSettings(WordPressPCL.Models.Settings)">
+            <summary>
+            Update site settings
+            </summamember>
         <member name="M:WordPressPCL.WordPressClient.GetSettings">
             <summary>
             Get site settings

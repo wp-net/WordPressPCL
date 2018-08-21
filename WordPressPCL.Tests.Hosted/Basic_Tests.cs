@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using WordPressPCL.Models;
 using System.Linq;
 
-namespace WordPressPCL.Hosted.Selfhosted
+namespace WordPressPCL.Hosted
 {
     [TestClass]
     public class Basic_Tests
