@@ -106,7 +106,7 @@ namespace WordPressPCL.Models
         /// State of the object.
         /// </summary>
         /// <remarks>Context: view, edit</remarks>
-        [JsonProperty("status")]
+        [JsonProperty("status", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public CommentStatus Status { get; set; }
 
         /// <summary>

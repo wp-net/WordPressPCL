@@ -67,16 +67,16 @@ namespace WordPressPCL.Models
     public enum CommentStatus
     {
         /// <summary>
-        /// Comment Approved
-        /// </summary>
-        [EnumMember(Value = "approved")]
-        Approved,
-
-        /// <summary>
         /// Comment is pending to approve
         /// </summary>
         [EnumMember(Value = "hold")]
         Pending,
+
+        /// <summary>
+        /// Comment Approved
+        /// </summary>
+        [EnumMember(Value = "approved")]
+        Approved,
 
         /// <summary>
         /// Comment is spam
