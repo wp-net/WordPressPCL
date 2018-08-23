@@ -346,6 +346,15 @@
             <summary>
             Client class for interaction with Posts endpoint WP REST API
             </summary>
+"ID">ID</param>
+            <param name="embed">include embed info</param>
+            <param name="useAuth">Send request with authenication header</param>
+            <returns>Entity by Id</returns>
+        </member>
+        <member name="T:WordPressPCL.Client.Posts">
+            <summary>
+            Client class for interaction with Posts endpoint WP REST API
+            </summary>
         </member>
         <member name="M:WordPressPCL.Client.Posts.#ctor(WordPressPCL.Utility.HttpHelper@,System.String)">
             <summary>
@@ -681,15 +690,7 @@
             <returns>requested object</returns>
         </member>
         <member name="M:WordPressPCL.Interfaces.IReadOperation`1.GetByID(System.Object,System.Boolean,System.Boolean)">
-            <summary>
-            Get object by Id
-            </summary>
-            <param name="ID">Object Id</param>
-            <param name="embed">Is use embed info</param>
-            <param name="useAuth">Is use auth header</param>
-            <returns>requested object</returns>
-        </member>
-        <member name="M:WordPressPCL.Interfaces.IReadOperation`1.GetAll(System.Boolean,System.Boolean)">
+         m.Boolean)">
             <summary>
             Get all objects
             </summary>
@@ -1393,19 +1394,7 @@
             Type of Media Query Item
             </summary>
         </member>
-        <member name="F:WordPressPCL.Models.MediaQueryType.Image">
-            <summary>
-            Image
-            </summary>
-        </member>
-        <member name="F:WordPressPCL.Models.MediaQueryType.Video">
-            <summary>
-            Video
-            </summary>
-        </member>
-        <member name="F:WordPressPCL.Models.MediaQueryType.Audio">
-            <summary>
-            Audio
+        <member o
             </summary>
         </member>
         <member name="F:WordPressPCL.Models.MediaQueryType.Application">
