@@ -15,7 +15,7 @@ namespace WordPressPCL.Utility
     public class HttpHelper
     {
         private static HttpClient _httpClient = new HttpClient();
-        private string _WordpressURI;
+        private readonly string _WordpressURI;
 
         /// <summary>
         /// JSON Web Token
@@ -90,9 +90,7 @@ namespace WordPressPCL.Utility
                 }
                 else
                 {
-                    Debug.WriteLine(responseString);
-                    var badrequest = JsonConvert.DeserializeObject<BadRequest>(responseString);
-                    throw new WPException(badrequest.Message, badrequest);
+                    throw CreateUnexpectedResponseException(response, responseString);
                 }
             }
             catch (WPException) { throw; }
@@ -134,9 +132,7 @@ namespace WordPressPCL.Utility
                 }
                 else
                 {
-                    Debug.WriteLine(responseString);
-                    var badrequest = JsonConvert.DeserializeObject<BadRequest>(responseString);
-                    throw new WPException(badrequest.Message, badrequest);
+                    throw CreateUnexpectedResponseException(response, responseString);
                 }
             }
             catch (WPException) { throw; }
@@ -173,9 +169,7 @@ namespace WordPressPCL.Utility
                 }
                 else
                 {
-                    Debug.WriteLine(responseString);
-                    var badrequest = JsonConvert.DeserializeObject<BadRequest>(responseString);
-                    throw new WPException(badrequest.Message, badrequest);
+                    throw CreateUnexpectedResponseException(response, responseString);
                 }
             }
             catch (WPException) { throw; }
@@ -184,6 +178,23 @@ namespace WordPressPCL.Utility
                 Debug.WriteLine("exception thrown: " + ex.Message);
                 throw;
             }
+        }
+
+        private static Exception CreateUnexpectedResponseException(HttpResponseMessage response, string responseString)
+        {
+            Debug.WriteLine(responseString);
+
+            BadRequest badrequest = null;
+            try
+            {
+                badrequest = JsonConvert.DeserializeObject<BadRequest>(responseString);
+            }
+            catch (JsonReaderException)
+            {
+                // the response is not a well formed bad request
+                return new WPUnexpectedException(response, responseString);
+            }
+            return new WPException(badrequest.Message, badrequest);
         }
     }
 }
