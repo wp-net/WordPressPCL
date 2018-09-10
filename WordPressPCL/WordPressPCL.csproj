@@ -13,11 +13,15 @@
     <RepositoryUrl>https://github.com/wp-net/WordPressPCL</RepositoryUrl>
     <PackageTags>WordPress REST API</PackageTags>
     <RepositoryType>GitHub</RepositoryType>
-    <AssemblyVersion>1.4.6.0</AssemblyVersion>
-    <FileVersion>1.4.6.0</FileVersion>
-    <Version>1.4.6</Version>
+    <AssemblyVersion>1.5.0.0</AssemblyVersion>
+    <FileVersion>1.5.0.0</FileVersion>
+    <Version>1.5.0</Version>
     <PackageLicenseUrl>https://github.com/wp-net/WordPressPCL/blob/master/LICENSE</PackageLicenseUrl>
-    <PackageReleaseNotes>V1.4.6
+    <PackageReleaseNotes>V1.5.0
+- Enhanced Error handling
+https://github.com/wp-net/WordPressPCL/issues/138
+
+V1.4.6
 - Bugfix: Add DefaultValueHandling to Comment Status property 
 
 V1.4.5
