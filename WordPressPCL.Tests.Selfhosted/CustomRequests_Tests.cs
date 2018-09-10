@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,9 +15,13 @@ namespace WordPressPCL.Tests.Selfhosted
         //Requires contact-form-7 plugin
         private class ContactFormItem
         {
+            [JsonProperty("id")]
             public int? Id;
+            [JsonProperty("title")]
             public string Title;
+            [JsonProperty("slug")]
             public string Slug;
+            [JsonProperty("locale")]
             public string Locale;
         }   
 
@@ -41,9 +46,12 @@ namespace WordPressPCL.Tests.Selfhosted
         [TestMethod]
         public async Task CustomRequests_Create()
         {
-            var form = await _clientAuth.CustomRequest.Create<ContactFormItem, ContactFormItem>("contact-form-7/v1/contact-forms", new ContactFormItem() { Title = "test" });
+            var random = new Random();
+            var r = random.Next(0, 10000);
+            var title = $"Test Form {r}";
+            var form = await _clientAuth.CustomRequest.Create<ContactFormItem, ContactFormItem>("contact-form-7/v1/contact-forms", new ContactFormItem() { Title = title });
             Assert.IsNotNull(form);
-            Assert.AreEqual(form.Title, "test");
+            Assert.AreEqual(form.Title, title);
         }
 
         [TestMethod]

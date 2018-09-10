@@ -28,10 +28,12 @@ namespace WordPressPCL.Tests.Selfhosted
         {
             // Posts
             var postsA = await _client.Posts.Query(new PostsQueryBuilder() {
-                Page = 1
+                Page = 1,
+                PerPage = 2
             });
             var postsB = await _client.Posts.Query(new PostsQueryBuilder() {
-                Page = 2
+                Page = 2,
+                PerPage = 2
             });
             Assert.IsNotNull(postsA);
             Assert.IsNotNull(postsB);
