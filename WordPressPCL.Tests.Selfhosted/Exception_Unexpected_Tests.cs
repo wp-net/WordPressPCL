@@ -34,7 +34,7 @@ namespace WordPressPCL.Tests.Selfhosted
         [TestMethod]
         public async Task Tags_Delete_UnexpectedException()
         {
-            await CheckForUnexpectedException(async () => await _badConnectionClient.Tags.Delete(1), HttpStatusCode.MethodNotAllowed);
+            await CheckForUnexpectedException(async () => await _badConnectionClient.Tags.Delete(1), HttpStatusCode.NotImplemented);
         }
 
         private async Task CheckForUnexpectedException(Func<Task> task, HttpStatusCode expectedStatus = HttpStatusCode.NotFound)
