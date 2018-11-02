@@ -8,7 +8,7 @@
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Authors>Thomas Pentenrieder</Authors>
     <Company>medienstudio.net</Company>
-    <Description>This is a portable library for consuimg the WordPress REST-API in (almost) any C# application.</Description>
+    <Description>This is a portable library for consuming the WordPress REST-API in (almost) any C# application.</Description>
     <PackageProjectUrl>https://github.com/wp-net/WordPressPCL</PackageProjectUrl>
     <RepositoryUrl>https://github.com/wp-net/WordPressPCL</RepositoryUrl>
     <PackageTags>WordPress REST API</PackageTags>
