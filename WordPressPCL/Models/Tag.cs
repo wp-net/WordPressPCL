@@ -30,7 +30,7 @@ namespace WordPressPCL.Models
         /// </summary>
         /// <remarks>Context: view</remarks>
         [JsonProperty("meta", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public JArray Meta { get; set; }
+        public dynamic Meta { get; set; }
         /// <summary>
         /// Parameterless constructor
         /// </summary>
