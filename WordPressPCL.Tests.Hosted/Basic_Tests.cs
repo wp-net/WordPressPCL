@@ -68,14 +68,15 @@ namespace WordPressPCL.Hosted
         [TestMethod]
         public async Task Hosted_GetPostsByTag()
         {
-            // This TagID MUST exists at ApiCredentials.WordPressUri
-            int tag = 12;
+            var tags = await _client.Tags.Get();
+            int tagId = tags.FirstOrDefault().Id;
+
             // Initialize
-            var posts = await _client.Posts.GetPostsByTag(tag);
+            var posts = await _client.Posts.GetPostsByTag(tagId);
             Assert.AreNotEqual(0, posts.Count());
             foreach (Post post in posts)
             {
-                Assert.IsTrue(post.Tags.ToList().Contains(tag));
+                Assert.IsTrue(post.Tags.ToList().Contains(tagId));
             }
         }
 

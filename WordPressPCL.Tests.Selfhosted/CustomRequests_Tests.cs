@@ -49,8 +49,9 @@ namespace WordPressPCL.Tests.Selfhosted
             var random = new Random();
             var r = random.Next(0, 10000);
             var title = $"Test Form {r}";
-            var form = await _clientAuth.CustomRequest.Create<ContactFormItem, ContactFormItem>("contact-form-7/v1/contact-forms", new ContactFormItem() { Title = title });
+            var form = await _clientAuth.CustomRequest.Create<ContactFormItem, ContactFormItem>("contact-form-7/v1/contact-forms", new ContactFormItem() { Title = title, Locale = "en-US" });
             Assert.IsNotNull(form);
+            Assert.IsNotNull(form.Id);
             Assert.AreEqual(form.Title, title);
         }
 
