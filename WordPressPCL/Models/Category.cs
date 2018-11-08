@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace WordPressPCL.Models
 {
@@ -37,7 +38,7 @@ namespace WordPressPCL.Models
         /// </summary>
         /// <remarks>Context: view, edit</remarks>
         [JsonProperty("meta", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public IList<object> Meta { get; set; }
+        public dynamic Meta { get; set; }
 
         /// <summary>
         /// Parameterless constructor

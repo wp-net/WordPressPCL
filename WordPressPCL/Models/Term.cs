@@ -40,7 +40,7 @@ namespace WordPressPCL.Models
         /// One of: category, post_tag, nav_menu, link_category, post_format
         /// </remarks>
         [JsonProperty("taxonomy")]
-        public TermTaxonomy Taxonomy { get; set; }
+        public string Taxonomy { get; set; }
 
         /// <summary>
         /// Links to related resources
