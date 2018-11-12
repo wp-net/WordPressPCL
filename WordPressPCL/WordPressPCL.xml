@@ -212,14 +212,6 @@
             <param name="filename">Name of file in WP Media Library</param>
             <returns>Created media object</returns>
         </member>
-        <member name="M:WordPressPCL.Client.Media.Create(System.String,System.String)">
-            <summary>
-            Create Media entity with attachment
-            </summary>
-            <param name="filePath">Local Path to file</param>
-            <param name="filename">Name of file in WP Media Library</param>
-            <returns>Created media object</returns>
-        </member>
         <member name="M:WordPressPCL.Client.Media.Delete(System.Int32)">
             <summary>
             Delete Entity
@@ -801,6 +793,17 @@
             Read only
             Context: view, edit
             </remarks>
+        </member>
+        <member name="P:WordPressPCL.Models.Category.Description">
+            <summary>
+            HTML description of the term.
+            </summary>
+            <remarks>Context: view, edit</remarks>
+        </member>
+        <member name="P:WordPressPCL.Models.Category.Parent">
+            <summary>
+            The parent term ID.
+                  </remarks>
         </member>
         <member name="P:WordPressPCL.Models.Category.Description">
             <summary>
@@ -3080,16 +3083,7 @@
             Limit result set to terms assigned to a specific post.
             </summary>
         </member>
-        <member name="P:WordPressPCL.Utility.CategoriesQueryBuilder.Parent">
-            <summary>
-            Limit result set to terms assigned to a specific parent.
-            </summary>
-        </member>
-        <member name="T:WordPressPCL.Utility.CommentsQueryBuilder">
-            <summary>
-            Comments Query Builder class to construct queries with valid parameters
-            </summary>
-        </member>
+        <member name="P:  </member>
         <member name="P:WordPressPCL.Utility.CommentsQueryBuilder.Page">
             <summary>
             Current page of the collection.
@@ -3851,6 +3845,20 @@
             <returns>Result of checking</returns>
         </member>
         <member name="M:WordPressPCL.WordPressClient.SetJWToken(System.String)">
+            <summary>
+            Sets an exisitng JWToken
+            </summary>
+            <param name="token"></param>
+        </member>
+        <member name="M:WordPressPCL.WordPressClient.GetToken">
+            <summary>
+            Gets the JWToken from the client
+            </summary>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
+ystem.String)">
             <summary>
             Sets an exisitng JWToken
             </summary>
