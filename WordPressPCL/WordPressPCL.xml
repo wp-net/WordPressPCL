@@ -1419,49 +1419,6 @@
             Application
             </summary>
         </member>
-        <member name="T:WordPressPCL.Models.TermTaxonomy">
-            <summary>
-            Type attribution for the term.
-            </summary>
-        </member>
-        <member name="F:WordPressPCL.Models.TermTaxonomy.Category">
-            <summary>
-            Category
-            </summary>
-        </member>
-        <member name="F:WordPressPCL.Models.TermTaxonomy.PostTag">
-            <summary>
-            Post Tag
-            </summary>
-        </member>
-        <member name="F:WordPressPCL.Models.TermTaxonomy.NavMenu">
-            <summary>
-            Nav Menu
-            </summary>
-        </member>
-        <member name="F:WordPressPCL.Models.TermTaxonomy.LinkCategory">
-            <summary>
-            Link Category
-            </summary>
-        </member>
-        <member name="F:WordPressPCL.Models.TermTaxonomy.PostFormat">
-            <summary>
-            Post Format
-            </summary>
-        </member>
-        <member name="F:WordPressPCL.Models.TermTaxonomy.Unknown">
-            <summary>
-            Placeholder for unknown terms
-            </summary>
-        </member>
-        <member name="F:WordPressPCL.Models.TermTaxonomy.YoastProminentWords">
-            
-             Custom Tags below
-            
-            <summary>
-            Yoast Seo Plugin - Prominent Words
-            </summary>
-        </member>
         <member name="T:WordPressPCL.Models.WPException">
             <summary>
             WordPress request exceptions
