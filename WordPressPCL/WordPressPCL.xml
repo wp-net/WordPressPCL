@@ -803,17 +803,6 @@
         <member name="P:WordPressPCL.Models.Category.Parent">
             <summary>
             The parent term ID.
-                  </remarks>
-        </member>
-        <member name="P:WordPressPCL.Models.Category.Description">
-            <summary>
-            HTML description of the term.
-            </summary>
-            <remarks>Context: view, edit</remarks>
-        </member>
-        <member name="P:WordPressPCL.Models.Category.Parent">
-            <summary>
-            The parent term ID.
             </summary>
             <remarks>Context: view, edit</remarks>
         </member>
@@ -3083,7 +3072,16 @@
             Limit result set to terms assigned to a specific post.
             </summary>
         </member>
-        <member name="P:  </member>
+        <member name="P:WordPressPCL.Utility.CategoriesQueryBuilder.Parent">
+            <summary>
+            Limit result set to terms assigned to a specific parent.
+            </summary>
+        </member>
+        <member name="T:WordPressPCL.Utility.CommentsQueryBuilder">
+            <summary>
+            Comments Query Builder class to construct queries with valid parameters
+            </summary>
+        </member>
         <member name="P:WordPressPCL.Utility.CommentsQueryBuilder.Page">
             <summary>
             Current page of the collection.
@@ -3184,6 +3182,19 @@
             Limit result set to comments assigned a specific type. Requires authorization.
             </summary>
             <remarks>Default: comment</remarks>
+        </member>
+        <member name="T:WordPressPCL.Utility.CustomCapabilitiesJsonConverter">
+            <summary>
+            Custom JSON converter to convert string values to boolean in capabitilities and extra_capabilities properties
+            <see cref="P:WordPressPCL.Models.User.Capabilities"/>
+            <see cref="P:WordPressPCL.Models.User.ExtraCapabilities"/>
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Utility.CustomCapabilitiesJsonConverter.ReadJson(Newtonsoft.Json.JsonReader,System.Type,System.Boolean,System.Boolean,Newtonsoft.Json.JsonSerializer)">
+            <inheritdoc />
+        </member>
+        <member name="M:WordPressPCL.Utility.CustomCapabilitiesJsonConverter.WriteJson(Newtonsoft.Json.JsonWriter,System.Boolean,Newtonsoft.Json.JsonSerializer)">
+            <inheritdoc />
         </member>
         <member name="T:WordPressPCL.Utility.HttpHelper">
             <summary>
@@ -3845,20 +3856,6 @@
             <returns>Result of checking</returns>
         </member>
         <member name="M:WordPressPCL.WordPressClient.SetJWToken(System.String)">
-            <summary>
-            Sets an exisitng JWToken
-            </summary>
-            <param name="token"></param>
-        </member>
-        <member name="M:WordPressPCL.WordPressClient.GetToken">
-            <summary>
-            Gets the JWToken from the client
-            </summary>
-            <returns></returns>
-        </member>
-    </members>
-</doc>
-ystem.String)">
             <summary>
             Sets an exisitng JWToken
             </summary>
