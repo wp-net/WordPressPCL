@@ -803,6 +803,17 @@
         <member name="P:WordPressPCL.Models.Category.Parent">
             <summary>
             The parent term ID.
+                  </remarks>
+        </member>
+        <member name="P:WordPressPCL.Models.Category.Description">
+            <summary>
+            HTML description of the term.
+            </summary>
+            <remarks>Context: view, edit</remarks>
+        </member>
+        <member name="P:WordPressPCL.Models.Category.Parent">
+            <summary>
+            The parent term ID.
             </summary>
             <remarks>Context: view, edit</remarks>
         </member>
@@ -899,18 +910,7 @@
             <summary>
             The content for the object.
             <see cref="T:WordPressPCL.Models.Content"/>
-            </summary>
-            <remarks>Context: view, edit, embed</remarks>
-        </member>
-        <member name="P:WordPressPCL.Models.Comment.Link">
-            <summary>
-            URL to the object.
-            </summary>
-            <remarks>Context: view, edit, embed</remarks>
-        </member>
-        <member name="P:WordPressPCL.Models.Comment.Status">
-            <summary>
-            State of the object.
+            <      State of the object.
             </summary>
             <remarks>Context: view, edit</remarks>
         </member>
@@ -1507,6 +1507,20 @@
             <summary>
             Focal Length
             </summary>
+   ">
+            <summary>
+            Created Date
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ImageMeta.Copyright">
+            <summary>
+            Copyright
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ImageMeta.FocalLength">
+            <summary>
+            Focal Length
+            </summary>
         </member>
         <member name="P:WordPressPCL.Models.ImageMeta.Iso">
             <summary>
@@ -1623,17 +1637,7 @@
         </member>
         <member name="P:WordPressPCL.Models.MediaDetails.ImageMeta">
             <summary>
-            Meta info of Image
-            </summary>
-        </member>
-        <member name="T:WordPressPCL.Models.MediaItem">
-            <summary>
-            Type represent Media Entity of WP REST API
-            </summary>
-        </member>
-        <member name="P:WordPressPCL.Models.MediaItem.Date">
-            <summary>
-            The date the object was published, in the site’s timezone.
+            Me
             </summary>
             <remarks>Context: view, edit, embed</remarks>
         </member>
@@ -3448,6 +3452,14 @@
             </summary>
         </member>
         <member name="P:WordPressPCL.Utility.PagesQueryBuilder.Slugs">
+            <summary>
+            Limit result set to posts with one or more specific slugs.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.PagesQueryBuilder.Statuses">
+            <summary>
+            Limit result set to posts assigned one or more statuses.
+            </summa        <member name="P:WordPressPCL.Utility.PagesQueryBuilder.Slugs">
             <summary>
             Limit result set to posts with one or more specific slugs.
             </summary>
