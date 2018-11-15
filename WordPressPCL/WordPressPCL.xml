@@ -3208,6 +3208,19 @@
             </summary>
             <remarks>Default: comment</remarks>
         </member>
+        <member name="T:WordPressPCL.Utility.CustomCapabilitiesJsonConverter">
+            <summary>
+            Custom JSON converter to convert string values to boolean in capabitilities and extra_capabilities properties
+            <see cref="P:WordPressPCL.Models.User.Capabilities"/>
+            <see cref="P:WordPressPCL.Models.User.ExtraCapabilities"/>
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Utility.CustomCapabilitiesJsonConverter.ReadJson(Newtonsoft.Json.JsonReader,System.Type,System.Boolean,System.Boolean,Newtonsoft.Json.JsonSerializer)">
+            <inheritdoc />
+        </member>
+        <member name="M:WordPressPCL.Utility.CustomCapabilitiesJsonConverter.WriteJson(Newtonsoft.Json.JsonWriter,System.Boolean,Newtonsoft.Json.JsonSerializer)">
+            <inheritdoc />
+        </member>
         <member name="T:WordPressPCL.Utility.HttpHelper">
             <summary>
             Helper class incapsulates common HTTP requests methods
@@ -3868,20 +3881,6 @@
             <returns>Result of checking</returns>
         </member>
         <member name="M:WordPressPCL.WordPressClient.SetJWToken(System.String)">
-            <summary>
-            Sets an exisitng JWToken
-            </summary>
-            <param name="token"></param>
-        </member>
-        <member name="M:WordPressPCL.WordPressClient.GetToken">
-            <summary>
-            Gets the JWToken from the client
-            </summary>
-            <returns></returns>
-        </member>
-    </members>
-</doc>
-ystem.String)">
             <summary>
             Sets an exisitng JWToken
             </summary>
