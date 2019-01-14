@@ -92,7 +92,7 @@ namespace WordPressPCL.Models
         public OpenStatus DefaultPingStatus { get; set; }
 
         /// <summary>
-        /// Default Commment Status
+        /// Default Comment Status
         /// </summary>
         [JsonProperty("default_comment_status")]
         public OpenStatus DefaultCommentStatus { get; set; }

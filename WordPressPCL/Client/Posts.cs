@@ -31,8 +31,8 @@ namespace WordPressPCL.Client
         /// <summary>
         /// Get sticky posts
         /// </summary>
-        /// <param name="embed">includ embed info</param>
-        /// <param name="useAuth">Send request with authenication header</param>
+        /// <param name="embed">include embed info</param>
+        /// <param name="useAuth">Send request with authentication header</param>
         /// <returns>List of posts</returns>
         public Task<IEnumerable<Post>> GetStickyPosts(bool embed = false, bool useAuth = false)
         {
@@ -45,8 +45,8 @@ namespace WordPressPCL.Client
         /// Get posts by category
         /// </summary>
         /// <param name="categoryId">Category Id</param>
-        /// <param name="embed">includ embed info</param>
-        /// <param name="useAuth">Send request with authenication header</param>
+        /// <param name="embed">include embed info</param>
+        /// <param name="useAuth">Send request with authentication header</param>
         /// <returns>List of posts</returns>
         public Task<IEnumerable<Post>> GetPostsByCategory(int categoryId, bool embed = false, bool useAuth = false)
         {
@@ -59,8 +59,8 @@ namespace WordPressPCL.Client
         /// Get posts by tag
         /// </summary>
         /// <param name="tagId">Tag Id</param>
-        /// <param name="embed">includ embed info</param>
-        /// <param name="useAuth">Send request with authenication header</param>
+        /// <param name="embed">include embed info</param>
+        /// <param name="useAuth">Send request with authentication header</param>
         /// <returns>List of posts</returns>
         public Task<IEnumerable<Post>> GetPostsByTag(int tagId, bool embed = false, bool useAuth = false)
         {
@@ -73,8 +73,8 @@ namespace WordPressPCL.Client
         /// Get posts by its author
         /// </summary>
         /// <param name="authorId">Author id</param>
-        /// <param name="embed">includ embed info</param>
-        /// <param name="useAuth">Send request with authenication header</param>
+        /// <param name="embed">include embed info</param>
+        /// <param name="useAuth">Send request with authentication header</param>
         /// <returns>List of posts</returns>
         public Task<IEnumerable<Post>> GetPostsByAuthor(int authorId, bool embed = false, bool useAuth = false)
         {
@@ -88,7 +88,7 @@ namespace WordPressPCL.Client
         /// </summary>
         /// <param name="searchTerm">Search term</param>
         /// <param name="embed">include embed info</param>
-        /// <param name="useAuth">Send request with authenication header</param>
+        /// <param name="useAuth">Send request with authentication header</param>
         /// <returns>List of posts</returns>
         public Task<IEnumerable<Post>> GetPostsBySearch(string searchTerm, bool embed = false, bool useAuth = false)
         {
@@ -102,7 +102,7 @@ namespace WordPressPCL.Client
         /// </summary>
         /// <param name="ID">Post id</param>
         /// <param name="force">force deletion</param>
-        /// <returns>Result of opertion</returns>
+        /// <returns>Result of operation</returns>
         public Task<bool> Delete(int ID, bool force = false)
         {
             return _httpHelper.DeleteRequest($"{_defaultPath}{_methodPath}/{ID}?force={force.ToString().ToLower()}");

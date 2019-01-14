@@ -4,7 +4,7 @@ using System;
 namespace WordPressPCL.Utility
 {
     /// <summary>
-    /// Custom JSON converter to convert string values to boolean in capabitilities and extra_capabilities properties
+    /// Custom JSON converter to convert string values to boolean in capabilities and extra_capabilities properties
     /// <see cref="WordPressPCL.Models.User.Capabilities"/>
     /// <see cref="WordPressPCL.Models.User.ExtraCapabilities"/>
     /// </summary>

@@ -50,7 +50,7 @@ namespace WordPressPCL.Client
         /// Get latest
         /// </summary>
         /// <param name="embed">include embed info</param>
-        /// <param name="useAuth">Send request with authenication header</param>
+        /// <param name="useAuth">Send request with authentication header</param>
         /// <returns>Get latest users</returns>
         public Task<IEnumerable<User>> Get(bool embed = false, bool useAuth = false)
         {
@@ -61,7 +61,7 @@ namespace WordPressPCL.Client
         /// Get All
         /// </summary>
         /// <param name="embed">Include embed info</param>
-        /// <param name="useAuth">Send request with authenication header</param>
+        /// <param name="useAuth">Send request with authentication header</param>
         /// <returns>List of all result</returns>
         public async Task<IEnumerable<User>> GetAll(bool embed = false, bool useAuth = false)
         {
@@ -84,7 +84,7 @@ namespace WordPressPCL.Client
         /// </summary>
         /// <param name="ID">ID</param>
         /// <param name="embed">include embed info</param>
-        /// <param name="useAuth">Send request with authenication header</param>
+        /// <param name="useAuth">Send request with authentication header</param>
         /// <returns>Entity by Id</returns>
         public Task<User> GetByID(object ID, bool embed = false, bool useAuth = false)
         {
@@ -95,7 +95,7 @@ namespace WordPressPCL.Client
         /// Create a parametrized query and get a result
         /// </summary>
         /// <param name="queryBuilder">Query builder with specific parameters</param>
-        /// <param name="useAuth">Send request with authenication header</param>
+        /// <param name="useAuth">Send request with authentication header</param>
         /// <returns>List of filtered result</returns>
         public Task<IEnumerable<User>> Query(UsersQueryBuilder queryBuilder, bool useAuth = false)
         {

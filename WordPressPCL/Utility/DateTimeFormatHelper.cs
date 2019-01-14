@@ -6,13 +6,13 @@ namespace WordPressPCL.Utility
 {
     /*
     /// <summary>
-    /// Helper class with some usefull functions to operate with date time format settings
+    /// Helper class with some useful functions to operate with date time format settings
     /// </summary>
     public static class DateTimeFormatHelper
     {
         /// <summary>
         /// BETA. Use it only for nonstandard WordPress datetime.
-        /// Function tries to convert your PHP WP datetime format  into Microsoft datettime format for serialization/deserialization
+        /// Function tries to convert your PHP WP datetime format  into Microsoft datetime format for serialization/deserialization
         /// Works only with auth
         /// </summary>
         /// <param name="client">current WordPress client instance</param>

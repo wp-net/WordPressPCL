@@ -32,8 +32,8 @@ namespace WordPressPCL.Client
         /// Get pages by its author
         /// </summary>
         /// <param name="authorId">Author id</param>
-        /// <param name="embed">includ embed info</param>
-        /// <param name="useAuth">Send request with authenication header</param>
+        /// <param name="embed">include embed info</param>
+        /// <param name="useAuth">Send request with authentication header</param>
         /// <returns>List of pages</returns>
         public Task<IEnumerable<Page>> GetPagesByAuthor(int authorId, bool embed = false, bool useAuth = false)
         {
@@ -47,7 +47,7 @@ namespace WordPressPCL.Client
         /// </summary>
         /// <param name="searchTerm">Search term</param>
         /// <param name="embed">include embed info</param>
-        /// <param name="useAuth">Send request with authenication header</param>
+        /// <param name="useAuth">Send request with authentication header</param>
         /// <returns>List of pages</returns>
         public Task<IEnumerable<Page>> GetPagesBySearch(string searchTerm, bool embed = false, bool useAuth = false)
         {
@@ -61,7 +61,7 @@ namespace WordPressPCL.Client
         /// </summary>
         /// <param name="ID">Page id</param>
         /// <param name="force">force deletion</param>
-        /// <returns>Result of opertion</returns>
+        /// <returns>Result of operation</returns>
         public Task<bool> Delete(int ID, bool force = false)
         {
             return _httpHelper.DeleteRequest($"{_defaultPath}{_methodPath}/{ID}?force={force.ToString().ToLower()}");

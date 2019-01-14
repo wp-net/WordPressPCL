@@ -30,7 +30,7 @@ namespace WordPressPCL.Client
         /// Get latest Post Statuses
         /// </summary>
         /// <param name="embed">include embed info</param>
-        /// <param name="useAuth">Send request with authenication header</param>
+        /// <param name="useAuth">Send request with authentication header</param>
         /// <returns>Entity by Id</returns>
         public async Task<IEnumerable<PostStatus>> Get(bool embed = false, bool useAuth = false)
         {
@@ -47,7 +47,7 @@ namespace WordPressPCL.Client
         /// Get All
         /// </summary>
         /// <param name="embed">Include embed info</param>
-        /// <param name="useAuth">Send request with authenication header</param>
+        /// <param name="useAuth">Send request with authentication header</param>
         /// <returns>List of all result</returns>
         public async Task<IEnumerable<PostStatus>> GetAll(bool embed = false, bool useAuth = false)
         {
@@ -66,7 +66,7 @@ namespace WordPressPCL.Client
         /// </summary>
         /// <param name="ID">ID</param>
         /// <param name="embed">include embed info</param>
-        /// <param name="useAuth">Send request with authenication header</param>
+        /// <param name="useAuth">Send request with authentication header</param>
         /// <returns>Entity by Id</returns>
         public Task<PostStatus> GetByID(object ID, bool embed = false, bool useAuth = false)
         {
