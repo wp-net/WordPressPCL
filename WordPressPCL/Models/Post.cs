@@ -6,7 +6,7 @@ using System.Collections.Generic;
 namespace WordPressPCL.Models
 {
     /// <summary>
-    /// Type respresents Entity Post of WP REST API
+    /// Type represents Entity Post of WP REST API
     /// </summary>
 	public class Post : Base
     {

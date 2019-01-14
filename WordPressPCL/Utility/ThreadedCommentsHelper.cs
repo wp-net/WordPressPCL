@@ -7,16 +7,16 @@ using WordPressPCL.Models;
 namespace WordPressPCL.Utility
 {
     /// <summary>
-    /// Helper class to creat threaded comment views
+    /// Helper class to create threaded comment views
     /// </summary>
     public static class ThreadedCommentsHelper
     {
         /// <summary>
         /// This method returns the comments sorted for a threaded view (oldest first)
-        /// inlcuding the depth of a comment
+        /// including the depth of a comment
         /// </summary>
         /// <param name="comments">list of comments which will be ordered</param>
-        /// <param name="maxDepth">max hierachy depth</param>
+        /// <param name="maxDepth">max hierarchy depth</param>
         /// <param name="isDescending">order by descending</param>
         public static List<CommentThreaded> GetThreadedComments(IEnumerable<Comment> comments, int maxDepth = int.MaxValue, bool isDescending = false)
         {

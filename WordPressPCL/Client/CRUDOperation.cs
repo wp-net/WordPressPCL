@@ -11,7 +11,7 @@ using WordPressPCL.Utility;
 namespace WordPressPCL.Client
 {
     /// <summary>
-    /// Base class for CRUDOperation with default implementation of all neccesary operations
+    /// Base class for CRUDOperation with default implementation of all necessary operations
     /// </summary>
     /// <typeparam name="TClass">DTO class</typeparam>
     /// <typeparam name="QClass">QueryBuilder class</typeparam>
@@ -43,7 +43,7 @@ namespace WordPressPCL.Client
         /// <param name="HttpHelper">reference to HttpHelper class for interaction with HTTP</param>
         /// <param name="defaultPath">path to site, EX. http://demo.com/wp-json/ </param>
         /// <param name="methodPath">path to endpoint, EX. posts</param>
-        /// <param name="forceDeletion">is objectes must be force deleted</param>
+        /// <param name="forceDeletion">is objects must be force deleted</param>
         protected CRUDOperation(ref HttpHelper HttpHelper, string defaultPath, string methodPath, bool forceDeletion = false)
         {
             _defaultPath = defaultPath;
@@ -78,7 +78,7 @@ namespace WordPressPCL.Client
         /// Get latest
         /// </summary>
         /// <param name="embed">include embed info</param>
-        /// <param name="useAuth">Send request with authenication header</param>
+        /// <param name="useAuth">Send request with authentication header</param>
         /// <returns>Entity by Id</returns>
         public Task<IEnumerable<TClass>> Get(bool embed = false, bool useAuth = false)
         {
@@ -89,7 +89,7 @@ namespace WordPressPCL.Client
         /// Get All
         /// </summary>
         /// <param name="embed">Include embed info</param>
-        /// <param name="useAuth">Send request with authenication header</param>
+        /// <param name="useAuth">Send request with authentication header</param>
         /// <returns>List of all result</returns>
         public async Task<IEnumerable<TClass>> GetAll(bool embed = false, bool useAuth = false)
         {
@@ -112,7 +112,7 @@ namespace WordPressPCL.Client
         /// </summary>
         /// <param name="ID">ID</param>
         /// <param name="embed">include embed info</param>
-        /// <param name="useAuth">Send request with authenication header</param>
+        /// <param name="useAuth">Send request with authentication header</param>
         /// <returns>Entity by Id</returns>
         public Task<TClass> GetByID(object ID, bool embed = false, bool useAuth = false)
         {
@@ -123,7 +123,7 @@ namespace WordPressPCL.Client
         /// Create a parametrized query and get a result
         /// </summary>
         /// <param name="queryBuilder">Query builder with specific parameters</param>
-        /// <param name="useAuth">Send request with authenication header</param>
+        /// <param name="useAuth">Send request with authentication header</param>
         /// <returns>List of filtered result</returns>
         public Task<IEnumerable<TClass>> Query(QClass queryBuilder, bool useAuth = false)
         {

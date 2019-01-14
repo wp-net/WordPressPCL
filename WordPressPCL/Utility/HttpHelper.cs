@@ -10,7 +10,7 @@ using WordPressPCL.Models;
 namespace WordPressPCL.Utility
 {
     /// <summary>
-    /// Helper class incapsulates common HTTP requests methods
+    /// Helper class encapsulates common HTTP requests methods
     /// </summary>
     public class HttpHelper
     {
@@ -23,7 +23,7 @@ namespace WordPressPCL.Utility
         public string JWToken { get; set; }
 
         /// <summary>
-        /// Function called when a HttpRequest response is readed
+        /// Function called when a HttpRequest response is read
         /// Executed before trying to convert json content to a TClass object.
         /// </summary>
         public Func<string, string> HttpResponsePreProcessing { get; set; }
@@ -42,7 +42,7 @@ namespace WordPressPCL.Utility
         /// Constructor
         /// <paramref name="WordpressURI"/>
         /// </summary>
-        /// <param name="WordpressURI">base WP RESR API endpoint EX. http://demo.com/wp-json/ </param>
+        /// <param name="WordpressURI">base WP REST API endpoint EX. http://demo.com/wp-json/ </param>
         public HttpHelper(string WordpressURI)
         {
             _WordpressURI = WordpressURI;

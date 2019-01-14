@@ -6,7 +6,7 @@ using System.Collections.Generic;
 namespace WordPressPCL.Models
 {
     /// <summary>
-    /// Type respresents Entity Post Revision of WP REST API
+    /// Type represents Entity Post Revision of WP REST API
     /// </summary>
     public class PostRevision : Base
     {
@@ -116,7 +116,7 @@ namespace WordPressPCL.Models
         public Embedded Embedded { get; set; }
 
         /// <summary>
-        /// DefaultCOnstructor
+        /// Default Constructor
         /// </summary>
         public PostRevision()
         {

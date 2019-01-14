@@ -3,7 +3,7 @@
 namespace WordPressPCL.Models
 {
     /// <summary>
-    /// Authentcation Methods
+    /// Authentication Methods
     /// <para> JWT - recommended AUTH method</para>
     /// </summary>
     public enum AuthMethod

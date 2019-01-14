@@ -29,7 +29,7 @@ namespace WordPressPCL
         }
 
         /// <summary>
-        /// Function called when a HttpRequest response to WordPress APIs are readed
+        /// Function called when a HttpRequest response to WordPress APIs are read
         /// Executed before trying to convert json content to a TClass object.
         /// </summary>
         public Func<string, string> HttpResponsePreProcessing
@@ -222,7 +222,7 @@ namespace WordPressPCL
         }
 
         /// <summary>
-        /// Sets an exisitng JWToken
+        /// Sets an existing JWToken
         /// </summary>
         /// <param name="token"></param>
         public void SetJWToken(string token)

@@ -183,7 +183,7 @@ namespace WordPressPCL.Models
         public Links Links { get; set; }
 
         /// <summary>
-        /// Paremeterless constructor
+        /// Parameterless constructor
         /// </summary>
         public MediaItem()
         {
