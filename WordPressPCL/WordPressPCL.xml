@@ -429,14 +429,7 @@
         <member name="M:WordPressPCL.Client.PostStatuses.#ctor(WordPressPCL.Utility.HttpHelper@,System.String)">
             <summary>
             Constructor
-            </summary>
-            <param name="httpHelper">reference to HttpHelper class for interaction with HTTP</param>
-            <param name="defaultPath">path to site, EX. http://demo.com/wp-json/ </param>
-        </member>
-        <member name="M:WordPressPCL.Client.PostStatuses.Get(System.Boolean,System.Boolean)">
-            <summary>
-            Get latest Post Statuses
-            </summary>
+       </summary>
             <param name="embed">include embed info</param>
             <param name="useAuth">Send request with authentication header</param>
             <returns>Entity by Id</returns>
@@ -3889,6 +3882,20 @@
             <returns>Result of checking</returns>
         </member>
         <member name="M:WordPressPCL.WordPressClient.SetJWToken(System.String)">
+            <summary>
+            Sets an existing JWToken
+            </summary>
+            <param name="token"></param>
+        </member>
+        <member name="M:WordPressPCL.WordPressClient.GetToken">
+            <summary>
+            Gets the JWToken from the client
+            </summary>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
+ystem.String)">
             <summary>
             Sets an existing JWToken
             </summary>

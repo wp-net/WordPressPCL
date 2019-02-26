@@ -15,8 +15,6 @@
             //List from https://codex.wordpress.org/Function_Reference/get_allowed_mime_types
             switch (extension.ToLower())
             {
-				//Misc Application/octet-stream formats
-                case "kmz": case "kml": return "application/octet-stream";
                 // Image formats
                 case "jpg": case "jpeg": case "jpe": return "image/jpeg";
                 case "gif": return "image/gif";
@@ -116,6 +114,10 @@
                 case "key": return "application/vnd.apple.keynote";
                 case "numbers": return "application/vnd.apple.numbers";
                 case "pages": return "application/vnd.apple.pages";
+
+                //Misc Application/octet-stream formats
+                case "kmz": case "kml": return "application/octet-stream";
+                
                 default: return "text/plain";
             }
         }
