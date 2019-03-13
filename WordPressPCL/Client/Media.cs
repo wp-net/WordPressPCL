@@ -43,11 +43,13 @@ namespace WordPressPCL.Client
         /// <returns>Created media object</returns>
         public async Task<MediaItem> Create(Stream fileStream, string filename)
         {
-            StreamContent content = new StreamContent(fileStream);
-            string extension = filename.Split('.').Last();
-            content.Headers.TryAddWithoutValidation("Content-Type", MimeTypeHelper.GetMIMETypeFromExtension(extension));
-            content.Headers.TryAddWithoutValidation("Content-Disposition", $"attachment; filename={filename}");
-            return (await _httpHelper.PostRequest<MediaItem>($"{_defaultPath}{_methodPath}", content).ConfigureAwait(false)).Item1;
+            using (StreamContent content = new StreamContent(fileStream))
+            {
+                string extension = filename.Split('.').Last();
+                content.Headers.TryAddWithoutValidation("Content-Type", MimeTypeHelper.GetMIMETypeFromExtension(extension));
+                content.Headers.TryAddWithoutValidation("Content-Disposition", $"attachment; filename={filename}");
+                return (await _httpHelper.PostRequest<MediaItem>($"{_defaultPath}{_methodPath}", content).ConfigureAwait(false)).Item1;
+            }
         }
 
 #if NETSTANDARD2_0
@@ -61,11 +63,13 @@ namespace WordPressPCL.Client
         {
             if (File.Exists(filePath))
             {
-                StreamContent content = new StreamContent(File.OpenRead(filePath));
-                string extension = filename.Split('.').Last();
-                content.Headers.TryAddWithoutValidation("Content-Type", MimeTypeHelper.GetMIMETypeFromExtension(extension));
-                content.Headers.TryAddWithoutValidation("Content-Disposition", $"attachment; filename={filename}");
-                return (await _httpHelper.PostRequest<MediaItem>($"{_defaultPath}{_methodPath}", content).ConfigureAwait(false)).Item1;
+                using (StreamContent content = new StreamContent(File.OpenRead(filePath)))
+                {
+                    string extension = filename.Split('.').Last();
+                    content.Headers.TryAddWithoutValidation("Content-Type", MimeTypeHelper.GetMIMETypeFromExtension(extension));
+                    content.Headers.TryAddWithoutValidation("Content-Disposition", $"attachment; filename={filename}");
+                    return (await _httpHelper.PostRequest<MediaItem>($"{_defaultPath}{_methodPath}", content).ConfigureAwait(false)).Item1;
+                }
             }
             else
             {
