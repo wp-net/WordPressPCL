@@ -79,15 +79,21 @@ namespace WordPressPCL.Tests.Selfhosted
         [TestMethod]
         public async Task Categories_Delete()
         {
-            var categories = await _clientAuth.Categories.GetAll();
-            var category = categories.FirstOrDefault();
+            Random random = new Random();
+            var name = $"TestCategory {random.Next(0, 10000)}";
+            var category = await _clientAuth.Categories.Create(new Category()
+            {
+                Name = name,
+                Description = "Test"
+            });
+
             if (category == null)
             {
                 Assert.Inconclusive();
             }
             var response = await _clientAuth.Categories.Delete(category.Id);
             Assert.IsTrue(response);
-            categories = await _clientAuth.Categories.GetAll();
+            var categories = await _clientAuth.Categories.GetAll();
             var c = categories.Where(x => x.Id == category.Id).ToList();
             Assert.AreEqual(c.Count, 0);
         }
