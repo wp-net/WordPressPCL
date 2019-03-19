@@ -18,8 +18,8 @@
     <Version>1.6.2</Version>
     <PackageLicenseUrl>https://github.com/wp-net/WordPressPCL/blob/master/LICENSE</PackageLicenseUrl>
     <PackageReleaseNotes>V1.6.2
-- Clean up file stream after upload
-https://github.com/wp-net/WordPressPCL/pull/166
+- Clean up file stream after upload #166
+- Added .kmz &amp; .kml Mime Types #162
 
 V1.6.1
 - Fix for #147 where Capabilities might contain strings instead of bool
