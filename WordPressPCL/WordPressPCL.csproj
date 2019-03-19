@@ -13,15 +13,19 @@
     <RepositoryUrl>https://github.com/wp-net/WordPressPCL</RepositoryUrl>
     <PackageTags>WordPress REST API</PackageTags>
     <RepositoryType>GitHub</RepositoryType>
-    <AssemblyVersion>1.6.1.0</AssemblyVersion>
-    <FileVersion>1.6.1.0</FileVersion>
-    <Version>1.6.1</Version>
+    <AssemblyVersion>1.6.2.0</AssemblyVersion>
+    <FileVersion>1.6.2.0</FileVersion>
+    <Version>1.6.2</Version>
     <PackageLicenseUrl>https://github.com/wp-net/WordPressPCL/blob/master/LICENSE</PackageLicenseUrl>
-    <PackageReleaseNotes>V1.6.1
+    <PackageReleaseNotes>V1.6.2
+- Clean up file stream after upload
+https://github.com/wp-net/WordPressPCL/pull/166
+
+V1.6.1
 - Fix for #147 where Capabilities might contain strings instead of bool
 
 V1.6.0-beta1
-- marking all Meta properties as dynamic as the structure seems to be very voaltile
+- marking all Meta properties as dynamic as the structure seems to be very volatile
 
 V1.5.1
 - Make height &amp; width optional in MediaSizes (#143)
@@ -70,7 +74,7 @@ V1.2
 - added method to get all comments for a post id
 - fixed some async issues for better performance
 - added logout method</PackageReleaseNotes>
-    <Copyright>© Thomas Pentenrieder | 2018</Copyright>
+    <Copyright>© Thomas Pentenrieder | 2019</Copyright>
     <ApplicationIcon />
     <OutputTypeEx>library</OutputTypeEx>
     <StartupObject />
