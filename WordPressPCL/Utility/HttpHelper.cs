@@ -1,7 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Diagnostics;
-using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
@@ -63,21 +62,18 @@ namespace WordPressPCL.Utility
                 else
                     embedParam = "?_embed";
             }
-            HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.ExpectationFailed);
 
-            if (isAuthRequired)
-            {
-                //client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Utility.Authentication.Base64Encode($"{Username}:{Password}"));
-                if (_httpClient.DefaultRequestHeaders.Authorization == null || _httpClient.DefaultRequestHeaders.Authorization.Parameter != JWToken)
-                    _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", JWToken);
-            }
-            else
-            {
-                _httpClient.DefaultRequestHeaders.Authorization = null;
-            }
             try
             {
-                response = await _httpClient.GetAsync($"{_WordpressURI}{route}{embedParam}").ConfigureAwait(false);
+                HttpResponseMessage response;
+                using (var requestMessage = new HttpRequestMessage(HttpMethod.Get, $"{_WordpressURI}{route}{embedParam}"))
+                {
+                    if (isAuthRequired)
+                    {
+                        requestMessage.Headers.Authorization = new AuthenticationHeaderValue("Bearer", JWToken);
+                    }
+                    response = await _httpClient.SendAsync(requestMessage).ConfigureAwait(false);
+                }
                 LastResponseHeaders = response.Headers;
                 var responseString = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
                 if (response.IsSuccessStatusCode)
@@ -104,22 +100,19 @@ namespace WordPressPCL.Utility
         internal async Task<(TClass, HttpResponseMessage)> PostRequest<TClass>(string route, HttpContent postBody, bool isAuthRequired = true)
             where TClass : class
         {
-            HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.ExpectationFailed);
-
-            if (isAuthRequired)
-            {
-                //client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Utility.Authentication.Base64Encode($"{Username}:{Password}"));
-                //client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                if (_httpClient.DefaultRequestHeaders.Authorization == null || _httpClient.DefaultRequestHeaders.Authorization.Parameter != JWToken)
-                    _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", JWToken);
-            }
-            else
-            {
-                _httpClient.DefaultRequestHeaders.Authorization = null;
-            }
             try
             {
-                response = await _httpClient.PostAsync($"{_WordpressURI}{route}", postBody).ConfigureAwait(false);
+                HttpResponseMessage response;
+                using (var requestMessage = new HttpRequestMessage(HttpMethod.Post, $"{_WordpressURI}{route}"))
+                {
+                    if (isAuthRequired)
+                    {
+                        requestMessage.Headers.Authorization = new AuthenticationHeaderValue("Bearer", JWToken);
+                    }
+                    requestMessage.Content = postBody;
+                    response = await _httpClient.SendAsync(requestMessage).ConfigureAwait(false);
+                }
+
                 LastResponseHeaders = response.Headers;
                 var responseString = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
                 if (response.IsSuccessStatusCode)
@@ -145,22 +138,18 @@ namespace WordPressPCL.Utility
 
         internal async Task<bool> DeleteRequest(string route, bool isAuthRequired = true)
         {
-            HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.ExpectationFailed);
-
-            if (isAuthRequired)
-            {
-                //client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Utility.Authentication.Base64Encode($"{Username}:{Password}"));
-                //client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                if (_httpClient.DefaultRequestHeaders.Authorization == null || _httpClient.DefaultRequestHeaders.Authorization.Parameter != JWToken)
-                    _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", JWToken);
-            }
-            else
-            {
-                _httpClient.DefaultRequestHeaders.Authorization = null;
-            }
             try
             {
-                response = await _httpClient.DeleteAsync($"{_WordpressURI}{route}").ConfigureAwait(false);
+                HttpResponseMessage response;
+                using (var requestMessage = new HttpRequestMessage(HttpMethod.Delete, $"{_WordpressURI}{route}"))
+                {
+                    if (isAuthRequired)
+                    {
+                        requestMessage.Headers.Authorization = new AuthenticationHeaderValue("Bearer", JWToken);
+                    }
+                    response = await _httpClient.SendAsync(requestMessage).ConfigureAwait(false);
+                }
+
                 LastResponseHeaders = response.Headers;
                 var responseString = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
                 if (response.IsSuccessStatusCode)
@@ -184,7 +173,7 @@ namespace WordPressPCL.Utility
         {
             Debug.WriteLine(responseString);
 
-            BadRequest badrequest = null;
+            BadRequest badrequest;
             try
             {
                 badrequest = JsonConvert.DeserializeObject<BadRequest>(responseString);
