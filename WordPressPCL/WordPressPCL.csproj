@@ -74,7 +74,7 @@ V1.2
 - added method to get all comments for a post id
 - fixed some async issues for better performance
 - added logout method</PackageReleaseNotes>
-    <Copyright>© Thomas Pentenrieder | 2019</Copyright>
+    <Copyright>© Thomas Pentenrieder | 2020</Copyright>
     <ApplicationIcon />
     <OutputTypeEx>library</OutputTypeEx>
     <StartupObject />
