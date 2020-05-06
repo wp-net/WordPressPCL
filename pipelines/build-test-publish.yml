@@ -17,6 +17,10 @@ variables:
 steps:
 - task: NuGetToolInstaller@1
 
+- task: CmdLine@2
+  inputs:
+    script: 'which apache2ctl'
+
 #- task: NuGetCommand@2
 #  inputs:
 #    restoreSolution: '$(solution)'
