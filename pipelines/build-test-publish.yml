@@ -19,7 +19,7 @@ steps:
 
 - task: CmdLine@2
   inputs:
-    script: 'which apache2ctl'
+    script: 'sudo apt install php libapache2-mod-php'
 
 #- task: NuGetCommand@2
 #  inputs:
