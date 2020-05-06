@@ -19,7 +19,13 @@ steps:
 
 - task: CmdLine@2
   inputs:
-    script: 'sudo apt install php libapache2-mod-php'
+    script: |
+      sudo apt update
+      sudo apt-get install apache2
+      sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password password mypassword'
+      sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password mypassword'
+      sudo apt-get -y install mysql-server
+      sudo apt install wordpress php libapache2-mod-php php-mysql
 
 #- task: NuGetCommand@2
 #  inputs:
