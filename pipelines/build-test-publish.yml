@@ -20,7 +20,7 @@ steps:
 - task: CmdLine@2
   inputs:
     script: |
-      docker -v
+      docker run --name some-wordpress --network some-network -d wordpress
 
 
 #- task: CmdLine@2
