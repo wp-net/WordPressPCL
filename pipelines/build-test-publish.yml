@@ -15,13 +15,13 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
-- task: NuGetToolInstaller@1
+#- task: NuGetToolInstaller@1
 
 - task: CmdLine@2
   inputs:
     script: |
       docker -v
-      
+
 
 #- task: CmdLine@2
 #  inputs:
