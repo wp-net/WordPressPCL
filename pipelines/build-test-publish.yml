@@ -21,6 +21,7 @@ steps:
   inputs:
     script: |
       docker run --name test-wordpress -p 8080:80 -d wordpress
+      docker start test-wordpress
 
 
 #- task: CmdLine@2
