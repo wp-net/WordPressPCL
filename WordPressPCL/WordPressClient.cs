@@ -15,7 +15,6 @@ namespace WordPressPCL
     /// </summary>
     public class WordPressClient
     {
-        private readonly string _wordPressUri;
         private readonly HttpHelper _httpHelper;
         private readonly string _defaultPath;
         private const string _jwtPath = "jwt-auth/v1/";
@@ -23,10 +22,7 @@ namespace WordPressPCL
         /// <summary>
         /// WordPressUri holds the WordPress API endpoint, e.g. "http://demo.wp-api.org/wp-json/wp/v2/"
         /// </summary>
-		public string WordPressUri
-        {
-            get { return _wordPressUri; }
-        }
+		public string WordPressUri { get; private set; }
 
         /// <summary>
         /// Function called when a HttpRequest response to WordPress APIs are read
@@ -65,12 +61,12 @@ namespace WordPressPCL
         /// <summary>
         /// Posts client interaction object
         /// </summary>
-        public Posts Posts;
+        public Posts Posts { get; }
 
         /// <summary>
         /// Comments client interaction object
         /// </summary>
-        public Comments Comments;
+        public Comments Comments { get; }
 
         /// <summary>
         /// Tags client interaction object
@@ -132,7 +128,7 @@ namespace WordPressPCL
             {
                 uri += "/";
             }
-            _wordPressUri = uri;
+            WordPressUri = uri;
             _defaultPath = defaultPath;
 
             _httpHelper = new HttpHelper(WordPressUri);
@@ -210,15 +206,8 @@ namespace WordPressPCL
         public async Task<bool> IsValidJWToken()
         {
             var route = $"{_jwtPath}token/validate";
-            try
-            {
-                (JWTUser jwtUser, HttpResponseMessage repsonse) = await _httpHelper.PostRequest<JWTUser>(route, null, true).ConfigureAwait(false);
-                return repsonse.IsSuccessStatusCode;
-            }
-            catch
-            {
-                return false;
-            }
+            (JWTUser jwtUser, HttpResponseMessage repsonse) = await _httpHelper.PostRequest<JWTUser>(route, null, true).ConfigureAwait(false);
+            return repsonse.IsSuccessStatusCode;
         }
 
         /// <summary>
