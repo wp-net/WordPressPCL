@@ -8,7 +8,7 @@ docker ps
 
 curl -Is http://localhost | head -1
 
-docker-compose run -rm my-wpcli post list
+docker-compose run -rm wordpress_wpcli post list
 
 #alias wp="docker-compose run -rm my-wpcli"
 #wp plugin install jwt-authentication-for-wp-rest-api --activate
