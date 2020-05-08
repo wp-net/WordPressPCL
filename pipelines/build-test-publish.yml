@@ -24,6 +24,7 @@ steps:
   inputs:
     command: 'build'
     projects: '**/*.csproj'
+    arguments: '-c Release'
 
 #- task: VSBuild@1
 #  inputs:
@@ -35,8 +36,14 @@ steps:
   inputs:
     filePath: 'pipelines/docker-wordpress.sh'
 
-- task: VSTest@2
+- task: DotNetCoreCLI@2
   inputs:
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
+    command: 'test'
+    projects: '**/WordPressPCL.Tests.Selfhosted.csproj'
+    testRunTitle: 'Test Selfhosted'
+
+#- task: VSTest@2
+#  inputs:
+#    platform: '$(buildPlatform)'
+#    configuration: '$(buildConfiguration)'
 
