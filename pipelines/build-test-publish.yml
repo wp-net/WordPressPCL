@@ -20,9 +20,9 @@ steps:
   inputs:
     filePath: 'pipelines/docker-wordpress.sh'
 
-- task: CmdLine@2
-  inputs:
-    script: 'docker exec wordpress_wpcli wp theme install quark'
+#- task: CmdLine@2
+#  inputs:
+#    script: 'docker exec wordpress_wpcli wp theme install quark'
 
 
 #- task: CmdLine@2
