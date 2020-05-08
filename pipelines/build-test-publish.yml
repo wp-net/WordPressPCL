@@ -14,39 +14,24 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
-#- task: NuGetToolInstaller@1
+- task: NuGetToolInstaller@1
+
+- task: NuGetCommand@2
+  inputs:
+    restoreSolution: '$(solution)'
+
+- task: VSBuild@1
+  inputs:
+    solution: '$(solution)'
+    platform: '$(buildPlatform)'
+    configuration: '$(buildConfiguration)'
 
 - task: Bash@3
   inputs:
     filePath: 'pipelines/docker-wordpress.sh'
 
-#- task: CmdLine@2
-#  inputs:
-#    script: 'docker exec wordpress_wpcli wp theme install quark'
-
-
-#- task: CmdLine@2
-#  inputs:
-#    script: |
-#      sudo apt update
-#      sudo apt-get install apache2
-#      sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password password mypassword'
-#      sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password mypassword'
-#      sudo apt-get -y install mysql-server
-#      sudo apt install wordpress php libapache2-mod-php php-mysql
-
-#- task: NuGetCommand@2
-#  inputs:
-#    restoreSolution: '$(solution)'
-
-#- task: VSBuild@1
-#  inputs:
-#    solution: '$(solution)'
-#    platform: '$(buildPlatform)'
-#    configuration: '$(buildConfiguration)'
-
-#- task: VSTest@2
-#  inputs:
-#    platform: '$(buildPlatform)'
-#    configuration: '$(buildConfiguration)'
+- task: VSTest@2
+  inputs:
+    platform: '$(buildPlatform)'
+    configuration: '$(buildConfiguration)'
 
