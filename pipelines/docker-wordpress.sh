@@ -4,6 +4,8 @@ cd wordpress-docker-compose
 # Automatic installation of wordpress
 make autoinstall
 
+docker ps
+
 curl -Is http://localhost | head -1
 
 docker exec wordpress_wpcli wp theme install quark
