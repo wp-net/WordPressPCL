@@ -18,7 +18,7 @@ steps:
 
 - task: Bash@3
   inputs:
-    filePath: '/pipelines/docker-wordpress.sh'
+    filePath: 'pipelines/docker-wordpress.sh'
 
 
 #- task: CmdLine@2
