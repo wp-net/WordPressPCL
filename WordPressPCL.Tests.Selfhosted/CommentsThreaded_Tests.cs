@@ -21,7 +21,7 @@ namespace WordPressPCL.Tests.Selfhosted
         private static WordPressClient _clientAuth;
 
         [ClassInitialize]
-        public static async Task CommentsThreaded_SetupAsync()
+        public static async Task CommentsThreaded_SetupAsync(TestContext context)
         {
             _clientAuth = await ClientHelper.GetAuthenticatedWordPressClient();
             var IsValidToken = await _clientAuth.IsValidJWToken();
