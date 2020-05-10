@@ -51,14 +51,14 @@ namespace WordPressPCL.Client
         public async Task<IEnumerable<Comment>> GetAllCommentsForPost(int PostID, bool embed = false, bool useAuth = false)
         {
             //100 - Max comments per page in WordPress REST API, so this is hack with multiple requests
-            List<Comment> comments = new List<Comment>();
-            comments = (await _httpHelper.GetRequest<IEnumerable<Comment>>($"{_defaultPath}{_methodPath}?post={PostID}&per_page=100&page=1", embed, useAuth).ConfigureAwait(false))?.ToList<Comment>();
-            if (_httpHelper.LastResponseHeaders.Contains("X-WP-TotalPages") && System.Convert.ToInt32(_httpHelper.LastResponseHeaders.GetValues("X-WP-TotalPages").FirstOrDefault()) > 1)
+            List<Comment> comments = (await _httpHelper.GetRequest<IEnumerable<Comment>>($"{_defaultPath}{_methodPath}?post={PostID}&per_page=100&page=1", embed, useAuth).ConfigureAwait(false))?.ToList();
+            if (_httpHelper.LastResponseHeaders.Contains("X-WP-TotalPages") &&
+                int.TryParse(_httpHelper.LastResponseHeaders.GetValues("X-WP-TotalPages").FirstOrDefault(), out int totalPages) &&
+                totalPages > 1)
             {
-                int totalpages = System.Convert.ToInt32(_httpHelper.LastResponseHeaders.GetValues("X-WP-TotalPages").FirstOrDefault());
-                for (int page = 2; page <= totalpages; page++)
+                for (int page = 2; page <= totalPages; page++)
                 {
-                    comments.AddRange((await _httpHelper.GetRequest<IEnumerable<Comment>>($"{_defaultPath}{_methodPath}?post={PostID}&per_page=100&page={page}", embed, useAuth).ConfigureAwait(false))?.ToList<Comment>());
+                    comments.AddRange((await _httpHelper.GetRequest<IEnumerable<Comment>>($"{_defaultPath}{_methodPath}?post={PostID}&per_page=100&page={page}", embed, useAuth).ConfigureAwait(false))?.ToList());
                 }
             }
             return comments;
