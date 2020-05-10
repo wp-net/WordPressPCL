@@ -32,6 +32,8 @@ steps:
 #    platform: '$(buildPlatform)'
 #    configuration: '$(buildConfiguration)'
 
+# Create Docker Test instance
+# https://www.datanovia.com/en/lessons/using-docker-wordpress-cli-to-manage-wordpress-websites/
 - task: Bash@3
   inputs:
     filePath: 'pipelines/docker-wordpress.sh'
