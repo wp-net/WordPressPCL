@@ -187,7 +187,6 @@ namespace WordPressPCL
                 });
 
             (JWTUser jwtUser, HttpResponseMessage response) = await _httpHelper.PostRequest<JWTUser>(route, formContent, false).ConfigureAwait(false);
-            //JWToken = jwtUser?.Token;
             _httpHelper.JWToken = jwtUser?.Token;
         }
 
