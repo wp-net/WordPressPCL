@@ -21,31 +21,22 @@ steps:
     restoreSolution: '$(solution)'
 
 - task: DotNetCoreCLI@2
+  displayName: 'Build Solution'
   inputs:
     command: 'build'
     projects: '**/*.csproj'
     arguments: '-c Release'
 
-#- task: VSBuild@1
-#  inputs:
-#    solution: '$(solution)'
-#    platform: '$(buildPlatform)'
-#    configuration: '$(buildConfiguration)'
-
 # Create Docker Test instance
 # https://www.datanovia.com/en/lessons/using-docker-wordpress-cli-to-manage-wordpress-websites/
 - task: Bash@3
+  displayName: 'Create dockerzied WordPress'
   inputs:
     filePath: 'pipelines/docker-wordpress.sh'
 
 - task: DotNetCoreCLI@2
+  displayName: 'Run Tests: Selfhosted WordPress'
   inputs:
     command: 'test'
     projects: 'WordPressPCL.Tests.Selfhosted/WordPressPCL.Tests.Selfhosted.csproj'
     testRunTitle: 'Test Selfhosted'
-
-#- task: VSTest@2
-#  inputs:
-#    platform: '$(buildPlatform)'
-#    configuration: '$(buildConfiguration)'
-
