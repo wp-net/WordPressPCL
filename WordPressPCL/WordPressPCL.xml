@@ -204,15 +204,16 @@
             <param name="HttpHelper">reference to HttpHelper class for interaction with HTTP</param>
             <param name="defaultPath">path to site, EX. http://demo.com/wp-json/ </param>
         </member>
-        <member name="M:WordPressPCL.Client.Media.Create(System.IO.Stream,System.String)">
+        <member name="M:WordPressPCL.Client.Media.Create(System.IO.Stream,System.String,System.String)">
             <summary>
             Create Media entity with attachment
             </summary>
             <param name="fileStream">stream with file content</param>
             <param name="filename">Name of file in WP Media Library</param>
+            <param name="mimeType">Override for automatic mime type detection</param>
             <returns>Created media object</returns>
         </member>
-        <member name="M:WordPressPCL.Client.Media.Create(System.String,System.String)">
+        <member name="M:WordPressPCL.Client.Media.Create(System.String,System.String,System.String)">
             <summary>
             Create Media entity with attachment
             </summary>
@@ -596,7 +597,15 @@
             <param name="useAuth">Send request with authentication header</param>
             <returns>Entity by Id</returns>
         </member>
-        <member name="M:WordPressPCL.Client.Users.Query(WordPressPCL.Utility.Useer name="M:WordPressPCL.Client.Users.Update(WordPressPCL.Models.User)">
+        <member name="M:WordPressPCL.Client.Users.Query(WordPressPCL.Utility.UsersQueryBuilder,System.Boolean)">
+            <summary>
+            Create a parametrized query and get a result
+            </summary>
+            <param name="queryBuilder">Query builder with specific parameters</param>
+            <param name="useAuth">Send request with authentication header</param>
+            <returns>List of filtered result</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Users.Update(WordPressPCL.Models.User)">
             <summary>
             Update Entity
             </summary>
@@ -791,17 +800,6 @@
             </summary>
             <remarks>
             Read only
-            Context: view, edit
-            </remarks>
-        </member>
-        <member name="P:WordPressPCL.Models.Category.Description">
-            <summary>
-            HTML description of the term.
-            </summary>
-            <remarks>Context: view, edit</remarks>
-        </member>
-        <member name="P:WordPressPCL.Models.Category.Parent">
-            <summary> only
             Context: view, edit
             </remarks>
         </member>
@@ -3798,12 +3796,12 @@
             Authentication method
             </summary>
         </member>
-        <member name="F:WordPressPCL.WordPressClient.Posts">
+        <member name="P:WordPressPCL.WordPressClient.Posts">
             <summary>
             Posts client interaction object
             </summary>
         </member>
-        <member name="F:WordPressPCL.WordPressClient.Comments">
+        <member name="P:WordPressPCL.WordPressClient.Comments">
             <summary>
             Comments client interaction object
             </summary>

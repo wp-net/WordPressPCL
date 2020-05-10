@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -40,13 +41,22 @@ namespace WordPressPCL.Client
         /// </summary>
         /// <param name="fileStream">stream with file content</param>
         /// <param name="filename">Name of file in WP Media Library</param>
+        /// <param name="mimeType">Override for automatic mime type detection</param>
         /// <returns>Created media object</returns>
-        public async Task<MediaItem> Create(Stream fileStream, string filename)
+        public async Task<MediaItem> Create(Stream fileStream, string filename, string mimeType = null)
         {
+            if (string.IsNullOrEmpty(filename)) throw new ArgumentNullException(nameof(filename));
             using (StreamContent content = new StreamContent(fileStream))
             {
-                string extension = filename.Split('.').Last();
-                content.Headers.TryAddWithoutValidation("Content-Type", MimeTypeHelper.GetMIMETypeFromExtension(extension));
+                if (string.IsNullOrEmpty(mimeType))
+                {
+                    string extension = filename.Split('.').Last();
+                    content.Headers.TryAddWithoutValidation("Content-Type", MimeTypeHelper.GetMIMETypeFromExtension(extension));
+                }
+                else
+                {
+                    content.Headers.TryAddWithoutValidation("Content-Type", mimeType);
+                }
                 content.Headers.TryAddWithoutValidation("Content-Disposition", $"attachment; filename={filename}");
                 return (await _httpHelper.PostRequest<MediaItem>($"{_defaultPath}{_methodPath}", content).ConfigureAwait(false)).Item1;
             }
@@ -59,14 +69,24 @@ namespace WordPressPCL.Client
         /// <param name="filePath">Local Path to file</param>
         /// <param name="filename">Name of file in WP Media Library</param>
         /// <returns>Created media object</returns>
-        public async Task<MediaItem> Create(string filePath, string filename)
+        /// <param name="mimeType">Override for automatic mime type detection</param>
+        public async Task<MediaItem> Create(string filePath, string filename, string mimeType = null)
         {
+            if (string.IsNullOrEmpty(filePath)) throw new ArgumentNullException(nameof(filePath));
+            if (string.IsNullOrEmpty(filename)) throw new ArgumentNullException(nameof(filename));
             if (File.Exists(filePath))
             {
                 using (StreamContent content = new StreamContent(File.OpenRead(filePath)))
                 {
-                    string extension = filename.Split('.').Last();
-                    content.Headers.TryAddWithoutValidation("Content-Type", MimeTypeHelper.GetMIMETypeFromExtension(extension));
+                    if (string.IsNullOrEmpty(mimeType))
+                    {
+                        string extension = filename.Split('.').Last();
+                        content.Headers.TryAddWithoutValidation("Content-Type", MimeTypeHelper.GetMIMETypeFromExtension(extension));
+                    }
+                    else
+                    {
+                        content.Headers.TryAddWithoutValidation("Content-Type", mimeType);
+                    }
                     content.Headers.TryAddWithoutValidation("Content-Disposition", $"attachment; filename={filename}");
                     return (await _httpHelper.PostRequest<MediaItem>($"{_defaultPath}{_methodPath}", content).ConfigureAwait(false)).Item1;
                 }
@@ -110,9 +130,9 @@ namespace WordPressPCL.Client
             //100 - Max posts per page in WordPress REST API, so this is hack with multiple requests
             List<MediaItem> entities = new List<MediaItem>();
             entities = (await _httpHelper.GetRequest<IEnumerable<MediaItem>>($"{_defaultPath}{_methodPath}?per_page=100&page=1", embed, useAuth).ConfigureAwait(false))?.ToList<MediaItem>();
-            if (_httpHelper.LastResponseHeaders.Contains("X-WP-TotalPages") && System.Convert.ToInt32(_httpHelper.LastResponseHeaders.GetValues("X-WP-TotalPages").FirstOrDefault()) > 1)
+            if (_httpHelper.LastResponseHeaders.Contains("X-WP-TotalPages") && Convert.ToInt32(_httpHelper.LastResponseHeaders.GetValues("X-WP-TotalPages").FirstOrDefault()) > 1)
             {
-                int totalpages = System.Convert.ToInt32(_httpHelper.LastResponseHeaders.GetValues("X-WP-TotalPages").FirstOrDefault());
+                int totalpages = Convert.ToInt32(_httpHelper.LastResponseHeaders.GetValues("X-WP-TotalPages").FirstOrDefault());
                 for (int page = 2; page <= totalpages; page++)
                 {
                     entities.AddRange((await _httpHelper.GetRequest<IEnumerable<MediaItem>>($"{_defaultPath}{_methodPath}?per_page=100&page={page}", embed, useAuth).ConfigureAwait(false))?.ToList<MediaItem>());
