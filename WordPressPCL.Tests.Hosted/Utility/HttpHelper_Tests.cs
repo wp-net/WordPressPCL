@@ -10,11 +10,6 @@ namespace WordPressPCL.Tests.Hosted.Utility
     public class HttpHelper_Tests
     {
 
-        [ClassInitialize]
-        public static void Init(TestContext testContext)
-        {
-        }
-
         [TestMethod]
         public async Task Hosted_HttpHelper_InvalidPreProcessing()
         {
