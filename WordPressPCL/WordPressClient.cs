@@ -71,47 +71,47 @@ namespace WordPressPCL
         /// <summary>
         /// Tags client interaction object
         /// </summary>
-        public Tags Tags;
+        public Tags Tags { get; }
 
         /// <summary>
         /// Users client interaction object
         /// </summary>
-        public Users Users;
+        public Users Users { get; }
 
         /// <summary>
         /// Media client interaction object
         /// </summary>
-        public Client.Media Media;
+        public Media Media { get; }
 
         /// <summary>
         /// Categories client interaction object
         /// </summary>
-        public Categories Categories;
+        public Categories Categories { get; }
 
         /// <summary>
         /// Pages client interaction object
         /// </summary>
-        public Pages Pages;
+        public Pages Pages { get; }
 
         /// <summary>
         /// Taxonomies client interaction object
         /// </summary>
-        public Taxonomies Taxonomies;
+        public Taxonomies Taxonomies { get; }
 
         /// <summary>
         /// Post Types client interaction object
         /// </summary>
-        public PostTypes PostTypes;
+        public PostTypes PostTypes { get; }
 
         /// <summary>
         /// Post Statuses client interaction object
         /// </summary>
-        public PostStatuses PostStatuses;
+        public PostStatuses PostStatuses { get; }
 
         /// <summary>
         /// Custom Request client interaction object
         /// </summary>
-        public CustomRequest CustomRequest;
+        public CustomRequest CustomRequest { get; }
 
         /// <summary>
         ///     The WordPressClient holds all connection infos and provides methods to call WordPress APIs.
@@ -124,7 +124,7 @@ namespace WordPressPCL
             {
                 throw new ArgumentNullException(nameof(uri));
             }
-            if (!uri.EndsWith("/"))
+            if (!uri.EndsWith("/", StringComparison.Ordinal))
             {
                 uri += "/";
             }
