@@ -55,7 +55,8 @@ namespace WordPressPCL.Tests.Selfhosted
             Assert.AreEqual(form.Title, title);
         }
 
-        [TestMethod]
+        // TODO: make test not depend on other tests
+        //[TestMethod]
         public async Task CustomRequests_Update()
         {
             var random = new Random();
@@ -73,7 +74,8 @@ namespace WordPressPCL.Tests.Selfhosted
             Assert.AreEqual(form.Title, editform.Title);
         }
 
-        [TestMethod]
+        // TODO: make test not depend on other tests
+        //[TestMethod]
         public async Task CustomRequests_Delete()
         {
             var forms = await _clientAuth.CustomRequest.Get<IEnumerable<ContactFormItem>>("contact-form-7/v1/contact-forms", false, true);
