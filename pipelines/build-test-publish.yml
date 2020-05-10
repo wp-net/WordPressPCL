@@ -3,7 +3,11 @@
 # Add steps that publish symbols, save build artifacts, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/apps/windows/dot-net
 
-trigger: none
+trigger:
+- master
+
+pr:
+- master
 
 pool:
   vmImage: 'ubuntu-latest'
