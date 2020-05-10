@@ -164,7 +164,7 @@ namespace WordPressPCL
         public async Task<Settings> UpdateSettings(Settings settings)
         {
             var postBody = new StringContent(JsonConvert.SerializeObject(settings), Encoding.UTF8, "application/json");
-            (var setting, HttpResponseMessage response) = await _httpHelper.PostRequest<Settings>($"{_defaultPath}settings", postBody).ConfigureAwait(false);
+            (var setting, _) = await _httpHelper.PostRequest<Settings>($"{_defaultPath}settings", postBody).ConfigureAwait(false);
             return setting;
         }
 
@@ -185,8 +185,7 @@ namespace WordPressPCL
                     new KeyValuePair<string, string>("username", Username),
                     new KeyValuePair<string, string>("password", Password)
                 });
-
-            (JWTUser jwtUser, HttpResponseMessage response) = await _httpHelper.PostRequest<JWTUser>(route, formContent, false).ConfigureAwait(false);
+            (JWTUser jwtUser, _) = await _httpHelper.PostRequest<JWTUser>(route, formContent, false).ConfigureAwait(false);
             _httpHelper.JWToken = jwtUser?.Token;
         }
 

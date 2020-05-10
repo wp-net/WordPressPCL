@@ -595,15 +595,7 @@
             </summary>
             <param name="ID">ID</param>
             <param name="embed">include embed info</param>
-            <param name="useAuth">Send request with authentication header</param>
-            <returns>Entity by Id</returns>
-        </member>
-        <member name="M:WordPressPCL.Client.Users.Query(WordPressPCL.Utility.UsersQueryBuilder,System.Boolean)">
-            <summary>
-            Create a parametrized query and get a result
-            </summary>
-            <param name="queryBuilder">Query builder with specific parameters</param>
-            <param name="useAuth">Send request with authentication header</param>
+            <param name="der</param>
             <returns>List of filtered result</returns>
         </member>
         <member name="M:WordPressPCL.Client.Users.Update(WordPressPCL.Models.User)">
@@ -1497,7 +1489,23 @@
             <summary>
             Camera Model
             </summary>
-         <member name="P:WordPressPCL.Models.ImageMeta.FocalLength">
+        </member>
+        <member name="P:WordPressPCL.Models.ImageMeta.Caption">
+            <summary>
+            Image Caption
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ImageMeta.CreatedTimestamp">
+            <summary>
+            Created Date
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ImageMeta.Copyright">
+            <summary>
+            Copyright
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ImageMeta.FocalLength">
             <summary>
             Focal Length
             </summary>
@@ -3865,7 +3873,7 @@
         </member>
         <member name="M:WordPressPCL.WordPressClient.Logout">
             <summary>
-            Forget the JWT Auth Token
+            Forget the JWT Auth Token, won't invalidate it serverside though
             </summary>
         </member>
         <member name="M:WordPressPCL.WordPressClient.IsValidJWToken">
