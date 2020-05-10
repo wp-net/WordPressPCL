@@ -9,12 +9,10 @@ namespace WordPressPCL.Tests.Hosted.Utility
     [TestClass]
     public class HttpHelper_Tests
     {
-        private static WordPressClient _client;
 
         [ClassInitialize]
         public static void Init(TestContext testContext)
         {
-            _client = ClientHelper.GetWordPressClient();
         }
 
         [TestMethod]

@@ -24,13 +24,11 @@ namespace WordPressPCL.Tests.Selfhosted
             public string Locale;
         }
 
-        private static WordPressClient _client;
         private static WordPressClient _clientAuth;
 
         [ClassInitialize]
         public static async Task Init(TestContext testContext)
         {
-            _client = ClientHelper.GetWordPressClient();
             _clientAuth = await ClientHelper.GetAuthenticatedWordPressClient();
         }
 
