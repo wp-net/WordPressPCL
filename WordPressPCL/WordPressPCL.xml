@@ -61,22 +61,22 @@
             <typeparam name="TClass">DTO class</typeparam>
             <typeparam name="QClass">QueryBuilder class</typeparam>
         </member>
-        <member name="F:WordPressPCL.Client.CRUDOperation`2._defaultPath">
+        <member name="P:WordPressPCL.Client.CRUDOperation`2.DefaultPath">
             <summary>
             Path to wp api EX. https://site.com/wp-json/
             </summary>
         </member>
-        <member name="F:WordPressPCL.Client.CRUDOperation`2._methodPath">
+        <member name="P:WordPressPCL.Client.CRUDOperation`2.MethodPath">
             <summary>
             path to endpoint EX. posts
             </summary>
         </member>
-        <member name="F:WordPressPCL.Client.CRUDOperation`2._httpHelper">
+        <member name="P:WordPressPCL.Client.CRUDOperation`2.HttpHelper">
             <summary>
             HttpHelper object with helper method over HTTP requests
             </summary>
         </member>
-        <member name="F:WordPressPCL.Client.CRUDOperation`2._forceDeletion">
+        <member name="P:WordPressPCL.Client.CRUDOperation`2.ForceDeletion">
             <summary>
             Is object must be force deleted
             </summary>
@@ -595,7 +595,15 @@
             </summary>
             <param name="ID">ID</param>
             <param name="embed">include embed info</param>
-            <param name="der</param>
+            <param name="useAuth">Send request with authentication header</param>
+            <returns>Entity by Id</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Users.Query(WordPressPCL.Utility.UsersQueryBuilder,System.Boolean)">
+            <summary>
+            Create a parametrized query and get a result
+            </summary>
+            <param name="queryBuilder">Query builder with specific parameters</param>
+            <param name="useAuth">Send request with authentication header</param>
             <returns>List of filtered result</returns>
         </member>
         <member name="M:WordPressPCL.Client.Users.Update(WordPressPCL.Models.User)">
@@ -715,11 +723,6 @@
             <summary>
             Authentication Methods
             <para> JWT - recommended AUTH method</para>
-            </summary>
-        </member>
-        <member name="F:WordPressPCL.Models.AuthMethod.Basic">
-            <summary>
-            Basic HTTP Header authentication
             </summary>
         </member>
         <member name="F:WordPressPCL.Models.AuthMethod.JWT">
@@ -3253,9 +3256,9 @@
         <member name="M:WordPressPCL.Utility.HttpHelper.#ctor(System.String)">
             <summary>
             Constructor
-            <paramref name="WordpressURI"/>
+            <paramref name="wordpressURI"/>
             </summary>
-            <param name="WordpressURI">base WP REST API endpoint EX. http://demo.com/wp-json/ </param>
+            <param name="wordpressURI">base WP REST API endpoint EX. http://demo.com/wp-json/ </param>
         </member>
         <member name="T:WordPressPCL.Utility.MediaQueryBuilder">
             <summary>
@@ -3799,47 +3802,47 @@
             Comments client interaction object
             </summary>
         </member>
-        <member name="F:WordPressPCL.WordPressClient.Tags">
+        <member name="P:WordPressPCL.WordPressClient.Tags">
             <summary>
             Tags client interaction object
             </summary>
         </member>
-        <member name="F:WordPressPCL.WordPressClient.Users">
+        <member name="P:WordPressPCL.WordPressClient.Users">
             <summary>
             Users client interaction object
             </summary>
         </member>
-        <member name="F:WordPressPCL.WordPressClient.Media">
+        <member name="P:WordPressPCL.WordPressClient.Media">
             <summary>
             Media client interaction object
             </summary>
         </member>
-        <member name="F:WordPressPCL.WordPressClient.Categories">
+        <member name="P:WordPressPCL.WordPressClient.Categories">
             <summary>
             Categories client interaction object
             </summary>
         </member>
-        <member name="F:WordPressPCL.WordPressClient.Pages">
+        <member name="P:WordPressPCL.WordPressClient.Pages">
             <summary>
             Pages client interaction object
             </summary>
         </member>
-        <member name="F:WordPressPCL.WordPressClient.Taxonomies">
+        <member name="P:WordPressPCL.WordPressClient.Taxonomies">
             <summary>
             Taxonomies client interaction object
             </summary>
         </member>
-        <member name="F:WordPressPCL.WordPressClient.PostTypes">
+        <member name="P:WordPressPCL.WordPressClient.PostTypes">
             <summary>
             Post Types client interaction object
             </summary>
         </member>
-        <member name="F:WordPressPCL.WordPressClient.PostStatuses">
+        <member name="P:WordPressPCL.WordPressClient.PostStatuses">
             <summary>
             Post Statuses client interaction object
             </summary>
         </member>
-        <member name="F:WordPressPCL.WordPressClient.CustomRequest">
+        <member name="P:WordPressPCL.WordPressClient.CustomRequest">
             <summary>
             Custom Request client interaction object
             </summary>
@@ -3881,22 +3884,6 @@
             Check if token is valid
             </summary>
             <returns>Result of checking</returns>
-        </member>
-        <member name="M:WordPressPCL.WordPressClient.SetJWToken(System.String)">
-            <summary>
-            Sets an existing JWToken
-            </summary>
-            <param name="token"></param>
-        </member>
-        <member name="M:WordPressPCL.WordPressClient.GetToken">
-            <summary>
-            Gets the JWToken from the client
-            </summary>
-            <returns></returns>
-        </member>
-    </members>
-</doc>
-cking</returns>
         </member>
         <member name="M:WordPressPCL.WordPressClient.SetJWToken(System.String)">
             <summary>

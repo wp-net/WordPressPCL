@@ -27,10 +27,16 @@ namespace WordPressPCL.Client
         /// </summary>
         protected string MethodPath { get; }
 
+
+        internal protected HttpHelper _httpHelper;
         /// <summary>
         /// HttpHelper object with helper method over HTTP requests
         /// </summary>
-        protected HttpHelper HttpHelper { get; }
+        protected HttpHelper HttpHelper
+        {
+            get => _httpHelper;
+            private set => _httpHelper = value;
+        }
 
         /// <summary>
         /// Is object must be force deleted

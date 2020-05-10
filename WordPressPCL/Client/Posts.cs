@@ -115,7 +115,7 @@ namespace WordPressPCL.Client
         /// <returns>Post revisions object</returns>
         public PostRevisions Revisions(int postId)
         {
-            return new PostRevisions(ref HttpHelper, DefaultPath, postId);
+            return new PostRevisions(ref _httpHelper, DefaultPath, postId);
         }
 
         #endregion Custom
