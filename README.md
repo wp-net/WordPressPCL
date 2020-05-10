@@ -1,4 +1,7 @@
 # WordPressPCL
+
+[![Build Status](https://medienstudio.visualstudio.com/WordPressPCL/_apis/build/status/WordPressPCL%20Integration%20Tests?branchName=master)](https://medienstudio.visualstudio.com/WordPressPCL/_build/latest?definitionId=23&branchName=master)
+
 This is a portable library for consuming the WordPress REST-API in (almost) any C# application.
 If you find bugs or have any suggestions, feel free to create an issue.
 
