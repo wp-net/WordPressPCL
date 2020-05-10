@@ -191,11 +191,11 @@ namespace WordPressPCL
         }
 
         /// <summary>
-        /// Forget the JWT Auth Token
+        /// Forget the JWT Auth Token, won't invalidate it serverside though
         /// </summary>
         public void Logout()
         {
-            _httpHelper.JWToken = default(string);
+            _httpHelper.JWToken = default;
         }
 
         /// <summary>
@@ -205,8 +205,15 @@ namespace WordPressPCL
         public async Task<bool> IsValidJWToken()
         {
             var route = $"{_jwtPath}token/validate";
-            (JWTUser jwtUser, HttpResponseMessage repsonse) = await _httpHelper.PostRequest<JWTUser>(route, null, true).ConfigureAwait(false);
-            return repsonse.IsSuccessStatusCode;
+            try
+            {
+                (JWTUser jwtUser, HttpResponseMessage repsonse) = await _httpHelper.PostRequest<JWTUser>(route, null, true).ConfigureAwait(false);
+                return repsonse.IsSuccessStatusCode;
+            }
+            catch (WPException)
+            {
+                return false;
+            }
         }
 
         /// <summary>

@@ -105,7 +105,7 @@ namespace WordPressPCL.Utility
                 HttpResponseMessage response;
                 using (var requestMessage = new HttpRequestMessage(HttpMethod.Post, $"{_WordpressURI}{route}"))
                 {
-                    if (isAuthRequired && !string.IsNullOrEmpty(JWToken))
+                    if (isAuthRequired)
                     {
                         requestMessage.Headers.Authorization = new AuthenticationHeaderValue("Bearer", JWToken);
                     }
@@ -143,7 +143,7 @@ namespace WordPressPCL.Utility
                 HttpResponseMessage response;
                 using (var requestMessage = new HttpRequestMessage(HttpMethod.Delete, $"{_WordpressURI}{route}"))
                 {
-                    if (isAuthRequired && !string.IsNullOrEmpty(JWToken))
+                    if (isAuthRequired)
                     {
                         requestMessage.Headers.Authorization = new AuthenticationHeaderValue("Bearer", JWToken);
                     }
