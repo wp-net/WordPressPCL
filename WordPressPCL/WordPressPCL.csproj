@@ -8,85 +8,96 @@
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Authors>Thomas Pentenrieder</Authors>
     <Company>medienstudio.net</Company>
-    <Description>This is a portable library for consuming the WordPress REST-API in (almost) any C# application.</Description>
+    <Description>This is a portable library for consuming the WordPress REST-API in (almost) any .NET application.</Description>
     <PackageProjectUrl>https://github.com/wp-net/WordPressPCL</PackageProjectUrl>
     <RepositoryUrl>https://github.com/wp-net/WordPressPCL</RepositoryUrl>
     <PackageTags>WordPress REST API</PackageTags>
     <RepositoryType>GitHub</RepositoryType>
-    <AssemblyVersion>1.7.0.0</AssemblyVersion>
-    <FileVersion>1.7.0.0</FileVersion>
-    <Version>1.7.0</Version>
-    <PackageLicenseUrl>https://github.com/wp-net/WordPressPCL/blob/master/LICENSE</PackageLicenseUrl>
-    <PackageReleaseNotes>
-      V1.7.0
-      - Added optional MIME-Type override for Media upload
-      - Improved handling of HttpClient headers
-      - Downgraded JSON.NET dependency to V11.0.1
-      - Exceptions Refactoring
+    <AssemblyVersion>1.7.1.0</AssemblyVersion>
+    <FileVersion>1.7.1.0</FileVersion>
+    <Version>1.7.1</Version>
+    <PackageLicenseUrl></PackageLicenseUrl>
+    <PackageReleaseNotes>V1.7.1
+- Added Icon
+- Updated License Expression
 
-      V1.6.2
-      - Clean up file stream after upload #166
-      - Added .kmz &amp; .kml Mime Types #162
+V1.7.0
+- Added optional MIME-Type override for Media upload
+- Improved handling of HttpClient headers
+- Downgraded JSON.NET dependency to V11.0.1
+- Exceptions Refactoring
 
-      V1.6.1
-      - Fix for #147 where Capabilities might contain strings instead of bool
+V1.6.2
+- Clean up file stream after upload #166
+- Added .kmz &amp; .kml Mime Types #162
 
-      V1.6.0-beta1
-      - marking all Meta properties as dynamic as the structure seems to be very volatile
+V1.6.1
+- Fix for #147 where Capabilities might contain strings instead of bool
 
-      V1.5.1
-      - Make height &amp; width optional in MediaSizes (#143)
+V1.6.0-beta1
+- marking all Meta properties as dynamic as the structure seems to be very volatile
 
-      V1.5.0
-      - Enhanced Error handling
-      https://github.com/wp-net/WordPressPCL/issues/138
+V1.5.1
+- Make height &amp; width optional in MediaSizes (#143)
 
-      V1.4.6
-      - Bugfix: Add DefaultValueHandling to Comment Status property
+V1.5.0
+- Enhanced Error handling
+https://github.com/wp-net/WordPressPCL/issues/138
 
-      V1.4.5
-      - Bugfix: Add NullValueHandling to FeaturedMedia property
+V1.4.6
+- Bugfix: Add DefaultValueHandling to Comment Status property
 
-      V1.4.4
-      - Add Yoast Taxonomy Terms
+V1.4.5
+- Bugfix: Add NullValueHandling to FeaturedMedia property
 
-      V1.4.3
-      - Bugfix: Add default JsonSerzializerSettings, setting MissingMemberHandling to ignore
+V1.4.4
+- Add Yoast Taxonomy Terms
 
-      V1.4.2
-      - Bugfix: delete requests return bool instead of HTTPResponseMessage
+V1.4.3
+- Bugfix: Add default JsonSerzializerSettings, setting MissingMemberHandling to ignore
 
-      V1.4.1-alpha
-      - Experimental WordPress.com support (readonly)
-      - Experimental Descending Threaded Comments support
-      V1.4.0
-      - making HttpClient static
-      - Exceptions will be thrown instead of hiding them
-      - don't auto-append /wp-json to WordPress Uri
-      V1.3.3
-      - Fixing update of Comment.Status
-      V1.3.2
-      - Fixing Comment.Status issue
-      V1.3.1
-      - added maxDepth option for threaded comments
-      V1.3.0
-      - added ToThreaded-method for transforming comments
-      - pass deserialization settings into HttpHelper class
-      - Added .netstandard 2.0 support
-      - upload media directly from file path (.netstandard 2.0 only)
-      V1.2.1
-      - added JWT getter &amp; setter methods
-      V1.2
-      - added helper method to sort comments for a threaded view
-      - added method to get all comments for a post id
-      - fixed some async issues for better performance
-      - added logout method
-    </PackageReleaseNotes>
+V1.4.2
+- Bugfix: delete requests return bool instead of HTTPResponseMessage
+
+V1.4.1-alpha
+- Experimental WordPress.com support (readonly)
+- Experimental Descending Threaded Comments support
+
+V1.4.0
+- making HttpClient static
+- Exceptions will be thrown instead of hiding them
+- don't auto-append /wp-json to WordPress Uri
+
+V1.3.3
+- Fixing update of Comment.Status
+
+V1.3.2
+- Fixing Comment.Status issue
+
+V1.3.1
+- added maxDepth option for threaded comments
+
+V1.3.0
+- added ToThreaded-method for transforming comments
+- pass deserialization settings into HttpHelper class
+- Added .netstandard 2.0 support
+- upload media directly from file path (.netstandard 2.0 only)
+
+V1.2.1
+- added JWT getter &amp; setter methods
+
+V1.2
+- added helper method to sort comments for a threaded view
+- added method to get all comments for a post id
+- fixed some async issues for better performance
+- added logout method</PackageReleaseNotes>
     <Copyright>© Thomas Pentenrieder | 2020</Copyright>
-    <ApplicationIcon>icon.ico</ApplicationIcon>
+    <ApplicationIcon />
     <OutputTypeEx>library</OutputTypeEx>
     <StartupObject />
     <SignAssembly>false</SignAssembly>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageIcon>icon.png</PackageIcon>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.0.0">
@@ -97,10 +108,12 @@
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
   </ItemGroup>
   <ItemGroup>
-    <None Update="icon.ico">
+    <None Update="icon.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="icon.png">
+    <None Include="Images\icon.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
