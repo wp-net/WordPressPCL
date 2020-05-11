@@ -92,19 +92,13 @@ V1.2
 - fixed some async issues for better performance
 - added logout method</PackageReleaseNotes>
     <Copyright>© Thomas Pentenrieder | 2020</Copyright>
-    <ApplicationIcon>Images\icon.ico</ApplicationIcon>
+    <ApplicationIcon />
     <OutputTypeEx>library</OutputTypeEx>
     <StartupObject />
     <SignAssembly>false</SignAssembly>
-    <PackageIcon>icon.ico</PackageIcon>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageIcon>icon.png</PackageIcon>
   </PropertyGroup>
-  <ItemGroup>
-    <None Remove="Images\icon.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Images\icon.ico" />
-  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.0.0">
       <PrivateAssets>all</PrivateAssets>
@@ -115,6 +109,11 @@ V1.2
   </ItemGroup>
   <ItemGroup>
     <None Update="icon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Images\icon.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
