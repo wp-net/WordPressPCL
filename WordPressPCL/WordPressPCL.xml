@@ -1416,25 +1416,43 @@
             Application
             </summary>
         </member>
-        <member name="T:WordPressPCL.Models.WPException">
+        <member name="T:WordPressPCL.Models.Exceptions.WPException">
             <summary>
             WordPress request exceptions
             </summary>
         </member>
-        <member name="M:WordPressPCL.Models.WPException.#ctor(WordPressPCL.Models.BadRequest)">
+        <member name="M:WordPressPCL.Models.Exceptions.WPException.#ctor">
             <summary>
-            default constructor
+            Constructor
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Models.Exceptions.WPException.#ctor(System.String)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="M:WordPressPCL.Models.Exceptions.WPException.#ctor(System.String,System.Exception)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="message"></param>
+            <param name="innerException"></param>
+        </member>
+        <member name="M:WordPressPCL.Models.Exceptions.WPException.#ctor(WordPressPCL.Models.BadRequest)">
+            <summary>
+            Constructor
             </summary>
             <param name="request">additional request info</param>
         </member>
-        <member name="M:WordPressPCL.Models.WPException.#ctor(System.String,WordPressPCL.Models.BadRequest)">
+        <member name="M:WordPressPCL.Models.Exceptions.WPException.#ctor(System.String,WordPressPCL.Models.BadRequest)">
             <summary>
             Constructor
             </summary>
             <param name="message">additional message</param>
             <param name="request">additional request info</param>
         </member>
-        <member name="M:WordPressPCL.Models.WPException.#ctor(System.String,System.Exception,WordPressPCL.Models.BadRequest)">
+        <member name="M:WordPressPCL.Models.Exceptions.WPException.#ctor(System.String,System.Exception,WordPressPCL.Models.BadRequest)">
             <summary>
             Constructor
             </summary>
@@ -1442,12 +1460,12 @@
             <param name="inner">inner exception</param>
             <param name="request">additional request info</param>
         </member>
-        <member name="P:WordPressPCL.Models.WPException.RequestData">
+        <member name="P:WordPressPCL.Models.Exceptions.WPException.RequestData">
             <summary>
             Bad request data info
             </summary>
         </member>
-        <member name="T:WordPressPCL.Models.WPUnexpectedException">
+        <member name="T:WordPressPCL.Models.Exceptions.WPUnexpectedException">
             <summary>
             An exception resulting from a malformed WP response from a
             WP REST call, where the response is still a valid (but not
@@ -1455,19 +1473,37 @@
             from an endpoint that is not a WP REST endpoint
             </summary>
         </member>
-        <member name="M:WordPressPCL.Models.WPUnexpectedException.#ctor(System.Net.Http.HttpResponseMessage,System.String)">
+        <member name="M:WordPressPCL.Models.Exceptions.WPUnexpectedException.#ctor">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Models.Exceptions.WPUnexpectedException.#ctor(System.String)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="M:WordPressPCL.Models.Exceptions.WPUnexpectedException.#ctor(System.String,System.Exception)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="message"></param>
+            <param name="innerException"></param>
+        </member>
+        <member name="M:WordPressPCL.Models.Exceptions.WPUnexpectedException.#ctor(System.Net.Http.HttpResponseMessage,System.String)">
             <summary>
             Construct a WPUnexpectedException from a response
             </summary>
             <param name="response">The raw response</param>
             <param name="resonseBody">The response body, if any</param>     
         </member>
-        <member name="P:WordPressPCL.Models.WPUnexpectedException.Response">
+        <member name="P:WordPressPCL.Models.Exceptions.WPUnexpectedException.Response">
             <summary>
             The response that triggered the error
             </summary>
         </member>
-        <member name="P:WordPressPCL.Models.WPUnexpectedException.ResponseBody">
+        <member name="P:WordPressPCL.Models.Exceptions.WPUnexpectedException.ResponseBody">
             <summary>
             The response body (if any) that was returned with the error status
             </summary>

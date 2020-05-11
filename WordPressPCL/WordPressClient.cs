@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WordPressPCL.Client;
 using WordPressPCL.Models;
+using WordPressPCL.Models.Exceptions;
 using WordPressPCL.Utility;
 
 namespace WordPressPCL

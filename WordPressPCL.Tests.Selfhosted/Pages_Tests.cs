@@ -4,8 +4,8 @@ using System.Threading.Tasks;
 using WordPressPCL.Models;
 using WordPressPCL.Tests.Selfhosted.Utility;
 using System.Linq;
-using WordPressPCL;
 using WordPressPCL.Utility;
+using WordPressPCL.Models.Exceptions;
 
 namespace WordPressPCL.Tests.Selfhosted
 {
@@ -95,7 +95,7 @@ namespace WordPressPCL.Tests.Selfhosted
                 OrderBy = PagesOrderBy.Title,
                 Order = Order.ASC,
                 Statuses = new Status[] { Status.Publish },
-                Embed=true
+                Embed = true
             };
             var queryresult = await _client.Pages.Query(queryBuilder);
             Assert.AreEqual(queryBuilder.BuildQueryURL(), "?page=1&per_page=15&orderby=title&status=publish&order=asc&_embed=true");

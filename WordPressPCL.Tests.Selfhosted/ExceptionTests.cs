@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Threading.Tasks;
 using WordPressPCL.Models;
+using WordPressPCL.Models.Exceptions;
 using WordPressPCL.Tests.Selfhosted.Utility;
 
 namespace WordPressPCL.Tests.Selfhosted
