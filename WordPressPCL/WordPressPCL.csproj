@@ -19,8 +19,9 @@
     <PackageLicenseUrl>https://github.com/wp-net/WordPressPCL/blob/master/LICENSE</PackageLicenseUrl>
     <PackageReleaseNotes>
       V1.7.0
-      - Added optional mimetype override for Media upload
+      - Added optional MIME-Type override for Media upload
       - Improved handling of HttpClient headers
+      - Downgraded JSON.NET dependency to V11.0.1
 
       V1.6.2
       - Clean up file stream after upload #166
