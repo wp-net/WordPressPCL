@@ -81,7 +81,7 @@
       - added logout method
     </PackageReleaseNotes>
     <Copyright>© Thomas Pentenrieder | 2020</Copyright>
-    <ApplicationIcon>icon.png</ApplicationIcon>
+    <ApplicationIcon>icon.ico</ApplicationIcon>
     <OutputTypeEx>library</OutputTypeEx>
     <StartupObject />
     <SignAssembly>false</SignAssembly>
@@ -91,7 +91,12 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.1" />
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="icon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 </Project>
