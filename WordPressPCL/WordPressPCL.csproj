@@ -81,7 +81,7 @@
       - added logout method
     </PackageReleaseNotes>
     <Copyright>© Thomas Pentenrieder | 2020</Copyright>
-    <ApplicationIcon />
+    <ApplicationIcon>icon.png</ApplicationIcon>
     <OutputTypeEx>library</OutputTypeEx>
     <StartupObject />
     <SignAssembly>false</SignAssembly>
