@@ -13,7 +13,7 @@ namespace WordPressPCL.Client
     {
         #region Init
 
-        private new const string _methodPath = "posts";
+        private const string _methodPath = "posts";
 
         /// <summary>
         /// Constructor

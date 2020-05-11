@@ -22,6 +22,7 @@
       - Added optional MIME-Type override for Media upload
       - Improved handling of HttpClient headers
       - Downgraded JSON.NET dependency to V11.0.1
+      - Exceptions Refactoring
 
       V1.6.2
       - Clean up file stream after upload #166

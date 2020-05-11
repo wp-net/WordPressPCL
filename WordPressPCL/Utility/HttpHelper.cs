@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using WordPressPCL.Models;
+using WordPressPCL.Models.Exceptions;
 
 namespace WordPressPCL.Utility
 {

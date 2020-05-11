@@ -1,13 +1,11 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using WordPressPCL.Tests.Selfhosted.Utility;
-using WordPressPCL;
 using System.Threading.Tasks;
 using WordPressPCL.Models;
 using WordPressPCL.Utility;
-using System.Net;
 using System.Linq;
-using Newtonsoft.Json;
+using WordPressPCL.Models.Exceptions;
 
 namespace WordPressPCL.Tests.Selfhosted
 {

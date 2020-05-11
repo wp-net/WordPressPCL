@@ -14,7 +14,7 @@ namespace WordPressPCL.Client
     {
         #region Init
 
-        private new const string _methodPath = "comments";
+        private const string _methodPath = "comments";
 
         /// <summary>
         /// Constructor

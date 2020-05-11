@@ -2,10 +2,10 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using WordPressPCL;
 using WordPressPCL.Models;
 using WordPressPCL.Utility;
 using WordPressPCL.Tests.Selfhosted.Utility;
+using WordPressPCL.Models.Exceptions;
 
 namespace WordPressPCL.Tests.Selfhosted
 {

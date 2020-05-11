@@ -10,7 +10,7 @@ namespace WordPressPCL.Client
     {
         #region Init
 
-        private new const string _methodPath = "tags";
+        private const string _methodPath = "tags";
 
         /// <summary>
         /// Constructor
