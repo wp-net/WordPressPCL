@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 using System.Reflection;
 using System.Runtime.Serialization;
 using System.Text;
@@ -45,15 +46,13 @@ namespace WordPressPCL.Utility
                 if (attribute != null)
                 {
                     var value = GetPropertyValue(property);
-                    //var ttt = property.PropertyType.GetTypeInfo().IsEnum;
-                    //var ppp = property.GetValue(this);
+
                     //pass default values
-                    if (value is int && (int)value == default(int)) continue;
-                    if (value is string && (string.IsNullOrEmpty((string)value) || (string)value == DateTime.MinValue.ToString("yyyy-MM-ddTHH:mm:ss"))) continue;
-                    if (value is DateTime && (string)value == DateTime.MinValue.ToString("yyyy-MM-ddTHH:mm:ss")) continue;
+                    if (value is int && (int)value == default) continue;
+                    if (value is string && (string.IsNullOrEmpty((string)value) || (string)value == DateTime.MinValue.ToString("yyyy-MM-ddTHH:mm:ss", CultureInfo.InvariantCulture))) continue;
+                    if (value is DateTime && (string)value == DateTime.MinValue.ToString("yyyy-MM-ddTHH:mm:ss", CultureInfo.InvariantCulture)) continue;
                     if (property.PropertyType == typeof(bool) && (string)value == default(bool).ToString().ToLower()) continue;
                     if (property.PropertyType.GetTypeInfo().IsEnum && (int)property.GetValue(this) == 0) continue;
-                    //if (property.PropertyType.IsArray && ((Array)value).Length == 0) continue;
                     if (value == null) continue;
                     sb.Append(attribute.Text).Append("=").Append(value).Append("&");
                 }

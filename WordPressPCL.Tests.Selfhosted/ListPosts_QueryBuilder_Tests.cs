@@ -10,11 +10,6 @@ namespace WordPressPCL.Tests.Selfhosted
     [TestClass]
     public class ListPosts_QueryBuilder_Tests
     {
-        private const int CATEGORY_ID = 1;
-        private const int TAG_ID = 7;
-        private const int AUTHOR_ID = 3;
-        private const string SEARCH_TERM = "Artikel";
-
         private static WordPressClient _client;
 
         [ClassInitialize]

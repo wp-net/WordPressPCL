@@ -13,7 +13,7 @@ namespace WordPressPCL.Client
     {
         #region Init
 
-        private new const string _methodPath = "pages";
+        private const string _methodPath = "pages";
 
         /// <summary>
         /// Constructor
@@ -39,7 +39,7 @@ namespace WordPressPCL.Client
         {
             // default values
             // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
-            return _httpHelper.GetRequest<IEnumerable<Page>>($"{_defaultPath}{_methodPath}?author={authorId}", embed, useAuth);
+            return HttpHelper.GetRequest<IEnumerable<Page>>($"{DefaultPath}{_methodPath}?author={authorId}", embed, useAuth);
         }
 
         /// <summary>
@@ -53,7 +53,7 @@ namespace WordPressPCL.Client
         {
             // default values
             // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
-            return _httpHelper.GetRequest<IEnumerable<Page>>($"{_defaultPath}{_methodPath}?search={searchTerm}", embed, useAuth);
+            return HttpHelper.GetRequest<IEnumerable<Page>>($"{DefaultPath}{_methodPath}?search={searchTerm}", embed, useAuth);
         }
 
         /// <summary>
@@ -64,7 +64,7 @@ namespace WordPressPCL.Client
         /// <returns>Result of operation</returns>
         public Task<bool> Delete(int ID, bool force = false)
         {
-            return _httpHelper.DeleteRequest($"{_defaultPath}{_methodPath}/{ID}?force={force.ToString().ToLower()}");
+            return HttpHelper.DeleteRequest($"{DefaultPath}{_methodPath}/{ID}?force={force.ToString().ToLower()}");
         }
 
         #endregion Custom

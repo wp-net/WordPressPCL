@@ -20,22 +20,28 @@ namespace WordPressPCL.Client
         /// <summary>
         /// Path to wp api EX. https://site.com/wp-json/
         /// </summary>
-        protected string _defaultPath;
+        protected string DefaultPath { get; }
 
         /// <summary>
         /// path to endpoint EX. posts
         /// </summary>
-        protected string _methodPath;
+        protected string MethodPath { get; }
 
+
+        internal protected HttpHelper _httpHelper;
         /// <summary>
         /// HttpHelper object with helper method over HTTP requests
         /// </summary>
-        protected HttpHelper _httpHelper;
+        protected HttpHelper HttpHelper
+        {
+            get => _httpHelper;
+            private set => _httpHelper = value;
+        }
 
         /// <summary>
         /// Is object must be force deleted
         /// </summary>
-        protected bool _forceDeletion;
+        protected bool ForceDeletion { get; }
 
         /// <summary>
         /// Constructor
@@ -46,10 +52,10 @@ namespace WordPressPCL.Client
         /// <param name="forceDeletion">is objects must be force deleted</param>
         protected CRUDOperation(ref HttpHelper HttpHelper, string defaultPath, string methodPath, bool forceDeletion = false)
         {
-            _defaultPath = defaultPath;
-            _httpHelper = HttpHelper;
-            _methodPath = methodPath;
-            _forceDeletion = forceDeletion;
+            DefaultPath = defaultPath;
+            this.HttpHelper = HttpHelper;
+            MethodPath = methodPath;
+            ForceDeletion = forceDeletion;
         }
 
         /// <summary>
@@ -59,9 +65,9 @@ namespace WordPressPCL.Client
         /// <returns>Created object</returns>
         public async Task<TClass> Create(TClass Entity)
         {
-            var entity = _httpHelper.JsonSerializerSettings == null ? JsonConvert.SerializeObject(Entity) : JsonConvert.SerializeObject(Entity, _httpHelper.JsonSerializerSettings);
+            var entity = HttpHelper.JsonSerializerSettings == null ? JsonConvert.SerializeObject(Entity) : JsonConvert.SerializeObject(Entity, HttpHelper.JsonSerializerSettings);
             var postBody = new StringContent(entity, Encoding.UTF8, "application/json");
-            return (await _httpHelper.PostRequest<TClass>($"{_defaultPath}{_methodPath}", postBody).ConfigureAwait(false)).Item1;
+            return (await HttpHelper.PostRequest<TClass>($"{DefaultPath}{MethodPath}", postBody).ConfigureAwait(false)).Item1;
         }
 
         /// <summary>
@@ -71,7 +77,7 @@ namespace WordPressPCL.Client
         /// <returns>Result of operation</returns>
         public Task<bool> Delete(int ID)
         {
-            return _httpHelper.DeleteRequest($"{_defaultPath}{_methodPath}/{ID}" + (_forceDeletion ? "?force=true" : string.Empty));
+            return HttpHelper.DeleteRequest($"{DefaultPath}{MethodPath}/{ID}" + (ForceDeletion ? "?force=true" : string.Empty));
         }
 
         /// <summary>
@@ -82,7 +88,7 @@ namespace WordPressPCL.Client
         /// <returns>Entity by Id</returns>
         public Task<IEnumerable<TClass>> Get(bool embed = false, bool useAuth = false)
         {
-            return _httpHelper.GetRequest<IEnumerable<TClass>>($"{_defaultPath}{_methodPath}", embed, useAuth);
+            return HttpHelper.GetRequest<IEnumerable<TClass>>($"{DefaultPath}{MethodPath}", embed, useAuth);
         }
 
         /// <summary>
@@ -95,13 +101,13 @@ namespace WordPressPCL.Client
         {
             //100 - Max posts per page in WordPress REST API, so this is hack with multiple requests
             List<TClass> entities;
-            entities = (await _httpHelper.GetRequest<IEnumerable<TClass>>($"{_defaultPath}{_methodPath}?per_page=100&page=1", embed, useAuth).ConfigureAwait(false))?.ToList<TClass>();
-            if (_httpHelper.LastResponseHeaders.Contains("X-WP-TotalPages") && System.Convert.ToInt32(_httpHelper.LastResponseHeaders.GetValues("X-WP-TotalPages").FirstOrDefault()) > 1)
+            entities = (await HttpHelper.GetRequest<IEnumerable<TClass>>($"{DefaultPath}{MethodPath}?per_page=100&page=1", embed, useAuth).ConfigureAwait(false))?.ToList<TClass>();
+            if (HttpHelper.LastResponseHeaders.Contains("X-WP-TotalPages") && System.Convert.ToInt32(HttpHelper.LastResponseHeaders.GetValues("X-WP-TotalPages").FirstOrDefault()) > 1)
             {
-                int totalpages = System.Convert.ToInt32(_httpHelper.LastResponseHeaders.GetValues("X-WP-TotalPages").FirstOrDefault());
+                int totalpages = System.Convert.ToInt32(HttpHelper.LastResponseHeaders.GetValues("X-WP-TotalPages").FirstOrDefault());
                 for (int page = 2; page <= totalpages; page++)
                 {
-                    entities.AddRange((await _httpHelper.GetRequest<IEnumerable<TClass>>($"{_defaultPath}{_methodPath}?per_page=100&page={page}", embed, useAuth).ConfigureAwait(false))?.ToList<TClass>());
+                    entities.AddRange((await HttpHelper.GetRequest<IEnumerable<TClass>>($"{DefaultPath}{MethodPath}?per_page=100&page={page}", embed, useAuth).ConfigureAwait(false))?.ToList<TClass>());
                 }
             }
             return entities;
@@ -116,7 +122,7 @@ namespace WordPressPCL.Client
         /// <returns>Entity by Id</returns>
         public Task<TClass> GetByID(object ID, bool embed = false, bool useAuth = false)
         {
-            return _httpHelper.GetRequest<TClass>($"{_defaultPath}{_methodPath}/{ID}", embed, useAuth);
+            return HttpHelper.GetRequest<TClass>($"{DefaultPath}{MethodPath}/{ID}", embed, useAuth);
         }
 
         /// <summary>
@@ -127,7 +133,7 @@ namespace WordPressPCL.Client
         /// <returns>List of filtered result</returns>
         public Task<IEnumerable<TClass>> Query(QClass queryBuilder, bool useAuth = false)
         {
-            return _httpHelper.GetRequest<IEnumerable<TClass>>($"{_defaultPath}{_methodPath}{queryBuilder.BuildQueryURL()}", false, useAuth);
+            return HttpHelper.GetRequest<IEnumerable<TClass>>($"{DefaultPath}{MethodPath}{queryBuilder.BuildQueryURL()}", false, useAuth);
         }
 
         /// <summary>
@@ -137,9 +143,9 @@ namespace WordPressPCL.Client
         /// <returns>Updated object</returns>
         public async Task<TClass> Update(TClass Entity)
         {
-            var entity = _httpHelper.JsonSerializerSettings == null ? JsonConvert.SerializeObject(Entity) : JsonConvert.SerializeObject(Entity, _httpHelper.JsonSerializerSettings);
+            var entity = HttpHelper.JsonSerializerSettings == null ? JsonConvert.SerializeObject(Entity) : JsonConvert.SerializeObject(Entity, HttpHelper.JsonSerializerSettings);
             var postBody = new StringContent(entity, Encoding.UTF8, "application/json");
-            return (await _httpHelper.PostRequest<TClass>($"{_defaultPath}{_methodPath}/{(Entity as Base)?.Id}", postBody).ConfigureAwait(false)).Item1;
+            return (await HttpHelper.PostRequest<TClass>($"{DefaultPath}{MethodPath}/{(Entity as Base)?.Id}", postBody).ConfigureAwait(false)).Item1;
         }
     }
 }

@@ -13,7 +13,7 @@
         public static string GetMIMETypeFromExtension(string extension)
         {
             //List from https://codex.wordpress.org/Function_Reference/get_allowed_mime_types
-            switch (extension.ToLower())
+            switch (extension?.ToLower())
             {
                 // Image formats
                 case "jpg": case "jpeg": case "jpe": return "image/jpeg";
@@ -117,7 +117,7 @@
 
                 //Misc Application/octet-stream formats
                 case "kmz": case "kml": return "application/octet-stream";
-                
+
                 default: return "text/plain";
             }
         }

@@ -9,7 +9,7 @@ namespace WordPressPCL.Models
         public String Token { get; set; }
 
         [JsonProperty("user_display_name")]
-        public String DisplayName{ get; set; }
+        public String DisplayName { get; set; }
 
         [JsonProperty("user_email")]
         public String Email { get; set; }

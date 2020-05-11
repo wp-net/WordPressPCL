@@ -10,7 +10,7 @@ namespace WordPressPCL.Client
     {
         #region Init
 
-        private new const string _methodPath = "categories";
+        private const string _methodPath = "categories";
 
         /// <summary>
         /// Constructor

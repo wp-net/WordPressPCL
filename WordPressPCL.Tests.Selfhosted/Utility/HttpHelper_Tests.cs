@@ -9,29 +9,14 @@ namespace WordPressPCL.Tests.Selfhosted.Utility
     [TestClass]
     public class HttpHelper_Tests
     {
-        private static WordPressClient _client;
-        private static WordPressClient _clientAuth;
-
-        [ClassInitialize]
-        public static async Task Init(TestContext testContext)
-        {
-            _client = ClientHelper.GetWordPressClient();
-            _clientAuth = await ClientHelper.GetAuthenticatedWordPressClient();
-        }
-
         [TestMethod]
         public async Task HttpHelper_InvalidPreProcessing()
         {
-            var client = new WordPressClient(ApiCredentials.WordPressUri)
-            {
-                AuthMethod = AuthMethod.JWT
-            };
-            await client.RequestJWToken(ApiCredentials.Username, ApiCredentials.Password);
-
+            var clientAuth = await ClientHelper.GetAuthenticatedWordPressClient();
             // Create a random tag , must works:
             var random = new Random();
             var tagname = $"Test {random.Next(0, 1000)}";
-            var tag = await client.Tags.Create(new Tag()
+            var tag = await clientAuth.Tags.Create(new Tag()
             {
                 Name = tagname,
                 Description = "Test Description"
@@ -42,35 +27,31 @@ namespace WordPressPCL.Tests.Selfhosted.Utility
             Assert.AreEqual("Test Description", tag.Description);
 
             // We call Get tag list without pre processing
-            var tags = await client.Tags.GetAll();
+            var tags = await clientAuth.Tags.GetAll();
             Assert.IsNotNull(tags);
             Assert.AreNotEqual(tags.Count(), 0);
             CollectionAssert.AllItemsAreUnique(tags.Select(e => e.Id).ToList());
 
             // Now we add a PreProcessing task
-            client.HttpResponsePreProcessing = (response) =>
+            clientAuth.HttpResponsePreProcessing = (response) =>
             {
                 throw new InvalidOperationException("PreProcessing must fail");
             };
             await Assert.ThrowsExceptionAsync<InvalidOperationException>(async () =>
             {
-                await client.Tags.GetAll();
+                await clientAuth.Tags.GetAll();
             });
         }
 
         [TestMethod]
         public async Task HttpHelper_ValidPreProcessing()
         {
-            var client = new WordPressClient(ApiCredentials.WordPressUri)
-            {
-                AuthMethod = AuthMethod.JWT
-            };
-            await client.RequestJWToken(ApiCredentials.Username, ApiCredentials.Password);
+            var clientAuth = await ClientHelper.GetAuthenticatedWordPressClient();
 
             // Create a random tag
             var random = new Random();
             var tagname = $"Test {random.Next(0, 1000)}";
-            var tag = await client.Tags.Create(new Tag()
+            var tag = await clientAuth.Tags.Create(new Tag()
             {
                 Name = tagname,
                 Description = "Test Description"
@@ -81,18 +62,18 @@ namespace WordPressPCL.Tests.Selfhosted.Utility
             Assert.AreEqual("Test Description", tag.Description);
 
             // We call Get tag list without pre processing
-            var tags = await client.Tags.GetAll();
+            var tags = await clientAuth.Tags.GetAll();
             Assert.IsNotNull(tags);
             Assert.AreNotEqual(tags.Count(), 0);
             CollectionAssert.AllItemsAreUnique(tags.Select(e => e.Id).ToList());
 
             // Now we add a PreProcessing task
-            client.HttpResponsePreProcessing = (response) =>
+            clientAuth.HttpResponsePreProcessing = (response) =>
             {
                 return response;
             };
 
-            tags = await client.Tags.GetAll();
+            tags = await clientAuth.Tags.GetAll();
             Assert.IsNotNull(tags);
             Assert.AreNotEqual(tags.Count(), 0);
             CollectionAssert.AllItemsAreUnique(tags.Select(e => e.Id).ToList());

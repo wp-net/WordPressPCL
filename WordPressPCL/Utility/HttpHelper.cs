@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using WordPressPCL.Models;
+using WordPressPCL.Models.Exceptions;
 
 namespace WordPressPCL.Utility
 {
@@ -13,7 +14,7 @@ namespace WordPressPCL.Utility
     /// </summary>
     public class HttpHelper
     {
-        private static HttpClient _httpClient = new HttpClient();
+        private static readonly HttpClient _httpClient = new HttpClient();
         private readonly string _WordpressURI;
 
         /// <summary>
@@ -39,16 +40,18 @@ namespace WordPressPCL.Utility
 
         /// <summary>
         /// Constructor
-        /// <paramref name="WordpressURI"/>
+        /// <paramref name="wordpressURI"/>
         /// </summary>
-        /// <param name="WordpressURI">base WP REST API endpoint EX. http://demo.com/wp-json/ </param>
-        public HttpHelper(string WordpressURI)
+        /// <param name="wordpressURI">base WP REST API endpoint EX. http://demo.com/wp-json/ </param>
+        public HttpHelper(string wordpressURI)
         {
-            _WordpressURI = WordpressURI;
+            _WordpressURI = wordpressURI;
 
             // by default don't crash on missing member
-            JsonSerializerSettings = new JsonSerializerSettings();
-            JsonSerializerSettings.MissingMemberHandling = MissingMemberHandling.Ignore;
+            JsonSerializerSettings = new JsonSerializerSettings
+            {
+                MissingMemberHandling = MissingMemberHandling.Ignore
+            };
         }
 
         internal async Task<TClass> GetRequest<TClass>(string route, bool embed, bool isAuthRequired = false)

@@ -4,9 +4,8 @@ using System.Threading.Tasks;
 using WordPressPCL.Models;
 using WordPressPCL.Tests.Selfhosted.Utility;
 using System.Linq;
-using WordPressPCL;
 using WordPressPCL.Utility;
-using System.Diagnostics;
+using WordPressPCL.Models.Exceptions;
 
 namespace WordPressPCL.Tests.Selfhosted
 {
@@ -25,7 +24,7 @@ namespace WordPressPCL.Tests.Selfhosted
 
         [TestMethod]
         public async Task Posts_Create()
-       {
+        {
             var post = new Post()
             {
                 Title = new Title("Title 1"),
@@ -46,7 +45,7 @@ namespace WordPressPCL.Tests.Selfhosted
             Assert.AreNotEqual(posts.Count(), 0);
 
             var postsEdit = await _clientAuth.Posts.Query(new PostsQueryBuilder()
-            { 
+            {
                 Context = Context.Edit,
                 PerPage = 1,
                 Page = 1
@@ -80,7 +79,7 @@ namespace WordPressPCL.Tests.Selfhosted
         [TestMethod]
         public async Task Posts_Update()
         {
-            var testContent = "Test" + new Random().Next() ;
+            var testContent = "Test" + new Random().Next();
             var posts = await _clientAuth.Posts.GetAll();
             Assert.IsTrue(posts.Count() > 0);
 
@@ -105,7 +104,7 @@ namespace WordPressPCL.Tests.Selfhosted
 
             var resonse = await _clientAuth.Posts.Delete(createdPost.Id);
             Assert.IsTrue(resonse);
-            
+
             await Assert.ThrowsExceptionAsync<WPException>(async () =>
             {
                 var postById = await _clientAuth.Posts.GetByID(createdPost.Id);
