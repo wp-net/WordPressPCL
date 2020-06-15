@@ -1026,6 +1026,11 @@
             Pending
             </summary>
         </member>
+        <member name="F:WordPressPCL.Models.Status.Trash">
+            <summary>
+            Trash
+            </summary>
+        </member>
         <member name="T:WordPressPCL.Models.OpenStatus">
             <summary>
             Status of Comments, Pings etc.
@@ -1913,7 +1918,7 @@
             </summary>
             <remarks>
             Context: edit
-            One of: publish, future, draft, pending, private
+            One of: publish, future, draft, pending, private, trash
             </remarks>
         </member>
         <member name="P:WordPressPCL.Models.Page.Type">
@@ -2083,7 +2088,7 @@
             </summary>
             <remarks>
             Context: edit
-            One of: publish, future, draft, pending, private
+            One of: publish, future, draft, pending, private, trash
             </remarks>
         </member>
         <member name="P:WordPressPCL.Models.Post.Type">

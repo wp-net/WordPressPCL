@@ -66,7 +66,7 @@ namespace WordPressPCL.Models
         /// </summary>
         /// <remarks>
         /// Context: edit
-        /// One of: publish, future, draft, pending, private
+        /// One of: publish, future, draft, pending, private, trash
         /// </remarks>
         [JsonProperty("status")]
         public Status Status { get; set; }
