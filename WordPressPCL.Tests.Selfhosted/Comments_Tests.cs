@@ -209,8 +209,7 @@ namespace WordPressPCL.Tests.Selfhosted
             for (int i = 0; i < 30; i++)
             {
                 // Create random content to prevent duplicate commment errors
-                var random = new Random();
-                var content = $"TestComment {random.Next(0, 10000)}";
+                var content = $"TestComment {System.Guid.NewGuid()}";
                 var comment = new Comment()
                 {
                     Content = new Content(content),
