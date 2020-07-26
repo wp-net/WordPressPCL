@@ -9,8 +9,12 @@ namespace WordPressPCL.Models
     public enum AuthMethod
     {
         /// <summary>
-        /// JSON Web Token Authentication method. Need configure your site with this plugin https://wordpress.org/plugins/jwt-authentication-for-wp-rest-api/
+        /// JSON Web Token Authentication method by Enrique Chavez. Need configure your site with this plugin https://wordpress.org/plugins/jwt-authentication-for-wp-rest-api/
         /// </summary>
-        JWT
+        JWT,
+        /// <summary>
+        /// JSON Web Token Authentication method by Useful Team. Need configure your site with this plugin https://wordpress.org/plugins/jwt-auth/
+        /// </summary>
+        JWTAuth
     }
 }

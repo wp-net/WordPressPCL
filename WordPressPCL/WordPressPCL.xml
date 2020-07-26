@@ -727,7 +727,12 @@
         </member>
         <member name="F:WordPressPCL.Models.AuthMethod.JWT">
             <summary>
-            JSON Web Token Authentication method. Need configure your site with this plugin https://wordpress.org/plugins/jwt-authentication-for-wp-rest-api/
+            JSON Web Token Authentication method by Enrique Chavez. Need configure your site with this plugin https://wordpress.org/plugins/jwt-authentication-for-wp-rest-api/
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.AuthMethod.JWTAuth">
+            <summary>
+            JSON Web Token Authentication method by Useful Team. Need configure your site with this plugin https://wordpress.org/plugins/jwt-auth/
             </summary>
         </member>
         <member name="T:WordPressPCL.Models.AvatarURL">
@@ -3920,6 +3925,13 @@
             Check if token is valid
             </summary>
             <returns>Result of checking</returns>
+        </member>
+        <member name="M:WordPressPCL.WordPressClient.RemoveEmptyData(System.String)">
+            <summary>
+            Removes an empty data field in a Json string, e.g. when checking validity of token
+            </summary>
+            <param name="response">Json response input string</param>
+            <returns>Json response output string</returns>
         </member>
         <member name="M:WordPressPCL.WordPressClient.SetJWToken(System.String)">
             <summary>
