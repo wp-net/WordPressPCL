@@ -194,7 +194,9 @@ namespace WordPressPCL
             }
             else
             {
+                HttpResponsePreProcessing = RemoveEmptyData;
                 (JWTResponse jwtResponse, _) = await _httpHelper.PostRequest<JWTResponse>(route, formContent, false).ConfigureAwait(false);
+                HttpResponsePreProcessing = null;
                 _httpHelper.JWToken = jwtResponse?.Data?.Token;
             }
         }
