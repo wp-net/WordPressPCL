@@ -38,7 +38,13 @@ namespace WordPressPCL.Models
         /// Pending
         /// </summary>
         [EnumMember(Value = "pending")]
-        Pending
+        Pending,
+
+        /// <summary>
+        /// Pending
+        /// </summary>
+        [EnumMember(Value = "trash")]
+        Trash
     }
 
     /// <summary>
