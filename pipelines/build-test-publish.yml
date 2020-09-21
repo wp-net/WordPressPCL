@@ -45,3 +45,13 @@ steps:
     command: 'test'
     projects: 'WordPressPCL.Tests.Selfhosted/WordPressPCL.Tests.Selfhosted.csproj'
     testRunTitle: 'Test Selfhosted'
+
+- task: Bash@3
+  displayName: 'Remove Docker containers'
+  inputs:
+    filePath: 'pipelines/kill-docker.sh'
+
+- task: Bash@3
+  displayName: 'Create dockerzied WordPress for JWT-Auth Plugin'
+  inputs:
+    filePath: 'pipelines/docker-wordpress.sh'
