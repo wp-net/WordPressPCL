@@ -54,4 +54,4 @@ steps:
 - task: Bash@3
   displayName: 'Create dockerzied WordPress for JWT-Auth Plugin'
   inputs:
-    filePath: 'pipelines/docker-wordpress.sh'
+    filePath: 'pipelines/docker-wordpress-jwt-auth.sh'
