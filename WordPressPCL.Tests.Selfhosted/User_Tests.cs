@@ -6,6 +6,7 @@ using WordPressPCL.Models;
 using WordPressPCL.Utility;
 using WordPressPCL.Tests.Selfhosted.Utility;
 using WordPressPCL.Models.Exceptions;
+using Guid = System.Guid;
 
 namespace WordPressPCL.Tests.Selfhosted
 {
@@ -25,14 +26,12 @@ namespace WordPressPCL.Tests.Selfhosted
         [TestMethod]
         public async Task Users_Create()
         {
-            var random = new Random();
-            var r = random.Next(0, 1000);
-            var username = $"Testuser{r}";
-            var nickname = $"Nickname{r}";
-            var email = $"testuser{r}@test.com";
-            var firstname = $"Firstname{r}";
-            var lastname = $"Lastname{r}";
-            var password = $"testpassword{r}";
+            var username = Guid.NewGuid().ToString();
+            var nickname = $"Nickname{username}";
+            var email = $"{username}@test.com";
+            var firstname = $"Firstname{username}";
+            var lastname = $"Lastname{username}";
+            var password = $"testpassword{username}";
             var name = $"{firstname} {lastname}";
 
             var user = await _clientAuth.Users.Create(new User(username, email, password)
@@ -79,9 +78,7 @@ namespace WordPressPCL.Tests.Selfhosted
             var user = await CreateRandomUser();
             Assert.IsNotNull(user);
 
-            var random = new Random();
-            var r = random.Next(0, 1000);
-            var name = $"Testuser{r}";
+            var name = $"TestuserUpdate";
             user.Name = name;
             user.NickName = name;
             user.FirstName = name;
@@ -108,8 +105,6 @@ namespace WordPressPCL.Tests.Selfhosted
         [TestMethod]
         public async Task Users_Delete_And_Reassign_Posts()
         {
-            var random = new Random();
-
             // Create new user
             var user1 = await CreateRandomUser();
             Assert.IsNotNull(user1);
@@ -183,11 +178,9 @@ namespace WordPressPCL.Tests.Selfhosted
 
         private Task<User> CreateRandomUser()
         {
-            var random = new Random();
-            var r = random.Next(0, 1000);
-            var username = $"Testuser{r}";
-            var email = $"testuser{r}@test.com";
-            var password = $"testpassword{r}";
+            var username = Guid.NewGuid().ToString();
+            var email = $"{username}@test.com";
+            var password = $"testpassword{username}";
             return _clientAuth.Users.Create(new User(username, email, password));
         }
 

@@ -794,22 +794,7 @@
             <summary>
             Number of published posts for the term.
             </summary>
-            <remarks>
-            Read only
-            Context: view, edit
-            </remarks>
-        </member>
-        <member name="P:WordPressPCL.Models.Category.Description">
-            <summary>
-            HTML description of the term.
-            </summary>
-            <remarks>Context: view, edit</remarks>
-        </member>
-        <member name="P:WordPressPCL.Models.Category.Parent">
-            <summary>
-            The parent term ID.
-            </summary>
-            <remarks>Context: view, edit</remarks>
+            <remaContext: view, edit</remarks>
         </member>
         <member name="P:WordPressPCL.Models.Category.Meta">
             <summary>
@@ -2955,6 +2940,21 @@
             <summary>
             Display name for the user.
             </summary>
+            <remarks>
+            Context: embed, view, edit
+            </remarks>
+        </member>
+        <member name="P:WordPressPCL.Models.User.FirstName">
+            <summary>
+            First name for the user.
+            </summary>
+            <remarks>Context: edit</remarks>
+        </member>
+        <member name="P:WordPressPCL.Models.User.LastName">
+            <summary>
+            Last name for the user.
+            </summary>
+            <remarks>Context: ry>
             <remarks>
             Context: embed, view, edit
             </remarks>
