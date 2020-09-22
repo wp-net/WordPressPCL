@@ -3301,6 +3301,13 @@
             </summary>
             <param name="wordpressURI">base WP REST API endpoint EX. http://demo.com/wp-json/ </param>
         </member>
+        <member name="M:WordPressPCL.Utility.HttpHelper.#ctor(System.Net.Http.HttpClient)">
+            <summary>
+            Constructor
+            <paramref name="httpClient"/>
+            </summary>
+            <param name="httpClient">Http client which would be used for sending requests to the WordPress API endpoint.</param>
+        </member>
         <member name="T:WordPressPCL.Utility.MediaQueryBuilder">
             <summary>
             Media Query Builder class to construct queries with valid parameters
@@ -3894,6 +3901,12 @@
             </summary>
             <param name="uri">URI for WordPress API endpoint, e.g. "http://demo.wp-api.org/wp-json/"</param>
             <param name="defaultPath">Points to the standard API endpoints</param>
+        </member>
+        <member name="M:WordPressPCL.WordPressClient.#ctor(System.Net.Http.HttpClient)">
+            <summary>
+                The WordPressClient holds all connection infos and provides methods to call WordPress APIs.
+            </summary>
+            <param name="httpClient">Http client which would be used for sending requests to the WordPress API endpoint.</param>
         </member>
         <member name="M:WordPressPCL.WordPressClient.GetSettings">
             <summary>

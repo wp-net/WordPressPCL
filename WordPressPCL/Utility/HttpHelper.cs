@@ -14,7 +14,8 @@ namespace WordPressPCL.Utility
     /// </summary>
     public class HttpHelper
     {
-        private static readonly HttpClient _httpClient = new HttpClient();
+        private static readonly HttpClient _defaultHttpClient = new HttpClient();
+        private readonly HttpClient _httpClient;
         private readonly string _WordpressURI;
 
         /// <summary>
@@ -45,7 +46,25 @@ namespace WordPressPCL.Utility
         /// <param name="wordpressURI">base WP REST API endpoint EX. http://demo.com/wp-json/ </param>
         public HttpHelper(string wordpressURI)
         {
+            _httpClient = _defaultHttpClient;
             _WordpressURI = wordpressURI;
+
+            // by default don't crash on missing member
+            JsonSerializerSettings = new JsonSerializerSettings
+            {
+                MissingMemberHandling = MissingMemberHandling.Ignore
+            };
+        }
+
+        /// <summary>
+        /// Constructor
+        /// <paramref name="httpClient"/>
+        /// </summary>
+        /// <param name="httpClient">Http client which would be used for sending requests to the WordPress API endpoint.</param>
+        public HttpHelper(HttpClient httpClient)
+        {
+            _httpClient = httpClient;
+            _WordpressURI = httpClient.BaseAddress.ToString();
 
             // by default don't crash on missing member
             JsonSerializerSettings = new JsonSerializerSettings
