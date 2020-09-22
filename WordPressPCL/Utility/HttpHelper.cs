@@ -60,7 +60,7 @@ namespace WordPressPCL.Utility
         /// Constructor
         /// <paramref name="httpClient"/>
         /// </summary>
-        /// <param name="httpClient">base WP REST API endpoint EX. http://demo.com/wp-json/ </param>
+        /// <param name="httpClient">Http client which would be used for sending requests to the WordPress API endpoint.</param>
         public HttpHelper(HttpClient httpClient)
         {
             _httpClient = httpClient;
