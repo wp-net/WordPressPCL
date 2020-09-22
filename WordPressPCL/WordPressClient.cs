@@ -133,23 +133,13 @@ namespace WordPressPCL
             _defaultPath = defaultPath;
 
             _httpHelper = new HttpHelper(WordPressUri);
-            Posts = new Posts(ref _httpHelper, _defaultPath);
-            Comments = new Comments(ref _httpHelper, _defaultPath);
-            Tags = new Tags(ref _httpHelper, _defaultPath);
-            Users = new Users(ref _httpHelper, _defaultPath);
-            Media = new Media(ref _httpHelper, _defaultPath);
-            Categories = new Categories(ref _httpHelper, _defaultPath);
-            Pages = new Pages(ref _httpHelper, _defaultPath);
-            Taxonomies = new Taxonomies(ref _httpHelper, _defaultPath);
-            PostTypes = new PostTypes(ref _httpHelper, _defaultPath);
-            PostStatuses = new PostStatuses(ref _httpHelper, _defaultPath);
-            CustomRequest = new CustomRequest(ref _httpHelper);
+            ConfigureWordPressClient();
         }
 
         /// <summary>
         ///     The WordPressClient holds all connection infos and provides methods to call WordPress APIs.
         /// </summary>
-        /// <param name="httpClient">URI for WordPress API endpoint, e.g. "http://demo.wp-api.org/wp-json/"</param>
+        /// <param name="httpClient">Http client which would be used for sending requests to the WordPress API endpoint.</param>
         public WordPressClient(HttpClient httpClient)
         {
             if (httpClient == null)
@@ -165,17 +155,7 @@ namespace WordPressPCL
             _defaultPath = string.Empty;
 
             _httpHelper = new HttpHelper(httpClient);
-            Posts = new Posts(ref _httpHelper, _defaultPath);
-            Comments = new Comments(ref _httpHelper, _defaultPath);
-            Tags = new Tags(ref _httpHelper, _defaultPath);
-            Users = new Users(ref _httpHelper, _defaultPath);
-            Media = new Media(ref _httpHelper, _defaultPath);
-            Categories = new Categories(ref _httpHelper, _defaultPath);
-            Pages = new Pages(ref _httpHelper, _defaultPath);
-            Taxonomies = new Taxonomies(ref _httpHelper, _defaultPath);
-            PostTypes = new PostTypes(ref _httpHelper, _defaultPath);
-            PostStatuses = new PostStatuses(ref _httpHelper, _defaultPath);
-            CustomRequest = new CustomRequest(ref _httpHelper);
+            ConfigureWordPressClient();
         }
 
         #region Settings methods
@@ -267,5 +247,20 @@ namespace WordPressPCL
         }
 
         #endregion auth methods
+
+        private void ConfigureWordPressClient()
+        {
+            Posts = new Posts(ref _httpHelper, _defaultPath);
+            Comments = new Comments(ref _httpHelper, _defaultPath);
+            Tags = new Tags(ref _httpHelper, _defaultPath);
+            Users = new Users(ref _httpHelper, _defaultPath);
+            Media = new Media(ref _httpHelper, _defaultPath);
+            Categories = new Categories(ref _httpHelper, _defaultPath);
+            Pages = new Pages(ref _httpHelper, _defaultPath);
+            Taxonomies = new Taxonomies(ref _httpHelper, _defaultPath);
+            PostTypes = new PostTypes(ref _httpHelper, _defaultPath);
+            PostStatuses = new PostStatuses(ref _httpHelper, _defaultPath);
+            CustomRequest = new CustomRequest(ref _httpHelper);
+        }
     }
 }
