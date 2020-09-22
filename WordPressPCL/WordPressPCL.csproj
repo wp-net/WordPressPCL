@@ -13,11 +13,15 @@
     <RepositoryUrl>https://github.com/wp-net/WordPressPCL</RepositoryUrl>
     <PackageTags>WordPress REST API</PackageTags>
     <RepositoryType>GitHub</RepositoryType>
-    <AssemblyVersion>1.7.1.0</AssemblyVersion>
-    <FileVersion>1.7.1.0</FileVersion>
-    <Version>1.7.1</Version>
+    <AssemblyVersion>1.7.2.0</AssemblyVersion>
+    <FileVersion>1.7.2.0</FileVersion>
+    <Version>1.7.2</Version>
     <PackageLicenseUrl></PackageLicenseUrl>
-    <PackageReleaseNotes>V1.7.1
+    <PackageReleaseNotes>V1.7.2
+- Added support for posts trash status
+- Added support for providing httpclient to WordPressClient
+
+V1.7.1
 - Added Icon
 - Updated License Expression
 
@@ -100,7 +104,7 @@ V1.2
     <PackageIcon>icon.png</PackageIcon>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.0.0">
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.3.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
