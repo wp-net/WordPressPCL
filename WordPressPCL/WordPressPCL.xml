@@ -3901,7 +3901,7 @@
             <summary>
                 The WordPressClient holds all connection infos and provides methods to call WordPress APIs.
             </summary>
-            <param name="httpClient">URI for WordPress API endpoint, e.g. "http://demo.wp-api.org/wp-json/"</param>
+            <param name="httpClient">Http client which would be used for sending requests to the WordPress API endpoint.</param>
         </member>
         <member name="M:WordPressPCL.WordPressClient.GetSettings">
             <summary>
