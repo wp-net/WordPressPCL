@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -218,8 +219,22 @@ namespace WordPressPCL
                     new KeyValuePair<string, string>("username", Username),
                     new KeyValuePair<string, string>("password", Password)
                 });
-            (JWTUser jwtUser, _) = await _httpHelper.PostRequest<JWTUser>(route, formContent, false).ConfigureAwait(false);
-            _httpHelper.JWToken = jwtUser?.Token;
+            if (AuthMethod == AuthMethod.JWT)
+            {
+                (JWTUser jwtUser, _) = await _httpHelper.PostRequest<JWTUser>(route, formContent, false).ConfigureAwait(false);
+                _httpHelper.JWToken = jwtUser?.Token;
+            }
+            else if (AuthMethod == AuthMethod.JWTAuth)
+            {
+                HttpResponsePreProcessing = RemoveEmptyData;
+                (JWTResponse jwtResponse, _) = await _httpHelper.PostRequest<JWTResponse>(route, formContent, false).ConfigureAwait(false);
+                HttpResponsePreProcessing = null;
+                _httpHelper.JWToken = jwtResponse?.Data?.Token;
+            }
+            else
+            {
+                throw new ArgumentException($"Authentication methode {AuthMethod} is not supported");
+            }
         }
 
         /// <summary>
@@ -239,13 +254,42 @@ namespace WordPressPCL
             var route = $"{_jwtPath}token/validate";
             try
             {
-                (JWTUser jwtUser, HttpResponseMessage repsonse) = await _httpHelper.PostRequest<JWTUser>(route, null, true).ConfigureAwait(false);
-                return repsonse.IsSuccessStatusCode;
+                if (AuthMethod == AuthMethod.JWT)
+                {
+                    (JWTUser jwtUser, HttpResponseMessage repsonse) = await _httpHelper.PostRequest<JWTUser>(route, null, true).ConfigureAwait(false);
+                    return repsonse.IsSuccessStatusCode;
+                }
+                else if (AuthMethod == AuthMethod.JWTAuth)
+                {
+                    HttpResponsePreProcessing = RemoveEmptyData;
+                    (JWTResponse jwtResponse, _) = await _httpHelper.PostRequest<JWTResponse>(route, null, true).ConfigureAwait(false);
+                    HttpResponsePreProcessing = null;
+                    return jwtResponse.Success;
+                }
+                else
+                {
+                    throw new ArgumentException($"Authentication methode {AuthMethod} is not supported");
+                }
             }
             catch (WPException)
             {
                 return false;
             }
+        }
+
+        /// <summary>
+        /// Removes an empty data field in a Json string, e.g. when checking validity of token
+        /// </summary>
+        /// <param name="response">Json response input string</param>
+        /// <returns>Json response output string</returns>
+        private string RemoveEmptyData(string response)
+        {
+            JObject jo = JObject.Parse(response);
+            if (!jo.SelectToken("data").HasValues)
+            {
+                jo.Remove("data");
+            }
+            return jo.ToString();
         }
 
         /// <summary>
