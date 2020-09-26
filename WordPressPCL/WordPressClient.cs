@@ -192,12 +192,16 @@ namespace WordPressPCL
                 (JWTUser jwtUser, _) = await _httpHelper.PostRequest<JWTUser>(route, formContent, false).ConfigureAwait(false);
                 _httpHelper.JWToken = jwtUser?.Token;
             }
-            else
+            else if (AuthMethod == AuthMethod.JWTAuth)
             {
                 HttpResponsePreProcessing = RemoveEmptyData;
                 (JWTResponse jwtResponse, _) = await _httpHelper.PostRequest<JWTResponse>(route, formContent, false).ConfigureAwait(false);
                 HttpResponsePreProcessing = null;
                 _httpHelper.JWToken = jwtResponse?.Data?.Token;
+            }
+            else
+            {
+                throw new ArgumentException($"Authentication methode {AuthMethod} is not supported");
             }
         }
 
@@ -223,12 +227,16 @@ namespace WordPressPCL
                     (JWTUser jwtUser, HttpResponseMessage repsonse) = await _httpHelper.PostRequest<JWTUser>(route, null, true).ConfigureAwait(false);
                     return repsonse.IsSuccessStatusCode;
                 }
-                else
+                else if (AuthMethod == AuthMethod.JWTAuth)
                 {
                     HttpResponsePreProcessing = RemoveEmptyData;
                     (JWTResponse jwtResponse, _) = await _httpHelper.PostRequest<JWTResponse>(route, null, true).ConfigureAwait(false);
                     HttpResponsePreProcessing = null;
                     return jwtResponse.Success;
+                }
+                else
+                {
+                    throw new ArgumentException($"Authentication methode {AuthMethod} is not supported");
                 }
             }
             catch (WPException)
