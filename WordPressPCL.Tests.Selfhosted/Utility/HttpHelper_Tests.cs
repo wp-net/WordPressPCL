@@ -10,9 +10,9 @@ namespace WordPressPCL.Tests.Selfhosted.Utility
     public class HttpHelper_Tests
     {
         [TestMethod]
-        public async Task HttpHelper_InvalidPreProcessing()
+        public async Task HttpHelper_InvalidPreProcessing(TestContext testContext)
         {
-            var clientAuth = await ClientHelper.GetAuthenticatedWordPressClient();
+            var clientAuth = await ClientHelper.GetAuthenticatedWordPressClient(testContext);
             // Create a random tag , must works:
             var random = new Random();
             var tagname = $"Test {random.Next(0, 1000)}";
@@ -44,9 +44,9 @@ namespace WordPressPCL.Tests.Selfhosted.Utility
         }
 
         [TestMethod]
-        public async Task HttpHelper_ValidPreProcessing()
+        public async Task HttpHelper_ValidPreProcessing(TestContext testContext)
         {
-            var clientAuth = await ClientHelper.GetAuthenticatedWordPressClient();
+            var clientAuth = await ClientHelper.GetAuthenticatedWordPressClient(testContext);
 
             // Create a random tag
             var random = new Random();

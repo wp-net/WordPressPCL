@@ -20,7 +20,7 @@ namespace WordPressPCL.Tests.Selfhosted
         public static async Task Init(TestContext testContext)
         {
             _client = ClientHelper.GetWordPressClient();
-            _clientAuth = await ClientHelper.GetAuthenticatedWordPressClient();
+            _clientAuth = await ClientHelper.GetAuthenticatedWordPressClient(testContext);
         }
 
         [TestMethod]
@@ -133,9 +133,9 @@ namespace WordPressPCL.Tests.Selfhosted
         }
 
         [TestMethod]
-        public async Task Users_Query()
+        public async Task Users_Query(TestContext testContext)
         {
-            var client = await ClientHelper.GetAuthenticatedWordPressClient();
+            var client = await ClientHelper.GetAuthenticatedWordPressClient(testContext);
             var queryBuilder = new UsersQueryBuilder()
             {
                 Page = 1,
