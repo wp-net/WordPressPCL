@@ -21,19 +21,13 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - # 'Note: This is a third party action: https://github.com/warrenbuckley/Setup-Nuget'
-      uses: warrenbuckley/Setup-Nuget@v1
+    - uses: actions/checkout@master
+    - uses: nuget/setup-nuget@v1
     - name: NuGet restore
-      run: nuget  ${{ env.solution }}
-      shell: pwsh
+      run: nuget restore ${{ env.solution }}
     - name: Build Solution
       run: dotnet build **/*.csproj -c Release
-    - name: Create dockerzied WordPress
-      shell: bash
-    - name: 'Run Tests: Selfhosted WordPress'
-      run: dotnet test WordPressPCL.Tests.Selfhosted/WordPressPCL.Tests.Selfhosted.csproj
-    - name: Remove Docker containers
-      shell: bash
-    - name: Create dockerzied WordPress for JWT-Auth Plugin
-      shell: bash
+ #   - name: Create dockerzied WordPress
+ #     shell: bash
+  #  - name: 'Run Tests: Selfhosted WordPress'
+   #   run: dotnet test WordPressPCL.Tests.Selfhosted/WordPressPCL.Tests.Selfhosted.csproj
