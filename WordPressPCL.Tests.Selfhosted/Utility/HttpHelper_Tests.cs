@@ -68,6 +68,7 @@ namespace WordPressPCL.Tests.Selfhosted.Utility
             Assert.AreEqual("Test Description", tag.Description);
 
             // We call Get tag list without pre processing
+            _clientAuth.HttpResponsePreProcessing = null;
             var tags = await _clientAuth.Tags.GetAll();
             Assert.IsNotNull(tags);
             Assert.AreNotEqual(tags.Count(), 0);

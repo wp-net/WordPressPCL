@@ -133,9 +133,8 @@ namespace WordPressPCL.Tests.Selfhosted
         }
 
         [TestMethod]
-        public async Task Users_Query(TestContext testContext)
+        public async Task Users_Query()
         {
-            var client = await ClientHelper.GetAuthenticatedWordPressClient(testContext);
             var queryBuilder = new UsersQueryBuilder()
             {
                 Page = 1,
@@ -143,7 +142,7 @@ namespace WordPressPCL.Tests.Selfhosted
                 OrderBy = UsersOrderBy.Name,
                 Order = Order.DESC,
             };
-            var queryresult = await client.Users.Query(queryBuilder);
+            var queryresult = await _clientAuth.Users.Query(queryBuilder);
             Assert.AreEqual(queryBuilder.BuildQueryURL(), "?page=1&per_page=15");
             Assert.IsNotNull(queryresult);
             Assert.AreNotSame(queryresult.Count(), 0);
