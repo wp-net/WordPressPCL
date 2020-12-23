@@ -54,6 +54,8 @@ namespace WordPressPCL.Tests.Selfhosted.Utility
         [TestMethod]
         public async Task HttpHelper_ValidPreProcessing()
         {
+            _clientAuth.HttpResponsePreProcessing = null;
+
             // Create a random tag
             var random = new Random();
             var tagname = $"Test {random.Next(0, 1000)}";
@@ -68,7 +70,6 @@ namespace WordPressPCL.Tests.Selfhosted.Utility
             Assert.AreEqual("Test Description", tag.Description);
 
             // We call Get tag list without pre processing
-            _clientAuth.HttpResponsePreProcessing = null;
             var tags = await _clientAuth.Tags.GetAll();
             Assert.IsNotNull(tags);
             Assert.AreNotEqual(tags.Count(), 0);
