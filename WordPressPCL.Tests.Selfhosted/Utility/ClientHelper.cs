@@ -7,7 +7,7 @@ namespace WordPressPCL.Tests.Selfhosted.Utility
 {
     public static class ClientHelper
     {
-        public static async Task<WordPressClient> GetAuthenticatedWordPressClient(TestContext context, AuthMethod method = AuthMethod.JWT)
+        public static async Task<WordPressClient> GetAuthenticatedWordPressClient(TestContext context)
         {
             var clientAuth = new WordPressClient(ApiCredentials.WordPressUri);
 
@@ -19,6 +19,7 @@ namespace WordPressPCL.Tests.Selfhosted.Utility
             {
                 clientAuth.AuthMethod = AuthMethod.JWT;
             }
+            clientAuth.AuthMethod = AuthMethod.JWT;
 
             await clientAuth.RequestJWToken(ApiCredentials.Username, ApiCredentials.Password);
 
