@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: CI
+name: Integration Tests
 
 # Controls when the action will run. 
 on:
@@ -34,3 +34,5 @@ jobs:
       run: dotnet test WordPressPCL.Tests.Selfhosted/WordPressPCL.Tests.Selfhosted.csproj
     - name: Kill Docker
       run: ./pipelines/kill-docker.sh
+    - name: Create dockerzied WordPress JWT-AUTH
+      run: ./pipelines/docker-wordpress-jwt-auth.sh
