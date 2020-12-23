@@ -23,11 +23,12 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - uses: nuget/setup-nuget@v1
-    - name: NuGet restore
-      run: nuget restore ${{ env.solution }}
-    - name: Build Solution
-      run: dotnet build ${{ env.solution }} -c Release
- #   - name: Create dockerzied WordPress
- #     shell: bash
+#    - name: NuGet restore
+#      run: nuget restore ${{ env.solution }}
+#    - name: Build Solution
+#      run: dotnet build ${{ env.solution }} -c Release
+    - name: Create dockerzied WordPress
+      run: ./pipelines/docker-wordpress.sh
+      
   #  - name: 'Run Tests: Selfhosted WordPress'
    #   run: dotnet test WordPressPCL.Tests.Selfhosted/WordPressPCL.Tests.Selfhosted.csproj
