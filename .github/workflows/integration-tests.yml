@@ -14,7 +14,7 @@ on:
   workflow_dispatch:
 
 env:
-  solution: '**/*.sln'
+  solution: 'WordPressPCL.sln'
   buildPlatform: Any CPU
   buildConfiguration: Release
 jobs:
