@@ -114,5 +114,12 @@ namespace WordPressPCL.Tests.Selfhosted
                 Assert.IsTrue(containsOnContentOrTitle);
             }
         }
+
+        [TestMethod]
+        public async Task Authorize()
+        {
+            var validToken = await _clientAuth.IsValidJWToken();
+            Assert.IsTrue(validToken);
+        }
     }
 }
