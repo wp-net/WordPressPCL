@@ -213,15 +213,6 @@
             <param name="mimeType">Override for automatic mime type detection</param>
             <returns>Created media object</returns>
         </member>
-        <member name="M:WordPressPCL.Client.Media.Create(System.String,System.String,System.String)">
-            <summary>
-            Create Media entity with attachment
-            </summary>
-            <param name="filePath">Local Path to file</param>
-            <param name="filename">Name of file in WP Media Library</param>
-            <returns>Created media object</returns>
-            <param name="mimeType">Override for automatic mime type detection</param>
-        </member>
         <member name="M:WordPressPCL.Client.Media.Delete(System.Int32)">
             <summary>
             Delete Entity
@@ -799,7 +790,22 @@
             <summary>
             Number of published posts for the term.
             </summary>
-            <remaContext: view, edit</remarks>
+            <remarks>
+            Read only
+            Context: view, edit
+            </remarks>
+        </member>
+        <member name="P:WordPressPCL.Models.Category.Description">
+            <summary>
+            HTML description of the term.
+            </summary>
+            <remarks>Context: view, edit</remarks>
+        </member>
+        <member name="P:WordPressPCL.Models.Category.Parent">
+            <summary>
+            The parent term ID.
+            </summary>
+            <remarks>Context: view, edit</remarks>
         </member>
         <member name="P:WordPressPCL.Models.Category.Meta">
             <summary>
@@ -1018,7 +1024,7 @@
         </member>
         <member name="F:WordPressPCL.Models.Status.Trash">
             <summary>
-            Trash
+            Pending
             </summary>
         </member>
         <member name="T:WordPressPCL.Models.OpenStatus">
@@ -2964,21 +2970,6 @@
             <summary>
             Last name for the user.
             </summary>
-            <remarks>Context: ry>
-            <remarks>
-            Context: embed, view, edit
-            </remarks>
-        </member>
-        <member name="P:WordPressPCL.Models.User.FirstName">
-            <summary>
-            First name for the user.
-            </summary>
-            <remarks>Context: edit</remarks>
-        </member>
-        <member name="P:WordPressPCL.Models.User.LastName">
-            <summary>
-            Last name for the user.
-            </summary>
             <remarks>Context: edit</remarks>
         </member>
         <member name="P:WordPressPCL.Models.User.Email">
@@ -3950,6 +3941,22 @@
             </summary>
             <param name="response">Json response input string</param>
             <returns>Json response output string</returns>
+        </member>
+        <member name="M:WordPressPCL.WordPressClient.SetJWToken(System.String)">
+            <summary>
+            Sets an existing JWToken
+            </summary>
+            <param name="token"></param>
+        </member>
+        <member name="M:WordPressPCL.WordPressClient.GetToken">
+            <summary>
+            Gets the JWToken from the client
+            </summary>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
+tring</returns>
         </member>
         <member name="M:WordPressPCL.WordPressClient.SetJWToken(System.String)">
             <summary>

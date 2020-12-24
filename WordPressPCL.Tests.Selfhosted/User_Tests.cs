@@ -20,7 +20,7 @@ namespace WordPressPCL.Tests.Selfhosted
         public static async Task Init(TestContext testContext)
         {
             _client = ClientHelper.GetWordPressClient();
-            _clientAuth = await ClientHelper.GetAuthenticatedWordPressClient();
+            _clientAuth = await ClientHelper.GetAuthenticatedWordPressClient(testContext);
         }
 
         [TestMethod]
@@ -135,7 +135,6 @@ namespace WordPressPCL.Tests.Selfhosted
         [TestMethod]
         public async Task Users_Query()
         {
-            var client = await ClientHelper.GetAuthenticatedWordPressClient();
             var queryBuilder = new UsersQueryBuilder()
             {
                 Page = 1,
@@ -143,35 +142,10 @@ namespace WordPressPCL.Tests.Selfhosted
                 OrderBy = UsersOrderBy.Name,
                 Order = Order.DESC,
             };
-            var queryresult = await client.Users.Query(queryBuilder);
+            var queryresult = await _clientAuth.Users.Query(queryBuilder);
             Assert.AreEqual(queryBuilder.BuildQueryURL(), "?page=1&per_page=15");
             Assert.IsNotNull(queryresult);
             Assert.AreNotSame(queryresult.Count(), 0);
-        }
-
-        [TestMethod]
-        public async Task Users_Authenticate()
-        {
-            var clientAuth = new WordPressClient(ApiCredentials.WordPressUri)
-            {
-                AuthMethod = AuthMethod.JWT
-            };
-            await clientAuth.RequestJWToken(ApiCredentials.Username, ApiCredentials.Password);
-            var isLoggedIn = await clientAuth.IsValidJWToken();
-            Assert.IsTrue(isLoggedIn);
-
-            var clientNotAuth = new WordPressClient(ApiCredentials.WordPressUri)
-            {
-                AuthMethod = AuthMethod.JWT
-            };
-
-            await Assert.ThrowsExceptionAsync<WPException>(async () =>
-            {
-                await clientNotAuth.RequestJWToken(ApiCredentials.Username, "123");
-
-            });
-            isLoggedIn = await clientNotAuth.IsValidJWToken();
-            Assert.IsFalse(isLoggedIn);
         }
 
         #region Utils

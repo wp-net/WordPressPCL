@@ -17,7 +17,7 @@ namespace WordPressPCL.Tests.Selfhosted
         public static async Task Init(TestContext testContext)
         {
             _client = ClientHelper.GetWordPressClient();
-            _clientAuth = await ClientHelper.GetAuthenticatedWordPressClient();
+            _clientAuth = await ClientHelper.GetAuthenticatedWordPressClient(testContext);
         }
 
         [TestMethod]
@@ -116,19 +116,10 @@ namespace WordPressPCL.Tests.Selfhosted
         }
 
         [TestMethod]
-        public async Task JWTAuthTest()
+        public async Task Authorize()
         {
-            var client = new WordPressClient(ApiCredentials.WordPressUri)
-            {
-                AuthMethod = AuthMethod.JWT
-            };
-            await client.RequestJWToken(ApiCredentials.Username, ApiCredentials.Password);
-            var IsValidToken = await _clientAuth.IsValidJWToken();
-            Assert.IsTrue(IsValidToken);
-
-            client.Logout();
-            IsValidToken = await client.IsValidJWToken();
-            Assert.IsFalse(IsValidToken);
+            var validToken = await _clientAuth.IsValidJWToken();
+            Assert.IsTrue(validToken);
         }
     }
 }
