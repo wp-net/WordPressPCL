@@ -114,21 +114,5 @@ namespace WordPressPCL.Tests.Selfhosted
                 Assert.IsTrue(containsOnContentOrTitle);
             }
         }
-
-        [TestMethod]
-        public async Task JWTAuthTest()
-        {
-            var client = new WordPressClient(ApiCredentials.WordPressUri)
-            {
-                AuthMethod = AuthMethod.JWT
-            };
-            await client.RequestJWToken(ApiCredentials.Username, ApiCredentials.Password);
-            var IsValidToken = await _clientAuth.IsValidJWToken();
-            Assert.IsTrue(IsValidToken);
-
-            client.Logout();
-            IsValidToken = await client.IsValidJWToken();
-            Assert.IsFalse(IsValidToken);
-        }
     }
 }

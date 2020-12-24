@@ -148,31 +148,6 @@ namespace WordPressPCL.Tests.Selfhosted
             Assert.AreNotSame(queryresult.Count(), 0);
         }
 
-        [TestMethod]
-        public async Task Users_Authenticate()
-        {
-            var clientAuth = new WordPressClient(ApiCredentials.WordPressUri)
-            {
-                AuthMethod = AuthMethod.JWT
-            };
-            await clientAuth.RequestJWToken(ApiCredentials.Username, ApiCredentials.Password);
-            var isLoggedIn = await clientAuth.IsValidJWToken();
-            Assert.IsTrue(isLoggedIn);
-
-            var clientNotAuth = new WordPressClient(ApiCredentials.WordPressUri)
-            {
-                AuthMethod = AuthMethod.JWT
-            };
-
-            await Assert.ThrowsExceptionAsync<WPException>(async () =>
-            {
-                await clientNotAuth.RequestJWToken(ApiCredentials.Username, "123");
-
-            });
-            isLoggedIn = await clientNotAuth.IsValidJWToken();
-            Assert.IsFalse(isLoggedIn);
-        }
-
         #region Utils
 
         private Task<User> CreateRandomUser()
