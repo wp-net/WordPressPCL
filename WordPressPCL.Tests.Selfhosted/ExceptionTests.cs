@@ -25,15 +25,11 @@ namespace WordPressPCL.Tests.Selfhosted
             // Initialize
             Assert.IsNotNull(_client);
             // Get settings without auth
-            try
+
+            await Assert.ThrowsExceptionAsync<WPException>(async () =>
             {
                 var settings = await _client.GetSettings();
-            }
-            catch (WPException wpex)
-            {
-                Assert.IsNotNull(wpex.RequestData);
-                Assert.AreEqual(wpex.RequestData.Name, "jwt_auth_bad_auth_header");
-            }
+            });
         }
 
         [TestMethod]
