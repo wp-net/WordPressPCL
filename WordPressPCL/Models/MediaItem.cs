@@ -97,8 +97,8 @@ namespace WordPressPCL.Models
         /// </summary>
         /// <remarks>Context: view, edit
         /// One of: open, closed</remarks>
-        [JsonProperty("comment_status")]
-        public OpenStatus CommentStatus { get; set; }
+        [JsonProperty("comment_status", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public OpenStatus? CommentStatus { get; set; }
 
         /// <summary>
         /// Whether or not the object can be pinged.
@@ -107,7 +107,7 @@ namespace WordPressPCL.Models
         /// <remarks>Context: view, edit
         /// One of: open, closed</remarks>
         [JsonProperty("ping_status")]
-        public OpenStatus PingStatus { get; set; }
+        public OpenStatus? PingStatus { get; set; }
 
         /// <summary>
         /// Alternative text to display when resource is not displayed.
