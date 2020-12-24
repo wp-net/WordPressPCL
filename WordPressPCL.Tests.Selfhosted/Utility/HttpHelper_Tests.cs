@@ -49,6 +49,7 @@ namespace WordPressPCL.Tests.Selfhosted.Utility
             {
                 await _clientAuth.Tags.GetAll();
             });
+            _clientAuth.HttpResponsePreProcessing = null;
         }
 
         [TestMethod]
@@ -85,6 +86,7 @@ namespace WordPressPCL.Tests.Selfhosted.Utility
             Assert.IsNotNull(tags);
             Assert.AreNotEqual(tags.Count(), 0);
             CollectionAssert.AllItemsAreUnique(tags.Select(e => e.Id).ToList());
+            _clientAuth.HttpResponsePreProcessing = null;
         }
     }
 }
