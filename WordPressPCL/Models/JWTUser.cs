@@ -1,20 +1,19 @@
 ﻿using Newtonsoft.Json;
-using System;
 
 namespace WordPressPCL.Models
 {
-    class JWTUser
+    public class JWTUser
     {
         [JsonProperty("token")]
-        public String Token { get; set; }
+        public string Token { get; set; }
 
         [JsonProperty("user_display_name")]
-        public String DisplayName { get; set; }
+        public string DisplayName { get; set; }
 
         [JsonProperty("user_email")]
-        public String Email { get; set; }
+        public string Email { get; set; }
 
         [JsonProperty("user_nicename")]
-        public String NiceName { get; set; }
+        public string NiceName { get; set; }
     }
 }

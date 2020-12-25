@@ -89,12 +89,12 @@ namespace WordPressPCL.Models
         /// Default Ping Status
         /// </summary>
         [JsonProperty("default_ping_status")]
-        public OpenStatus DefaultPingStatus { get; set; }
+        public OpenStatus? DefaultPingStatus { get; set; }
 
         /// <summary>
         /// Default Comment Status
         /// </summary>
         [JsonProperty("default_comment_status")]
-        public OpenStatus DefaultCommentStatus { get; set; }
+        public OpenStatus? DefaultCommentStatus { get; set; }
     }
 }

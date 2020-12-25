@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace WordPressPCL.Models
+﻿namespace WordPressPCL.Models
 {
     /// <summary>
     /// Authentication Methods

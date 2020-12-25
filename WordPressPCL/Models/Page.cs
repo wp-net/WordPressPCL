@@ -1,7 +1,5 @@
 ﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
 
 namespace WordPressPCL.Models
 {
@@ -148,7 +146,7 @@ namespace WordPressPCL.Models
         /// One of: open, closed
         /// </remarks>
         [JsonProperty("comment_status")]
-        public OpenStatus CommentStatus { get; set; }
+        public OpenStatus? CommentStatus { get; set; }
 
         /// <summary>
         /// Whether or not the object can be pinged.
@@ -158,7 +156,7 @@ namespace WordPressPCL.Models
         /// One of: open, closed
         /// </remarks>
         [JsonProperty("ping_status")]
-        public OpenStatus PingStatus { get; set; }
+        public OpenStatus? PingStatus { get; set; }
 
         /// <summary>
         /// The theme file to use to display the object.

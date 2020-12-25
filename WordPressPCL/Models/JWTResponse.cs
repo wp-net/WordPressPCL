@@ -3,7 +3,7 @@ using System.ComponentModel;
 
 namespace WordPressPCL.Models
 {
-    class JWTResponse
+    public class JWTResponse
     {
         [JsonProperty("success")]
         public bool Success { get; set; }
