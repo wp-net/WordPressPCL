@@ -3,18 +3,18 @@ using System;
 
 namespace WordPressPCL.Models
 {
-    class JWTData
+    public class JWTData
     {
         [JsonProperty("token")]
-        public String Token { get; set; }
+        public string Token { get; set; }
 
         [JsonProperty("displayName")]
-        public String DisplayName{ get; set; }
+        public string DisplayName { get; set; }
 
         [JsonProperty("email")]
-        public String Email { get; set; }
+        public string Email { get; set; }
 
         [JsonProperty("nicename")]
-        public String NiceName { get; set; }
+        public string NiceName { get; set; }
     }
 }
