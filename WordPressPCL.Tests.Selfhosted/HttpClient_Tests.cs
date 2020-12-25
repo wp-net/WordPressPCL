@@ -18,7 +18,7 @@ namespace WordPressPCL.Tests.Selfhosted
             // Initialize
             var httpClient = new HttpClient
             {
-                BaseAddress = new Uri(new Uri(ApiCredentials.WordPressUri), new Uri("wp/v2/", UriKind.Relative))
+                BaseAddress = new Uri(ApiCredentials.WordPressUri)
             };
             httpClient.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 6.2; WOW64; rv:33.0) Gecko/20100101 Firefox/33.0");
             httpClient.DefaultRequestHeaders.Add("Referer", "https://github.com/wp-net/WordPressPCL");

@@ -258,6 +258,15 @@
             Update Entity
             </summary>
             <param name="Entity">Entity object</param>
+            <returns>Updated object</returns>aram name="queryBuilder">Query builder with specific parameters</param>
+            <param name="useAuth">Send request with authentication header</param>
+            <returns>List of filtered result</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Media.Update(WordPressPCL.Models.MediaItem)">
+            <summary>
+            Update Entity
+            </summary>
+            <param name="Entity">Entity object</param>
             <returns>Updated object</returns>
         </member>
         <member name="T:WordPressPCL.Client.Pages">
@@ -677,17 +686,7 @@
             Get latest
             </summary>
             <param name="embed">Is use embed info</param>
-            <param name="useAuth">Is use auth header</param>
-            <returns>requested object</returns>
-        </member>
-        <member name="M:WordPressPCL.Interfaces.IReadOperation`1.GetByID(System.Object,System.Boolean,System.Boolean)">
-            <summary>
-            Get object by Id
-            </summary>
-            <param name="ID">Object Id</param>
-            <param name="embed">Is use embed info</param>
-            <param name="useAuth">Is use auth header</param>
-            <returns>requested object</returns>
+            <param namquested object</returns>
         </member>
         <member name="M:WordPressPCL.Interfaces.IReadOperation`1.GetAll(System.Boolean,System.Boolean)">
             <summary>
@@ -782,6 +781,22 @@
             </remarks>
         </member>
         <member name="T:WordPressPCL.Models.Category">
+            <summary>
+            Terms of the type category
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Category.Count">
+            <summary>
+            Number of published posts for the term.
+            </summary>
+            <remarks>
+            Read only
+            Context: view, edit
+            </remarks>
+        </member>
+        <member name="P:WordPressPCL.Models.Category.Description">
+            <summary>
+    .Category">
             <summary>
             Terms of the type category
             </summary>
@@ -3896,13 +3911,14 @@
                 The WordPressClient holds all connection infos and provides methods to call WordPress APIs.
             </summary>
             <param name="uri">URI for WordPress API endpoint, e.g. "http://demo.wp-api.org/wp-json/"</param>
-            <param name="defaultPath">Points to the standard API endpoints</param>
+            <param name="defaultPath">Relative path to standard API endpoints, defaults to "wp/v2/"</param>
         </member>
-        <member name="M:WordPressPCL.WordPressClient.#ctor(System.Net.Http.HttpClient)">
+        <member name="M:WordPressPCL.WordPressClient.#ctor(System.Net.Http.HttpClient,System.String)">
             <summary>
-                The WordPressClient holds all connection infos and provides methods to call WordPress APIs.
+            The WordPressClient holds all connection infos and provides methods to call WordPress APIs.
             </summary>
-            <param name="httpClient">Http client which would be used for sending requests to the WordPress API endpoint.</param>
+            <param name="httpClient">Httpclient with BaseAddress set which will be used for sending requests to the WordPress API endpoint.</param>
+            <param name="defaultPath"></param>
         </member>
         <member name="M:WordPressPCL.WordPressClient.GetSettings">
             <summary>
@@ -3941,22 +3957,6 @@
             </summary>
             <param name="response">Json response input string</param>
             <returns>Json response output string</returns>
-        </member>
-        <member name="M:WordPressPCL.WordPressClient.SetJWToken(System.String)">
-            <summary>
-            Sets an existing JWToken
-            </summary>
-            <param name="token"></param>
-        </member>
-        <member name="M:WordPressPCL.WordPressClient.GetToken">
-            <summary>
-            Gets the JWToken from the client
-            </summary>
-            <returns></returns>
-        </member>
-    </members>
-</doc>
-tring</returns>
         </member>
         <member name="M:WordPressPCL.WordPressClient.SetJWToken(System.String)">
             <summary>
