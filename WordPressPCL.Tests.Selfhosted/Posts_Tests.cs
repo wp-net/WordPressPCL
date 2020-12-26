@@ -109,6 +109,17 @@ namespace WordPressPCL.Tests.Selfhosted
             {
                 var postById = await _clientAuth.Posts.GetByID(createdPost.Id);
             });
+
+            // Post should be available in trash
+            var queryBuilder = new PostsQueryBuilder()
+            {
+                Statuses = new Status[] { Status.Trash }, 
+                PerPage = 100
+            };
+            var posts = await _clientAuth.Posts.Query(queryBuilder, true);
+
+            var deletedPost = posts.Where(x => x.Id == createdPost.Id).FirstOrDefault();
+            Assert.IsNotNull(deletedPost);
         }
 
         [TestMethod]

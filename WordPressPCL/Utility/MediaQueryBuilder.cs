@@ -16,7 +16,7 @@ namespace WordPressPCL.Utility
         public int Page { get; set; }
 
         /// <summary>
-        /// Maximum number of items to be returned in result set.
+        /// Maximum number of items to be returned in result set (1-100).
         /// </summary>
         /// <remarks>Default: 10</remarks>
         [QueryText("per_page")]
