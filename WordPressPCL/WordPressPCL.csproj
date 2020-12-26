@@ -13,11 +13,14 @@
     <RepositoryUrl>https://github.com/wp-net/WordPressPCL</RepositoryUrl>
     <PackageTags>WordPress REST API</PackageTags>
     <RepositoryType>GitHub</RepositoryType>
-    <AssemblyVersion>1.8.3.0</AssemblyVersion>
-    <FileVersion>1.8.3.0</FileVersion>
-    <Version>1.8.3</Version>
+    <AssemblyVersion>1.8.4.0</AssemblyVersion>
+    <FileVersion>1.8.4.0</FileVersion>
+    <Version>1.8.4</Version>
     <PackageLicenseUrl></PackageLicenseUrl>
-    <PackageReleaseNotes>V1.8.2
+    <PackageReleaseNotes>V1.8.4
+- Bugfix for HttpClient injection
+
+V1.8.2
 - Support for JWT Auth Plugin
 
 V1.7.2
