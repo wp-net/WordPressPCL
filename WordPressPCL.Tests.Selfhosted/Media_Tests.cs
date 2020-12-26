@@ -84,12 +84,15 @@ namespace WordPressPCL.Tests.Selfhosted
             Assert.AreNotEqual(title, file.Title.Raw);
             file.Title.Raw = title;
 
-            file.Description.Raw = "This is a nice cat!";
+            var desc = $"This is a nice cat! {random.Next(0, 1000)}";
+            file.Description.Raw = desc;
 
             var fileUpdated = await _clientAuth.Media.Update(file);
             Assert.IsNotNull(fileUpdated);
             Assert.AreEqual(fileUpdated.Title.Raw, title);
+            Assert.AreEqual(fileUpdated.Description.Raw, desc);
         }
+
         [TestMethod]
         public async Task Media_Delete()
         {
@@ -104,6 +107,7 @@ namespace WordPressPCL.Tests.Selfhosted
             var response = await _clientAuth.Media.Delete(mediaitem.Id);
             Assert.IsTrue(response);
         }
+
         [TestMethod]
         public async Task Media_Query()
         {
