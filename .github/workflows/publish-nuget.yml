@@ -23,4 +23,4 @@ jobs:
           cd WordPressPCL
           dotnet pack -c Release -o out
       - name: PushNuget
-        run: dotnet nuget push *.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{secrets.WORDPRESSPCLNUGET}} --skip-duplicate
+        run: dotnet nuget push "**/*.nupkg" --source https://api.nuget.org/v3/index.json --api-key ${{secrets.WORDPRESSPCLNUGET}} --skip-duplicate
