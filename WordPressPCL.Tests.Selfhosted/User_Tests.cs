@@ -139,11 +139,13 @@ namespace WordPressPCL.Tests.Selfhosted
             {
                 Page = 1,
                 PerPage = 15,
-                OrderBy = UsersOrderBy.Name,
+                OrderBy = UsersOrderBy.RegisteredDate,
                 Order = Order.DESC,
+                Context = Context.Edit
             };
-            var queryresult = await _clientAuth.Users.Query(queryBuilder);
-            Assert.AreEqual(queryBuilder.BuildQueryURL(), "?page=1&per_page=15");
+            Assert.AreEqual("?page=1&per_page=15&orderby=registered_date&order=desc&context=edit", queryBuilder.BuildQueryURL());
+
+            var queryresult = await _clientAuth.Users.Query(queryBuilder, true);
             Assert.IsNotNull(queryresult);
             Assert.AreNotSame(queryresult.Count(), 0);
         }

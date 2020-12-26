@@ -18,7 +18,7 @@ namespace WordPressPCL.Tests.Selfhosted
                 Embed = true
             };
             Console.WriteLine(builder.BuildQueryURL());
-            Assert.AreEqual(builder.BuildQueryURL(), "?page=2&_embed=true");
+            Assert.AreEqual("?page=2&orderby=date&order=desc&_embed=true&context=view", builder.BuildQueryURL());
         }
     }
 

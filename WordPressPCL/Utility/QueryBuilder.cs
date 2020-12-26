@@ -47,18 +47,17 @@ namespace WordPressPCL.Utility
                 {
                     var value = GetPropertyValue(property);
 
+                    if (value is null) continue;
                     //pass default values
                     if (value is int && (int)value == default) continue;
                     if (value is string && (string.IsNullOrEmpty((string)value) || (string)value == DateTime.MinValue.ToString("yyyy-MM-ddTHH:mm:ss", CultureInfo.InvariantCulture))) continue;
                     if (value is DateTime && (string)value == DateTime.MinValue.ToString("yyyy-MM-ddTHH:mm:ss", CultureInfo.InvariantCulture)) continue;
                     if (property.PropertyType == typeof(bool) && (string)value == default(bool).ToString().ToLower()) continue;
-                    if (property.PropertyType.GetTypeInfo().IsEnum && (int)property.GetValue(this) == 0) continue;
-                    if (value == null) continue;
-                    sb.Append(attribute.Text).Append("=").Append(value).Append("&");
+                    sb.Append(attribute.Text).Append('=').Append(value).Append('&');
                 }
             }
             //insert ? quote to the start of http query text
-            if (sb.Length > 0) sb.Insert(0, "?");
+            if (sb.Length > 0) sb.Insert(0, '?');
             return sb.ToString().TrimEnd('&');
         }
 

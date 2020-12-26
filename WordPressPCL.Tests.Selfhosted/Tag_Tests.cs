@@ -101,7 +101,7 @@ namespace WordPressPCL.Tests.Selfhosted
                 Order = Order.DESC,
             };
             var queryresult = await _clientAuth.Tags.Query(queryBuilder);
-            Assert.AreEqual(queryBuilder.BuildQueryURL(), "?page=1&per_page=15&orderby=id");
+            Assert.AreEqual("?page=1&per_page=15&orderby=id&order=desc&context=view", queryBuilder.BuildQueryURL());
             Assert.IsNotNull(queryresult);
             Assert.AreNotSame(queryresult.Count(), 0);
         }
