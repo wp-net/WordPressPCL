@@ -213,6 +213,15 @@
             <param name="mimeType">Override for automatic mime type detection</param>
             <returns>Created media object</returns>
         </member>
+        <member name="M:WordPressPCL.Client.Media.Create(System.String,System.String,System.String)">
+            <summary>
+            Create Media entity with attachment
+            </summary>
+            <param name="filePath">Local Path to file</param>
+            <param name="filename">Name of file in WP Media Library</param>
+            <returns>Created media object</returns>
+            <param name="mimeType">Override for automatic mime type detection</param>
+        </member>
         <member name="M:WordPressPCL.Client.Media.Delete(System.Int32)">
             <summary>
             Delete Entity
@@ -250,15 +259,6 @@
             Create a parametrized query and get a result
             </summary>
             <param name="queryBuilder">Query builder with specific parameters</param>
-            <param name="useAuth">Send request with authentication header</param>
-            <returns>List of filtered result</returns>
-        </member>
-        <member name="M:WordPressPCL.Client.Media.Update(WordPressPCL.Models.MediaItem)">
-            <summary>
-            Update Entity
-            </summary>
-            <param name="Entity">Entity object</param>
-            <returns>Updated object</returns>aram name="queryBuilder">Query builder with specific parameters</param>
             <param name="useAuth">Send request with authentication header</param>
             <returns>List of filtered result</returns>
         </member>
@@ -686,7 +686,17 @@
             Get latest
             </summary>
             <param name="embed">Is use embed info</param>
-            <param namquested object</returns>
+            <param name="useAuth">Is use auth header</param>
+            <returns>requested object</returns>
+        </member>
+        <member name="M:WordPressPCL.Interfaces.IReadOperation`1.GetByID(System.Object,System.Boolean,System.Boolean)">
+            <summary>
+            Get object by Id
+            </summary>
+            <param name="ID">Object Id</param>
+            <param name="embed">Is use embed info</param>
+            <param name="useAuth">Is use auth header</param>
+            <returns>requested object</returns>
         </member>
         <member name="M:WordPressPCL.Interfaces.IReadOperation`1.GetAll(System.Boolean,System.Boolean)">
             <summary>
@@ -781,22 +791,6 @@
             </remarks>
         </member>
         <member name="T:WordPressPCL.Models.Category">
-            <summary>
-            Terms of the type category
-            </summary>
-        </member>
-        <member name="P:WordPressPCL.Models.Category.Count">
-            <summary>
-            Number of published posts for the term.
-            </summary>
-            <remarks>
-            Read only
-            Context: view, edit
-            </remarks>
-        </member>
-        <member name="P:WordPressPCL.Models.Category.Description">
-            <summary>
-    .Category">
             <summary>
             Terms of the type category
             </summary>
@@ -3108,7 +3102,7 @@
         </member>
         <member name="P:WordPressPCL.Utility.CategoriesQueryBuilder.PerPage">
             <summary>
-            Maximum number of items to be returned in result set.
+            Maximum number of items to be returned in result set (1-100).
             </summary>
             <remarks>Default: 10</remarks>
         </member>
@@ -3172,7 +3166,7 @@
         </member>
         <member name="P:WordPressPCL.Utility.CommentsQueryBuilder.PerPage">
             <summary>
-            Maximum number of items to be returned in result set.
+            Maximum number of items to be returned in result set (1-100).
             </summary>
             <remarks>Default: 10</remarks>
         </member>
@@ -3332,7 +3326,7 @@
         </member>
         <member name="P:WordPressPCL.Utility.MediaQueryBuilder.PerPage">
             <summary>
-            Maximum number of items to be returned in result set.
+            Maximum number of items to be returned in result set (1-100).
             </summary>
             <remarks>Default: 10</remarks>
         </member>
@@ -3445,7 +3439,7 @@
         </member>
         <member name="P:WordPressPCL.Utility.PagesQueryBuilder.PerPage">
             <summary>
-            Maximum number of items to be returned in result set.
+            Maximum number of items to be returned in result set (1-100).
             </summary>
             <remarks>Default: 10</remarks>
         </member>
@@ -3540,7 +3534,7 @@
         </member>
         <member name="P:WordPressPCL.Utility.PostsQueryBuilder.PerPage">
             <summary>
-            Maximum number of items to be returned in result set.
+            Maximum number of items to be returned in result set (1-100).
             </summary>
             <remarks>Default: 10</remarks>
         </member>
@@ -3692,7 +3686,7 @@
         </member>
         <member name="P:WordPressPCL.Utility.TagsQueryBuilder.PerPage">
             <summary>
-            Maximum number of items to be returned in result set.
+            Maximum number of items to be returned in result set (1-100).
             </summary>
             <remarks>Default: 10</remarks>
         </member>
@@ -3783,7 +3777,7 @@
         </member>
         <member name="P:WordPressPCL.Utility.UsersQueryBuilder.PerPage">
             <summary>
-            Maximum number of items to be returned in result set.
+            Maximum number of items to be returned in result set (1-100).
             </summary>
             <remarks>Default: 10</remarks>
         </member>
@@ -3917,8 +3911,8 @@
             <summary>
             The WordPressClient holds all connection infos and provides methods to call WordPress APIs.
             </summary>
-            <param name="httpClient">Httpclient with BaseAddress set which will be used for sending requests to the WordPress API endpoint.</param>
-            <param name="defaultPath"></param>
+            <param name="httpClient">HttpClient with BaseAddress set which will be used for sending requests to the WordPress API endpoint.</param>
+            <param name="defaultPath">Relative path to standard API endpoints, defaults to "wp/v2/"</param>
         </member>
         <member name="M:WordPressPCL.WordPressClient.GetSettings">
             <summary>
