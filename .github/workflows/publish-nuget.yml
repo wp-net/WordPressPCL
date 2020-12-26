@@ -18,6 +18,9 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
-      - run: |
+      - name: Build & Package
+        run: |
           cd WordPressPCL
           dotnet pack -c Release -o out
+      - name: PushNuget
+        run: dotnet nuget push *.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{secrets.WORDPRESSPCLNUGET}} --skip-duplicate

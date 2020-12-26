@@ -18,6 +18,7 @@ namespace WordPressPCL
     public class WordPressClient
     {
         private readonly HttpHelper _httpHelper;
+        private const string DEFAULT_PATH = "wp/v2/";
         private readonly string _defaultPath;
         private const string _jwtPath = "jwt-auth/v1/";
 
@@ -119,8 +120,8 @@ namespace WordPressPCL
         ///     The WordPressClient holds all connection infos and provides methods to call WordPress APIs.
         /// </summary>
         /// <param name="uri">URI for WordPress API endpoint, e.g. "http://demo.wp-api.org/wp-json/"</param>
-        /// <param name="defaultPath">Points to the standard API endpoints</param>
-        public WordPressClient(string uri, string defaultPath = "wp/v2/")
+        /// <param name="defaultPath">Relative path to standard API endpoints, defaults to "wp/v2/"</param>
+        public WordPressClient(string uri, string defaultPath = DEFAULT_PATH)
         {
             if (string.IsNullOrWhiteSpace(uri))
             {
@@ -148,10 +149,11 @@ namespace WordPressPCL
         }
 
         /// <summary>
-        ///     The WordPressClient holds all connection infos and provides methods to call WordPress APIs.
+        /// The WordPressClient holds all connection infos and provides methods to call WordPress APIs.
         /// </summary>
-        /// <param name="httpClient">Http client which would be used for sending requests to the WordPress API endpoint.</param>
-        public WordPressClient(HttpClient httpClient)
+        /// <param name="httpClient">HttpClient with BaseAddress set which will be used for sending requests to the WordPress API endpoint.</param>
+        /// <param name="defaultPath">Relative path to standard API endpoints, defaults to "wp/v2/"</param>
+        public WordPressClient(HttpClient httpClient, string defaultPath = DEFAULT_PATH)
         {
             if (httpClient == null)
             {
@@ -163,7 +165,7 @@ namespace WordPressPCL
                 uri += "/";
             }
             WordPressUri = uri;
-            _defaultPath = string.Empty;
+            _defaultPath = defaultPath;
 
             _httpHelper = new HttpHelper(httpClient);
             Posts = new Posts(ref _httpHelper, _defaultPath);
