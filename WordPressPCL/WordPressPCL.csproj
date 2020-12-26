@@ -5,7 +5,7 @@
   <PropertyGroup>
     <TargetFrameworks>netstandard1.1;netstandard2.0</TargetFrameworks>
     <DocumentationFile>WordPressPCL.xml</DocumentationFile>
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <Authors>Thomas Pentenrieder</Authors>
     <Company>medienstudio.net</Company>
     <Description>This is a portable library for consuming the WordPress REST-API in (almost) any .NET application.</Description>
