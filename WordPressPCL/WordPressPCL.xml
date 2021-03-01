@@ -85,7 +85,7 @@
             <summary>
             Constructor
             </summary>
-            <param name="HttpHelper">reference to HttpHelper class for interaction with HTTP</param>
+            <param name="httpHelper">reference to HttpHelper class for interaction with HTTP</param>
             <param name="defaultPath">path to site, EX. http://demo.com/wp-json/ </param>
             <param name="methodPath">path to endpoint, EX. posts</param>
             <param name="forceDeletion">is objects must be force deleted</param>
@@ -213,6 +213,15 @@
             <param name="mimeType">Override for automatic mime type detection</param>
             <returns>Created media object</returns>
         </member>
+        <member name="M:WordPressPCL.Client.Media.Create(System.String,System.String,System.String)">
+            <summary>
+            Create Media entity with attachment
+            </summary>
+            <param name="filePath">Local Path to file</param>
+            <param name="filename">Name of file in WP Media Library</param>
+            <returns>Created media object</returns>
+            <param name="mimeType">Override for automatic mime type detection</param>
+        </member>
         <member name="M:WordPressPCL.Client.Media.Delete(System.Int32)">
             <summary>
             Delete Entity
@@ -249,25 +258,7 @@
             <summary>
             Create a parametrized query and get a result
             </summary>
-            <param name="queryBuilder">Query builder with specific parameters</param>
-            <param name="useAuth">Send request with authentication header</param>
-            <returns>List of filtered result</returns>
-        </member>
-        <member name="M:WordPressPCL.Client.Media.Update(WordPressPCL.Models.MediaItem)">
-            <summary>
-            Update Entity
-            </summary>
-            <param name="Entity">Entity object</param>
-            <returns>Updated object</returns>aram name="queryBuilder">Query builder with specific parameters</param>
-            <param name="useAuth">Send request with authentication header</param>
-            <returns>List of filtered result</returns>
-        </member>
-        <member name="M:WordPressPCL.Client.Media.Update(WordPressPCL.Models.MediaItem)">
-            <summary>
-            Update Entity
-            </summary>
-            <param name="Entity">Entity object</param>
-            <returns>Updated object</returns>
+            <p
         </member>
         <member name="T:WordPressPCL.Client.Pages">
             <summary>
@@ -595,7 +586,15 @@
             </summary>
             <param name="ID">ID</param>
             <param name="embed">include embed info</param>
-            <param name="useA/param>
+            <param name="useAuth">Send request with authentication header</param>
+            <returns>Entity by Id</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Users.Query(WordPressPCL.Utility.UsersQueryBuilder,System.Boolean)">
+            <summary>
+            Create a parametrized query and get a result
+            </summary>
+            <param name="queryBuilder">Query builder with specific parameters</param>
+            <param name="useAuth">Send request with authentication header</param>
             <returns>List of filtered result</returns>
         </member>
         <member name="M:WordPressPCL.Client.Users.Update(WordPressPCL.Models.User)">
@@ -688,16 +687,6 @@
             <param name="ID">Object Id</param>
             <param name="embed">Is use embed info</param>
             <param name="useAuth">Is use auth header</param>
-            <returns>ree="useAuth">Is use auth header</param>
-            <returns>requested object</returns>
-        </member>
-        <member name="M:WordPressPCL.Interfaces.IReadOperation`1.GetByID(System.Object,System.Boolean,System.Boolean)">
-            <summary>
-            Get object by Id
-            </summary>
-            <param name="ID">Object Id</param>
-            <param name="embed">Is use embed info</param>
-            <param name="useAuth">Is use auth header</param>
             <returns>requested object</returns>
         </member>
         <member name="M:WordPressPCL.Interfaces.IReadOperation`1.GetAll(System.Boolean,System.Boolean)">
@@ -735,6 +724,11 @@
         <member name="F:WordPressPCL.Models.AuthMethod.JWTAuth">
             <summary>
             JSON Web Token Authentication method by Useful Team. Need configure your site with this plugin https://wordpress.org/plugins/jwt-auth/
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.AuthMethod.ApplicationPassword">
+            <summary>
+            Basic authentication using Application Passwords introduced in WordPress 5.6
             </summary>
         </member>
         <member name="T:WordPressPCL.Models.AvatarURL">
@@ -786,6 +780,21 @@
         <member name="P:WordPressPCL.Models.Base.Id">
             <summary>
             Unique identifier for the object.
+            </summary>
+            <remarks>
+            Read only
+            Context: view, edit, embed
+            </remarks>
+        </member>
+        <member name="T:WordPressPCL.Models.Category">
+            <summary>
+            Terms of the type category
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Category.Count">
+            <summary>
+            Number of published posts for the term.
+          Unique identifier for the object.
             </summary>
             <remarks>
             Read only

@@ -13,6 +13,10 @@
         /// <summary>
         /// JSON Web Token Authentication method by Useful Team. Need configure your site with this plugin https://wordpress.org/plugins/jwt-auth/
         /// </summary>
-        JWTAuth
+        JWTAuth,
+        /// <summary>
+        /// Basic authentication using Application Passwords introduced in WordPress 5.6
+        /// </summary>
+        ApplicationPassword
     }
 }
