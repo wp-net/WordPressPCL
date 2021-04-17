@@ -3,6 +3,7 @@ using System;
 using System.Diagnostics;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Text;
 using System.Threading.Tasks;
 using WordPressPCL.Models;
 using WordPressPCL.Models.Exceptions;
@@ -22,6 +23,21 @@ namespace WordPressPCL.Utility
         /// JSON Web Token
         /// </summary>
         public string JWToken { get; set; }
+
+        /// <summary>
+        /// The Application Password to be used for authentication
+        /// </summary>
+        public string ApplicationPassword { get; set; }
+
+        /// <summary>
+        /// Authentication Method
+        /// </summary>
+        public AuthMethod AuthMethod { get; set; }
+
+        /// <summary>
+        /// The username to be used with the Application Password
+        /// </summary>
+        public string UserName { get; set; }
 
         /// <summary>
         /// Function called when a HttpRequest response is read
@@ -92,7 +108,19 @@ namespace WordPressPCL.Utility
                 {
                     if (isAuthRequired)
                     {
-                        requestMessage.Headers.Authorization = new AuthenticationHeaderValue("Bearer", JWToken);
+                        if (AuthMethod == AuthMethod.JWT || AuthMethod == AuthMethod.JWTAuth)
+                        {
+                            requestMessage.Headers.Authorization = new AuthenticationHeaderValue("Bearer", JWToken);
+                        }
+                        else if (AuthMethod == AuthMethod.ApplicationPassword)
+                        {
+                            var authToken = Encoding.ASCII.GetBytes($"{UserName}:{ApplicationPassword}");
+                            requestMessage.Headers.Authorization = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(authToken));
+                        }
+                        else
+                        {
+                            throw new WPException("Unsupported Authentication Method");
+                        }
                     }
                     response = await _httpClient.SendAsync(requestMessage).ConfigureAwait(false);
                 }

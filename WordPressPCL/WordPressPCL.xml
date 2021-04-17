@@ -258,7 +258,16 @@
             <summary>
             Create a parametrized query and get a result
             </summary>
-            <p
+            <param name="queryBuilder">Query builder with specific parameters</param>
+            <param name="useAuth">Send request with authentication header</param>
+            <returns>List of filtered result</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Media.Update(WordPressPCL.Models.MediaItem)">
+            <summary>
+            Update Entity
+            </summary>
+            <param name="Entity">Entity object</param>
+            <returns>Updated object</returns>
         </member>
         <member name="T:WordPressPCL.Client.Pages">
             <summary>
@@ -417,16 +426,7 @@
         <member name="T:WordPressPCL.Client.PostStatuses">
             <summary>
             Client class for interaction with Post Types endpoint WP REST API
-            </summary>
-        </member>
-        <member name="M:WordPressPCL.Client.PostStatuses.#ctor(WordPressPCL.Utility.HttpHelper@,System.String)">
-            <summary>
-            Constructor
-            </summary>
-            <param name="httpHelper">reference to HttpHelper class for interaction with HTTP</param>
-            <param name="defaultPath">path to site, EX. http://demo.com/wp-json/ </param>
-        </member>
-        <member name="M:WordPressPCL.Client.PostStatuses.Get(System.Boolean,System.Boolean)">
+            </lean,System.Boolean)">
             <summary>
             Get latest Post Statuses
             </summary>
@@ -594,6 +594,14 @@
             Create a parametrized query and get a result
             </summary>
             <param name="queryBuilder">Query builder with specific parameters</param>
+            <param name="useAuth">Send request with authentication header<uth">Send request with authentication header</param>
+            <returns>Entity by Id</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Users.Query(WordPressPCL.Utility.UsersQueryBuilder,System.Boolean)">
+            <summary>
+            Create a parametrized query and get a result
+            </summary>
+            <param name="queryBuilder">Query builder with specific parameters</param>
             <param name="useAuth">Send request with authentication header</param>
             <returns>List of filtered result</returns>
         </member>
@@ -625,6 +633,21 @@
             <param name="ID">User id for delete</param>
             <param name="ReassignUser">User object for reassign</param>
             <returns>Result of operation</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Users.CreateApplicationPassword(System.String,System.String)">
+            <summary>
+            Create a new Application Password
+            </summary>
+            <param name="applicationName">User-defined name for application</param>
+            <param name="userId">User ID, defaults to "me"</param>
+            <returns></returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Users.GetApplicationPasswords(System.String)">
+            <summary>
+            Get Application Passwords for specified user
+            </summary>
+            <param name="userId">User ID, defaults to "me"</param>
+            <returns>List of registered Application Passwords (without the actual password)</returns>
         </member>
         <member name="T:WordPressPCL.Interfaces.ICreateOperation`1">
             <summary>
@@ -754,22 +777,7 @@
         </member>
         <member name="T:WordPressPCL.Models.BadRequest">
             <summary>
-            Model for unsuccessful request
-            </summary>
-        </member>
-        <member name="P:WordPressPCL.Models.BadRequest.Name">
-            <summary>
-            Error type
-            </summary>
-        </member>
-        <member name="P:WordPressPCL.Models.BadRequest.Message">
-            <summary>
-            Error description
-            </summary>
-        </member>
-        <member name="P:WordPressPCL.Models.BadRequest.Data">
-            <summary>
-            Additional info
+       tional info
             </summary>
         </member>
         <member name="T:WordPressPCL.Models.Base">
@@ -780,21 +788,6 @@
         <member name="P:WordPressPCL.Models.Base.Id">
             <summary>
             Unique identifier for the object.
-            </summary>
-            <remarks>
-            Read only
-            Context: view, edit, embed
-            </remarks>
-        </member>
-        <member name="T:WordPressPCL.Models.Category">
-            <summary>
-            Terms of the type category
-            </summary>
-        </member>
-        <member name="P:WordPressPCL.Models.Category.Count">
-            <summary>
-            Number of published posts for the term.
-          Unique identifier for the object.
             </summary>
             <remarks>
             Read only
@@ -3293,6 +3286,21 @@
             JSON Web Token
             </summary>
         </member>
+        <member name="P:WordPressPCL.Utility.HttpHelper.ApplicationPassword">
+            <summary>
+            The Application Password to be used for authentication
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.HttpHelper.AuthMethod">
+            <summary>
+            Authentication Method
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.HttpHelper.UserName">
+            <summary>
+            The username to be used with the Application Password
+            </summary>
+        </member>
         <member name="P:WordPressPCL.Utility.HttpHelper.HttpResponsePreProcessing">
             <summary>
             Function called when a HttpRequest response is read
@@ -3856,6 +3864,11 @@
             Authentication method
             </summary>
         </member>
+        <member name="P:WordPressPCL.WordPressClient.UserName">
+            <summary>
+            The username to be used with the Application Password
+            </summary>
+        </member>
         <member name="P:WordPressPCL.WordPressClient.Posts">
             <summary>
             Posts client interaction object
@@ -3974,6 +3987,26 @@
             Gets the JWToken from the client
             </summary>
             <returns></returns>
+        </member>
+        <member name="M:WordPressPCL.WordPressClient.SetApplicationPassword(System.String)">
+            <summary>
+            Store Application Password in the Client
+            </summary>
+            <param name="applictionPassword"></param>
+        </member>
+    </members>
+</doc>
+   <member name="M:WordPressPCL.WordPressClient.GetToken">
+            <summary>
+            Gets the JWToken from the client
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:WordPressPCL.WordPressClient.SetApplicationPassword(System.String)">
+            <summary>
+            Store Application Password in the Client
+            </summary>
+            <param name="applictionPassword"></param>
         </member>
     </members>
 </doc>

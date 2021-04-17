@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using WordPressPCL.Models;
 using WordPressPCL.Tests.Selfhosted.Utility;
 
 namespace WordPressPCL.Tests.Selfhosted
@@ -35,6 +36,27 @@ namespace WordPressPCL.Tests.Selfhosted
 
             Assert.IsNotNull(passwords);
             Assert.AreNotEqual(0, passwords.Count);
+        }
+
+        [TestMethod]
+        public async Task Application_Password_Auth()
+        {
+            var appPassword = await _clientAuth.Users.CreateApplicationPassword("TestApp1");
+            var appPasswordClient = new WordPressClient(ApiCredentials.WordPressUri)
+            {
+                AuthMethod = AuthMethod.ApplicationPassword,
+                UserName = ApiCredentials.Username
+            };
+            appPasswordClient.SetApplicationPassword(appPassword.Password);
+
+            var post = new Post()
+            {
+                Title = new Title("Title 1"),
+                Content = new Content("Content PostCreate")
+            };
+            var postCreated = await appPasswordClient.Posts.Create(post);
+            Assert.IsNotNull(postCreated);
+            Assert.AreEqual("Title 1", postCreated.Title.Raw);
         }
     }
 }
