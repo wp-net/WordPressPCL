@@ -106,22 +106,7 @@ namespace WordPressPCL.Utility
                 HttpResponseMessage response;
                 using (var requestMessage = new HttpRequestMessage(HttpMethod.Get, $"{_WordpressURI}{route}{embedParam}"))
                 {
-                    if (isAuthRequired)
-                    {
-                        if (AuthMethod == AuthMethod.JWT || AuthMethod == AuthMethod.JWTAuth)
-                        {
-                            requestMessage.Headers.Authorization = new AuthenticationHeaderValue("Bearer", JWToken);
-                        }
-                        else if (AuthMethod == AuthMethod.ApplicationPassword)
-                        {
-                            var authToken = Encoding.ASCII.GetBytes($"{UserName}:{ApplicationPassword}");
-                            requestMessage.Headers.Authorization = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(authToken));
-                        }
-                        else
-                        {
-                            throw new WPException("Unsupported Authentication Method");
-                        }
-                    }
+                    SetAuthHeader(isAuthRequired, requestMessage);
                     response = await _httpClient.SendAsync(requestMessage).ConfigureAwait(false);
                 }
                 LastResponseHeaders = response.Headers;
@@ -155,10 +140,7 @@ namespace WordPressPCL.Utility
                 HttpResponseMessage response;
                 using (var requestMessage = new HttpRequestMessage(HttpMethod.Post, $"{_WordpressURI}{route}"))
                 {
-                    if (isAuthRequired)
-                    {
-                        requestMessage.Headers.Authorization = new AuthenticationHeaderValue("Bearer", JWToken);
-                    }
+                    SetAuthHeader(isAuthRequired, requestMessage);
                     requestMessage.Content = postBody;
                     response = await _httpClient.SendAsync(requestMessage).ConfigureAwait(false);
                 }
@@ -193,10 +175,7 @@ namespace WordPressPCL.Utility
                 HttpResponseMessage response;
                 using (var requestMessage = new HttpRequestMessage(HttpMethod.Delete, $"{_WordpressURI}{route}"))
                 {
-                    if (isAuthRequired)
-                    {
-                        requestMessage.Headers.Authorization = new AuthenticationHeaderValue("Bearer", JWToken);
-                    }
+                    SetAuthHeader(isAuthRequired, requestMessage);
                     response = await _httpClient.SendAsync(requestMessage).ConfigureAwait(false);
                 }
 
@@ -216,6 +195,26 @@ namespace WordPressPCL.Utility
             {
                 Debug.WriteLine("exception thrown: " + ex.Message);
                 throw;
+            }
+        }
+
+        private void SetAuthHeader(bool isAuthRequired, HttpRequestMessage requestMessage)
+        {
+            if (isAuthRequired)
+            {
+                if (AuthMethod == AuthMethod.JWT || AuthMethod == AuthMethod.JWTAuth)
+                {
+                    requestMessage.Headers.Authorization = new AuthenticationHeaderValue("Bearer", JWToken);
+                }
+                else if (AuthMethod == AuthMethod.ApplicationPassword)
+                {
+                    var authToken = Encoding.ASCII.GetBytes($"{UserName}:{ApplicationPassword}");
+                    requestMessage.Headers.Authorization = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(authToken));
+                }
+                else
+                {
+                    throw new WPException("Unsupported Authentication Method");
+                }
             }
         }
 

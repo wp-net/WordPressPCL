@@ -426,7 +426,16 @@
         <member name="T:WordPressPCL.Client.PostStatuses">
             <summary>
             Client class for interaction with Post Types endpoint WP REST API
-            </lean,System.Boolean)">
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Client.PostStatuses.#ctor(WordPressPCL.Utility.HttpHelper@,System.String)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="httpHelper">reference to HttpHelper class for interaction with HTTP</param>
+            <param name="defaultPath">path to site, EX. http://demo.com/wp-json/ </param>
+        </member>
+        <member name="M:WordPressPCL.Client.PostStatuses.Get(System.Boolean,System.Boolean)">
             <summary>
             Get latest Post Statuses
             </summary>
@@ -502,16 +511,7 @@
         </member>
         <member name="T:WordPressPCL.Client.Taxonomies">
             <summary>
-            Client class for interaction with Taxonomies endpoint WP REST API
-            </summary>
-        </member>
-        <member name="M:WordPressPCL.Client.Taxonomies.#ctor(WordPressPCL.Utility.HttpHelper@,System.String)">
-            <summary>
-            Constructor
-            </summary>
-            <param name="httpHelper">reference to HttpHelper class for interaction with HTTP</param>
-            <param name="defaultPath">path to site, EX. http://demo.com/wp-json/ </param>
-        </member>
+          /member>
         <member name="M:WordPressPCL.Client.Taxonomies.Get(System.Boolean,System.Boolean)">
             <summary>
             Get latest
@@ -777,7 +777,22 @@
         </member>
         <member name="T:WordPressPCL.Models.BadRequest">
             <summary>
-       tional info
+            Model for unsuccessful request
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.BadRequest.Name">
+            <summary>
+            Error type
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.BadRequest.Message">
+            <summary>
+            Error description
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.BadRequest.Data">
+            <summary>
+            Additional info
             </summary>
         </member>
         <member name="T:WordPressPCL.Models.Base">
@@ -3983,20 +3998,6 @@
             <param name="token"></param>
         </member>
         <member name="M:WordPressPCL.WordPressClient.GetToken">
-            <summary>
-            Gets the JWToken from the client
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:WordPressPCL.WordPressClient.SetApplicationPassword(System.String)">
-            <summary>
-            Store Application Password in the Client
-            </summary>
-            <param name="applictionPassword"></param>
-        </member>
-    </members>
-</doc>
-   <member name="M:WordPressPCL.WordPressClient.GetToken">
             <summary>
             Gets the JWToken from the client
             </summary>
