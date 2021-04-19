@@ -12,12 +12,14 @@ namespace WordPressPCL.Tests.Selfhosted
     {
         private static WordPressClient _client;
         private static WordPressClient _clientAuth;
+        private static TestContext _testContext;
 
         [ClassInitialize]
         public static async Task Init(TestContext testContext)
         {
             _client = ClientHelper.GetWordPressClient();
             _clientAuth = await ClientHelper.GetAuthenticatedWordPressClient(testContext);
+            _testContext = testContext;
         }
 
         [TestMethod]
@@ -42,6 +44,12 @@ namespace WordPressPCL.Tests.Selfhosted
         [TestMethod]
         public async Task Application_Password_Auth()
         {
+            // The old JWT Plugin results in issues when using Application Passwords for requests
+            if (_testContext?.Properties["skipAppPassword"]?.ToString() == "true")
+            {
+                Assert.Inconclusive();
+                return;
+            }
             var appPassword = await _clientAuth.Users.CreateApplicationPassword(System.Guid.NewGuid().ToString());
             var appPasswordClient = new WordPressClient(ApiCredentials.WordPressUri)
             {

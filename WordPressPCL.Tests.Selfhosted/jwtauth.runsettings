@@ -2,5 +2,6 @@
 <RunSettings>
   <TestRunParameters>
     <Parameter name="authmode" value="jwtauth" />
+    <Parameter name="skipAppPassword" value="false"/>
   </TestRunParameters>
 </RunSettings>

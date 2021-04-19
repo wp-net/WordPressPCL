@@ -13,7 +13,7 @@ using WordPressPCL.Utility;
 namespace WordPressPCL
 {
     /// <summary>
-    ///     Main class containing the wrapper client with all public API endpoints.
+    /// Main class containing the wrapper client with all public API endpoints.
     /// </summary>
     public class WordPressClient
     {

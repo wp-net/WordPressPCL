@@ -28,12 +28,12 @@ jobs:
     - name: Build Solution
       run: dotnet build ${{ env.solution }} -c Release
       
-    # - name: Create dockerzied WordPress
-    #   run: ./pipelines/docker-wordpress.sh
-    # - name: 'Run Tests: Selfhosted WordPress'
-    #   run: dotnet test WordPressPCL.Tests.Selfhosted/WordPressPCL.Tests.Selfhosted.csproj
-    # - name: Kill Docker
-    #   run: ./pipelines/kill-docker.sh
+    - name: Create dockerzied WordPress
+      run: ./pipelines/docker-wordpress.sh
+    - name: 'Run Tests: Selfhosted WordPress'
+      run: dotnet test WordPressPCL.Tests.Selfhosted/WordPressPCL.Tests.Selfhosted.csproj
+    - name: Kill Docker
+      run: ./pipelines/kill-docker.sh
     - name: Create dockerzied WordPress JWT-AUTH
       run: ./pipelines/docker-wordpress-jwt-auth.sh
     - name: 'Run Tests: Selfhosted WordPress with JWT-AUTH'
