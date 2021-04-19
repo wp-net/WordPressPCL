@@ -46,9 +46,11 @@ namespace WordPressPCL.Tests.Selfhosted
             Console.WriteLine($"App Password info: {_testContext?.Properties["skipapppassword"]}");
             if (_testContext?.Properties["skipAppPassword"]?.ToString() == "true")
             {
+                Console.WriteLine("Skip App Password Test");
                 Assert.Inconclusive();
                 return;
             }
+            Console.WriteLine("Run App Password Test");
             var appPassword = await _clientAuth.Users.CreateApplicationPassword(System.Guid.NewGuid().ToString());
             var appPasswordClient = new WordPressClient(ApiCredentials.WordPressUri)
             {
