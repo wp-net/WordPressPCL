@@ -50,17 +50,10 @@ namespace WordPressPCL.Tests.Selfhosted
         [TestMethod]
         public async Task Categories_Get()
         {
-            try
-            {
-                var categories = await _client.Categories.Get();
-                Assert.IsNotNull(categories);
-                Assert.AreNotEqual(categories.Count(), 0);
-                CollectionAssert.AllItemsAreUnique(categories.Select(tag => tag.Id).ToList());
-            } catch (Exception ex)
-            {
-                Debug.WriteLine(ex.Message);
-            }
-            
+            var categories = await _client.Categories.Get();
+            Assert.IsNotNull(categories);
+            Assert.AreNotEqual(categories.Count(), 0);
+            CollectionAssert.AllItemsAreUnique(categories.Select(tag => tag.Id).ToList());
         }
 
         [TestMethod]

@@ -13,7 +13,7 @@ using WordPressPCL.Utility;
 namespace WordPressPCL
 {
     /// <summary>
-    ///     Main class containing the wrapper client with all public API endpoints.
+    /// Main class containing the wrapper client with all public API endpoints.
     /// </summary>
     public class WordPressClient
     {
@@ -58,7 +58,19 @@ namespace WordPressPCL
         /// <summary>
         /// Authentication method
         /// </summary>
-        public AuthMethod AuthMethod { get; set; }
+        public AuthMethod AuthMethod 
+        {
+            get => _httpHelper.AuthMethod;
+            set => _httpHelper.AuthMethod = value;
+        }
+
+        /// <summary>
+        /// The username to be used with the Application Password
+        /// </summary>
+        public string UserName {
+            get => _httpHelper.UserName;
+            set => _httpHelper.UserName = value;
+        }
 
         //public string JWToken;
         /// <summary>
@@ -245,6 +257,7 @@ namespace WordPressPCL
         public void Logout()
         {
             _httpHelper.JWToken = default;
+            _httpHelper.ApplicationPassword = default;
         }
 
         /// <summary>
@@ -310,6 +323,15 @@ namespace WordPressPCL
         public string GetToken()
         {
             return _httpHelper.JWToken;
+        }
+
+        /// <summary>
+        /// Store Application Password in the Client
+        /// </summary>
+        /// <param name="applictionPassword"></param>
+        public void SetApplicationPassword(string applictionPassword)
+        {
+            _httpHelper.ApplicationPassword = applictionPassword;
         }
 
         #endregion auth methods

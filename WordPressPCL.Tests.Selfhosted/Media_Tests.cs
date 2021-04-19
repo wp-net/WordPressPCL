@@ -30,7 +30,6 @@ namespace WordPressPCL.Tests.Selfhosted
         public async Task Media_Create()
         {
             var path = Directory.GetCurrentDirectory() + "/Assets/cat.jpg";
-            Debug.WriteLine(File.Exists(path));
             Stream s = File.OpenRead(path);
             var mediaitem = await _clientAuth.Media.Create(s,"cat.jpg");
             Assert.IsNotNull(mediaitem);
@@ -39,7 +38,6 @@ namespace WordPressPCL.Tests.Selfhosted
         public async Task Media_Create_2_0()
         {
             var path = Directory.GetCurrentDirectory() + "/Assets/cat.jpg";
-            Debug.WriteLine(File.Exists(path));
             
             var mediaitem = await _clientAuth.Media.Create(path, "cat.jpg");
             Assert.IsNotNull(mediaitem);
@@ -98,7 +96,6 @@ namespace WordPressPCL.Tests.Selfhosted
         {
             // Create file
             var path = Directory.GetCurrentDirectory() + "/Assets/cat.jpg";
-            Debug.WriteLine(File.Exists(path));
             Stream s = File.OpenRead(path);
             var mediaitem = await _clientAuth.Media.Create(s, "cat.jpg");
             Assert.IsNotNull(mediaitem);

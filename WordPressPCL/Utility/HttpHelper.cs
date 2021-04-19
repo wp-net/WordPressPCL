@@ -3,6 +3,7 @@ using System;
 using System.Diagnostics;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Text;
 using System.Threading.Tasks;
 using WordPressPCL.Models;
 using WordPressPCL.Models.Exceptions;
@@ -22,6 +23,21 @@ namespace WordPressPCL.Utility
         /// JSON Web Token
         /// </summary>
         public string JWToken { get; set; }
+
+        /// <summary>
+        /// The Application Password to be used for authentication
+        /// </summary>
+        public string ApplicationPassword { get; set; }
+
+        /// <summary>
+        /// Authentication Method
+        /// </summary>
+        public AuthMethod AuthMethod { get; set; }
+
+        /// <summary>
+        /// The username to be used with the Application Password
+        /// </summary>
+        public string UserName { get; set; }
 
         /// <summary>
         /// Function called when a HttpRequest response is read
@@ -85,116 +101,99 @@ namespace WordPressPCL.Utility
                     embedParam = "?_embed";
             }
 
-            try
+            HttpResponseMessage response;
+            using (var requestMessage = new HttpRequestMessage(HttpMethod.Get, $"{_WordpressURI}{route}{embedParam}"))
             {
-                HttpResponseMessage response;
-                using (var requestMessage = new HttpRequestMessage(HttpMethod.Get, $"{_WordpressURI}{route}{embedParam}"))
-                {
-                    if (isAuthRequired)
-                    {
-                        requestMessage.Headers.Authorization = new AuthenticationHeaderValue("Bearer", JWToken);
-                    }
-                    response = await _httpClient.SendAsync(requestMessage).ConfigureAwait(false);
-                }
-                LastResponseHeaders = response.Headers;
-                var responseString = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-                if (response.IsSuccessStatusCode)
-                {
-                    if (HttpResponsePreProcessing != null)
-                        responseString = HttpResponsePreProcessing(responseString);
-                    if (JsonSerializerSettings != null)
-                        return JsonConvert.DeserializeObject<TClass>(responseString, JsonSerializerSettings);
-                    return JsonConvert.DeserializeObject<TClass>(responseString);
-                }
-                else
-                {
-                    throw CreateUnexpectedResponseException(response, responseString);
-                }
+                SetAuthHeader(isAuthRequired, requestMessage);
+                response = await _httpClient.SendAsync(requestMessage).ConfigureAwait(false);
             }
-            catch (WPException) { throw; }
-            catch (Exception ex)
+            LastResponseHeaders = response.Headers;
+            var responseString = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+            if (response.IsSuccessStatusCode)
             {
-                Debug.WriteLine("exception thrown: " + ex.Message);
-                throw;
+                if (HttpResponsePreProcessing != null)
+                    responseString = HttpResponsePreProcessing(responseString);
+                if (JsonSerializerSettings != null)
+                    return JsonConvert.DeserializeObject<TClass>(responseString, JsonSerializerSettings);
+                return JsonConvert.DeserializeObject<TClass>(responseString);
+            }
+            else
+            {
+                throw CreateUnexpectedResponseException(response, responseString);
             }
         }
 
         internal async Task<(TClass, HttpResponseMessage)> PostRequest<TClass>(string route, HttpContent postBody, bool isAuthRequired = true)
             where TClass : class
         {
-            try
-            {
-                HttpResponseMessage response;
-                using (var requestMessage = new HttpRequestMessage(HttpMethod.Post, $"{_WordpressURI}{route}"))
-                {
-                    if (isAuthRequired)
-                    {
-                        requestMessage.Headers.Authorization = new AuthenticationHeaderValue("Bearer", JWToken);
-                    }
-                    requestMessage.Content = postBody;
-                    response = await _httpClient.SendAsync(requestMessage).ConfigureAwait(false);
-                }
 
-                LastResponseHeaders = response.Headers;
-                var responseString = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-                if (response.IsSuccessStatusCode)
-                {
-                    if (HttpResponsePreProcessing != null)
-                        responseString = HttpResponsePreProcessing(responseString);
-                    if (JsonSerializerSettings != null)
-                        return (JsonConvert.DeserializeObject<TClass>(responseString, JsonSerializerSettings), response);
-                    return (JsonConvert.DeserializeObject<TClass>(responseString), response);
-                }
-                else
-                {
-                    throw CreateUnexpectedResponseException(response, responseString);
-                }
-            }
-            catch (WPException) { throw; }
-            catch (Exception ex)
+            HttpResponseMessage response;
+            using (var requestMessage = new HttpRequestMessage(HttpMethod.Post, $"{_WordpressURI}{route}"))
             {
-                Debug.WriteLine("exception thrown: " + ex.Message);
-                throw;
+                SetAuthHeader(isAuthRequired, requestMessage);
+                requestMessage.Content = postBody;
+                response = await _httpClient.SendAsync(requestMessage).ConfigureAwait(false);
+            }
+
+            LastResponseHeaders = response.Headers;
+            var responseString = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+            if (response.IsSuccessStatusCode)
+            {
+                if (HttpResponsePreProcessing != null)
+                    responseString = HttpResponsePreProcessing(responseString);
+                if (JsonSerializerSettings != null)
+                    return (JsonConvert.DeserializeObject<TClass>(responseString, JsonSerializerSettings), response);
+                return (JsonConvert.DeserializeObject<TClass>(responseString), response);
+            }
+            else
+            {
+                throw CreateUnexpectedResponseException(response, responseString);
             }
         }
 
         internal async Task<bool> DeleteRequest(string route, bool isAuthRequired = true)
         {
-            try
+            HttpResponseMessage response;
+            using (var requestMessage = new HttpRequestMessage(HttpMethod.Delete, $"{_WordpressURI}{route}"))
             {
-                HttpResponseMessage response;
-                using (var requestMessage = new HttpRequestMessage(HttpMethod.Delete, $"{_WordpressURI}{route}"))
-                {
-                    if (isAuthRequired)
-                    {
-                        requestMessage.Headers.Authorization = new AuthenticationHeaderValue("Bearer", JWToken);
-                    }
-                    response = await _httpClient.SendAsync(requestMessage).ConfigureAwait(false);
-                }
+                SetAuthHeader(isAuthRequired, requestMessage);
+                response = await _httpClient.SendAsync(requestMessage).ConfigureAwait(false);
+            }
 
-                LastResponseHeaders = response.Headers;
-                var responseString = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-                if (response.IsSuccessStatusCode)
+            LastResponseHeaders = response.Headers;
+            var responseString = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+            if (response.IsSuccessStatusCode)
+            {
+                return true;
+            }
+            else
+            {
+                throw CreateUnexpectedResponseException(response, responseString);
+            }
+        }
+
+        private void SetAuthHeader(bool isAuthRequired, HttpRequestMessage requestMessage)
+        {
+            if (isAuthRequired)
+            {
+                if (AuthMethod == AuthMethod.JWT || AuthMethod == AuthMethod.JWTAuth)
                 {
-                    return true;
+                    requestMessage.Headers.Authorization = new AuthenticationHeaderValue("Bearer", JWToken);
+                }
+                else if (AuthMethod == AuthMethod.ApplicationPassword)
+                {
+                    var authToken = Encoding.ASCII.GetBytes($"{UserName}:{ApplicationPassword}");
+                    requestMessage.Headers.Authorization = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(authToken));
                 }
                 else
                 {
-                    throw CreateUnexpectedResponseException(response, responseString);
+                    throw new WPException("Unsupported Authentication Method");
                 }
-            }
-            catch (WPException) { throw; }
-            catch (Exception ex)
-            {
-                Debug.WriteLine("exception thrown: " + ex.Message);
-                throw;
             }
         }
 
         private static Exception CreateUnexpectedResponseException(HttpResponseMessage response, string responseString)
         {
-            Debug.WriteLine(responseString);
-
             BadRequest badrequest;
             try
             {
