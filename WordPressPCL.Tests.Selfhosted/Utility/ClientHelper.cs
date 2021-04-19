@@ -12,14 +12,13 @@ namespace WordPressPCL.Tests.Selfhosted.Utility
         {
             var clientAuth = new WordPressClient(ApiCredentials.WordPressUri);
 
+            Console.WriteLine($"Auth Method: {context?.Properties["authmode"]}");
             if (context?.Properties["authmode"]?.ToString() == "jwtauth")
             {
-                Console.WriteLine("AuthMethod.JWTAuth");
                 clientAuth.AuthMethod = AuthMethod.JWTAuth;
             }
             else
             {
-                Console.WriteLine("AuthMethod.JWT");
                 clientAuth.AuthMethod = AuthMethod.JWT;
             }
             await clientAuth.RequestJWToken(ApiCredentials.Username, ApiCredentials.Password);
