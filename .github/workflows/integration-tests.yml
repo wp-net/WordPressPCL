@@ -31,7 +31,7 @@ jobs:
     - name: Create dockerzied WordPress
       run: ./pipelines/docker-wordpress.sh
     - name: 'Run Tests: Selfhosted WordPress'
-      run: dotnet test -l "console;verbosity=detailed" WordPressPCL.Tests.Selfhosted/WordPressPCL.Tests.Selfhosted.csproj
+      run: dotnet test -l "console;verbosity=detailed" WordPressPCL.Tests.Selfhosted/WordPressPCL.Tests.Selfhosted.csproj -s WordPressPCL.Tests.Selfhosted/jwt.runsettings
     - name: Kill Docker
       run: ./pipelines/kill-docker.sh
     - name: Create dockerzied WordPress JWT-AUTH
