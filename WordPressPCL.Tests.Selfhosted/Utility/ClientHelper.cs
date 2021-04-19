@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using WordPressPCL.Models;
@@ -13,12 +14,12 @@ namespace WordPressPCL.Tests.Selfhosted.Utility
 
             if (context?.Properties["authmode"]?.ToString() == "jwtauth")
             {
-                context.WriteLine("AuthMethod.JWTAuth");
+                Console.WriteLine("AuthMethod.JWTAuth");
                 clientAuth.AuthMethod = AuthMethod.JWTAuth;
             }
             else
             {
-                context.WriteLine("AuthMethod.JWT");
+                Console.WriteLine("AuthMethod.JWT");
                 clientAuth.AuthMethod = AuthMethod.JWT;
             }
             await clientAuth.RequestJWToken(ApiCredentials.Username, ApiCredentials.Password);
