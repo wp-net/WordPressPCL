@@ -45,6 +45,8 @@ namespace WordPressPCL.Tests.Selfhosted
         public async Task Application_Password_Auth()
         {
             // The old JWT Plugin results in issues when using Application Passwords for requests
+            _testContext.WriteLine("App Password info");
+            _testContext.WriteLine(_testContext?.Properties["skipAppPassword"].ToString());
             if (_testContext?.Properties["skipAppPassword"]?.ToString() == "true")
             {
                 Assert.Inconclusive();
