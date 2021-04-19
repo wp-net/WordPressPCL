@@ -84,27 +84,20 @@ namespace WordPressPCL.Tests.Selfhosted
             var allComments = await _clientAuth.Comments.GetAllCommentsForPost(postid);
 
             var threaded = ThreadedCommentsHelper.GetThreadedComments(allComments);
-            Debug.WriteLine($"threaded count: {threaded.Count}");
             Assert.IsNotNull(threaded);
             var ct0 = threaded.Find(x => x.Id == comment0id);
             Assert.AreEqual(ct0.Depth, 0);
-            Debug.WriteLine(threaded.IndexOf(ct0));
             var ct1 = threaded.Find(x => x.Id == comment1id);
             Assert.AreEqual(ct1.Depth, 1);
-            Debug.WriteLine(threaded.IndexOf(ct1));
             var ct2 = threaded.Find(x => x.Id == comment2id);
             Assert.AreEqual(ct2.Depth, 2);
-            Debug.WriteLine(threaded.IndexOf(ct2));
             var ct3 = threaded.Find(x => x.Id == comment3id);
             Assert.AreEqual(ct3.Depth, 3);
-            Debug.WriteLine(threaded.IndexOf(ct3));
             var ct4 = threaded.Find(x => x.Id == comment4id);
             Assert.AreEqual(ct4.Depth, 2);
-            Debug.WriteLine(threaded.IndexOf(ct4));
 
             var ct00 = threaded.Find(x => x.Id == comment00id);
             Assert.AreEqual(ct00.Depth, 0);
-            //Assert.AreEqual(threaded.Count, threaded.IndexOf(ct00) + 1);
 
             for (int i = 0; i < threaded.Count - 1; i++)
             {
@@ -134,23 +127,17 @@ namespace WordPressPCL.Tests.Selfhosted
             var allComments = await _clientAuth.Comments.GetAllCommentsForPost(postid);
 
             var threaded = ThreadedCommentsHelper.GetThreadedComments(allComments, 1);
-            Debug.WriteLine($"threaded count: {threaded.Count}");
             Assert.IsNotNull(threaded);
             var ct0 = threaded.Find(x => x.Id == comment0id);
             Assert.AreEqual(ct0.Depth, 0);
-            Debug.WriteLine(threaded.IndexOf(ct0));
             var ct1 = threaded.Find(x => x.Id == comment1id);
             Assert.AreEqual(ct1.Depth, 1);
-            Debug.WriteLine(threaded.IndexOf(ct1));
             var ct2 = threaded.Find(x => x.Id == comment2id);
             Assert.AreEqual(ct2.Depth, 1);
-            Debug.WriteLine(threaded.IndexOf(ct2));
             var ct3 = threaded.Find(x => x.Id == comment3id);
             Assert.AreEqual(ct3.Depth, 1);
-            Debug.WriteLine(threaded.IndexOf(ct3));
             var ct4 = threaded.Find(x => x.Id == comment4id);
             Assert.AreEqual(ct4.Depth, 1);
-            Debug.WriteLine(threaded.IndexOf(ct4));
 
             var ct00 = threaded.Find(x => x.Id == comment00id);
             Assert.AreEqual(ct00.Depth, 0);
@@ -164,23 +151,17 @@ namespace WordPressPCL.Tests.Selfhosted
             Assert.IsTrue(allComments.Count() > 0);
             //ExtensionMethod
             var threaded = ThreadedCommentsHelper.ToThreaded(allComments);
-            Debug.WriteLine($"threaded count: {threaded.Count}");
             Assert.IsNotNull(threaded);
             var ct0 = threaded.Find(x => x.Id == comment0id);
             Assert.AreEqual(ct0.Depth, 0);
-            Debug.WriteLine(threaded.IndexOf(ct0));
             var ct1 = threaded.Find(x => x.Id == comment1id);
             Assert.AreEqual(ct1.Depth, 1);
-            Debug.WriteLine(threaded.IndexOf(ct1));
             var ct2 = threaded.Find(x => x.Id == comment2id);
             Assert.AreEqual(ct2.Depth, 2);
-            Debug.WriteLine(threaded.IndexOf(ct2));
             var ct3 = threaded.Find(x => x.Id == comment3id);
             Assert.AreEqual(ct3.Depth, 3);
-            Debug.WriteLine(threaded.IndexOf(ct3));
             var ct4 = threaded.Find(x => x.Id == comment4id);
             Assert.AreEqual(ct4.Depth, 2);
-            Debug.WriteLine(threaded.IndexOf(ct4));
 
             var ct00 = threaded.Find(x => x.Id == comment00id);
             Assert.AreEqual(ct00.Depth, 0);
@@ -208,8 +189,7 @@ namespace WordPressPCL.Tests.Selfhosted
             }
         }
 
-        // TODO: check why failing
-        //[TestMethod]
+        [TestMethod]
         public async Task CommentsThreaded_Sort_Extension_Desc()
         {
             var allComments = await _clientAuth.Comments.GetAllCommentsForPost(postid);
@@ -218,27 +198,20 @@ namespace WordPressPCL.Tests.Selfhosted
             var threaded = ThreadedCommentsHelper.ToThreaded(allComments, true);
 
             // Depth should be the same regardless of desc or asc
-            Debug.WriteLine($"threaded count: {threaded.Count}");
             Assert.IsNotNull(threaded);
             var ct0 = threaded.Find(x => x.Id == comment0id);
             Assert.AreEqual(ct0.Depth, 0);
-            Debug.WriteLine(threaded.IndexOf(ct0));
             var ct1 = threaded.Find(x => x.Id == comment1id);
             Assert.AreEqual(ct1.Depth, 1);
-            Debug.WriteLine(threaded.IndexOf(ct1));
             var ct2 = threaded.Find(x => x.Id == comment2id);
             Assert.AreEqual(ct2.Depth, 2);
-            Debug.WriteLine(threaded.IndexOf(ct2));
             var ct3 = threaded.Find(x => x.Id == comment3id);
             Assert.AreEqual(ct3.Depth, 3);
-            Debug.WriteLine(threaded.IndexOf(ct3));
             var ct4 = threaded.Find(x => x.Id == comment4id);
             Assert.AreEqual(ct4.Depth, 2);
-            Debug.WriteLine(threaded.IndexOf(ct4));
 
             var ct00 = threaded.Find(x => x.Id == comment00id);
             Assert.AreEqual(ct00.Depth, 0);
-            //Assert.AreEqual(threaded.Count, threaded.IndexOf(ct00) + 1);
 
             for (int i = 0; i < threaded.Count - 1; i++)
             {
@@ -261,8 +234,7 @@ namespace WordPressPCL.Tests.Selfhosted
                     || (idate < nidate && threaded[ni].ParentId == threaded[i].Id)
                     // or newer, if the comments share the same parent
                     || (idate < nidate && nidepth != 0 && idepth >= nidepth));
-                if (!validDate)
-                    Debug.WriteLine("debug test");
+
                 Assert.IsTrue(validDate);
             }
 

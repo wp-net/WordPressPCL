@@ -26,8 +26,6 @@ namespace WordPressPCL.Tests.Selfhosted
         public async Task Application_Passwords_Create()
         {
             var password = await _clientAuth.Users.CreateApplicationPassword(System.Guid.NewGuid().ToString());
-            Debug.WriteLine(password.AppId);
-
             Assert.IsNotNull(password.Password);
         }
 
