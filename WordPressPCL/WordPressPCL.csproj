@@ -13,11 +13,15 @@
     <RepositoryUrl>https://github.com/wp-net/WordPressPCL</RepositoryUrl>
     <PackageTags>WordPress REST API</PackageTags>
     <RepositoryType>GitHub</RepositoryType>
-    <AssemblyVersion>1.8.5.0</AssemblyVersion>
-    <FileVersion>1.8.5.0</FileVersion>
-    <Version>1.8.5</Version>
+    <AssemblyVersion>1.9.0.0</AssemblyVersion>
+    <FileVersion>1.9.0.0</FileVersion>
+    <Version>1.9.0</Version>
     <PackageLicenseUrl></PackageLicenseUrl>
-    <PackageReleaseNotes>V1.8.5
+    <PackageReleaseNotes>V1.9.0
+- Support for Application Passwords
+- Upped netstandard1.1 to netstandard1.3
+
+V1.8.5
 - Bugfix for Query Builder, will now append default enum values to query string for easier debugging
 
 V1.8.4
@@ -104,7 +108,7 @@ V1.2
 - added method to get all comments for a post id
 - fixed some async issues for better performance
 - added logout method</PackageReleaseNotes>
-    <Copyright>© Thomas Pentenrieder | 2020</Copyright>
+    <Copyright>© Thomas Pentenrieder | 2021</Copyright>
     <ApplicationIcon />
     <OutputTypeEx>library</OutputTypeEx>
     <StartupObject />
