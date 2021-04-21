@@ -62,7 +62,6 @@ namespace WordPressPCL.Client
             }
         }
 
-#if NETSTANDARD2_0
         /// <summary>
         /// Create Media entity with attachment
         /// </summary>
@@ -96,7 +95,6 @@ namespace WordPressPCL.Client
                 throw new FileNotFoundException($"{filePath} was not found");
             }
         }
-#endif
 
         /// <summary>
         /// Delete Entity
