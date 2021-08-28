@@ -71,9 +71,14 @@
             path to endpoint EX. posts
             </summary>
         </member>
+        <member name="F:WordPressPCL.Client.CRUDOperation`2._httpHelper">
+            <summary>
+            Helper for HTTP requests
+            </summary>
+        </member>
         <member name="P:WordPressPCL.Client.CRUDOperation`2.HttpHelper">
             <summary>
-            HttpHelper object with helper method over HTTP requests
+            Helper for HTTP requests
             </summary>
         </member>
         <member name="P:WordPressPCL.Client.CRUDOperation`2.ForceDeletion">
@@ -213,7 +218,7 @@
             <param name="mimeType">Override for automatic mime type detection</param>
             <returns>Created media object</returns>
         </member>
-        <member name="M:WordPressPCL.Client.Media.Create(System.String,System.String,System.String)">
+        <member name="M:WordPressPCL.Client.Media.CreateAsync(System.String,System.String,System.String)">
             <summary>
             Create Media entity with attachment
             </summary>
@@ -680,7 +685,7 @@
             Interface with required Query methods
             </summary>
             <typeparam name="TClass">return class type</typeparam>
-            <typeparam name="QClass">Query Builder class</typeparam>
+            <typeparam name="TQueryClass">Query Builder class</typeparam>
         </member>
         <member name="M:WordPressPCL.Interfaces.IQueryOperation`2.QueryAsync(`1,System.Boolean)">
             <summary>
@@ -733,6 +738,51 @@
             </summary>
             <param name="Entity">object to update</param>
             <returns>Updated entity</returns>
+        </member>
+        <member name="T:WordPressPCL.Models.ApplicationPassword">
+            <summary>
+            Application Password
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ApplicationPassword.Uuid">
+            <summary>
+            Unique ID
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ApplicationPassword.AppId">
+            <summary>
+            App ID
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ApplicationPassword.Name">
+            <summary>
+            App Name
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ApplicationPassword.Created">
+            <summary>
+            Created Timestamp
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ApplicationPassword.LastUsed">
+            <summary>
+            Last Used
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ApplicationPassword.LastIp">
+            <summary>
+            Last IP
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ApplicationPassword.Password">
+            <summary>
+            Application Password
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ApplicationPassword.Links">
+            <summary>
+            Links
+            </summary>
         </member>
         <member name="T:WordPressPCL.Models.AuthMethod">
             <summary>
@@ -1602,6 +1652,76 @@
         <member name="P:WordPressPCL.Models.ImageMeta.Keywords">
             <summary>
             Image keywords
+            </summary>
+        </member>
+        <member name="T:WordPressPCL.Models.JWTData">
+            <summary>
+            JWT Data
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.JWTData.Token">
+            <summary>
+            JWT Token
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.JWTData.DisplayName">
+            <summary>
+            User Display Name
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.JWTData.Email">
+            <summary>
+            User Email
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.JWTData.NiceName">
+            <summary>
+            User Nice Names
+            </summary>
+        </member>
+        <member name="T:WordPressPCL.Models.JWTResponse">
+            <summary>
+            Response class for the JWT Plugin
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.JWTResponse.Success">
+            <summary>
+            Indicates if the call was successful
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.JWTResponse.Message">
+            <summary>
+            The response message
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.JWTResponse.Data">
+            <summary>
+            The JWT Content
+            </summary>
+        </member>
+        <member name="T:WordPressPCL.Models.JWTUser">
+            <summary>
+            User class for working with the JWT plugin
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.JWTUser.Token">
+            <summary>
+            The JWT Token used to authorize requests
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.JWTUser.DisplayName">
+            <summary>
+            User Display Name
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.JWTUser.Email">
+            <summary>
+            User Email Address
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.JWTUser.NiceName">
+            <summary>
+            User Nice Name
             </summary>
         </member>
         <member name="T:WordPressPCL.Models.Links">
@@ -3997,18 +4117,6 @@
             Sets an existing JWToken
             </summary>
             <param name="token"></param>
-        </member>
-        <member name="M:WordPressPCL.WordPressClient.GetToken">
-            <summary>
-            Gets the JWToken from the client
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:WordPressPCL.WordPressClient.SetApplicationPassword(System.String)">
-            <summary>
-            Store Application Password in the Client
-            </summary>
-            <param name="applictionPassword"></param>
         </member>
         <member name="M:WordPressPCL.WordPressClient.GetToken">
             <summary>

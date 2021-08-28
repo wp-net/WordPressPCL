@@ -6,6 +6,7 @@ using WordPressPCL.Tests.Selfhosted.Utility;
 using System.Linq;
 using WordPressPCL.Utility;
 using WordPressPCL.Models.Exceptions;
+using System.Collections.Generic;
 
 namespace WordPressPCL.Tests.Selfhosted
 {
@@ -113,7 +114,7 @@ namespace WordPressPCL.Tests.Selfhosted
             // Post should be available in trash
             var queryBuilder = new PostsQueryBuilder()
             {
-                Statuses = new Status[] { Status.Trash }, 
+                Statuses = new List<Status> { Status.Trash }, 
                 PerPage = 100
             };
             var posts = await _clientAuth.Posts.QueryAsync(queryBuilder, true);
@@ -131,7 +132,7 @@ namespace WordPressPCL.Tests.Selfhosted
                 PerPage = 15,
                 OrderBy = PostsOrderBy.Title,
                 Order = Order.ASC,
-                Statuses = new Status[] { Status.Publish },
+                Statuses = new List<Status>() { Status.Publish },
                 Embed = true
             };
             var queryresult = await _clientAuth.Posts.QueryAsync(queryBuilder);

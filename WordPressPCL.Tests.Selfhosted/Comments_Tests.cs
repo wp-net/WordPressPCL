@@ -6,6 +6,7 @@ using WordPressPCL.Models;
 using WordPressPCL.Utility;
 using System.Linq;
 using WordPressPCL.Models.Exceptions;
+using System.Collections.Generic;
 
 namespace WordPressPCL.Tests.Selfhosted
 {
@@ -94,7 +95,7 @@ namespace WordPressPCL.Tests.Selfhosted
             var me = await _clientAuth.Users.GetCurrentUser();
             var queryBuilder = new CommentsQueryBuilder()
             {
-                Authors = new int[] { me.Id }
+                Authors = new List<int> { me.Id }
             };
             var comments = await _clientAuth.Comments.QueryAsync(queryBuilder, true);
             var comment = comments.FirstOrDefault();
@@ -180,7 +181,7 @@ namespace WordPressPCL.Tests.Selfhosted
                 PerPage = 15,
                 OrderBy = CommentsOrderBy.Id,
                 Order = Order.DESC,
-                Statuses = new CommentStatus[] { CommentStatus.Pending }
+                Statuses = new List<CommentStatus> { CommentStatus.Pending }
             };
             var queryresult = await _clientAuth.Comments.QueryAsync(queryBuilder, true);
             var querystring = "?page=1&per_page=15&orderby=id&status=hold";

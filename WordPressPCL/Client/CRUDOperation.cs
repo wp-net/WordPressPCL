@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -27,10 +28,13 @@ namespace WordPressPCL.Client
         /// </summary>
         protected string MethodPath { get; }
 
-
-        internal protected HttpHelper _httpHelper;
         /// <summary>
-        /// HttpHelper object with helper method over HTTP requests
+        /// Helper for HTTP requests
+        /// </summary>
+        internal protected HttpHelper _httpHelper;
+        
+        /// <summary>
+        /// Helper for HTTP requests
         /// </summary>
         protected HttpHelper HttpHelper
         {
@@ -66,7 +70,7 @@ namespace WordPressPCL.Client
         public async Task<TClass> CreateAsync(TClass Entity)
         {
             var entity = HttpHelper.JsonSerializerSettings == null ? JsonConvert.SerializeObject(Entity) : JsonConvert.SerializeObject(Entity, HttpHelper.JsonSerializerSettings);
-            var postBody = new StringContent(entity, Encoding.UTF8, "application/json");
+            using var postBody = new StringContent(entity, Encoding.UTF8, "application/json");
             return (await HttpHelper.PostRequestAsync<TClass>($"{DefaultPath}{MethodPath}", postBody).ConfigureAwait(false)).Item1;
         }
 
@@ -100,14 +104,13 @@ namespace WordPressPCL.Client
         public async Task<IEnumerable<TClass>> GetAllAsync(bool embed = false, bool useAuth = false)
         {
             //100 - Max posts per page in WordPress REST API, so this is hack with multiple requests
-            List<TClass> entities;
-            entities = (await HttpHelper.GetRequestAsync<IEnumerable<TClass>>($"{DefaultPath}{MethodPath}?per_page=100&page=1", embed, useAuth).ConfigureAwait(false))?.ToList<TClass>();
-            if (HttpHelper.LastResponseHeaders.Contains("X-WP-TotalPages") && System.Convert.ToInt32(HttpHelper.LastResponseHeaders.GetValues("X-WP-TotalPages").FirstOrDefault()) > 1)
+            var entities = (await HttpHelper.GetRequestAsync<IEnumerable<TClass>>($"{DefaultPath}{MethodPath}?per_page=100&page=1", embed, useAuth).ConfigureAwait(false))?.ToList();
+            if (HttpHelper.LastResponseHeaders.Contains("X-WP-TotalPages") && System.Convert.ToInt32(HttpHelper.LastResponseHeaders.GetValues("X-WP-TotalPages").FirstOrDefault(), CultureInfo.InvariantCulture) > 1)
             {
-                int totalpages = System.Convert.ToInt32(HttpHelper.LastResponseHeaders.GetValues("X-WP-TotalPages").FirstOrDefault());
+                int totalpages = System.Convert.ToInt32(HttpHelper.LastResponseHeaders.GetValues("X-WP-TotalPages").FirstOrDefault(), CultureInfo.InvariantCulture);
                 for (int page = 2; page <= totalpages; page++)
                 {
-                    entities.AddRange((await HttpHelper.GetRequestAsync<IEnumerable<TClass>>($"{DefaultPath}{MethodPath}?per_page=100&page={page}", embed, useAuth).ConfigureAwait(false))?.ToList<TClass>());
+                    entities.AddRange((await HttpHelper.GetRequestAsync<IEnumerable<TClass>>($"{DefaultPath}{MethodPath}?per_page=100&page={page}", embed, useAuth).ConfigureAwait(false))?.ToList());
                 }
             }
             return entities;
@@ -144,7 +147,7 @@ namespace WordPressPCL.Client
         public async Task<TClass> UpdateAsync(TClass Entity)
         {
             var entity = HttpHelper.JsonSerializerSettings == null ? JsonConvert.SerializeObject(Entity) : JsonConvert.SerializeObject(Entity, HttpHelper.JsonSerializerSettings);
-            var postBody = new StringContent(entity, Encoding.UTF8, "application/json");
+            using var postBody = new StringContent(entity, Encoding.UTF8, "application/json");
             return (await HttpHelper.PostRequestAsync<TClass>($"{DefaultPath}{MethodPath}/{(Entity as Base)?.Id}", postBody).ConfigureAwait(false)).Item1;
         }
     }

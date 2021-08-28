@@ -33,10 +33,8 @@ namespace WordPressPCL
         /// </summary>
         public Func<string, string> HttpResponsePreProcessing
         {
-            set
-            {
-                _httpHelper.HttpResponsePreProcessing = value;
-            }
+            get => _httpHelper.HttpResponsePreProcessing;
+            set => _httpHelper.HttpResponsePreProcessing = value;
         }
 
         /// <summary>
@@ -211,7 +209,7 @@ namespace WordPressPCL
         /// <returns>Updated settings</returns>
         public async Task<Settings> UpdateSettingsAsync(Settings settings)
         {
-            var postBody = new StringContent(JsonConvert.SerializeObject(settings), Encoding.UTF8, "application/json");
+            using var postBody = new StringContent(JsonConvert.SerializeObject(settings), Encoding.UTF8, "application/json");
             (var setting, _) = await _httpHelper.PostRequestAsync<Settings>($"{_defaultPath}settings", postBody).ConfigureAwait(false);
             return setting;
         }
@@ -228,7 +226,7 @@ namespace WordPressPCL
         public async Task RequestJWTokenAsync(string Username, string Password)
         {
             var route = $"{_jwtPath}token";
-            var formContent = new FormUrlEncodedContent(new[]
+            using var formContent = new FormUrlEncodedContent(new[]
                 {
                     new KeyValuePair<string, string>("username", Username),
                     new KeyValuePair<string, string>("password", Password)

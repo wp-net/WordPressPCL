@@ -15,9 +15,9 @@ namespace WordPressPCL.Utility
     /// </summary>
     public class HttpHelper
     {
-        private static readonly HttpClient _defaultHttpClient = new HttpClient();
+        private static readonly HttpClient _defaultHttpClient = new();
         private readonly HttpClient _httpClient;
-        private readonly string _WordpressURI;
+        private readonly string _wordpressURI;
 
         /// <summary>
         /// JSON Web Token
@@ -63,7 +63,7 @@ namespace WordPressPCL.Utility
         public HttpHelper(string wordpressURI)
         {
             _httpClient = _defaultHttpClient;
-            _WordpressURI = wordpressURI;
+            _wordpressURI = wordpressURI;
 
             // by default don't crash on missing member
             JsonSerializerSettings = new JsonSerializerSettings
@@ -80,7 +80,7 @@ namespace WordPressPCL.Utility
         public HttpHelper(HttpClient httpClient)
         {
             _httpClient = httpClient;
-            _WordpressURI = httpClient.BaseAddress.ToString();
+            _wordpressURI = httpClient?.BaseAddress.ToString();
 
             // by default don't crash on missing member
             JsonSerializerSettings = new JsonSerializerSettings
@@ -102,7 +102,7 @@ namespace WordPressPCL.Utility
             }
 
             HttpResponseMessage response;
-            using (var requestMessage = new HttpRequestMessage(HttpMethod.Get, $"{_WordpressURI}{route}{embedParam}"))
+            using (var requestMessage = new HttpRequestMessage(HttpMethod.Get, $"{_wordpressURI}{route}{embedParam}"))
             {
                 SetAuthHeader(isAuthRequired, requestMessage);
                 response = await _httpClient.SendAsync(requestMessage).ConfigureAwait(false);
@@ -128,7 +128,7 @@ namespace WordPressPCL.Utility
         {
 
             HttpResponseMessage response;
-            using (var requestMessage = new HttpRequestMessage(HttpMethod.Post, $"{_WordpressURI}{route}"))
+            using (var requestMessage = new HttpRequestMessage(HttpMethod.Post, $"{_wordpressURI}{route}"))
             {
                 SetAuthHeader(isAuthRequired, requestMessage);
                 requestMessage.Content = postBody;
@@ -154,7 +154,7 @@ namespace WordPressPCL.Utility
         internal async Task<bool> DeleteRequestAsync(string route, bool isAuthRequired = true)
         {
             HttpResponseMessage response;
-            using (var requestMessage = new HttpRequestMessage(HttpMethod.Delete, $"{_WordpressURI}{route}"))
+            using (var requestMessage = new HttpRequestMessage(HttpMethod.Delete, $"{_wordpressURI}{route}"))
             {
                 SetAuthHeader(isAuthRequired, requestMessage);
                 response = await _httpClient.SendAsync(requestMessage).ConfigureAwait(false);

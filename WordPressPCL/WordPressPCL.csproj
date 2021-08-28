@@ -17,6 +17,7 @@
     <FileVersion>1.9.0.0</FileVersion>
     <Version>1.9.0</Version>
     <PackageLicenseUrl></PackageLicenseUrl>
+    <LangVersion>9.0</LangVersion>
     <PackageReleaseNotes>V1.9.0
 - Support for Application Passwords
 - Upped netstandard1.1 to netstandard1.3
@@ -129,6 +130,7 @@ V1.2
     <None Update="icon.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="..\.editorconfig" Link=".editorconfig" />
     <None Include="Images\icon.png">
       <Pack>True</Pack>
       <PackagePath></PackagePath>

@@ -1,5 +1,7 @@
 ﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -17,10 +19,10 @@ namespace WordPressPCL.Client
     {
         #region Init
 
-        private string _defaultPath;
         private const string METHOD_PATH = "users";
         private const string APPLICATION_PASSWORDS_PATH = "application-passwords";
-        private HttpHelper _httpHelper;
+        private readonly string _defaultPath;
+        private readonly HttpHelper _httpHelper;
 
         /// <summary>
         /// Constructor
@@ -43,7 +45,7 @@ namespace WordPressPCL.Client
         public virtual async Task<User> CreateAsync(User Entity)
         {
             var entity = _httpHelper.JsonSerializerSettings == null ? JsonConvert.SerializeObject(Entity) : JsonConvert.SerializeObject(Entity, _httpHelper.JsonSerializerSettings);
-            var postBody = new StringContent(entity, Encoding.UTF8, "application/json");
+            using var postBody = new StringContent(entity, Encoding.UTF8, "application/json");
             return (await _httpHelper.PostRequestAsync<User>($"{_defaultPath}{METHOD_PATH}", postBody).ConfigureAwait(false)).Item1;
         }
 
@@ -67,14 +69,13 @@ namespace WordPressPCL.Client
         public async Task<IEnumerable<User>> GetAllAsync(bool embed = false, bool useAuth = false)
         {
             //100 - Max posts per page in WordPress REST API, so this is hack with multiple requests
-            List<User> entities = new List<User>();
-            entities = (await _httpHelper.GetRequestAsync<IEnumerable<User>>($"{_defaultPath}{METHOD_PATH}?per_page=100&page=1", embed, useAuth).ConfigureAwait(false))?.ToList<User>();
-            if (_httpHelper.LastResponseHeaders.Contains("X-WP-TotalPages") && System.Convert.ToInt32(_httpHelper.LastResponseHeaders.GetValues("X-WP-TotalPages").FirstOrDefault()) > 1)
+            var entities = (await _httpHelper.GetRequestAsync<IEnumerable<User>>($"{_defaultPath}{METHOD_PATH}?per_page=100&page=1", embed, useAuth).ConfigureAwait(false))?.ToList();
+            if (_httpHelper.LastResponseHeaders.Contains("X-WP-TotalPages") && Convert.ToInt32(_httpHelper.LastResponseHeaders.GetValues("X-WP-TotalPages").FirstOrDefault(), CultureInfo.InvariantCulture) > 1)
             {
-                int totalpages = System.Convert.ToInt32(_httpHelper.LastResponseHeaders.GetValues("X-WP-TotalPages").FirstOrDefault());
+                int totalpages = Convert.ToInt32(_httpHelper.LastResponseHeaders.GetValues("X-WP-TotalPages").FirstOrDefault(), CultureInfo.InvariantCulture);
                 for (int page = 2; page <= totalpages; page++)
                 {
-                    entities.AddRange((await _httpHelper.GetRequestAsync<IEnumerable<User>>($"{_defaultPath}{METHOD_PATH}?per_page=100&page={page}", embed, useAuth).ConfigureAwait(false))?.ToList<User>());
+                    entities.AddRange((await _httpHelper.GetRequestAsync<IEnumerable<User>>($"{_defaultPath}{METHOD_PATH}?per_page=100&page={page}", embed, useAuth).ConfigureAwait(false))?.ToList());
                 }
             }
             return entities;
@@ -111,7 +112,7 @@ namespace WordPressPCL.Client
         public async Task<User> UpdateAsync(User Entity)
         {
             var entity = _httpHelper.JsonSerializerSettings == null ? JsonConvert.SerializeObject(Entity) : JsonConvert.SerializeObject(Entity, _httpHelper.JsonSerializerSettings);
-            var postBody = new StringContent(entity, Encoding.UTF8, "application/json");
+            using var postBody = new StringContent(entity, Encoding.UTF8, "application/json");
             return (await _httpHelper.PostRequestAsync<User>($"{_defaultPath}{METHOD_PATH}/{(Entity as Base)?.Id}", postBody).ConfigureAwait(false)).Item1;
         }
 
@@ -145,7 +146,7 @@ namespace WordPressPCL.Client
         /// <returns>Result of operation</returns>
         public Task<bool> Delete(int ID, User ReassignUser)
         {
-            return _httpHelper.DeleteRequestAsync($"{_defaultPath}{METHOD_PATH}/{ID}?force=true&reassign={ReassignUser.Id}");
+            return _httpHelper.DeleteRequestAsync($"{_defaultPath}{METHOD_PATH}/{ID}?force=true&reassign={ReassignUser?.Id}");
         }
 
         #endregion Custom
@@ -162,7 +163,7 @@ namespace WordPressPCL.Client
         {
             var body = new { name = applicationName };
             var entity = _httpHelper.JsonSerializerSettings == null ? JsonConvert.SerializeObject(body) : JsonConvert.SerializeObject(body, _httpHelper.JsonSerializerSettings);
-            var postBody = new StringContent(entity, Encoding.UTF8, "application/json");
+            using var postBody = new StringContent(entity, Encoding.UTF8, "application/json");
             return (await _httpHelper.PostRequestAsync<ApplicationPassword>($"{_defaultPath}{METHOD_PATH}/{userId}/{APPLICATION_PASSWORDS_PATH}", postBody, true).ConfigureAwait(false)).Item1;
         }
 

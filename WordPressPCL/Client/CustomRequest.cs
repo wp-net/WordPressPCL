@@ -33,7 +33,7 @@ namespace WordPressPCL.Client
         public async Task<TOutput> CreateAsync<TInput, TOutput>(string route, TInput Entity) where TOutput : class
         {
             var entity = _httpHelper.JsonSerializerSettings == null ? JsonConvert.SerializeObject(Entity) : JsonConvert.SerializeObject(Entity, _httpHelper.JsonSerializerSettings);
-            StringContent sc = new StringContent(entity, Encoding.UTF8, "application/json");
+            using StringContent sc = new(entity, Encoding.UTF8, "application/json");
             return (await _httpHelper.PostRequestAsync<TOutput>(route, sc).ConfigureAwait(false)).Item1;
         }
 

@@ -1,4 +1,5 @@
-﻿using WordPressPCL.Models;
+﻿using System.Collections.Generic;
+using WordPressPCL.Models;
 
 namespace WordPressPCL.Utility
 {
@@ -31,13 +32,13 @@ namespace WordPressPCL.Utility
         /// Ensure result set excludes specific IDs.
         /// </summary>
         [QueryText("exclude")]
-        public int[] Exclude { get; set; }
+        public List<int> Exclude { get; set; }
 
         /// <summary>
         /// Limit result set to specific IDs.
         /// </summary>
         [QueryText("include")]
-        public int[] Include { get; set; }
+        public List<int> Include { get; set; }
 
         /// <summary>
         /// Offset the result set by a specific number of items.
@@ -57,12 +58,12 @@ namespace WordPressPCL.Utility
         /// Limit result set to users with a specific slug.
         /// </summary>
         [QueryText("slug")]
-        public string[] Slugs { get; set; }
+        public List<string> Slugs { get; set; }
 
         /// <summary>
         /// Limit result set to users matching at least one specific role provided. Accepts csv list or single role.
         /// </summary>
         [QueryText("roles")]
-        public string[] Roles { get; set; }
+        public List<string> Roles { get; set; }
     }
 }
