@@ -15,7 +15,7 @@ namespace WordPressPCL.Utility
         public static string GetMIMETypeFromExtension(string extension)
         {
             //List from https://codex.wordpress.org/Function_Reference/get_allowed_mime_types
-            return (extension?.ToLower(CultureInfo.InvariantCulture)) switch
+            return extension?.ToLower(CultureInfo.InvariantCulture) switch
             {
                 // Image formats
                 "jpg" or "jpeg" or "jpe" => "image/jpeg",
@@ -119,7 +119,7 @@ namespace WordPressPCL.Utility
 
                 //Misc Application/octet-stream formats
                 "kmz" or "kml" => "application/octet-stream",
-                _ => "text/plain",
+                _ => "application/octet-stream"
             };
         }
     }
