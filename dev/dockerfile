@@ -1,0 +1,4 @@
+FROM wordpress:latest
+
+ADD ./enable-application-passwords.1.0.tar.gz /var/www/html/wp-content/plugins/
+COPY ./.htaccess /var/www/html/
