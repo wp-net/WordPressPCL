@@ -1,4 +1,5 @@
 FROM wordpress:latest
 
-ADD ./enable-application-passwords.1.0.tar.gz /var/www/html/wp-content/plugins/
 COPY ./.htaccess /var/www/html/
+RUN curl -L https://github.com/wp-net/wordpress-docker-compose/raw/plugins/jwt-auth/plugins/enable-application-passwords.1.0.tar.gz \
+    | tar -xz -C /var/www/html/wp-content/plugins/
