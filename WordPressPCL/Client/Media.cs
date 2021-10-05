@@ -155,7 +155,7 @@ namespace WordPressPCL.Client
         /// <returns>List of filtered result</returns>
         public Task<IEnumerable<MediaItem>> QueryAsync(MediaQueryBuilder queryBuilder, bool useAuth = false)
         {
-            return _httpHelper.GetRequestAsync<IEnumerable<MediaItem>>($"{_defaultPath}{_methodPath}{queryBuilder?.BuildQueryURL()}", false, useAuth);
+            return _httpHelper.GetRequestAsync<IEnumerable<MediaItem>>($"{_defaultPath}{_methodPath}{queryBuilder?.BuildQuery()}", false, useAuth);
         }
 
         /// <summary>

@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Flurl;
+using Newtonsoft.Json;
 using System;
 using System.Diagnostics;
 using System.Net.Http;
@@ -17,7 +18,7 @@ namespace WordPressPCL.Utility
     {
         private static readonly HttpClient _defaultHttpClient = new();
         private readonly HttpClient _httpClient;
-        private readonly string _wordpressURI;
+        private readonly Uri _baseUri;
 
         /// <summary>
         /// JSON Web Token
@@ -60,10 +61,10 @@ namespace WordPressPCL.Utility
         /// <paramref name="wordpressURI"/>
         /// </summary>
         /// <param name="wordpressURI">base WP REST API endpoint EX. http://demo.com/wp-json/ </param>
-        public HttpHelper(string wordpressURI)
+        public HttpHelper(Uri wordpressURI)
         {
             _httpClient = _defaultHttpClient;
-            _wordpressURI = wordpressURI;
+            _baseUri = wordpressURI;
 
             // by default don't crash on missing member
             JsonSerializerSettings = new JsonSerializerSettings
@@ -80,7 +81,7 @@ namespace WordPressPCL.Utility
         public HttpHelper(HttpClient httpClient)
         {
             _httpClient = httpClient;
-            _wordpressURI = httpClient?.BaseAddress.ToString();
+            _baseUri = httpClient?.BaseAddress;
 
             // by default don't crash on missing member
             JsonSerializerSettings = new JsonSerializerSettings
@@ -92,17 +93,10 @@ namespace WordPressPCL.Utility
         internal async Task<TClass> GetRequestAsync<TClass>(string route, bool embed, bool isAuthRequired = false)
             where TClass : class
         {
-            string embedParam = "";
-            if (embed)
-            {
-                if (route.Contains("?"))
-                    embedParam = "&_embed";
-                else
-                    embedParam = "?_embed";
-            }
+            var requestUri = Url.Combine(_baseUri.ToString(), route, embed ? "embed=1":"");
 
             HttpResponseMessage response;
-            using (var requestMessage = new HttpRequestMessage(HttpMethod.Get, $"{_wordpressURI}{route}{embedParam}"))
+            using (var requestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
             {
                 SetAuthHeader(isAuthRequired, requestMessage);
                 response = await _httpClient.SendAsync(requestMessage).ConfigureAwait(false);
@@ -122,13 +116,13 @@ namespace WordPressPCL.Utility
                 throw CreateUnexpectedResponseException(response, responseString);
             }
         }
-
+        
         internal async Task<(TClass, HttpResponseMessage)> PostRequestAsync<TClass>(string route, HttpContent postBody, bool isAuthRequired = true)
             where TClass : class
         {
 
             HttpResponseMessage response;
-            using (var requestMessage = new HttpRequestMessage(HttpMethod.Post, $"{_wordpressURI}{route}"))
+            using (var requestMessage = new HttpRequestMessage(HttpMethod.Post, Url.Combine(_baseUri.ToString(), route)))
             {
                 SetAuthHeader(isAuthRequired, requestMessage);
                 requestMessage.Content = postBody;
@@ -154,7 +148,7 @@ namespace WordPressPCL.Utility
         internal async Task<bool> DeleteRequestAsync(string route, bool isAuthRequired = true)
         {
             HttpResponseMessage response;
-            using (var requestMessage = new HttpRequestMessage(HttpMethod.Delete, $"{_wordpressURI}{route}"))
+            using (var requestMessage = new HttpRequestMessage(HttpMethod.Delete, $"{_baseUri}{route}"))
             {
                 SetAuthHeader(isAuthRequired, requestMessage);
                 response = await _httpClient.SendAsync(requestMessage).ConfigureAwait(false);

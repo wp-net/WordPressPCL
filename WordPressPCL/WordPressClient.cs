@@ -25,7 +25,7 @@ namespace WordPressPCL
         /// <summary>
         /// WordPressUri holds the WordPress API endpoint, e.g. "http://demo.wp-api.org/wp-json/wp/v2/"
         /// </summary>
-		public string WordPressUri { get; private set; }
+		public Uri WordPressUri { get; private set; }
 
         /// <summary>
         /// Function called when a HttpRequest response to WordPress APIs are read
@@ -127,21 +127,13 @@ namespace WordPressPCL
         public CustomRequest CustomRequest { get; }
 
         /// <summary>
-        ///     The WordPressClient holds all connection infos and provides methods to call WordPress APIs.
+        /// The WordPressClient holds all connection infos and provides methods to call WordPress APIs.
         /// </summary>
         /// <param name="uri">URI for WordPress API endpoint, e.g. "http://demo.wp-api.org/wp-json/"</param>
         /// <param name="defaultPath">Relative path to standard API endpoints, defaults to "wp/v2/"</param>
-        public WordPressClient(string uri, string defaultPath = DEFAULT_PATH)
+        public WordPressClient(Uri uri, string defaultPath = DEFAULT_PATH)
         {
-            if (string.IsNullOrWhiteSpace(uri))
-            {
-                throw new ArgumentNullException(nameof(uri));
-            }
-            if (!uri.EndsWith("/", StringComparison.Ordinal))
-            {
-                uri += "/";
-            }
-            WordPressUri = uri;
+            WordPressUri = uri ?? throw new ArgumentNullException(nameof(uri));
             _defaultPath = defaultPath;
 
             _httpHelper = new HttpHelper(WordPressUri);
@@ -161,6 +153,16 @@ namespace WordPressPCL
         /// <summary>
         /// The WordPressClient holds all connection infos and provides methods to call WordPress APIs.
         /// </summary>
+        /// <param name="uri">URI for WordPress API endpoint, e.g. "http://demo.wp-api.org/wp-json/"</param>
+        /// <param name="defaultPath">Relative path to standard API endpoints, defaults to "wp/v2/"</param>
+        public WordPressClient(string uri, string defaultPath = DEFAULT_PATH): this(new Uri(uri), defaultPath)
+        {
+        }
+
+
+        /// <summary>
+        /// The WordPressClient holds all connection infos and provides methods to call WordPress APIs.
+        /// </summary>
         /// <param name="httpClient">HttpClient with BaseAddress set which will be used for sending requests to the WordPress API endpoint.</param>
         /// <param name="defaultPath">Relative path to standard API endpoints, defaults to "wp/v2/"</param>
         public WordPressClient(HttpClient httpClient, string defaultPath = DEFAULT_PATH)
@@ -169,12 +171,8 @@ namespace WordPressPCL
             {
                 throw new ArgumentNullException(nameof(httpClient));
             }
-            string uri = httpClient.BaseAddress.ToString();
-            if (!uri.EndsWith("/", StringComparison.Ordinal))
-            {
-                uri += "/";
-            }
-            WordPressUri = uri;
+
+            WordPressUri = httpClient.BaseAddress;
             _defaultPath = defaultPath;
 
             _httpHelper = new HttpHelper(httpClient);

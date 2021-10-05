@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Flurl;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Threading.Tasks;
 using WordPressPCL.Models;
@@ -38,7 +39,7 @@ namespace WordPressPCL.Client
         {
             // default values
             // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
-            return HttpHelper.GetRequestAsync<IEnumerable<Post>>($"{DefaultPath}{_methodPath}?sticky=true", embed, useAuth);
+            return HttpHelper.GetRequestAsync<IEnumerable<Post>>(Url.Combine(DefaultPath, _methodPath).SetQueryParam("sticky", "true"), embed, useAuth);
         }
 
         /// <summary>
@@ -52,7 +53,7 @@ namespace WordPressPCL.Client
         {
             // default values
             // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
-            return HttpHelper.GetRequestAsync<IEnumerable<Post>>($"{DefaultPath}{_methodPath}?categories={categoryId}", embed, useAuth);
+            return HttpHelper.GetRequestAsync<IEnumerable<Post>>(Url.Combine(DefaultPath, _methodPath).SetQueryParam("categories", categoryId), embed, useAuth);
         }
 
         /// <summary>
@@ -66,7 +67,7 @@ namespace WordPressPCL.Client
         {
             // default values
             // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
-            return HttpHelper.GetRequestAsync<IEnumerable<Post>>($"{DefaultPath}{_methodPath}?tags={tagId}", embed, useAuth);
+            return HttpHelper.GetRequestAsync<IEnumerable<Post>>(Url.Combine(DefaultPath, _methodPath).SetQueryParam("tags", tagId), embed, useAuth);
         }
 
         /// <summary>
@@ -80,7 +81,7 @@ namespace WordPressPCL.Client
         {
             // default values
             // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
-            return HttpHelper.GetRequestAsync<IEnumerable<Post>>($"{DefaultPath}{_methodPath}?author={authorId}", embed, useAuth);
+            return HttpHelper.GetRequestAsync<IEnumerable<Post>>(Url.Combine(DefaultPath, _methodPath).SetQueryParam("author", authorId), embed, useAuth);
         }
 
         /// <summary>
@@ -94,18 +95,21 @@ namespace WordPressPCL.Client
         {
             // default values
             // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
-            return HttpHelper.GetRequestAsync<IEnumerable<Post>>($"{DefaultPath}{_methodPath}?search={searchTerm}", embed, useAuth);
+            return HttpHelper.GetRequestAsync<IEnumerable<Post>>(Url.Combine(DefaultPath, _methodPath).SetQueryParam("search", searchTerm), embed, useAuth);
         }
 
         /// <summary>
         /// Delete post with force deletion
         /// </summary>
-        /// <param name="ID">Post id</param>
+        /// <param name="Id">Post id</param>
         /// <param name="force">force deletion</param>
         /// <returns>Result of operation</returns>
-        public Task<bool> Delete(int ID, bool force = false)
+        public Task<bool> Delete(int Id, bool force = false)
         {
-            return HttpHelper.DeleteRequestAsync($"{DefaultPath}{_methodPath}/{ID}?force={force.ToString().ToLower(CultureInfo.InvariantCulture)}");
+            return HttpHelper.DeleteRequestAsync(
+                Url.Combine(DefaultPath, _methodPath, Id.ToString())
+                   .SetQueryParam("force", force.ToString().ToLower(CultureInfo.InvariantCulture))
+            );
         }
 
         /// <summary>

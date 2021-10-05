@@ -106,7 +106,7 @@
             <summary>
             Delete Entity
             </summary>
-            <param name="ID">Entity Id</param>
+            <param name="Id">Entity Id</param>
             <returns>Result of operation</returns>
         </member>
         <member name="M:WordPressPCL.Client.CRUDOperation`2.GetAsync(System.Boolean,System.Boolean)">
@@ -417,7 +417,7 @@
             <summary>
             Delete post with force deletion
             </summary>
-            <param name="ID">Post id</param>
+            <param name="Id">Post id</param>
             <param name="force">force deletion</param>
             <returns>Result of operation</returns>
         </member>
@@ -3454,7 +3454,7 @@
             Headers returns by WP and http server from last response
             </summary>
         </member>
-        <member name="M:WordPressPCL.Utility.HttpHelper.#ctor(System.String)">
+        <member name="M:WordPressPCL.Utility.HttpHelper.#ctor(System.Uri)">
             <summary>
             Constructor
             <paramref name="wordpressURI"/>
@@ -3799,7 +3799,7 @@
             </summary>
             <remarks>Default: view</remarks>
         </member>
-        <member name="M:WordPressPCL.Utility.QueryBuilder.BuildQueryURL">
+        <member name="M:WordPressPCL.Utility.QueryBuilder.BuildQuery">
             <summary>
             Builds the query URL from all properties
             </summary>
@@ -4060,9 +4060,16 @@
             Custom Request client interaction object
             </summary>
         </member>
+        <member name="M:WordPressPCL.WordPressClient.#ctor(System.Uri,System.String)">
+            <summary>
+            The WordPressClient holds all connection infos and provides methods to call WordPress APIs.
+            </summary>
+            <param name="uri">URI for WordPress API endpoint, e.g. "http://demo.wp-api.org/wp-json/"</param>
+            <param name="defaultPath">Relative path to standard API endpoints, defaults to "wp/v2/"</param>
+        </member>
         <member name="M:WordPressPCL.WordPressClient.#ctor(System.String,System.String)">
             <summary>
-                The WordPressClient holds all connection infos and provides methods to call WordPress APIs.
+            The WordPressClient holds all connection infos and provides methods to call WordPress APIs.
             </summary>
             <param name="uri">URI for WordPress API endpoint, e.g. "http://demo.wp-api.org/wp-json/"</param>
             <param name="defaultPath">Relative path to standard API endpoints, defaults to "wp/v2/"</param>

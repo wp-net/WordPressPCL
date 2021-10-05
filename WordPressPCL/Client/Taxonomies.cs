@@ -81,7 +81,7 @@ namespace WordPressPCL.Client
         public async Task<IEnumerable<Taxonomy>> QueryAsync(TaxonomiesQueryBuilder queryBuilder, bool useAuth = false)
         {
             List<Taxonomy> entities = new List<Taxonomy>();
-            var entities_dict = await _httpHelper.GetRequestAsync<Dictionary<string, Taxonomy>>($"{_defaultPath}{_methodPath}{queryBuilder.BuildQueryURL()}", false, useAuth).ConfigureAwait(false);
+            var entities_dict = await _httpHelper.GetRequestAsync<Dictionary<string, Taxonomy>>($"{_defaultPath}{_methodPath}{queryBuilder.BuildQuery()}", false, useAuth).ConfigureAwait(false);
             foreach (var ent in entities_dict)
             {
                 entities.Add(ent.Value);

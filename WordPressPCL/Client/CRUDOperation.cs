@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using Flurl;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -71,17 +73,17 @@ namespace WordPressPCL.Client
         {
             var entity = HttpHelper.JsonSerializerSettings == null ? JsonConvert.SerializeObject(Entity) : JsonConvert.SerializeObject(Entity, HttpHelper.JsonSerializerSettings);
             using var postBody = new StringContent(entity, Encoding.UTF8, "application/json");
-            return (await HttpHelper.PostRequestAsync<TClass>($"{DefaultPath}{MethodPath}", postBody).ConfigureAwait(false)).Item1;
+            return (await HttpHelper.PostRequestAsync<TClass>(Url.Combine(DefaultPath, MethodPath), postBody).ConfigureAwait(false)).Item1;
         }
 
         /// <summary>
         /// Delete Entity
         /// </summary>
-        /// <param name="ID">Entity Id</param>
+        /// <param name="Id">Entity Id</param>
         /// <returns>Result of operation</returns>
-        public Task<bool> Delete(int ID)
+        public Task<bool> Delete(int Id)
         {
-            return HttpHelper.DeleteRequestAsync($"{DefaultPath}{MethodPath}/{ID}" + (ForceDeletion ? "?force=true" : string.Empty));
+            return HttpHelper.DeleteRequestAsync(Url.Combine(DefaultPath, MethodPath, Id.ToString()).SetQueryParam("force", ForceDeletion.ToString().ToLower(CultureInfo.InvariantCulture)));
         }
 
         /// <summary>
@@ -92,7 +94,7 @@ namespace WordPressPCL.Client
         /// <returns>Entity by Id</returns>
         public Task<IEnumerable<TClass>> GetAsync(bool embed = false, bool useAuth = false)
         {
-            return HttpHelper.GetRequestAsync<IEnumerable<TClass>>($"{DefaultPath}{MethodPath}", embed, useAuth);
+            return HttpHelper.GetRequestAsync<IEnumerable<TClass>>(Url.Combine(DefaultPath, MethodPath), embed, useAuth);
         }
 
         /// <summary>
@@ -104,13 +106,15 @@ namespace WordPressPCL.Client
         public async Task<IEnumerable<TClass>> GetAllAsync(bool embed = false, bool useAuth = false)
         {
             //100 - Max posts per page in WordPress REST API, so this is hack with multiple requests
-            var entities = (await HttpHelper.GetRequestAsync<IEnumerable<TClass>>($"{DefaultPath}{MethodPath}?per_page=100&page=1", embed, useAuth).ConfigureAwait(false))?.ToList();
-            if (HttpHelper.LastResponseHeaders.Contains("X-WP-TotalPages") && System.Convert.ToInt32(HttpHelper.LastResponseHeaders.GetValues("X-WP-TotalPages").FirstOrDefault(), CultureInfo.InvariantCulture) > 1)
+            var url = Url.Combine(DefaultPath, MethodPath).SetQueryParams(new (string, string)[] { ("per_page", "100"), ("page", "1") });
+            var entities = (await HttpHelper.GetRequestAsync<IEnumerable<TClass>>(url, embed, useAuth).ConfigureAwait(false))?.ToList();
+            if (HttpHelper.LastResponseHeaders.Contains("X-WP-TotalPages") && Convert.ToInt32(HttpHelper.LastResponseHeaders.GetValues("X-WP-TotalPages").FirstOrDefault(), CultureInfo.InvariantCulture) > 1)
             {
-                int totalpages = System.Convert.ToInt32(HttpHelper.LastResponseHeaders.GetValues("X-WP-TotalPages").FirstOrDefault(), CultureInfo.InvariantCulture);
+                int totalpages = Convert.ToInt32(HttpHelper.LastResponseHeaders.GetValues("X-WP-TotalPages").FirstOrDefault(), CultureInfo.InvariantCulture);
                 for (int page = 2; page <= totalpages; page++)
                 {
-                    entities.AddRange((await HttpHelper.GetRequestAsync<IEnumerable<TClass>>($"{DefaultPath}{MethodPath}?per_page=100&page={page}", embed, useAuth).ConfigureAwait(false))?.ToList());
+                    url = Url.Combine(DefaultPath, MethodPath).SetQueryParams(new (string, string)[] { ("per_page", page.ToString()), ("page", "1") });
+                    entities.AddRange((await HttpHelper.GetRequestAsync<IEnumerable<TClass>>(url, embed, useAuth).ConfigureAwait(false))?.ToList());
                 }
             }
             return entities;
@@ -136,7 +140,7 @@ namespace WordPressPCL.Client
         /// <returns>List of filtered result</returns>
         public Task<IEnumerable<TClass>> QueryAsync(QClass queryBuilder, bool useAuth = false)
         {
-            return HttpHelper.GetRequestAsync<IEnumerable<TClass>>($"{DefaultPath}{MethodPath}{queryBuilder.BuildQueryURL()}", false, useAuth);
+            return HttpHelper.GetRequestAsync<IEnumerable<TClass>>($"{DefaultPath}{MethodPath}{queryBuilder.BuildQuery()}", false, useAuth);
         }
 
         /// <summary>

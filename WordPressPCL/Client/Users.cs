@@ -101,7 +101,9 @@ namespace WordPressPCL.Client
         /// <returns>List of filtered result</returns>
         public Task<IEnumerable<User>> QueryAsync(UsersQueryBuilder queryBuilder, bool useAuth = false)
         {
-            return _httpHelper.GetRequestAsync<IEnumerable<User>>($"{_defaultPath}{METHOD_PATH}{queryBuilder.BuildQueryURL()}", false, useAuth);
+            var uri = new UriBuilder();
+            uri.Query = queryBuilder.BuildQuery();
+            return _httpHelper.GetRequestAsync<IEnumerable<User>>($"{_defaultPath}{METHOD_PATH}{queryBuilder.BuildQuery()}", false, useAuth);
         }
 
         /// <summary>

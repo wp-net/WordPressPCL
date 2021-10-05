@@ -7,8 +7,6 @@ namespace WordPressPCL.Tests.Selfhosted
     [TestClass]
     public class QueryBuilder_Tests
     {
-        private const int TAG_ID = 2;
-
         [TestMethod]
         public void Multi_Parameter_Query_Works_Test()
         {
@@ -17,8 +15,8 @@ namespace WordPressPCL.Tests.Selfhosted
                 Page = 2,
                 Embed = true
             };
-            Console.WriteLine(builder.BuildQueryURL());
-            Assert.AreEqual("?page=2&orderby=date&order=desc&_embed=true&context=view", builder.BuildQueryURL());
+            var query = builder.BuildQuery();
+            Assert.AreEqual("page=2&orderby=date&order=desc&_embed=true&context=view", query);
         }
     }
 
