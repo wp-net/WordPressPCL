@@ -17,7 +17,7 @@ services:
       context: .
     image: wordpress-custom
     ports:
-      - "80:80"
+      - "8080:80"
     container_name: wordpress
     environment:
       WORDPRESS_DB_HOST: db:3306
