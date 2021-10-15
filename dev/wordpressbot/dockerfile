@@ -1,7 +1,6 @@
 FROM python:3.9.7-slim-buster
 
 RUN pip3 install selenium
-RUN pip3 install webdriver_manager
 
 COPY ./wordpresssetupbot.py .
 
