@@ -78,18 +78,6 @@ namespace WordPressPCL.Utility
 
                     return attribute.Value;
                 }
-                if (pi.PropertyType.IsArray)
-                {
-                    var array = (Array)pi.GetValue(this);
-                    if (array == null) return null;
-                    StringBuilder sb = new StringBuilder();
-                    foreach (var item in array)
-                    {
-                        sb.Append(GetPropertyValue(item)).Append(",");
-                    }
-
-                    return sb.ToString().TrimEnd(',');
-                }
                 if (pi.PropertyType.IsGenericType && pi.PropertyType.GetGenericTypeDefinition() == typeof(List<>)) {
                     var genericParamOfList = pi.PropertyType.GetGenericArguments()[0];
                     var finalListType = typeof(List<>).MakeGenericType(genericParamOfList);
