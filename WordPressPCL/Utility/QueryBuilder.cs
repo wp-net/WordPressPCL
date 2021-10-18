@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Reflection;
 using System.Runtime.Serialization;
@@ -77,16 +78,15 @@ namespace WordPressPCL.Utility
 
                     return attribute.Value;
                 }
-                if (pi.PropertyType.IsArray)
-                {
-                    var array = (Array)pi.GetValue(this);
-                    if (array == null) return null;
-                    StringBuilder sb = new StringBuilder();
-                    foreach (var item in array)
-                    {
-                        sb.Append(GetPropertyValue(item)).Append(",");
+                if (pi.PropertyType.IsGenericType && pi.PropertyType.GetGenericTypeDefinition() == typeof(List<>)) {
+                    var genericParamOfList = pi.PropertyType.GetGenericArguments()[0];
+                    var finalListType = typeof(List<>).MakeGenericType(genericParamOfList);
+                    dynamic list = Convert.ChangeType(pi.GetValue(this), finalListType, CultureInfo.InvariantCulture);
+                    if (list == null) return null;
+                    var sb = new StringBuilder();
+                    foreach (var item in list) {
+                        sb.Append(GetPropertyValue((object)item)).Append(",");
                     }
-
                     return sb.ToString().TrimEnd(',');
                 }
                 if (pi.PropertyType == typeof(DateTime))
