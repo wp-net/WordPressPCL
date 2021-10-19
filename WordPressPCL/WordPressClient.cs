@@ -276,7 +276,6 @@ namespace WordPressPCL
                 {
                     HttpResponsePreProcessing = RemoveEmptyData;
                     (JWTResponse jwtResponse, _) = await _httpHelper.PostRequestAsync<JWTResponse>(route, null, true).ConfigureAwait(false);
-                    Console.WriteLine(jwtResponse.Message);
                     HttpResponsePreProcessing = null;
                     return jwtResponse.Success;
                 }
