@@ -4,6 +4,70 @@
         <name>WordPressPCL</name>
     </assembly>
     <members>
+        <member name="T:WordPressPCL.Client.Auth">
+            <summary>
+            Client class for interaction with Auth endpoints of WP REST API
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Client.Auth.AuthMethod">
+            <summary>
+            Authentication Method
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Client.Auth._httpHelper">
+            <summary>
+            Helper for HTTP requests
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Client.Auth.#ctor(WordPressPCL.Utility.HttpHelper@)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="httpHelper">reference to HttpHelper class for interaction with HTTP</param>
+        </member>
+        <member name="M:WordPressPCL.Client.Auth.RequestJWTokenAsync(System.String,System.String)">
+            <summary>
+            Perform authentication by JWToken
+            </summary>
+            <param name="username">username</param>
+            <param name="Password">password</param>
+        </member>
+        <member name="M:WordPressPCL.Client.Auth.Logout">
+            <summary>
+            Forget the JWT Auth Token, won't invalidate it serverside though
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Client.Auth.IsValidJWTokenAsync">
+            <summary>
+            Check if token is valid
+            </summary>
+            <returns>Result of checking</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Auth.RemoveEmptyData(System.String)">
+            <summary>
+            Removes an empty data field in a Json string, e.g. when checking validity of token
+            </summary>
+            <param name="response">Json response input string</param>
+            <returns>Json response output string</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Auth.SetJWToken(System.String)">
+            <summary>
+            Sets an existing JWToken
+            </summary>
+            <param name="token"></param>
+        </member>
+        <member name="M:WordPressPCL.Client.Auth.GetToken">
+            <summary>
+            Gets the JWToken from the client
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Auth.SetApplicationPassword(System.String)">
+            <summary>
+            Store Application Password in the Client
+            </summary>
+            <param name="applicationPassword"></param>
+        </member>
         <member name="T:WordPressPCL.Client.Categories">
             <summary>
             Client class for interaction with Categories endpoint WP REST API
@@ -4005,6 +4069,11 @@
             The username to be used with the Application Password
             </summary>
         </member>
+        <member name="P:WordPressPCL.WordPressClient.Auth">
+            <summary>
+            Auth client interaction object
+            </summary>
+        </member>
         <member name="P:WordPressPCL.WordPressClient.Posts">
             <summary>
             Posts client interaction object
@@ -4086,49 +4155,6 @@
             </summary>
             <param name="settings">Settings object</param>
             <returns>Updated settings</returns>
-        </member>
-        <member name="M:WordPressPCL.WordPressClient.RequestJWTokenAsync(System.String,System.String)">
-            <summary>
-            Perform authentication by JWToken
-            </summary>
-            <param name="Username">username</param>
-            <param name="Password">password</param>
-        </member>
-        <member name="M:WordPressPCL.WordPressClient.Logout">
-            <summary>
-            Forget the JWT Auth Token, won't invalidate it serverside though
-            </summary>
-        </member>
-        <member name="M:WordPressPCL.WordPressClient.IsValidJWTokenAsync">
-            <summary>
-            Check if token is valid
-            </summary>
-            <returns>Result of checking</returns>
-        </member>
-        <member name="M:WordPressPCL.WordPressClient.RemoveEmptyData(System.String)">
-            <summary>
-            Removes an empty data field in a Json string, e.g. when checking validity of token
-            </summary>
-            <param name="response">Json response input string</param>
-            <returns>Json response output string</returns>
-        </member>
-        <member name="M:WordPressPCL.WordPressClient.SetJWToken(System.String)">
-            <summary>
-            Sets an existing JWToken
-            </summary>
-            <param name="token"></param>
-        </member>
-        <member name="M:WordPressPCL.WordPressClient.GetToken">
-            <summary>
-            Gets the JWToken from the client
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:WordPressPCL.WordPressClient.SetApplicationPassword(System.String)">
-            <summary>
-            Store Application Password in the Client
-            </summary>
-            <param name="applictionPassword"></param>
         </member>
     </members>
 </doc>

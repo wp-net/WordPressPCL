@@ -23,7 +23,7 @@ namespace WordPressPCL.Tests.Hosted.Utility
             {
                 AuthMethod = AuthMethod.JWT
             };
-            await client.RequestJWTokenAsync(ApiCredentials.Username, ApiCredentials.Password);
+            await client.Auth.RequestJWTokenAsync(ApiCredentials.Username, ApiCredentials.Password);
 
             // Create a random tag , must works:
             var random = new Random();
@@ -62,7 +62,7 @@ namespace WordPressPCL.Tests.Hosted.Utility
             {
                 AuthMethod = AuthMethod.JWT
             };
-            await client.RequestJWTokenAsync(ApiCredentials.Username, ApiCredentials.Password);
+            await client.Auth.RequestJWTokenAsync(ApiCredentials.Username, ApiCredentials.Password);
 
             // Create a random tag
             var random = new Random();
