@@ -24,6 +24,7 @@ services:
       WORDPRESS_DB_USER: wordpress
       WORDPRESS_DB_PASSWORD: wordpress
       WORDPRESS_DB_NAME: wordpress
+      WORDPRESS_DEBUG: 1
       WORDPRESS_CONFIG_EXTRA: define('JWT_AUTH_SECRET_KEY', '.|)WaUppb-a>Z;(%p,4~^|5jjWom6Gw{(2_lqJv9r&]p<r4=rAvjM(LepuRf&+wI');
 
   selenium:
