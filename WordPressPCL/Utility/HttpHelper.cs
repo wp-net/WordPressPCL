@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using WordPressPCL.Models;
 using WordPressPCL.Models.Exceptions;
@@ -113,9 +114,7 @@ namespace WordPressPCL.Utility
             {
                 if (HttpResponsePreProcessing != null)
                     responseString = HttpResponsePreProcessing(responseString);
-                if (JsonSerializerSettings != null)
-                    return JsonConvert.DeserializeObject<TClass>(responseString, JsonSerializerSettings);
-                return JsonConvert.DeserializeObject<TClass>(responseString);
+                return DeserializeJsonResponse<TClass>(response, responseString);
             }
             else
             {
@@ -141,9 +140,7 @@ namespace WordPressPCL.Utility
             {
                 if (HttpResponsePreProcessing != null)
                     responseString = HttpResponsePreProcessing(responseString);
-                if (JsonSerializerSettings != null)
-                    return (JsonConvert.DeserializeObject<TClass>(responseString, JsonSerializerSettings), response);
-                return (JsonConvert.DeserializeObject<TClass>(responseString), response);
+                return (DeserializeJsonResponse<TClass>(response, responseString), response);
             }
             else
             {
@@ -190,6 +187,41 @@ namespace WordPressPCL.Utility
                     throw new WPException("Unsupported Authentication Method");
                 }
             }
+        }
+
+        private TClass DeserializeJsonResponse<TClass>(HttpResponseMessage response, string responseString) {
+            try {
+                if (JsonSerializerSettings != null) {
+                    return JsonConvert.DeserializeObject<TClass>(responseString, JsonSerializerSettings);
+                }
+                return JsonConvert.DeserializeObject<TClass>(responseString);
+            } catch (JsonReaderException) {
+                var (success, sanitizedResponse) = TryGetResponseFromMalformedResponse(responseString);
+                if (!success) {
+                    throw new WPUnexpectedException(response, responseString);
+                }
+
+                if (JsonSerializerSettings != null) {
+                    return JsonConvert.DeserializeObject<TClass>(sanitizedResponse, JsonSerializerSettings);
+                }
+                return JsonConvert.DeserializeObject<TClass>(sanitizedResponse);
+            }
+        }
+
+        private static (bool, string) TryGetResponseFromMalformedResponse(string responseString) {
+            responseString = responseString.Trim();
+            var jsonSingleItemRegex = @"\{""id"":.+\}$";
+            var match = Regex.Match(responseString, jsonSingleItemRegex);
+            if (match.Success) {
+                return (true, match.Value);
+            }
+            var jsonCollectionRegex = @"\[({""id"":.+},?)*\]$";
+            match = Regex.Match(responseString, jsonCollectionRegex);
+            if (match.Success) {
+                return (true, match.Value);
+            }
+
+            return (false, string.Empty);
         }
 
         private static Exception CreateUnexpectedResponseException(HttpResponseMessage response, string responseString)
