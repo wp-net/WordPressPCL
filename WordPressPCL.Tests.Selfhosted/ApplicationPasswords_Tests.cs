@@ -58,7 +58,7 @@ namespace WordPressPCL.Tests.Selfhosted
                 AuthMethod = AuthMethod.ApplicationPassword,
                 UserName = ApiCredentials.Username
             };
-            appPasswordClient.SetApplicationPassword(appPassword.Password);
+            appPasswordClient.Auth.SetApplicationPassword(appPassword.Password);
 
             var post = new Post()
             {

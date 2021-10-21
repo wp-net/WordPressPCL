@@ -127,7 +127,7 @@ namespace WordPressPCL.Tests.Selfhosted
                 Assert.Inconclusive();
                 return;
             }
-            var validToken = await _clientAuth.IsValidJWTokenAsync();
+            var validToken = await _clientAuth.Auth.IsValidJWTokenAsync();
             Assert.IsTrue(validToken);
         }
     }
