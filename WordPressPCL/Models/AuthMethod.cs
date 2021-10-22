@@ -7,16 +7,12 @@
     public enum AuthMethod
     {
         /// <summary>
-        /// JSON Web Token Authentication method by Enrique Chavez. Need configure your site with this plugin https://wordpress.org/plugins/jwt-authentication-for-wp-rest-api/
+        /// Bearer Authentication using token
         /// </summary>
-        JWT,
+        Bearer,
         /// <summary>
-        /// JSON Web Token Authentication method by Useful Team. Need configure your site with this plugin https://wordpress.org/plugins/jwt-auth/
+        /// Basic Authentication using Application Passwords introduced in Wordpress 5.6
         /// </summary>
-        JWTAuth,
-        /// <summary>
-        /// Basic authentication using Application Passwords introduced in WordPress 5.6
-        /// </summary>
-        ApplicationPassword
+        Basic
     }
 }

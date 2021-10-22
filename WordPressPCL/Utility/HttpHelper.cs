@@ -173,11 +173,11 @@ namespace WordPressPCL.Utility
         {
             if (isAuthRequired)
             {
-                if (AuthMethod == AuthMethod.JWT || AuthMethod == AuthMethod.JWTAuth)
+                if(AuthMethod == AuthMethod.Bearer)
                 {
                     requestMessage.Headers.Authorization = new AuthenticationHeaderValue("Bearer", JWToken);
                 }
-                else if (AuthMethod == AuthMethod.ApplicationPassword)
+                else if (AuthMethod == AuthMethod.Basic)
                 {
                     var authToken = Encoding.ASCII.GetBytes($"{UserName}:{ApplicationPassword}");
                     requestMessage.Headers.Authorization = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(authToken));

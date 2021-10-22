@@ -66,6 +66,15 @@ namespace WordPressPCL
         }
 
         /// <summary>
+        /// JWTAuth Plugin
+        /// </summary>
+        public JWTPlugin JWTPlugin 
+        {
+            get => Auth.JWTPlugin;
+            set => Auth.JWTPlugin = value;
+        }
+
+        /// <summary>
         /// The username to be used with the Application Password
         /// </summary>
         public string UserName {
