@@ -185,6 +185,14 @@ namespace WordPressPCL.Models
         public Embedded Embedded { get; set; }
 
         /// <summary>
+        /// A password to protect access to the content and excerpt.
+        /// </summary>
+        /// <remarks>Context: edit</remarks>
+
+        [JsonProperty("password", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public string Password { get; set; }
+
+        /// <summary>
         /// Parameterless constructor
         /// </summary>
         public Page()
