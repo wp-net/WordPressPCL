@@ -482,6 +482,12 @@
             <param name="useAuth">Send request with authentication header</param>
             <returns>List of posts</returns>
         </member>
+        <member name="M:WordPressPCL.Client.Posts.GetCountAsync">
+            <summary>
+            Get count of posts
+            </summary>
+            <returns>Result of operation</returns>
+        </member>
         <member name="M:WordPressPCL.Client.Posts.Delete(System.Int32,System.Boolean)">
             <summary>
             Delete post with force deletion
@@ -723,6 +729,17 @@
             </summary>
             <param name="userId">User ID, defaults to "me"</param>
             <returns>List of registered Application Passwords (without the actual password)</returns>
+        </member>
+        <member name="T:WordPressPCL.Interfaces.ICountOperation">
+            <summary>
+            Interface for count of Wordpress items
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Interfaces.ICountOperation.GetCountAsync">
+            <summary>
+            Get Count of Wordpress items
+            </summary>
+            <returns>Result of Operation</returns>
         </member>
         <member name="T:WordPressPCL.Interfaces.ICreateOperation`1">
             <summary>
