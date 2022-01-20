@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RunSettings>
   <TestRunParameters>
-    <Parameter name="authmode" value="jwtauth" />
+    <Parameter name="authplugin" value="jwtAuthByUsefulTeam" />
     <Parameter name="skipapppassword" value="true"/>
   </TestRunParameters>
 </RunSettings>

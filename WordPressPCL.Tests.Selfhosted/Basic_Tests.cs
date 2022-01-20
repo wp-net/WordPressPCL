@@ -122,7 +122,7 @@ namespace WordPressPCL.Tests.Selfhosted
         {
             // TODO: this test fails on jwtauth in CICD
             // all other authorized calls are working though
-            if(_context?.Properties["authmode"]?.ToString() == "jwtauth")
+            if(_context?.Properties["authplugin"]?.ToString() == "jwtAuthByUsefulTeam")
             {
                 Assert.Inconclusive();
                 return;

@@ -55,7 +55,7 @@ namespace WordPressPCL.Tests.Selfhosted
             var appPassword = await _clientAuth.Users.CreateApplicationPasswordAsync(System.Guid.NewGuid().ToString());
             var appPasswordClient = new WordPressClient(ApiCredentials.WordPressUri)
             {
-                AuthMethod = AuthMethod.ApplicationPassword,
+                AuthMethod = AuthMethod.Basic,
                 UserName = ApiCredentials.Username
             };
             appPasswordClient.Auth.SetApplicationPassword(appPassword.Password);
