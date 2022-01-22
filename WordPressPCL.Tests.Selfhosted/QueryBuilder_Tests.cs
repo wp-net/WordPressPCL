@@ -21,8 +21,8 @@ namespace WordPressPCL.Tests.Selfhosted
                 Statuses = new List<Status> { Status.Publish },
                 Embed = true
             };
-            Console.WriteLine(builder.BuildQueryURL());
-            Assert.AreEqual("?page=1&per_page=15&orderby=title&status=publish&order=asc&_embed=true&context=view", builder.BuildQueryURL());
+            Console.WriteLine(builder.BuildQuery());
+            Assert.AreEqual("?page=1&per_page=15&orderby=title&status=publish&order=asc&_embed=true&context=view", builder.BuildQuery());
         }
     }
 
