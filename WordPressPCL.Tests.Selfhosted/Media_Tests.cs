@@ -9,6 +9,7 @@ using System.Linq;
 using WordPressPCL.Utility;
 using WordPressPCL.Models;
 using System.IO;
+using Newtonsoft.Json;
 using System.Diagnostics;
 
 namespace WordPressPCL.Tests.Selfhosted
@@ -34,6 +35,7 @@ namespace WordPressPCL.Tests.Selfhosted
             var mediaitem = await _clientAuth.Media.CreateAsync(s,"cat.jpg");
             Assert.IsNotNull(mediaitem);
         }
+
         [TestMethod]
         public async Task Media_Create_2_0()
         {
@@ -52,6 +54,19 @@ namespace WordPressPCL.Tests.Selfhosted
             var createdPost = await _clientAuth.Posts.CreateAsync(post);
 
             Assert.AreEqual(createdPost.FeaturedMedia, mediaitem.Id);
+        }
+
+        [TestMethod]
+        public async Task Media_With_Exif_Error_Should_Deserialize_Without_Exception() 
+        {
+            var path = Directory.GetCurrentDirectory() + "/Assets/img_exif_error.jpg";
+            MediaItem mediaItem = null;
+            try {
+                mediaItem = await _clientAuth.Media.CreateAsync(path, "img_exif_error.jpg");
+            } catch (JsonReaderException) {
+                Assert.Fail("Could not deserialize created Media due to JsonReaderException");
+            }
+            Assert.IsNotNull(mediaItem);
         }
 
         [TestMethod]

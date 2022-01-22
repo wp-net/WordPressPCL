@@ -20,13 +20,19 @@ namespace WordPressPCL.Tests.Selfhosted
         {
             _client = ClientHelper.GetWordPressClient();
             _clientAuth = await ClientHelper.GetAuthenticatedWordPressClient(testContext);
+
+            var tagname = $"Test {System.Guid.NewGuid()}";
+            await _clientAuth.Tags.CreateAsync(new Tag()
+            {
+                Name = tagname,
+                Description = "Test Description"
+            });
         }
 
         [TestMethod]
         public async Task Tags_Create()
         {
-            var random = new Random();
-            var tagname = $"Test {random.Next(0, 1000)}";
+            var tagname = $"Test {System.Guid.NewGuid()}";
             var tag = await _clientAuth.Tags.CreateAsync(new Tag()
             {
                 Name = tagname,

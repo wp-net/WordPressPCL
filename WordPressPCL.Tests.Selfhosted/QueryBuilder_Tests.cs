@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using WordPressPCL.Models;
 using WordPressPCL.Utility;
 
 namespace WordPressPCL.Tests.Selfhosted
@@ -12,11 +14,15 @@ namespace WordPressPCL.Tests.Selfhosted
         {
             // Initialize
             var builder = new PostsQueryBuilder() {
-                Page = 2,
+                Page = 1,
+                PerPage = 15,
+                OrderBy = PostsOrderBy.Title,
+                Order = Order.ASC,
+                Statuses = new List<Status> { Status.Publish },
                 Embed = true
             };
-            var query = builder.BuildQuery();
-            Assert.AreEqual("page=2&orderby=date&order=desc&_embed=true&context=view", query);
+            Console.WriteLine(builder.BuildQueryURL());
+            Assert.AreEqual("?page=1&per_page=15&orderby=title&status=publish&order=asc&_embed=true&context=view", builder.BuildQueryURL());
         }
     }
 

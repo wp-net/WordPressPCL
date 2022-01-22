@@ -20,7 +20,6 @@ namespace WordPressPCL
         private readonly HttpHelper _httpHelper;
         private const string DEFAULT_PATH = "wp/v2/";
         private readonly string _defaultPath;
-        private const string _jwtPath = "jwt-auth/v1/";
 
         /// <summary>
         /// WordPressUri holds the WordPress API endpoint, e.g. "http://demo.wp-api.org/wp-json/wp/v2/"
@@ -59,7 +58,20 @@ namespace WordPressPCL
         public AuthMethod AuthMethod 
         {
             get => _httpHelper.AuthMethod;
-            set => _httpHelper.AuthMethod = value;
+            set 
+            { 
+                _httpHelper.AuthMethod = value;
+                Auth.AuthMethod = value;
+            }
+        }
+
+        /// <summary>
+        /// JWTAuth Plugin
+        /// </summary>
+        public JWTPlugin JWTPlugin 
+        {
+            get => Auth.JWTPlugin;
+            set => Auth.JWTPlugin = value;
         }
 
         /// <summary>
@@ -69,6 +81,11 @@ namespace WordPressPCL
             get => _httpHelper.UserName;
             set => _httpHelper.UserName = value;
         }
+
+        /// <summary>
+        /// Auth client interaction object
+        /// </summary>
+        public Auth Auth { get; }
 
         //public string JWToken;
         /// <summary>
@@ -137,6 +154,7 @@ namespace WordPressPCL
             _defaultPath = defaultPath;
 
             _httpHelper = new HttpHelper(WordPressUri);
+            Auth = new Auth(ref _httpHelper);
             Posts = new Posts(ref _httpHelper, _defaultPath);
             Comments = new Comments(ref _httpHelper, _defaultPath);
             Tags = new Tags(ref _httpHelper, _defaultPath);
@@ -176,6 +194,7 @@ namespace WordPressPCL
             _defaultPath = defaultPath;
 
             _httpHelper = new HttpHelper(httpClient);
+            Auth = new Auth(ref _httpHelper);
             Posts = new Posts(ref _httpHelper, _defaultPath);
             Comments = new Comments(ref _httpHelper, _defaultPath);
             Tags = new Tags(ref _httpHelper, _defaultPath);
@@ -214,122 +233,5 @@ namespace WordPressPCL
 
         #endregion Settings methods
 
-        #region auth methods
-
-        /// <summary>
-        /// Perform authentication by JWToken
-        /// </summary>
-        /// <param name="Username">username</param>
-        /// <param name="Password">password</param>
-        public async Task RequestJWTokenAsync(string Username, string Password)
-        {
-            var route = $"{_jwtPath}token";
-            using var formContent = new FormUrlEncodedContent(new[]
-                {
-                    new KeyValuePair<string, string>("username", Username),
-                    new KeyValuePair<string, string>("password", Password)
-                });
-            if (AuthMethod == AuthMethod.JWT)
-            {
-                (JWTUser jwtUser, _) = await _httpHelper.PostRequestAsync<JWTUser>(route, formContent, false).ConfigureAwait(false);
-                _httpHelper.JWToken = jwtUser?.Token;
-            }
-            else if (AuthMethod == AuthMethod.JWTAuth)
-            {
-                HttpResponsePreProcessing = RemoveEmptyData;
-                (JWTResponse jwtResponse, _) = await _httpHelper.PostRequestAsync<JWTResponse>(route, formContent, false).ConfigureAwait(false);
-                HttpResponsePreProcessing = null;
-                _httpHelper.JWToken = jwtResponse?.Data?.Token;
-            }
-            else
-            {
-                throw new ArgumentException($"Authentication methode {AuthMethod} is not supported");
-            }
-        }
-
-        /// <summary>
-        /// Forget the JWT Auth Token, won't invalidate it serverside though
-        /// </summary>
-        public void Logout()
-        {
-            _httpHelper.JWToken = default;
-            _httpHelper.ApplicationPassword = default;
-        }
-
-        /// <summary>
-        /// Check if token is valid
-        /// </summary>
-        /// <returns>Result of checking</returns>
-        public async Task<bool> IsValidJWTokenAsync()
-        {
-            var route = $"{_jwtPath}token/validate";
-            try
-            {
-                if (AuthMethod == AuthMethod.JWT)
-                {
-                    (JWTUser jwtUser, HttpResponseMessage repsonse) = await _httpHelper.PostRequestAsync<JWTUser>(route, null, true).ConfigureAwait(false);
-                    return repsonse.IsSuccessStatusCode;
-                }
-                else if (AuthMethod == AuthMethod.JWTAuth)
-                {
-                    HttpResponsePreProcessing = RemoveEmptyData;
-                    (JWTResponse jwtResponse, _) = await _httpHelper.PostRequestAsync<JWTResponse>(route, null, true).ConfigureAwait(false);
-                    HttpResponsePreProcessing = null;
-                    return jwtResponse.Success;
-                }
-                else
-                {
-                    throw new ArgumentException($"Authentication methode {AuthMethod} is not supported");
-                }
-            }
-            catch (WPException)
-            {
-                return false;
-            }
-        }
-
-        /// <summary>
-        /// Removes an empty data field in a Json string, e.g. when checking validity of token
-        /// </summary>
-        /// <param name="response">Json response input string</param>
-        /// <returns>Json response output string</returns>
-        private string RemoveEmptyData(string response)
-        {
-            JObject jo = JObject.Parse(response);
-            if (!jo.SelectToken("data").HasValues)
-            {
-                jo.Remove("data");
-            }
-            return jo.ToString();
-        }
-
-        /// <summary>
-        /// Sets an existing JWToken
-        /// </summary>
-        /// <param name="token"></param>
-        public void SetJWToken(string token)
-        {
-            _httpHelper.JWToken = token;
-        }
-
-        /// <summary>
-        /// Gets the JWToken from the client
-        /// </summary>
-        /// <returns></returns>
-        public string GetToken()
-        {
-            return _httpHelper.JWToken;
-        }
-
-        /// <summary>
-        /// Store Application Password in the Client
-        /// </summary>
-        /// <param name="applictionPassword"></param>
-        public void SetApplicationPassword(string applictionPassword)
-        {
-            _httpHelper.ApplicationPassword = applictionPassword;
-        }
-
-        #endregion auth methods
     }
 }

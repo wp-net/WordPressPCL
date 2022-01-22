@@ -1,29 +1,41 @@
-version: '3.1'
+version: "3.9"
 
 services:
-
-  wordpress:
-    image: wordpress:latest
-    restart: always
-    ports:
-      - 8080:80
-    environment:
-      WORDPRESS_DB_HOST: db
-      WORDPRESS_DB_USER: exampleuser
-      WORDPRESS_DB_PASSWORD: examplepass
-      WORDPRESS_DB_NAME: exampledb
-    volumes:
-      - "./wordpress:/var/www/html"
   db:
     image: mysql:5.7
-    restart: always
+    container_name: db
     environment:
-      MYSQL_DATABASE: exampledb
-      MYSQL_USER: exampleuser
-      MYSQL_PASSWORD: examplepass
-      MYSQL_RANDOM_ROOT_PASSWORD: '1'
-    volumes:
-      - db:/var/lib/mysql
+      MYSQL_ROOT_PASSWORD: wordpress
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpress
 
-volumes:
-  db:
+  wordpress:
+    depends_on:
+      - db
+    build:
+      context: .
+    image: wordpress-custom
+    ports:
+      - "8080:80"
+    container_name: wordpress
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress
+      WORDPRESS_DB_NAME: wordpress
+      WORDPRESS_DEBUG: 1
+      WORDPRESS_CONFIG_EXTRA: define('JWT_AUTH_SECRET_KEY', '.|)WaUppb-a>Z;(%p,4~^|5jjWom6Gw{(2_lqJv9r&]p<r4=rAvjM(LepuRf&+wI');
+
+  selenium:
+    depends_on:
+      - wordpress
+    image: selenium/standalone-chrome:latest
+    container_name: selenium
+    shm_size: '2gb'
+    ports:
+      - "4444:4444"
+
+networks:
+  default:
+    name: integration-tests-setup

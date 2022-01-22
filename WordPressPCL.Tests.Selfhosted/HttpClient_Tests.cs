@@ -29,8 +29,8 @@ namespace WordPressPCL.Tests.Selfhosted
             Assert.IsTrue(posts.First().Id == post.Id);
             Assert.IsTrue(!string.IsNullOrEmpty(posts.First().Content.Rendered));
 
-            await client.RequestJWTokenAsync(ApiCredentials.Username, ApiCredentials.Password);
-            var validToken = await client.IsValidJWTokenAsync();
+            await client.Auth.RequestJWTokenAsync(ApiCredentials.Username, ApiCredentials.Password);
+            var validToken = await client.Auth.IsValidJWTokenAsync();
             Assert.IsTrue(validToken);
         }
     }

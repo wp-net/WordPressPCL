@@ -21,9 +21,9 @@ namespace WordPressPCL.Tests.Hosted.Utility
             // AUTHENTICATION DOES NOT YET WORK FOR HOSTED SITES
             var client = new WordPressClient(ApiCredentials.WordPressUri)
             {
-                AuthMethod = AuthMethod.JWT
+                AuthMethod = AuthMethod.Bearer
             };
-            await client.RequestJWTokenAsync(ApiCredentials.Username, ApiCredentials.Password);
+            await client.Auth.RequestJWTokenAsync(ApiCredentials.Username, ApiCredentials.Password);
 
             // Create a random tag , must works:
             var random = new Random();
@@ -60,9 +60,9 @@ namespace WordPressPCL.Tests.Hosted.Utility
         {
             var client = new WordPressClient(ApiCredentials.WordPressUri)
             {
-                AuthMethod = AuthMethod.JWT
+                AuthMethod = AuthMethod.Bearer
             };
-            await client.RequestJWTokenAsync(ApiCredentials.Username, ApiCredentials.Password);
+            await client.Auth.RequestJWTokenAsync(ApiCredentials.Username, ApiCredentials.Password);
 
             // Create a random tag
             var random = new Random();
