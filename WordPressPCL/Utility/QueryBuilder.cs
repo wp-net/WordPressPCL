@@ -53,7 +53,7 @@ namespace WordPressPCL.Utility
                     if (value is int && (int)value == default) continue;
                     if (value is string && (string.IsNullOrEmpty((string)value) || (string)value == DateTime.MinValue.ToString("yyyy-MM-ddTHH:mm:ss", CultureInfo.InvariantCulture))) continue;
                     if (value is DateTime && (string)value == DateTime.MinValue.ToString("yyyy-MM-ddTHH:mm:ss", CultureInfo.InvariantCulture)) continue;
-                    if (property.PropertyType == typeof(bool) && (string)value == default(bool).ToString().ToLower()) continue;
+                    if (property.PropertyType == typeof(bool) && (string)value == default(bool).ToString().ToLowerInvariant()) continue;
                     sb.Append(attribute.Text).Append('=').Append(value).Append('&');
                 }
             }
@@ -85,17 +85,17 @@ namespace WordPressPCL.Utility
                     if (list == null) return null;
                     var sb = new StringBuilder();
                     foreach (var item in list) {
-                        sb.Append(GetPropertyValue((object)item)).Append(",");
+                        sb.Append(GetPropertyValue((object)item)).Append(',');
                     }
                     return sb.ToString().TrimEnd(',');
                 }
                 if (pi.PropertyType == typeof(DateTime))
                 {
-                    return ((DateTime)pi.GetValue(this)).ToString("yyyy-MM-ddTHH:mm:ss");
+                    return ((DateTime)pi.GetValue(this)).ToString("yyyy-MM-ddTHH:mm:ss", CultureInfo.InvariantCulture);
                 }
                 if (pi.PropertyType == typeof(bool))
                 {
-                    return ((bool)pi.GetValue(this)).ToString().ToLower();
+                    return ((bool)pi.GetValue(this)).ToString().ToLowerInvariant();
                 }
                 return pi.GetValue(this);
             }
@@ -109,11 +109,11 @@ namespace WordPressPCL.Utility
                 }
                 if (property.GetType() == typeof(DateTime))
                 {
-                    return ((DateTime)property).ToString("yyyy-MM-ddTHH:mm:ss");
+                    return ((DateTime)property).ToString("yyyy-MM-ddTHH:mm:ss", CultureInfo.InvariantCulture);
                 }
                 if (property.GetType() == typeof(bool))
                 {
-                    return ((bool)property).ToString().ToLower();
+                    return ((bool)property).ToString().ToLowerInvariant();
                 }
                 return property;
             }
