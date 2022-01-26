@@ -169,6 +169,24 @@ namespace WordPressPCL.Utility
             }
         }
 
+        internal async Task<HttpResponseHeaders> HeadRequestAsync(string route, bool isAuthRequired = false) 
+        {
+            HttpResponseMessage response;
+            using (var requestMessage = new HttpRequestMessage(HttpMethod.Head, $"{_wordpressURI}{route}")) 
+            {
+                SetAuthHeader(isAuthRequired, requestMessage);
+                response = await _httpClient.SendAsync(requestMessage).ConfigureAwait(false);
+            }
+
+            LastResponseHeaders = response.Headers;
+            if (response.IsSuccessStatusCode) 
+            {
+                return response.Headers;
+            }
+
+            throw new WPUnexpectedException(response, string.Empty);
+        }
+
         private void SetAuthHeader(bool isAuthRequired, HttpRequestMessage requestMessage)
         {
             if (isAuthRequired)

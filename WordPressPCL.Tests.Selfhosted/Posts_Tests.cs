@@ -65,6 +65,13 @@ namespace WordPressPCL.Tests.Selfhosted
         }
 
         [TestMethod]
+        public async Task Posts_Count_Should_Equal_Number_Of_Posts() {
+            var posts = await _client.Posts.GetAllAsync();
+            var postsCount = await _client.Posts.GetCountAsync();
+            Assert.AreEqual(posts.Count(), postsCount);
+        }
+
+        [TestMethod]
         public async Task Posts_Read_Embedded()
         {
             var posts = await _client.Posts.QueryAsync(new PostsQueryBuilder()
