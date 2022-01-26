@@ -1,7 +1,9 @@
 ﻿using Flurl;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Threading.Tasks;
+using WordPressPCL.Interfaces;
 using WordPressPCL.Models;
 using WordPressPCL.Utility;
 
@@ -10,7 +12,7 @@ namespace WordPressPCL.Client
     /// <summary>
     /// Client class for interaction with Posts endpoint WP REST API
     /// </summary>
-    public class Posts : CRUDOperation<Post, PostsQueryBuilder>
+    public class Posts : CRUDOperation<Post, PostsQueryBuilder>, ICountOperation
     {
         #region Init
 
@@ -96,6 +98,17 @@ namespace WordPressPCL.Client
             // default values
             // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
             return HttpHelper.GetRequestAsync<IEnumerable<Post>>(Url.Combine(DefaultPath, _methodPath).SetQueryParam("search", searchTerm), embed, useAuth);
+        }
+
+        /// <summary>
+        /// Get count of posts
+        /// </summary>
+        /// <returns>Result of operation</returns>
+        public async Task<int> GetCountAsync() 
+        {
+            var responseHeaders = await HttpHelper.HeadRequestAsync($"{DefaultPath}{_methodPath}").ConfigureAwait(false);
+            var totalHeaderVal = responseHeaders.GetValues("X-WP-Total").First();
+            return int.Parse(totalHeaderVal, CultureInfo.InvariantCulture);
         }
 
         /// <summary>
