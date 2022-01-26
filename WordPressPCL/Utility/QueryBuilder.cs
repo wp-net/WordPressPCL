@@ -62,7 +62,12 @@ namespace WordPressPCL.Utility
 #pragma warning restore CA1308 // Normalize strings to uppercase
                 }
             }
-            return query.ToString();
+            var queryString = query.ToString();
+            if(queryString.Length > 0)
+            {
+                queryString = "?" + queryString;
+            }
+            return queryString;
         }
 
         /// <summary>

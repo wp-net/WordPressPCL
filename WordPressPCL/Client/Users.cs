@@ -115,7 +115,7 @@ namespace WordPressPCL.Client
         {
             var entity = _httpHelper.JsonSerializerSettings == null ? JsonConvert.SerializeObject(Entity) : JsonConvert.SerializeObject(Entity, _httpHelper.JsonSerializerSettings);
             using var postBody = new StringContent(entity, Encoding.UTF8, "application/json");
-            return (await _httpHelper.PostRequestAsync<User>($"{_defaultPath}{METHOD_PATH}/{(Entity as Base)?.Id}", postBody).ConfigureAwait(false)).Item1;
+            return (await _httpHelper.PostRequestAsync<User>($"{_defaultPath}{METHOD_PATH}/{Entity?.Id}", postBody).ConfigureAwait(false)).Item1;
         }
 
         #region Custom
