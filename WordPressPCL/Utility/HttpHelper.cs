@@ -81,6 +81,7 @@ namespace WordPressPCL.Utility
         /// <paramref name="httpClient"/>
         /// </summary>
         /// <param name="httpClient">Http client which would be used for sending requests to the WordPress API endpoint.</param>
+        /// <param name="defaultPath">Relative path to standard API endpoints, defaults to "wp/v2/"</param>
         public HttpHelper(HttpClient httpClient, string defaultPath)
         {
             _httpClient = httpClient;
