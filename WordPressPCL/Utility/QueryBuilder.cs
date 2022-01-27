@@ -56,10 +56,7 @@ namespace WordPressPCL.Utility
                     if (value is string valueString && (string.IsNullOrEmpty(valueString) || valueString == DateTime.MinValue.ToString("yyyy-MM-ddTHH:mm:ss", CultureInfo.InvariantCulture))) continue;
                     if (value is DateTime valueDateTime && valueDateTime == default) continue;
                     if (property.PropertyType == typeof(bool) && (string)value == default(bool).ToString().ToUpperInvariant()) continue;
-
-#pragma warning disable CA1308 // Normalize strings to uppercase
-                    query.Add(attribute.Text, value.ToString().ToLower(CultureInfo.InvariantCulture));
-#pragma warning restore CA1308 // Normalize strings to uppercase
+                    query.Add(attribute.Text, value.ToString().ToLowerInvariant());
                 }
             }
             var queryString = query.ToString();
@@ -93,7 +90,7 @@ namespace WordPressPCL.Utility
                     if (list == null) return null;
                     var sb = new StringBuilder();
                     foreach (var item in list) {
-                        sb.Append(GetPropertyValue((object)item)).Append(",");
+                        sb.Append(GetPropertyValue((object)item)).Append(',');
                     }
                     return sb.ToString().TrimEnd(',');
                 }
@@ -103,7 +100,7 @@ namespace WordPressPCL.Utility
                 }
                 if (pi.PropertyType == typeof(bool))
                 {
-                    return ((bool)pi.GetValue(this)).ToString().ToUpperInvariant();
+                    return ((bool)pi.GetValue(this)).ToString().ToLower();
                 }
                 return pi.GetValue(this);
             }
@@ -121,7 +118,7 @@ namespace WordPressPCL.Utility
                 }
                 if (property.GetType() == typeof(bool))
                 {
-                    return ((bool)property).ToString().ToUpperInvariant();
+                    return ((bool)property).ToString().ToLower();
                 }
                 return property;
             }
