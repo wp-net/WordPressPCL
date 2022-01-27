@@ -2264,6 +2264,12 @@
             Embedded information like featured images
             </summary>
         </member>
+        <member name="P:WordPressPCL.Models.Page.Password">
+            <summary>
+            A password to protect access to the content and excerpt.
+            </summary>
+            <remarks>Context: edit</remarks>
+        </member>
         <member name="M:WordPressPCL.Models.Page.#ctor">
             <summary>
             Parameterless constructor
