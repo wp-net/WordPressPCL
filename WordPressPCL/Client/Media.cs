@@ -20,7 +20,6 @@ namespace WordPressPCL.Client
     {
         #region Init
 
-        private readonly string _defaultPath;
         private const string _methodPath = "media";
         private readonly HttpHelper _httpHelper;
 
@@ -28,11 +27,9 @@ namespace WordPressPCL.Client
         /// Constructor
         /// </summary>
         /// <param name="HttpHelper">reference to HttpHelper class for interaction with HTTP</param>
-        /// <param name="defaultPath">path to site, EX. http://demo.com/wp-json/ </param>
-        public Media(ref HttpHelper HttpHelper, string defaultPath)
+        public Media(ref HttpHelper HttpHelper)
         {
             _httpHelper = HttpHelper;
-            _defaultPath = defaultPath;
         }
 
         #endregion Init
@@ -58,7 +55,7 @@ namespace WordPressPCL.Client
                 content.Headers.TryAddWithoutValidation("Content-Type", mimeType);
             }
             content.Headers.TryAddWithoutValidation("Content-Disposition", $"attachment; filename={filename}");
-            return (await _httpHelper.PostRequestAsync<MediaItem>($"{_defaultPath}{_methodPath}", content).ConfigureAwait(false)).Item1;
+            return (await _httpHelper.PostRequestAsync<MediaItem>($"{_methodPath}", content).ConfigureAwait(false)).Item1;
         }
 
         /// <summary>
@@ -85,7 +82,7 @@ namespace WordPressPCL.Client
                     content.Headers.TryAddWithoutValidation("Content-Type", mimeType);
                 }
                 content.Headers.TryAddWithoutValidation("Content-Disposition", $"attachment; filename={filename}");
-                return (await _httpHelper.PostRequestAsync<MediaItem>($"{_defaultPath}{_methodPath}", content).ConfigureAwait(false)).Item1;
+                return (await _httpHelper.PostRequestAsync<MediaItem>($"{_methodPath}", content).ConfigureAwait(false)).Item1;
             }
             else
             {
@@ -100,7 +97,7 @@ namespace WordPressPCL.Client
         /// <returns>Result of operation</returns>
         public Task<bool> Delete(int ID)
         {
-            return _httpHelper.DeleteRequestAsync($"{_defaultPath}{_methodPath}/{ID}?force=true");
+            return _httpHelper.DeleteRequestAsync($"{_methodPath}/{ID}?force=true");
         }
 
         /// <summary>
@@ -111,7 +108,7 @@ namespace WordPressPCL.Client
         /// <returns>Latest media items</returns>
         public Task<IEnumerable<MediaItem>> GetAsync(bool embed = false, bool useAuth = false)
         {
-            return _httpHelper.GetRequestAsync<IEnumerable<MediaItem>>($"{_defaultPath}{_methodPath}", embed, useAuth);
+            return _httpHelper.GetRequestAsync<IEnumerable<MediaItem>>($"{_methodPath}", embed, useAuth);
         }
 
         /// <summary>
@@ -123,13 +120,13 @@ namespace WordPressPCL.Client
         public async Task<IEnumerable<MediaItem>> GetAllAsync(bool embed = false, bool useAuth = false)
         {
             //100 - Max posts per page in WordPress REST API, so this is hack with multiple requests
-            var entities = (await _httpHelper.GetRequestAsync<IEnumerable<MediaItem>>($"{_defaultPath}{_methodPath}?per_page=100&page=1", embed, useAuth).ConfigureAwait(false))?.ToList();
+            var entities = (await _httpHelper.GetRequestAsync<IEnumerable<MediaItem>>($"{_methodPath}?per_page=100&page=1", embed, useAuth).ConfigureAwait(false))?.ToList();
             if (_httpHelper.LastResponseHeaders.Contains("X-WP-TotalPages") && Convert.ToInt32(_httpHelper.LastResponseHeaders.GetValues("X-WP-TotalPages").FirstOrDefault(), CultureInfo.InvariantCulture) > 1)
             {
                 int totalpages = Convert.ToInt32(_httpHelper.LastResponseHeaders.GetValues("X-WP-TotalPages").FirstOrDefault(), CultureInfo.InvariantCulture);
                 for (int page = 2; page <= totalpages; page++)
                 {
-                    entities.AddRange((await _httpHelper.GetRequestAsync<IEnumerable<MediaItem>>($"{_defaultPath}{_methodPath}?per_page=100&page={page}", embed, useAuth).ConfigureAwait(false))?.ToList());
+                    entities.AddRange((await _httpHelper.GetRequestAsync<IEnumerable<MediaItem>>($"{_methodPath}?per_page=100&page={page}", embed, useAuth).ConfigureAwait(false))?.ToList());
                 }
             }
             return entities;
@@ -144,7 +141,7 @@ namespace WordPressPCL.Client
         /// <returns>Entity by Id</returns>
         public Task<MediaItem> GetByID(object ID, bool embed = false, bool useAuth = false)
         {
-            return _httpHelper.GetRequestAsync<MediaItem>($"{_defaultPath}{_methodPath}/{ID}", embed, useAuth);
+            return _httpHelper.GetRequestAsync<MediaItem>($"{_methodPath}/{ID}", embed, useAuth);
         }
 
         /// <summary>
@@ -155,7 +152,7 @@ namespace WordPressPCL.Client
         /// <returns>List of filtered result</returns>
         public Task<IEnumerable<MediaItem>> QueryAsync(MediaQueryBuilder queryBuilder, bool useAuth = false)
         {
-            return _httpHelper.GetRequestAsync<IEnumerable<MediaItem>>($"{_defaultPath}{_methodPath}{queryBuilder?.BuildQuery()}", false, useAuth);
+            return _httpHelper.GetRequestAsync<IEnumerable<MediaItem>>($"{_methodPath}{queryBuilder?.BuildQuery()}", false, useAuth);
         }
 
         /// <summary>
@@ -167,7 +164,7 @@ namespace WordPressPCL.Client
         {
             var entity = _httpHelper.JsonSerializerSettings == null ? JsonConvert.SerializeObject(Entity) : JsonConvert.SerializeObject(Entity, _httpHelper.JsonSerializerSettings);
             using var postBody = new StringContent(entity, Encoding.UTF8, "application/json");
-            return (await _httpHelper.PostRequestAsync<MediaItem>($"{_defaultPath}{_methodPath}/{Entity?.Id}", postBody).ConfigureAwait(false)).Item1;
+            return (await _httpHelper.PostRequestAsync<MediaItem>($"{_methodPath}/{Entity?.Id}", postBody).ConfigureAwait(false)).Item1;
         }
     }
 }

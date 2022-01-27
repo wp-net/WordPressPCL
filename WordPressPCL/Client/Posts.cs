@@ -1,5 +1,4 @@
-﻿using Flurl;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
@@ -22,8 +21,7 @@ namespace WordPressPCL.Client
         /// Constructor
         /// </summary>
         /// <param name="HttpHelper">reference to HttpHelper class for interaction with HTTP</param>
-        /// <param name="defaultPath">path to site, EX. http://demo.com/wp-json/ </param>
-        public Posts(ref HttpHelper HttpHelper, string defaultPath) : base(ref HttpHelper, defaultPath, _methodPath)
+        public Posts(ref HttpHelper HttpHelper) : base(ref HttpHelper, _methodPath)
         {
         }
 
@@ -41,7 +39,7 @@ namespace WordPressPCL.Client
         {
             // default values
             // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
-            return HttpHelper.GetRequestAsync<IEnumerable<Post>>(Url.Combine(DefaultPath, _methodPath).SetQueryParam("sticky", "true"), embed, useAuth);
+            return HttpHelper.GetRequestAsync<IEnumerable<Post>>(_methodPath.SetQueryParam("sticky", "true"), embed, useAuth);
         }
 
         /// <summary>
@@ -55,7 +53,7 @@ namespace WordPressPCL.Client
         {
             // default values
             // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
-            return HttpHelper.GetRequestAsync<IEnumerable<Post>>(Url.Combine(DefaultPath, _methodPath).SetQueryParam("categories", categoryId), embed, useAuth);
+            return HttpHelper.GetRequestAsync<IEnumerable<Post>>(_methodPath.SetQueryParam("categories", categoryId), embed, useAuth);
         }
 
         /// <summary>
@@ -69,7 +67,7 @@ namespace WordPressPCL.Client
         {
             // default values
             // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
-            return HttpHelper.GetRequestAsync<IEnumerable<Post>>(Url.Combine(DefaultPath, _methodPath).SetQueryParam("tags", tagId), embed, useAuth);
+            return HttpHelper.GetRequestAsync<IEnumerable<Post>>(_methodPath.SetQueryParam("tags", tagId), embed, useAuth);
         }
 
         /// <summary>
@@ -83,7 +81,7 @@ namespace WordPressPCL.Client
         {
             // default values
             // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
-            return HttpHelper.GetRequestAsync<IEnumerable<Post>>(Url.Combine(DefaultPath, _methodPath).SetQueryParam("author", authorId), embed, useAuth);
+            return HttpHelper.GetRequestAsync<IEnumerable<Post>>(_methodPath.SetQueryParam("author", authorId), embed, useAuth);
         }
 
         /// <summary>
@@ -97,7 +95,7 @@ namespace WordPressPCL.Client
         {
             // default values
             // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
-            return HttpHelper.GetRequestAsync<IEnumerable<Post>>(Url.Combine(DefaultPath, _methodPath).SetQueryParam("search", searchTerm), embed, useAuth);
+            return HttpHelper.GetRequestAsync<IEnumerable<Post>>(_methodPath.SetQueryParam("search", searchTerm), embed, useAuth);
         }
 
         /// <summary>
@@ -106,7 +104,7 @@ namespace WordPressPCL.Client
         /// <returns>Result of operation</returns>
         public async Task<int> GetCountAsync() 
         {
-            var responseHeaders = await HttpHelper.HeadRequestAsync($"{DefaultPath}{_methodPath}").ConfigureAwait(false);
+            var responseHeaders = await HttpHelper.HeadRequestAsync(_methodPath).ConfigureAwait(false);
             var totalHeaderVal = responseHeaders.GetValues("X-WP-Total").First();
             return int.Parse(totalHeaderVal, CultureInfo.InvariantCulture);
         }
@@ -119,9 +117,8 @@ namespace WordPressPCL.Client
         /// <returns>Result of operation</returns>
         public Task<bool> Delete(int Id, bool force = false)
         {
-            return HttpHelper.DeleteRequestAsync(
-                Url.Combine(DefaultPath, _methodPath, Id.ToString())
-                   .SetQueryParam("force", force.ToString().ToLower(CultureInfo.InvariantCulture))
+            return HttpHelper.DeleteRequestAsync($"{_methodPath}/{Id}"
+                .SetQueryParam("force", force.ToString().ToLower(CultureInfo.InvariantCulture))
             );
         }
 
@@ -132,7 +129,7 @@ namespace WordPressPCL.Client
         /// <returns>Post revisions object</returns>
         public PostRevisions Revisions(int postId)
         {
-            return new PostRevisions(ref _httpHelper, DefaultPath, postId);
+            return new PostRevisions(ref _httpHelper, postId);
         }
 
         #endregion Custom

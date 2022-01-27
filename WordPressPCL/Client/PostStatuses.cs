@@ -12,18 +12,15 @@ namespace WordPressPCL.Client
     public class PostStatuses : IReadOperation<PostStatus>
     {
         private HttpHelper _httpHelper;
-        private string _defaultPath;
         private const string _methodPath = "statuses";
 
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="httpHelper">reference to HttpHelper class for interaction with HTTP</param>
-        /// <param name="defaultPath">path to site, EX. http://demo.com/wp-json/ </param>
-        public PostStatuses(ref HttpHelper httpHelper, string defaultPath)
+        public PostStatuses(ref HttpHelper httpHelper)
         {
             _httpHelper = httpHelper;
-            _defaultPath = defaultPath;
         }
 
         /// <summary>
@@ -35,7 +32,7 @@ namespace WordPressPCL.Client
         public async Task<IEnumerable<PostStatus>> GetAsync(bool embed = false, bool useAuth = false)
         {
             List<PostStatus> entities = new List<PostStatus>();
-            Dictionary<string, PostStatus> entities_page = (await _httpHelper.GetRequestAsync<Dictionary<string, PostStatus>>($"{_defaultPath}{_methodPath}", embed, useAuth).ConfigureAwait(false));
+            Dictionary<string, PostStatus> entities_page = (await _httpHelper.GetRequestAsync<Dictionary<string, PostStatus>>($"{_methodPath}", embed, useAuth).ConfigureAwait(false));
             foreach (var ent in entities_page)
             {
                 entities.Add(ent.Value);
@@ -53,7 +50,7 @@ namespace WordPressPCL.Client
         {
             //100 - Max posts per page in WordPress REST API, so this is hack with multiple requests
             List<PostStatus> entities = new List<PostStatus>();
-            Dictionary<string, PostStatus> entities_page = (await _httpHelper.GetRequestAsync<Dictionary<string, PostStatus>>($"{_defaultPath}{_methodPath}", embed, useAuth).ConfigureAwait(false));
+            Dictionary<string, PostStatus> entities_page = (await _httpHelper.GetRequestAsync<Dictionary<string, PostStatus>>($"{_methodPath}", embed, useAuth).ConfigureAwait(false));
             foreach (var ent in entities_page)
             {
                 entities.Add(ent.Value);
@@ -70,7 +67,7 @@ namespace WordPressPCL.Client
         /// <returns>Entity by Id</returns>
         public Task<PostStatus> GetByID(object ID, bool embed = false, bool useAuth = false)
         {
-            return _httpHelper.GetRequestAsync<PostStatus>($"{_defaultPath}{_methodPath}/{ID}", embed, useAuth);
+            return _httpHelper.GetRequestAsync<PostStatus>($"{_methodPath}/{ID}", embed, useAuth);
         }
     }
 }

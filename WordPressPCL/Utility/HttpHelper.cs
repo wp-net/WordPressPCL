@@ -1,7 +1,5 @@
-﻿using Flurl;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System;
-using System.Diagnostics;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -17,9 +15,10 @@ namespace WordPressPCL.Utility
     /// </summary>
     public class HttpHelper
     {
-        private static readonly HttpClient _defaultHttpClient = new();
+        // non-static HTTPClient so different WordPressClients can have different base addresses
+        private readonly HttpClient _defaultHttpClient = new();
         private readonly HttpClient _httpClient;
-        private readonly Uri _baseUri;
+        private readonly string _defaultPath;
 
         /// <summary>
         /// JSON Web Token
@@ -47,6 +46,7 @@ namespace WordPressPCL.Utility
         /// </summary>
         public Func<string, string> HttpResponsePreProcessing { get; set; }
 
+
         /// <summary>
         /// Serialization/Deserialization settings for Json.NET library
         /// https://www.newtonsoft.com/json/help/html/SerializationSettings.htm
@@ -62,10 +62,12 @@ namespace WordPressPCL.Utility
         /// <paramref name="wordpressURI"/>
         /// </summary>
         /// <param name="wordpressURI">base WP REST API endpoint EX. http://demo.com/wp-json/ </param>
-        public HttpHelper(Uri wordpressURI)
+        /// <param name="defaultPath"></param>
+        public HttpHelper(Uri wordpressURI, string defaultPath)
         {
             _httpClient = _defaultHttpClient;
-            _baseUri = wordpressURI;
+            _httpClient.BaseAddress = wordpressURI;
+            _defaultPath = defaultPath;
 
             // by default don't crash on missing member
             JsonSerializerSettings = new JsonSerializerSettings
@@ -79,11 +81,10 @@ namespace WordPressPCL.Utility
         /// <paramref name="httpClient"/>
         /// </summary>
         /// <param name="httpClient">Http client which would be used for sending requests to the WordPress API endpoint.</param>
-        public HttpHelper(HttpClient httpClient)
+        public HttpHelper(HttpClient httpClient, string defaultPath)
         {
             _httpClient = httpClient;
-            _baseUri = httpClient?.BaseAddress;
-
+            _defaultPath = defaultPath;
             // by default don't crash on missing member
             JsonSerializerSettings = new JsonSerializerSettings
             {
@@ -91,13 +92,22 @@ namespace WordPressPCL.Utility
             };
         }
 
-        internal async Task<TClass> GetRequestAsync<TClass>(string route, bool embed, bool isAuthRequired = false)
+        internal async Task<TClass> GetRequestAsync<TClass>(string route, bool embed, bool isAuthRequired = false, bool ignoreDefaultPath = false)
             where TClass : class
         {
-            var requestUri = Url.Combine(_baseUri.ToString(), route, embed ? "embed=1":"");
+            route = ignoreDefaultPath ? route : $"{_defaultPath}{route}";
+            string embedParam = "";
+            if (embed)
+            {
+                if (route.Contains("?"))
+                    embedParam = "&_embed";
+                else
+                    embedParam = "?_embed";
+            }
+            route += embedParam;
 
             HttpResponseMessage response;
-            using (var requestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+            using (var requestMessage = new HttpRequestMessage(HttpMethod.Get, route))
             {
                 SetAuthHeader(isAuthRequired, requestMessage);
                 response = await _httpClient.SendAsync(requestMessage).ConfigureAwait(false);
@@ -115,13 +125,13 @@ namespace WordPressPCL.Utility
                 throw CreateUnexpectedResponseException(response, responseString);
             }
         }
-        
-        internal async Task<(TClass, HttpResponseMessage)> PostRequestAsync<TClass>(string route, HttpContent postBody, bool isAuthRequired = true)
+
+        internal async Task<(TClass, HttpResponseMessage)> PostRequestAsync<TClass>(string route, HttpContent postBody, bool isAuthRequired = true, bool ignoreDefaultPath = false)
             where TClass : class
         {
-
+            route = ignoreDefaultPath ? route : $"{_defaultPath}{route}";
             HttpResponseMessage response;
-            using (var requestMessage = new HttpRequestMessage(HttpMethod.Post, Url.Combine(_baseUri.ToString(), route)))
+            using (var requestMessage = new HttpRequestMessage(HttpMethod.Post, route))
             {
                 SetAuthHeader(isAuthRequired, requestMessage);
                 requestMessage.Content = postBody;
@@ -142,10 +152,11 @@ namespace WordPressPCL.Utility
             }
         }
 
-        internal async Task<bool> DeleteRequestAsync(string route, bool isAuthRequired = true)
+        internal async Task<bool> DeleteRequestAsync(string route, bool isAuthRequired = true, bool ignoreDefaultPath = false)
         {
+            route = ignoreDefaultPath ? route : $"{_defaultPath}{route}";
             HttpResponseMessage response;
-            using (var requestMessage = new HttpRequestMessage(HttpMethod.Delete, $"{_baseUri}{route}"))
+            using (var requestMessage = new HttpRequestMessage(HttpMethod.Delete, route))
             {
                 SetAuthHeader(isAuthRequired, requestMessage);
                 response = await _httpClient.SendAsync(requestMessage).ConfigureAwait(false);
@@ -163,17 +174,18 @@ namespace WordPressPCL.Utility
             }
         }
 
-        internal async Task<HttpResponseHeaders> HeadRequestAsync(string route, bool isAuthRequired = false) 
+        internal async Task<HttpResponseHeaders> HeadRequestAsync(string route, bool isAuthRequired = false, bool ignoreDefaultPath = false)
         {
+            route = ignoreDefaultPath ? route : $"{_defaultPath}{route}";
             HttpResponseMessage response;
-            using (var requestMessage = new HttpRequestMessage(HttpMethod.Head, $"{_wordpressURI}{route}")) 
+            using (var requestMessage = new HttpRequestMessage(HttpMethod.Head, route))
             {
                 SetAuthHeader(isAuthRequired, requestMessage);
                 response = await _httpClient.SendAsync(requestMessage).ConfigureAwait(false);
             }
 
             LastResponseHeaders = response.Headers;
-            if (response.IsSuccessStatusCode) 
+            if (response.IsSuccessStatusCode)
             {
                 return response.Headers;
             }
@@ -185,7 +197,7 @@ namespace WordPressPCL.Utility
         {
             if (isAuthRequired)
             {
-                if(AuthMethod == AuthMethod.Bearer)
+                if (AuthMethod == AuthMethod.Bearer)
                 {
                     requestMessage.Headers.Authorization = new AuthenticationHeaderValue("Bearer", JWToken);
                 }
@@ -201,35 +213,45 @@ namespace WordPressPCL.Utility
             }
         }
 
-        private TClass DeserializeJsonResponse<TClass>(HttpResponseMessage response, string responseString) {
-            try {
-                if (JsonSerializerSettings != null) {
+        private TClass DeserializeJsonResponse<TClass>(HttpResponseMessage response, string responseString)
+        {
+            try
+            {
+                if (JsonSerializerSettings != null)
+                {
                     return JsonConvert.DeserializeObject<TClass>(responseString, JsonSerializerSettings);
                 }
                 return JsonConvert.DeserializeObject<TClass>(responseString);
-            } catch (JsonReaderException) {
+            }
+            catch (JsonReaderException)
+            {
                 var (success, sanitizedResponse) = TryGetResponseFromMalformedResponse(responseString);
-                if (!success) {
+                if (!success)
+                {
                     throw new WPUnexpectedException(response, responseString);
                 }
 
-                if (JsonSerializerSettings != null) {
+                if (JsonSerializerSettings != null)
+                {
                     return JsonConvert.DeserializeObject<TClass>(sanitizedResponse, JsonSerializerSettings);
                 }
                 return JsonConvert.DeserializeObject<TClass>(sanitizedResponse);
             }
         }
 
-        private static (bool, string) TryGetResponseFromMalformedResponse(string responseString) {
+        private static (bool, string) TryGetResponseFromMalformedResponse(string responseString)
+        {
             responseString = responseString.Trim();
             var jsonSingleItemRegex = @"\{""id"":.+\}$";
             var match = Regex.Match(responseString, jsonSingleItemRegex);
-            if (match.Success) {
+            if (match.Success)
+            {
                 return (true, match.Value);
             }
             var jsonCollectionRegex = @"\[({""id"":.+},?)*\]$";
             match = Regex.Match(responseString, jsonCollectionRegex);
-            if (match.Success) {
+            if (match.Success)
+            {
                 return (true, match.Value);
             }
 

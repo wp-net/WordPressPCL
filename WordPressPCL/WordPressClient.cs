@@ -19,7 +19,6 @@ namespace WordPressPCL
     {
         private readonly HttpHelper _httpHelper;
         private const string DEFAULT_PATH = "wp/v2/";
-        private readonly string _defaultPath;
 
         /// <summary>
         /// WordPressUri holds the WordPress API endpoint, e.g. "http://demo.wp-api.org/wp-json/wp/v2/"
@@ -42,14 +41,8 @@ namespace WordPressPCL
         /// </summary>
         public JsonSerializerSettings JsonSerializerSettings
         {
-            set
-            {
-                _httpHelper.JsonSerializerSettings = value;
-            }
-            get
-            {
-                return _httpHelper.JsonSerializerSettings;
-            }
+            get => _httpHelper.JsonSerializerSettings;
+            set => _httpHelper.JsonSerializerSettings = value;
         }
 
         /// <summary>
@@ -151,20 +144,19 @@ namespace WordPressPCL
         public WordPressClient(Uri uri, string defaultPath = DEFAULT_PATH)
         {
             WordPressUri = uri ?? throw new ArgumentNullException(nameof(uri));
-            _defaultPath = defaultPath;
 
-            _httpHelper = new HttpHelper(WordPressUri);
+            _httpHelper = new HttpHelper(WordPressUri, defaultPath);
             Auth = new Auth(ref _httpHelper);
-            Posts = new Posts(ref _httpHelper, _defaultPath);
-            Comments = new Comments(ref _httpHelper, _defaultPath);
-            Tags = new Tags(ref _httpHelper, _defaultPath);
-            Users = new Users(ref _httpHelper, _defaultPath);
-            Media = new Media(ref _httpHelper, _defaultPath);
-            Categories = new Categories(ref _httpHelper, _defaultPath);
-            Pages = new Pages(ref _httpHelper, _defaultPath);
-            Taxonomies = new Taxonomies(ref _httpHelper, _defaultPath);
-            PostTypes = new PostTypes(ref _httpHelper, _defaultPath);
-            PostStatuses = new PostStatuses(ref _httpHelper, _defaultPath);
+            Posts = new Posts(ref _httpHelper);
+            Comments = new Comments(ref _httpHelper);
+            Tags = new Tags(ref _httpHelper);
+            Users = new Users(ref _httpHelper);
+            Media = new Media(ref _httpHelper);
+            Categories = new Categories(ref _httpHelper);
+            Pages = new Pages(ref _httpHelper);
+            Taxonomies = new Taxonomies(ref _httpHelper);
+            PostTypes = new PostTypes(ref _httpHelper);
+            PostStatuses = new PostStatuses(ref _httpHelper);
             CustomRequest = new CustomRequest(ref _httpHelper);
         }
 
@@ -191,20 +183,19 @@ namespace WordPressPCL
             }
 
             WordPressUri = httpClient.BaseAddress;
-            _defaultPath = defaultPath;
 
-            _httpHelper = new HttpHelper(httpClient);
+            _httpHelper = new HttpHelper(httpClient, defaultPath);
             Auth = new Auth(ref _httpHelper);
-            Posts = new Posts(ref _httpHelper, _defaultPath);
-            Comments = new Comments(ref _httpHelper, _defaultPath);
-            Tags = new Tags(ref _httpHelper, _defaultPath);
-            Users = new Users(ref _httpHelper, _defaultPath);
-            Media = new Media(ref _httpHelper, _defaultPath);
-            Categories = new Categories(ref _httpHelper, _defaultPath);
-            Pages = new Pages(ref _httpHelper, _defaultPath);
-            Taxonomies = new Taxonomies(ref _httpHelper, _defaultPath);
-            PostTypes = new PostTypes(ref _httpHelper, _defaultPath);
-            PostStatuses = new PostStatuses(ref _httpHelper, _defaultPath);
+            Posts = new Posts(ref _httpHelper);
+            Comments = new Comments(ref _httpHelper);
+            Tags = new Tags(ref _httpHelper);
+            Users = new Users(ref _httpHelper);
+            Media = new Media(ref _httpHelper);
+            Categories = new Categories(ref _httpHelper);
+            Pages = new Pages(ref _httpHelper);
+            Taxonomies = new Taxonomies(ref _httpHelper);
+            PostTypes = new PostTypes(ref _httpHelper);
+            PostStatuses = new PostStatuses(ref _httpHelper);
             CustomRequest = new CustomRequest(ref _httpHelper);
         }
 
@@ -216,7 +207,7 @@ namespace WordPressPCL
         /// <returns>Site settings</returns>
         public Task<Settings> GetSettings()
         {
-            return _httpHelper.GetRequestAsync<Settings>($"{_defaultPath}settings", false, true);
+            return _httpHelper.GetRequestAsync<Settings>("settings", false, true);
         }
 
         /// <summary>
@@ -227,7 +218,7 @@ namespace WordPressPCL
         public async Task<Settings> UpdateSettingsAsync(Settings settings)
         {
             using var postBody = new StringContent(JsonConvert.SerializeObject(settings), Encoding.UTF8, "application/json");
-            (var setting, _) = await _httpHelper.PostRequestAsync<Settings>($"{_defaultPath}settings", postBody).ConfigureAwait(false);
+            (var setting, _) = await _httpHelper.PostRequestAsync<Settings>("settings", postBody).ConfigureAwait(false);
             return setting;
         }
 

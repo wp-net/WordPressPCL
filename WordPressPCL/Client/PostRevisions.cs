@@ -11,21 +11,18 @@ namespace WordPressPCL.Client
     /// </summary>
     public class PostRevisions : IReadOperation<PostRevision>, IDeleteOperation
     {
-        private HttpHelper _httpHelper;
-        private string _defaultPath;
+        private readonly HttpHelper _httpHelper;
         private const string _methodPath = "revisions";
-        private int _postId;
+        private readonly int _postId;
 
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="httpHelper">reference to HttpHelper class for interaction with HTTP</param>
-        /// <param name="defaultPath">path to site, EX. http://demo.com/wp-json/ </param>
         /// <param name="postId">ID of post</param>
-        public PostRevisions(ref HttpHelper httpHelper, string defaultPath,int postId)
+        public PostRevisions(ref HttpHelper httpHelper, int postId)
         {
             _httpHelper = httpHelper;
-            _defaultPath = defaultPath;
             _postId = postId;
         }
         /// <summary>
@@ -35,7 +32,7 @@ namespace WordPressPCL.Client
         /// <returns>Result of operation</returns>
         public Task<bool> Delete(int ID)
         {
-            return _httpHelper.DeleteRequestAsync($"{_defaultPath}posts/{_postId}/{_methodPath}/{ID}?force=true");
+            return _httpHelper.DeleteRequestAsync($"posts/{_postId}/{_methodPath}/{ID}?force=true");
         }
 
         /// <summary>
@@ -46,7 +43,7 @@ namespace WordPressPCL.Client
         /// <returns>Latest PostRevisions</returns>
         public Task<IEnumerable<PostRevision>> GetAsync(bool embed = false, bool useAuth = true)
         {
-            return _httpHelper.GetRequestAsync<IEnumerable<PostRevision>>($"{_defaultPath}posts/{_postId}/{_methodPath}", embed, useAuth);
+            return _httpHelper.GetRequestAsync<IEnumerable<PostRevision>>($"posts/{_postId}/{_methodPath}", embed, useAuth);
         }
 
         /// <summary>
@@ -57,7 +54,7 @@ namespace WordPressPCL.Client
         /// <returns>List of all result</returns>
         public Task<IEnumerable<PostRevision>> GetAllAsync(bool embed = false, bool useAuth = true)
         {
-            return _httpHelper.GetRequestAsync<IEnumerable<PostRevision>>($"{_defaultPath}posts/{_postId}/{_methodPath}", embed, useAuth);
+            return _httpHelper.GetRequestAsync<IEnumerable<PostRevision>>($"posts/{_postId}/{_methodPath}", embed, useAuth);
         }
 
         /// <summary>
@@ -69,7 +66,7 @@ namespace WordPressPCL.Client
         /// <returns>Entity by Id</returns>
         public Task<PostRevision> GetByID(object ID, bool embed = false, bool useAuth = true)
         {
-            return _httpHelper.GetRequestAsync<PostRevision>($"{_defaultPath}posts/{_postId}/{_methodPath}/{ID}", embed, useAuth);
+            return _httpHelper.GetRequestAsync<PostRevision>($"posts/{_postId}/{_methodPath}/{ID}", embed, useAuth);
         }
     }
 }
