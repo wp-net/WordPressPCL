@@ -50,8 +50,10 @@ jobs:
         # Prefix the list here with "+" to use these queries and those in the config file.
         # queries: ./path/to/local/query, your-org/your-repo/queries@main
 
-    - name: NuGet restore
-      run: nuget restore ${{ env.solution }}
+    - name: Setup .NET SDK
+      uses: actions/setup-dotnet@v1.9.0
+      with:
+        dotnet-version: 6.0.x
     - name: Build Solution
       run: dotnet build ${{ env.solution }} -c Release
 
