@@ -22,9 +22,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
-    - uses: nuget/setup-nuget@v1
-    - name: NuGet restore
-      run: nuget restore ${{ env.solution }}
+    - name: Setup .NET SDK
+      uses: actions/setup-dotnet@v1.9.0
+      with:
+        dotnet-version: 6.0.x
     - name: Build Solution
       run: dotnet build ${{ env.solution }} -c Release
       

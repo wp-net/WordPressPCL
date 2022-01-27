@@ -143,7 +143,7 @@ namespace WordPressPCL.Tests.Selfhosted
                 Embed = true
             };
             var queryresult = await _clientAuth.Posts.QueryAsync(queryBuilder);
-            Assert.AreEqual("?page=1&per_page=15&orderby=title&status=publish&order=asc&_embed=true&context=view", queryBuilder.BuildQueryURL());
+            Assert.AreEqual("?page=1&per_page=15&orderby=title&status=publish&order=asc&_embed=true&context=view", queryBuilder.BuildQuery());
             Assert.IsNotNull(queryresult);
             Assert.AreNotSame(queryresult.Count(), 0);
         }

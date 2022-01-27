@@ -55,11 +55,11 @@ namespace WordPressPCL.Client {
                     new KeyValuePair<string, string>("password", Password)
                 });
             if (JWTPlugin == JWTPlugin.JWTAuthByEnriqueChavez) {
-                (JWTUser jwtUser, _) = await _httpHelper.PostRequestAsync<JWTUser>(route, formContent, false).ConfigureAwait(false);
+                (JWTUser jwtUser, _) = await _httpHelper.PostRequestAsync<JWTUser>(route, formContent, isAuthRequired: false, ignoreDefaultPath: true).ConfigureAwait(false);
                 _httpHelper.JWToken = jwtUser?.Token;
             } else if (JWTPlugin == JWTPlugin.JWTAuthByUsefulTeam) {
                 _httpHelper.HttpResponsePreProcessing = RemoveEmptyData;
-                (JWTResponse jwtResponse, _) = await _httpHelper.PostRequestAsync<JWTResponse>(route, formContent, false).ConfigureAwait(false);
+                (JWTResponse jwtResponse, _) = await _httpHelper.PostRequestAsync<JWTResponse>(route, formContent, isAuthRequired: false, ignoreDefaultPath: true).ConfigureAwait(false);
                 _httpHelper.HttpResponsePreProcessing = null;
                 _httpHelper.JWToken = jwtResponse?.Data?.Token;
             } else {
@@ -83,11 +83,11 @@ namespace WordPressPCL.Client {
             var route = $"{JwtPath}token/validate";
             try {
                 if (JWTPlugin == JWTPlugin.JWTAuthByEnriqueChavez) {
-                    (JWTUser jwtUser, HttpResponseMessage repsonse) = await _httpHelper.PostRequestAsync<JWTUser>(route, null, true).ConfigureAwait(false);
+                    (JWTUser jwtUser, HttpResponseMessage repsonse) = await _httpHelper.PostRequestAsync<JWTUser>(route, null, isAuthRequired: true, ignoreDefaultPath: true).ConfigureAwait(false);
                     return repsonse.IsSuccessStatusCode;
                 } else if (JWTPlugin == JWTPlugin.JWTAuthByUsefulTeam) {
                     _httpHelper.HttpResponsePreProcessing = RemoveEmptyData;
-                    (JWTResponse jwtResponse, _) = await _httpHelper.PostRequestAsync<JWTResponse>(route, null, true).ConfigureAwait(false);
+                    (JWTResponse jwtResponse, _) = await _httpHelper.PostRequestAsync<JWTResponse>(route, null, isAuthRequired: true, ignoreDefaultPath: true).ConfigureAwait(false);
                     _httpHelper.HttpResponsePreProcessing = null;
                     return jwtResponse.Success;
                 } else {

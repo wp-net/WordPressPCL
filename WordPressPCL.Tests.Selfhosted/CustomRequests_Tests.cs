@@ -15,13 +15,13 @@ namespace WordPressPCL.Tests.Selfhosted
         private class ContactFormItem
         {
             [JsonProperty("id")]
-            public int? Id;
+            public int? Id { get; set; }
             [JsonProperty("title")]
-            public string Title;
+            public string Title { get; set; }
             [JsonProperty("slug")]
-            public string Slug;
+            public string Slug { get; set; }
             [JsonProperty("locale")]
-            public string Locale;
+            public string Locale { get; set; }
         }
 
         private static WordPressClient _clientAuth;

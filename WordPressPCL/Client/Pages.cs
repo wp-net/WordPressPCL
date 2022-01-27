@@ -19,8 +19,7 @@ namespace WordPressPCL.Client
         /// Constructor
         /// </summary>
         /// <param name="HttpHelper">reference to HttpHelper class for interaction with HTTP</param>
-        /// <param name="defaultPath">path to site, EX. http://demo.com/wp-json/ </param>
-        public Pages(ref HttpHelper HttpHelper, string defaultPath) : base(ref HttpHelper, defaultPath, _methodPath)
+        public Pages(ref HttpHelper HttpHelper) : base(ref HttpHelper, _methodPath)
         {
         }
 
@@ -39,7 +38,7 @@ namespace WordPressPCL.Client
         {
             // default values
             // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
-            return HttpHelper.GetRequestAsync<IEnumerable<Page>>($"{DefaultPath}{_methodPath}?author={authorId}", embed, useAuth);
+            return HttpHelper.GetRequestAsync<IEnumerable<Page>>($"{_methodPath}?author={authorId}", embed, useAuth);
         }
 
         /// <summary>
@@ -53,7 +52,7 @@ namespace WordPressPCL.Client
         {
             // default values
             // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
-            return HttpHelper.GetRequestAsync<IEnumerable<Page>>($"{DefaultPath}{_methodPath}?search={searchTerm}", embed, useAuth);
+            return HttpHelper.GetRequestAsync<IEnumerable<Page>>($"{_methodPath}?search={searchTerm}", embed, useAuth);
         }
 
         /// <summary>
@@ -64,7 +63,7 @@ namespace WordPressPCL.Client
         /// <returns>Result of operation</returns>
         public Task<bool> Delete(int ID, bool force = false)
         {
-            return HttpHelper.DeleteRequestAsync($"{DefaultPath}{_methodPath}/{ID}?force={force.ToString().ToLower(CultureInfo.InvariantCulture)}");
+            return HttpHelper.DeleteRequestAsync($"{_methodPath}/{ID}?force={force.ToString().ToLower(CultureInfo.InvariantCulture)}");
         }
 
         #endregion Custom

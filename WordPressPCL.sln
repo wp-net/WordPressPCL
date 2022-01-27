@@ -1,13 +1,18 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27130.2020
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31613.86
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WordPressPCL", "WordPressPCL\WordPressPCL.csproj", "{E34E9B5D-0086-47D8-86A0-359B7D812CFC}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WordPressPCL.Tests.Selfhosted", "WordPressPCL.Tests.Selfhosted\WordPressPCL.Tests.Selfhosted.csproj", "{ECE2EA35-0152-4A27-80A8-567E192832E1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WordPressPCL.Tests.Hosted", "WordPressPCL.Tests.Hosted\WordPressPCL.Tests.Hosted.csproj", "{885149FB-8AE8-42F8-BBFE-59FD5C6B6BBF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WordPressPCL.Tests.Hosted", "WordPressPCL.Tests.Hosted\WordPressPCL.Tests.Hosted.csproj", "{885149FB-8AE8-42F8-BBFE-59FD5C6B6BBF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{58C7E88F-517F-49D0-B9D1-60ABF23B1686}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

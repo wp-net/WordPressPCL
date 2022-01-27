@@ -12,18 +12,15 @@ namespace WordPressPCL.Client
     public class Taxonomies : IReadOperation<Taxonomy>, IQueryOperation<Taxonomy, TaxonomiesQueryBuilder>
     {
         private HttpHelper _httpHelper;
-        private string _defaultPath;
         private const string _methodPath = "taxonomies";
 
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="httpHelper">reference to HttpHelper class for interaction with HTTP</param>
-        /// <param name="defaultPath">path to site, EX. http://demo.com/wp-json/ </param>
-        public Taxonomies(ref HttpHelper httpHelper, string defaultPath)
+        public Taxonomies(ref HttpHelper httpHelper)
         {
             _httpHelper = httpHelper;
-            _defaultPath = defaultPath;
         }
         /// <summary>
         /// Get latest
@@ -34,7 +31,7 @@ namespace WordPressPCL.Client
         public async Task<IEnumerable<Taxonomy>> GetAsync(bool embed = false, bool useAuth = false)
         {
             List<Taxonomy> entities = new List<Taxonomy>();
-            Dictionary<string, Taxonomy> entities_page = (await _httpHelper.GetRequestAsync<Dictionary<string, Taxonomy>>($"{_defaultPath}{_methodPath}", embed, useAuth).ConfigureAwait(false));
+            Dictionary<string, Taxonomy> entities_page = (await _httpHelper.GetRequestAsync<Dictionary<string, Taxonomy>>($"{_methodPath}", embed, useAuth).ConfigureAwait(false));
             foreach (var ent in entities_page)
             {
                 entities.Add(ent.Value);
@@ -52,7 +49,7 @@ namespace WordPressPCL.Client
         {
             //100 - Max posts per page in WordPress REST API, so this is hack with multiple requests
             List<Taxonomy> entities = new List<Taxonomy>();
-            Dictionary<string, Taxonomy> entities_page = (await _httpHelper.GetRequestAsync<Dictionary<string, Taxonomy>>($"{_defaultPath}{_methodPath}", embed, useAuth).ConfigureAwait(false));
+            Dictionary<string, Taxonomy> entities_page = (await _httpHelper.GetRequestAsync<Dictionary<string, Taxonomy>>($"{_methodPath}", embed, useAuth).ConfigureAwait(false));
             foreach (var ent in entities_page)
             {
                 entities.Add(ent.Value);
@@ -69,7 +66,7 @@ namespace WordPressPCL.Client
         /// <returns>Entity by Id</returns>
         public Task<Taxonomy> GetByID(object ID, bool embed = false, bool useAuth = false)
         {
-            return _httpHelper.GetRequestAsync<Taxonomy>($"{_defaultPath}{_methodPath}/{ID}", embed, useAuth);
+            return _httpHelper.GetRequestAsync<Taxonomy>($"{_methodPath}/{ID}", embed, useAuth);
         }
 
         /// <summary>
@@ -81,7 +78,7 @@ namespace WordPressPCL.Client
         public async Task<IEnumerable<Taxonomy>> QueryAsync(TaxonomiesQueryBuilder queryBuilder, bool useAuth = false)
         {
             List<Taxonomy> entities = new List<Taxonomy>();
-            var entities_dict = await _httpHelper.GetRequestAsync<Dictionary<string, Taxonomy>>($"{_defaultPath}{_methodPath}{queryBuilder.BuildQueryURL()}", false, useAuth).ConfigureAwait(false);
+            var entities_dict = await _httpHelper.GetRequestAsync<Dictionary<string, Taxonomy>>($"{_methodPath}{queryBuilder.BuildQuery()}", false, useAuth).ConfigureAwait(false);
             foreach (var ent in entities_dict)
             {
                 entities.Add(ent.Value);

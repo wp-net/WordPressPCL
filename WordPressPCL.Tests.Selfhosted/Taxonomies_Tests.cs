@@ -42,7 +42,7 @@ namespace WordPressPCL.Tests.Selfhosted
                 Type = "post"
             };
             var queryresult = await _clientAuth.Taxonomies.QueryAsync(queryBuilder);
-            Assert.AreEqual("?type=post&order=desc&context=view", queryBuilder.BuildQueryURL());
+            Assert.AreEqual("?type=post&order=desc&context=view", queryBuilder.BuildQuery());
             Assert.IsNotNull(queryresult);
             Assert.AreNotSame(queryresult.Count(), 0);
         }

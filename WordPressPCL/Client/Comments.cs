@@ -21,8 +21,7 @@ namespace WordPressPCL.Client
         /// Constructor
         /// </summary>
         /// <param name="HttpHelper">reference to HttpHelper class for interaction with HTTP</param>
-        /// <param name="defaultPath">path to site, EX. http://demo.com/wp-json/ </param>
-        public Comments(ref HttpHelper HttpHelper, string defaultPath) : base(ref HttpHelper, defaultPath, _methodPath)
+        public Comments(ref HttpHelper HttpHelper) : base(ref HttpHelper, _methodPath)
         {
         }
 
@@ -39,7 +38,7 @@ namespace WordPressPCL.Client
         /// <returns>List of comments for post</returns>
         public Task<IEnumerable<Comment>> GetCommentsForPost(int PostID, bool embed = false, bool useAuth = false)
         {
-            return HttpHelper.GetRequestAsync<IEnumerable<Comment>>($"{DefaultPath}{_methodPath}?post={PostID}", embed, useAuth);
+            return HttpHelper.GetRequestAsync<IEnumerable<Comment>>($"{_methodPath}?post={PostID}", embed, useAuth);
         }
 
         /// <summary>
@@ -52,14 +51,14 @@ namespace WordPressPCL.Client
         public async Task<IEnumerable<Comment>> GetAllCommentsForPostAsync(int PostID, bool embed = false, bool useAuth = false)
         {
             //100 - Max comments per page in WordPress REST API, so this is hack with multiple requests
-            List<Comment> comments = (await HttpHelper.GetRequestAsync<IEnumerable<Comment>>($"{DefaultPath}{_methodPath}?post={PostID}&per_page=100&page=1", embed, useAuth).ConfigureAwait(false))?.ToList();
+            List<Comment> comments = (await HttpHelper.GetRequestAsync<IEnumerable<Comment>>($"{_methodPath}?post={PostID}&per_page=100&page=1", embed, useAuth).ConfigureAwait(false))?.ToList();
             if (HttpHelper.LastResponseHeaders.Contains("X-WP-TotalPages") &&
                 int.TryParse(HttpHelper.LastResponseHeaders.GetValues("X-WP-TotalPages").FirstOrDefault(), out int totalPages) &&
                 totalPages > 1)
             {
                 for (int page = 2; page <= totalPages; page++)
                 {
-                    comments.AddRange((await HttpHelper.GetRequestAsync<IEnumerable<Comment>>($"{DefaultPath}{_methodPath}?post={PostID}&per_page=100&page={page}", embed, useAuth).ConfigureAwait(false))?.ToList());
+                    comments.AddRange((await HttpHelper.GetRequestAsync<IEnumerable<Comment>>($"{_methodPath}?post={PostID}&per_page=100&page={page}", embed, useAuth).ConfigureAwait(false))?.ToList());
                 }
             }
             return comments;
@@ -73,7 +72,7 @@ namespace WordPressPCL.Client
         /// <returns>Result of operation</returns>
         public Task<bool> Delete(int ID, bool force = false)
         {
-            return HttpHelper.DeleteRequestAsync($"{DefaultPath}{_methodPath}/{ID}?force={force.ToString().ToLower(CultureInfo.InvariantCulture)}");
+            return HttpHelper.DeleteRequestAsync($"{_methodPath}/{ID}?force={force.ToString().ToLower(CultureInfo.InvariantCulture)}");
         }
 
         #endregion Custom

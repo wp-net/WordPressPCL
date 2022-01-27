@@ -78,24 +78,22 @@
             Client class for interaction with Categories endpoint WP REST API
             </summary>
         </member>
-        <member name="M:WordPressPCL.Client.Categories.#ctor(WordPressPCL.Utility.HttpHelper@,System.String)">
+        <member name="M:WordPressPCL.Client.Categories.#ctor(WordPressPCL.Utility.HttpHelper@)">
             <summary>
             Constructor
             </summary>
             <param name="HttpHelper">reference to HttpHelper class for interaction with HTTP</param>
-            <param name="defaultPath">path to site, EX. http://demo.com/wp-json/ </param>
         </member>
         <member name="T:WordPressPCL.Client.Comments">
             <summary>
             Client class for interaction with Comments endpoint WP REST API
             </summary>
         </member>
-        <member name="M:WordPressPCL.Client.Comments.#ctor(WordPressPCL.Utility.HttpHelper@,System.String)">
+        <member name="M:WordPressPCL.Client.Comments.#ctor(WordPressPCL.Utility.HttpHelper@)">
             <summary>
             Constructor
             </summary>
             <param name="HttpHelper">reference to HttpHelper class for interaction with HTTP</param>
-            <param name="defaultPath">path to site, EX. http://demo.com/wp-json/ </param>
         </member>
         <member name="M:WordPressPCL.Client.Comments.GetCommentsForPost(System.Int32,System.Boolean,System.Boolean)">
             <summary>
@@ -130,11 +128,6 @@
             <typeparam name="TClass">DTO class</typeparam>
             <typeparam name="QClass">QueryBuilder class</typeparam>
         </member>
-        <member name="P:WordPressPCL.Client.CRUDOperation`2.DefaultPath">
-            <summary>
-            Path to wp api EX. https://site.com/wp-json/
-            </summary>
-        </member>
         <member name="P:WordPressPCL.Client.CRUDOperation`2.MethodPath">
             <summary>
             path to endpoint EX. posts
@@ -155,12 +148,11 @@
             Is object must be force deleted
             </summary>
         </member>
-        <member name="M:WordPressPCL.Client.CRUDOperation`2.#ctor(WordPressPCL.Utility.HttpHelper@,System.String,System.String,System.Boolean)">
+        <member name="M:WordPressPCL.Client.CRUDOperation`2.#ctor(WordPressPCL.Utility.HttpHelper@,System.String,System.Boolean)">
             <summary>
             Constructor
             </summary>
             <param name="httpHelper">reference to HttpHelper class for interaction with HTTP</param>
-            <param name="defaultPath">path to site, EX. http://demo.com/wp-json/ </param>
             <param name="methodPath">path to endpoint, EX. posts</param>
             <param name="forceDeletion">is objects must be force deleted</param>
         </member>
@@ -175,7 +167,7 @@
             <summary>
             Delete Entity
             </summary>
-            <param name="ID">Entity Id</param>
+            <param name="Id">Entity Id</param>
             <returns>Result of operation</returns>
         </member>
         <member name="M:WordPressPCL.Client.CRUDOperation`2.GetAsync(System.Boolean,System.Boolean)">
@@ -271,12 +263,11 @@
             Client class for interaction with Media endpoint WP REST API
             </summary>
         </member>
-        <member name="M:WordPressPCL.Client.Media.#ctor(WordPressPCL.Utility.HttpHelper@,System.String)">
+        <member name="M:WordPressPCL.Client.Media.#ctor(WordPressPCL.Utility.HttpHelper@)">
             <summary>
             Constructor
             </summary>
             <param name="HttpHelper">reference to HttpHelper class for interaction with HTTP</param>
-            <param name="defaultPath">path to site, EX. http://demo.com/wp-json/ </param>
         </member>
         <member name="M:WordPressPCL.Client.Media.CreateAsync(System.IO.Stream,System.String,System.String)">
             <summary>
@@ -348,12 +339,11 @@
             Client class for interaction with Pages endpoint WP REST API
             </summary>
         </member>
-        <member name="M:WordPressPCL.Client.Pages.#ctor(WordPressPCL.Utility.HttpHelper@,System.String)">
+        <member name="M:WordPressPCL.Client.Pages.#ctor(WordPressPCL.Utility.HttpHelper@)">
             <summary>
             Constructor
             </summary>
             <param name="HttpHelper">reference to HttpHelper class for interaction with HTTP</param>
-            <param name="defaultPath">path to site, EX. http://demo.com/wp-json/ </param>
         </member>
         <member name="M:WordPressPCL.Client.Pages.GetPagesByAuthor(System.Int32,System.Boolean,System.Boolean)">
             <summary>
@@ -386,12 +376,11 @@
             Client class for interaction with Post revisions endpoint WP REST API
             </summary>
         </member>
-        <member name="M:WordPressPCL.Client.PostRevisions.#ctor(WordPressPCL.Utility.HttpHelper@,System.String,System.Int32)">
+        <member name="M:WordPressPCL.Client.PostRevisions.#ctor(WordPressPCL.Utility.HttpHelper@,System.Int32)">
             <summary>
             Constructor
             </summary>
             <param name="httpHelper">reference to HttpHelper class for interaction with HTTP</param>
-            <param name="defaultPath">path to site, EX. http://demo.com/wp-json/ </param>
             <param name="postId">ID of post</param>
         </member>
         <member name="M:WordPressPCL.Client.PostRevisions.Delete(System.Int32)">
@@ -431,12 +420,11 @@
             Client class for interaction with Posts endpoint WP REST API
             </summary>
         </member>
-        <member name="M:WordPressPCL.Client.Posts.#ctor(WordPressPCL.Utility.HttpHelper@,System.String)">
+        <member name="M:WordPressPCL.Client.Posts.#ctor(WordPressPCL.Utility.HttpHelper@)">
             <summary>
             Constructor
             </summary>
             <param name="HttpHelper">reference to HttpHelper class for interaction with HTTP</param>
-            <param name="defaultPath">path to site, EX. http://demo.com/wp-json/ </param>
         </member>
         <member name="M:WordPressPCL.Client.Posts.GetStickyPosts(System.Boolean,System.Boolean)">
             <summary>
@@ -492,7 +480,7 @@
             <summary>
             Delete post with force deletion
             </summary>
-            <param name="ID">Post id</param>
+            <param name="Id">Post id</param>
             <param name="force">force deletion</param>
             <returns>Result of operation</returns>
         </member>
@@ -508,12 +496,11 @@
             Client class for interaction with Post Types endpoint WP REST API
             </summary>
         </member>
-        <member name="M:WordPressPCL.Client.PostStatuses.#ctor(WordPressPCL.Utility.HttpHelper@,System.String)">
+        <member name="M:WordPressPCL.Client.PostStatuses.#ctor(WordPressPCL.Utility.HttpHelper@)">
             <summary>
             Constructor
             </summary>
             <param name="httpHelper">reference to HttpHelper class for interaction with HTTP</param>
-            <param name="defaultPath">path to site, EX. http://demo.com/wp-json/ </param>
         </member>
         <member name="M:WordPressPCL.Client.PostStatuses.GetAsync(System.Boolean,System.Boolean)">
             <summary>
@@ -545,12 +532,11 @@
             Client class for interaction with Post Types endpoint WP REST API
             </summary>
         </member>
-        <member name="M:WordPressPCL.Client.PostTypes.#ctor(WordPressPCL.Utility.HttpHelper@,System.String)">
+        <member name="M:WordPressPCL.Client.PostTypes.#ctor(WordPressPCL.Utility.HttpHelper@)">
             <summary>
             Constructor
             </summary>
             <param name="httpHelper">reference to HttpHelper class for interaction with HTTP</param>
-            <param name="defaultPath">path to site, EX. http://demo.com/wp-json/ </param>
         </member>
         <member name="M:WordPressPCL.Client.PostTypes.GetAsync(System.Boolean,System.Boolean)">
             <summary>
@@ -582,24 +568,22 @@
             Client class for interaction with Tags endpoint WP REST API
             </summary>
         </member>
-        <member name="M:WordPressPCL.Client.Tags.#ctor(WordPressPCL.Utility.HttpHelper@,System.String)">
+        <member name="M:WordPressPCL.Client.Tags.#ctor(WordPressPCL.Utility.HttpHelper@)">
             <summary>
             Constructor
             </summary>
             <param name="HttpHelper">reference to HttpHelper class for interaction with HTTP</param>
-            <param name="defaultPath">path to site, EX. http://demo.com/wp-json/ </param>
         </member>
         <member name="T:WordPressPCL.Client.Taxonomies">
             <summary>
             Client class for interaction with Taxonomies endpoint WP REST API
             </summary>
         </member>
-        <member name="M:WordPressPCL.Client.Taxonomies.#ctor(WordPressPCL.Utility.HttpHelper@,System.String)">
+        <member name="M:WordPressPCL.Client.Taxonomies.#ctor(WordPressPCL.Utility.HttpHelper@)">
             <summary>
             Constructor
             </summary>
             <param name="httpHelper">reference to HttpHelper class for interaction with HTTP</param>
-            <param name="defaultPath">path to site, EX. http://demo.com/wp-json/ </param>
         </member>
         <member name="M:WordPressPCL.Client.Taxonomies.GetAsync(System.Boolean,System.Boolean)">
             <summary>
@@ -639,12 +623,11 @@
             Client class for interaction with Users endpoint WP REST API
             </summary>
         </member>
-        <member name="M:WordPressPCL.Client.Users.#ctor(WordPressPCL.Utility.HttpHelper@,System.String)">
+        <member name="M:WordPressPCL.Client.Users.#ctor(WordPressPCL.Utility.HttpHelper@)">
             <summary>
             Constructor
             </summary>
             <param name="HttpHelper">reference to HttpHelper class for interaction with HTTP</param>
-            <param name="defaultPath">path to site, EX. http://demo.com/wp-json/ </param>
         </member>
         <member name="M:WordPressPCL.Client.Users.CreateAsync(WordPressPCL.Models.User)">
             <summary>
@@ -3558,19 +3541,21 @@
             Headers returns by WP and http server from last response
             </summary>
         </member>
-        <member name="M:WordPressPCL.Utility.HttpHelper.#ctor(System.String)">
+        <member name="M:WordPressPCL.Utility.HttpHelper.#ctor(System.Uri,System.String)">
             <summary>
             Constructor
             <paramref name="wordpressURI"/>
             </summary>
             <param name="wordpressURI">base WP REST API endpoint EX. http://demo.com/wp-json/ </param>
+            <param name="defaultPath"></param>
         </member>
-        <member name="M:WordPressPCL.Utility.HttpHelper.#ctor(System.Net.Http.HttpClient)">
+        <member name="M:WordPressPCL.Utility.HttpHelper.#ctor(System.Net.Http.HttpClient,System.String)">
             <summary>
             Constructor
             <paramref name="httpClient"/>
             </summary>
             <param name="httpClient">Http client which would be used for sending requests to the WordPress API endpoint.</param>
+            <param name="defaultPath">Relative path to standard API endpoints, defaults to "wp/v2/"</param>
         </member>
         <member name="T:WordPressPCL.Utility.MediaQueryBuilder">
             <summary>
@@ -3903,7 +3888,7 @@
             </summary>
             <remarks>Default: view</remarks>
         </member>
-        <member name="M:WordPressPCL.Utility.QueryBuilder.BuildQueryURL">
+        <member name="M:WordPressPCL.Utility.QueryBuilder.BuildQuery">
             <summary>
             Builds the query URL from all properties
             </summary>
@@ -4022,6 +4007,31 @@
             <param name="comments">Comments which will be threaded</param>
             <param name="isDescending">Newest comments should be shown first</param>
             <returns>List of threaded comments</returns>
+        </member>
+        <member name="T:WordPressPCL.Utility.UrlHelper">
+            <summary>
+            Helper clas for URL manipulation
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Utility.UrlHelper.SetQueryParam(System.String,System.String,System.String)">
+            <summary>
+            Creates a new string with queryParam &amp; queryValue appended as query parameters
+            Ensures values are appended correctly with &amp; or ?
+            </summary>
+            <param name="url">Absolute or relative URL</param>
+            <param name="paramName">Query Parameter Name</param>
+            <param name="paramValue">Query Parameter Value</param>
+            <returns>New URL as string</returns>
+        </member>
+        <member name="M:WordPressPCL.Utility.UrlHelper.SetQueryParam(System.String,System.String,System.Int32)">
+            <summary>
+            Creates a new string with queryParam &amp; queryValue appended as query parameters
+            Ensures values are appended correctly with &amp; or ?
+            </summary>
+            <param name="url">Absolute or relative URL</param>
+            <param name="paramName">Query Parameter Name</param>
+            <param name="paramValue">Query Parameter Value</param>
+            <returns>New URL as string</returns>
         </member>
         <member name="T:WordPressPCL.Utility.UsersQueryBuilder">
             <summary>
@@ -4174,9 +4184,16 @@
             Custom Request client interaction object
             </summary>
         </member>
+        <member name="M:WordPressPCL.WordPressClient.#ctor(System.Uri,System.String)">
+            <summary>
+            The WordPressClient holds all connection infos and provides methods to call WordPress APIs.
+            </summary>
+            <param name="uri">URI for WordPress API endpoint, e.g. "http://demo.wp-api.org/wp-json/"</param>
+            <param name="defaultPath">Relative path to standard API endpoints, defaults to "wp/v2/"</param>
+        </member>
         <member name="M:WordPressPCL.WordPressClient.#ctor(System.String,System.String)">
             <summary>
-                The WordPressClient holds all connection infos and provides methods to call WordPress APIs.
+            The WordPressClient holds all connection infos and provides methods to call WordPress APIs.
             </summary>
             <param name="uri">URI for WordPress API endpoint, e.g. "http://demo.wp-api.org/wp-json/"</param>
             <param name="defaultPath">Relative path to standard API endpoints, defaults to "wp/v2/"</param>
