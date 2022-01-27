@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Globalization;
 using System.Reflection;
 using System.Runtime.Serialization;
@@ -42,7 +43,6 @@ namespace WordPressPCL.Utility
         public string BuildQuery()
         {
             var query = HttpUtility.ParseQueryString(string.Empty);
-
             foreach (var property in GetType().GetRuntimeProperties())
             {
                 var attribute = property.GetCustomAttribute<QueryTextAttribute>();
@@ -100,7 +100,7 @@ namespace WordPressPCL.Utility
                 }
                 if (pi.PropertyType == typeof(bool))
                 {
-                    return ((bool)pi.GetValue(this)).ToString().ToLower();
+                    return ((bool)pi.GetValue(this)).ToString().ToLowerInvariant();
                 }
                 return pi.GetValue(this);
             }
@@ -118,7 +118,7 @@ namespace WordPressPCL.Utility
                 }
                 if (property.GetType() == typeof(bool))
                 {
-                    return ((bool)property).ToString().ToLower();
+                    return ((bool)property).ToString().ToLowerInvariant();
                 }
                 return property;
             }
