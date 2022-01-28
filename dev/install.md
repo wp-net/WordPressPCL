@@ -1,4 +1,4 @@
-Run `containers-startup` script inside the `dev` folder (`sh` for Mac and Linux and `ps1` for Windows), which will start a fully setup dockerzied Wordpress instance on localhost port 80 to run tests against.
+Run `docker-compose up` inside the `dev` folder and it will start a fully setup docker Wordpress instance on port 8080 to run tests.
 
 - The Wordpress instance will have following already configured plugins:
   - JWT Auth – WordPress JSON Web Token Authentication
