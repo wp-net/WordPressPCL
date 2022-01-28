@@ -66,6 +66,19 @@ namespace WordPressPCL.Tests.Selfhosted
 
         [TestMethod]
         public async Task Posts_Count_Should_Equal_Number_Of_Posts() {
+            // Create 100+ posts to test multi-page GetAll
+            var postsCreate = Enumerable.Range(0, 110).Select(x => 
+                new Post()
+                {
+                    Title = new Title($"{System.Guid.NewGuid()} {x}"),
+                    Content = new Content("Content PostCreate")
+                }
+            ).ToList();
+            foreach(var post in postsCreate)
+            {
+                var createdPost = await _clientAuth.Posts.CreateAsync(post);
+            }
+
             var posts = await _client.Posts.GetAllAsync();
             var postsCount = await _client.Posts.GetCountAsync();
             Assert.AreEqual(posts.Count(), postsCount);
