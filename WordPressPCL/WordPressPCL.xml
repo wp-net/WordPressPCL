@@ -24,7 +24,7 @@
             Helper for HTTP requests
             </summary>
         </member>
-        <member name="M:WordPressPCL.Client.Auth.#ctor(WordPressPCL.Utility.HttpHelper@)">
+        <member name="M:WordPressPCL.Client.Auth.#ctor(WordPressPCL.Utility.HttpHelper)">
             <summary>
             Constructor
             </summary>
@@ -78,7 +78,7 @@
             Client class for interaction with Categories endpoint WP REST API
             </summary>
         </member>
-        <member name="M:WordPressPCL.Client.Categories.#ctor(WordPressPCL.Utility.HttpHelper@)">
+        <member name="M:WordPressPCL.Client.Categories.#ctor(WordPressPCL.Utility.HttpHelper)">
             <summary>
             Constructor
             </summary>
@@ -89,7 +89,7 @@
             Client class for interaction with Comments endpoint WP REST API
             </summary>
         </member>
-        <member name="M:WordPressPCL.Client.Comments.#ctor(WordPressPCL.Utility.HttpHelper@)">
+        <member name="M:WordPressPCL.Client.Comments.#ctor(WordPressPCL.Utility.HttpHelper)">
             <summary>
             Constructor
             </summary>
@@ -148,7 +148,7 @@
             Is object must be force deleted
             </summary>
         </member>
-        <member name="M:WordPressPCL.Client.CRUDOperation`2.#ctor(WordPressPCL.Utility.HttpHelper@,System.String,System.Boolean)">
+        <member name="M:WordPressPCL.Client.CRUDOperation`2.#ctor(WordPressPCL.Utility.HttpHelper,System.String,System.Boolean)">
             <summary>
             Constructor
             </summary>
@@ -215,7 +215,7 @@
             Class to create custom requests
             </summary>
         </member>
-        <member name="M:WordPressPCL.Client.CustomRequest.#ctor(WordPressPCL.Utility.HttpHelper@)">
+        <member name="M:WordPressPCL.Client.CustomRequest.#ctor(WordPressPCL.Utility.HttpHelper)">
             <summary>
             Constructor
             </summary>
@@ -263,7 +263,7 @@
             Client class for interaction with Media endpoint WP REST API
             </summary>
         </member>
-        <member name="M:WordPressPCL.Client.Media.#ctor(WordPressPCL.Utility.HttpHelper@)">
+        <member name="M:WordPressPCL.Client.Media.#ctor(WordPressPCL.Utility.HttpHelper)">
             <summary>
             Constructor
             </summary>
@@ -339,7 +339,7 @@
             Client class for interaction with Pages endpoint WP REST API
             </summary>
         </member>
-        <member name="M:WordPressPCL.Client.Pages.#ctor(WordPressPCL.Utility.HttpHelper@)">
+        <member name="M:WordPressPCL.Client.Pages.#ctor(WordPressPCL.Utility.HttpHelper)">
             <summary>
             Constructor
             </summary>
@@ -420,7 +420,7 @@
             Client class for interaction with Posts endpoint WP REST API
             </summary>
         </member>
-        <member name="M:WordPressPCL.Client.Posts.#ctor(WordPressPCL.Utility.HttpHelper@)">
+        <member name="M:WordPressPCL.Client.Posts.#ctor(WordPressPCL.Utility.HttpHelper)">
             <summary>
             Constructor
             </summary>
@@ -496,7 +496,7 @@
             Client class for interaction with Post Types endpoint WP REST API
             </summary>
         </member>
-        <member name="M:WordPressPCL.Client.PostStatuses.#ctor(WordPressPCL.Utility.HttpHelper@)">
+        <member name="M:WordPressPCL.Client.PostStatuses.#ctor(WordPressPCL.Utility.HttpHelper)">
             <summary>
             Constructor
             </summary>
@@ -532,7 +532,7 @@
             Client class for interaction with Post Types endpoint WP REST API
             </summary>
         </member>
-        <member name="M:WordPressPCL.Client.PostTypes.#ctor(WordPressPCL.Utility.HttpHelper@)">
+        <member name="M:WordPressPCL.Client.PostTypes.#ctor(WordPressPCL.Utility.HttpHelper)">
             <summary>
             Constructor
             </summary>
@@ -568,7 +568,7 @@
             Client class for interaction with Tags endpoint WP REST API
             </summary>
         </member>
-        <member name="M:WordPressPCL.Client.Tags.#ctor(WordPressPCL.Utility.HttpHelper@)">
+        <member name="M:WordPressPCL.Client.Tags.#ctor(WordPressPCL.Utility.HttpHelper)">
             <summary>
             Constructor
             </summary>
@@ -579,7 +579,7 @@
             Client class for interaction with Taxonomies endpoint WP REST API
             </summary>
         </member>
-        <member name="M:WordPressPCL.Client.Taxonomies.#ctor(WordPressPCL.Utility.HttpHelper@)">
+        <member name="M:WordPressPCL.Client.Taxonomies.#ctor(WordPressPCL.Utility.HttpHelper)">
             <summary>
             Constructor
             </summary>
@@ -623,7 +623,7 @@
             Client class for interaction with Users endpoint WP REST API
             </summary>
         </member>
-        <member name="M:WordPressPCL.Client.Users.#ctor(WordPressPCL.Utility.HttpHelper@)">
+        <member name="M:WordPressPCL.Client.Users.#ctor(WordPressPCL.Utility.HttpHelper)">
             <summary>
             Constructor
             </summary>

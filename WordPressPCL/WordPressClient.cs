@@ -146,18 +146,18 @@ namespace WordPressPCL
             WordPressUri = uri ?? throw new ArgumentNullException(nameof(uri));
 
             _httpHelper = new HttpHelper(WordPressUri, defaultPath);
-            Auth = new Auth(ref _httpHelper);
-            Posts = new Posts(ref _httpHelper);
-            Comments = new Comments(ref _httpHelper);
-            Tags = new Tags(ref _httpHelper);
-            Users = new Users(ref _httpHelper);
-            Media = new Media(ref _httpHelper);
-            Categories = new Categories(ref _httpHelper);
-            Pages = new Pages(ref _httpHelper);
-            Taxonomies = new Taxonomies(ref _httpHelper);
-            PostTypes = new PostTypes(ref _httpHelper);
-            PostStatuses = new PostStatuses(ref _httpHelper);
-            CustomRequest = new CustomRequest(ref _httpHelper);
+            Auth = new Auth(_httpHelper);
+            Posts = new Posts(_httpHelper);
+            Comments = new Comments(_httpHelper);
+            Tags = new Tags(_httpHelper);
+            Users = new Users(_httpHelper);
+            Media = new Media(_httpHelper);
+            Categories = new Categories(_httpHelper);
+            Pages = new Pages(_httpHelper);
+            Taxonomies = new Taxonomies(_httpHelper);
+            PostTypes = new PostTypes(_httpHelper);
+            PostStatuses = new PostStatuses(_httpHelper);
+            CustomRequest = new CustomRequest(_httpHelper);
         }
 
         /// <summary>
@@ -185,18 +185,18 @@ namespace WordPressPCL
             WordPressUri = httpClient.BaseAddress;
 
             _httpHelper = new HttpHelper(httpClient, defaultPath);
-            Auth = new Auth(ref _httpHelper);
-            Posts = new Posts(ref _httpHelper);
-            Comments = new Comments(ref _httpHelper);
-            Tags = new Tags(ref _httpHelper);
-            Users = new Users(ref _httpHelper);
-            Media = new Media(ref _httpHelper);
-            Categories = new Categories(ref _httpHelper);
-            Pages = new Pages(ref _httpHelper);
-            Taxonomies = new Taxonomies(ref _httpHelper);
-            PostTypes = new PostTypes(ref _httpHelper);
-            PostStatuses = new PostStatuses(ref _httpHelper);
-            CustomRequest = new CustomRequest(ref _httpHelper);
+            Auth = new Auth(_httpHelper);
+            Posts = new Posts(_httpHelper);
+            Comments = new Comments(_httpHelper);
+            Tags = new Tags(_httpHelper);
+            Users = new Users(_httpHelper);
+            Media = new Media(_httpHelper);
+            Categories = new Categories(_httpHelper);
+            Pages = new Pages(_httpHelper);
+            Taxonomies = new Taxonomies(_httpHelper);
+            PostTypes = new PostTypes(_httpHelper);
+            PostStatuses = new PostStatuses(_httpHelper);
+            CustomRequest = new CustomRequest(_httpHelper);
         }
 
         #region Settings methods

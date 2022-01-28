@@ -18,7 +18,7 @@ namespace WordPressPCL.Client
         /// Constructor
         /// </summary>
         /// <param name="httpHelper">reference to HttpHelper class for interaction with HTTP</param>
-        public Taxonomies(ref HttpHelper httpHelper)
+        public Taxonomies(HttpHelper httpHelper)
         {
             _httpHelper = httpHelper;
         }
