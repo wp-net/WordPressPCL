@@ -17,7 +17,7 @@ namespace WordPressPCL.Client
         /// Constructor
         /// </summary>
         /// <param name="httpHelper">HttpHelper class to operate with Http methods</param>
-        public CustomRequest(ref HttpHelper httpHelper)
+        public CustomRequest(HttpHelper httpHelper)
         {
             _httpHelper = httpHelper;
         }

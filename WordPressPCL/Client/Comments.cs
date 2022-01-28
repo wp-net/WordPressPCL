@@ -21,7 +21,7 @@ namespace WordPressPCL.Client
         /// Constructor
         /// </summary>
         /// <param name="HttpHelper">reference to HttpHelper class for interaction with HTTP</param>
-        public Comments(ref HttpHelper HttpHelper) : base(ref HttpHelper, _methodPath)
+        public Comments(HttpHelper HttpHelper) : base(HttpHelper, _methodPath)
         {
         }
 
