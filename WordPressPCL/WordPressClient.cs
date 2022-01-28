@@ -78,63 +78,63 @@ namespace WordPressPCL
         /// <summary>
         /// Auth client interaction object
         /// </summary>
-        public Auth Auth { get; }
+        public Auth Auth { get; private set; }
 
         //public string JWToken;
         /// <summary>
         /// Posts client interaction object
         /// </summary>
-        public Posts Posts { get; }
+        public Posts Posts { get; private set; }
 
         /// <summary>
         /// Comments client interaction object
         /// </summary>
-        public Comments Comments { get; }
+        public Comments Comments { get; private set; }
 
         /// <summary>
         /// Tags client interaction object
         /// </summary>
-        public Tags Tags { get; }
+        public Tags Tags { get; private set; }
 
         /// <summary>
         /// Users client interaction object
         /// </summary>
-        public Users Users { get; }
+        public Users Users { get; private set; }
 
         /// <summary>
         /// Media client interaction object
         /// </summary>
-        public Media Media { get; }
+        public Media Media { get; private set; }
 
         /// <summary>
         /// Categories client interaction object
         /// </summary>
-        public Categories Categories { get; }
+        public Categories Categories { get; private set; }
 
         /// <summary>
         /// Pages client interaction object
         /// </summary>
-        public Pages Pages { get; }
+        public Pages Pages { get; private set; }
 
         /// <summary>
         /// Taxonomies client interaction object
         /// </summary>
-        public Taxonomies Taxonomies { get; }
+        public Taxonomies Taxonomies { get; private set; }
 
         /// <summary>
         /// Post Types client interaction object
         /// </summary>
-        public PostTypes PostTypes { get; }
+        public PostTypes PostTypes { get; private set; }
 
         /// <summary>
         /// Post Statuses client interaction object
         /// </summary>
-        public PostStatuses PostStatuses { get; }
+        public PostStatuses PostStatuses { get; private set; }
 
         /// <summary>
         /// Custom Request client interaction object
         /// </summary>
-        public CustomRequest CustomRequest { get; }
+        public CustomRequest CustomRequest { get; private set; }
 
         /// <summary>
         /// The WordPressClient holds all connection infos and provides methods to call WordPress APIs.
@@ -144,20 +144,8 @@ namespace WordPressPCL
         public WordPressClient(Uri uri, string defaultPath = DEFAULT_PATH)
         {
             WordPressUri = uri ?? throw new ArgumentNullException(nameof(uri));
-
             _httpHelper = new HttpHelper(WordPressUri, defaultPath);
-            Auth = new Auth(_httpHelper);
-            Posts = new Posts(_httpHelper);
-            Comments = new Comments(_httpHelper);
-            Tags = new Tags(_httpHelper);
-            Users = new Users(_httpHelper);
-            Media = new Media(_httpHelper);
-            Categories = new Categories(_httpHelper);
-            Pages = new Pages(_httpHelper);
-            Taxonomies = new Taxonomies(_httpHelper);
-            PostTypes = new PostTypes(_httpHelper);
-            PostStatuses = new PostStatuses(_httpHelper);
-            CustomRequest = new CustomRequest(_httpHelper);
+            SetupSubClients(_httpHelper);
         }
 
         /// <summary>
@@ -181,22 +169,25 @@ namespace WordPressPCL
             {
                 throw new ArgumentNullException(nameof(httpClient));
             }
-
             WordPressUri = httpClient.BaseAddress;
-
             _httpHelper = new HttpHelper(httpClient, defaultPath);
-            Auth = new Auth(_httpHelper);
-            Posts = new Posts(_httpHelper);
-            Comments = new Comments(_httpHelper);
-            Tags = new Tags(_httpHelper);
-            Users = new Users(_httpHelper);
-            Media = new Media(_httpHelper);
-            Categories = new Categories(_httpHelper);
-            Pages = new Pages(_httpHelper);
-            Taxonomies = new Taxonomies(_httpHelper);
-            PostTypes = new PostTypes(_httpHelper);
-            PostStatuses = new PostStatuses(_httpHelper);
-            CustomRequest = new CustomRequest(_httpHelper);
+            SetupSubClients(_httpHelper);
+        }
+
+        private void SetupSubClients(HttpHelper httpHelper)
+        {
+            Auth = new Auth(httpHelper);
+            Posts = new Posts(httpHelper);
+            Comments = new Comments(httpHelper);
+            Tags = new Tags(httpHelper);
+            Users = new Users(httpHelper);
+            Media = new Media(httpHelper);
+            Categories = new Categories(httpHelper);
+            Pages = new Pages(httpHelper);
+            Taxonomies = new Taxonomies(httpHelper);
+            PostTypes = new PostTypes(httpHelper);
+            PostStatuses = new PostStatuses(httpHelper);
+            CustomRequest = new CustomRequest(httpHelper);
         }
 
         #region Settings methods
