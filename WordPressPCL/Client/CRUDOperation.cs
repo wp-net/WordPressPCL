@@ -49,7 +49,7 @@ namespace WordPressPCL.Client
         /// <param name="httpHelper">reference to HttpHelper class for interaction with HTTP</param>
         /// <param name="methodPath">path to endpoint, EX. posts</param>
         /// <param name="forceDeletion">is objects must be force deleted</param>
-        protected CRUDOperation(ref HttpHelper httpHelper, string methodPath, bool forceDeletion = false)
+        protected CRUDOperation(HttpHelper httpHelper, string methodPath, bool forceDeletion = false)
         {
             HttpHelper = httpHelper;
             MethodPath = methodPath;
@@ -106,7 +106,7 @@ namespace WordPressPCL.Client
                 int totalpages = Convert.ToInt32(HttpHelper.LastResponseHeaders.GetValues("X-WP-TotalPages").FirstOrDefault(), CultureInfo.InvariantCulture);
                 for (int page = 2; page <= totalpages; page++)
                 {
-                    url = MethodPath.SetQueryParam("per_page", page.ToString()).SetQueryParam("page", "1");
+                    url = MethodPath.SetQueryParam("per_page","100").SetQueryParam("page", page.ToString());
                     entities.AddRange((await HttpHelper.GetRequestAsync<IEnumerable<TClass>>(url, embed, useAuth).ConfigureAwait(false))?.ToList());
                 }
             }
