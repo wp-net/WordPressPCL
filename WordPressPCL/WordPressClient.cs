@@ -46,36 +46,6 @@ namespace WordPressPCL
         }
 
         /// <summary>
-        /// Authentication method
-        /// </summary>
-        public AuthMethod AuthMethod 
-        {
-            get => _httpHelper.AuthMethod;
-            set 
-            { 
-                _httpHelper.AuthMethod = value;
-                Auth.AuthMethod = value;
-            }
-        }
-
-        /// <summary>
-        /// JWTAuth Plugin
-        /// </summary>
-        public JWTPlugin JWTPlugin 
-        {
-            get => Auth.JWTPlugin;
-            set => Auth.JWTPlugin = value;
-        }
-
-        /// <summary>
-        /// The username to be used with the Application Password
-        /// </summary>
-        public string UserName {
-            get => _httpHelper.UserName;
-            set => _httpHelper.UserName = value;
-        }
-
-        /// <summary>
         /// Auth client interaction object
         /// </summary>
         public Auth Auth { get; private set; }
@@ -153,7 +123,9 @@ namespace WordPressPCL
         /// </summary>
         /// <param name="uri">URI for WordPress API endpoint, e.g. "http://demo.wp-api.org/wp-json/"</param>
         /// <param name="defaultPath">Relative path to standard API endpoints, defaults to "wp/v2/"</param>
-        public WordPressClient(string uri, string defaultPath = DEFAULT_PATH): this(new Uri(uri), defaultPath)
+        public WordPressClient(
+            string uri,
+            string defaultPath = DEFAULT_PATH): this(new Uri(uri), defaultPath)
         {
         }
 
@@ -174,8 +146,7 @@ namespace WordPressPCL
             SetupSubClients(_httpHelper);
         }
 
-        private void SetupSubClients(HttpHelper httpHelper)
-        {
+        private void SetupSubClients(HttpHelper httpHelper) {
             Auth = new Auth(httpHelper);
             Posts = new Posts(httpHelper);
             Comments = new Comments(httpHelper);

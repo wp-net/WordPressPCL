@@ -11,16 +11,14 @@ namespace WordPressPCL.Tests.Selfhosted.Utility
         public static async Task<WordPressClient> GetAuthenticatedWordPressClient(TestContext context)
         {
             var clientAuth = new WordPressClient(ApiCredentials.WordPressUri);
-            clientAuth.AuthMethod = AuthMethod.Bearer;
-            
+
             Console.WriteLine($"Auth Plugin: {context?.Properties["authplugin"]}");
             if (context?.Properties["authplugin"]?.ToString() == "jwtAuthByUsefulTeam")
             {
-                clientAuth.JWTPlugin = JWTPlugin.JWTAuthByUsefulTeam;
+                clientAuth.Auth.UseBearerAuth(JWTPlugin.JWTAuthByUsefulTeam);
             }
-            else
-            {
-                clientAuth.JWTPlugin = JWTPlugin.JWTAuthByEnriqueChavez;
+            else {
+                clientAuth.Auth.UseBearerAuth(JWTPlugin.JWTAuthByEnriqueChavez);
             }
             await clientAuth.Auth.RequestJWTokenAsync(ApiCredentials.Username, ApiCredentials.Password);
 

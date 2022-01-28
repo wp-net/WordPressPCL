@@ -28,17 +28,17 @@ namespace WordPressPCL.Utility
         /// <summary>
         /// The Application Password to be used for authentication
         /// </summary>
-        public string ApplicationPassword { get; set; }
+        internal string ApplicationPassword { get; set; }
 
         /// <summary>
         /// Authentication Method
         /// </summary>
-        public AuthMethod AuthMethod { get; set; }
+        internal AuthMethod AuthMethod { get; set; }
 
         /// <summary>
         /// The username to be used with the Application Password
         /// </summary>
-        public string UserName { get; set; }
+        internal string UserName { get; set; }
 
         /// <summary>
         /// Function called when a HttpRequest response is read

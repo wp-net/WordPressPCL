@@ -19,6 +19,11 @@
             JWT Plugin
             </summary>
         </member>
+        <member name="P:WordPressPCL.Client.Auth.Username">
+            <summary>
+            Username for Basic Authentication
+            </summary>
+        </member>
         <member name="F:WordPressPCL.Client.Auth._httpHelper">
             <summary>
             Helper for HTTP requests
@@ -30,12 +35,25 @@
             </summary>
             <param name="httpHelper">reference to HttpHelper class for interaction with HTTP</param>
         </member>
+        <member name="M:WordPressPCL.Client.Auth.UseBearerAuth(WordPressPCL.Models.JWTPlugin)">
+            <summary>
+            Sets up the Auth Client to use Bearer Authentication with specified JWTPlugin
+            </summary>
+            <param name="jwtPlugin">JWT Plugin to use for Bearer Authentication</param>
+        </member>
+        <member name="M:WordPressPCL.Client.Auth.UseBasicAuth(System.String,System.String)">
+            <summary>
+            Sets up the Auth Client to use Basic Authentication with Application Password
+            </summary>
+            <param name="username">Username for Basic Authentication</param>
+            <param name="applicationPassword">Application Password for Basic Authentication</param>
+        </member>
         <member name="M:WordPressPCL.Client.Auth.RequestJWTokenAsync(System.String,System.String)">
             <summary>
             Perform authentication by JWToken
             </summary>
             <param name="username">username</param>
-            <param name="Password">password</param>
+            <param name="password">password</param>
         </member>
         <member name="M:WordPressPCL.Client.Auth.Logout">
             <summary>
@@ -66,12 +84,6 @@
             Gets the JWToken from the client
             </summary>
             <returns></returns>
-        </member>
-        <member name="M:WordPressPCL.Client.Auth.SetApplicationPassword(System.String)">
-            <summary>
-            Store Application Password in the Client
-            </summary>
-            <param name="applicationPassword"></param>
         </member>
         <member name="T:WordPressPCL.Client.Categories">
             <summary>
@@ -4107,21 +4119,6 @@
             <summary>
             Serialization/Deserialization settings for Json.NET library
             https://www.newtonsoft.com/json/help/html/SerializationSettings.htm
-            </summary>
-        </member>
-        <member name="P:WordPressPCL.WordPressClient.AuthMethod">
-            <summary>
-            Authentication method
-            </summary>
-        </member>
-        <member name="P:WordPressPCL.WordPressClient.JWTPlugin">
-            <summary>
-            JWTAuth Plugin
-            </summary>
-        </member>
-        <member name="P:WordPressPCL.WordPressClient.UserName">
-            <summary>
-            The username to be used with the Application Password
             </summary>
         </member>
         <member name="P:WordPressPCL.WordPressClient.Auth">
