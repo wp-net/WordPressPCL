@@ -522,6 +522,12 @@ namespace WordPressPCL.Models
         /// Application
         /// </summary>
         [EnumMember(Value = "application")]
-        Application
+        Application,
+        
+        /// <summary>
+        /// Text
+        /// </summary>
+        [EnumMember(Value = "text")]
+        Text
     }
 }
