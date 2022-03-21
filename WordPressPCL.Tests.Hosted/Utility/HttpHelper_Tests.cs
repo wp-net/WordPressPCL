@@ -19,10 +19,8 @@ namespace WordPressPCL.Tests.Hosted.Utility
         public async Task Hosted_HttpHelper_InvalidPreProcessing()
         {
             // AUTHENTICATION DOES NOT YET WORK FOR HOSTED SITES
-            var client = new WordPressClient(ApiCredentials.WordPressUri)
-            {
-                AuthMethod = AuthMethod.Bearer
-            };
+            var client = new WordPressClient(ApiCredentials.WordPressUri);
+            client.Auth.UseBearerAuth(JWTPlugin.JWTAuthByEnriqueChavez);
             await client.Auth.RequestJWTokenAsync(ApiCredentials.Username, ApiCredentials.Password);
 
             // Create a random tag , must works:
@@ -56,12 +54,9 @@ namespace WordPressPCL.Tests.Hosted.Utility
         }
 
         [TestMethod]
-        public async Task Hosted_HttpHelper_ValidPreProcessing()
-        {
-            var client = new WordPressClient(ApiCredentials.WordPressUri)
-            {
-                AuthMethod = AuthMethod.Bearer
-            };
+        public async Task Hosted_HttpHelper_ValidPreProcessing() {
+            var client = new WordPressClient(ApiCredentials.WordPressUri);
+            client.Auth.UseBearerAuth(JWTPlugin.JWTAuthByEnriqueChavez);
             await client.Auth.RequestJWTokenAsync(ApiCredentials.Username, ApiCredentials.Password);
 
             // Create a random tag

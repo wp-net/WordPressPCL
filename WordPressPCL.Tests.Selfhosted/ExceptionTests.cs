@@ -33,6 +33,37 @@ namespace WordPressPCL.Tests.Selfhosted
         }
 
         [TestMethod]
+        public async Task Exception_RequestJWTokenForBasicAuth() 
+        {
+            //Initialize
+            Assert.IsNotNull(_client);
+            const string dummyUser = "dummy";
+            const string dummyPassword = "dummy";
+            
+            _client.Auth.UseBasicAuth(dummyUser, dummyPassword);
+            
+            await Assert.ThrowsExceptionAsync<WPException>(async () => 
+            {
+                await _client.Auth.RequestJWTokenAsync(dummyUser, dummyPassword);
+            });
+        }
+
+        [TestMethod]
+        public async Task Exception_IsValidJWTokenForBasicAuth() 
+        {
+            //Initialize
+            Assert.IsNotNull(_client);
+            const string dummyUser = "dummy";
+            const string dummyPassword = "dummy";
+            
+            _client.Auth.UseBasicAuth(dummyUser, dummyPassword);
+
+            await Assert.ThrowsExceptionAsync<WPException>(async () => {
+                await _client.Auth.IsValidJWTokenAsync();
+            });
+        }
+
+        [TestMethod]
         public async Task Exception_PostCreateExceptionTest()
         {
             // Initialize
