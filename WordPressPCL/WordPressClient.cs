@@ -1,13 +1,7 @@
 ﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
 using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
 using WordPressPCL.Client;
-using WordPressPCL.Models;
-using WordPressPCL.Models.Exceptions;
 using WordPressPCL.Utility;
 
 namespace WordPressPCL
@@ -107,6 +101,11 @@ namespace WordPressPCL
         public CustomRequest CustomRequest { get; private set; }
 
         /// <summary>
+        /// Settings client interaction object
+        /// </summary>
+        public Settings Settings { get; private set; }
+
+        /// <summary>
         /// The WordPressClient holds all connection infos and provides methods to call WordPress APIs.
         /// </summary>
         /// <param name="uri">URI for WordPress API endpoint, e.g. "http://demo.wp-api.org/wp-json/"</param>
@@ -159,32 +158,8 @@ namespace WordPressPCL
             PostTypes = new PostTypes(httpHelper);
             PostStatuses = new PostStatuses(httpHelper);
             CustomRequest = new CustomRequest(httpHelper);
+            Settings = new Settings(httpHelper);
         }
-
-        #region Settings methods
-
-        /// <summary>
-        /// Get site settings
-        /// </summary>
-        /// <returns>Site settings</returns>
-        public Task<Settings> GetSettings()
-        {
-            return _httpHelper.GetRequestAsync<Settings>("settings", false, true);
-        }
-
-        /// <summary>
-        /// Update site settings
-        /// </summary>
-        /// <param name="settings">Settings object</param>
-        /// <returns>Updated settings</returns>
-        public async Task<Settings> UpdateSettingsAsync(Settings settings)
-        {
-            using var postBody = new StringContent(JsonConvert.SerializeObject(settings), Encoding.UTF8, "application/json");
-            (var setting, _) = await _httpHelper.PostRequestAsync<Settings>("settings", postBody).ConfigureAwait(false);
-            return setting;
-        }
-
-        #endregion Settings methods
 
     }
 }
