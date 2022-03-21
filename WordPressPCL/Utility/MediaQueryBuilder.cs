@@ -114,6 +114,7 @@ namespace WordPressPCL.Utility
         /// <summary>
         /// Limit result set to attachments of a particular media type.
         /// </summary>
+        [ExcludeQueryText("all")]
         [QueryText("media_type")]
         public MediaQueryType MediaType { get; set; }
 

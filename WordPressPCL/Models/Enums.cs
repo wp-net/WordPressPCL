@@ -501,6 +501,12 @@ namespace WordPressPCL.Models
     public enum MediaQueryType
     {
         /// <summary>
+        /// All
+        /// </summary>
+        [EnumMember(Value = "all")]
+        All,
+        
+        /// <summary>
         /// Image
         /// </summary>
         [EnumMember(Value = "image")]

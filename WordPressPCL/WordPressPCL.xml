@@ -1552,6 +1552,11 @@
             Type of Media Query Item
             </summary>
         </member>
+        <member name="F:WordPressPCL.Models.MediaQueryType.All">
+            <summary>
+            All
+            </summary>
+        </member>
         <member name="F:WordPressPCL.Models.MediaQueryType.Image">
             <summary>
             Image
@@ -1570,6 +1575,11 @@
         <member name="F:WordPressPCL.Models.MediaQueryType.Application">
             <summary>
             Application
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.MediaQueryType.Text">
+            <summary>
+            Text
             </summary>
         </member>
         <member name="T:WordPressPCL.Models.Exceptions.WPException">
@@ -3510,6 +3520,22 @@
         </member>
         <member name="M:WordPressPCL.Utility.CustomCapabilitiesJsonConverter.WriteJson(Newtonsoft.Json.JsonWriter,System.Boolean,Newtonsoft.Json.JsonSerializer)">
             <inheritdoc />
+        </member>
+        <member name="T:WordPressPCL.Utility.ExcludeQueryTextAttribute">
+            <summary>
+            Attribute to exclude query text in querybuilder
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.ExcludeQueryTextAttribute.ExclusionValue">
+            <summary>
+            Value which determines if query text is excluded
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Utility.ExcludeQueryTextAttribute.#ctor(System.String)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="exclusionValue">value which determines if query text is excluded</param>
         </member>
         <member name="T:WordPressPCL.Utility.HttpHelper">
             <summary>
