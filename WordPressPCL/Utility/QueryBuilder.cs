@@ -46,11 +46,14 @@ namespace WordPressPCL.Utility
             foreach (var property in GetType().GetRuntimeProperties())
             {
                 var attribute = property.GetCustomAttribute<QueryTextAttribute>();
+                var exclusionAttribute = property.GetCustomAttribute<ExcludeQueryTextAttribute>();
                 if (attribute != null)
                 {
                     var value = GetPropertyValue(property);
 
                     if (value is null) continue;
+                    if (exclusionAttribute != null && value.ToString().ToLowerInvariant() == exclusionAttribute.ExclusionValue) continue;
+
                     //pass default values
                     if (value is int valueInt && valueInt == default) continue;
                     if (value is string valueString && (string.IsNullOrEmpty(valueString) || valueString == DateTime.MinValue.ToString("yyyy-MM-ddTHH:mm:ss", CultureInfo.InvariantCulture))) continue;
