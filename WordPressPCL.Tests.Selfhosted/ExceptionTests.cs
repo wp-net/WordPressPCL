@@ -28,7 +28,7 @@ namespace WordPressPCL.Tests.Selfhosted
 
             await Assert.ThrowsExceptionAsync<WPException>(async () =>
             {
-                var settings = await _client.GetSettings();
+                var settings = await _client.Settings.GetSettings();
             });
         }
 

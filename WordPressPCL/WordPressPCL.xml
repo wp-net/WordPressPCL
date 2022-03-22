@@ -575,6 +575,30 @@
             <param name="useAuth">Send request with authentication header</param>
             <returns>Entity by Id</returns>
         </member>
+        <member name="T:WordPressPCL.Client.Settings">
+            <summary>
+            Client class for interaction with Settings endpoints of WP REST API
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Client.Settings.#ctor(WordPressPCL.Utility.HttpHelper)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="httpHelper">reference to HttpHelper class for interaction with HTTP</param>
+        </member>
+        <member name="M:WordPressPCL.Client.Settings.GetSettings">
+            <summary>
+            Get site settings
+            </summary>
+            <returns>Site settings</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Settings.UpdateSettingsAsync(WordPressPCL.Models.Settings)">
+            <summary>
+            Update site settings
+            </summary>
+            <param name="settings">Settings object</param>
+            <returns>Updated settings</returns>
+        </member>
         <member name="T:WordPressPCL.Client.Tags">
             <summary>
             Client class for interaction with Tags endpoint WP REST API
@@ -4181,6 +4205,11 @@
             Custom Request client interaction object
             </summary>
         </member>
+        <member name="P:WordPressPCL.WordPressClient.Settings">
+            <summary>
+            Settings client interaction object
+            </summary>
+        </member>
         <member name="M:WordPressPCL.WordPressClient.#ctor(System.Uri,System.String)">
             <summary>
             The WordPressClient holds all connection infos and provides methods to call WordPress APIs.
@@ -4201,19 +4230,6 @@
             </summary>
             <param name="httpClient">HttpClient with BaseAddress set which will be used for sending requests to the WordPress API endpoint.</param>
             <param name="defaultPath">Relative path to standard API endpoints, defaults to "wp/v2/"</param>
-        </member>
-        <member name="M:WordPressPCL.WordPressClient.GetSettings">
-            <summary>
-            Get site settings
-            </summary>
-            <returns>Site settings</returns>
-        </member>
-        <member name="M:WordPressPCL.WordPressClient.UpdateSettingsAsync(WordPressPCL.Models.Settings)">
-            <summary>
-            Update site settings
-            </summary>
-            <param name="settings">Settings object</param>
-            <returns>Updated settings</returns>
         </member>
     </members>
 </doc>
