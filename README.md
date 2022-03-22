@@ -10,10 +10,21 @@ WordPressPCL is published under the [MIT License](https://github.com/wp-net/Word
 # Quickstart
 
 ## WordPress Requirements
-Since WordPress 4.7 the REST API has been integrated into the core so there's no need for any plugins to get basic functionality. If you want to access protected endpoints, this library supports authentication through JSON Web Tokens (JWT) (plugin required).
+Since WordPress 4.7 the REST API has been integrated into the core so there's no need for any plugins to get basic functionality.
 
 * [WordPress 4.7 or newer](https://wordpress.org/)
+
+If you want to access protected endpoints, there are two options:
+* Authentication using JSON Web Tokens (JWT) (plugin required)
+* Basic Authentication using Application Passwords.
+
+Supported JWT Authentication Plugins (install either of the following):
 * [JWT Authentication for WP REST API](https://wordpress.org/plugins/jwt-authentication-for-wp-rest-api/)
+* [JWT Auth By Useful Team](https://wordpress.org/plugins/jwt-auth/)
+
+To use Application Passwords for authentication read through:
+
+https://make.wordpress.org/core/2020/11/05/application-passwords-integration-guide/
 
 ## Including WordPressPCL
 The WordPressPCL API Wrapper is avaiable through [NuGet](https://www.nuget.org/packages/WordPressPCL/):
@@ -23,7 +34,7 @@ The WordPressPCL API Wrapper is avaiable through [NuGet](https://www.nuget.org/p
 ```
 
 ## Supported Plattforms
-WordPressPCL is built on top of the new [.NET Standard](https://github.com/dotnet/standard) targeting netstandard versions 1.1 and 2.0 - therefore it should work on the following plaforms:
+WordPressPCL is built on top of the new [.NET Standard](https://github.com/dotnet/standard) targeting netstandard version 2.0 - therefore it should work on the following plaforms:
 * .NET Framework 4.5 and newer
 * .NET Core
 * Universal Windows Platform (uap)
@@ -34,29 +45,42 @@ WordPressPCL is built on top of the new [.NET Standard](https://github.com/dotne
 ## Quickstart: Using the API Wrapper
 
 ```c#
-// Initialize
+// Client construction
+
+//pass the Wordpress REST API base address as string
 var client = new WordPressClient("http://demo.wp-api.org/wp-json/");
 
+//or pass the base address as strongly typed Uri
+const wpBaseAddress = new Uri("http://demo.wp-api.org/wp-json/");
+var client = new WordpressClient(wpBaseAddress);
+
+//or to reuse an HttpClient pass the HttpClient with base address set to api's base address
+httpClient.BaseAddress = new Uri("http://demo.wp-api.org/wp-json/")
+var client = new WordpressClient(httpClient);
+
 // Posts
-var posts = await client.Posts.GetAll();
+var posts = await client.Posts.GetAllAsync();
 var postbyid = await client.Posts.GetById(id);
+var postsCount = await client.Posts.GetCountAsync();
 
 // Comments
-var comments = await client.Comments.GetAll();
+var comments = await client.Comments.GetAllAsync();
 var commentbyid = await client.Comments.GetById(id);
 var commentsbypost = await client.Comments.GetCommentsForPost(postid, true, false);
 
-// Users
-// JWT authentication
+// Authentication
 var client = new WordPressClient(ApiCredentials.WordPressUri);
-client.AuthMethod = AuthMethod.JWT;
-await client.RequestJWToken(ApiCredentials.Username,ApiCredentials.Password);
 
-// check if authentication has been successful
-var isValidToken = await client.IsValidJWToken();
+//Either Bearer Auth using JWT tokens
+client.Auth.UseBearerAuth(JWTPlugin.JWTAuthByEnriqueChavez);
+await client.Auth.RequestJWTokenAsync("username", "password");
+var isValidToken = await client.IsValidJWTokenAsync();
+  
+//Or Basic Auth using Application Passwords
+client.Auth.UseBasicAuth("username", "password");
 
 // now you can send requests that require authentication
-var response = client.Posts.Delete(postid);
+var response = client.Posts.Delete(postId);
 ```
 
 ## Supported REST Methods
@@ -89,3 +113,5 @@ First, create an issue describing what feature you want to add or what problem y
 Second, please try to stick to the official C# coding guidelines. https://msdn.microsoft.com/en-us/library/ms229002(v=vs.110).aspx
 
 Also, make sure to write some tests covering your new or modified code.
+
+In order to run the tests on local machine please refer to the **install.md** file in the dev directory of the repository. Docker along with docker-compose cli will be required to run the tests.
