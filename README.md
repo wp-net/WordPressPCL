@@ -14,9 +14,9 @@ Since WordPress 4.7 the REST API has been integrated into the core so there's no
 
 * [WordPress 4.7 or newer](https://wordpress.org/)
 
-If you want to access protected endpoints, there are two options:
+If you want to access protected endpoints, there are two authentication options:
 * Authentication using JSON Web Tokens (JWT) (plugin required)
-* Basic Authentication using Application Passwords.
+* Basic Authentication using Application Passwords
 
 Supported JWT Authentication Plugins (install either of the following):
 * [JWT Authentication for WP REST API](https://wordpress.org/plugins/jwt-authentication-for-wp-rest-api/)
