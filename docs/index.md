@@ -1,5 +1,4 @@
-# WordPressPCL
-![Integration Tests](https://github.com/wp-net/WordPressPCL/workflows/Integration%20Tests/badge.svg?branch=master)
+# Home
 
 This is a portable library for consuming the WordPress REST-API in (almost) any C# application.
 If you find bugs or have any suggestions, feel free to create an issue.
