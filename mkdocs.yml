@@ -9,5 +9,7 @@ nav:
     - Version 1.x:
         - Types:
             - Comments: v1/types/comments.md
+            - Posts: v1/types/posts.md
+
 
 theme: readthedocs
