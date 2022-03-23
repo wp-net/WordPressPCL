@@ -105,6 +105,15 @@ var response = client.Posts.Delete(postId);
 - Authentication using [JSON Web Tokens (JWT)](https://jwt.io/)
 - [HttpResponsePreProcessing](https://github.com/wp-net/WordPressPCL/wiki/HttpResponsePreProcessing): manipulate the API response before deserializing it
 
+## Breaking Changes in version 2.0
+
+- Separate sub client for Authentication accessed via `client.Auth`
+- Separate sub client for Settings accessed via `client.Settings`
+- Default MIME type for media is **application/octet-stream** instead of text/plain
+- Async methods have an Async suffix as per naming C# naming guidelines e.g. `client.Posts.GetAllAsync()`
+- MediaQueryBuilder by default will return all types of media instead of just images.
+- Model properties that returned arrays are changed to List type e.g. `Tags` in `Post` class is now of type `List<int>` instead of `int[]` type
+
 ## Contribution Guidelines
 We're very happy to get input from the community on this project! To keep the code clean we ask you to follow a few simple contribution guidelines.
 
