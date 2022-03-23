@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
-         <loc>https://example.com/</loc>
+         <loc>https://wp-net.github.io/WordPressPCL/</loc>
          <lastmod>2022-03-23</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://example.com/v1/types/comments/</loc>
+         <loc>https://wp-net.github.io/WordPressPCL/v1/types/comments/</loc>
          <lastmod>2022-03-23</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://example.com/v1/types/posts/</loc>
+         <loc>https://wp-net.github.io/WordPressPCL/v1/types/posts/</loc>
          <lastmod>2022-03-23</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://example.com/v2/getting-started/</loc>
+         <loc>https://wp-net.github.io/WordPressPCL/v2/getting-started/</loc>
          <lastmod>2022-03-23</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://example.com/v2/types/comments/</loc>
+         <loc>https://wp-net.github.io/WordPressPCL/v2/types/comments/</loc>
          <lastmod>2022-03-23</lastmod>
          <changefreq>daily</changefreq>
     </url>
