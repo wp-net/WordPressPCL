@@ -7,9 +7,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   
-  <link rel="canonical" href="https://wp-net.github.io/WordPressPCL/v1/types/comments/">
+  <link rel="canonical" href="https://wp-net.github.io/WordPressPCL/v1/types/media/">
   <link rel="shortcut icon" href="../../../img/favicon.ico">
-  <title>Comments - WordPressPCL</title>
+  <title>Media - WordPressPCL</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
 
   <link rel="stylesheet" href="../../../css/theme.css" />
@@ -18,9 +18,9 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "Comments";
-    var mkdocs_page_input_path = "v1/types/comments.md";
-    var mkdocs_page_url = "/WordPressPCL/v1/types/comments/";
+    var mkdocs_page_name = "Media";
+    var mkdocs_page_input_path = "v1/types/media.md";
+    var mkdocs_page_url = "/WordPressPCL/v1/types/media/";
   </script>
   
   <script src="../../../js/jquery-2.1.1.min.js" defer></script>
@@ -56,27 +56,29 @@
     <ul class="current">
                 <li class="toctree-l2"><a class="reference internal" href="../categories/">Categories</a>
                 </li>
-                <li class="toctree-l2 current"><a class="reference internal current" href="./">Comments</a>
+                <li class="toctree-l2"><a class="reference internal" href="../comments/">Comments</a>
+                </li>
+                <li class="toctree-l2 current"><a class="reference internal current" href="./">Media</a>
     <ul class="current">
     <li class="toctree-l3"><a class="reference internal" href="#getall">GetAll()</a>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#getbyid">GetByID</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#getcommentsforpost">GetCommentsForPost</a>
-    </li>
     <li class="toctree-l3"><a class="reference internal" href="#query">Query</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#get-threaded-comments">Get threaded comments</a>
+    <li class="toctree-l3"><a class="reference internal" href="#create-new-media">Create new Media</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#create-for-net-standard-11">Create for .Net Standard 1.1+</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#create-new-comment">Create new Comment</a>
+    <li class="toctree-l4"><a class="reference internal" href="#create-for-net-standard-20">Create for .Net Standard 2.0+</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#update-comment">Update Comment</a>
+        </ul>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#delete-comment">Delete Comment</a>
+    <li class="toctree-l3"><a class="reference internal" href="#update-media">Update Media</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#delete-media">Delete Media</a>
     </li>
     </ul>
-                </li>
-                <li class="toctree-l2"><a class="reference internal" href="../media/">Media</a>
                 </li>
                 <li class="toctree-l2"><a class="reference internal" href="../pages/">Pages</a>
                 </li>
@@ -137,7 +139,7 @@
         
       
     
-    <li>Comments</li>
+    <li>Media</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -149,62 +151,62 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="comments">Comments</h1>
-<p>Here is a list of methods and examples of working with Comments</p>
+                <h1 id="media">Media</h1>
+<p>Here is a list of methods and examples of working with Media</p>
 <h2 id="getall">GetAll()</h2>
-<pre><code class="language-C#">// returns all comments
-var comments = await client.Comments.GetAll();
+<pre><code class="language-C#">// returns all media
+var media = await client.Media.GetAll();
 </code></pre>
 <h2 id="getbyid">GetByID</h2>
-<pre><code class="language-C#">// returns comment by ID
-var comment = await client.Comments.GetByID(123);
-</code></pre>
-<h2 id="getcommentsforpost">GetCommentsForPost</h2>
-<pre><code class="language-C#">// returns comments from post
-var comments = await client.Comments.GetCommentsForPost(123)
+<pre><code class="language-C#">// returns media by ID
+var media = await client.Media.GetByID(123);
 </code></pre>
 <h2 id="query">Query</h2>
 <p>Create parametrized request</p>
 <pre><code class="language-C#">// returns result of query
-var queryBuilder = new CommentsQueryBuilder();
+var queryBuilder = new MediaQueryBuilder();
 queryBuilder.PerPage = 40;
 queryBuilder.Page = 2;
 queryBuilder.Before = DateTime.Now;
-var comments = await client.Comments.Query(queryBuilder);
+var media = await client.Pages.Query(queryBuilder);
 </code></pre>
-<h2 id="get-threaded-comments">Get threaded comments</h2>
-<p>If your blog supports threaded comments (comments with direct answers) you can order and get the right depth for them with this handy extension method:</p>
-<pre><code class="language-c#">var comments = await client.Comments.GetCommentsForPost(123)
-var commentsThreaded = comments.ToThreaded();
-</code></pre>
-<h2 id="create-new-comment">Create new Comment</h2>
-<pre><code class="language-C#">// returns created comment
-var comment = new Comment()
-{
-    Content = new Content(&quot;Comment&quot;),
-    PostId = 123,
-    AuthorId = 1,
-    AuthorEmail = &quot;test@test.com&quot;
-};
+<h2 id="create-new-media">Create new Media</h2>
+<h3 id="create-for-net-standard-11">Create for .Net Standard 1.1+</h3>
+<p>.Net Standard 1.1-1.3 doesn`t support file manipulation (read or write). So only way to send file content is to create Stream with file content manually.
+Applicable for .netcore 1.0 apps</p>
+<pre><code class="language-C#">// returns created media
+// for create media item you must read them to Stream. Media items can be audio, video, image, pdf ot any othe type supported by wordpress
+Stream s = File.OpenRead(&quot;pathToMedia/media.jpg&quot;);
 if (await client.IsValidJWToken())
 {
-    var createdComment = await client.Comments.Create(comment);
+    var createdMedia = await client.Media.Create(s,&quot;media.jpg&quot;);
 }
 </code></pre>
-<h2 id="update-comment">Update Comment</h2>
-<pre><code class="language-C#">// returns updated comment
-var comment= client.Comments.GetByID(123);
-comment.Content.Raw = &quot;New Content&quot;;
+<h3 id="create-for-net-standard-20">Create for .Net Standard 2.0+</h3>
+<p>.Net Standard 2.0 supports files manipulation. You can send media files by passing its full path to file.
+Applicable for .netcore 2.0 apps</p>
+<pre><code class="language-C#">// returns created media
+// for create media item you must read them to Stream. Media items can be audio, video, image, pdf ot any othe type supported by wordpress
 if (await client.IsValidJWToken())
 {
-    var updatedComment = await client.Comments.Update(comment);
+    var createdMedia = await client.Media.Create(@&quot;C:\pathToFile\media.jpg&quot;,&quot;media.jpg&quot;);
 }
 </code></pre>
-<h2 id="delete-comment">Delete Comment</h2>
+<h2 id="update-media">Update Media</h2>
+<pre><code class="language-C#">// returns updated media
+var media= client.Media.GetByID(123);
+media.Title.Raw = &quot;New Title&quot;;
+
+if (await client.IsValidJWToken())
+{
+    var updatedMedia = await client.Media.Update(media);
+}
+</code></pre>
+<h2 id="delete-media">Delete Media</h2>
 <pre><code class="language-C#">// returns result of deletion
 if (await client.IsValidJWToken())
 {
-    var result = await client.Comments.Delete(123);
+    var result = await client.Media.Delete(123);
 }
 </code></pre>
               
@@ -214,10 +216,10 @@ if (await client.IsValidJWToken())
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../media/" class="btn btn-neutral float-right" title="Media">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../pages/" class="btn btn-neutral float-right" title="Pages">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
-        <a href="../categories/" class="btn btn-neutral" title="Categories"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../comments/" class="btn btn-neutral" title="Comments"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -243,10 +245,10 @@ if (await client.IsValidJWToken())
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="../categories/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="../comments/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
-      <span><a href="../media/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="../pages/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>

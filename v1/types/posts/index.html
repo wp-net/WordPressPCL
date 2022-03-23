@@ -47,25 +47,20 @@
 
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
                 <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../../..">Home</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../../..">WordPressPCL</a>
                     </li>
                 </ul>
-                <p class="caption"><span class="caption-text">Version 2.x</span></p>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../../../v2/getting-started/">Getting Started</a>
-                    </li>
-                    <li class="toctree-l1"><a class="reference internal" href="#">Types</a>
-    <ul>
-                <li class="toctree-l2"><a class="reference internal" href="../../../v2/types/comments/">Comments</a>
-                </li>
-    </ul>
-                    </li>
-                </ul>
-                <p class="caption"><span class="caption-text">Version 1.x</span></p>
+                <p class="caption"><span class="caption-text">V1</span></p>
                 <ul class="current">
                     <li class="toctree-l1 current"><a class="reference internal current" href="#">Types</a>
     <ul class="current">
+                <li class="toctree-l2"><a class="reference internal" href="../categories/">Categories</a>
+                </li>
                 <li class="toctree-l2"><a class="reference internal" href="../comments/">Comments</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../media/">Media</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../pages/">Pages</a>
                 </li>
                 <li class="toctree-l2 current"><a class="reference internal current" href="./">Posts</a>
     <ul class="current">
@@ -84,6 +79,29 @@
     <li class="toctree-l3"><a class="reference internal" href="#get-post-revisions">Get Post Revisions</a>
     </li>
     </ul>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../poststatuses/">PostStatuses</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../posttypes/">PostTypes</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../settings/">Settings</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../tags/">Tags</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../taxonomies/">Taxonomies</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../users/">Users</a>
+                </li>
+    </ul>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">V2</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../../v2/getting-started/">Getting Started</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="#">Types</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../../v2/types/comments/">Comments</a>
                 </li>
     </ul>
                     </li>
@@ -109,7 +127,7 @@
     
       
         
-          <li>Version 1.x &raquo;</li>
+          <li>V1 &raquo;</li>
         
       
         
@@ -187,8 +205,10 @@ var revisions = await client.Posts.Revisions(123);
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
+        <a href="../poststatuses/" class="btn btn-neutral float-right" title="PostStatuses">Next <span class="icon icon-circle-arrow-right"></span></a>
       
-        <a href="../comments/" class="btn btn-neutral" title="Comments"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+        <a href="../pages/" class="btn btn-neutral" title="Pages"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -214,8 +234,10 @@ var revisions = await client.Posts.Revisions(123);
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="../comments/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="../pages/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
+    
+      <span><a href="../poststatuses/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>

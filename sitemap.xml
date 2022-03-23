@@ -6,12 +6,57 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://wp-net.github.io/WordPressPCL/v1/types/categories/</loc>
+         <lastmod>2022-03-23</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://wp-net.github.io/WordPressPCL/v1/types/comments/</loc>
          <lastmod>2022-03-23</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://wp-net.github.io/WordPressPCL/v1/types/media/</loc>
+         <lastmod>2022-03-23</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://wp-net.github.io/WordPressPCL/v1/types/pages/</loc>
+         <lastmod>2022-03-23</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://wp-net.github.io/WordPressPCL/v1/types/posts/</loc>
+         <lastmod>2022-03-23</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://wp-net.github.io/WordPressPCL/v1/types/poststatuses/</loc>
+         <lastmod>2022-03-23</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://wp-net.github.io/WordPressPCL/v1/types/posttypes/</loc>
+         <lastmod>2022-03-23</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://wp-net.github.io/WordPressPCL/v1/types/settings/</loc>
+         <lastmod>2022-03-23</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://wp-net.github.io/WordPressPCL/v1/types/tags/</loc>
+         <lastmod>2022-03-23</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://wp-net.github.io/WordPressPCL/v1/types/taxonomies/</loc>
+         <lastmod>2022-03-23</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://wp-net.github.io/WordPressPCL/v1/types/users/</loc>
          <lastmod>2022-03-23</lastmod>
          <changefreq>daily</changefreq>
     </url>
