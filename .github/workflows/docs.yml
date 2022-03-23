@@ -3,7 +3,7 @@ name: Documentation
 on:
   push:
     branches:
-      - main
+      - master
     paths:
       - "**.md"
       - "mkdocs.yml"
