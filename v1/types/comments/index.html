@@ -67,6 +67,22 @@
     <ul class="current">
                 <li class="toctree-l2 current"><a class="reference internal current" href="./">Comments</a>
     <ul class="current">
+    <li class="toctree-l3"><a class="reference internal" href="#getall">GetAll()</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#getbyid">GetByID</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#getcommentsforpost">GetCommentsForPost</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#query">Query</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#get-threaded-comments">Get threaded comments</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#create-new-comment">Create new Comment</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#update-comment">Update Comment</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#delete-comment">Delete Comment</a>
+    </li>
     </ul>
                 </li>
                 <li class="toctree-l2"><a class="reference internal" href="../posts/">Posts</a>
@@ -115,7 +131,8 @@
           <div role="main">
             <div class="section">
               
-                <p>Here is a list of methods and examples of working with Comments</p>
+                <h1 id="comments">Comments</h1>
+<p>Here is a list of methods and examples of working with Comments</p>
 <h2 id="getall">GetAll()</h2>
 <pre><code class="language-C#">// returns all comments
 var comments = await client.Comments.GetAll();

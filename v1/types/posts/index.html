@@ -68,6 +68,22 @@
                 <li class="toctree-l2"><a class="reference internal" href="../comments/">Comments</a>
                 </li>
                 <li class="toctree-l2 current"><a class="reference internal current" href="./">Posts</a>
+    <ul class="current">
+    <li class="toctree-l3"><a class="reference internal" href="#getall">GetAll()</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#getbyid">GetByID</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#query">Query</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#create-new-post">Create new Post</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#update-post">Update Post</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#delete-post">Delete Post</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#get-post-revisions">Get Post Revisions</a>
+    </li>
+    </ul>
                 </li>
     </ul>
                     </li>
@@ -113,7 +129,57 @@
           <div role="main">
             <div class="section">
               
-                
+                <h1 id="posts">Posts</h1>
+<p>Here is a list of methods and examples of working with Posts</p>
+<h2 id="getall">GetAll()</h2>
+<pre><code class="language-C#">// returns all posts
+var posts = await client.Posts.GetAll();
+</code></pre>
+<h2 id="getbyid">GetByID</h2>
+<pre><code class="language-C#">// returns post by ID
+var post = await client.Posts.GetByID(123);
+</code></pre>
+<h2 id="query">Query</h2>
+<p>Create parametrized request</p>
+<pre><code class="language-C#">// returns result of query
+var queryBuilder = new PostsQueryBuilder();
+queryBuilder.PerPage=40;
+queryBuilder.Page=2;
+queryBuilder.Categories= new int[]{1,2,3};
+var posts = await client.Posts.Query(queryBuilder);
+</code></pre>
+<h2 id="create-new-post">Create new Post</h2>
+<pre><code class="language-C#">// returns created post
+var post = new Post()
+{
+    Title = new Title(&quot;Title 1&quot;),
+    Content = new Content(&quot;Content PostCreate&quot;)
+};
+if (await client.IsValidJWToken())
+{
+    var createdPost = await client.Posts.Create(post);
+}
+</code></pre>
+<h2 id="update-post">Update Post</h2>
+<pre><code class="language-C#">// returns updated post
+var post = client.Posts.GetByID(123);
+post.Content.Raw = &quot;New Content&quot;;
+if (await client.IsValidJWToken())
+{
+    var updatedPost = await client.Posts.Update(post);
+}
+</code></pre>
+<h2 id="delete-post">Delete Post</h2>
+<pre><code class="language-C#">// returns result of deletion
+if (await client.IsValidJWToken())
+{
+    var result = await client.Posts.Delete(123);
+}
+</code></pre>
+<h2 id="get-post-revisions">Get Post Revisions</h2>
+<pre><code class="language-C#">// returns revisions of post
+var revisions = await client.Posts.Revisions(123);
+</code></pre>
               
             </div>
           </div>
