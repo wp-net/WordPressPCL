@@ -4,9 +4,8 @@
 This is a portable library for consuming the WordPress REST-API in (almost) any C# application.
 If you find bugs or have any suggestions, feel free to create an issue.
 
-## License
-WordPressPCL is published under the [MIT License](https://github.com/wp-net/WordPressPCL/blob/master/LICENSE)
-
+## Documentation
+https://wp-net.github.io/WordPressPCL/
 # Quickstart
 
 ## WordPress Requirements
