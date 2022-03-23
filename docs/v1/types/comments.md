@@ -1,3 +1,5 @@
+# Comments
+
 Here is a list of methods and examples of working with Comments
 
 ## GetAll()
