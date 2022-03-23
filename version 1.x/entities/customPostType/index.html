@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="canonical" href="https://wp-net.github.io/WordPressPCL/version%201.x/entities/customPostType/">
+  <link rel="shortcut icon" href="../../../img/favicon.ico">
+  <title>Custom Post Type - WordPressPCL</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../../../css/theme.css" />
+  <link rel="stylesheet" href="../../../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Custom Post Type";
+    var mkdocs_page_input_path = "version 1.x/entities/customPostType.md";
+    var mkdocs_page_url = "/WordPressPCL/version%201.x/entities/customPostType/";
+  </script>
+  
+  <script src="../../../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../../../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href="../../.." class="icon icon-home"> WordPressPCL</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../..">Home</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Version 1.x</span></p>
+                <ul class="current">
+                    <li class="toctree-l1"><a class="reference internal" href="../../troubleshooting/">Troubleshooting</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="#">Customization</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../customization/customHttpClient/">Custom HttpClient</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../customization/customJsonSerializationSettings/">Custom JsonSerializationSettings</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../customization/customRequest/">CustomRequest</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../customization/httpResponsePreProcessing/">HttpResponsePreProcessing</a>
+                </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1 current"><a class="reference internal current" href="#">Entities</a>
+    <ul class="current">
+                <li class="toctree-l2"><a class="reference internal" href="../categories/">Categories</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../comments/">Comments</a>
+                </li>
+                <li class="toctree-l2 current"><a class="reference internal current" href="./">Custom Post Type</a>
+    <ul class="current">
+    </ul>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../media/">Media</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../pages/">Pages</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../posts/">Posts</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../poststatuses/">PostStatuses</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../posttypes/">PostTypes</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../settings/">Settings</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../tags/">Tags</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../taxonomies/">Taxonomies</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../users/">Users</a>
+                </li>
+    </ul>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Version 2.x</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../../version%202.x/getting-started/">Getting Started</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="#">Entities</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../../version%202.x/entities/comments/">Comments</a>
+                </li>
+    </ul>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../..">WordPressPCL</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Version 1.x &raquo;</li>
+        
+      
+        
+          <li>Entities &raquo;</li>
+        
+      
+    
+    <li>Custom Post Type</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="custom-post-type">Custom Post Type</h1>
+<p>To create post of custom post type you should do 2 things
+1. Enable rest api support for custom post type <a href="https://developer.wordpress.org/rest-api/extending-the-rest-api/adding-rest-api-support-for-custom-content-types/#registering-a-custom-post-type-with-rest-api-support">registering-a-custom-post-type-with-rest-api-support</a>
+2. This is a one of contrintuitive things in WP REST API, but for creating post with custom type you should send requests to custom endpoint. For this task you can use our <a href="https://github.com/wp-net/WordPressPCL/wiki/CustomRequests">Custom Requests</a> feature
+Example:</p>
+<pre><code class="language-c#">var post = new Post()
+{
+       Title = new Title(&quot;Title 1&quot;),
+       Content = new Content(&quot;Content PostCreate&quot;),
+       Type = &quot;portfolio&quot; //your custom post type
+};
+//change portfolio to your custom post type
+var createdPost = await _clientAuth.CustomRequest.Create&lt;Post, Post&gt;(&quot;wp/v2/portfolio&quot;,post); 
+</code></pre>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../media/" class="btn btn-neutral float-right" title="Media">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../comments/" class="btn btn-neutral" title="Comments"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../comments/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../media/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '../../..';</script>
+    <script src="../../../js/theme_extra.js" defer></script>
+    <script src="../../../js/theme.js" defer></script>
+      <script src="../../../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>
