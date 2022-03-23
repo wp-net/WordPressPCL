@@ -49,6 +49,30 @@
                 <ul class="current">
                     <li class="toctree-l1 current"><a class="reference internal current" href=".">Home</a>
     <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#license">License</a>
+    </li>
+    </ul>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Version 2.x</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="v2/getting-started/">Getting Started</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="#">Types</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="v2/types/comments/">Comments</a>
+                </li>
+    </ul>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Version 1.x</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="#">Types</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="v1/types/comments/">Comments</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="v1/types/posts/">Posts</a>
+                </li>
     </ul>
                     </li>
                 </ul>
@@ -85,93 +109,175 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="mkdocs">MkDocs</h1>
-<p>Project documentation with&nbsp;Markdown.</p>
-<hr />
-<p>MkDocs is a <strong>fast</strong>, <strong>simple</strong> and <strong>downright gorgeous</strong> static site
-generator that's geared towards building project documentation. Documentation
-source files are written in Markdown, and configured with a single YAML
-configuration file. Start by reading the <a href="getting-started.md">introductory tutorial</a>, then check the
-<a href="user-guide/index.md">User Guide</a> for more information.</p>
-<div class="text-center">
-<a href="getting-started/" class="btn btn-primary" role="button">Getting Started</a>
-<a href="user-guide/" class="btn btn-primary" role="button">User Guide</a>
-</div>
+                <h1 id="wordpresspcl">WordPressPCL</h1>
+<p><img alt="Integration Tests" src="https://github.com/wp-net/WordPressPCL/workflows/Integration%20Tests/badge.svg?branch=master" /></p>
+<p>This is a portable library for consuming the WordPress REST-API in (almost) any C# application.
+If you find bugs or have any suggestions, feel free to create an issue.</p>
+<h2 id="license">License</h2>
+<p>WordPressPCL is published under the <a href="https://github.com/wp-net/WordPressPCL/blob/master/LICENSE">MIT License</a></p>
+<h1 id="quickstart">Quickstart</h1>
+<h2 id="wordpress-requirements">WordPress Requirements</h2>
+<p>Since WordPress 4.7 the REST API has been integrated into the core so there's no need for any plugins to get basic functionality. If you want to access protected endpoints, this library supports authentication through JSON Web Tokens (JWT) (plugin required).</p>
+<ul>
+<li><a href="https://wordpress.org/">WordPress 4.7 or newer</a></li>
+<li><a href="https://wordpress.org/plugins/jwt-authentication-for-wp-rest-api/">JWT Authentication for WP REST API</a></li>
+</ul>
+<h2 id="including-wordpresspcl">Including WordPressPCL</h2>
+<p>The WordPressPCL API Wrapper is avaiable through <a href="https://www.nuget.org/packages/WordPressPCL/">NuGet</a>:</p>
+<pre><code>&gt; Install-Package WordPressPCL
+</code></pre>
+<h2 id="supported-plattforms">Supported Plattforms</h2>
+<p>WordPressPCL is built on top of the new <a href="https://github.com/dotnet/standard">.NET Standard</a> targeting netstandard versions 1.1 and 2.0 - therefore it should work on the following plaforms:
+* .NET Framework 4.5 and newer
+* .NET Core
+* Universal Windows Platform (uap)
+* Windows 8.0 and newer
+* Windows Phone (WinRT, not Silverlight)
+* Mono / Xamarin</p>
+<h2 id="quickstart-using-the-api-wrapper">Quickstart: Using the API Wrapper</h2>
+<pre><code class="language-c#">// Initialize
+var client = new WordPressClient(&quot;http://demo.wp-api.org/wp-json/&quot;);
 
-<div class="jumbotron">
-<h2 class="display-4 text-center">Features</h2>
+// Posts
+var posts = await client.Posts.GetAll();
+var postbyid = await client.Posts.GetById(id);
 
-<div class="row">
-  <div class="col-sm-6">
-    <div class="card">
-      <div class="card-body">
-        <h3 class="card-title">Great themes available</h3>
-        <p class="card-text">
-            There's a stack of good looking <a
-            href="user-guide/choosing-your-theme">themes</a> available for
-            MkDocs. Choose between the built in themes: <a
-            href="user-guide/choosing-your-theme/#mkdocs">mkdocs</a> and <a
-            href="user-guide/choosing-your-theme/#readthedocs">readthedocs</a>,
-            select one of the third-party themes listed on the <a
-            href="https://github.com/mkdocs/mkdocs/wiki/MkDocs-Themes">MkDocs
-            Themes</a> wiki page, or <a href="dev-guide/themes/">build your
-            own</a>.
-        </p>
-      </div>
-    </div>
-  </div>
-  <div class="col-sm-6">
-    <div class="card">
-      <div class="card-body">
-        <h3 class="card-title">Easy to customize</h3>
-        <p class="card-text">
-            Get your project documentation looking just the way you want it by
-            <a href="user-guide/customizing-your-theme/">customizing your
-            theme</a> and/or installing some <a
-            href="user-guide/configuration/#plugins">plugins</a>. Modify
-            Markdown's behavior with <a
-            href="user-guide/configuration/#markdown_extensions">Markdown
-            extensions</a>. Many <a
-            href="user-guide/configuration/">configuration options</a> are
-            available.
-        </p>
-      </div>
-    </div>
-  </div>
-</div>
+// Comments
+var comments = await client.Comments.GetAll();
+var commentbyid = await client.Comments.GetById(id);
+var commentsbypost = await client.Comments.GetCommentsForPost(postid, true, false);
 
-<div class="row">
-  <div class="col-sm-6">
-    <div class="card">
-      <div class="card-body">
-        <h3 class="card-title">Preview your site as you work</h3>
-        <p class="card-text">
-            The built-in dev-server allows you to preview your documentation
-            as you're writing it. It will even auto-reload and refresh your
-            browser whenever you save your changes.
-        </p>
-      </div>
-    </div>
-  </div>
-  <div class="col-sm-6">
-    <div class="card">
-      <div class="card-body">
-        <h3 class="card-title">Host anywhere</h3>
-        <p class="card-text">
-            MkDocs builds completely static HTML sites that you can host on
-            GitHub pages, Amazon S3, or <a
-            href="user-guide/deploying-your-docs/">anywhere</a> else you
-            choose.
-        </p>
-      </div>
-    </div>
-  </div>
-</div>
-</div>
+// Users
+// JWT authentication
+var client = new WordPressClient(ApiCredentials.WordPressUri);
+client.AuthMethod = AuthMethod.JWT;
+await client.RequestJWToken(ApiCredentials.Username,ApiCredentials.Password);
+
+// check if authentication has been successful
+var isValidToken = await client.IsValidJWToken();
+
+// now you can send requests that require authentication
+var response = client.Posts.Delete(postid);
+</code></pre>
+<h2 id="supported-rest-methods">Supported REST Methods</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Create</th>
+<th>Read</th>
+<th>Update</th>
+<th>Delete</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Posts</strong></td>
+<td>yes</td>
+<td>yes</td>
+<td>yes</td>
+<td>yes</td>
+</tr>
+<tr>
+<td><strong>Pages</strong></td>
+<td>yes</td>
+<td>yes</td>
+<td>yes</td>
+<td>yes</td>
+</tr>
+<tr>
+<td><strong>Comments</strong></td>
+<td>yes</td>
+<td>yes</td>
+<td>yes</td>
+<td>yes</td>
+</tr>
+<tr>
+<td><strong>Categories</strong></td>
+<td>yes</td>
+<td>yes</td>
+<td>yes</td>
+<td>yes</td>
+</tr>
+<tr>
+<td><strong>Tags</strong></td>
+<td>yes</td>
+<td>yes</td>
+<td>yes</td>
+<td>yes</td>
+</tr>
+<tr>
+<td><strong>Users</strong></td>
+<td>yes</td>
+<td>yes</td>
+<td>yes</td>
+<td>yes</td>
+</tr>
+<tr>
+<td><strong>Media</strong></td>
+<td>yes</td>
+<td>yes</td>
+<td>yes</td>
+<td>yes</td>
+</tr>
+<tr>
+<td><strong>Post Revisions</strong></td>
+<td>---</td>
+<td>yes</td>
+<td>---</td>
+<td>yes</td>
+</tr>
+<tr>
+<td><strong>Taxonomies</strong></td>
+<td>---</td>
+<td>yes</td>
+<td>---</td>
+<td>---</td>
+</tr>
+<tr>
+<td><strong>Post Types</strong></td>
+<td>---</td>
+<td>yes</td>
+<td>---</td>
+<td>---</td>
+</tr>
+<tr>
+<td><strong>Post Statuses</strong></td>
+<td>---</td>
+<td>yes</td>
+<td>---</td>
+<td>---</td>
+</tr>
+<tr>
+<td><strong>Settings</strong></td>
+<td>---</td>
+<td>yes</td>
+<td>yes</td>
+<td>---</td>
+</tr>
+</tbody>
+</table>
+<h2 id="additional-features">Additional Features</h2>
+<ul>
+<li>Authentication using <a href="https://jwt.io/">JSON Web Tokens (JWT)</a></li>
+<li><a href="https://github.com/wp-net/WordPressPCL/wiki/HttpResponsePreProcessing">HttpResponsePreProcessing</a>: manipulate the API response before deserializing it</li>
+</ul>
+<h2 id="contribution-guidelines">Contribution Guidelines</h2>
+<p>We're very happy to get input from the community on this project! To keep the code clean we ask you to follow a few simple contribution guidelines.</p>
+<p>First, create an issue describing what feature you want to add or what problem you're trying to solve, just to make sure no one is already working on that. That also gives us a chance to debate whether a feature is within the scope of this project.</p>
+<p>Second, please try to stick to the official C# coding guidelines. https://msdn.microsoft.com/en-us/library/ms229002(v=vs.110).aspx</p>
+<p>Also, make sure to write some tests covering your new or modified code.</p>
               
             </div>
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="v2/getting-started/" class="btn btn-neutral float-right" title="Getting Started">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+    </div>
   
 
   <hr/>
@@ -196,6 +302,8 @@ configuration file. Start by reading the <a href="getting-started.md">introducto
     
     
     
+      <span><a href="v2/getting-started/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
   </span>
 </div>
     <script>var base_url = '.';</script>
@@ -213,5 +321,5 @@ configuration file. Start by reading the <a href="getting-started.md">introducto
 
 <!--
 MkDocs version : 1.2.3
-Build Date UTC : 2022-03-23 15:25:18.847749+00:00
+Build Date UTC : 2022-03-23 16:52:04.977313+00:00
 -->

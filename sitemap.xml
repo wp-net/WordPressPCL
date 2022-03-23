@@ -5,4 +5,24 @@
          <lastmod>2022-03-23</lastmod>
          <changefreq>daily</changefreq>
     </url>
+    <url>
+         <loc>https://example.com/v1/types/comments/</loc>
+         <lastmod>2022-03-23</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://example.com/v1/types/posts/</loc>
+         <lastmod>2022-03-23</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://example.com/v2/getting-started/</loc>
+         <lastmod>2022-03-23</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://example.com/v2/types/comments/</loc>
+         <lastmod>2022-03-23</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
 </urlset>
