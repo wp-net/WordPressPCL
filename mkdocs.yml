@@ -1,5 +1,5 @@
-site_name: MkLorum
-site_url: https://example.com/
+site_name: WordPressPCL
+site_url: https://wp-net.github.io/WordPressPCL/
 nav:
     - Home: index.md
     - Version 2.x:
