@@ -2,12 +2,12 @@ site_name: MkLorum
 site_url: https://example.com/
 nav:
     - Home: index.md
-    - Version 2.x: v2/start.md
+    - Version 2.x:
         - Getting Started: v2/getting-started.md
-        - Types: v2/types.md
+        - Types:
             - Comments: v2/types/comments.md
-    - Version 1.x: v1/start.md
-        - Types: v1/types.md
+    - Version 1.x:
+        - Types:
             - Comments: v1/types/comments.md
 
 theme: readthedocs
