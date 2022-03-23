@@ -1,90 +1,91 @@
-# MkDocs
+# WordPressPCL
+![Integration Tests](https://github.com/wp-net/WordPressPCL/workflows/Integration%20Tests/badge.svg?branch=master)
 
-Project documentation with&nbsp;Markdown.
+This is a portable library for consuming the WordPress REST-API in (almost) any C# application.
+If you find bugs or have any suggestions, feel free to create an issue.
 
----
+## License
+WordPressPCL is published under the [MIT License](https://github.com/wp-net/WordPressPCL/blob/master/LICENSE)
 
-MkDocs is a **fast**, **simple** and **downright gorgeous** static site
-generator that's geared towards building project documentation. Documentation
-source files are written in Markdown, and configured with a single YAML
-configuration file. Start by reading the [introductory tutorial], then check the
-[User Guide] for more information.
+# Quickstart
 
-[introductory tutorial]: getting-started.md
-[User Guide]: user-guide/index.md
+## WordPress Requirements
+Since WordPress 4.7 the REST API has been integrated into the core so there's no need for any plugins to get basic functionality. If you want to access protected endpoints, this library supports authentication through JSON Web Tokens (JWT) (plugin required).
 
-<div class="text-center">
-<a href="getting-started/" class="btn btn-primary" role="button">Getting Started</a>
-<a href="user-guide/" class="btn btn-primary" role="button">User Guide</a>
-</div>
+* [WordPress 4.7 or newer](https://wordpress.org/)
+* [JWT Authentication for WP REST API](https://wordpress.org/plugins/jwt-authentication-for-wp-rest-api/)
 
-<div class="jumbotron">
-<h2 class="display-4 text-center">Features</h2>
+## Including WordPressPCL
+The WordPressPCL API Wrapper is avaiable through [NuGet](https://www.nuget.org/packages/WordPressPCL/):
 
-<div class="row">
-  <div class="col-sm-6">
-    <div class="card">
-      <div class="card-body">
-        <h3 class="card-title">Great themes available</h3>
-        <p class="card-text">
-            There's a stack of good looking <a
-            href="user-guide/choosing-your-theme">themes</a> available for
-            MkDocs. Choose between the built in themes: <a
-            href="user-guide/choosing-your-theme/#mkdocs">mkdocs</a> and <a
-            href="user-guide/choosing-your-theme/#readthedocs">readthedocs</a>,
-            select one of the third-party themes listed on the <a
-            href="https://github.com/mkdocs/mkdocs/wiki/MkDocs-Themes">MkDocs
-            Themes</a> wiki page, or <a href="dev-guide/themes/">build your
-            own</a>.
-        </p>
-      </div>
-    </div>
-  </div>
-  <div class="col-sm-6">
-    <div class="card">
-      <div class="card-body">
-        <h3 class="card-title">Easy to customize</h3>
-        <p class="card-text">
-            Get your project documentation looking just the way you want it by
-            <a href="user-guide/customizing-your-theme/">customizing your
-            theme</a> and/or installing some <a
-            href="user-guide/configuration/#plugins">plugins</a>. Modify
-            Markdown's behavior with <a
-            href="user-guide/configuration/#markdown_extensions">Markdown
-            extensions</a>. Many <a
-            href="user-guide/configuration/">configuration options</a> are
-            available.
-        </p>
-      </div>
-    </div>
-  </div>
-</div>
+```
+> Install-Package WordPressPCL
+```
 
-<div class="row">
-  <div class="col-sm-6">
-    <div class="card">
-      <div class="card-body">
-        <h3 class="card-title">Preview your site as you work</h3>
-        <p class="card-text">
-            The built-in dev-server allows you to preview your documentation
-            as you're writing it. It will even auto-reload and refresh your
-            browser whenever you save your changes.
-        </p>
-      </div>
-    </div>
-  </div>
-  <div class="col-sm-6">
-    <div class="card">
-      <div class="card-body">
-        <h3 class="card-title">Host anywhere</h3>
-        <p class="card-text">
-            MkDocs builds completely static HTML sites that you can host on
-            GitHub pages, Amazon S3, or <a
-            href="user-guide/deploying-your-docs/">anywhere</a> else you
-            choose.
-        </p>
-      </div>
-    </div>
-  </div>
-</div>
-</div>
+## Supported Plattforms
+WordPressPCL is built on top of the new [.NET Standard](https://github.com/dotnet/standard) targeting netstandard versions 1.1 and 2.0 - therefore it should work on the following plaforms:
+* .NET Framework 4.5 and newer
+* .NET Core
+* Universal Windows Platform (uap)
+* Windows 8.0 and newer
+* Windows Phone (WinRT, not Silverlight)
+* Mono / Xamarin
+
+## Quickstart: Using the API Wrapper
+
+```c#
+// Initialize
+var client = new WordPressClient("http://demo.wp-api.org/wp-json/");
+
+// Posts
+var posts = await client.Posts.GetAll();
+var postbyid = await client.Posts.GetById(id);
+
+// Comments
+var comments = await client.Comments.GetAll();
+var commentbyid = await client.Comments.GetById(id);
+var commentsbypost = await client.Comments.GetCommentsForPost(postid, true, false);
+
+// Users
+// JWT authentication
+var client = new WordPressClient(ApiCredentials.WordPressUri);
+client.AuthMethod = AuthMethod.JWT;
+await client.RequestJWToken(ApiCredentials.Username,ApiCredentials.Password);
+
+// check if authentication has been successful
+var isValidToken = await client.IsValidJWToken();
+
+// now you can send requests that require authentication
+var response = client.Posts.Delete(postid);
+```
+
+## Supported REST Methods
+
+|                    | Create  | Read    | Update  | Delete  |
+|--------------------|---------|---------|---------|---------|
+| **Posts**          | yes     | yes     | yes     | yes     |
+| **Pages**          | yes     | yes     | yes     | yes     |
+| **Comments**       | yes     | yes     | yes     | yes     |
+| **Categories**     | yes     | yes     | yes     | yes     |
+| **Tags**           | yes     | yes     | yes     | yes     |
+| **Users**          | yes     | yes     | yes     | yes     |
+| **Media**          | yes     | yes     | yes     | yes     |
+| **Post Revisions** | ---     | yes     | ---     | yes     |
+| **Taxonomies**     | ---     | yes     | ---     | ---     |
+| **Post Types**     | ---     | yes     | ---     | ---     |
+| **Post Statuses**  | ---     | yes     | ---     | ---     |
+| **Settings**       | ---     | yes     | yes     | ---     |
+
+## Additional Features
+
+- Authentication using [JSON Web Tokens (JWT)](https://jwt.io/)
+- [HttpResponsePreProcessing](https://github.com/wp-net/WordPressPCL/wiki/HttpResponsePreProcessing): manipulate the API response before deserializing it
+
+## Contribution Guidelines
+We're very happy to get input from the community on this project! To keep the code clean we ask you to follow a few simple contribution guidelines.
+
+First, create an issue describing what feature you want to add or what problem you're trying to solve, just to make sure no one is already working on that. That also gives us a chance to debate whether a feature is within the scope of this project.
+
+Second, please try to stick to the official C# coding guidelines. https://msdn.microsoft.com/en-us/library/ms229002(v=vs.110).aspx
+
+Also, make sure to write some tests covering your new or modified code.
