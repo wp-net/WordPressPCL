@@ -7,9 +7,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   
-  <link rel="canonical" href="https://wp-net.github.io/WordPressPCL/v1/types/categories/">
+  <link rel="canonical" href="https://wp-net.github.io/WordPressPCL/version%201.x/types/posttypes/">
   <link rel="shortcut icon" href="../../../img/favicon.ico">
-  <title>Categories - WordPressPCL</title>
+  <title>PostTypes - WordPressPCL</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
 
   <link rel="stylesheet" href="../../../css/theme.css" />
@@ -18,9 +18,9 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "Categories";
-    var mkdocs_page_input_path = "v1/types/categories.md";
-    var mkdocs_page_url = "/WordPressPCL/v1/types/categories/";
+    var mkdocs_page_name = "PostTypes";
+    var mkdocs_page_input_path = "version 1.x/types/posttypes.md";
+    var mkdocs_page_url = "/WordPressPCL/version%201.x/types/posttypes/";
   </script>
   
   <script src="../../../js/jquery-2.1.1.min.js" defer></script>
@@ -47,28 +47,14 @@
 
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
                 <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../../..">WordPressPCL</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../../..">Home</a>
                     </li>
                 </ul>
-                <p class="caption"><span class="caption-text">V1</span></p>
+                <p class="caption"><span class="caption-text">Version 1.x</span></p>
                 <ul class="current">
                     <li class="toctree-l1 current"><a class="reference internal current" href="#">Types</a>
     <ul class="current">
-                <li class="toctree-l2 current"><a class="reference internal current" href="./">Categories</a>
-    <ul class="current">
-    <li class="toctree-l3"><a class="reference internal" href="#getall">GetAll()</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#getbyid">GetByID</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#query">Query</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#create-new-category">Create new Category</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#update-category">Update Category</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#delete-category">Delete Category</a>
-    </li>
-    </ul>
+                <li class="toctree-l2"><a class="reference internal" href="../categories/">Categories</a>
                 </li>
                 <li class="toctree-l2"><a class="reference internal" href="../comments/">Comments</a>
                 </li>
@@ -80,7 +66,15 @@
                 </li>
                 <li class="toctree-l2"><a class="reference internal" href="../poststatuses/">PostStatuses</a>
                 </li>
-                <li class="toctree-l2"><a class="reference internal" href="../posttypes/">PostTypes</a>
+                <li class="toctree-l2 current"><a class="reference internal current" href="./">PostTypes</a>
+    <ul class="current">
+    <li class="toctree-l3"><a class="reference internal" href="#getall">GetAll()</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#getbyid">GetByID</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#query">Query</a>
+    </li>
+    </ul>
                 </li>
                 <li class="toctree-l2"><a class="reference internal" href="../settings/">Settings</a>
                 </li>
@@ -93,13 +87,13 @@
     </ul>
                     </li>
                 </ul>
-                <p class="caption"><span class="caption-text">V2</span></p>
+                <p class="caption"><span class="caption-text">Version 2.x</span></p>
                 <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../../../v2/getting-started/">Getting Started</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../../../version%202.x/getting-started/">Getting Started</a>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="#">Types</a>
     <ul>
-                <li class="toctree-l2"><a class="reference internal" href="../../../v2/types/comments/">Comments</a>
+                <li class="toctree-l2"><a class="reference internal" href="../../../version%202.x/types/comments/">Comments</a>
                 </li>
     </ul>
                     </li>
@@ -125,7 +119,7 @@
     
       
         
-          <li>V1 &raquo;</li>
+          <li>Version 1.x &raquo;</li>
         
       
         
@@ -133,7 +127,7 @@
         
       
     
-    <li>Categories</li>
+    <li>PostTypes</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -145,52 +139,24 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="categories">Categories</h1>
-<p>Here is a list of methods and examples of working with Categories</p>
+                <h1 id="posttypes">PostTypes</h1>
+<p>Here is a list of methods and examples of working with PostTypes</p>
 <h2 id="getall">GetAll()</h2>
-<pre><code class="language-C#">// returns all categories
-var categories = await client.Categories.GetAll();
+<pre><code class="language-C#">// returns all posttypes
+var posttypes = await client.PostTypes.GetAll();
 </code></pre>
 <h2 id="getbyid">GetByID</h2>
-<pre><code class="language-C#">// returns category by ID
-var category = await client.Categories.GetByID(123);
+<pre><code class="language-C#">// returns posttype by ID
+var posttype = await client.PostTypes.GetByID(123);
 </code></pre>
 <h2 id="query">Query</h2>
 <p>Create parametrized request</p>
 <pre><code class="language-C#">// returns result of query
-var queryBuilder = new CategoriesQueryBuilder();
+var queryBuilder = new PostTypesQueryBuilder();
 queryBuilder.PerPage = 40;
 queryBuilder.Page = 2;
 queryBuilder.Before = DateTime.Now;
-var categories = await client.Categories.Query(queryBuilder);
-</code></pre>
-<h2 id="create-new-category">Create new Category</h2>
-<pre><code class="language-C#">// returns created category
-var category = new Category()
-{
-    Name = &quot;Title 1&quot;,
-    Description = &quot;Content&quot;
-};
-if (await client.IsValidJWToken())
-{
-    var createdCategory = await client.Categories.Create(category);
-}
-</code></pre>
-<h2 id="update-category">Update Category</h2>
-<pre><code class="language-C#">// returns updated category
-var category = client.Categories.GetByID(123);
-category.Name = &quot;New Name&quot;;
-if (await client.IsValidJWToken())
-{
-    var updatedCategory = await client.Categories.Update(category);
-}
-</code></pre>
-<h2 id="delete-category">Delete Category</h2>
-<pre><code class="language-C#">// returns result of deletion
-if (await client.IsValidJWToken())
-{
-    var result = await client.Categories.Delete(123);
-}
+var posttypes = await client.PostTypes.Query(queryBuilder);
 </code></pre>
               
             </div>
@@ -199,10 +165,10 @@ if (await client.IsValidJWToken())
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../comments/" class="btn btn-neutral float-right" title="Comments">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../settings/" class="btn btn-neutral float-right" title="Settings">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
-        <a href="../../.." class="btn btn-neutral" title="WordPressPCL"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../poststatuses/" class="btn btn-neutral" title="PostStatuses"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -228,10 +194,10 @@ if (await client.IsValidJWToken())
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="../../.." style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="../poststatuses/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
-      <span><a href="../comments/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="../settings/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>
