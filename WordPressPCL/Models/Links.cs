@@ -15,13 +15,13 @@ namespace WordPressPCL.Models
         public IEnumerable<Self> Self { get; set; }
         /// <summary>
         /// Collection of links
-        /// <see cref="WordPressPCL.Models.Collection"/>
+        /// <see cref="Models.Collection"/>
         /// </summary>
         [JsonProperty("collection")]
         public IEnumerable<Collection> Collection { get; set; }
         /// <summary>
         /// About info
-        /// <see cref="WordPressPCL.Models.About"/>
+        /// <see cref="Models.About"/>
         /// </summary>
         [JsonProperty("about")]
         public IEnumerable<About> About { get; set; }

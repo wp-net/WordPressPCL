@@ -35,7 +35,7 @@ namespace WordPressPCL.Client
         /// <param name="embed">include embed info</param>
         /// <param name="useAuth">Send request with authentication header</param>
         /// <returns>List of posts</returns>
-        public Task<IEnumerable<Post>> GetStickyPosts(bool embed = false, bool useAuth = false)
+        public Task<IEnumerable<Post>> GetStickyPostsAsync(bool embed = false, bool useAuth = false)
         {
             // default values
             // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
@@ -49,7 +49,7 @@ namespace WordPressPCL.Client
         /// <param name="embed">include embed info</param>
         /// <param name="useAuth">Send request with authentication header</param>
         /// <returns>List of posts</returns>
-        public Task<IEnumerable<Post>> GetPostsByCategory(int categoryId, bool embed = false, bool useAuth = false)
+        public Task<IEnumerable<Post>> GetPostsByCategoryAsync(int categoryId, bool embed = false, bool useAuth = false)
         {
             // default values
             // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
@@ -63,7 +63,7 @@ namespace WordPressPCL.Client
         /// <param name="embed">include embed info</param>
         /// <param name="useAuth">Send request with authentication header</param>
         /// <returns>List of posts</returns>
-        public Task<IEnumerable<Post>> GetPostsByTag(int tagId, bool embed = false, bool useAuth = false)
+        public Task<IEnumerable<Post>> GetPostsByTagAsync(int tagId, bool embed = false, bool useAuth = false)
         {
             // default values
             // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
@@ -77,7 +77,7 @@ namespace WordPressPCL.Client
         /// <param name="embed">include embed info</param>
         /// <param name="useAuth">Send request with authentication header</param>
         /// <returns>List of posts</returns>
-        public Task<IEnumerable<Post>> GetPostsByAuthor(int authorId, bool embed = false, bool useAuth = false)
+        public Task<IEnumerable<Post>> GetPostsByAuthorAsync(int authorId, bool embed = false, bool useAuth = false)
         {
             // default values
             // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
@@ -91,7 +91,7 @@ namespace WordPressPCL.Client
         /// <param name="embed">include embed info</param>
         /// <param name="useAuth">Send request with authentication header</param>
         /// <returns>List of posts</returns>
-        public Task<IEnumerable<Post>> GetPostsBySearch(string searchTerm, bool embed = false, bool useAuth = false)
+        public Task<IEnumerable<Post>> GetPostsBySearchAsync(string searchTerm, bool embed = false, bool useAuth = false)
         {
             // default values
             // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
@@ -115,11 +115,13 @@ namespace WordPressPCL.Client
         /// <param name="Id">Post id</param>
         /// <param name="force">force deletion</param>
         /// <returns>Result of operation</returns>
-        public Task<bool> Delete(int Id, bool force = false)
+        public Task<bool> DeleteAsync(int Id, bool force = false)
         {
+#pragma warning disable CA1507 // Use nameof to express symbol names
             return HttpHelper.DeleteRequestAsync($"{_methodPath}/{Id}"
                 .SetQueryParam("force", force.ToString().ToLower(CultureInfo.InvariantCulture))
             );
+#pragma warning restore CA1507 // Use nameof to express symbol names
         }
 
         /// <summary>

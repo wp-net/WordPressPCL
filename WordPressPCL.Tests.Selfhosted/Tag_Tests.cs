@@ -90,7 +90,7 @@ namespace WordPressPCL.Tests.Selfhosted
                 Assert.Inconclusive();
             }
             var tagId = tag.Id;
-            var response = await _clientAuth.Tags.Delete(tagId);
+            var response = await _clientAuth.Tags.DeleteAsync(tagId);
             Assert.IsTrue(response);
             tags = await _clientAuth.Tags.GetAllAsync();
             var tagsWithId = tags.Where(x => x.Id == tagId).ToList();

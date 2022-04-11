@@ -37,7 +37,7 @@ namespace WordPressPCL.Tests.Selfhosted
         {
             // Initialize
             var posts = await _client.Posts.GetAllAsync();
-            var post = await _client.Posts.GetByID(posts.First().Id);
+            var post = await _client.Posts.GetByIDAsync(posts.First().Id);
             Assert.IsTrue(posts.First().Id == post.Id);
             Assert.IsTrue(!string.IsNullOrEmpty(posts.First().Content.Rendered));
         }
@@ -46,7 +46,7 @@ namespace WordPressPCL.Tests.Selfhosted
         public async Task GetStickyPosts()
         {
             // Initialize
-            var posts = await _client.Posts.GetStickyPosts();
+            var posts = await _client.Posts.GetStickyPostsAsync();
 
             foreach (Post post in posts)
             {
@@ -60,7 +60,7 @@ namespace WordPressPCL.Tests.Selfhosted
             // This CategoryID MUST exists at ApiCredentials.WordPressUri
             int category = 1;
             // Initialize
-            var posts = await _client.Posts.GetPostsByCategory(category);
+            var posts = await _client.Posts.GetPostsByCategoryAsync(category);
 
             foreach (Post post in posts)
             {
@@ -74,7 +74,7 @@ namespace WordPressPCL.Tests.Selfhosted
             // This TagID MUST exists at ApiCredentials.WordPressUri
             int tag = 12;
             // Initialize
-            var posts = await _client.Posts.GetPostsByTag(tag);
+            var posts = await _client.Posts.GetPostsByTagAsync(tag);
 
             foreach (Post post in posts)
             {
@@ -88,7 +88,7 @@ namespace WordPressPCL.Tests.Selfhosted
             // This AuthorID MUST exists at ApiCredentials.WordPressUri
             int author = 2;
             // Initialize
-            var posts = await _client.Posts.GetPostsByAuthor(author);
+            var posts = await _client.Posts.GetPostsByAuthorAsync(author);
 
             foreach (Post post in posts)
             {
@@ -102,7 +102,7 @@ namespace WordPressPCL.Tests.Selfhosted
             // This search term MUST be used at least once
             string search = "hello";
             // Initialize
-            var posts = await _client.Posts.GetPostsBySearch(search);
+            var posts = await _client.Posts.GetPostsBySearchAsync(search);
 
             foreach (Post post in posts)
             {

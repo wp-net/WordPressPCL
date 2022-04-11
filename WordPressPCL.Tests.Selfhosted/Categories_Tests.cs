@@ -26,7 +26,7 @@ namespace WordPressPCL.Tests.Selfhosted
         [TestMethod]
         public async Task Categories_Create()
         {
-            Random random = new Random();
+            Random random = new();
             var name = $"TestCategory {random.Next(0, 10000)}";
             var category = await _clientAuth.Categories.CreateAsync(new Category()
             {
@@ -61,7 +61,7 @@ namespace WordPressPCL.Tests.Selfhosted
         {
             var categories = await _clientAuth.Categories.GetAllAsync();
             var category = categories.First();
-            Random random = new Random();
+            Random random = new();
             var name = $"UpdatedCategory {random.Next(0, 10000)}";
             category.Name = name;
             var updatedCategory = await _clientAuth.Categories.UpdateAsync(category);
@@ -72,7 +72,7 @@ namespace WordPressPCL.Tests.Selfhosted
         [TestMethod]
         public async Task Categories_Delete()
         {
-            Random random = new Random();
+            Random random = new();
             var name = $"TestCategory {random.Next(0, 10000)}";
             var category = await _clientAuth.Categories.CreateAsync(new Category()
             {
@@ -84,7 +84,7 @@ namespace WordPressPCL.Tests.Selfhosted
             {
                 Assert.Inconclusive();
             }
-            var response = await _clientAuth.Categories.Delete(category.Id);
+            var response = await _clientAuth.Categories.DeleteAsync(category.Id);
             Assert.IsTrue(response);
             var categories = await _clientAuth.Categories.GetAllAsync();
             var c = categories.Where(x => x.Id == category.Id).ToList();

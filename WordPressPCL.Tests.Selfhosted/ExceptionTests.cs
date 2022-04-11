@@ -28,7 +28,7 @@ namespace WordPressPCL.Tests.Selfhosted
 
             await Assert.ThrowsExceptionAsync<WPException>(async () =>
             {
-                var settings = await _client.Settings.GetSettings();
+                var settings = await _client.Settings.GetSettingsAsync();
             });
         }
 
@@ -88,7 +88,7 @@ namespace WordPressPCL.Tests.Selfhosted
             // Delete nonexisted post
             try
             {
-                var result = await _clientAuth.Posts.Delete(int.MaxValue);
+                var result = await _clientAuth.Posts.DeleteAsync(int.MaxValue);
             }
             catch (WPException wpex)
             {

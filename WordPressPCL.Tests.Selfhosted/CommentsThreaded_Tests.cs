@@ -256,7 +256,7 @@ namespace WordPressPCL.Tests.Selfhosted
         [ClassCleanup]
         public async static Task CommentsThreaded_Cleanup()
         {
-            await _clientAuth.Posts.Delete(postid);
+            await _clientAuth.Posts.DeleteAsync(postid);
         }
     }
 }

@@ -73,7 +73,7 @@ namespace WordPressPCL.Client
         /// </summary>
         /// <param name="Id">Entity Id</param>
         /// <returns>Result of operation</returns>
-        public Task<bool> Delete(int Id)
+        public Task<bool> DeleteAsync(int Id)
         {
             var path = $"{MethodPath}/{Id}".SetQueryParam("force", ForceDeletion.ToString().ToLower(CultureInfo.InvariantCulture));
             return HttpHelper.DeleteRequestAsync(path);
@@ -120,7 +120,7 @@ namespace WordPressPCL.Client
         /// <param name="embed">include embed info</param>
         /// <param name="useAuth">Send request with authentication header</param>
         /// <returns>Entity by Id</returns>
-        public Task<TClass> GetByID(object ID, bool embed = false, bool useAuth = false)
+        public Task<TClass> GetByIDAsync(object ID, bool embed = false, bool useAuth = false)
         {
             return HttpHelper.GetRequestAsync<TClass>($"{MethodPath}/{ID}", embed, useAuth);
         }

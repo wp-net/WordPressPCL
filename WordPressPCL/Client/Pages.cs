@@ -34,7 +34,7 @@ namespace WordPressPCL.Client
         /// <param name="embed">include embed info</param>
         /// <param name="useAuth">Send request with authentication header</param>
         /// <returns>List of pages</returns>
-        public Task<IEnumerable<Page>> GetPagesByAuthor(int authorId, bool embed = false, bool useAuth = false)
+        public Task<IEnumerable<Page>> GetPagesByAuthorAsync(int authorId, bool embed = false, bool useAuth = false)
         {
             // default values
             // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
@@ -48,7 +48,7 @@ namespace WordPressPCL.Client
         /// <param name="embed">include embed info</param>
         /// <param name="useAuth">Send request with authentication header</param>
         /// <returns>List of pages</returns>
-        public Task<IEnumerable<Page>> GetPagesBySearch(string searchTerm, bool embed = false, bool useAuth = false)
+        public Task<IEnumerable<Page>> GetPagesBySearchAsync(string searchTerm, bool embed = false, bool useAuth = false)
         {
             // default values
             // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date

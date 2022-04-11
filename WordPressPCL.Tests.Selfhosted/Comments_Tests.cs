@@ -129,7 +129,7 @@ namespace WordPressPCL.Tests.Selfhosted
             };
             var resultComment = await _clientAuth.Comments.CreateAsync(comment);
 
-            var response = await _clientAuth.Comments.Delete(resultComment.Id);
+            var response = await _clientAuth.Comments.DeleteAsync(resultComment.Id);
             Assert.IsTrue(response);
 
         }
@@ -190,7 +190,7 @@ namespace WordPressPCL.Tests.Selfhosted
             Assert.AreNotEqual(queryresult.Count(), 0);
 
             // Delete Pending comment
-            await _clientAuth.Comments.Delete(resultComment.Id);
+            await _clientAuth.Comments.DeleteAsync(resultComment.Id);
         }
 
         [TestMethod]
@@ -225,14 +225,14 @@ namespace WordPressPCL.Tests.Selfhosted
 
             // shoud work without auth
             var nonauthclient = ClientHelper.GetWordPressClient();
-            var comments = await nonauthclient.Comments.GetCommentsForPost(createdPost.Id);
+            var comments = await nonauthclient.Comments.GetCommentsForPostAsync(createdPost.Id);
             Assert.IsTrue(comments.Count() <= 10);
 
             var allComments = await nonauthclient.Comments.GetAllCommentsForPostAsync(createdPost.Id);
             Assert.IsTrue(allComments.Count() > 20);
 
             // cleanup
-            var result = await _clientAuth.Posts.Delete(createdPost.Id);
+            var result = await _clientAuth.Posts.DeleteAsync(createdPost.Id);
             Assert.IsTrue(result);
         }
 

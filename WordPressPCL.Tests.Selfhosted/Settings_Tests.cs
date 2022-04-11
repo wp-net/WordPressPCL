@@ -23,7 +23,7 @@ namespace WordPressPCL.Tests.Selfhosted
         [TestMethod]
         public async Task Get_Settings_Test()
         {
-            var settings = await _clientAuth.Settings.GetSettings();
+            var settings = await _clientAuth.Settings.GetSettingsAsync();
             Assert.IsNotNull(settings);
             Assert.IsNotNull(settings.Title);
         }

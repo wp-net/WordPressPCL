@@ -24,7 +24,7 @@ namespace WordPressPCL.Interfaces
         /// <param name="embed">Is use embed info</param>
         /// <param name="useAuth">Is use auth header</param>
         /// <returns>requested object</returns>
-        Task<TClass> GetByID(object ID, bool embed = false, bool useAuth = false);
+        Task<TClass> GetByIDAsync(object ID, bool embed = false, bool useAuth = false);
 
         /// <summary>
         /// Get all objects

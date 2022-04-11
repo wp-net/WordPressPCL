@@ -24,9 +24,9 @@ namespace WordPressPCL.Client {
         /// Get site settings
         /// </summary>
         /// <returns>Site settings</returns>
-        public Task<WordPressPCL.Models.Settings> GetSettings()
+        public Task<Models.Settings> GetSettingsAsync()
         {
-            return _httpHelper.GetRequestAsync<WordPressPCL.Models.Settings>("settings", false, true);
+            return _httpHelper.GetRequestAsync<Models.Settings>("settings", false, true);
         }
         
         /// <summary>
@@ -34,10 +34,10 @@ namespace WordPressPCL.Client {
         /// </summary>
         /// <param name="settings">Settings object</param>
         /// <returns>Updated settings</returns>
-        public async Task<WordPressPCL.Models.Settings> UpdateSettingsAsync(WordPressPCL.Models.Settings settings)
+        public async Task<Models.Settings> UpdateSettingsAsync(Models.Settings settings)
         {
             using var postBody = new StringContent(JsonConvert.SerializeObject(settings), Encoding.UTF8, "application/json");
-            var (setting, _) = await _httpHelper.PostRequestAsync<WordPressPCL.Models.Settings>("settings", postBody).ConfigureAwait(false);
+            var (setting, _) = await _httpHelper.PostRequestAsync<Models.Settings>("settings", postBody).ConfigureAwait(false);
             return setting;
         }
     }

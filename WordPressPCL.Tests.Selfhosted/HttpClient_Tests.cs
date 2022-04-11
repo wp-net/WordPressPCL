@@ -25,7 +25,7 @@ namespace WordPressPCL.Tests.Selfhosted
 
             var client = new WordPressClient(httpClient);
             var posts = await client.Posts.GetAllAsync();
-            var post = await client.Posts.GetByID(posts.First().Id);
+            var post = await client.Posts.GetByIDAsync(posts.First().Id);
             Assert.IsTrue(posts.First().Id == post.Id);
             Assert.IsTrue(!string.IsNullOrEmpty(posts.First().Content.Rendered));
 

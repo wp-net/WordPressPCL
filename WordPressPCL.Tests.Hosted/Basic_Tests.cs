@@ -34,7 +34,7 @@ namespace WordPressPCL.Hosted
         {
             // Initialize
             var posts = await _client.Posts.GetAllAsync();
-            var post = await _client.Posts.GetByID(posts.First().Id);
+            var post = await _client.Posts.GetByIDAsync(posts.First().Id);
             Assert.IsTrue(posts.First().Id == post.Id);
             Assert.IsTrue(!String.IsNullOrEmpty(posts.First().Content.Rendered));
         }
@@ -43,7 +43,7 @@ namespace WordPressPCL.Hosted
         public async Task Hosted_GetStickyPosts()
         {
             // Initialize
-            var posts = await _client.Posts.GetStickyPosts();
+            var posts = await _client.Posts.GetStickyPostsAsync();
 
             foreach (Post post in posts)
             {
@@ -57,7 +57,7 @@ namespace WordPressPCL.Hosted
             // This CategoryID MUST exists at ApiCredentials.WordPressUri
             int category = 1;
             // Initialize
-            var posts = await _client.Posts.GetPostsByCategory(category);
+            var posts = await _client.Posts.GetPostsByCategoryAsync(category);
 
             foreach (Post post in posts)
             {
@@ -72,7 +72,7 @@ namespace WordPressPCL.Hosted
             int tagId = tags.FirstOrDefault().Id;
 
             // Initialize
-            var posts = await _client.Posts.GetPostsByTag(tagId);
+            var posts = await _client.Posts.GetPostsByTagAsync(tagId);
             Assert.AreNotEqual(0, posts.Count());
             foreach (Post post in posts)
             {
@@ -86,7 +86,7 @@ namespace WordPressPCL.Hosted
             // This AuthorID MUST exists at ApiCredentials.WordPressUri
             int author = 3722200;
             // Initialize
-            var posts = await _client.Posts.GetPostsByAuthor(author);
+            var posts = await _client.Posts.GetPostsByAuthorAsync(author);
             Assert.AreNotEqual(0, posts.Count());
             foreach (Post post in posts)
             {
@@ -100,7 +100,7 @@ namespace WordPressPCL.Hosted
             // This search term MUST be used at least once
             string search = "hello";
             // Initialize
-            var posts = await _client.Posts.GetPostsBySearch(search);
+            var posts = await _client.Posts.GetPostsBySearchAsync(search);
             Assert.AreNotEqual(0, posts.Count());
             foreach (Post post in posts)
             {

@@ -5,7 +5,7 @@ namespace WordPressPCL.Models
 {
     /// <summary>
     /// Meta info (EXIF) of image media
-    /// <see cref="WordPressPCL.Models.MediaDetails"/>
+    /// <see cref="MediaDetails"/>
     /// </summary>
     public class ImageMeta
     {

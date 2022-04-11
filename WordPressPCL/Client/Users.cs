@@ -85,7 +85,7 @@ namespace WordPressPCL.Client
         /// <param name="embed">include embed info</param>
         /// <param name="useAuth">Send request with authentication header</param>
         /// <returns>Entity by Id</returns>
-        public Task<User> GetByID(object ID, bool embed = false, bool useAuth = false)
+        public Task<User> GetByIDAsync(object ID, bool embed = false, bool useAuth = false)
         {
             return _httpHelper.GetRequestAsync<User>($"{METHOD_PATH}/{ID}", embed, useAuth);
         }
@@ -98,8 +98,6 @@ namespace WordPressPCL.Client
         /// <returns>List of filtered result</returns>
         public Task<IEnumerable<User>> QueryAsync(UsersQueryBuilder queryBuilder, bool useAuth = false)
         {
-            var uri = new UriBuilder();
-            uri.Query = queryBuilder.BuildQuery();
             return _httpHelper.GetRequestAsync<IEnumerable<User>>($"{METHOD_PATH}{queryBuilder.BuildQuery()}", false, useAuth);
         }
 
