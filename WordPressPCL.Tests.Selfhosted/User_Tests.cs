@@ -56,7 +56,7 @@ namespace WordPressPCL.Tests.Selfhosted
             var users = await _client.Users.GetAllAsync();
             Assert.IsNotNull(users);
             Assert.IsTrue(users.Count() >= 1);
-            var user = await _client.Users.GetByID(users.First().Id);
+            var user = await _client.Users.GetByIDAsync(users.First().Id);
             Assert.IsNotNull(user);
             Assert.AreEqual(user.Id, users.First().Id);
         }
@@ -67,7 +67,7 @@ namespace WordPressPCL.Tests.Selfhosted
             var users = await _client.Users.GetAsync();
             Assert.IsNotNull(users);
             Assert.IsTrue(users.Count() >= 1);
-            var user = await _client.Users.GetByID(users.First().Id);
+            var user = await _client.Users.GetByIDAsync(users.First().Id);
             Assert.IsNotNull(user);
             Assert.AreEqual(user.Id, users.First().Id);
         }
@@ -127,7 +127,7 @@ namespace WordPressPCL.Tests.Selfhosted
             Assert.IsTrue(response);
 
             // Get posts for user 2 and check if ID of postCreated is in there
-            var postsOfUser2 = await _clientAuth.Posts.GetPostsByAuthor(user2.Id);
+            var postsOfUser2 = await _clientAuth.Posts.GetPostsByAuthorAsync(user2.Id);
             var postsById = postsOfUser2.Where(x => x.Id == postCreated.Id).ToList();
             Assert.AreEqual(postsById.Count, 1);
         }

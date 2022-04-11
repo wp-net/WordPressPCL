@@ -105,7 +105,7 @@ namespace WordPressPCL.Tests.Selfhosted
             Assert.IsTrue(posts.Count() > 0);
 
             // edit first post and update it
-            var post = await _clientAuth.Posts.GetByID(posts.First().Id);
+            var post = await _clientAuth.Posts.GetByIDAsync(posts.First().Id);
             post.Content.Raw = testContent;
             var updatedPost = await _clientAuth.Posts.UpdateAsync(post);
             Assert.AreEqual(updatedPost.Content.Raw, testContent);
@@ -123,12 +123,12 @@ namespace WordPressPCL.Tests.Selfhosted
             var createdPost = await _clientAuth.Posts.CreateAsync(post);
             Assert.IsNotNull(createdPost);
 
-            var resonse = await _clientAuth.Posts.Delete(createdPost.Id);
+            var resonse = await _clientAuth.Posts.DeleteAsync(createdPost.Id);
             Assert.IsTrue(resonse);
 
             await Assert.ThrowsExceptionAsync<WPException>(async () =>
             {
-                var postById = await _clientAuth.Posts.GetByID(createdPost.Id);
+                var postById = await _clientAuth.Posts.GetByIDAsync(createdPost.Id);
             });
 
             // Post should be available in trash

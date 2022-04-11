@@ -59,7 +59,7 @@ namespace WordPressPCL.Models
 
         /// <summary>
         /// Avatar URLs for the object author.
-        /// <see cref="WordPressPCL.Models.AvatarURL"/>
+        /// <see cref="AvatarURL"/>
         /// </summary>
         /// <remarks>Context: view, edit, embed</remarks>
         [JsonProperty("author_avatar_urls", DefaultValueHandling = DefaultValueHandling.Ignore)]
@@ -88,7 +88,7 @@ namespace WordPressPCL.Models
 
         /// <summary>
         /// The content for the object.
-        /// <see cref="WordPressPCL.Models.Content"/>
+        /// <see cref="Models.Content"/>
         /// </summary>
         /// <remarks>Context: view, edit, embed</remarks>
         [JsonProperty("content")]

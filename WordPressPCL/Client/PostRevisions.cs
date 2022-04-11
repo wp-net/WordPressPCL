@@ -30,7 +30,7 @@ namespace WordPressPCL.Client
         /// </summary>
         /// <param name="ID">Entity Id</param>
         /// <returns>Result of operation</returns>
-        public Task<bool> Delete(int ID)
+        public Task<bool> DeleteAsync(int ID)
         {
             return _httpHelper.DeleteRequestAsync($"posts/{_postId}/{_methodPath}/{ID}?force=true");
         }
@@ -64,7 +64,7 @@ namespace WordPressPCL.Client
         /// <param name="embed">include embed info</param>
         /// <param name="useAuth">Send request with authentication header</param>
         /// <returns>Entity by Id</returns>
-        public Task<PostRevision> GetByID(object ID, bool embed = false, bool useAuth = true)
+        public Task<PostRevision> GetByIDAsync(object ID, bool embed = false, bool useAuth = true)
         {
             return _httpHelper.GetRequestAsync<PostRevision>($"posts/{_postId}/{_methodPath}/{ID}", embed, useAuth);
         }

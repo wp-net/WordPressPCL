@@ -11,7 +11,7 @@ namespace WordPressPCL.Client
     /// </summary>
     public class PostStatuses : IReadOperation<PostStatus>
     {
-        private HttpHelper _httpHelper;
+        private readonly HttpHelper _httpHelper;
         private const string _methodPath = "statuses";
 
         /// <summary>
@@ -31,7 +31,7 @@ namespace WordPressPCL.Client
         /// <returns>Entity by Id</returns>
         public async Task<IEnumerable<PostStatus>> GetAsync(bool embed = false, bool useAuth = false)
         {
-            List<PostStatus> entities = new List<PostStatus>();
+            List<PostStatus> entities = new();
             Dictionary<string, PostStatus> entities_page = (await _httpHelper.GetRequestAsync<Dictionary<string, PostStatus>>($"{_methodPath}", embed, useAuth).ConfigureAwait(false));
             foreach (var ent in entities_page)
             {
@@ -49,7 +49,7 @@ namespace WordPressPCL.Client
         public async Task<IEnumerable<PostStatus>> GetAllAsync(bool embed = false, bool useAuth = false)
         {
             //100 - Max posts per page in WordPress REST API, so this is hack with multiple requests
-            List<PostStatus> entities = new List<PostStatus>();
+            List<PostStatus> entities = new();
             Dictionary<string, PostStatus> entities_page = (await _httpHelper.GetRequestAsync<Dictionary<string, PostStatus>>($"{_methodPath}", embed, useAuth).ConfigureAwait(false));
             foreach (var ent in entities_page)
             {
@@ -65,7 +65,7 @@ namespace WordPressPCL.Client
         /// <param name="embed">include embed info</param>
         /// <param name="useAuth">Send request with authentication header</param>
         /// <returns>Entity by Id</returns>
-        public Task<PostStatus> GetByID(object ID, bool embed = false, bool useAuth = false)
+        public Task<PostStatus> GetByIDAsync(object ID, bool embed = false, bool useAuth = false)
         {
             return _httpHelper.GetRequestAsync<PostStatus>($"{_methodPath}/{ID}", embed, useAuth);
         }

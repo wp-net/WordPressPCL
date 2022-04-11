@@ -107,7 +107,7 @@
             </summary>
             <param name="HttpHelper">reference to HttpHelper class for interaction with HTTP</param>
         </member>
-        <member name="M:WordPressPCL.Client.Comments.GetCommentsForPost(System.Int32,System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.Comments.GetCommentsForPostAsync(System.Int32,System.Boolean,System.Boolean)">
             <summary>
             Get comments for Post
             </summary>
@@ -125,7 +125,7 @@
             <param name="useAuth">Send request with authentication header</param>
             <returns>List of comments for post</returns>
         </member>
-        <member name="M:WordPressPCL.Client.Comments.Delete(System.Int32,System.Boolean)">
+        <member name="M:WordPressPCL.Client.Comments.DeleteAsync(System.Int32,System.Boolean)">
             <summary>
             Force deletion of comments
             </summary>
@@ -175,7 +175,7 @@
             <param name="Entity">Entity object</param>
             <returns>Created object</returns>
         </member>
-        <member name="M:WordPressPCL.Client.CRUDOperation`2.Delete(System.Int32)">
+        <member name="M:WordPressPCL.Client.CRUDOperation`2.DeleteAsync(System.Int32)">
             <summary>
             Delete Entity
             </summary>
@@ -198,7 +198,7 @@
             <param name="useAuth">Send request with authentication header</param>
             <returns>List of all result</returns>
         </member>
-        <member name="M:WordPressPCL.Client.CRUDOperation`2.GetByID(System.Object,System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.CRUDOperation`2.GetByIDAsync(System.Object,System.Boolean,System.Boolean)">
             <summary>
             Get Entity by Id
             </summary>
@@ -243,14 +243,14 @@
             <param name="Entity">object for creation</param>
             <returns>Created object</returns>
         </member>
-        <member name="M:WordPressPCL.Client.CustomRequest.Delete(System.String)">
+        <member name="M:WordPressPCL.Client.CustomRequest.DeleteAsync(System.String)">
             <summary>
             Delete object
             </summary>
             <param name="route">path to exec delete request</param>
             <returns>Result of deletion</returns>
         </member>
-        <member name="M:WordPressPCL.Client.CustomRequest.Get``1(System.String,System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.CustomRequest.GetAsync``1(System.String,System.Boolean,System.Boolean)">
             <summary>
             Get object/s
             </summary>
@@ -260,7 +260,7 @@
             <param name="useAuth">i use auth</param>
             <returns>List of objects</returns>
         </member>
-        <member name="M:WordPressPCL.Client.CustomRequest.Update``2(System.String,``0)">
+        <member name="M:WordPressPCL.Client.CustomRequest.UpdateAsync``2(System.String,``0)">
             <summary>
             Update object
             </summary>
@@ -299,7 +299,7 @@
             <returns>Created media object</returns>
             <param name="mimeType">Override for automatic mime type detection</param>
         </member>
-        <member name="M:WordPressPCL.Client.Media.Delete(System.Int32)">
+        <member name="M:WordPressPCL.Client.Media.DeleteAsync(System.Int32)">
             <summary>
             Delete Entity
             </summary>
@@ -322,7 +322,7 @@
             <param name="useAuth">Send request with authentication header</param>
             <returns>List of all result</returns>
         </member>
-        <member name="M:WordPressPCL.Client.Media.GetByID(System.Object,System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.Media.GetByIDAsync(System.Object,System.Boolean,System.Boolean)">
             <summary>
             Get Entity by Id
             </summary>
@@ -357,7 +357,7 @@
             </summary>
             <param name="HttpHelper">reference to HttpHelper class for interaction with HTTP</param>
         </member>
-        <member name="M:WordPressPCL.Client.Pages.GetPagesByAuthor(System.Int32,System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.Pages.GetPagesByAuthorAsync(System.Int32,System.Boolean,System.Boolean)">
             <summary>
             Get pages by its author
             </summary>
@@ -366,7 +366,7 @@
             <param name="useAuth">Send request with authentication header</param>
             <returns>List of pages</returns>
         </member>
-        <member name="M:WordPressPCL.Client.Pages.GetPagesBySearch(System.String,System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.Pages.GetPagesBySearchAsync(System.String,System.Boolean,System.Boolean)">
             <summary>
             Get pages by search term
             </summary>
@@ -395,7 +395,7 @@
             <param name="httpHelper">reference to HttpHelper class for interaction with HTTP</param>
             <param name="postId">ID of post</param>
         </member>
-        <member name="M:WordPressPCL.Client.PostRevisions.Delete(System.Int32)">
+        <member name="M:WordPressPCL.Client.PostRevisions.DeleteAsync(System.Int32)">
             <summary>
             Delete Entity
             </summary>
@@ -418,7 +418,7 @@
             <param name="useAuth">Send request with authentication header</param>
             <returns>List of all result</returns>
         </member>
-        <member name="M:WordPressPCL.Client.PostRevisions.GetByID(System.Object,System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.PostRevisions.GetByIDAsync(System.Object,System.Boolean,System.Boolean)">
             <summary>
             Get Entity by Id
             </summary>
@@ -438,7 +438,7 @@
             </summary>
             <param name="HttpHelper">reference to HttpHelper class for interaction with HTTP</param>
         </member>
-        <member name="M:WordPressPCL.Client.Posts.GetStickyPosts(System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.Posts.GetStickyPostsAsync(System.Boolean,System.Boolean)">
             <summary>
             Get sticky posts
             </summary>
@@ -446,7 +446,7 @@
             <param name="useAuth">Send request with authentication header</param>
             <returns>List of posts</returns>
         </member>
-        <member name="M:WordPressPCL.Client.Posts.GetPostsByCategory(System.Int32,System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.Posts.GetPostsByCategoryAsync(System.Int32,System.Boolean,System.Boolean)">
             <summary>
             Get posts by category
             </summary>
@@ -455,7 +455,7 @@
             <param name="useAuth">Send request with authentication header</param>
             <returns>List of posts</returns>
         </member>
-        <member name="M:WordPressPCL.Client.Posts.GetPostsByTag(System.Int32,System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.Posts.GetPostsByTagAsync(System.Int32,System.Boolean,System.Boolean)">
             <summary>
             Get posts by tag
             </summary>
@@ -464,7 +464,7 @@
             <param name="useAuth">Send request with authentication header</param>
             <returns>List of posts</returns>
         </member>
-        <member name="M:WordPressPCL.Client.Posts.GetPostsByAuthor(System.Int32,System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.Posts.GetPostsByAuthorAsync(System.Int32,System.Boolean,System.Boolean)">
             <summary>
             Get posts by its author
             </summary>
@@ -473,7 +473,7 @@
             <param name="useAuth">Send request with authentication header</param>
             <returns>List of posts</returns>
         </member>
-        <member name="M:WordPressPCL.Client.Posts.GetPostsBySearch(System.String,System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.Posts.GetPostsBySearchAsync(System.String,System.Boolean,System.Boolean)">
             <summary>
             Get posts by search term
             </summary>
@@ -488,7 +488,7 @@
             </summary>
             <returns>Result of operation</returns>
         </member>
-        <member name="M:WordPressPCL.Client.Posts.Delete(System.Int32,System.Boolean)">
+        <member name="M:WordPressPCL.Client.Posts.DeleteAsync(System.Int32,System.Boolean)">
             <summary>
             Delete post with force deletion
             </summary>
@@ -530,7 +530,7 @@
             <param name="useAuth">Send request with authentication header</param>
             <returns>List of all result</returns>
         </member>
-        <member name="M:WordPressPCL.Client.PostStatuses.GetByID(System.Object,System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.PostStatuses.GetByIDAsync(System.Object,System.Boolean,System.Boolean)">
             <summary>
             Get Entity by Id
             </summary>
@@ -566,7 +566,7 @@
             <param name="useAuth">Send request with authentication header</param>
             <returns>List of all PostTypes</returns>
         </member>
-        <member name="M:WordPressPCL.Client.PostTypes.GetByID(System.Object,System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.PostTypes.GetByIDAsync(System.Object,System.Boolean,System.Boolean)">
             <summary>
             Get Entity by Id
             </summary>
@@ -586,7 +586,7 @@
             </summary>
             <param name="httpHelper">reference to HttpHelper class for interaction with HTTP</param>
         </member>
-        <member name="M:WordPressPCL.Client.Settings.GetSettings">
+        <member name="M:WordPressPCL.Client.Settings.GetSettingsAsync">
             <summary>
             Get site settings
             </summary>
@@ -637,7 +637,7 @@
             <param name="useAuth">Send request with authentication header</param>
             <returns>List of all result</returns>
         </member>
-        <member name="M:WordPressPCL.Client.Taxonomies.GetByID(System.Object,System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.Taxonomies.GetByIDAsync(System.Object,System.Boolean,System.Boolean)">
             <summary>
             Get Entity by Id
             </summary>
@@ -688,7 +688,7 @@
             <param name="useAuth">Send request with authentication header</param>
             <returns>List of all result</returns>
         </member>
-        <member name="M:WordPressPCL.Client.Users.GetByID(System.Object,System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.Users.GetByIDAsync(System.Object,System.Boolean,System.Boolean)">
             <summary>
             Get Entity by Id
             </summary>
@@ -778,7 +778,7 @@
             Interface with required Delete methods
             </summary>
         </member>
-        <member name="M:WordPressPCL.Interfaces.IDeleteOperation.Delete(System.Int32)">
+        <member name="M:WordPressPCL.Interfaces.IDeleteOperation.DeleteAsync(System.Int32)">
             <summary>
             Delete object by Id
             </summary>
@@ -814,7 +814,7 @@
             <param name="useAuth">Is use auth header</param>
             <returns>requested object</returns>
         </member>
-        <member name="M:WordPressPCL.Interfaces.IReadOperation`1.GetByID(System.Object,System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Interfaces.IReadOperation`1.GetByIDAsync(System.Object,System.Boolean,System.Boolean)">
             <summary>
             Get object by Id
             </summary>

@@ -116,7 +116,7 @@ namespace WordPressPCL.Tests.Selfhosted
             Assert.IsNotNull(mediaitem);
 
             // Delete file
-            var response = await _clientAuth.Media.Delete(mediaitem.Id);
+            var response = await _clientAuth.Media.DeleteAsync(mediaitem.Id);
             Assert.IsTrue(response);
         }
 

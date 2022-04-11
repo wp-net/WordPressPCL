@@ -45,7 +45,7 @@ namespace WordPressPCL.Tests.Selfhosted
             var revisionsclient = _clientAuth.Posts.Revisions(id);
             var revisions = await revisionsclient.GetAllAsync();
             Assert.AreNotEqual(revisions.Count(), 0);
-            var res = await revisionsclient.Delete(revisions.First().Id);
+            var res = await revisionsclient.DeleteAsync(revisions.First().Id);
             Assert.IsTrue(res);
         }
 

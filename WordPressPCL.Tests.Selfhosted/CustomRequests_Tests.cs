@@ -35,7 +35,7 @@ namespace WordPressPCL.Tests.Selfhosted
         [TestMethod]
         public async Task CustomRequests_Read()
         {
-            var forms = await _clientAuth.CustomRequest.Get<IEnumerable<ContactFormItem>>("contact-form-7/v1/contact-forms", false, true);
+            var forms = await _clientAuth.CustomRequest.GetAsync<IEnumerable<ContactFormItem>>("contact-form-7/v1/contact-forms", false, true);
             Assert.IsNotNull(forms);
             Assert.AreNotEqual(forms.Count(), 0);
         }
@@ -62,12 +62,12 @@ namespace WordPressPCL.Tests.Selfhosted
             var title = $"Test Form {r}";
             var form = await _clientAuth.CustomRequest.CreateAsync<ContactFormItem, ContactFormItem>("contact-form-7/v1/contact-forms", new ContactFormItem() { Title = title, Locale = "en-US" });
 
-            var forms = await _clientAuth.CustomRequest.Get<IEnumerable<ContactFormItem>>("contact-form-7/v1/contact-forms", false, true);
+            var forms = await _clientAuth.CustomRequest.GetAsync<IEnumerable<ContactFormItem>>("contact-form-7/v1/contact-forms", false, true);
             Assert.IsNotNull(forms);
             Assert.AreNotEqual(forms.Count(), 0);
             var editform = forms.First();
             editform.Title += "test";
-            var form2 = await _clientAuth.CustomRequest.Update<ContactFormItem, ContactFormItem>($"contact-form-7/v1/contact-forms/{editform.Id.Value}", editform);
+            var form2 = await _clientAuth.CustomRequest.UpdateAsync<ContactFormItem, ContactFormItem>($"contact-form-7/v1/contact-forms/{editform.Id.Value}", editform);
             Assert.IsNotNull(form2);
             Assert.AreEqual(form.Title, editform.Title);
         }
@@ -76,11 +76,11 @@ namespace WordPressPCL.Tests.Selfhosted
         //[TestMethod]
         public async Task CustomRequests_Delete()
         {
-            var forms = await _clientAuth.CustomRequest.Get<IEnumerable<ContactFormItem>>("contact-form-7/v1/contact-forms", false, true);
+            var forms = await _clientAuth.CustomRequest.GetAsync<IEnumerable<ContactFormItem>>("contact-form-7/v1/contact-forms", false, true);
             Assert.IsNotNull(forms);
             Assert.AreNotEqual(forms.Count(), 0);
             var deleteform = forms.First();
-            var result = await _clientAuth.CustomRequest.Delete($"contact-form-7/v1/contact-forms/{deleteform.Id.Value}");
+            var result = await _clientAuth.CustomRequest.DeleteAsync($"contact-form-7/v1/contact-forms/{deleteform.Id.Value}");
             Assert.IsTrue(result);
         }
     }

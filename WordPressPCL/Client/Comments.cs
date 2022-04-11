@@ -36,7 +36,7 @@ namespace WordPressPCL.Client
         /// <param name="embed">include embed info</param>
         /// <param name="useAuth">Send request with authentication header</param>
         /// <returns>List of comments for post</returns>
-        public Task<IEnumerable<Comment>> GetCommentsForPost(int PostID, bool embed = false, bool useAuth = false)
+        public Task<IEnumerable<Comment>> GetCommentsForPostAsync(int PostID, bool embed = false, bool useAuth = false)
         {
             return HttpHelper.GetRequestAsync<IEnumerable<Comment>>($"{_methodPath}?post={PostID}", embed, useAuth);
         }
@@ -70,7 +70,7 @@ namespace WordPressPCL.Client
         /// <param name="ID">Comment Id</param>
         /// <param name="force">force deletion</param>
         /// <returns>Result of operation</returns>
-        public Task<bool> Delete(int ID, bool force = false)
+        public Task<bool> DeleteAsync(int ID, bool force = false)
         {
             return HttpHelper.DeleteRequestAsync($"{_methodPath}/{ID}?force={force.ToString().ToLower(CultureInfo.InvariantCulture)}");
         }

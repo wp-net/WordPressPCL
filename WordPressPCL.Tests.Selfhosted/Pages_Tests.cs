@@ -82,7 +82,7 @@ namespace WordPressPCL.Tests.Selfhosted
             Assert.IsTrue(response);
             await Assert.ThrowsExceptionAsync<WPException>(async () =>
             {
-                var pageById = await _client.Pages.GetByID(createdPage.Id);
+                var pageById = await _client.Pages.GetByIDAsync(createdPage.Id);
             });
         }
 
