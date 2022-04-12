@@ -1,24 +1,24 @@
 Here is a list of methods and examples of working with Comments
 
-## GetAll()
+## Get All
 
 ```C#
 // returns all comments
-var comments = await client.Comments.GetAll();
+var comments = await client.Comments.GetAllAsync();
 ```
 
-## GetByID
+## Get By ID
 
 ```C#
 // returns comment by ID
-var comment = await client.Comments.GetByID(123);
+var comment = await client.Comments.GetByIDAsync(123);
 ```
 
-## GetCommentsForPost
+## Get Comments by Post ID
 
 ```C#
 // returns comments from post
-var comments = await client.Comments.GetCommentsForPost(123)
+var comments = await client.Comments.GetCommentsForPostAsync(123)
 ```
 
 ## Query
@@ -36,7 +36,7 @@ var comments = await client.Comments.Query(queryBuilder);
 If your blog supports threaded comments (comments with direct answers) you can order and get the right depth for them with this handy extension method:
 
 ```c#
-var comments = await client.Comments.GetCommentsForPost(123)
+var comments = await client.Comments.GetCommentsForPostAsync(123)
 var commentsThreaded = comments.ToThreaded();
 ```
 
@@ -51,9 +51,9 @@ var comment = new Comment()
     AuthorId = 1,
     AuthorEmail = "test@test.com"
 };
-if (await client.IsValidJWToken())
+if (await client.IsValidJWTokenAsync())
 {
-    var createdComment = await client.Comments.Create(comment);
+    var createdComment = await client.Comments.CreateAsync(comment);
 }
 ```
 
@@ -61,11 +61,11 @@ if (await client.IsValidJWToken())
 
 ```C#
 // returns updated comment
-var comment= client.Comments.GetByID(123);
+var comment= client.Comments.GetByIDAsync(123);
 comment.Content.Raw = "New Content";
-if (await client.IsValidJWToken())
+if (await client.IsValidJWTokenAsync())
 {
-    var updatedComment = await client.Comments.Update(comment);
+    var updatedComment = await client.Comments.UpdateAsync(comment);
 }
 ```
 
@@ -75,6 +75,6 @@ if (await client.IsValidJWToken())
 // returns result of deletion
 if (await client.IsValidJWToken())
 {
-    var result = await client.Comments.Delete(123);
+    var result = await client.Comments.DeleteAsync(123);
 }
 ```
