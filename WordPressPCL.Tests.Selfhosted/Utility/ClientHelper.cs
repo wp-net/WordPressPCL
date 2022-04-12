@@ -4,30 +4,29 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using WordPressPCL.Models;
 
-namespace WordPressPCL.Tests.Selfhosted.Utility
+namespace WordPressPCL.Tests.Selfhosted.Utility;
+
+public static class ClientHelper
 {
-    public static class ClientHelper
+    public static async Task<WordPressClient> GetAuthenticatedWordPressClient(TestContext context)
     {
-        public static async Task<WordPressClient> GetAuthenticatedWordPressClient(TestContext context)
+        var clientAuth = new WordPressClient(ApiCredentials.WordPressUri);
+
+        Console.WriteLine($"Auth Plugin: {context?.Properties["authplugin"]}");
+        if (context?.Properties["authplugin"]?.ToString() == "jwtAuthByUsefulTeam")
         {
-            var clientAuth = new WordPressClient(ApiCredentials.WordPressUri);
-
-            Console.WriteLine($"Auth Plugin: {context?.Properties["authplugin"]}");
-            if (context?.Properties["authplugin"]?.ToString() == "jwtAuthByUsefulTeam")
-            {
-                clientAuth.Auth.UseBearerAuth(JWTPlugin.JWTAuthByUsefulTeam);
-            }
-            else {
-                clientAuth.Auth.UseBearerAuth(JWTPlugin.JWTAuthByEnriqueChavez);
-            }
-            await clientAuth.Auth.RequestJWTokenAsync(ApiCredentials.Username, ApiCredentials.Password);
-
-            return clientAuth;
+            clientAuth.Auth.UseBearerAuth(JWTPlugin.JWTAuthByUsefulTeam);
         }
-
-        public static WordPressClient GetWordPressClient()
-        {
-            return new WordPressClient(ApiCredentials.WordPressUri);
+        else {
+            clientAuth.Auth.UseBearerAuth(JWTPlugin.JWTAuthByEnriqueChavez);
         }
+        await clientAuth.Auth.RequestJWTokenAsync(ApiCredentials.Username, ApiCredentials.Password);
+
+        return clientAuth;
+    }
+
+    public static WordPressClient GetWordPressClient()
+    {
+        return new WordPressClient(ApiCredentials.WordPressUri);
     }
 }

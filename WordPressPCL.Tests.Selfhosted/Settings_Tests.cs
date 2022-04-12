@@ -7,25 +7,24 @@ using WordPressPCL.Tests.Selfhosted.Utility;
 using System.Linq;
 using WordPressPCL;
 
-namespace WordPressPCL.Tests.Selfhosted
+namespace WordPressPCL.Tests.Selfhosted;
+
+[TestClass]
+public class Settings_Tests
 {
-    [TestClass]
-    public class Settings_Tests
+    private static WordPressClient _clientAuth;
+
+    [ClassInitialize]
+    public static async Task Init(TestContext testContext)
     {
-        private static WordPressClient _clientAuth;
+        _clientAuth = await ClientHelper.GetAuthenticatedWordPressClient(testContext);
+    }
 
-        [ClassInitialize]
-        public static async Task Init(TestContext testContext)
-        {
-            _clientAuth = await ClientHelper.GetAuthenticatedWordPressClient(testContext);
-        }
-
-        [TestMethod]
-        public async Task Get_Settings_Test()
-        {
-            var settings = await _clientAuth.Settings.GetSettingsAsync();
-            Assert.IsNotNull(settings);
-            Assert.IsNotNull(settings.Title);
-        }
+    [TestMethod]
+    public async Task Get_Settings_Test()
+    {
+        var settings = await _clientAuth.Settings.GetSettingsAsync();
+        Assert.IsNotNull(settings);
+        Assert.IsNotNull(settings.Title);
     }
 }
