@@ -15,7 +15,7 @@
     <RepositoryType>GitHub</RepositoryType>
     <AssemblyVersion>2.0.0.0</AssemblyVersion>
     <FileVersion>2.0.0.0</FileVersion>
-    <Version>2.0.0-beta.2</Version>
+    <Version>2.0.0</Version>
     <PackageLicenseUrl></PackageLicenseUrl>
     <LangVersion>9.0</LangVersion>
     <PackageReleaseNotes>
@@ -24,9 +24,10 @@ V2.0.0
 - Added Async-Suffix for all public async methods
 - Moved Auth-related functionality to Auth-Sub-Client
 - Error handling for WP_DEBUG_DISPLAY
+- Moved Settings functionality to Settings-Sub-Client
 New Features: 
 - WordPressClient accepts endpoint also as Uri
-- Get total Post count without the actual
+- Get total Post count without the actual posts
 - Generic JWT and Basic Auth support
       
 V1.9.0
