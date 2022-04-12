@@ -193,7 +193,7 @@ public class CommentsThreaded_Tests
     public async Task CommentsThreaded_Sort_Extension_Desc()
     {
         var allComments = await _clientAuth.Comments.GetAllCommentsForPostAsync(postid);
-        Assert.IsTrue(allComments.Count() > 0);
+        Assert.IsTrue(allComments.Any());
 
         var threaded = ThreadedCommentsHelper.ToThreaded(allComments, true);
 
