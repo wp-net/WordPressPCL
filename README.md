@@ -1,5 +1,5 @@
 # WordPressPCL
-![Integration Tests](https://github.com/wp-net/WordPressPCL/workflows/Integration%20Tests/badge.svg?branch=master)
+![Integration Tests](https://github.com/wp-net/WordPressPCL/workflows/Integration%20Tests/badge.svg?branch=master) [![NuGet](https://img.shields.io/nuget/vpre/WordPressPCL)](https://www.nuget.org/packages/WordPressPCL/)
 
 This is a portable library for consuming the WordPress REST-API in (almost) any C# application.
 If you find bugs or have any suggestions, feel free to create an issue.
@@ -33,13 +33,19 @@ The WordPressPCL API Wrapper is avaiable through [NuGet](https://www.nuget.org/p
 ```
 
 ## Supported Plattforms
-WordPressPCL is built on top of the new [.NET Standard](https://github.com/dotnet/standard) targeting netstandard version 2.0 - therefore it should work on the following plaforms:
-* .NET Framework 4.5 and newer
-* .NET Core
-* Universal Windows Platform (uap)
-* Windows 8.0 and newer
-* Windows Phone (WinRT, not Silverlight)
-* Mono / Xamarin
+WordPressPCL is built on top of the [.NET Standard](https://docs.microsoft.com/en-us/dotnet/standard/net-standard?tabs=net-standard-2-0) targeting netstandard version 2.0 - therefore it should work on the following plaforms:
+
+
+| .NET implementation |	Version support |
+|---------------------|------------------|
+|.NET and .NET Core |	2.0, 2.1, 2.2, 3.0, 3.1, 5.0, 6.0 |
+|.NET Framework | 4.6.1 2, 4.6.2, 4.7, 4.7.1, 4.7.2, 4.8 |
+| Mono | 5.4, 6.4 |
+| Xamarin.iOS | 10.14, 12.16 |
+| Xamarin.Mac | 3.8, 5.16 |
+| Xamarin.Android | 8.0, 10.0 |
+| Universal Windows Platform | 10.0.16299, TBD |
+| Unity | 2018.1 |
 
 ## Quickstart: Using the API Wrapper
 
@@ -59,13 +65,13 @@ var client = new WordpressClient(httpClient);
 
 // Posts
 var posts = await client.Posts.GetAllAsync();
-var postbyid = await client.Posts.GetById(id);
+var postbyid = await client.Posts.GetByIdAsync(id);
 var postsCount = await client.Posts.GetCountAsync();
 
 // Comments
 var comments = await client.Comments.GetAllAsync();
-var commentbyid = await client.Comments.GetById(id);
-var commentsbypost = await client.Comments.GetCommentsForPost(postid, true, false);
+var commentbyid = await client.Comments.GetByIdAsync(id);
+var commentsbypost = await client.Comments.GetCommentsForPostAsync(postid, true, false);
 
 // Authentication
 var client = new WordPressClient(ApiCredentials.WordPressUri);
@@ -79,7 +85,7 @@ var isValidToken = await client.IsValidJWTokenAsync();
 client.Auth.UseBasicAuth("username", "password");
 
 // now you can send requests that require authentication
-var response = client.Posts.Delete(postId);
+var response = client.Posts.DeleteAsync(postId);
 ```
 
 ## Supported REST Methods
