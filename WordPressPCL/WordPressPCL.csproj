@@ -3,7 +3,7 @@
     <OutputType>Library</OutputType>
   </PropertyGroup>
   <PropertyGroup>
-    <TargetFrameworks>netstandard1.3;netstandard2.0</TargetFrameworks>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <DocumentationFile>WordPressPCL.xml</DocumentationFile>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <Authors>Thomas Pentenrieder</Authors>
@@ -13,11 +13,24 @@
     <RepositoryUrl>https://github.com/wp-net/WordPressPCL</RepositoryUrl>
     <PackageTags>WordPress REST API</PackageTags>
     <RepositoryType>GitHub</RepositoryType>
-    <AssemblyVersion>1.9.0.0</AssemblyVersion>
-    <FileVersion>1.9.0.0</FileVersion>
-    <Version>1.9.0</Version>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
+    <FileVersion>2.0.0.0</FileVersion>
+    <Version>2.0.0</Version>
     <PackageLicenseUrl></PackageLicenseUrl>
-    <PackageReleaseNotes>V1.9.0
+    <LangVersion>9.0</LangVersion>
+    <PackageReleaseNotes>
+V2.0.0
+- Dropped netstandard1.x support
+- Added Async-Suffix for all public async methods
+- Moved Auth-related functionality to Auth-Sub-Client
+- Error handling for WP_DEBUG_DISPLAY
+- Moved Settings functionality to Settings-Sub-Client
+New Features: 
+- WordPressClient accepts endpoint also as Uri
+- Get total Post count without the actual posts
+- Generic JWT and Basic Auth support
+      
+V1.9.0
 - Support for Application Passwords
 - Upped netstandard1.1 to netstandard1.3
 
@@ -108,26 +121,28 @@ V1.2
 - added method to get all comments for a post id
 - fixed some async issues for better performance
 - added logout method</PackageReleaseNotes>
-    <Copyright>© Thomas Pentenrieder | 2021</Copyright>
+    <Copyright>© Thomas Pentenrieder | 2022</Copyright>
     <ApplicationIcon />
     <OutputTypeEx>library</OutputTypeEx>
     <StartupObject />
     <SignAssembly>false</SignAssembly>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageIcon>icon.png</PackageIcon>
+    <AutoGenerateBindingRedirects>false</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.3.0">
+    <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="6.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.1" />
-    <PackageReference Include="System.ValueTuple" Version="4.5.0" />
   </ItemGroup>
   <ItemGroup>
     <None Update="icon.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="..\.editorconfig" Link=".editorconfig" />
     <None Include="Images\icon.png">
       <Pack>True</Pack>
       <PackagePath></PackagePath>

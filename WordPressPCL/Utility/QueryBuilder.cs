@@ -1,8 +1,11 @@
 using System;
+using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Globalization;
 using System.Reflection;
 using System.Runtime.Serialization;
 using System.Text;
+using System.Web;
 using WordPressPCL.Models;
 
 namespace WordPressPCL.Utility
@@ -37,28 +40,34 @@ namespace WordPressPCL.Utility
         /// Builds the query URL from all properties
         /// </summary>
         /// <returns>query HTTP string</returns>
-        public string BuildQueryURL()
+        public string BuildQuery()
         {
-            StringBuilder sb = new StringBuilder();
-            foreach (var property in this.GetType().GetRuntimeProperties())
+            var query = HttpUtility.ParseQueryString(string.Empty);
+            foreach (var property in GetType().GetRuntimeProperties())
             {
                 var attribute = property.GetCustomAttribute<QueryTextAttribute>();
+                var exclusionAttribute = property.GetCustomAttribute<ExcludeQueryTextAttribute>();
                 if (attribute != null)
                 {
                     var value = GetPropertyValue(property);
 
                     if (value is null) continue;
+                    if (exclusionAttribute != null && value.ToString().ToLowerInvariant() == exclusionAttribute.ExclusionValue) continue;
+
                     //pass default values
-                    if (value is int && (int)value == default) continue;
-                    if (value is string && (string.IsNullOrEmpty((string)value) || (string)value == DateTime.MinValue.ToString("yyyy-MM-ddTHH:mm:ss", CultureInfo.InvariantCulture))) continue;
-                    if (value is DateTime && (string)value == DateTime.MinValue.ToString("yyyy-MM-ddTHH:mm:ss", CultureInfo.InvariantCulture)) continue;
-                    if (property.PropertyType == typeof(bool) && (string)value == default(bool).ToString().ToLower()) continue;
-                    sb.Append(attribute.Text).Append('=').Append(value).Append('&');
+                    if (value is int valueInt && valueInt == default) continue;
+                    if (value is string valueString && (string.IsNullOrEmpty(valueString) || valueString == DateTime.MinValue.ToString("yyyy-MM-ddTHH:mm:ss", CultureInfo.InvariantCulture))) continue;
+                    if (value is DateTime valueDateTime && valueDateTime == default) continue;
+                    if (property.PropertyType == typeof(bool) && (string)value == default(bool).ToString().ToLowerInvariant()) continue;
+                    query.Add(attribute.Text, value.ToString().ToLowerInvariant());
                 }
             }
-            //insert ? quote to the start of http query text
-            if (sb.Length > 0) sb.Insert(0, '?');
-            return sb.ToString().TrimEnd('&');
+            var queryString = query.ToString();
+            if(queryString.Length > 0)
+            {
+                queryString = "?" + queryString;
+            }
+            return queryString;
         }
 
         /// <summary>
@@ -73,29 +82,28 @@ namespace WordPressPCL.Utility
             {
                 if (pi.PropertyType.GetTypeInfo().IsEnum)
                 {
-                    var attribute = pi.PropertyType.GetRuntimeField(((Enum)pi.GetValue(this)).ToString()).GetCustomAttribute<EnumMemberAttribute>();// .GetType().GetRuntimeProperties().First().GetCustomAttribute<EnumMemberAttribute>();
+                    var attribute = pi.PropertyType.GetRuntimeField(((Enum)pi.GetValue(this)).ToString()).GetCustomAttribute<EnumMemberAttribute>();
 
                     return attribute.Value;
                 }
-                if (pi.PropertyType.IsArray)
-                {
-                    var array = (Array)pi.GetValue(this);
-                    if (array == null) return null;
-                    StringBuilder sb = new StringBuilder();
-                    foreach (var item in array)
-                    {
-                        sb.Append(GetPropertyValue(item)).Append(",");
+                if (pi.PropertyType.IsGenericType && pi.PropertyType.GetGenericTypeDefinition() == typeof(List<>)) {
+                    var genericParamOfList = pi.PropertyType.GetGenericArguments()[0];
+                    var finalListType = typeof(List<>).MakeGenericType(genericParamOfList);
+                    dynamic list = Convert.ChangeType(pi.GetValue(this), finalListType, CultureInfo.InvariantCulture);
+                    if (list == null) return null;
+                    var sb = new StringBuilder();
+                    foreach (var item in list) {
+                        sb.Append(GetPropertyValue((object)item)).Append(',');
                     }
-
                     return sb.ToString().TrimEnd(',');
                 }
                 if (pi.PropertyType == typeof(DateTime))
                 {
-                    return ((DateTime)pi.GetValue(this)).ToString("yyyy-MM-ddTHH:mm:ss");
+                    return ((DateTime)pi.GetValue(this)).ToString("yyyy-MM-ddTHH:mm:ss", CultureInfo.InvariantCulture);
                 }
                 if (pi.PropertyType == typeof(bool))
                 {
-                    return ((bool)pi.GetValue(this)).ToString().ToLower();
+                    return ((bool)pi.GetValue(this)).ToString().ToLowerInvariant();
                 }
                 return pi.GetValue(this);
             }
@@ -109,11 +117,11 @@ namespace WordPressPCL.Utility
                 }
                 if (property.GetType() == typeof(DateTime))
                 {
-                    return ((DateTime)property).ToString("yyyy-MM-ddTHH:mm:ss");
+                    return ((DateTime)property).ToString("yyyy-MM-ddTHH:mm:ss", CultureInfo.InvariantCulture);
                 }
                 if (property.GetType() == typeof(bool))
                 {
-                    return ((bool)property).ToString().ToLower();
+                    return ((bool)property).ToString().ToLowerInvariant();
                 }
                 return property;
             }

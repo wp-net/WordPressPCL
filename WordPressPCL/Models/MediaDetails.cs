@@ -5,7 +5,7 @@ namespace WordPressPCL.Models
 {
     /// <summary>
     /// Details of media item
-    /// <see cref="WordPressPCL.Models.MediaItem.MediaDetails"/>
+    /// <see cref="MediaItem.MediaDetails"/>
     /// </summary>
     public class MediaDetails
     {

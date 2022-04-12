@@ -4,31 +4,110 @@
         <name>WordPressPCL</name>
     </assembly>
     <members>
+        <member name="T:WordPressPCL.Client.Auth">
+            <summary>
+            Client class for interaction with Auth endpoints of WP REST API
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Client.Auth.AuthMethod">
+            <summary>
+            Authentication Method
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Client.Auth.JWTPlugin">
+            <summary>
+            JWT Plugin
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Client.Auth.Username">
+            <summary>
+            Username for Basic Authentication
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Client.Auth._httpHelper">
+            <summary>
+            Helper for HTTP requests
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Client.Auth.#ctor(WordPressPCL.Utility.HttpHelper)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="httpHelper">reference to HttpHelper class for interaction with HTTP</param>
+        </member>
+        <member name="M:WordPressPCL.Client.Auth.UseBearerAuth(WordPressPCL.Models.JWTPlugin)">
+            <summary>
+            Sets up the Auth Client to use Bearer Authentication with specified JWTPlugin
+            </summary>
+            <param name="jwtPlugin">JWT Plugin to use for Bearer Authentication</param>
+        </member>
+        <member name="M:WordPressPCL.Client.Auth.UseBasicAuth(System.String,System.String)">
+            <summary>
+            Sets up the Auth Client to use Basic Authentication with Application Password
+            </summary>
+            <param name="username">Username for Basic Authentication</param>
+            <param name="applicationPassword">Application Password for Basic Authentication</param>
+        </member>
+        <member name="M:WordPressPCL.Client.Auth.RequestJWTokenAsync(System.String,System.String)">
+            <summary>
+            Perform authentication by JWToken
+            </summary>
+            <param name="username">username</param>
+            <param name="password">password</param>
+        </member>
+        <member name="M:WordPressPCL.Client.Auth.Logout">
+            <summary>
+            Forget the JWT Auth Token, won't invalidate it serverside though
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Client.Auth.IsValidJWTokenAsync">
+            <summary>
+            Check if token is valid
+            </summary>
+            <returns>Result of checking</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Auth.RemoveEmptyData(System.String)">
+            <summary>
+            Removes an empty data field in a Json string, e.g. when checking validity of token
+            </summary>
+            <param name="response">Json response input string</param>
+            <returns>Json response output string</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Auth.SetJWToken(System.String)">
+            <summary>
+            Sets an existing JWToken
+            </summary>
+            <param name="token"></param>
+        </member>
+        <member name="M:WordPressPCL.Client.Auth.GetToken">
+            <summary>
+            Gets the JWToken from the client
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:WordPressPCL.Client.Categories">
             <summary>
             Client class for interaction with Categories endpoint WP REST API
             </summary>
         </member>
-        <member name="M:WordPressPCL.Client.Categories.#ctor(WordPressPCL.Utility.HttpHelper@,System.String)">
+        <member name="M:WordPressPCL.Client.Categories.#ctor(WordPressPCL.Utility.HttpHelper)">
             <summary>
             Constructor
             </summary>
             <param name="HttpHelper">reference to HttpHelper class for interaction with HTTP</param>
-            <param name="defaultPath">path to site, EX. http://demo.com/wp-json/ </param>
         </member>
         <member name="T:WordPressPCL.Client.Comments">
             <summary>
             Client class for interaction with Comments endpoint WP REST API
             </summary>
         </member>
-        <member name="M:WordPressPCL.Client.Comments.#ctor(WordPressPCL.Utility.HttpHelper@,System.String)">
+        <member name="M:WordPressPCL.Client.Comments.#ctor(WordPressPCL.Utility.HttpHelper)">
             <summary>
             Constructor
             </summary>
             <param name="HttpHelper">reference to HttpHelper class for interaction with HTTP</param>
-            <param name="defaultPath">path to site, EX. http://demo.com/wp-json/ </param>
         </member>
-        <member name="M:WordPressPCL.Client.Comments.GetCommentsForPost(System.Int32,System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.Comments.GetCommentsForPostAsync(System.Int32,System.Boolean,System.Boolean)">
             <summary>
             Get comments for Post
             </summary>
@@ -37,7 +116,7 @@
             <param name="useAuth">Send request with authentication header</param>
             <returns>List of comments for post</returns>
         </member>
-        <member name="M:WordPressPCL.Client.Comments.GetAllCommentsForPost(System.Int32,System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.Comments.GetAllCommentsForPostAsync(System.Int32,System.Boolean,System.Boolean)">
             <summary>
             Get all comments for Post
             </summary>
@@ -46,7 +125,7 @@
             <param name="useAuth">Send request with authentication header</param>
             <returns>List of comments for post</returns>
         </member>
-        <member name="M:WordPressPCL.Client.Comments.Delete(System.Int32,System.Boolean)">
+        <member name="M:WordPressPCL.Client.Comments.DeleteAsync(System.Int32,System.Boolean)">
             <summary>
             Force deletion of comments
             </summary>
@@ -61,19 +140,19 @@
             <typeparam name="TClass">DTO class</typeparam>
             <typeparam name="QClass">QueryBuilder class</typeparam>
         </member>
-        <member name="P:WordPressPCL.Client.CRUDOperation`2.DefaultPath">
-            <summary>
-            Path to wp api EX. https://site.com/wp-json/
-            </summary>
-        </member>
         <member name="P:WordPressPCL.Client.CRUDOperation`2.MethodPath">
             <summary>
             path to endpoint EX. posts
             </summary>
         </member>
+        <member name="F:WordPressPCL.Client.CRUDOperation`2._httpHelper">
+            <summary>
+            Helper for HTTP requests
+            </summary>
+        </member>
         <member name="P:WordPressPCL.Client.CRUDOperation`2.HttpHelper">
             <summary>
-            HttpHelper object with helper method over HTTP requests
+            Helper for HTTP requests
             </summary>
         </member>
         <member name="P:WordPressPCL.Client.CRUDOperation`2.ForceDeletion">
@@ -81,30 +160,29 @@
             Is object must be force deleted
             </summary>
         </member>
-        <member name="M:WordPressPCL.Client.CRUDOperation`2.#ctor(WordPressPCL.Utility.HttpHelper@,System.String,System.String,System.Boolean)">
+        <member name="M:WordPressPCL.Client.CRUDOperation`2.#ctor(WordPressPCL.Utility.HttpHelper,System.String,System.Boolean)">
             <summary>
             Constructor
             </summary>
             <param name="httpHelper">reference to HttpHelper class for interaction with HTTP</param>
-            <param name="defaultPath">path to site, EX. http://demo.com/wp-json/ </param>
             <param name="methodPath">path to endpoint, EX. posts</param>
             <param name="forceDeletion">is objects must be force deleted</param>
         </member>
-        <member name="M:WordPressPCL.Client.CRUDOperation`2.Create(`0)">
+        <member name="M:WordPressPCL.Client.CRUDOperation`2.CreateAsync(`0)">
             <summary>
             Create Entity
             </summary>
             <param name="Entity">Entity object</param>
             <returns>Created object</returns>
         </member>
-        <member name="M:WordPressPCL.Client.CRUDOperation`2.Delete(System.Int32)">
+        <member name="M:WordPressPCL.Client.CRUDOperation`2.DeleteAsync(System.Int32)">
             <summary>
             Delete Entity
             </summary>
-            <param name="ID">Entity Id</param>
+            <param name="Id">Entity Id</param>
             <returns>Result of operation</returns>
         </member>
-        <member name="M:WordPressPCL.Client.CRUDOperation`2.Get(System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.CRUDOperation`2.GetAsync(System.Boolean,System.Boolean)">
             <summary>
             Get latest
             </summary>
@@ -112,7 +190,7 @@
             <param name="useAuth">Send request with authentication header</param>
             <returns>Entity by Id</returns>
         </member>
-        <member name="M:WordPressPCL.Client.CRUDOperation`2.GetAll(System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.CRUDOperation`2.GetAllAsync(System.Boolean,System.Boolean)">
             <summary>
             Get All
             </summary>
@@ -120,7 +198,7 @@
             <param name="useAuth">Send request with authentication header</param>
             <returns>List of all result</returns>
         </member>
-        <member name="M:WordPressPCL.Client.CRUDOperation`2.GetByID(System.Object,System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.CRUDOperation`2.GetByIDAsync(System.Object,System.Boolean,System.Boolean)">
             <summary>
             Get Entity by Id
             </summary>
@@ -129,7 +207,7 @@
             <param name="useAuth">Send request with authentication header</param>
             <returns>Entity by Id</returns>
         </member>
-        <member name="M:WordPressPCL.Client.CRUDOperation`2.Query(`1,System.Boolean)">
+        <member name="M:WordPressPCL.Client.CRUDOperation`2.QueryAsync(`1,System.Boolean)">
             <summary>
             Create a parametrized query and get a result
             </summary>
@@ -137,7 +215,7 @@
             <param name="useAuth">Send request with authentication header</param>
             <returns>List of filtered result</returns>
         </member>
-        <member name="M:WordPressPCL.Client.CRUDOperation`2.Update(`0)">
+        <member name="M:WordPressPCL.Client.CRUDOperation`2.UpdateAsync(`0)">
             <summary>
             Update Entity
             </summary>
@@ -149,13 +227,13 @@
             Class to create custom requests
             </summary>
         </member>
-        <member name="M:WordPressPCL.Client.CustomRequest.#ctor(WordPressPCL.Utility.HttpHelper@)">
+        <member name="M:WordPressPCL.Client.CustomRequest.#ctor(WordPressPCL.Utility.HttpHelper)">
             <summary>
             Constructor
             </summary>
             <param name="httpHelper">HttpHelper class to operate with Http methods</param>
         </member>
-        <member name="M:WordPressPCL.Client.CustomRequest.Create``2(System.String,``0)">
+        <member name="M:WordPressPCL.Client.CustomRequest.CreateAsync``2(System.String,``0)">
             <summary>
             Create object
             </summary>
@@ -165,14 +243,14 @@
             <param name="Entity">object for creation</param>
             <returns>Created object</returns>
         </member>
-        <member name="M:WordPressPCL.Client.CustomRequest.Delete(System.String)">
+        <member name="M:WordPressPCL.Client.CustomRequest.DeleteAsync(System.String)">
             <summary>
             Delete object
             </summary>
             <param name="route">path to exec delete request</param>
             <returns>Result of deletion</returns>
         </member>
-        <member name="M:WordPressPCL.Client.CustomRequest.Get``1(System.String,System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.CustomRequest.GetAsync``1(System.String,System.Boolean,System.Boolean)">
             <summary>
             Get object/s
             </summary>
@@ -182,7 +260,7 @@
             <param name="useAuth">i use auth</param>
             <returns>List of objects</returns>
         </member>
-        <member name="M:WordPressPCL.Client.CustomRequest.Update``2(System.String,``0)">
+        <member name="M:WordPressPCL.Client.CustomRequest.UpdateAsync``2(System.String,``0)">
             <summary>
             Update object
             </summary>
@@ -197,14 +275,13 @@
             Client class for interaction with Media endpoint WP REST API
             </summary>
         </member>
-        <member name="M:WordPressPCL.Client.Media.#ctor(WordPressPCL.Utility.HttpHelper@,System.String)">
+        <member name="M:WordPressPCL.Client.Media.#ctor(WordPressPCL.Utility.HttpHelper)">
             <summary>
             Constructor
             </summary>
             <param name="HttpHelper">reference to HttpHelper class for interaction with HTTP</param>
-            <param name="defaultPath">path to site, EX. http://demo.com/wp-json/ </param>
         </member>
-        <member name="M:WordPressPCL.Client.Media.Create(System.IO.Stream,System.String,System.String)">
+        <member name="M:WordPressPCL.Client.Media.CreateAsync(System.IO.Stream,System.String,System.String)">
             <summary>
             Create Media entity with attachment
             </summary>
@@ -213,7 +290,7 @@
             <param name="mimeType">Override for automatic mime type detection</param>
             <returns>Created media object</returns>
         </member>
-        <member name="M:WordPressPCL.Client.Media.Create(System.String,System.String,System.String)">
+        <member name="M:WordPressPCL.Client.Media.CreateAsync(System.String,System.String,System.String)">
             <summary>
             Create Media entity with attachment
             </summary>
@@ -222,14 +299,14 @@
             <returns>Created media object</returns>
             <param name="mimeType">Override for automatic mime type detection</param>
         </member>
-        <member name="M:WordPressPCL.Client.Media.Delete(System.Int32)">
+        <member name="M:WordPressPCL.Client.Media.DeleteAsync(System.Int32)">
             <summary>
             Delete Entity
             </summary>
             <param name="ID">Entity Id</param>
             <returns>Result of operation</returns>
         </member>
-        <member name="M:WordPressPCL.Client.Media.Get(System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.Media.GetAsync(System.Boolean,System.Boolean)">
             <summary>
             Get latest
             </summary>
@@ -237,7 +314,7 @@
             <param name="useAuth">Send request with authentication header</param>
             <returns>Latest media items</returns>
         </member>
-        <member name="M:WordPressPCL.Client.Media.GetAll(System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.Media.GetAllAsync(System.Boolean,System.Boolean)">
             <summary>
             Get All
             </summary>
@@ -245,7 +322,7 @@
             <param name="useAuth">Send request with authentication header</param>
             <returns>List of all result</returns>
         </member>
-        <member name="M:WordPressPCL.Client.Media.GetByID(System.Object,System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.Media.GetByIDAsync(System.Object,System.Boolean,System.Boolean)">
             <summary>
             Get Entity by Id
             </summary>
@@ -254,7 +331,7 @@
             <param name="useAuth">Send request with authentication header</param>
             <returns>Entity by Id</returns>
         </member>
-        <member name="M:WordPressPCL.Client.Media.Query(WordPressPCL.Utility.MediaQueryBuilder,System.Boolean)">
+        <member name="M:WordPressPCL.Client.Media.QueryAsync(WordPressPCL.Utility.MediaQueryBuilder,System.Boolean)">
             <summary>
             Create a parametrized query and get a result
             </summary>
@@ -262,7 +339,7 @@
             <param name="useAuth">Send request with authentication header</param>
             <returns>List of filtered result</returns>
         </member>
-        <member name="M:WordPressPCL.Client.Media.Update(WordPressPCL.Models.MediaItem)">
+        <member name="M:WordPressPCL.Client.Media.UpdateAsync(WordPressPCL.Models.MediaItem)">
             <summary>
             Update Entity
             </summary>
@@ -274,14 +351,13 @@
             Client class for interaction with Pages endpoint WP REST API
             </summary>
         </member>
-        <member name="M:WordPressPCL.Client.Pages.#ctor(WordPressPCL.Utility.HttpHelper@,System.String)">
+        <member name="M:WordPressPCL.Client.Pages.#ctor(WordPressPCL.Utility.HttpHelper)">
             <summary>
             Constructor
             </summary>
             <param name="HttpHelper">reference to HttpHelper class for interaction with HTTP</param>
-            <param name="defaultPath">path to site, EX. http://demo.com/wp-json/ </param>
         </member>
-        <member name="M:WordPressPCL.Client.Pages.GetPagesByAuthor(System.Int32,System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.Pages.GetPagesByAuthorAsync(System.Int32,System.Boolean,System.Boolean)">
             <summary>
             Get pages by its author
             </summary>
@@ -290,7 +366,7 @@
             <param name="useAuth">Send request with authentication header</param>
             <returns>List of pages</returns>
         </member>
-        <member name="M:WordPressPCL.Client.Pages.GetPagesBySearch(System.String,System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.Pages.GetPagesBySearchAsync(System.String,System.Boolean,System.Boolean)">
             <summary>
             Get pages by search term
             </summary>
@@ -312,22 +388,21 @@
             Client class for interaction with Post revisions endpoint WP REST API
             </summary>
         </member>
-        <member name="M:WordPressPCL.Client.PostRevisions.#ctor(WordPressPCL.Utility.HttpHelper@,System.String,System.Int32)">
+        <member name="M:WordPressPCL.Client.PostRevisions.#ctor(WordPressPCL.Utility.HttpHelper@,System.Int32)">
             <summary>
             Constructor
             </summary>
             <param name="httpHelper">reference to HttpHelper class for interaction with HTTP</param>
-            <param name="defaultPath">path to site, EX. http://demo.com/wp-json/ </param>
             <param name="postId">ID of post</param>
         </member>
-        <member name="M:WordPressPCL.Client.PostRevisions.Delete(System.Int32)">
+        <member name="M:WordPressPCL.Client.PostRevisions.DeleteAsync(System.Int32)">
             <summary>
             Delete Entity
             </summary>
             <param name="ID">Entity Id</param>
             <returns>Result of operation</returns>
         </member>
-        <member name="M:WordPressPCL.Client.PostRevisions.Get(System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.PostRevisions.GetAsync(System.Boolean,System.Boolean)">
             <summary>
             Get latest
             </summary>
@@ -335,7 +410,7 @@
             <param name="useAuth">Send request with authentication header</param>
             <returns>Latest PostRevisions</returns>
         </member>
-        <member name="M:WordPressPCL.Client.PostRevisions.GetAll(System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.PostRevisions.GetAllAsync(System.Boolean,System.Boolean)">
             <summary>
             Get All
             </summary>
@@ -343,7 +418,7 @@
             <param name="useAuth">Send request with authentication header</param>
             <returns>List of all result</returns>
         </member>
-        <member name="M:WordPressPCL.Client.PostRevisions.GetByID(System.Object,System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.PostRevisions.GetByIDAsync(System.Object,System.Boolean,System.Boolean)">
             <summary>
             Get Entity by Id
             </summary>
@@ -357,14 +432,13 @@
             Client class for interaction with Posts endpoint WP REST API
             </summary>
         </member>
-        <member name="M:WordPressPCL.Client.Posts.#ctor(WordPressPCL.Utility.HttpHelper@,System.String)">
+        <member name="M:WordPressPCL.Client.Posts.#ctor(WordPressPCL.Utility.HttpHelper)">
             <summary>
             Constructor
             </summary>
             <param name="HttpHelper">reference to HttpHelper class for interaction with HTTP</param>
-            <param name="defaultPath">path to site, EX. http://demo.com/wp-json/ </param>
         </member>
-        <member name="M:WordPressPCL.Client.Posts.GetStickyPosts(System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.Posts.GetStickyPostsAsync(System.Boolean,System.Boolean)">
             <summary>
             Get sticky posts
             </summary>
@@ -372,7 +446,7 @@
             <param name="useAuth">Send request with authentication header</param>
             <returns>List of posts</returns>
         </member>
-        <member name="M:WordPressPCL.Client.Posts.GetPostsByCategory(System.Int32,System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.Posts.GetPostsByCategoryAsync(System.Int32,System.Boolean,System.Boolean)">
             <summary>
             Get posts by category
             </summary>
@@ -381,7 +455,7 @@
             <param name="useAuth">Send request with authentication header</param>
             <returns>List of posts</returns>
         </member>
-        <member name="M:WordPressPCL.Client.Posts.GetPostsByTag(System.Int32,System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.Posts.GetPostsByTagAsync(System.Int32,System.Boolean,System.Boolean)">
             <summary>
             Get posts by tag
             </summary>
@@ -390,7 +464,7 @@
             <param name="useAuth">Send request with authentication header</param>
             <returns>List of posts</returns>
         </member>
-        <member name="M:WordPressPCL.Client.Posts.GetPostsByAuthor(System.Int32,System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.Posts.GetPostsByAuthorAsync(System.Int32,System.Boolean,System.Boolean)">
             <summary>
             Get posts by its author
             </summary>
@@ -399,7 +473,7 @@
             <param name="useAuth">Send request with authentication header</param>
             <returns>List of posts</returns>
         </member>
-        <member name="M:WordPressPCL.Client.Posts.GetPostsBySearch(System.String,System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.Posts.GetPostsBySearchAsync(System.String,System.Boolean,System.Boolean)">
             <summary>
             Get posts by search term
             </summary>
@@ -408,11 +482,17 @@
             <param name="useAuth">Send request with authentication header</param>
             <returns>List of posts</returns>
         </member>
-        <member name="M:WordPressPCL.Client.Posts.Delete(System.Int32,System.Boolean)">
+        <member name="M:WordPressPCL.Client.Posts.GetCountAsync">
+            <summary>
+            Get count of posts
+            </summary>
+            <returns>Result of operation</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Posts.DeleteAsync(System.Int32,System.Boolean)">
             <summary>
             Delete post with force deletion
             </summary>
-            <param name="ID">Post id</param>
+            <param name="Id">Post id</param>
             <param name="force">force deletion</param>
             <returns>Result of operation</returns>
         </member>
@@ -428,14 +508,13 @@
             Client class for interaction with Post Types endpoint WP REST API
             </summary>
         </member>
-        <member name="M:WordPressPCL.Client.PostStatuses.#ctor(WordPressPCL.Utility.HttpHelper@,System.String)">
+        <member name="M:WordPressPCL.Client.PostStatuses.#ctor(WordPressPCL.Utility.HttpHelper)">
             <summary>
             Constructor
             </summary>
             <param name="httpHelper">reference to HttpHelper class for interaction with HTTP</param>
-            <param name="defaultPath">path to site, EX. http://demo.com/wp-json/ </param>
         </member>
-        <member name="M:WordPressPCL.Client.PostStatuses.Get(System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.PostStatuses.GetAsync(System.Boolean,System.Boolean)">
             <summary>
             Get latest Post Statuses
             </summary>
@@ -443,7 +522,7 @@
             <param name="useAuth">Send request with authentication header</param>
             <returns>Entity by Id</returns>
         </member>
-        <member name="M:WordPressPCL.Client.PostStatuses.GetAll(System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.PostStatuses.GetAllAsync(System.Boolean,System.Boolean)">
             <summary>
             Get All
             </summary>
@@ -451,7 +530,7 @@
             <param name="useAuth">Send request with authentication header</param>
             <returns>List of all result</returns>
         </member>
-        <member name="M:WordPressPCL.Client.PostStatuses.GetByID(System.Object,System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.PostStatuses.GetByIDAsync(System.Object,System.Boolean,System.Boolean)">
             <summary>
             Get Entity by Id
             </summary>
@@ -465,14 +544,13 @@
             Client class for interaction with Post Types endpoint WP REST API
             </summary>
         </member>
-        <member name="M:WordPressPCL.Client.PostTypes.#ctor(WordPressPCL.Utility.HttpHelper@,System.String)">
+        <member name="M:WordPressPCL.Client.PostTypes.#ctor(WordPressPCL.Utility.HttpHelper)">
             <summary>
             Constructor
             </summary>
             <param name="httpHelper">reference to HttpHelper class for interaction with HTTP</param>
-            <param name="defaultPath">path to site, EX. http://demo.com/wp-json/ </param>
         </member>
-        <member name="M:WordPressPCL.Client.PostTypes.Get(System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.PostTypes.GetAsync(System.Boolean,System.Boolean)">
             <summary>
             Get latest
             </summary>
@@ -480,7 +558,7 @@
             <param name="useAuth">Send request with authentication header</param>
             <returns>List of latest PostTypes</returns>
         </member>
-        <member name="M:WordPressPCL.Client.PostTypes.GetAll(System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.PostTypes.GetAllAsync(System.Boolean,System.Boolean)">
             <summary>
             Get All
             </summary>
@@ -488,7 +566,7 @@
             <param name="useAuth">Send request with authentication header</param>
             <returns>List of all PostTypes</returns>
         </member>
-        <member name="M:WordPressPCL.Client.PostTypes.GetByID(System.Object,System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.PostTypes.GetByIDAsync(System.Object,System.Boolean,System.Boolean)">
             <summary>
             Get Entity by Id
             </summary>
@@ -497,31 +575,53 @@
             <param name="useAuth">Send request with authentication header</param>
             <returns>Entity by Id</returns>
         </member>
+        <member name="T:WordPressPCL.Client.Settings">
+            <summary>
+            Client class for interaction with Settings endpoints of WP REST API
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Client.Settings.#ctor(WordPressPCL.Utility.HttpHelper)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="httpHelper">reference to HttpHelper class for interaction with HTTP</param>
+        </member>
+        <member name="M:WordPressPCL.Client.Settings.GetSettingsAsync">
+            <summary>
+            Get site settings
+            </summary>
+            <returns>Site settings</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Settings.UpdateSettingsAsync(WordPressPCL.Models.Settings)">
+            <summary>
+            Update site settings
+            </summary>
+            <param name="settings">Settings object</param>
+            <returns>Updated settings</returns>
+        </member>
         <member name="T:WordPressPCL.Client.Tags">
             <summary>
             Client class for interaction with Tags endpoint WP REST API
             </summary>
         </member>
-        <member name="M:WordPressPCL.Client.Tags.#ctor(WordPressPCL.Utility.HttpHelper@,System.String)">
+        <member name="M:WordPressPCL.Client.Tags.#ctor(WordPressPCL.Utility.HttpHelper)">
             <summary>
             Constructor
             </summary>
             <param name="HttpHelper">reference to HttpHelper class for interaction with HTTP</param>
-            <param name="defaultPath">path to site, EX. http://demo.com/wp-json/ </param>
         </member>
         <member name="T:WordPressPCL.Client.Taxonomies">
             <summary>
             Client class for interaction with Taxonomies endpoint WP REST API
             </summary>
         </member>
-        <member name="M:WordPressPCL.Client.Taxonomies.#ctor(WordPressPCL.Utility.HttpHelper@,System.String)">
+        <member name="M:WordPressPCL.Client.Taxonomies.#ctor(WordPressPCL.Utility.HttpHelper)">
             <summary>
             Constructor
             </summary>
             <param name="httpHelper">reference to HttpHelper class for interaction with HTTP</param>
-            <param name="defaultPath">path to site, EX. http://demo.com/wp-json/ </param>
         </member>
-        <member name="M:WordPressPCL.Client.Taxonomies.Get(System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.Taxonomies.GetAsync(System.Boolean,System.Boolean)">
             <summary>
             Get latest
             </summary>
@@ -529,7 +629,7 @@
             <param name="useAuth">Send request with authentication header</param>
             <returns>Get latest taxonomies</returns>
         </member>
-        <member name="M:WordPressPCL.Client.Taxonomies.GetAll(System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.Taxonomies.GetAllAsync(System.Boolean,System.Boolean)">
             <summary>
             Get All
             </summary>
@@ -537,7 +637,7 @@
             <param name="useAuth">Send request with authentication header</param>
             <returns>List of all result</returns>
         </member>
-        <member name="M:WordPressPCL.Client.Taxonomies.GetByID(System.Object,System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.Taxonomies.GetByIDAsync(System.Object,System.Boolean,System.Boolean)">
             <summary>
             Get Entity by Id
             </summary>
@@ -546,7 +646,7 @@
             <param name="useAuth">Send request with authentication header</param>
             <returns>Entity by Id</returns>
         </member>
-        <member name="M:WordPressPCL.Client.Taxonomies.Query(WordPressPCL.Utility.TaxonomiesQueryBuilder,System.Boolean)">
+        <member name="M:WordPressPCL.Client.Taxonomies.QueryAsync(WordPressPCL.Utility.TaxonomiesQueryBuilder,System.Boolean)">
             <summary>
             Create a parametrized query and get a result
             </summary>
@@ -559,21 +659,20 @@
             Client class for interaction with Users endpoint WP REST API
             </summary>
         </member>
-        <member name="M:WordPressPCL.Client.Users.#ctor(WordPressPCL.Utility.HttpHelper@,System.String)">
+        <member name="M:WordPressPCL.Client.Users.#ctor(WordPressPCL.Utility.HttpHelper)">
             <summary>
             Constructor
             </summary>
             <param name="HttpHelper">reference to HttpHelper class for interaction with HTTP</param>
-            <param name="defaultPath">path to site, EX. http://demo.com/wp-json/ </param>
         </member>
-        <member name="M:WordPressPCL.Client.Users.Create(WordPressPCL.Models.User)">
+        <member name="M:WordPressPCL.Client.Users.CreateAsync(WordPressPCL.Models.User)">
             <summary>
             Create Entity
             </summary>
             <param name="Entity">Entity object</param>
             <returns>Created object</returns>
         </member>
-        <member name="M:WordPressPCL.Client.Users.Get(System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.Users.GetAsync(System.Boolean,System.Boolean)">
             <summary>
             Get latest
             </summary>
@@ -581,7 +680,7 @@
             <param name="useAuth">Send request with authentication header</param>
             <returns>Get latest users</returns>
         </member>
-        <member name="M:WordPressPCL.Client.Users.GetAll(System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.Users.GetAllAsync(System.Boolean,System.Boolean)">
             <summary>
             Get All
             </summary>
@@ -589,7 +688,7 @@
             <param name="useAuth">Send request with authentication header</param>
             <returns>List of all result</returns>
         </member>
-        <member name="M:WordPressPCL.Client.Users.GetByID(System.Object,System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.Users.GetByIDAsync(System.Object,System.Boolean,System.Boolean)">
             <summary>
             Get Entity by Id
             </summary>
@@ -598,7 +697,7 @@
             <param name="useAuth">Send request with authentication header</param>
             <returns>Entity by Id</returns>
         </member>
-        <member name="M:WordPressPCL.Client.Users.Query(WordPressPCL.Utility.UsersQueryBuilder,System.Boolean)">
+        <member name="M:WordPressPCL.Client.Users.QueryAsync(WordPressPCL.Utility.UsersQueryBuilder,System.Boolean)">
             <summary>
             Create a parametrized query and get a result
             </summary>
@@ -606,7 +705,7 @@
             <param name="useAuth">Send request with authentication header</param>
             <returns>List of filtered result</returns>
         </member>
-        <member name="M:WordPressPCL.Client.Users.Update(WordPressPCL.Models.User)">
+        <member name="M:WordPressPCL.Client.Users.UpdateAsync(WordPressPCL.Models.User)">
             <summary>
             Update Entity
             </summary>
@@ -635,7 +734,7 @@
             <param name="ReassignUser">User object for reassign</param>
             <returns>Result of operation</returns>
         </member>
-        <member name="M:WordPressPCL.Client.Users.CreateApplicationPassword(System.String,System.String)">
+        <member name="M:WordPressPCL.Client.Users.CreateApplicationPasswordAsync(System.String,System.String)">
             <summary>
             Create a new Application Password
             </summary>
@@ -650,13 +749,24 @@
             <param name="userId">User ID, defaults to "me"</param>
             <returns>List of registered Application Passwords (without the actual password)</returns>
         </member>
+        <member name="T:WordPressPCL.Interfaces.ICountOperation">
+            <summary>
+            Interface for count of Wordpress items
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Interfaces.ICountOperation.GetCountAsync">
+            <summary>
+            Get Count of Wordpress items
+            </summary>
+            <returns>Result of Operation</returns>
+        </member>
         <member name="T:WordPressPCL.Interfaces.ICreateOperation`1">
             <summary>
             Interface with required Create methods
             </summary>
             <typeparam name="TClass">return class type</typeparam>
         </member>
-        <member name="M:WordPressPCL.Interfaces.ICreateOperation`1.Create(`0)">
+        <member name="M:WordPressPCL.Interfaces.ICreateOperation`1.CreateAsync(`0)">
             <summary>
             Create object
             </summary>
@@ -668,7 +778,7 @@
             Interface with required Delete methods
             </summary>
         </member>
-        <member name="M:WordPressPCL.Interfaces.IDeleteOperation.Delete(System.Int32)">
+        <member name="M:WordPressPCL.Interfaces.IDeleteOperation.DeleteAsync(System.Int32)">
             <summary>
             Delete object by Id
             </summary>
@@ -680,9 +790,9 @@
             Interface with required Query methods
             </summary>
             <typeparam name="TClass">return class type</typeparam>
-            <typeparam name="QClass">Query Builder class</typeparam>
+            <typeparam name="TQueryClass">Query Builder class</typeparam>
         </member>
-        <member name="M:WordPressPCL.Interfaces.IQueryOperation`2.Query(`1,System.Boolean)">
+        <member name="M:WordPressPCL.Interfaces.IQueryOperation`2.QueryAsync(`1,System.Boolean)">
             <summary>
             Execute query
             </summary>
@@ -696,7 +806,7 @@
             </summary>
             <typeparam name="TClass">return class type</typeparam>
         </member>
-        <member name="M:WordPressPCL.Interfaces.IReadOperation`1.Get(System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Interfaces.IReadOperation`1.GetAsync(System.Boolean,System.Boolean)">
             <summary>
             Get latest
             </summary>
@@ -704,7 +814,7 @@
             <param name="useAuth">Is use auth header</param>
             <returns>requested object</returns>
         </member>
-        <member name="M:WordPressPCL.Interfaces.IReadOperation`1.GetByID(System.Object,System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Interfaces.IReadOperation`1.GetByIDAsync(System.Object,System.Boolean,System.Boolean)">
             <summary>
             Get object by Id
             </summary>
@@ -713,7 +823,7 @@
             <param name="useAuth">Is use auth header</param>
             <returns>requested object</returns>
         </member>
-        <member name="M:WordPressPCL.Interfaces.IReadOperation`1.GetAll(System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Interfaces.IReadOperation`1.GetAllAsync(System.Boolean,System.Boolean)">
             <summary>
             Get all objects
             </summary>
@@ -727,12 +837,57 @@
             </summary>
             <typeparam name="TClass">return class type</typeparam>
         </member>
-        <member name="M:WordPressPCL.Interfaces.IUpdateOperation`1.Update(`0)">
+        <member name="M:WordPressPCL.Interfaces.IUpdateOperation`1.UpdateAsync(`0)">
             <summary>
             Update entity method
             </summary>
             <param name="Entity">object to update</param>
             <returns>Updated entity</returns>
+        </member>
+        <member name="T:WordPressPCL.Models.ApplicationPassword">
+            <summary>
+            Application Password
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ApplicationPassword.Uuid">
+            <summary>
+            Unique ID
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ApplicationPassword.AppId">
+            <summary>
+            App ID
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ApplicationPassword.Name">
+            <summary>
+            App Name
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ApplicationPassword.Created">
+            <summary>
+            Created Timestamp
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ApplicationPassword.LastUsed">
+            <summary>
+            Last Used
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ApplicationPassword.LastIp">
+            <summary>
+            Last IP
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ApplicationPassword.Password">
+            <summary>
+            Application Password
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ApplicationPassword.Links">
+            <summary>
+            Links
+            </summary>
         </member>
         <member name="T:WordPressPCL.Models.AuthMethod">
             <summary>
@@ -740,19 +895,14 @@
             <para> JWT - recommended AUTH method</para>
             </summary>
         </member>
-        <member name="F:WordPressPCL.Models.AuthMethod.JWT">
+        <member name="F:WordPressPCL.Models.AuthMethod.Bearer">
             <summary>
-            JSON Web Token Authentication method by Enrique Chavez. Need configure your site with this plugin https://wordpress.org/plugins/jwt-authentication-for-wp-rest-api/
+            Bearer Authentication using token
             </summary>
         </member>
-        <member name="F:WordPressPCL.Models.AuthMethod.JWTAuth">
+        <member name="F:WordPressPCL.Models.AuthMethod.Basic">
             <summary>
-            JSON Web Token Authentication method by Useful Team. Need configure your site with this plugin https://wordpress.org/plugins/jwt-auth/
-            </summary>
-        </member>
-        <member name="F:WordPressPCL.Models.AuthMethod.ApplicationPassword">
-            <summary>
-            Basic authentication using Application Passwords introduced in WordPress 5.6
+            Basic Authentication using Application Passwords introduced in Wordpress 5.6
             </summary>
         </member>
         <member name="T:WordPressPCL.Models.AvatarURL">
@@ -1426,6 +1576,11 @@
             Type of Media Query Item
             </summary>
         </member>
+        <member name="F:WordPressPCL.Models.MediaQueryType.All">
+            <summary>
+            All
+            </summary>
+        </member>
         <member name="F:WordPressPCL.Models.MediaQueryType.Image">
             <summary>
             Image
@@ -1444,6 +1599,11 @@
         <member name="F:WordPressPCL.Models.MediaQueryType.Application">
             <summary>
             Application
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.MediaQueryType.Text">
+            <summary>
+            Text
             </summary>
         </member>
         <member name="T:WordPressPCL.Models.Exceptions.WPException">
@@ -1602,6 +1762,93 @@
         <member name="P:WordPressPCL.Models.ImageMeta.Keywords">
             <summary>
             Image keywords
+            </summary>
+        </member>
+        <member name="T:WordPressPCL.Models.JWTData">
+            <summary>
+            JWT Data
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.JWTData.Token">
+            <summary>
+            JWT Token
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.JWTData.DisplayName">
+            <summary>
+            User Display Name
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.JWTData.Email">
+            <summary>
+            User Email
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.JWTData.NiceName">
+            <summary>
+            User Nice Names
+            </summary>
+        </member>
+        <member name="T:WordPressPCL.Models.JWTPlugin">
+            <summary>
+            JWT Plugins supported
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.JWTPlugin.JWTAuthByEnriqueChavez">
+            <summary>
+            JWT Authentication for WP REST API plugin
+            Author - Enrique Chavez
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.JWTPlugin.JWTAuthByUsefulTeam">
+            <summary>
+            JWT Auth – WordPress JSON Web Token Authentication plugin
+            Author - Useful Team
+            </summary>
+        </member>
+        <member name="T:WordPressPCL.Models.JWTResponse">
+            <summary>
+            Response class for the JWT Plugin
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.JWTResponse.Success">
+            <summary>
+            Indicates if the call was successful
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.JWTResponse.Message">
+            <summary>
+            The response message
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.JWTResponse.Data">
+            <summary>
+            The JWT Content
+            </summary>
+        </member>
+        <member name="T:WordPressPCL.Models.JWTUser">
+            <summary>
+            User class for working with the JWT plugin
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.JWTUser.Token">
+            <summary>
+            The JWT Token used to authorize requests
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.JWTUser.DisplayName">
+            <summary>
+            User Display Name
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.JWTUser.Email">
+            <summary>
+            User Email Address
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.JWTUser.NiceName">
+            <summary>
+            User Nice Name
             </summary>
         </member>
         <member name="T:WordPressPCL.Models.Links">
@@ -3298,6 +3545,22 @@
         <member name="M:WordPressPCL.Utility.CustomCapabilitiesJsonConverter.WriteJson(Newtonsoft.Json.JsonWriter,System.Boolean,Newtonsoft.Json.JsonSerializer)">
             <inheritdoc />
         </member>
+        <member name="T:WordPressPCL.Utility.ExcludeQueryTextAttribute">
+            <summary>
+            Attribute to exclude query text in querybuilder
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.ExcludeQueryTextAttribute.ExclusionValue">
+            <summary>
+            Value which determines if query text is excluded
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Utility.ExcludeQueryTextAttribute.#ctor(System.String)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="exclusionValue">value which determines if query text is excluded</param>
+        </member>
         <member name="T:WordPressPCL.Utility.HttpHelper">
             <summary>
             Helper class encapsulates common HTTP requests methods
@@ -3340,19 +3603,21 @@
             Headers returns by WP and http server from last response
             </summary>
         </member>
-        <member name="M:WordPressPCL.Utility.HttpHelper.#ctor(System.String)">
+        <member name="M:WordPressPCL.Utility.HttpHelper.#ctor(System.Uri,System.String)">
             <summary>
             Constructor
             <paramref name="wordpressURI"/>
             </summary>
             <param name="wordpressURI">base WP REST API endpoint EX. http://demo.com/wp-json/ </param>
+            <param name="defaultPath"></param>
         </member>
-        <member name="M:WordPressPCL.Utility.HttpHelper.#ctor(System.Net.Http.HttpClient)">
+        <member name="M:WordPressPCL.Utility.HttpHelper.#ctor(System.Net.Http.HttpClient,System.String)">
             <summary>
             Constructor
             <paramref name="httpClient"/>
             </summary>
             <param name="httpClient">Http client which would be used for sending requests to the WordPress API endpoint.</param>
+            <param name="defaultPath">Relative path to standard API endpoints, defaults to "wp/v2/"</param>
         </member>
         <member name="T:WordPressPCL.Utility.MediaQueryBuilder">
             <summary>
@@ -3685,7 +3950,7 @@
             </summary>
             <remarks>Default: view</remarks>
         </member>
-        <member name="M:WordPressPCL.Utility.QueryBuilder.BuildQueryURL">
+        <member name="M:WordPressPCL.Utility.QueryBuilder.BuildQuery">
             <summary>
             Builds the query URL from all properties
             </summary>
@@ -3805,6 +4070,31 @@
             <param name="isDescending">Newest comments should be shown first</param>
             <returns>List of threaded comments</returns>
         </member>
+        <member name="T:WordPressPCL.Utility.UrlHelper">
+            <summary>
+            Helper clas for URL manipulation
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Utility.UrlHelper.SetQueryParam(System.String,System.String,System.String)">
+            <summary>
+            Creates a new string with queryParam &amp; queryValue appended as query parameters
+            Ensures values are appended correctly with &amp; or ?
+            </summary>
+            <param name="url">Absolute or relative URL</param>
+            <param name="paramName">Query Parameter Name</param>
+            <param name="paramValue">Query Parameter Value</param>
+            <returns>New URL as string</returns>
+        </member>
+        <member name="M:WordPressPCL.Utility.UrlHelper.SetQueryParam(System.String,System.String,System.Int32)">
+            <summary>
+            Creates a new string with queryParam &amp; queryValue appended as query parameters
+            Ensures values are appended correctly with &amp; or ?
+            </summary>
+            <param name="url">Absolute or relative URL</param>
+            <param name="paramName">Query Parameter Name</param>
+            <param name="paramValue">Query Parameter Value</param>
+            <returns>New URL as string</returns>
+        </member>
         <member name="T:WordPressPCL.Utility.UsersQueryBuilder">
             <summary>
             Users Query Builder class to construct queries with valid parameters
@@ -3881,14 +4171,9 @@
             https://www.newtonsoft.com/json/help/html/SerializationSettings.htm
             </summary>
         </member>
-        <member name="P:WordPressPCL.WordPressClient.AuthMethod">
+        <member name="P:WordPressPCL.WordPressClient.Auth">
             <summary>
-            Authentication method
-            </summary>
-        </member>
-        <member name="P:WordPressPCL.WordPressClient.UserName">
-            <summary>
-            The username to be used with the Application Password
+            Auth client interaction object
             </summary>
         </member>
         <member name="P:WordPressPCL.WordPressClient.Posts">
@@ -3946,9 +4231,21 @@
             Custom Request client interaction object
             </summary>
         </member>
+        <member name="P:WordPressPCL.WordPressClient.Settings">
+            <summary>
+            Settings client interaction object
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.WordPressClient.#ctor(System.Uri,System.String)">
+            <summary>
+            The WordPressClient holds all connection infos and provides methods to call WordPress APIs.
+            </summary>
+            <param name="uri">URI for WordPress API endpoint, e.g. "http://demo.wp-api.org/wp-json/"</param>
+            <param name="defaultPath">Relative path to standard API endpoints, defaults to "wp/v2/"</param>
+        </member>
         <member name="M:WordPressPCL.WordPressClient.#ctor(System.String,System.String)">
             <summary>
-                The WordPressClient holds all connection infos and provides methods to call WordPress APIs.
+            The WordPressClient holds all connection infos and provides methods to call WordPress APIs.
             </summary>
             <param name="uri">URI for WordPress API endpoint, e.g. "http://demo.wp-api.org/wp-json/"</param>
             <param name="defaultPath">Relative path to standard API endpoints, defaults to "wp/v2/"</param>
@@ -3959,62 +4256,6 @@
             </summary>
             <param name="httpClient">HttpClient with BaseAddress set which will be used for sending requests to the WordPress API endpoint.</param>
             <param name="defaultPath">Relative path to standard API endpoints, defaults to "wp/v2/"</param>
-        </member>
-        <member name="M:WordPressPCL.WordPressClient.GetSettings">
-            <summary>
-            Get site settings
-            </summary>
-            <returns>Site settings</returns>
-        </member>
-        <member name="M:WordPressPCL.WordPressClient.UpdateSettings(WordPressPCL.Models.Settings)">
-            <summary>
-            Update site settings
-            </summary>
-            <param name="settings">Settings object</param>
-            <returns>Updated settings</returns>
-        </member>
-        <member name="M:WordPressPCL.WordPressClient.RequestJWToken(System.String,System.String)">
-            <summary>
-            Perform authentication by JWToken
-            </summary>
-            <param name="Username">username</param>
-            <param name="Password">password</param>
-        </member>
-        <member name="M:WordPressPCL.WordPressClient.Logout">
-            <summary>
-            Forget the JWT Auth Token, won't invalidate it serverside though
-            </summary>
-        </member>
-        <member name="M:WordPressPCL.WordPressClient.IsValidJWToken">
-            <summary>
-            Check if token is valid
-            </summary>
-            <returns>Result of checking</returns>
-        </member>
-        <member name="M:WordPressPCL.WordPressClient.RemoveEmptyData(System.String)">
-            <summary>
-            Removes an empty data field in a Json string, e.g. when checking validity of token
-            </summary>
-            <param name="response">Json response input string</param>
-            <returns>Json response output string</returns>
-        </member>
-        <member name="M:WordPressPCL.WordPressClient.SetJWToken(System.String)">
-            <summary>
-            Sets an existing JWToken
-            </summary>
-            <param name="token"></param>
-        </member>
-        <member name="M:WordPressPCL.WordPressClient.GetToken">
-            <summary>
-            Gets the JWToken from the client
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:WordPressPCL.WordPressClient.SetApplicationPassword(System.String)">
-            <summary>
-            Store Application Password in the Client
-            </summary>
-            <param name="applictionPassword"></param>
         </member>
     </members>
 </doc>

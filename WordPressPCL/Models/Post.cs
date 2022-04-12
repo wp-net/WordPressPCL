@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 
 namespace WordPressPCL.Models
 {
@@ -173,14 +174,14 @@ namespace WordPressPCL.Models
         /// </summary>
         /// <remarks>Context: view, edit</remarks>
         [JsonProperty("categories", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public int[] Categories { get; set; }
+        public List<int> Categories { get; set; }
 
         /// <summary>
         /// The terms assigned to the object in the post_tag taxonomy.
         /// </summary>
         /// <remarks>Context: view, edit</remarks>
         [JsonProperty("tags", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public int[] Tags { get; set; }
+        public List<int> Tags { get; set; }
 
         /// <summary>
         /// The theme file to use to display the object.

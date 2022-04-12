@@ -52,7 +52,7 @@ namespace WordPressPCL.Models
 
         /// <summary>
         /// A named status for the object.
-        /// <see cref="WordPressPCL.Models.Status"/>
+        /// <see cref="Models.Status"/>
         /// </summary>
         /// <remarks>
         /// Context: edit
@@ -76,7 +76,7 @@ namespace WordPressPCL.Models
 
         /// <summary>
         /// The title for the object.
-        /// <see cref="WordPressPCL.Models.Title"/>
+        /// <see cref="Models.Title"/>
         /// </summary>
         /// <remarks>Context: view, edit, embed</remarks>
         [JsonProperty("title")]
@@ -91,7 +91,7 @@ namespace WordPressPCL.Models
 
         /// <summary>
         /// Whether or not comments are open on the object.
-        /// <see cref="WordPressPCL.Models.OpenStatus"/>
+        /// <see cref="OpenStatus"/>
         /// </summary>
         /// <remarks>Context: view, edit
         /// One of: open, closed</remarks>
@@ -100,7 +100,7 @@ namespace WordPressPCL.Models
 
         /// <summary>
         /// Whether or not the object can be pinged.
-        /// <see cref="WordPressPCL.Models.OpenStatus"/>
+        /// <see cref="OpenStatus"/>
         /// </summary>
         /// <remarks>Context: view, edit
         /// One of: open, closed</remarks>
@@ -116,7 +116,7 @@ namespace WordPressPCL.Models
 
         /// <summary>
         /// The caption for the resource.
-        /// <see cref="WordPressPCL.Models.Caption"/>
+        /// <see cref="Models.Caption"/>
         /// </summary>
         /// <remarks>Context: view, edit</remarks>
         [JsonProperty("caption")]
@@ -131,7 +131,7 @@ namespace WordPressPCL.Models
 
         /// <summary>
         /// Type of resource.
-        /// <see cref="WordPressPCL.Models.MediaType"/>
+        /// <see cref="Models.MediaType"/>
         /// </summary>
         /// <remarks>Context: view, edit, embed
         /// One of: image, file</remarks>
@@ -147,7 +147,7 @@ namespace WordPressPCL.Models
 
         /// <summary>
         /// Details about the resource file, specific to its type.
-        /// <see cref="WordPressPCL.Models.MediaDetails"/>
+        /// <see cref="Models.MediaDetails"/>
         /// </summary>
         /// <remarks>Context: view, edit, embed</remarks>
         [JsonProperty("media_details")]

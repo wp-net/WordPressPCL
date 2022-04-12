@@ -36,12 +36,12 @@ namespace WordPressPCL.Utility
         /// Limit result set to posts assigned to specific authors.
         /// </summary>
         [QueryText("author")]
-        public int[] Authors { get; set; }
+        public List<int> Authors { get; set; }
         /// <summary>
         /// Ensure result set excludes posts assigned to specific authors.
         /// </summary>
         [QueryText("author_exclude")]
-        public int[] AuthorsExclude { get; set; }
+        public List<int> AuthorsExclude { get; private set; }
         /// <summary>
         /// Limit result set to that from a specific author email. Requires authorization.
         /// </summary>
@@ -56,12 +56,12 @@ namespace WordPressPCL.Utility
         /// Ensure result set excludes specific IDs.
         /// </summary>
         [QueryText("exclude")]
-        public int[] Exclude { get; set; }
+        public List<int> Exclude { get; set; }
         /// <summary>
         /// Limit result set to specific IDs.
         /// </summary>
         [QueryText("include")]
-        public int[] Include { get; set; }
+        public List<int> Include { get; set; }
         /// <summary>
         /// Limit result set to that of a particular comment karma. Requires authorization.
         /// </summary>
@@ -88,23 +88,23 @@ namespace WordPressPCL.Utility
         /// Limit result set to those of particular parent ids.
         /// </summary>
         [QueryText("parent")]
-        public int[] Parents { get; set; }
+        public List<int> Parents { get; set; }
         /// <summary>
         /// Limit result set to all items except those of a particular parent id.
         /// </summary>
         [QueryText("parent_exclude")]
-        public int[] ParentsExclude { get; set; }
+        public List<int> ParentsExclude { get; set; }
         /// <summary>
         /// Limit result set to resources assigned to specific post ids.
         /// </summary>
         [QueryText("post")]
-        public int[] Posts { get; set; }
+        public List<int> Posts { get; set; }
         /// <summary>
         /// Limit result set to posts assigned one or more statuses.
         /// </summary>
         /// <remarks>Default: approve</remarks>
         [QueryText("status")]
-        public CommentStatus[] Statuses { get; set; }
+        public List<CommentStatus> Statuses { get; set; }
         /// <summary>
         /// Limit result set to comments assigned a specific type. Requires authorization.
         /// </summary>

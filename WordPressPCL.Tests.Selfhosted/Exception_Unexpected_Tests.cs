@@ -5,63 +5,62 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using WordPressPCL.Models;
 using WordPressPCL.Models.Exceptions;
 
-namespace WordPressPCL.Tests.Selfhosted
+namespace WordPressPCL.Tests.Selfhosted;
+
+[TestClass]
+public class Exception_Unexpected_Tests
 {
-    [TestClass]
-    public class Exception_Unexpected_Tests
+    private WordPressClient _badConnectionClient;
+
+    [TestInitialize]
+    public void Initialize()
     {
-        private WordPressClient _badConnectionClient;
+        _badConnectionClient = new WordPressClient("https://microsoft.com");
+    }
 
-        [TestInitialize]
-        public void Initialize()
+    [TestMethod]
+    public async Task Tags_Get_UnexpectedException()
+    {
+        await CheckForUnexpectedException(async () => await _badConnectionClient.Tags.GetAsync());
+    }
+
+    [TestMethod]
+    public async Task Tags_Post_UnexpectedException()
+    {
+        await CheckForUnexpectedException(async () => await _badConnectionClient.Tags.UpdateAsync(new Tag()));
+    }
+
+    [TestMethod]
+    public async Task Tags_Delete_UnexpectedException()
+    {
+        await CheckForUnexpectedException(async () => await _badConnectionClient.Tags.DeleteAsync(1), HttpStatusCode.NotImplemented);
+    }
+
+    private async Task CheckForUnexpectedException(Func<Task> task, HttpStatusCode expectedStatus = HttpStatusCode.NotFound)
+    {
+        bool exceptionCaught = false;
+
+        try
         {
-            _badConnectionClient = new WordPressClient("https://microsoft.com");
+            await task();
         }
-
-        [TestMethod]
-        public async Task Tags_Get_UnexpectedException()
+        catch (Exception ex)
         {
-            await CheckForUnexpectedException(async () => await _badConnectionClient.Tags.Get());
-        }
+            exceptionCaught = true;
 
-        [TestMethod]
-        public async Task Tags_Post_UnexpectedException()
-        {
-            await CheckForUnexpectedException(async () => await _badConnectionClient.Tags.Update(new Tag()));
-        }
-
-        [TestMethod]
-        public async Task Tags_Delete_UnexpectedException()
-        {
-            await CheckForUnexpectedException(async () => await _badConnectionClient.Tags.Delete(1), HttpStatusCode.NotImplemented);
-        }
-
-        private async Task CheckForUnexpectedException(Func<Task> task, HttpStatusCode expectedStatus = HttpStatusCode.NotFound)
-        {
-            bool exceptionCaught = false;
-
-            try
+            if (!(ex is WPUnexpectedException typedException))
             {
-                await task();
+                Assert.Fail($"Expected an exception of type WPUnexpectedException, but saw exception of type {ex.GetType()}");
             }
-            catch (Exception ex)
+            else
             {
-                exceptionCaught = true;
-
-                if (!(ex is WPUnexpectedException typedException))
-                {
-                    Assert.Fail($"Expected an exception of type WPUnexpectedException, but saw exception of type {ex.GetType()}");
-                }
-                else
-                {
-                    Assert.AreEqual($"Server returned HTTP status {expectedStatus}", typedException.Message);
-                    Assert.IsNotNull(typedException.Response, "No HTTP response has been returned");
-                    Assert.AreEqual(expectedStatus, typedException.Response.StatusCode);
-                    Assert.IsFalse(string.IsNullOrEmpty(typedException.ResponseBody), "Expected a response body but didn't see one");
-                }
+                Assert.AreEqual($"Server returned HTTP status {expectedStatus}", typedException.Message);
+                Assert.IsNotNull(typedException.Response, "No HTTP response has been returned");
+                Assert.AreEqual(expectedStatus, typedException.Response.StatusCode);
+                Assert.IsFalse(string.IsNullOrEmpty(typedException.ResponseBody), "Expected a response body but didn't see one");
             }
-
-            Assert.IsTrue(exceptionCaught, "Exception was expected but none was seen");
         }
+
+        Assert.IsTrue(exceptionCaught, "Exception was expected but none was seen");
     }
 }

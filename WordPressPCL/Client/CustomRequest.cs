@@ -17,7 +17,7 @@ namespace WordPressPCL.Client
         /// Constructor
         /// </summary>
         /// <param name="httpHelper">HttpHelper class to operate with Http methods</param>
-        public CustomRequest(ref HttpHelper httpHelper)
+        public CustomRequest(HttpHelper httpHelper)
         {
             _httpHelper = httpHelper;
         }
@@ -30,11 +30,11 @@ namespace WordPressPCL.Client
         /// <param name="route">path to exec request</param>
         /// <param name="Entity">object for creation</param>
         /// <returns>Created object</returns>
-        public async Task<TOutput> Create<TInput, TOutput>(string route, TInput Entity) where TOutput : class
+        public async Task<TOutput> CreateAsync<TInput, TOutput>(string route, TInput Entity) where TOutput : class
         {
             var entity = _httpHelper.JsonSerializerSettings == null ? JsonConvert.SerializeObject(Entity) : JsonConvert.SerializeObject(Entity, _httpHelper.JsonSerializerSettings);
-            StringContent sc = new StringContent(entity, Encoding.UTF8, "application/json");
-            return (await _httpHelper.PostRequest<TOutput>(route, sc).ConfigureAwait(false)).Item1;
+            using StringContent sc = new(entity, Encoding.UTF8, "application/json");
+            return (await _httpHelper.PostRequestAsync<TOutput>(route, sc, true, ignoreDefaultPath: true).ConfigureAwait(false)).Item1;
         }
 
         /// <summary>
@@ -42,9 +42,9 @@ namespace WordPressPCL.Client
         /// </summary>
         /// <param name="route">path to exec delete request</param>
         /// <returns>Result of deletion</returns>
-        public Task<bool> Delete(string route)
+        public Task<bool> DeleteAsync(string route)
         {
-            return _httpHelper.DeleteRequest(route, true);
+            return _httpHelper.DeleteRequestAsync(route, true, ignoreDefaultPath: true);
         }
 
         /// <summary>
@@ -55,9 +55,9 @@ namespace WordPressPCL.Client
         /// <param name="embed">is get embed params</param>
         /// <param name="useAuth">i use auth</param>
         /// <returns>List of objects</returns>
-        public Task<TClass> Get<TClass>(string route, bool embed = false, bool useAuth = false) where TClass : class
+        public Task<TClass> GetAsync<TClass>(string route, bool embed = false, bool useAuth = false) where TClass : class
         {
-            return _httpHelper.GetRequest<TClass>(route, embed, useAuth);
+            return _httpHelper.GetRequestAsync<TClass>(route, embed, useAuth, ignoreDefaultPath: true);
         }
 
         /// <summary>
@@ -68,9 +68,9 @@ namespace WordPressPCL.Client
         /// <param name="route">path to exec request</param>
         /// <param name="Entity">object for update</param>
         /// <returns>Updated object</returns>
-        public Task<TOutput> Update<TInput, TOutput>(string route, TInput Entity) where TOutput : class
+        public Task<TOutput> UpdateAsync<TInput, TOutput>(string route, TInput Entity) where TOutput : class
         {
-            return this.Create<TInput, TOutput>(route, Entity);
+            return CreateAsync<TInput, TOutput>(route, Entity);
         }
     }
 }

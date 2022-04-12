@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Globalization;
 using System.Threading.Tasks;
 using WordPressPCL.Models;
 using WordPressPCL.Utility;
@@ -18,8 +19,7 @@ namespace WordPressPCL.Client
         /// Constructor
         /// </summary>
         /// <param name="HttpHelper">reference to HttpHelper class for interaction with HTTP</param>
-        /// <param name="defaultPath">path to site, EX. http://demo.com/wp-json/ </param>
-        public Pages(ref HttpHelper HttpHelper, string defaultPath) : base(ref HttpHelper, defaultPath, _methodPath)
+        public Pages(HttpHelper HttpHelper) : base(HttpHelper, _methodPath)
         {
         }
 
@@ -34,11 +34,11 @@ namespace WordPressPCL.Client
         /// <param name="embed">include embed info</param>
         /// <param name="useAuth">Send request with authentication header</param>
         /// <returns>List of pages</returns>
-        public Task<IEnumerable<Page>> GetPagesByAuthor(int authorId, bool embed = false, bool useAuth = false)
+        public Task<IEnumerable<Page>> GetPagesByAuthorAsync(int authorId, bool embed = false, bool useAuth = false)
         {
             // default values
             // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
-            return HttpHelper.GetRequest<IEnumerable<Page>>($"{DefaultPath}{_methodPath}?author={authorId}", embed, useAuth);
+            return HttpHelper.GetRequestAsync<IEnumerable<Page>>($"{_methodPath}?author={authorId}", embed, useAuth);
         }
 
         /// <summary>
@@ -48,11 +48,11 @@ namespace WordPressPCL.Client
         /// <param name="embed">include embed info</param>
         /// <param name="useAuth">Send request with authentication header</param>
         /// <returns>List of pages</returns>
-        public Task<IEnumerable<Page>> GetPagesBySearch(string searchTerm, bool embed = false, bool useAuth = false)
+        public Task<IEnumerable<Page>> GetPagesBySearchAsync(string searchTerm, bool embed = false, bool useAuth = false)
         {
             // default values
             // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
-            return HttpHelper.GetRequest<IEnumerable<Page>>($"{DefaultPath}{_methodPath}?search={searchTerm}", embed, useAuth);
+            return HttpHelper.GetRequestAsync<IEnumerable<Page>>($"{_methodPath}?search={searchTerm}", embed, useAuth);
         }
 
         /// <summary>
@@ -63,7 +63,7 @@ namespace WordPressPCL.Client
         /// <returns>Result of operation</returns>
         public Task<bool> Delete(int ID, bool force = false)
         {
-            return HttpHelper.DeleteRequest($"{DefaultPath}{_methodPath}/{ID}?force={force.ToString().ToLower()}");
+            return HttpHelper.DeleteRequestAsync($"{_methodPath}/{ID}?force={force.ToString().ToLower(CultureInfo.InvariantCulture)}");
         }
 
         #endregion Custom

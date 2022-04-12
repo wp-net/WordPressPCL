@@ -1,9 +1,8 @@
-﻿namespace WordPressPCL.Tests.Selfhosted.Utility
+﻿namespace WordPressPCL.Tests.Selfhosted.Utility;
+
+public class ApiCredentials
 {
-    public class ApiCredentials
-    {
-        public static string WordPressUri = "http://localhost/wp-json/";
-        public static string Username = "wordpress";
-        public static string Password = "wordpress";
-    }
+    public static string WordPressUri = "http://localhost:8080/wp-json/";
+    public static string Username = "wordpress";
+    public static string Password = "wordpress";
 }
