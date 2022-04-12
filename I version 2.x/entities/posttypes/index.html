@@ -3,18 +3,18 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://wp-net.github.io/WordPressPCL/I%20version%202.x/entities/comments/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://wp-net.github.io/WordPressPCL/I%20version%202.x/entities/posttypes/" />
       <link rel="shortcut icon" href="../../../img/favicon.ico" />
-    <title>Comments - WordPressPCL</title>
+    <title>PostTypes - WordPressPCL</title>
     <link rel="stylesheet" href="../../../css/theme.css" />
     <link rel="stylesheet" href="../../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
     
       <script>
         // Current page data
-        var mkdocs_page_name = "Comments";
-        var mkdocs_page_input_path = "I version 2.x/entities/comments.md";
-        var mkdocs_page_url = "/WordPressPCL/I%20version%202.x/entities/comments/";
+        var mkdocs_page_name = "PostTypes";
+        var mkdocs_page_input_path = "I version 2.x/entities/posttypes.md";
+        var mkdocs_page_url = "/WordPressPCL/I%20version%202.x/entities/posttypes/";
       </script>
     
     <script src="../../../js/jquery-3.6.0.min.js" defer></script>
@@ -66,9 +66,7 @@
     <ul class="current">
                 <li class="toctree-l2"><a class="reference internal" href="../categories/">Categories</a>
                 </li>
-                <li class="toctree-l2 current"><a class="reference internal current" href="./">Comments</a>
-    <ul class="current">
-    </ul>
+                <li class="toctree-l2"><a class="reference internal" href="../comments/">Comments</a>
                 </li>
                 <li class="toctree-l2"><a class="reference internal" href="../customPostType/">Custom Post Type</a>
                 </li>
@@ -80,7 +78,15 @@
                 </li>
                 <li class="toctree-l2"><a class="reference internal" href="../poststatuses/">PostStatuses</a>
                 </li>
-                <li class="toctree-l2"><a class="reference internal" href="../posttypes/">PostTypes</a>
+                <li class="toctree-l2 current"><a class="reference internal current" href="./">PostTypes</a>
+    <ul class="current">
+    <li class="toctree-l3"><a class="reference internal" href="#get-all">Get All</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#get-by-id">Get By ID</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#query">Query</a>
+    </li>
+    </ul>
                 </li>
                 <li class="toctree-l2"><a class="reference internal" href="../settings/">Settings</a>
                 </li>
@@ -153,7 +159,7 @@
   <ul class="wy-breadcrumbs">
     <li><a href="../../.." class="icon icon-home" alt="Docs"></a> &raquo;</li>
           <li>I version 2.x &raquo;</li>
-          <li>Entities &raquo;</li><li>Comments</li>
+          <li>Entities &raquo;</li><li>PostTypes</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -163,69 +169,31 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <p>Here is a list of methods and examples of working with Comments</p>
+                <h1 id="posttypes">PostTypes</h1>
+<p>Here is a list of methods and examples of working with PostTypes</p>
 <h2 id="get-all">Get All</h2>
-<pre><code class="language-C#">// returns all comments
-var comments = await client.Comments.GetAllAsync();
+<pre><code class="language-C#">// returns all posttypes
+var posttypes = await client.PostTypes.GetAllAsync();
 </code></pre>
 <h2 id="get-by-id">Get By ID</h2>
-<pre><code class="language-C#">// returns comment by ID
-var comment = await client.Comments.GetByIDAsync(123);
-</code></pre>
-<h2 id="get-comments-by-post-id">Get Comments by Post ID</h2>
-<pre><code class="language-C#">// returns comments from post
-var comments = await client.Comments.GetCommentsForPostAsync(123)
+<pre><code class="language-C#">// returns posttype by ID
+var posttype = await client.PostTypes.GetByIDAsync(123);
 </code></pre>
 <h2 id="query">Query</h2>
 <p>Create parametrized request</p>
 <pre><code class="language-C#">// returns result of query
-var queryBuilder = new CommentsQueryBuilder();
+var queryBuilder = new PostTypesQueryBuilder();
 queryBuilder.PerPage = 40;
 queryBuilder.Page = 2;
 queryBuilder.Before = DateTime.Now;
-var comments = await client.Comments.Query(queryBuilder);
-</code></pre>
-<h2 id="get-threaded-comments">Get threaded comments</h2>
-<p>If your blog supports threaded comments (comments with direct answers) you can order and get the right depth for them with this handy extension method:</p>
-<pre><code class="language-c#">var comments = await client.Comments.GetCommentsForPostAsync(123)
-var commentsThreaded = comments.ToThreaded();
-</code></pre>
-<h2 id="create-new-comment">Create new Comment</h2>
-<pre><code class="language-C#">// returns created comment
-var comment = new Comment()
-{
-    Content = new Content(&quot;Comment&quot;),
-    PostId = 123,
-    AuthorId = 1,
-    AuthorEmail = &quot;test@test.com&quot;
-};
-if (await client.IsValidJWTokenAsync())
-{
-    var createdComment = await client.Comments.CreateAsync(comment);
-}
-</code></pre>
-<h2 id="update-comment">Update Comment</h2>
-<pre><code class="language-C#">// returns updated comment
-var comment= client.Comments.GetByIDAsync(123);
-comment.Content.Raw = &quot;New Content&quot;;
-if (await client.IsValidJWTokenAsync())
-{
-    var updatedComment = await client.Comments.UpdateAsync(comment);
-}
-</code></pre>
-<h2 id="delete-comment">Delete Comment</h2>
-<pre><code class="language-C#">// returns result of deletion
-if (await client.IsValidJWToken())
-{
-    var result = await client.Comments.DeleteAsync(123);
-}
+var posttypes = await client.PostTypes.QueryAsync(queryBuilder);
 </code></pre>
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../categories/" class="btn btn-neutral float-left" title="Categories"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../customPostType/" class="btn btn-neutral float-right" title="Custom Post Type">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../poststatuses/" class="btn btn-neutral float-left" title="PostStatuses"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../settings/" class="btn btn-neutral float-right" title="Settings">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
@@ -248,10 +216,10 @@ if (await client.IsValidJWToken())
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="../categories/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="../poststatuses/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
-      <span><a href="../customPostType/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="../settings/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>

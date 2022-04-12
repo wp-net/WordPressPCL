@@ -48,9 +48,45 @@
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../../../I%20version%202.x/breaking-changes/">Breaking Changes in Version 2.x</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../I%20version%202.x/troubleshooting/">Troubleshooting</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="#">Customization</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../../I%20version%202.x/customization/customHttpClient/">Custom HttpClient</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../../I%20version%202.x/customization/customJsonSerializationSettings/">Custom JsonSerializationSettings</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../../I%20version%202.x/customization/customRequest/">CustomRequest</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../../I%20version%202.x/customization/httpResponsePreProcessing/">HttpResponsePreProcessing</a>
+                </li>
+    </ul>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="#">Entities</a>
     <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../../I%20version%202.x/entities/categories/">Categories</a>
+                </li>
                 <li class="toctree-l2"><a class="reference internal" href="../../../I%20version%202.x/entities/comments/">Comments</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../../I%20version%202.x/entities/customPostType/">Custom Post Type</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../../I%20version%202.x/entities/media/">Media</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../../I%20version%202.x/entities/pages/">Pages</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../../I%20version%202.x/entities/posts/">Posts</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../../I%20version%202.x/entities/poststatuses/">PostStatuses</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../../I%20version%202.x/entities/posttypes/">PostTypes</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../../I%20version%202.x/entities/settings/">Settings</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../../I%20version%202.x/entities/tags/">Tags</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../../I%20version%202.x/entities/taxonomies/">Taxonomies</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../../I%20version%202.x/entities/users/">Users</a>
                 </li>
     </ul>
                   </li>
@@ -133,7 +169,7 @@
 <p>Sometimes it's necessary to pre-process the HttpResponseMessage before deserializeing it.</p>
 <p>To do this, you can use the "HttpResponsePreProcessing" to pass a function to the WordPressClient.
 This function takes the HttpResponse content string as a parameter, and has to return a string that will be deserialized.</p>
-<pre><code class="language-csharp">// Add a HttpResponsePreProcessing function :
+<pre><code class="language-C#">// Add a HttpResponsePreProcessing function :
 client.HttpResponsePreProcessing = (response) =&gt;
 {
     string updatedResponse = response;
@@ -146,7 +182,7 @@ client.HttpResponsePreProcessing = (response) =&gt;
 <h2 id="wordpress-on-azure-iss">WordPress on Azure / ISS</h2>
 <p>When deploying a WordPress website on Microsoft Azure, the REST API will add <a href="https://social.msdn.microsoft.com/Forums/azure/en-US/8faac1fa-3d47-4149-aec0-f0a9a09f9744/php-wordpress-rest-api-prepending-html-with-location-header?forum=windowsazurewebsitespreview">unnecessary HTML before every POST request</a>.</p>
 <p>In order to correct this, you can add a HttpResponsePreProcessing function that will delete the HTML code that is preventing the deserialization of the JSON content:</p>
-<pre><code class="language-csharp">client.HttpResponsePreProcessing = (responseString) =&gt;
+<pre><code class="language-C#">client.HttpResponsePreProcessing = (responseString) =&gt;
 {
     var clearedString = responseString.Replace(&quot;\n&quot;, &quot;&quot;);
     var regex = @&quot;\&lt;head(.+)body\&gt;&quot;;
