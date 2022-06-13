@@ -47,7 +47,7 @@ services:
       wp option update permalink_structure "/%postname%";
       wp plugin activate "enable-application-passwords.1.0";
       wp plugin install contact-form-7 --activate;
-      wp plugin install jwt-authentication-for-wp-rest-api --activate;'
+      wp plugin install jwt-auth --activate;'
       
 volumes: 
   wp-volume:
