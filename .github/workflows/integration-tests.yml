@@ -33,9 +33,9 @@ jobs:
       run: docker-compose -f ./dev/docker-compose.yml up -d 
 
     - name: Check Docker
-      run: docker ps
-    - name: Check Docker
-      run: curl -Is http://localhost | head -1
-      
+      run: |
+        docker ps
+        curl --fail http://localhost
+    
     - name: 'Run Tests: Selfhosted WordPress with JWT-AUTH'
       run: dotnet test -l "console;verbosity=detailed" WordPressPCL.Tests.Selfhosted/WordPressPCL.Tests.Selfhosted.csproj -s WordPressPCL.Tests.Selfhosted/jwtauth.runsettings
