@@ -30,7 +30,7 @@ jobs:
       run: dotnet build ${{ env.solution }} -c Release
       
     - name: Create dockerzied WordPress
-      run: docker-compose -f ./dev/docker-compose.yml up -d 
+      run: docker-compose -f ./dev/dockerfile up -d 
 
     - name: Check Docker
       run: |
