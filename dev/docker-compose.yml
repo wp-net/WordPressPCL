@@ -52,6 +52,6 @@ services:
 volumes: 
   wp-volume:
 
-networks:
-  default:
-    name: integration-tests-setup
+# networks:
+#   default:
+#     name: integration-tests-setup
