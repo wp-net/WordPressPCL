@@ -39,6 +39,33 @@ public class Posts_Tests
     }
 
     [TestMethod]
+    public async Task Posts_Create_Scheduled()
+    {
+        string title = "Scheduled Title " + System.Guid.NewGuid().ToString();
+        var post = new Post()
+        {
+            Title = new Title(title),
+            Content = new Content("Content PostCreateScheduled"),
+            Date = DateTime.Now + TimeSpan.FromDays(5),
+        };
+        var createdPost = await _clientAuth.Posts.CreateAsync(post);
+
+        var queryBuilder = new PostsQueryBuilder
+        {
+            PerPage = 50,
+            Page = 1,
+            Order = Order.DESC,
+            Statuses = new List<Status> { Status.Future, Status.Pending }
+        };
+
+        var postsTask = await _clientAuth.Posts.QueryAsync(queryBuilder, true);
+        Assert.IsTrue(postsTask.Any(x => x.Title.Rendered == title));
+
+        Assert.AreEqual(post.Content.Raw, createdPost.Content.Raw);
+        Assert.IsTrue(createdPost.Content.Rendered.Contains(post.Content.Rendered));
+    }
+
+    [TestMethod]
     public async Task Posts_Read()
     {
         var posts = await _clientAuth.Posts.QueryAsync(new PostsQueryBuilder());
@@ -65,16 +92,17 @@ public class Posts_Tests
     }
 
     [TestMethod]
-    public async Task Posts_Count_Should_Equal_Number_Of_Posts() {
+    public async Task Posts_Count_Should_Equal_Number_Of_Posts()
+    {
         // Create 100+ posts to test multi-page GetAll
-        var postsCreate = Enumerable.Range(0, 110).Select(x => 
+        var postsCreate = Enumerable.Range(0, 110).Select(x =>
             new Post()
             {
                 Title = new Title($"{System.Guid.NewGuid()} {x}"),
                 Content = new Content("Content PostCreate")
             }
         ).ToList();
-        foreach(var post in postsCreate)
+        foreach (var post in postsCreate)
         {
             var createdPost = await _clientAuth.Posts.CreateAsync(post);
         }
@@ -134,7 +162,7 @@ public class Posts_Tests
         // Post should be available in trash
         var queryBuilder = new PostsQueryBuilder()
         {
-            Statuses = new List<Status> { Status.Trash }, 
+            Statuses = new List<Status> { Status.Trash },
             PerPage = 100
         };
         var posts = await _clientAuth.Posts.QueryAsync(queryBuilder, true);
