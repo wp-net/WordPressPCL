@@ -30,6 +30,6 @@ jobs:
       run: dotnet build ${{ env.solution }} -c Release
       
     - name: Create dockerzied WordPress
-      run: ./pipelines/docker-wordpress.sh
+      run: docker-compose -f ./dev/docker-compose.yml up -d 
     - name: 'Run Tests: Selfhosted WordPress with JWT-AUTH'
       run: dotnet test -l "console;verbosity=detailed" WordPressPCL.Tests.Selfhosted/WordPressPCL.Tests.Selfhosted.csproj -s WordPressPCL.Tests.Selfhosted/jwtauth.runsettings
