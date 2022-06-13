@@ -9,7 +9,8 @@ services:
       MYSQL_DATABASE: ${MYSQL_DATABASE}
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
-  
+    restart: unless-stopped
+
   wordpress:
     depends_on:
       - db
@@ -28,7 +29,8 @@ services:
       WORDPRESS_DB_NAME: ${WORDPRESS_DB_NAME}
       WORDPRESS_DEBUG: ${WORDPRESS_DEBUG}
       WORDPRESS_CONFIG_EXTRA: define('JWT_AUTH_SECRET_KEY', '.|)WaUppb-a>Z;(%p,4~^|5jjWom6Gw{(2_lqJv9r&]p<r4=rAvjM(LepuRf&+wI');
-  
+    restart: unless-stopped
+
   cli:
     depends_on:
       - db
@@ -48,10 +50,11 @@ services:
       wp plugin activate "enable-application-passwords.1.0";
       wp plugin install contact-form-7 --activate;
       wp plugin install jwt-auth --activate;'
-      
+    restart: unless-stopped
+
 volumes: 
   wp-volume:
 
-# networks:
-#   default:
-#     name: integration-tests-setup
+networks:
+  default:
+    name: integration-tests-setup
