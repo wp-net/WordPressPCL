@@ -35,7 +35,8 @@ jobs:
     - name: Check Docker
       run: |
         docker ps
-        curl --fail http://localhost
+        curl --fail http://localhost:8080
+        sleep 10s
     
     - name: 'Run Tests: Selfhosted WordPress with JWT-AUTH'
       run: dotnet test -l "console;verbosity=detailed" WordPressPCL.Tests.Selfhosted/WordPressPCL.Tests.Selfhosted.csproj -s WordPressPCL.Tests.Selfhosted/jwtauth.runsettings
