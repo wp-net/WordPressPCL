@@ -120,13 +120,6 @@ public class Basic_Tests
     [TestMethod]
     public async Task Authorize()
     {
-        // TODO: this test fails on jwtauth in CICD
-        // all other authorized calls are working though
-        if(_context?.Properties["authplugin"]?.ToString() == "jwtAuthByUsefulTeam")
-        {
-            Assert.Inconclusive();
-            return;
-        }
         var validToken = await _clientAuth.Auth.IsValidJWTokenAsync();
         Assert.IsTrue(validToken);
     }

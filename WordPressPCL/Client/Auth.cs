@@ -149,7 +149,7 @@ namespace WordPressPCL.Client {
         /// <returns>Json response output string</returns>
         private string RemoveEmptyData(string response) {
             JObject jo = JObject.Parse(response);
-            if (!jo.SelectToken("data").HasValues) {
+            if (jo.SelectToken("data") != null && !jo.SelectToken("data").HasValues) {
                 jo.Remove("data");
             }
             return jo.ToString();
