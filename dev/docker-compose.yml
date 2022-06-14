@@ -47,10 +47,9 @@ services:
       sleep 10;
       wp core install --path="/var/www/html" --url="http://localhost:8080" --title="Test Instance" --admin_user=wordpress --admin_password=wordpress --admin_email=test@example.com;
       wp option update permalink_structure "/%postname%";
-      wp plugin activate "enable-application-passwords.1.0";
+      wp plugin install application-passwords-enable --activate;
       wp plugin install contact-form-7 --activate;
       wp plugin install jwt-auth --activate;'
-    restart: unless-stopped
 
 volumes: 
   wp-volume:
