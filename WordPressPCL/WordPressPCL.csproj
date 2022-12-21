@@ -15,10 +15,12 @@
     <RepositoryType>GitHub</RepositoryType>
     <AssemblyVersion>2.0.0.0</AssemblyVersion>
     <FileVersion>2.0.0.0</FileVersion>
-    <Version>2.0.0</Version>
+    <Version>2.0.1</Version>
     <PackageLicenseUrl></PackageLicenseUrl>
     <LangVersion>9.0</LangVersion>
-    <PackageReleaseNotes>
+    <PackageReleaseNotes>V2.0.1
+- Upgraded Newtonsoft.Json dependency to 13.0.1
+
 V2.0.0
 - Dropped netstandard1.x support
 - Added Async-Suffix for all public async methods
@@ -129,6 +131,7 @@ V1.2
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageIcon>icon.png</PackageIcon>
     <AutoGenerateBindingRedirects>false</AutoGenerateBindingRedirects>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="6.0.0">
@@ -143,6 +146,10 @@ V1.2
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="..\.editorconfig" Link=".editorconfig" />
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
     <None Include="Images\icon.png">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
