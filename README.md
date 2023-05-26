@@ -73,6 +73,13 @@ var comments = await client.Comments.GetAllAsync();
 var commentbyid = await client.Comments.GetByIdAsync(id);
 var commentsbypost = await client.Comments.GetCommentsForPostAsync(postid, true, false);
 
+// Plugins
+var plugins = await client.Plugins.GetAllAsync();
+var installedplugin = await client.Plugins.InstallAsync("akismet");
+var activateplugin = await client.Plugins.ActivateAsync(installedplugin);
+var deactivateplugin = await client.Plugins.DeactivateAsync(installedplugin);
+var deleteplugin = await client.Plugins.DeleteAsync(installedplugin);
+
 // Authentication
 var client = new WordPressClient(ApiCredentials.WordPressUri);
 
@@ -104,6 +111,8 @@ var response = client.Posts.DeleteAsync(postId);
 | **Post Types**     | ---     | yes     | ---     | ---     |
 | **Post Statuses**  | ---     | yes     | ---     | ---     |
 | **Settings**       | ---     | yes     | yes     | ---     |
+| **Plugins**        | yes     | yes     | yes     | yes     |
+
 
 ## Additional Features
 

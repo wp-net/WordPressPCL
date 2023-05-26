@@ -383,6 +383,52 @@
             <param name="force">force deletion</param>
             <returns>Result of operation</returns>
         </member>
+        <member name="T:WordPressPCL.Client.Plugins">
+            <summary>
+            Client class for interaction with Plugins endpoint WP REST API
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Client.Plugins.#ctor(WordPressPCL.Utility.HttpHelper)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="HttpHelper">reference to HttpHelper class for interaction with HTTP</param>
+        </member>
+        <member name="M:WordPressPCL.Client.Plugins.InstallAsync(WordPressPCL.Models.Plugin)">
+            <summary>
+            Installs a plugin based on the Plugin
+            </summary>
+            <param name="Plugin"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Plugins.InstallAsync(System.String)">
+            <summary>
+            Installs a plugin based on the Id
+            </summary>
+            <param name="Id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Plugins.ActivateAsync(WordPressPCL.Models.Plugin)">
+            <summary>
+            Activates an existing plugin
+            </summary>
+            <param name="Plugin"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Plugins.DeactivateAsync(WordPressPCL.Models.Plugin)">
+            <summary>
+            Deactivates an existing plugin
+            </summary>
+            <param name="Plugin"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Plugins.DeleteAsync(WordPressPCL.Models.Plugin)">
+            <summary>
+            Deletes an existing plugin
+            </summary>
+            <param name="Plugin"></param>
+            <returns></returns>
+        </member>
         <member name="T:WordPressPCL.Client.PostRevisions">
             <summary>
             Client class for interaction with Post revisions endpoint WP REST API
@@ -1219,6 +1265,21 @@
         <member name="F:WordPressPCL.Models.OpenStatus.Closed">
             <summary>
             Status is closed
+            </summary>
+        </member>
+        <member name="T:WordPressPCL.Models.ActivationStatus">
+            <summary>
+            Status of Plugin
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.ActivationStatus.Active">
+            <summary>
+            Status is active
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.ActivationStatus.Inactive">
+            <summary>
+            Status is inactive
             </summary>
         </member>
         <member name="T:WordPressPCL.Models.CommentStatus">
@@ -2302,6 +2363,82 @@
         <member name="M:WordPressPCL.Models.Page.#ctor">
             <summary>
             Parameterless constructor
+            </summary>
+        </member>
+        <member name="T:WordPressPCL.Models.Plugin">
+            <summary>
+            WordPress main settings
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Plugin.PluginFile">
+            <summary>
+            The plugin file. unique identifier.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Plugin.Id">
+            <summary>
+            First part of the pluginfile: wordpress-seo/wp-seo => wordpress-seo
+            Id is needed to install, PluginFile is needed to activate, deactivate, delete
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Plugin.Status">
+            <summary>
+            The plugin activation status.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Plugin.Name">
+            <summary>
+            The plugin name.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Plugin.PluginUri">
+            <summary>
+            The plugin's website address.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Plugin.Author">
+            <summary>
+            The plugin author.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Plugin.AuthorUri">
+            <summary>
+            Plugin author's website address.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Plugin.Description">
+            <summary>
+            The plugin description.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Plugin.Version">
+            <summary>
+            The plugin version number.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Plugin.NetworkOnly">
+            <summary>
+            Whether the plugin can only be activated network-wide.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Plugin.RequiresWordPress">
+            <summary>
+            Minimum required version of WordPress.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Plugin.RequiresPHP">
+            <summary>
+            Minimum required version of PHP.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Plugin.TextDomain">
+            <summary>
+            The plugin's text domain.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Plugin.Links">
+            <summary>
+            The plugin's links.
             </summary>
         </member>
         <member name="T:WordPressPCL.Models.Post">
@@ -3827,6 +3964,48 @@
             Use WP Query arguments to modify the response; private query vars require appropriate authorization.
             </summary>
         </member>
+        <member name="T:WordPressPCL.Utility.PluginsQueryBuilder">
+            <summary>
+            Plugins Query Builder class to construct queries with valid parameters
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.PluginsQueryBuilder.Page">
+            <summary>
+            Current page of the collection.
+            </summary>
+            <remarks>Default: 1</remarks>
+        </member>
+        <member name="P:WordPressPCL.Utility.PluginsQueryBuilder.PerPage">
+            <summary>
+            Maximum number of items to be returned in result set (1-100).
+            </summary>
+            <remarks>Default: 10</remarks>
+        </member>
+        <member name="P:WordPressPCL.Utility.PluginsQueryBuilder.Search">
+            <summary>
+            Limit results to those matching a string.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.PluginsQueryBuilder.Exclude">
+            <summary>
+            Ensure result set excludes specific IDs.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.PluginsQueryBuilder.Include">
+            <summary>
+            Limit result set to specific IDs.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.PluginsQueryBuilder.Offset">
+            <summary>
+            Offset the result set by a specific number of items.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.PluginsQueryBuilder.Slugs">
+            <summary>
+            Limit result set to users with a specific slug.
+            </summary>
+        </member>
         <member name="T:WordPressPCL.Utility.PostsQueryBuilder">
             <summary>
             Post Query Builder class to construct queries with valid parameters
@@ -4234,6 +4413,11 @@
         <member name="P:WordPressPCL.WordPressClient.Settings">
             <summary>
             Settings client interaction object
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.WordPressClient.Plugins">
+            <summary>
+            Plugins client interaction object
             </summary>
         </member>
         <member name="M:WordPressPCL.WordPressClient.#ctor(System.Uri,System.String)">
