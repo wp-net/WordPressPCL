@@ -74,7 +74,7 @@ var commentbyid = await client.Comments.GetByIdAsync(id);
 var commentsbypost = await client.Comments.GetCommentsForPostAsync(postid, true, false);
 
 // Plugins
-var plugins = await client.Plugins.GetAllAsync();
+var plugins = await client.Plugins.GetAllAsync(useAuth:true);
 var installedplugin = await client.Plugins.InstallAsync("akismet");
 var activateplugin = await client.Plugins.ActivateAsync(installedplugin);
 var deactivateplugin = await client.Plugins.DeactivateAsync(installedplugin);
