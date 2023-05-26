@@ -3,7 +3,9 @@
 namespace WordPressPCL.Models
 {
     /// <summary>
-    /// WordPress main settings
+    /// WordPress Plugins
+    /// Date: 26 May 2023
+    /// Creator: Gregory Liénard
     /// </summary>
     public class Plugin
     {

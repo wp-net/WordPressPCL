@@ -14,6 +14,8 @@ namespace WordPressPCL.Client
 {
     /// <summary>
     /// Client class for interaction with Plugins endpoint WP REST API
+    /// Date: 26 May 2023
+    /// Creator: Gregory Liénard
     /// </summary>
     public class Plugins : CRUDOperation<Plugin, PluginsQueryBuilder>
     {
