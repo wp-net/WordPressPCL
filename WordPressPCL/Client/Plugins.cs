@@ -87,6 +87,32 @@ namespace WordPressPCL.Client
             return plugin;
         }
 
+        /// <summary>
+        /// Get plugins by search term
+        /// </summary>
+        /// <param name="searchTerm">Search term</param>
+        /// <param name="embed">include embed info</param>
+        /// <returns>List of posts</returns>
+        public Task<IEnumerable<Plugin>> GetPluginsBySearchAsync(string searchTerm, bool embed = false)
+        {
+            // default values
+            // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
+            return HttpHelper.GetRequestAsync<IEnumerable<Plugin>>(_methodPath.SetQueryParam("search", searchTerm), embed,true);
+        }
+
+        /// <summary>
+        /// Get plugins by search term
+        /// </summary>
+        /// <param name="activationStatus">active or inactive</param>
+        /// <param name="embed">include embed info</param>
+        /// <returns>List of posts</returns>
+        public Task<IEnumerable<Plugin>> GetPluginsByActivationStatusAsync(ActivationStatus activationStatus, bool embed = false)
+        {
+            // default values
+            // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
+            return HttpHelper.GetRequestAsync<IEnumerable<Plugin>>(_methodPath.SetQueryParam("status", activationStatus.ToString()), embed, true);
+        }
+
 
         /// <summary>
         /// Deletes an existing plugin

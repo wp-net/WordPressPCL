@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace WordPressPCL.Models
 {
@@ -18,6 +19,24 @@ namespace WordPressPCL.Models
         /// </summary>
         [JsonProperty("raw")]
         public string Raw { get; set; }
+    }
+
+    /// <summary>
+    /// Adds a "Rendered" and a "Raw" property to all classes derived from this one
+    /// </summary>
+    public abstract class RenderedArrayRawBase
+    {
+        /// <summary>
+        /// Rendered text
+        /// </summary>
+        [JsonProperty("rendered")]
+        public string  Rendered { get; set; }
+
+        /// <summary>
+        /// Raw HTML text
+        /// </summary>
+        [JsonProperty("raw")]
+        public string [] Raw { get; set; }
     }
 
     /// <summary>
@@ -117,6 +136,145 @@ namespace WordPressPCL.Models
     /// </remarks>
     public class Guid : RenderedRawBase
     {
+    }
+
+    /// <summary>
+    /// The title for the object.
+    /// </summary>
+    /// <remarks>Context: view, edit, embed</remarks>
+    public class Tags : RenderedArrayRawBase
+    {
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        public Tags()
+        {
+        }
+
+        /// <summary>
+        /// Constructor with same Raw and rendered author
+        /// </summary>
+        /// <param name="Tag">Text for author</param>
+        public Tags(string [] Tag) : this(Tag, string.Join(",",Tag))
+        {
+        }
+
+        /// <summary>
+        /// Constructor with Raw and rendered text
+        /// </summary>
+        /// <param name="TagsRaw">Raw HTML text for author</param>
+        /// <param name="TagsRendered">Rendered text for author</param>
+        public Tags(string[] TagsRaw, string TagsRendered)
+        {
+            Raw = TagsRaw;
+            Rendered = TagsRendered;
+        }
+    }
+
+    public class ThemeSupports
+    {
+        [JsonProperty("align-wide")]
+        public bool AlignWide { get; set; }
+
+        [JsonProperty("automatic-feed-links")]
+        public bool AutomaticFeedLinks { get; set; }
+
+        [JsonProperty("block-templates")]
+        public bool BlockTemplates { get; set; }
+
+        [JsonProperty("block-template-parts")]
+        public bool BlockTemplateParts { get; set; }
+
+        [JsonProperty("custom-background")]
+        public bool CustomBackground { get; set; }
+
+        [JsonProperty("custom-header")]
+        public bool CustomHeader { get; set; }
+
+        [JsonProperty("custom-logo")]
+        public bool CustomLogo { get; set; }
+
+        [JsonProperty("customize-selective-refresh-widgets")]
+        public bool CustomizeSelectiveRefreshWidgets { get; set; }
+
+        [JsonProperty("dark-editor-style")]
+        public bool DarkEditorStyle { get; set; }
+
+        [JsonProperty("disable-custom-colors")]
+        public bool DisableCustomColors { get; set; }
+
+        [JsonProperty("disable-custom-font-sizes")]
+        public bool DisableCustomFontSizes { get; set; }
+
+        [JsonProperty("disable-custom-gradients")]
+        public bool DisableCustomGradients { get; set; }
+
+        [JsonProperty("disable-layout-styles")]
+        public bool DisableLayoutStyles { get; set; }
+
+        [JsonProperty("editor-color-palette")]
+        public bool EditorColorPalette { get; set; }
+
+        [JsonProperty("editor-font-sizes")]
+        public bool EditorFontSizes { get; set; }
+
+        [JsonProperty("editor-gradient-presets")]
+        public bool EditorGradientPresets { get; set; }
+
+        [JsonProperty("editor-styles")]
+        public bool EditorStyles { get; set; }
+
+        [JsonProperty("html5")]
+        public List<string> Html5 { get; set; }
+
+        [JsonProperty("formats")]
+        public List<string> Formats { get; set; }
+
+        [JsonProperty("post-thumbnails")]
+        public bool PostThumbnails { get; set; }
+
+        [JsonProperty("responsive-embeds")]
+        public bool ResponsiveEmbeds { get; set; }
+
+        [JsonProperty("title-tag")]
+        public bool TitleTag { get; set; }
+
+        [JsonProperty("wp-block-styles")]
+        public bool WpBlockStyles { get; set; }
+    }
+
+
+    /// <summary>
+    /// The tags for the object.
+    /// </summary>
+    /// <remarks>Context: view, edit, embed</remarks>
+    public class Rendered : RenderedRawBase
+    {
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        public Rendered()
+        {
+        }
+
+        /// <summary>
+        /// Constructor with same Raw and rendered author
+        /// </summary>
+        /// <param name="Author">Text for author</param>
+        public Rendered(string Author) : this(Author, Author)
+        {
+        }
+
+        /// <summary>
+        /// Constructor with Raw and rendered text
+        /// </summary>
+        /// <param name="AuthorRaw">Raw HTML text for author</param>
+        /// <param name="AuthorRendered">Rendered text for author</param>
+        public Rendered(string AuthorRaw, string AuthorRendered)
+        {
+            Raw = AuthorRaw;
+            Rendered = AuthorRendered;
+        }
     }
 
     /// <summary>
