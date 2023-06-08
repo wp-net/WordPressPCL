@@ -3526,11 +3526,6 @@
             The theme's text domain.
             </summary>
         </member>
-        <member name="P:WordPressPCL.Models.Theme.ThemeSupports">
-            <summary>
-            Features supported by this theme.
-            </summary>
-        </member>
         <member name="P:WordPressPCL.Models.Theme.ThemeUri">
             <summary>
             The URI of the theme's webpage.

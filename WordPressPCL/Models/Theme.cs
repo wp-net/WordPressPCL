@@ -78,11 +78,6 @@ namespace WordPressPCL.Models
         [JsonProperty("textdomain")]
         public string Textdomain { get; set; }
 
-        /// <summary>
-        /// Features supported by this theme.
-        /// </summary>
-        [JsonProperty("theme_supports")]
-        public ThemeSupports ThemeSupports { get; set; }
 
         /// <summary>
         /// The URI of the theme's webpage.
