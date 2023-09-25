@@ -67,6 +67,25 @@ namespace WordPressPCL.Models
     }
 
     /// <summary>
+    /// Status of Plugin
+    /// </summary>
+    [JsonConverter(typeof(StringEnumConverter))]
+    public enum ActivationStatus
+    {
+        /// <summary>
+        /// Status is active
+        /// </summary>
+        [EnumMember(Value = "active")]
+        Active,
+
+        /// <summary>
+        /// Status is inactive
+        /// </summary>
+        [EnumMember(Value = "inactive")]
+        Inactive,
+    }
+
+    /// <summary>
     /// Status of Comments
     /// </summary>
     [JsonConverter(typeof(StringEnumConverter))]

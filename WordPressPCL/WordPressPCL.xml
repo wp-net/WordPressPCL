@@ -383,6 +383,70 @@
             <param name="force">force deletion</param>
             <returns>Result of operation</returns>
         </member>
+        <member name="T:WordPressPCL.Client.Plugins">
+            <summary>
+            Client class for interaction with Plugins endpoint WP REST API
+            Date: 26 May 2023
+            Creator: Gregory Liénard
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Client.Plugins.#ctor(WordPressPCL.Utility.HttpHelper)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="HttpHelper">reference to HttpHelper class for interaction with HTTP</param>
+        </member>
+        <member name="M:WordPressPCL.Client.Plugins.InstallAsync(WordPressPCL.Models.Plugin)">
+            <summary>
+            Installs a plugin based on the Plugin
+            </summary>
+            <param name="Plugin"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Plugins.InstallAsync(System.String)">
+            <summary>
+            Installs a plugin based on the Id
+            </summary>
+            <param name="Id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Plugins.ActivateAsync(WordPressPCL.Models.Plugin)">
+            <summary>
+            Activates an existing plugin
+            </summary>
+            <param name="Plugin"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Plugins.DeactivateAsync(WordPressPCL.Models.Plugin)">
+            <summary>
+            Deactivates an existing plugin
+            </summary>
+            <param name="Plugin"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Plugins.GetPluginsBySearchAsync(System.String,System.Boolean)">
+            <summary>
+            Get plugins by search term
+            </summary>
+            <param name="searchTerm">Search term</param>
+            <param name="embed">include embed info</param>
+            <returns>List of posts</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Plugins.GetPluginsByActivationStatusAsync(WordPressPCL.Models.ActivationStatus,System.Boolean)">
+            <summary>
+            Get plugins by search term
+            </summary>
+            <param name="activationStatus">active or inactive</param>
+            <param name="embed">include embed info</param>
+            <returns>List of posts</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Plugins.DeleteAsync(WordPressPCL.Models.Plugin)">
+            <summary>
+            Deletes an existing plugin
+            </summary>
+            <param name="Plugin"></param>
+            <returns></returns>
+        </member>
         <member name="T:WordPressPCL.Client.PostRevisions">
             <summary>
             Client class for interaction with Post revisions endpoint WP REST API
@@ -653,6 +717,27 @@
             <param name="queryBuilder">Query builder with specific parameters</param>
             <param name="useAuth">Send request with authentication header</param>
             <returns>List of filtered result</returns>
+        </member>
+        <member name="T:WordPressPCL.Client.Themes">
+            <summary>
+            Client class for interaction with Themes endpoint WP REST API
+            Date: 26 May 2023
+            Creator: Gregory Liénard
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Client.Themes.#ctor(WordPressPCL.Utility.HttpHelper)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="HttpHelper">reference to HttpHelper class for interaction with HTTP</param>
+        </member>
+        <member name="M:WordPressPCL.Client.Themes.GetThemesByActivationStatusAsync(WordPressPCL.Models.ActivationStatus,System.Boolean)">
+            <summary>
+            Get themes by search term
+            </summary>
+            <param name="activationStatus">active or inactive</param>
+            <param name="embed">include embed info</param>
+            <returns>List of posts</returns>
         </member>
         <member name="T:WordPressPCL.Client.Users">
             <summary>
@@ -1219,6 +1304,21 @@
         <member name="F:WordPressPCL.Models.OpenStatus.Closed">
             <summary>
             Status is closed
+            </summary>
+        </member>
+        <member name="T:WordPressPCL.Models.ActivationStatus">
+            <summary>
+            Status of Plugin
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.ActivationStatus.Active">
+            <summary>
+            Status is active
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.ActivationStatus.Inactive">
+            <summary>
+            Status is inactive
             </summary>
         </member>
         <member name="T:WordPressPCL.Models.CommentStatus">
@@ -2304,6 +2404,84 @@
             Parameterless constructor
             </summary>
         </member>
+        <member name="T:WordPressPCL.Models.Plugin">
+            <summary>
+            WordPress Plugins
+            Date: 26 May 2023
+            Creator: Gregory Liénard
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Plugin.PluginFile">
+            <summary>
+            The plugin file. unique identifier.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Plugin.Id">
+            <summary>
+            First part of the pluginfile: wordpress-seo/wp-seo => wordpress-seo
+            Id is needed to install, PluginFile is needed to activate, deactivate, delete
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Plugin.Status">
+            <summary>
+            The plugin activation status.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Plugin.Name">
+            <summary>
+            The plugin name.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Plugin.PluginUri">
+            <summary>
+            The plugin's website address.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Plugin.Author">
+            <summary>
+            The plugin author.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Plugin.AuthorUri">
+            <summary>
+            Plugin author's website address.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Plugin.Description">
+            <summary>
+            The plugin description.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Plugin.Version">
+            <summary>
+            The plugin version number.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Plugin.NetworkOnly">
+            <summary>
+            Whether the plugin can only be activated network-wide.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Plugin.RequiresWordPress">
+            <summary>
+            Minimum required version of WordPress.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Plugin.RequiresPHP">
+            <summary>
+            Minimum required version of PHP.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Plugin.TextDomain">
+            <summary>
+            The plugin's text domain.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Plugin.Links">
+            <summary>
+            The plugin's links.
+            </summary>
+        </member>
         <member name="T:WordPressPCL.Models.Post">
             <summary>
             Type represents Entity Post of WP REST API
@@ -2820,6 +2998,21 @@
             Raw HTML text
             </summary>
         </member>
+        <member name="T:WordPressPCL.Models.RenderedArrayRawBase">
+            <summary>
+            Adds a "Rendered" and a "Raw" property to all classes derived from this one
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.RenderedArrayRawBase.Rendered">
+            <summary>
+            Rendered text
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.RenderedArrayRawBase.Raw">
+            <summary>
+            Raw HTML text
+            </summary>
+        </member>
         <member name="T:WordPressPCL.Models.HrefBase">
             <summary>
             Adds an Href property to all classes derived from this one
@@ -2894,6 +3087,54 @@
             Read only
             Context: view, edit
             </remarks>
+        </member>
+        <member name="T:WordPressPCL.Models.Tags">
+            <summary>
+            The title for the object.
+            </summary>
+            <remarks>Context: view, edit, embed</remarks>
+        </member>
+        <member name="M:WordPressPCL.Models.Tags.#ctor">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Models.Tags.#ctor(System.String[])">
+            <summary>
+            Constructor with same Raw and rendered author
+            </summary>
+            <param name="Tag">Text for author</param>
+        </member>
+        <member name="M:WordPressPCL.Models.Tags.#ctor(System.String[],System.String)">
+            <summary>
+            Constructor with Raw and rendered text
+            </summary>
+            <param name="TagsRaw">Raw HTML text for author</param>
+            <param name="TagsRendered">Rendered text for author</param>
+        </member>
+        <member name="T:WordPressPCL.Models.Rendered">
+            <summary>
+            The tags for the object.
+            </summary>
+            <remarks>Context: view, edit, embed</remarks>
+        </member>
+        <member name="M:WordPressPCL.Models.Rendered.#ctor">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Models.Rendered.#ctor(System.String)">
+            <summary>
+            Constructor with same Raw and rendered author
+            </summary>
+            <param name="Author">Text for author</param>
+        </member>
+        <member name="M:WordPressPCL.Models.Rendered.#ctor(System.String,System.String)">
+            <summary>
+            Constructor with Raw and rendered text
+            </summary>
+            <param name="AuthorRaw">Raw HTML text for author</param>
+            <param name="AuthorRendered">Rendered text for author</param>
         </member>
         <member name="T:WordPressPCL.Models.Title">
             <summary>
@@ -3221,6 +3462,83 @@
         <member name="M:WordPressPCL.Models.Term.#ctor">
             <summary>
             parameterless constructor
+            </summary>
+        </member>
+        <member name="T:WordPressPCL.Models.Theme">
+            <summary>
+            WordPress Themes
+            Date: 8 June 2023
+            Creator: Gregory Liénard
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Theme.Stylesheet">
+            <summary>
+            The theme's stylesheet. This uniquely identifies the theme.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Theme.Template">
+            <summary>
+            The theme's template. If this is a child theme, this refers to the parent theme.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Theme.Author">
+            <summary>
+            The theme author.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Theme.AuthorUri">
+            <summary>
+            The website of the theme author.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Theme.Description">
+            <summary>
+            A description of the theme.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Theme.Name">
+            <summary>
+            The name of the theme.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Theme.RequiresPhp">
+            <summary>
+            The minimum PHP version required for the theme to work.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Theme.RequiresWp">
+            <summary>
+            The minimum WordPress version required for the theme to work.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Theme.Screenshot">
+            <summary>
+            The theme's screenshot URL.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Theme.Tags">
+            <summary>
+            Tags indicating styles and features of the theme.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Theme.Textdomain">
+            <summary>
+            The theme's text domain.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Theme.ThemeUri">
+            <summary>
+            The URI of the theme's webpage.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Theme.Version">
+            <summary>
+            The theme's current version.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Theme.Status">
+            <summary>
+            A named status for the theme.
             </summary>
         </member>
         <member name="T:WordPressPCL.Models.User">
@@ -3827,6 +4145,21 @@
             Use WP Query arguments to modify the response; private query vars require appropriate authorization.
             </summary>
         </member>
+        <member name="T:WordPressPCL.Utility.PluginsQueryBuilder">
+            <summary>
+            Plugins Query Builder class to construct queries with valid parameters
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.PluginsQueryBuilder.Search">
+            <summary>
+            Limit results to those matching a string.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.PluginsQueryBuilder.Status">
+            <summary>
+            Limit results to specific status
+            </summary>
+        </member>
         <member name="T:WordPressPCL.Utility.PostsQueryBuilder">
             <summary>
             Post Query Builder class to construct queries with valid parameters
@@ -4048,6 +4381,16 @@
             Limit results to taxonomies associated with a specific post type.
             </summary>
         </member>
+        <member name="T:WordPressPCL.Utility.ThemesQueryBuilder">
+            <summary>
+            Themes Query Builder class to construct queries with valid parameters
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.ThemesQueryBuilder.Status">
+            <summary>
+            Limit results to specific status
+            </summary>
+        </member>
         <member name="T:WordPressPCL.Utility.ThreadedCommentsHelper">
             <summary>
             Helper class to create threaded comment views
@@ -4234,6 +4577,16 @@
         <member name="P:WordPressPCL.WordPressClient.Settings">
             <summary>
             Settings client interaction object
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.WordPressClient.Plugins">
+            <summary>
+            Plugins client interaction object
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.WordPressClient.Themes">
+            <summary>
+            Plugins client interaction object
             </summary>
         </member>
         <member name="M:WordPressPCL.WordPressClient.#ctor(System.Uri,System.String)">

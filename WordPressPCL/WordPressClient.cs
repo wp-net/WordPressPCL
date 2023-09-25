@@ -106,6 +106,16 @@ namespace WordPressPCL
         public Settings Settings { get; private set; }
 
         /// <summary>
+        /// Plugins client interaction object
+        /// </summary>
+        public Plugins Plugins { get; private set; }
+
+        /// <summary>
+        /// Plugins client interaction object
+        /// </summary>
+        public Themes Themes { get; private set; }
+
+        /// <summary>
         /// The WordPressClient holds all connection infos and provides methods to call WordPress APIs.
         /// </summary>
         /// <param name="uri">URI for WordPress API endpoint, e.g. "http://demo.wp-api.org/wp-json/"</param>
@@ -159,6 +169,8 @@ namespace WordPressPCL
             PostStatuses = new PostStatuses(httpHelper);
             CustomRequest = new CustomRequest(httpHelper);
             Settings = new Settings(httpHelper);
+            Plugins = new Plugins(httpHelper);
+            Themes = new Themes(httpHelper);
         }
 
     }
