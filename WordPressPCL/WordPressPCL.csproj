@@ -15,10 +15,15 @@
     <RepositoryType>GitHub</RepositoryType>
     <AssemblyVersion>2.0.0.0</AssemblyVersion>
     <FileVersion>2.0.0.0</FileVersion>
-    <Version>2.0.1</Version>
+    <Version>2.0.2</Version>
     <PackageLicenseUrl></PackageLicenseUrl>
     <LangVersion>9.0</LangVersion>
-    <PackageReleaseNotes>V2.0.1
+    <PackageReleaseNotes>V2.0.2
+- Support for Plugins
+- Support for Statuses in UsersQueryBuilder
+- Upgraded Newtonsoft.Json dependency to 13.0.3
+
+V2.0.1
 - Upgraded Newtonsoft.Json dependency to 13.0.1
 
 V2.0.0
@@ -123,7 +128,7 @@ V1.2
 - added method to get all comments for a post id
 - fixed some async issues for better performance
 - added logout method</PackageReleaseNotes>
-    <Copyright>© Thomas Pentenrieder | 2022</Copyright>
+    <Copyright>© Thomas Pentenrieder | 2023</Copyright>
     <ApplicationIcon />
     <OutputTypeEx>library</OutputTypeEx>
     <StartupObject />
@@ -134,12 +139,12 @@ V1.2
     <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="6.0.0">
+    <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="7.0.4">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
   <ItemGroup>
     <None Update="icon.png">
