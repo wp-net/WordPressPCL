@@ -19,6 +19,7 @@ namespace WordPressPCL.Utility
         private readonly HttpClient _defaultHttpClient = new();
         private readonly HttpClient _httpClient;
         private readonly string _defaultPath;
+        private readonly Uri _baseUri;
 
         /// <summary>
         /// JSON Web Token
@@ -76,16 +77,18 @@ namespace WordPressPCL.Utility
             };
         }
 
-        /// <summary>
-        /// Constructor
-        /// <paramref name="httpClient"/>
-        /// </summary>
-        /// <param name="httpClient">Http client which would be used for sending requests to the WordPress API endpoint.</param>
-        /// <param name="defaultPath">Relative path to standard API endpoints, defaults to "wp/v2/"</param>
-        public HttpHelper(HttpClient httpClient, string defaultPath)
+		/// <summary>
+		/// Constructor
+		/// <paramref name="httpClient"/>
+		/// </summary>
+		/// <param name="httpClient">Http client which would be used for sending requests to the WordPress API endpoint.</param>
+		/// <param name="defaultPath">Relative path to standard API endpoints, defaults to "wp/v2/"</param>
+		/// <param name="wordpressURI">(optional) Base WP REST API endpoint EX. http://demo.com/wp-json/. Use this if the BaseAddress of the httpClient is not set.</param>
+		public HttpHelper(HttpClient httpClient, string defaultPath, Uri wordpressURI = null)
         {
             _httpClient = httpClient;
             _defaultPath = defaultPath;
+            _baseUri = wordpressURI;
             // by default don't crash on missing member
             JsonSerializerSettings = new JsonSerializerSettings
             {
@@ -96,7 +99,7 @@ namespace WordPressPCL.Utility
         internal async Task<TClass> GetRequestAsync<TClass>(string route, bool embed, bool isAuthRequired = false, bool ignoreDefaultPath = false)
             where TClass : class
         {
-            route = ignoreDefaultPath ? route : $"{_defaultPath}{route}";
+	        route = BuildRoute(ignoreDefaultPath, route);
             string embedParam = "";
             if (embed)
             {
@@ -130,7 +133,7 @@ namespace WordPressPCL.Utility
         internal async Task<(TClass, HttpResponseMessage)> PostRequestAsync<TClass>(string route, HttpContent postBody, bool isAuthRequired = true, bool ignoreDefaultPath = false)
             where TClass : class
         {
-            route = ignoreDefaultPath ? route : $"{_defaultPath}{route}";
+	        route = BuildRoute(ignoreDefaultPath, route);
             HttpResponseMessage response;
             using (var requestMessage = new HttpRequestMessage(HttpMethod.Post, route))
             {
@@ -155,7 +158,7 @@ namespace WordPressPCL.Utility
 
         internal async Task<bool> DeleteRequestAsync(string route, bool isAuthRequired = true, bool ignoreDefaultPath = false)
         {
-            route = ignoreDefaultPath ? route : $"{_defaultPath}{route}";
+	        route = BuildRoute(ignoreDefaultPath, route);
             HttpResponseMessage response;
             using (var requestMessage = new HttpRequestMessage(HttpMethod.Delete, route))
             {
@@ -177,7 +180,7 @@ namespace WordPressPCL.Utility
 
         internal async Task<HttpResponseHeaders> HeadRequestAsync(string route, bool isAuthRequired = false, bool ignoreDefaultPath = false)
         {
-            route = ignoreDefaultPath ? route : $"{_defaultPath}{route}";
+	        route = BuildRoute(ignoreDefaultPath, route);
             HttpResponseMessage response;
             using (var requestMessage = new HttpRequestMessage(HttpMethod.Head, route))
             {
@@ -212,6 +215,19 @@ namespace WordPressPCL.Utility
                     throw new WPException("Unsupported Authentication Method");
                 }
             }
+        }
+
+        private string BuildRoute(bool ignoreDefaultPath, string route)
+        {
+	        if (string.IsNullOrEmpty(route))
+		        return route;
+
+	        var processedRoute = ignoreDefaultPath ? route : $"{_defaultPath}{route}";
+
+            if (_baseUri != null)
+                processedRoute = $"{_baseUri.AbsoluteUri.TrimEnd('/')}/{processedRoute.TrimStart('/')}";
+
+            return processedRoute;
         }
 
         private TClass DeserializeJsonResponse<TClass>(HttpResponseMessage response, string responseString)
