@@ -77,14 +77,14 @@ namespace WordPressPCL.Utility
             };
         }
 
-		/// <summary>
-		/// Constructor
-		/// <paramref name="httpClient"/>
-		/// </summary>
-		/// <param name="httpClient">Http client which would be used for sending requests to the WordPress API endpoint.</param>
-		/// <param name="defaultPath">Relative path to standard API endpoints, defaults to "wp/v2/"</param>
-		/// <param name="wordpressURI">(optional) Base WP REST API endpoint EX. http://demo.com/wp-json/. Use this if the BaseAddress of the httpClient is not set.</param>
-		public HttpHelper(HttpClient httpClient, string defaultPath, Uri wordpressURI = null)
+        /// <summary>
+        /// Constructor
+        /// <paramref name="httpClient"/>
+        /// </summary>
+        /// <param name="httpClient">Http client which would be used for sending requests to the WordPress API endpoint.</param>
+        /// <param name="defaultPath">Relative path to standard API endpoints, defaults to "wp/v2/"</param>
+        /// <param name="wordpressURI">(optional) Base WP REST API endpoint EX. http://demo.com/wp-json/. Use this if the BaseAddress of the httpClient is not set.</param>
+        public HttpHelper(HttpClient httpClient, string defaultPath, Uri wordpressURI = null)
         {
             _httpClient = httpClient;
             _defaultPath = defaultPath;
@@ -98,8 +98,8 @@ namespace WordPressPCL.Utility
 
         internal async Task<TClass> GetRequestAsync<TClass>(string route, bool embed, bool isAuthRequired = false, bool ignoreDefaultPath = false)
             where TClass : class
-        {
-	        route = BuildRoute(ignoreDefaultPath, route);
+        { 
+            route = BuildRoute(ignoreDefaultPath, route);
             string embedParam = "";
             if (embed)
             {
@@ -132,8 +132,8 @@ namespace WordPressPCL.Utility
 
         internal async Task<(TClass, HttpResponseMessage)> PostRequestAsync<TClass>(string route, HttpContent postBody, bool isAuthRequired = true, bool ignoreDefaultPath = false)
             where TClass : class
-        {
-	        route = BuildRoute(ignoreDefaultPath, route);
+        { 
+            route = BuildRoute(ignoreDefaultPath, route);
             HttpResponseMessage response;
             using (var requestMessage = new HttpRequestMessage(HttpMethod.Post, route))
             {
@@ -158,7 +158,7 @@ namespace WordPressPCL.Utility
 
         internal async Task<bool> DeleteRequestAsync(string route, bool isAuthRequired = true, bool ignoreDefaultPath = false)
         {
-	        route = BuildRoute(ignoreDefaultPath, route);
+            route = BuildRoute(ignoreDefaultPath, route);
             HttpResponseMessage response;
             using (var requestMessage = new HttpRequestMessage(HttpMethod.Delete, route))
             {
@@ -180,7 +180,7 @@ namespace WordPressPCL.Utility
 
         internal async Task<HttpResponseHeaders> HeadRequestAsync(string route, bool isAuthRequired = false, bool ignoreDefaultPath = false)
         {
-	        route = BuildRoute(ignoreDefaultPath, route);
+            route = BuildRoute(ignoreDefaultPath, route);
             HttpResponseMessage response;
             using (var requestMessage = new HttpRequestMessage(HttpMethod.Head, route))
             {
@@ -219,8 +219,8 @@ namespace WordPressPCL.Utility
 
         private string BuildRoute(bool ignoreDefaultPath, string route)
         {
-	        if (string.IsNullOrEmpty(route))
-		        return route;
+            if (string.IsNullOrEmpty(route))
+                return route;
 
 	        var processedRoute = ignoreDefaultPath ? route : $"{_defaultPath}{route}";
 
