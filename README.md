@@ -57,11 +57,11 @@ var client = new WordPressClient("http://demo.wp-api.org/wp-json/");
 
 //or pass the base address as strongly typed Uri
 const wpBaseAddress = new Uri("http://demo.wp-api.org/wp-json/");
-var client = new WordpressClient(wpBaseAddress);
+var client = new WordPressClient(wpBaseAddress);
 
 //or to reuse an HttpClient pass the HttpClient with base address set to api's base address
 httpClient.BaseAddress = new Uri("http://demo.wp-api.org/wp-json/")
-var client = new WordpressClient(httpClient);
+var client = new WordPressClient(httpClient);
 
 // Posts
 var posts = await client.Posts.GetAllAsync();
