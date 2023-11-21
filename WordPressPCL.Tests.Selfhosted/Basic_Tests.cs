@@ -30,6 +30,10 @@ public class Basic_Tests
         // Posts
         var posts = await _client.Posts.GetAllAsync();
         Assert.IsNotNull(posts);
+
+        // Test Auth Client
+        var postsAuth = await _clientAuth.Posts.GetAllAsync();
+        Assert.IsNotNull(postsAuth);
     }
 
     [TestMethod]

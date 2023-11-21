@@ -96,5 +96,39 @@ namespace WordPressPCL.Models
         /// </summary>
         [JsonProperty("default_comment_status")]
         public OpenStatus? DefaultCommentStatus { get; set; }
+
+
+        private int? _SiteLogo;
+        /// <summary>
+        /// Media ID of the site logo
+        /// </summary>
+        [JsonProperty("site_logo")]
+        public int? SiteLogo
+        {
+            get
+            {
+                return _SiteLogo ?? 0;
+            }
+            set
+            {
+                _SiteLogo = value ?? 0;
+            }
+        }
+
+        private int? _SiteIcon;
+        /// <summary>
+        /// Media ID of the site icon
+        /// </summary>
+        [JsonProperty("site_icon")]
+        public int? SiteIcon {
+            get
+            {
+                return _SiteIcon ?? 0;
+            }
+            set
+            {
+                _SiteIcon = value ?? 0;
+            } 
+        }
     }
 }
