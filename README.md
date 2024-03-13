@@ -33,12 +33,12 @@ The WordPressPCL API Wrapper is avaiable through [NuGet](https://www.nuget.org/p
 ```
 
 ## Supported Plattforms
-WordPressPCL is built on top of the [.NET Standard](https://docs.microsoft.com/en-us/dotnet/standard/net-standard?tabs=net-standard-2-0) targeting netstandard version 2.0 - therefore it should work on the following plaforms:
+WordPressPCL is built on top of the [.NET Standard](https://docs.microsoft.com/en-us/dotnet/standard/net-standard?tabs=net-standard-2-0) targeting netstandard version 2.0 - therefore it should work on the following plaforms (and newer):
 
 
 | .NET implementation |	Version support |
 |---------------------|------------------|
-|.NET and .NET Core |	2.0, 2.1, 2.2, 3.0, 3.1, 5.0, 6.0 |
+|.NET and .NET Core |	2.0, 2.1, 2.2, 3.0, 3.1, 5.0, 6.0, 7.0, 8.0 |
 |.NET Framework | 4.6.1 2, 4.6.2, 4.7, 4.7.1, 4.7.2, 4.8 |
 | Mono | 5.4, 6.4 |
 | Xamarin.iOS | 10.14, 12.16 |
