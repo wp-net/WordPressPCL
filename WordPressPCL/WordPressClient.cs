@@ -139,19 +139,20 @@ namespace WordPressPCL
         }
 
 
-        /// <summary>
-        /// The WordPressClient holds all connection infos and provides methods to call WordPress APIs.
-        /// </summary>
-        /// <param name="httpClient">HttpClient with BaseAddress set which will be used for sending requests to the WordPress API endpoint.</param>
-        /// <param name="defaultPath">Relative path to standard API endpoints, defaults to "wp/v2/"</param>
-        public WordPressClient(HttpClient httpClient, string defaultPath = DEFAULT_PATH)
+		/// <summary>
+		/// The WordPressClient holds all connection infos and provides methods to call WordPress APIs.
+		/// </summary>
+		/// <param name="httpClient">HttpClient with BaseAddress set which will be used for sending requests to the WordPress API endpoint.</param>
+		/// <param name="defaultPath">Relative path to standard API endpoints, defaults to "wp/v2/"</param>
+		/// <param name="uri">URI for WordPress API endpoint, e.g. "http://demo.wp-api.org/wp-json/".  Use this if the BaseAddress of the httpClient is not set.</param>
+		public WordPressClient(HttpClient httpClient, string defaultPath = DEFAULT_PATH, Uri uri = null)
         {
             if (httpClient == null)
             {
                 throw new ArgumentNullException(nameof(httpClient));
             }
-            WordPressUri = httpClient.BaseAddress;
-            _httpHelper = new HttpHelper(httpClient, defaultPath);
+            WordPressUri = uri ?? httpClient.BaseAddress;
+            _httpHelper = new HttpHelper(httpClient, defaultPath, uri);
             SetupSubClients(_httpHelper);
         }
 
