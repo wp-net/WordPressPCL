@@ -1,11 +1,11 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using WordPressPCL.Interfaces;
 using WordPressPCL.Models;
 using WordPressPCL.Utility;
@@ -52,9 +52,9 @@ namespace WordPressPCL.Client
         /// <param name="embed">include embed info</param>
         /// <param name="useAuth">Send request with authentication header</param>
         /// <returns>Get latest users</returns>
-        public Task<IEnumerable<User>> GetAsync(bool embed = false, bool useAuth = false)
+        public Task<List<User>> GetAsync(bool embed = false, bool useAuth = false)
         {
-            return _httpHelper.GetRequestAsync<IEnumerable<User>>($"{METHOD_PATH}", embed, useAuth);
+            return _httpHelper.GetRequestAsync<List<User>>($"{METHOD_PATH}", embed, useAuth);
         }
 
         /// <summary>
@@ -63,16 +63,16 @@ namespace WordPressPCL.Client
         /// <param name="embed">Include embed info</param>
         /// <param name="useAuth">Send request with authentication header</param>
         /// <returns>List of all result</returns>
-        public async Task<IEnumerable<User>> GetAllAsync(bool embed = false, bool useAuth = false)
+        public async Task<List<User>> GetAllAsync(bool embed = false, bool useAuth = false)
         {
             //100 - Max posts per page in WordPress REST API, so this is hack with multiple requests
-            var entities = (await _httpHelper.GetRequestAsync<IEnumerable<User>>($"{METHOD_PATH}?per_page=100&page=1", embed, useAuth).ConfigureAwait(false))?.ToList();
+            var entities = (await _httpHelper.GetRequestAsync<List<User>>($"{METHOD_PATH}?per_page=100&page=1", embed, useAuth).ConfigureAwait(false))?.ToList();
             if (_httpHelper.LastResponseHeaders.Contains("X-WP-TotalPages") && Convert.ToInt32(_httpHelper.LastResponseHeaders.GetValues("X-WP-TotalPages").FirstOrDefault(), CultureInfo.InvariantCulture) > 1)
             {
                 int totalpages = Convert.ToInt32(_httpHelper.LastResponseHeaders.GetValues("X-WP-TotalPages").FirstOrDefault(), CultureInfo.InvariantCulture);
                 for (int page = 2; page <= totalpages; page++)
                 {
-                    entities.AddRange((await _httpHelper.GetRequestAsync<IEnumerable<User>>($"{METHOD_PATH}?per_page=100&page={page}", embed, useAuth).ConfigureAwait(false))?.ToList());
+                    entities.AddRange((await _httpHelper.GetRequestAsync<List<User>>($"{METHOD_PATH}?per_page=100&page={page}", embed, useAuth).ConfigureAwait(false))?.ToList());
                 }
             }
             return entities;
@@ -96,9 +96,9 @@ namespace WordPressPCL.Client
         /// <param name="queryBuilder">Query builder with specific parameters</param>
         /// <param name="useAuth">Send request with authentication header</param>
         /// <returns>List of filtered result</returns>
-        public Task<IEnumerable<User>> QueryAsync(UsersQueryBuilder queryBuilder, bool useAuth = false)
+        public Task<List<User>> QueryAsync(UsersQueryBuilder queryBuilder, bool useAuth = false)
         {
-            return _httpHelper.GetRequestAsync<IEnumerable<User>>($"{METHOD_PATH}{queryBuilder.BuildQuery()}", false, useAuth);
+            return _httpHelper.GetRequestAsync<List<User>>($"{METHOD_PATH}{queryBuilder.BuildQuery()}", false, useAuth);
         }
 
         /// <summary>

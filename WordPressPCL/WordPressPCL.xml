@@ -233,7 +233,7 @@
             </summary>
             <param name="httpHelper">HttpHelper class to operate with Http methods</param>
         </member>
-        <member name="M:WordPressPCL.Client.CustomRequest.CreateAsync``2(System.String,``0)">
+        <member name="M:WordPressPCL.Client.CustomRequest.CreateAsync``2(System.String,``0,System.Boolean)">
             <summary>
             Create object
             </summary>
@@ -241,16 +241,18 @@
             <typeparam name="TOutput">type of result object</typeparam>
             <param name="route">path to exec request</param>
             <param name="Entity">object for creation</param>
+            <param name="ignoreDefaultPath">request should prepend default path to route, defaults to true</param>
             <returns>Created object</returns>
         </member>
-        <member name="M:WordPressPCL.Client.CustomRequest.DeleteAsync(System.String)">
+        <member name="M:WordPressPCL.Client.CustomRequest.DeleteAsync(System.String,System.Boolean)">
             <summary>
             Delete object
             </summary>
             <param name="route">path to exec delete request</param>
+            <param name="ignoreDefaultPath">request should prepend default path to route, defaults to true</param>
             <returns>Result of deletion</returns>
         </member>
-        <member name="M:WordPressPCL.Client.CustomRequest.GetAsync``1(System.String,System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.CustomRequest.GetAsync``1(System.String,System.Boolean,System.Boolean,System.Boolean)">
             <summary>
             Get object/s
             </summary>
@@ -258,9 +260,10 @@
             <param name="route">path to exec request</param>
             <param name="embed">is get embed params</param>
             <param name="useAuth">i use auth</param>
+            <param name="ignoreDefaultPath">request should prepend default path to route, defaults to true</param>
             <returns>List of objects</returns>
         </member>
-        <member name="M:WordPressPCL.Client.CustomRequest.UpdateAsync``2(System.String,``0)">
+        <member name="M:WordPressPCL.Client.CustomRequest.UpdateAsync``2(System.String,``0,System.Boolean)">
             <summary>
             Update object
             </summary>
@@ -268,6 +271,7 @@
             <typeparam name="TOutput">type of result object</typeparam>
             <param name="route">path to exec request</param>
             <param name="Entity">object for update</param>
+            <param name="ignoreDefaultPath">request should prepend default path to route, defaults to true</param>
             <returns>Updated object</returns>
         </member>
         <member name="T:WordPressPCL.Client.Media">
