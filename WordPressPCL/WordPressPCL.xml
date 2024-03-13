@@ -3929,13 +3929,14 @@
             <param name="wordpressURI">base WP REST API endpoint EX. http://demo.com/wp-json/ </param>
             <param name="defaultPath"></param>
         </member>
-        <member name="M:WordPressPCL.Utility.HttpHelper.#ctor(System.Net.Http.HttpClient,System.String)">
+        <member name="M:WordPressPCL.Utility.HttpHelper.#ctor(System.Net.Http.HttpClient,System.String,System.Uri)">
             <summary>
             Constructor
             <paramref name="httpClient"/>
             </summary>
             <param name="httpClient">Http client which would be used for sending requests to the WordPress API endpoint.</param>
             <param name="defaultPath">Relative path to standard API endpoints, defaults to "wp/v2/"</param>
+            <param name="wordpressURI">(optional) Base WP REST API endpoint EX. http://demo.com/wp-json/. Use this if the BaseAddress of the httpClient is not set.</param>
         </member>
         <member name="T:WordPressPCL.Utility.MediaQueryBuilder">
             <summary>
@@ -4603,12 +4604,13 @@
             <param name="uri">URI for WordPress API endpoint, e.g. "http://demo.wp-api.org/wp-json/"</param>
             <param name="defaultPath">Relative path to standard API endpoints, defaults to "wp/v2/"</param>
         </member>
-        <member name="M:WordPressPCL.WordPressClient.#ctor(System.Net.Http.HttpClient,System.String)">
+        <member name="M:WordPressPCL.WordPressClient.#ctor(System.Net.Http.HttpClient,System.String,System.Uri)">
             <summary>
             The WordPressClient holds all connection infos and provides methods to call WordPress APIs.
             </summary>
             <param name="httpClient">HttpClient with BaseAddress set which will be used for sending requests to the WordPress API endpoint.</param>
             <param name="defaultPath">Relative path to standard API endpoints, defaults to "wp/v2/"</param>
+            <param name="uri">URI for WordPress API endpoint, e.g. "http://demo.wp-api.org/wp-json/".  Use this if the BaseAddress of the httpClient is not set.</param>
         </member>
     </members>
 </doc>
