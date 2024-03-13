@@ -15,10 +15,14 @@
     <RepositoryType>GitHub</RepositoryType>
     <AssemblyVersion>2.0.0.0</AssemblyVersion>
     <FileVersion>2.0.0.0</FileVersion>
-    <Version>2.0.2</Version>
+    <Version>2.1.0</Version>
     <PackageLicenseUrl></PackageLicenseUrl>
     <LangVersion>9.0</LangVersion>
-    <PackageReleaseNotes>V2.0.2
+    <PackageReleaseNotes>V2.1.0
+- Upgraded dependencies
+- Fix GetCurrentUserAsync() naming
+		
+V2.0.2
 - Support for Plugins
 - Support for Statuses in UsersQueryBuilder
 - Upgraded Newtonsoft.Json dependency to 13.0.3
@@ -139,7 +143,7 @@ V1.2
     <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="7.0.4">
+    <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="8.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>

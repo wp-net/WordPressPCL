@@ -97,7 +97,7 @@ public class User_Tests
     {
         var user = await CreateRandomUser();
         Assert.IsNotNull(user);
-        var me = await _clientAuth.Users.GetCurrentUser();
+        var me = await _clientAuth.Users.GetCurrentUserAsync();
         var response = await _clientAuth.Users.Delete(user.Id, me.Id);
         Assert.IsTrue(response);
     }

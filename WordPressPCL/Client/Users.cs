@@ -119,7 +119,7 @@ namespace WordPressPCL.Client
         /// Get current User
         /// </summary>
         /// <returns>Current User</returns>
-        public Task<User> GetCurrentUser()
+        public Task<User> GetCurrentUserAsync()
         {
             return _httpHelper.GetRequestAsync<User>($"{METHOD_PATH}/me", true, true);
         }
