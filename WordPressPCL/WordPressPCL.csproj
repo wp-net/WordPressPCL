@@ -21,6 +21,8 @@
     <PackageReleaseNotes>V2.1.0
 - Upgraded dependencies
 - Fix GetCurrentUserAsync() naming
+- Allow httpclient injection without base address
+- Added optional ignoreDefaultPath on CustomRequest methods
 		
 V2.0.2
 - Support for Plugins
