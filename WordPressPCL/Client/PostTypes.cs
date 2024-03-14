@@ -29,11 +29,11 @@ namespace WordPressPCL.Client
         /// <param name="embed">Include embed info</param>
         /// <param name="useAuth">Send request with authentication header</param>
         /// <returns>List of latest PostTypes</returns>
-        public async Task<IEnumerable<PostType>> GetAsync(bool embed = false, bool useAuth = false)
+        public async Task<List<PostType>> GetAsync(bool embed = false, bool useAuth = false)
         {
             List<PostType> entities = new();
             Dictionary<string, PostType> entities_page = (await _httpHelper.GetRequestAsync<Dictionary<string, PostType>>($"{_methodPath}", embed, useAuth).ConfigureAwait(false));
-            foreach (var ent in entities_page)
+            foreach (KeyValuePair<string, PostType> ent in entities_page)
             {
                 entities.Add(ent.Value);
             }
@@ -46,12 +46,12 @@ namespace WordPressPCL.Client
         /// <param name="embed">Include embed info</param>
         /// <param name="useAuth">Send request with authentication header</param>
         /// <returns>List of all PostTypes</returns>
-        public async Task<IEnumerable<PostType>> GetAllAsync(bool embed = false, bool useAuth = false)
+        public async Task<List<PostType>> GetAllAsync(bool embed = false, bool useAuth = false)
         {
             //100 - Max posts per page in WordPress REST API, so this is hack with multiple requests
             List<PostType> entities = new();
             Dictionary<string, PostType> entities_page = (await _httpHelper.GetRequestAsync<Dictionary<string, PostType>>($"{_methodPath}", embed, useAuth).ConfigureAwait(false));
-            foreach (var ent in entities_page)
+            foreach (KeyValuePair<string, PostType> ent in entities_page)
             {
                 entities.Add(ent.Value);
             }

@@ -41,9 +41,9 @@ namespace WordPressPCL.Client
         /// <param name="embed">include embed info</param>
         /// <param name="useAuth">Send request with authentication header</param>
         /// <returns>Latest PostRevisions</returns>
-        public Task<IEnumerable<PostRevision>> GetAsync(bool embed = false, bool useAuth = true)
+        public Task<List<PostRevision>> GetAsync(bool embed = false, bool useAuth = true)
         {
-            return _httpHelper.GetRequestAsync<IEnumerable<PostRevision>>($"posts/{_postId}/{_methodPath}", embed, useAuth);
+            return _httpHelper.GetRequestAsync<List<PostRevision>>($"posts/{_postId}/{_methodPath}", embed, useAuth);
         }
 
         /// <summary>
@@ -52,9 +52,9 @@ namespace WordPressPCL.Client
         /// <param name="embed">Include embed info</param>
         /// <param name="useAuth">Send request with authentication header</param>
         /// <returns>List of all result</returns>
-        public Task<IEnumerable<PostRevision>> GetAllAsync(bool embed = false, bool useAuth = true)
+        public Task<List<PostRevision>> GetAllAsync(bool embed = false, bool useAuth = true)
         {
-            return _httpHelper.GetRequestAsync<IEnumerable<PostRevision>>($"posts/{_postId}/{_methodPath}", embed, useAuth);
+            return _httpHelper.GetRequestAsync<List<PostRevision>>($"posts/{_postId}/{_methodPath}", embed, useAuth);
         }
 
         /// <summary>
