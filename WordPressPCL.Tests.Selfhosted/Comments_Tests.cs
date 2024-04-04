@@ -29,7 +29,7 @@ public class Comments_Tests
         var posts = await _clientAuth.Posts.GetAllAsync();
         var postId = posts.First().Id;
 
-        var me = await _clientAuth.Users.GetCurrentUser();
+        var me = await _clientAuth.Users.GetCurrentUserAsync();
 
         // Create random content to prevent duplicate commment errors
         var content = $"TestComment {System.Guid.NewGuid()}";
@@ -91,7 +91,7 @@ public class Comments_Tests
     [TestMethod]
     public async Task Comments_Update()
     {
-        var me = await _clientAuth.Users.GetCurrentUser();
+        var me = await _clientAuth.Users.GetCurrentUserAsync();
         var queryBuilder = new CommentsQueryBuilder()
         {
             Authors = new List<int> { me.Id }
@@ -114,7 +114,7 @@ public class Comments_Tests
         var posts = await _clientAuth.Posts.GetAllAsync();
         var postId = posts.First().Id;
 
-        var me = await _clientAuth.Users.GetCurrentUser();
+        var me = await _clientAuth.Users.GetCurrentUserAsync();
 
         // Create random content to prevent duplicate commment errors
         var comment = new Comment()
@@ -155,7 +155,7 @@ public class Comments_Tests
         // Create new pending comment
         var posts = await _clientAuth.Posts.GetAllAsync();
         var postId = posts.First().Id;
-        var me = await _clientAuth.Users.GetCurrentUser();
+        var me = await _clientAuth.Users.GetCurrentUserAsync();
 
         // Create random content to prevent duplicate commment errors
         var content = $"TestComment {System.Guid.NewGuid()}";
@@ -194,7 +194,7 @@ public class Comments_Tests
     [TestMethod]
     public async Task Comments_GetAllForPost()
     {
-        var me = await _clientAuth.Users.GetCurrentUser();
+        var me = await _clientAuth.Users.GetCurrentUserAsync();
 
         // create test post and add comments
         var post = new Post()
