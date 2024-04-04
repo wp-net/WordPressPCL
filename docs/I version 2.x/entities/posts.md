@@ -53,6 +53,31 @@ if (await client.IsValidJWTokenAsync())
 }
 ```
 
+## Update Custom Fields
+
+```C#
+var post = new Post
+{
+    Id = 123,
+    Meta = new Dictionary<string, string>
+    {
+        ["my-custom-key"] = "some value"
+    },
+};
+
+await client.Posts.UpdateAsync(post);
+```
+
+Please note that all meta keys need to be registered using [`register_post_meta()`](https://developer.wordpress.org/reference/functions/register_post_meta/) before you can use them, e.g. by using the following PHP snippet:
+
+```php
+register_post_meta('post', 'my-custom-key', [
+	'type' => 'string',
+	'single' => true,
+	'show_in_rest' => true,
+]);
+```
+
 ## Delete Post
 
 ```C#
