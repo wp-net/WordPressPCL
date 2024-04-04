@@ -4401,7 +4401,7 @@
             Helper class to create threaded comment views
             </summary>
         </member>
-        <member name="M:WordPressPCL.Utility.ThreadedCommentsHelper.GetThreadedComments(System.Collections.Generic.IEnumerable{WordPressPCL.Models.Comment},System.Int32,System.Boolean)">
+        <member name="M:WordPressPCL.Utility.ThreadedCommentsHelper.GetThreadedComments(System.Collections.Generic.List{WordPressPCL.Models.Comment},System.Int32,System.Boolean)">
             <summary>
             This method returns the comments sorted for a threaded view (oldest first)
             including the depth of a comment
@@ -4410,7 +4410,7 @@
             <param name="maxDepth">max hierarchy depth</param>
             <param name="isDescending">order by descending</param>
         </member>
-        <member name="M:WordPressPCL.Utility.ThreadedCommentsHelper.ToThreaded(System.Collections.Generic.IEnumerable{WordPressPCL.Models.Comment},System.Boolean)">
+        <member name="M:WordPressPCL.Utility.ThreadedCommentsHelper.ToThreaded(System.Collections.Generic.List{WordPressPCL.Models.Comment},System.Boolean)">
             <summary>
             Extension method: Get Threaded comments from ordinary comments
             </summary>

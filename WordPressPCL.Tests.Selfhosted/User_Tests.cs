@@ -126,7 +126,7 @@ public class User_Tests
         Assert.IsTrue(response);
 
         // Get posts for user 2 and check if ID of postCreated is in there
-        IEnumerable<Post> postsOfUser2 = await _clientAuth.Posts.GetPostsByAuthorAsync(user2.Id);
+        List<Post> postsOfUser2 = await _clientAuth.Posts.GetPostsByAuthorAsync(user2.Id);
         List<Post> postsById = postsOfUser2.Where(x => x.Id == postCreated.Id).ToList();
         Assert.AreEqual(postsById.Count, 1);
     }

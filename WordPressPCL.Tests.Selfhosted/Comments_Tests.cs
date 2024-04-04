@@ -224,10 +224,10 @@ public class Comments_Tests
         // shoud work without auth
         var nonauthclient = ClientHelper.GetWordPressClient();
         var comments = await nonauthclient.Comments.GetCommentsForPostAsync(createdPost.Id);
-        Assert.IsTrue(comments.Count() <= 10);
+        Assert.IsTrue(comments.Count <= 10);
 
         var allComments = await nonauthclient.Comments.GetAllCommentsForPostAsync(createdPost.Id);
-        Assert.IsTrue(allComments.Count() > 20);
+        Assert.IsTrue(allComments.Count > 20);
 
         // cleanup
         var result = await _clientAuth.Posts.DeleteAsync(createdPost.Id);
