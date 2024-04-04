@@ -73,3 +73,13 @@ if (await client.IsValidJWTokenAsync())
     var result = await client.Users.DeleteAsync(123,321);
 }
 ```
+
+## Create Application Password
+
+```C#
+// Create an application password for the current user
+var password = await client.Users.CreateApplicationPasswordAsync("application-name");
+
+// Create an application password for a specific user
+var password = await client.Users.CreateApplicationPasswordAsync("application-name", userId: "3");
+```
