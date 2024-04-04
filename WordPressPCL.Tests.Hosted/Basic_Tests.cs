@@ -25,7 +25,7 @@ public class Basic_Tests
         Assert.IsNotNull(_client);
         // Posts
         var posts = await _client.Posts.GetAllAsync();
-        Assert.AreNotEqual(posts.Count(), 0);
+        Assert.AreNotEqual(posts.Count, 0);
         Assert.IsNotNull(posts);
     }
 

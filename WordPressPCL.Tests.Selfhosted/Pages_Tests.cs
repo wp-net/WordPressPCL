@@ -42,7 +42,7 @@ public class Pages_Tests
     {
         var pages = await _client.Pages.QueryAsync(new PagesQueryBuilder());
         Assert.IsNotNull(pages);
-        Assert.AreNotEqual(pages.Count(), 0);
+        Assert.AreNotEqual(pages.Count, 0);
     }
 
     [TestMethod]
@@ -50,7 +50,7 @@ public class Pages_Tests
     {
         var pages = await _client.Pages.GetAsync();
         Assert.IsNotNull(pages);
-        Assert.AreNotEqual(pages.Count(), 0);
+        Assert.AreNotEqual(pages.Count, 0);
     }
 
     [TestMethod]
@@ -58,7 +58,7 @@ public class Pages_Tests
     {
         var testContent = $"Test {System.Guid.NewGuid()}";
         var pages = await _client.Pages.GetAllAsync();
-        Assert.IsTrue(pages.Count() > 0);
+        Assert.IsTrue(pages.Count > 0);
 
         var page = pages.FirstOrDefault();
         page.Content.Raw = testContent;
@@ -101,6 +101,6 @@ public class Pages_Tests
         var queryresult = await _client.Pages.QueryAsync(queryBuilder);
         Assert.AreEqual("?page=1&per_page=15&orderby=title&status=publish&order=asc&_embed=true&context=view", queryBuilder.BuildQuery());
         Assert.IsNotNull(queryresult);
-        Assert.AreNotSame(queryresult.Count(), 0);
+        Assert.AreNotSame(queryresult.Count, 0);
     }
 }

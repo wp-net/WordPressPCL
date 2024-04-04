@@ -24,7 +24,7 @@ public class PostTypes_Tests
     {
         var posttypes = await _clientAuth.PostTypes.GetAllAsync();
         Assert.IsNotNull(posttypes);
-        Assert.AreNotEqual(posttypes.Count(), 0);
+        Assert.AreNotEqual(posttypes.Count, 0);
     }
 
     [TestMethod]
@@ -32,6 +32,6 @@ public class PostTypes_Tests
     {
         var posttypes = await _clientAuth.PostTypes.GetAsync();
         Assert.IsNotNull(posttypes);
-        Assert.AreNotEqual(posttypes.Count(), 0);
+        Assert.AreNotEqual(posttypes.Count, 0);
     }
 }

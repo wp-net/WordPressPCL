@@ -35,8 +35,8 @@ public class ListPosts_QueryBuilder_Tests
         });
         Assert.IsNotNull(postsA);
         Assert.IsNotNull(postsB);
-        Assert.AreNotEqual(postsA.Count(), 0);
-        Assert.AreNotEqual(postsB.Count(), 0);
+        Assert.AreNotEqual(postsA.Count, 0);
+        Assert.AreNotEqual(postsB.Count, 0);
         CollectionAssert.AreNotEqual(postsA.Select(post => post.Id).ToList(), postsB.Select(post => post.Id).ToList());
     }
 

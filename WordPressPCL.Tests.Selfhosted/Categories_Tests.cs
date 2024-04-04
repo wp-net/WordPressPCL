@@ -43,7 +43,7 @@ public class Categories_Tests
     {
         var categories = await _client.Categories.GetAllAsync();
         Assert.IsNotNull(categories);
-        Assert.AreNotEqual(categories.Count(), 0);
+        Assert.AreNotEqual(categories.Count, 0);
         CollectionAssert.AllItemsAreUnique(categories.Select(tag => tag.Id).ToList());
     }
 
@@ -52,7 +52,7 @@ public class Categories_Tests
     {
         var categories = await _client.Categories.GetAsync();
         Assert.IsNotNull(categories);
-        Assert.AreNotEqual(categories.Count(), 0);
+        Assert.AreNotEqual(categories.Count, 0);
         CollectionAssert.AllItemsAreUnique(categories.Select(tag => tag.Id).ToList());
     }
 
@@ -104,6 +104,6 @@ public class Categories_Tests
         var queryresult = await _clientAuth.Categories.QueryAsync(queryBuilder);
         Assert.AreEqual("?page=1&per_page=15&orderby=id&order=desc&context=view", queryBuilder.BuildQuery());
         Assert.IsNotNull(queryresult);
-        Assert.AreNotSame(queryresult.Count(), 0);
+        Assert.AreNotSame(queryresult.Count, 0);
     }
 }
