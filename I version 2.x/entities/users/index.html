@@ -101,6 +101,8 @@
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#delete-user">Delete User</a>
     </li>
+    <li class="toctree-l3"><a class="reference internal" href="#create-application-password">Create Application Password</a>
+    </li>
     </ul>
                 </li>
     </ul>
@@ -229,6 +231,13 @@ if (await client.IsValidJWTokenAsync())
     //second param - user to reassign all content
     var result = await client.Users.DeleteAsync(123,321);
 }
+</code></pre>
+<h2 id="create-application-password">Create Application Password</h2>
+<pre><code class="language-C#">// Create an application password for the current user
+var password = await client.Users.CreateApplicationPasswordAsync(&quot;application-name&quot;);
+
+// Create an application password for a specific user
+var password = await client.Users.CreateApplicationPasswordAsync(&quot;application-name&quot;, userId: &quot;3&quot;);
 </code></pre>
               
             </div>
