@@ -83,6 +83,8 @@
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#update-post">Update Post</a>
     </li>
+    <li class="toctree-l3"><a class="reference internal" href="#update-custom-fields">Update Custom Fields</a>
+    </li>
     <li class="toctree-l3"><a class="reference internal" href="#delete-post">Delete Post</a>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#get-post-revisions">Get Post Revisions</a>
@@ -215,6 +217,25 @@ if (await client.IsValidJWTokenAsync())
 {
     var updatedPost = await client.Posts.UpdateAsync(post);
 }
+</code></pre>
+<h2 id="update-custom-fields">Update Custom Fields</h2>
+<pre><code class="language-C#">var post = new Post
+{
+    Id = 123,
+    Meta = new Dictionary&lt;string, string&gt;
+    {
+        [&quot;my-custom-key&quot;] = &quot;some value&quot;
+    },
+};
+
+await client.Posts.UpdateAsync(post);
+</code></pre>
+<p>Please note that all meta keys need to be registered using <a href="https://developer.wordpress.org/reference/functions/register_post_meta/"><code>register_post_meta()</code></a> before you can use them, e.g. by using the following PHP snippet:</p>
+<pre><code class="language-php">register_post_meta('post', 'my-custom-key', [
+    'type' =&gt; 'string',
+    'single' =&gt; true,
+    'show_in_rest' =&gt; true,
+]);
 </code></pre>
 <h2 id="delete-post">Delete Post</h2>
 <pre><code class="language-C#">// returns result of deletion
