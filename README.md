@@ -128,4 +128,4 @@ Second, please try to stick to the official C# coding guidelines. https://msdn.m
 
 Also, make sure to write some tests covering your new or modified code.
 
-In order to run the tests on local machine please refer to the **install.md** file in the dev directory of the repository. Docker along with docker-compose cli will be required to run the tests.
+In order to run the tests on local machine please refer to the **install.md** file in the dev directory of the repository. Docker and Docker Compose will be required to run the tests.
