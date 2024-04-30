@@ -2987,6 +2987,16 @@
             Default Comment Status
             </summary>
         </member>
+        <member name="P:WordPressPCL.Models.Settings.SiteLogo">
+            <summary>
+            Media ID of the site logo
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Settings.SiteIcon">
+            <summary>
+            Media ID of the site icon
+            </summary>
+        </member>
         <member name="T:WordPressPCL.Models.RenderedRawBase">
             <summary>
             Adds a "Rendered" and a "Raw" property to all classes derived from this one
