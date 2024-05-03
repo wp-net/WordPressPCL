@@ -1,10 +1,10 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using WordPressPCL.Models;
 using WordPressPCL.Models.Exceptions;
 
@@ -98,30 +98,37 @@ namespace WordPressPCL.Utility
 
         internal async Task<TClass> GetRequestAsync<TClass>(string route, bool embed, bool isAuthRequired = false, bool ignoreDefaultPath = false)
             where TClass : class
-        { 
+        {
             route = BuildRoute(ignoreDefaultPath, route);
             string embedParam = "";
             if (embed)
             {
                 if (route.Contains("?"))
+                {
                     embedParam = "&_embed";
+                }
                 else
+                {
                     embedParam = "?_embed";
+                }
             }
             route += embedParam;
 
             HttpResponseMessage response;
-            using (var requestMessage = new HttpRequestMessage(HttpMethod.Get, route))
+            using (HttpRequestMessage requestMessage = new(HttpMethod.Get, route))
             {
                 SetAuthHeader(isAuthRequired, requestMessage);
                 response = await _httpClient.SendAsync(requestMessage).ConfigureAwait(false);
             }
             LastResponseHeaders = response.Headers;
-            var responseString = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+            string responseString = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
             if (response.IsSuccessStatusCode)
             {
                 if (HttpResponsePreProcessing != null)
+                {
                     responseString = HttpResponsePreProcessing(responseString);
+                }
+
                 return DeserializeJsonResponse<TClass>(response, responseString);
             }
             else
@@ -132,10 +139,10 @@ namespace WordPressPCL.Utility
 
         internal async Task<(TClass, HttpResponseMessage)> PostRequestAsync<TClass>(string route, HttpContent postBody, bool isAuthRequired = true, bool ignoreDefaultPath = false)
             where TClass : class
-        { 
+        {
             route = BuildRoute(ignoreDefaultPath, route);
             HttpResponseMessage response;
-            using (var requestMessage = new HttpRequestMessage(HttpMethod.Post, route))
+            using (HttpRequestMessage requestMessage = new(HttpMethod.Post, route))
             {
                 SetAuthHeader(isAuthRequired, requestMessage);
                 requestMessage.Content = postBody;
@@ -143,11 +150,14 @@ namespace WordPressPCL.Utility
             }
 
             LastResponseHeaders = response.Headers;
-            var responseString = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+            string responseString = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
             if (response.IsSuccessStatusCode)
             {
                 if (HttpResponsePreProcessing != null)
+                {
                     responseString = HttpResponsePreProcessing(responseString);
+                }
+
                 return (DeserializeJsonResponse<TClass>(response, responseString), response);
             }
             else
@@ -160,14 +170,14 @@ namespace WordPressPCL.Utility
         {
             route = BuildRoute(ignoreDefaultPath, route);
             HttpResponseMessage response;
-            using (var requestMessage = new HttpRequestMessage(HttpMethod.Delete, route))
+            using (HttpRequestMessage requestMessage = new(HttpMethod.Delete, route))
             {
                 SetAuthHeader(isAuthRequired, requestMessage);
                 response = await _httpClient.SendAsync(requestMessage).ConfigureAwait(false);
             }
 
             LastResponseHeaders = response.Headers;
-            var responseString = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+            string responseString = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
             if (response.IsSuccessStatusCode)
             {
                 return true;
@@ -182,7 +192,7 @@ namespace WordPressPCL.Utility
         {
             route = BuildRoute(ignoreDefaultPath, route);
             HttpResponseMessage response;
-            using (var requestMessage = new HttpRequestMessage(HttpMethod.Head, route))
+            using (HttpRequestMessage requestMessage = new(HttpMethod.Head, route))
             {
                 SetAuthHeader(isAuthRequired, requestMessage);
                 response = await _httpClient.SendAsync(requestMessage).ConfigureAwait(false);
@@ -207,7 +217,7 @@ namespace WordPressPCL.Utility
                 }
                 else if (AuthMethod == AuthMethod.Basic)
                 {
-                    var authToken = Encoding.ASCII.GetBytes($"{UserName}:{ApplicationPassword}");
+                    byte[] authToken = Encoding.ASCII.GetBytes($"{UserName}:{ApplicationPassword}");
                     requestMessage.Headers.Authorization = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(authToken));
                 }
                 else
@@ -220,12 +230,16 @@ namespace WordPressPCL.Utility
         private string BuildRoute(bool ignoreDefaultPath, string route)
         {
             if (string.IsNullOrEmpty(route))
+            {
                 return route;
+            }
 
-	        var processedRoute = ignoreDefaultPath ? route : $"{_defaultPath}{route}";
+            string processedRoute = ignoreDefaultPath ? route : $"{_defaultPath}{route}";
 
             if (_baseUri != null)
+            {
                 processedRoute = $"{_baseUri.AbsoluteUri.TrimEnd('/')}/{processedRoute.TrimStart('/')}";
+            }
 
             return processedRoute;
         }
@@ -242,7 +256,7 @@ namespace WordPressPCL.Utility
             }
             catch (JsonReaderException)
             {
-                var (success, sanitizedResponse) = TryGetResponseFromMalformedResponse(responseString);
+                (bool success, string sanitizedResponse) = TryGetResponseFromMalformedResponse(responseString);
                 if (!success)
                 {
                     throw new WPUnexpectedException(response, responseString);
@@ -259,13 +273,13 @@ namespace WordPressPCL.Utility
         private static (bool, string) TryGetResponseFromMalformedResponse(string responseString)
         {
             responseString = responseString.Trim();
-            var jsonSingleItemRegex = @"\{""id"":.+\}$";
-            var match = Regex.Match(responseString, jsonSingleItemRegex);
+            string jsonSingleItemRegex = @"\{""id"":.+\}$";
+            Match match = Regex.Match(responseString, jsonSingleItemRegex);
             if (match.Success)
             {
                 return (true, match.Value);
             }
-            var jsonCollectionRegex = @"\[({""id"":.+},?)*\]$";
+            string jsonCollectionRegex = @"\[({""id"":.+},?)*\]$";
             match = Regex.Match(responseString, jsonCollectionRegex);
             if (match.Success)
             {

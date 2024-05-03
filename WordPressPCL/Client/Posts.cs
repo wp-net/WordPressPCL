@@ -35,11 +35,11 @@ namespace WordPressPCL.Client
         /// <param name="embed">include embed info</param>
         /// <param name="useAuth">Send request with authentication header</param>
         /// <returns>List of posts</returns>
-        public Task<IEnumerable<Post>> GetStickyPostsAsync(bool embed = false, bool useAuth = false)
+        public Task<List<Post>> GetStickyPostsAsync(bool embed = false, bool useAuth = false)
         {
             // default values
             // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
-            return HttpHelper.GetRequestAsync<IEnumerable<Post>>(_methodPath.SetQueryParam("sticky", "true"), embed, useAuth);
+            return HttpHelper.GetRequestAsync<List<Post>>(_methodPath.SetQueryParam("sticky", "true"), embed, useAuth);
         }
 
         /// <summary>
@@ -49,11 +49,11 @@ namespace WordPressPCL.Client
         /// <param name="embed">include embed info</param>
         /// <param name="useAuth">Send request with authentication header</param>
         /// <returns>List of posts</returns>
-        public Task<IEnumerable<Post>> GetPostsByCategoryAsync(int categoryId, bool embed = false, bool useAuth = false)
+        public Task<List<Post>> GetPostsByCategoryAsync(int categoryId, bool embed = false, bool useAuth = false)
         {
             // default values
             // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
-            return HttpHelper.GetRequestAsync<IEnumerable<Post>>(_methodPath.SetQueryParam("categories", categoryId), embed, useAuth);
+            return HttpHelper.GetRequestAsync<List<Post>>(_methodPath.SetQueryParam("categories", categoryId), embed, useAuth);
         }
 
         /// <summary>
@@ -63,11 +63,11 @@ namespace WordPressPCL.Client
         /// <param name="embed">include embed info</param>
         /// <param name="useAuth">Send request with authentication header</param>
         /// <returns>List of posts</returns>
-        public Task<IEnumerable<Post>> GetPostsByTagAsync(int tagId, bool embed = false, bool useAuth = false)
+        public Task<List<Post>> GetPostsByTagAsync(int tagId, bool embed = false, bool useAuth = false)
         {
             // default values
             // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
-            return HttpHelper.GetRequestAsync<IEnumerable<Post>>(_methodPath.SetQueryParam("tags", tagId), embed, useAuth);
+            return HttpHelper.GetRequestAsync<List<Post>>(_methodPath.SetQueryParam("tags", tagId), embed, useAuth);
         }
 
         /// <summary>
@@ -77,11 +77,11 @@ namespace WordPressPCL.Client
         /// <param name="embed">include embed info</param>
         /// <param name="useAuth">Send request with authentication header</param>
         /// <returns>List of posts</returns>
-        public Task<IEnumerable<Post>> GetPostsByAuthorAsync(int authorId, bool embed = false, bool useAuth = false)
+        public Task<List<Post>> GetPostsByAuthorAsync(int authorId, bool embed = false, bool useAuth = false)
         {
             // default values
             // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
-            return HttpHelper.GetRequestAsync<IEnumerable<Post>>(_methodPath.SetQueryParam("author", authorId), embed, useAuth);
+            return HttpHelper.GetRequestAsync<List<Post>>(_methodPath.SetQueryParam("author", authorId), embed, useAuth);
         }
 
         /// <summary>
@@ -91,18 +91,18 @@ namespace WordPressPCL.Client
         /// <param name="embed">include embed info</param>
         /// <param name="useAuth">Send request with authentication header</param>
         /// <returns>List of posts</returns>
-        public Task<IEnumerable<Post>> GetPostsBySearchAsync(string searchTerm, bool embed = false, bool useAuth = false)
+        public Task<List<Post>> GetPostsBySearchAsync(string searchTerm, bool embed = false, bool useAuth = false)
         {
             // default values
             // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
-            return HttpHelper.GetRequestAsync<IEnumerable<Post>>(_methodPath.SetQueryParam("search", searchTerm), embed, useAuth);
+            return HttpHelper.GetRequestAsync<List<Post>>(_methodPath.SetQueryParam("search", searchTerm), embed, useAuth);
         }
 
         /// <summary>
         /// Get count of posts
         /// </summary>
         /// <returns>Result of operation</returns>
-        public async Task<int> GetCountAsync() 
+        public async Task<int> GetCountAsync()
         {
             var responseHeaders = await HttpHelper.HeadRequestAsync(_methodPath).ConfigureAwait(false);
             var totalHeaderVal = responseHeaders.GetValues("X-WP-Total").First();

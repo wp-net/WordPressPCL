@@ -24,7 +24,7 @@ public class PostRevisions_Tests
         var id = await CreatePostWithRevision();
         var revisionsclient = _clientAuth.Posts.Revisions(id);
         var revisions = await revisionsclient.GetAllAsync();
-        Assert.AreNotEqual(revisions.Count(), 0);
+        Assert.AreNotEqual(revisions.Count, 0);
     }
 
     [TestMethod]
@@ -33,7 +33,7 @@ public class PostRevisions_Tests
         var id = await CreatePostWithRevision();
         var revisionsclient = _clientAuth.Posts.Revisions(id);
         var revisions = await revisionsclient.GetAsync();
-        Assert.AreNotEqual(revisions.Count(), 0);
+        Assert.AreNotEqual(revisions.Count, 0);
     }
 
     // TODO: check why revision can't be deleted
@@ -44,7 +44,7 @@ public class PostRevisions_Tests
 
         var revisionsclient = _clientAuth.Posts.Revisions(id);
         var revisions = await revisionsclient.GetAllAsync();
-        Assert.AreNotEqual(revisions.Count(), 0);
+        Assert.AreNotEqual(revisions.Count, 0);
         var res = await revisionsclient.DeleteAsync(revisions.First().Id);
         Assert.IsTrue(res);
     }

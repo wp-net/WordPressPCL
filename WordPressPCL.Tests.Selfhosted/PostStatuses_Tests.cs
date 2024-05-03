@@ -22,7 +22,7 @@ public class PostStatuses_Tests
     {
         var poststatuses = await _clientAuth.PostStatuses.GetAllAsync();
         Assert.IsNotNull(poststatuses);
-        Assert.AreNotEqual(poststatuses.Count(), 0);
+        Assert.AreNotEqual(poststatuses.Count, 0);
     }
 
     [TestMethod]
@@ -30,6 +30,6 @@ public class PostStatuses_Tests
     {
         var poststatuses = await _clientAuth.PostStatuses.GetAsync();
         Assert.IsNotNull(poststatuses);
-        Assert.AreNotEqual(poststatuses.Count(), 0);
+        Assert.AreNotEqual(poststatuses.Count, 0);
     }
 }

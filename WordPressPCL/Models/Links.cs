@@ -1,5 +1,5 @@
-﻿using Newtonsoft.Json;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace WordPressPCL.Models
 {
@@ -12,58 +12,68 @@ namespace WordPressPCL.Models
         /// Self link
         /// </summary>
         [JsonProperty("self")]
-        public IEnumerable<Self> Self { get; set; }
+        public List<Self> Self { get; set; }
+
         /// <summary>
         /// Collection of links
         /// <see cref="Models.Collection"/>
         /// </summary>
         [JsonProperty("collection")]
-        public IEnumerable<Collection> Collection { get; set; }
+        public List<Collection> Collection { get; set; }
+
         /// <summary>
         /// About info
         /// <see cref="Models.About"/>
         /// </summary>
         [JsonProperty("about")]
-        public IEnumerable<About> About { get; set; }
+        public List<About> About { get; set; }
+
         /// <summary>
         /// WordPress post Type
         /// </summary>
         [JsonProperty("wp:post_type")]
-        public IEnumerable<WpPostType> WpPostType { get; set; }
+        public List<WpPostType> WpPostType { get; set; }
+
         /// <summary>
         /// Curries
         /// </summary>
         [JsonProperty("curies")]
-        public IEnumerable<Cury> Curies { get; set; }
+        public List<Cury> Curies { get; set; }
+
         /// <summary>
         /// Author
         /// </summary>
         [JsonProperty("author")]
-        public IEnumerable<Author> Author { get; set; }
+        public List<Author> Author { get; set; }
+
         /// <summary>
         /// Replies
         /// </summary>
         [JsonProperty("replies")]
-        public IEnumerable<Reply> Replies { get; set; }
+        public List<Reply> Replies { get; set; }
+
         /// <summary>
         /// Versions
         /// </summary>
         [JsonProperty("version-history")]
-        public IEnumerable<VersionHistory> Versions { get; set; }
+        public List<VersionHistory> Versions { get; set; }
+
         /// <summary>
         /// Attachment
         /// </summary>
         [JsonProperty("wp:attachment")]
-        public IEnumerable<HttpsApiWOrgAttachment> Attachment { get; set; }
+        public List<HttpsApiWOrgAttachment> Attachment { get; set; }
+
         /// <summary>
         /// Featured media
         /// </summary>
         [JsonProperty("wp:featuredmedia")]
-        public IEnumerable<HttpsApiWOrgFeaturedmedia> FeaturedMedia { get; set; }
+        public List<HttpsApiWOrgFeaturedmedia> FeaturedMedia { get; set; }
+
         /// <summary>
         /// Featured media
         /// </summary>
         [JsonProperty("wp:term")]
-        public IEnumerable<HttpsApiWOrgTerm> Term { get; set; }
+        public List<HttpsApiWOrgTerm> Term { get; set; }
     }
 }

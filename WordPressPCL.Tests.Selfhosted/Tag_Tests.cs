@@ -48,7 +48,7 @@ public class Tag_Tests
     {
         var tags = await _clientAuth.Tags.GetAllAsync();
         Assert.IsNotNull(tags);
-        Assert.AreNotEqual(tags.Count(), 0);
+        Assert.AreNotEqual(tags.Count, 0);
         CollectionAssert.AllItemsAreUnique(tags.Select(tag => tag.Id).ToList());
     }
 
@@ -57,7 +57,7 @@ public class Tag_Tests
     {
         var tags = await _client.Tags.GetAsync();
         Assert.IsNotNull(tags);
-        Assert.AreNotEqual(tags.Count(), 0);
+        Assert.AreNotEqual(tags.Count, 0);
         CollectionAssert.AllItemsAreUnique(tags.Select(tag => tag.Id).ToList());
     }
 
@@ -108,7 +108,7 @@ public class Tag_Tests
         var queryresult = await _clientAuth.Tags.QueryAsync(queryBuilder);
         Assert.AreEqual("?page=1&per_page=15&orderby=id&order=desc&context=view", queryBuilder.BuildQuery());
         Assert.IsNotNull(queryresult);
-        Assert.AreNotSame(queryresult.Count(), 0);
+        Assert.AreNotSame(queryresult.Count, 0);
     }
 
 }

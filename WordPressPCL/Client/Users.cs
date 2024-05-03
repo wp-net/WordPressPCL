@@ -41,8 +41,8 @@ namespace WordPressPCL.Client
         /// <returns>Created object</returns>
         public virtual async Task<User> CreateAsync(User Entity)
         {
-            var entity = _httpHelper.JsonSerializerSettings == null ? JsonConvert.SerializeObject(Entity) : JsonConvert.SerializeObject(Entity, _httpHelper.JsonSerializerSettings);
-            using var postBody = new StringContent(entity, Encoding.UTF8, "application/json");
+            string entity = _httpHelper.JsonSerializerSettings == null ? JsonConvert.SerializeObject(Entity) : JsonConvert.SerializeObject(Entity, _httpHelper.JsonSerializerSettings);
+            using StringContent postBody = new(entity, Encoding.UTF8, "application/json");
             return (await _httpHelper.PostRequestAsync<User>($"{METHOD_PATH}", postBody).ConfigureAwait(false)).Item1;
         }
 
@@ -66,13 +66,13 @@ namespace WordPressPCL.Client
         public async Task<List<User>> GetAllAsync(bool embed = false, bool useAuth = false)
         {
             //100 - Max posts per page in WordPress REST API, so this is hack with multiple requests
-            var entities = (await _httpHelper.GetRequestAsync<List<User>>($"{METHOD_PATH}?per_page=100&page=1", embed, useAuth).ConfigureAwait(false))?.ToList();
+            List<User> entities = await _httpHelper.GetRequestAsync<List<User>>($"{METHOD_PATH}?per_page=100&page=1", embed, useAuth).ConfigureAwait(false);
             if (_httpHelper.LastResponseHeaders.Contains("X-WP-TotalPages") && Convert.ToInt32(_httpHelper.LastResponseHeaders.GetValues("X-WP-TotalPages").FirstOrDefault(), CultureInfo.InvariantCulture) > 1)
             {
                 int totalpages = Convert.ToInt32(_httpHelper.LastResponseHeaders.GetValues("X-WP-TotalPages").FirstOrDefault(), CultureInfo.InvariantCulture);
                 for (int page = 2; page <= totalpages; page++)
                 {
-                    entities.AddRange((await _httpHelper.GetRequestAsync<List<User>>($"{METHOD_PATH}?per_page=100&page={page}", embed, useAuth).ConfigureAwait(false))?.ToList());
+                    entities.AddRange(await _httpHelper.GetRequestAsync<List<User>>($"{METHOD_PATH}?per_page=100&page={page}", embed, useAuth).ConfigureAwait(false));
                 }
             }
             return entities;
@@ -108,8 +108,8 @@ namespace WordPressPCL.Client
         /// <returns>Updated object</returns>
         public async Task<User> UpdateAsync(User Entity)
         {
-            var entity = _httpHelper.JsonSerializerSettings == null ? JsonConvert.SerializeObject(Entity) : JsonConvert.SerializeObject(Entity, _httpHelper.JsonSerializerSettings);
-            using var postBody = new StringContent(entity, Encoding.UTF8, "application/json");
+            string entity = _httpHelper.JsonSerializerSettings == null ? JsonConvert.SerializeObject(Entity) : JsonConvert.SerializeObject(Entity, _httpHelper.JsonSerializerSettings);
+            using StringContent postBody = new(entity, Encoding.UTF8, "application/json");
             return (await _httpHelper.PostRequestAsync<User>($"{METHOD_PATH}/{Entity?.Id}", postBody).ConfigureAwait(false)).Item1;
         }
 
@@ -159,8 +159,8 @@ namespace WordPressPCL.Client
         public async Task<ApplicationPassword> CreateApplicationPasswordAsync(string applicationName, string userId = "me")
         {
             var body = new { name = applicationName };
-            var entity = _httpHelper.JsonSerializerSettings == null ? JsonConvert.SerializeObject(body) : JsonConvert.SerializeObject(body, _httpHelper.JsonSerializerSettings);
-            using var postBody = new StringContent(entity, Encoding.UTF8, "application/json");
+            string entity = _httpHelper.JsonSerializerSettings == null ? JsonConvert.SerializeObject(body) : JsonConvert.SerializeObject(body, _httpHelper.JsonSerializerSettings);
+            using StringContent postBody = new(entity, Encoding.UTF8, "application/json");
             return (await _httpHelper.PostRequestAsync<ApplicationPassword>($"{METHOD_PATH}/{userId}/{APPLICATION_PASSWORDS_PATH}", postBody, true).ConfigureAwait(false)).Item1;
         }
 

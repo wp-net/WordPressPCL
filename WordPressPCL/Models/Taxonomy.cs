@@ -1,5 +1,5 @@
-﻿using Newtonsoft.Json;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace WordPressPCL.Models
 {
@@ -34,7 +34,7 @@ namespace WordPressPCL.Models
         /// </summary>
         /// <remarks>Context: edit</remarks>
         [JsonProperty("labels")]
-        public IEnumerable<string> Labels { get; set; }
+        public List<string> Labels { get; set; }
 
         /// <summary>
         /// The title for the taxonomy.
@@ -62,7 +62,7 @@ namespace WordPressPCL.Models
         /// </summary>
         /// <remarks>Context: view, edit</remarks>
         [JsonProperty("types")]
-        public IEnumerable<string> Types { get; set; }
+        public List<string> Types { get; set; }
 
         /// <summary>
         /// REST base route for the taxonomy.

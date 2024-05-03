@@ -1,6 +1,6 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 using WordPressPCL.Utility;
 
 namespace WordPressPCL.Models
@@ -104,7 +104,7 @@ namespace WordPressPCL.Models
         /// </summary>
         /// <remarks>Context: edit</remarks>
         [JsonProperty("roles", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public IEnumerable<string> Roles { get; set; }
+        public List<string> Roles { get; set; }
 
         /// <summary>
         /// Password for the user (never included).
@@ -124,7 +124,7 @@ namespace WordPressPCL.Models
         /// Any extra capabilities assigned to the user.
         /// </summary>
         /// <remarks>Context: edit</remarks>
-        [JsonProperty("extra_capabilities", DefaultValueHandling = DefaultValueHandling.Ignore, ItemConverterType = typeof (CustomCapabilitiesJsonConverter))]
+        [JsonProperty("extra_capabilities", DefaultValueHandling = DefaultValueHandling.Ignore, ItemConverterType = typeof(CustomCapabilitiesJsonConverter))]
         public IDictionary<string, bool> ExtraCapabilities { get; set; }
 
         /// <summary>

@@ -56,7 +56,7 @@ public class Plugins_Tests
         //Active plugin
         var plugins = await _clientAuth.Plugins.QueryAsync(new PluginsQueryBuilder { Status = ActivationStatus.Active }, useAuth:true);
         Assert.IsNotNull(plugins);
-        Assert.AreNotEqual(plugins.Count(), 0);
+        Assert.AreNotEqual(plugins.Count, 0);
 
     }
     [TestMethod]
@@ -65,7 +65,7 @@ public class Plugins_Tests
         //Active plugin
         var plugins = await _clientAuth.Plugins.QueryAsync(new PluginsQueryBuilder { Search="jwt" }, useAuth:true);
         Assert.IsNotNull(plugins);
-        Assert.AreNotEqual(plugins.Count(), 0);
+        Assert.AreNotEqual(plugins.Count, 0);
 
     }
 
@@ -74,7 +74,7 @@ public class Plugins_Tests
     {
         var plugins = await _clientAuth.Plugins.GetAsync (useAuth: true);
         Assert.IsNotNull(plugins);
-        Assert.AreNotEqual(plugins.Count(), 0);
+        Assert.AreNotEqual(plugins.Count, 0);
         CollectionAssert.AllItemsAreUnique(plugins.Select(tag => tag.Id).ToList());
     }
 

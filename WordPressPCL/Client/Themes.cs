@@ -1,12 +1,5 @@
-using Newtonsoft.Json;
 using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Net.Http;
-using System.Runtime;
-using System.Text;
 using System.Threading.Tasks;
-using WordPressPCL.Interfaces;
 using WordPressPCL.Models;
 using WordPressPCL.Utility;
 
@@ -35,7 +28,7 @@ namespace WordPressPCL.Client
 
         #region Custom
 
-        
+
 
         /// <summary>
         /// Get themes by search term
@@ -43,11 +36,11 @@ namespace WordPressPCL.Client
         /// <param name="activationStatus">active or inactive</param>
         /// <param name="embed">include embed info</param>
         /// <returns>List of posts</returns>
-        public Task<IEnumerable<Theme>> GetThemesByActivationStatusAsync(ActivationStatus activationStatus, bool embed = false)
+        public Task<List<Theme>> GetThemesByActivationStatusAsync(ActivationStatus activationStatus, bool embed = false)
         {
             // default values
             // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
-            return HttpHelper.GetRequestAsync<IEnumerable<Theme>>(_methodPath.SetQueryParam("status", activationStatus.ToString().ToLower()), embed, true);
+            return HttpHelper.GetRequestAsync<List<Theme>>(_methodPath.SetQueryParam("status", activationStatus.ToString().ToLower()), embed, true);
         }
 
 

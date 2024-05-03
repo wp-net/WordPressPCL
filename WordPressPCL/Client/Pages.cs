@@ -34,11 +34,11 @@ namespace WordPressPCL.Client
         /// <param name="embed">include embed info</param>
         /// <param name="useAuth">Send request with authentication header</param>
         /// <returns>List of pages</returns>
-        public Task<IEnumerable<Page>> GetPagesByAuthorAsync(int authorId, bool embed = false, bool useAuth = false)
+        public Task<List<Page>> GetPagesByAuthorAsync(int authorId, bool embed = false, bool useAuth = false)
         {
             // default values
             // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
-            return HttpHelper.GetRequestAsync<IEnumerable<Page>>($"{_methodPath}?author={authorId}", embed, useAuth);
+            return HttpHelper.GetRequestAsync<List<Page>>($"{_methodPath}?author={authorId}", embed, useAuth);
         }
 
         /// <summary>
@@ -48,11 +48,11 @@ namespace WordPressPCL.Client
         /// <param name="embed">include embed info</param>
         /// <param name="useAuth">Send request with authentication header</param>
         /// <returns>List of pages</returns>
-        public Task<IEnumerable<Page>> GetPagesBySearchAsync(string searchTerm, bool embed = false, bool useAuth = false)
+        public Task<List<Page>> GetPagesBySearchAsync(string searchTerm, bool embed = false, bool useAuth = false)
         {
             // default values
             // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
-            return HttpHelper.GetRequestAsync<IEnumerable<Page>>($"{_methodPath}?search={searchTerm}", embed, useAuth);
+            return HttpHelper.GetRequestAsync<List<Page>>($"{_methodPath}?search={searchTerm}", embed, useAuth);
         }
 
         /// <summary>

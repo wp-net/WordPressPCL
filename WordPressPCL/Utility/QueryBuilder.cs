@@ -42,14 +42,14 @@ namespace WordPressPCL.Utility
         /// <returns>query HTTP string</returns>
         public string BuildQuery()
         {
-            var query = HttpUtility.ParseQueryString(string.Empty);
-            foreach (var property in GetType().GetRuntimeProperties())
+            NameValueCollection query = HttpUtility.ParseQueryString(string.Empty);
+            foreach (PropertyInfo property in GetType().GetRuntimeProperties())
             {
-                var attribute = property.GetCustomAttribute<QueryTextAttribute>();
-                var exclusionAttribute = property.GetCustomAttribute<ExcludeQueryTextAttribute>();
+                QueryTextAttribute attribute = property.GetCustomAttribute<QueryTextAttribute>();
+                ExcludeQueryTextAttribute exclusionAttribute = property.GetCustomAttribute<ExcludeQueryTextAttribute>();
                 if (attribute != null)
                 {
-                    var value = GetPropertyValue(property);
+                    object value = GetPropertyValue(property);
 
                     if (value is null) continue;
                     if (exclusionAttribute != null && value.ToString().ToLowerInvariant() == exclusionAttribute.ExclusionValue) continue;
@@ -62,8 +62,8 @@ namespace WordPressPCL.Utility
                     query.Add(attribute.Text, value.ToString().ToLowerInvariant());
                 }
             }
-            var queryString = query.ToString();
-            if(queryString.Length > 0)
+            string queryString = query.ToString();
+            if (queryString.Length > 0)
             {
                 queryString = "?" + queryString;
             }
@@ -82,17 +82,19 @@ namespace WordPressPCL.Utility
             {
                 if (pi.PropertyType.GetTypeInfo().IsEnum)
                 {
-                    var attribute = pi.PropertyType.GetRuntimeField(((Enum)pi.GetValue(this)).ToString()).GetCustomAttribute<EnumMemberAttribute>();
+                    EnumMemberAttribute attribute = pi.PropertyType.GetRuntimeField(((Enum)pi.GetValue(this)).ToString()).GetCustomAttribute<EnumMemberAttribute>();
 
                     return attribute.Value;
                 }
-                if (pi.PropertyType.IsGenericType && pi.PropertyType.GetGenericTypeDefinition() == typeof(List<>)) {
-                    var genericParamOfList = pi.PropertyType.GetGenericArguments()[0];
-                    var finalListType = typeof(List<>).MakeGenericType(genericParamOfList);
+                if (pi.PropertyType.IsGenericType && pi.PropertyType.GetGenericTypeDefinition() == typeof(List<>))
+                {
+                    Type genericParamOfList = pi.PropertyType.GetGenericArguments()[0];
+                    Type finalListType = typeof(List<>).MakeGenericType(genericParamOfList);
                     dynamic list = Convert.ChangeType(pi.GetValue(this), finalListType, CultureInfo.InvariantCulture);
                     if (list == null) return null;
-                    var sb = new StringBuilder();
-                    foreach (var item in list) {
+                    StringBuilder sb = new();
+                    foreach (dynamic item in list)
+                    {
                         sb.Append(GetPropertyValue((object)item)).Append(',');
                     }
                     return sb.ToString().TrimEnd(',');
@@ -112,7 +114,7 @@ namespace WordPressPCL.Utility
             {
                 if (property.GetType().GetTypeInfo().IsEnum)
                 {
-                    var attribute = property.GetType().GetRuntimeField(((Enum)property).ToString()).GetCustomAttribute<EnumMemberAttribute>();
+                    EnumMemberAttribute attribute = property.GetType().GetRuntimeField(((Enum)property).ToString()).GetCustomAttribute<EnumMemberAttribute>();
                     return attribute.Value;
                 }
                 if (property.GetType() == typeof(DateTime))

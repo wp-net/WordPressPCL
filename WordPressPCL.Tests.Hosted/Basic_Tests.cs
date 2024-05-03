@@ -25,7 +25,7 @@ public class Basic_Tests
         Assert.IsNotNull(_client);
         // Posts
         var posts = await _client.Posts.GetAllAsync();
-        Assert.AreNotEqual(posts.Count(), 0);
+        Assert.AreNotEqual(posts.Count, 0);
         Assert.IsNotNull(posts);
     }
 
@@ -73,7 +73,7 @@ public class Basic_Tests
 
         // Initialize
         var posts = await _client.Posts.GetPostsByTagAsync(tagId);
-        Assert.AreNotEqual(0, posts.Count());
+        Assert.AreNotEqual(0, posts.Count);
         foreach (Post post in posts)
         {
             Assert.IsTrue(post.Tags.ToList().Contains(tagId));
@@ -87,7 +87,7 @@ public class Basic_Tests
         int author = 3722200;
         // Initialize
         var posts = await _client.Posts.GetPostsByAuthorAsync(author);
-        Assert.AreNotEqual(0, posts.Count());
+        Assert.AreNotEqual(0, posts.Count);
         foreach (Post post in posts)
         {
             Assert.IsTrue(post.Author == author);
@@ -101,7 +101,7 @@ public class Basic_Tests
         string search = "hello";
         // Initialize
         var posts = await _client.Posts.GetPostsBySearchAsync(search);
-        Assert.AreNotEqual(0, posts.Count());
+        Assert.AreNotEqual(0, posts.Count);
         foreach (Post post in posts)
         {
             bool containsOnContentOrTitle = false;

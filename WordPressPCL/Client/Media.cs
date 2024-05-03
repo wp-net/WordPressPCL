@@ -132,13 +132,13 @@ namespace WordPressPCL.Client
         public async Task<List<MediaItem>> GetAllAsync(bool embed = false, bool useAuth = false)
         {
             //100 - Max posts per page in WordPress REST API, so this is hack with multiple requests
-            List<MediaItem> entities = (await _httpHelper.GetRequestAsync<List<MediaItem>>($"{_methodPath}?per_page=100&page=1", embed, useAuth).ConfigureAwait(false))?.ToList();
+            List<MediaItem> entities = await _httpHelper.GetRequestAsync<List<MediaItem>>($"{_methodPath}?per_page=100&page=1", embed, useAuth).ConfigureAwait(false);
             if (_httpHelper.LastResponseHeaders.Contains("X-WP-TotalPages") && Convert.ToInt32(_httpHelper.LastResponseHeaders.GetValues("X-WP-TotalPages").FirstOrDefault(), CultureInfo.InvariantCulture) > 1)
             {
                 int totalpages = Convert.ToInt32(_httpHelper.LastResponseHeaders.GetValues("X-WP-TotalPages").FirstOrDefault(), CultureInfo.InvariantCulture);
                 for (int page = 2; page <= totalpages; page++)
                 {
-                    entities.AddRange((await _httpHelper.GetRequestAsync<List<MediaItem>>($"{_methodPath}?per_page=100&page={page}", embed, useAuth).ConfigureAwait(false))?.ToList());
+                    entities.AddRange(await _httpHelper.GetRequestAsync<List<MediaItem>>($"{_methodPath}?per_page=100&page={page}", embed, useAuth).ConfigureAwait(false));
                 }
             }
             return entities;
