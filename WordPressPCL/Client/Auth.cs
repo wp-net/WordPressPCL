@@ -100,6 +100,10 @@ namespace WordPressPCL.Client {
                     _httpHelper.HttpResponsePreProcessing = null;
                     _httpHelper.JWToken = jwtResponse?.Data?.Token;
                     break;
+                case JWTPlugin.JWTSimpleJwtLogin:
+                    var (jwtSimpleJwtLogin, _) = await _httpHelper.PostRequestAsync<JWTSimpleJwtLogin>("?rest_route=/simple-jwt-login/v1/auth", formContent, isAuthRequired: false, ignoreDefaultPath: true).ConfigureAwait(false);
+                    _httpHelper.JWToken = jwtSimpleJwtLogin?.Data.Token;
+                    break;
                 default:
                     throw new WPException("Invalid JWT Plugin");
             }
@@ -134,6 +138,9 @@ namespace WordPressPCL.Client {
                         var (jwtResponse, _) = await _httpHelper.PostRequestAsync<JWTResponse>(route, null, isAuthRequired: true, ignoreDefaultPath: true).ConfigureAwait(false);
                         _httpHelper.HttpResponsePreProcessing = null;
                         return jwtResponse.Success;
+                    case JWTPlugin.JWTSimpleJwtLogin:
+                        var (jwtSimpleJwtLogin, _) = await _httpHelper.PostRequestAsync<JWTSimpleJwtLoginResponse>("?rest_route=/simple-jwt-login/v1/auth/validate", null, isAuthRequired: true, ignoreDefaultPath: true).ConfigureAwait(false);
+                        return jwtSimpleJwtLogin.Success;
                     default:
                         throw new WPException("Invalid JWT Plugin");
                 }
