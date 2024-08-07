@@ -51,9 +51,12 @@ namespace WordPressPCL.Utility
                     embedParam = "?_embed";
             }
             HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.ExpectationFailed);
-           
+
             using (var client = new HttpClient())
             {
+                client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:96.0) Gecko/20100101 Firefox/96.0");
+                //client.DefaultRequestHeaders.Accept.Clear();
+                //client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8"));
                 if (isAuthRequired)
                 {
                     //client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Utility.Authentication.Base64Encode($"{Username}:{Password}"));
@@ -61,6 +64,7 @@ namespace WordPressPCL.Utility
                 }
                 try
                 {
+                    Console.WriteLine($"**Requesting from:{ _WordpressURI}{ route}{ embedParam}");
                     response = await client.GetAsync($"{_WordpressURI}{route}{embedParam}").ConfigureAwait(false);
                     var responseString = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
                     if (response.IsSuccessStatusCode)
