@@ -34,7 +34,7 @@ jobs:
     - name: Create dockerzied WordPress
       run: |
         cd dev
-        docker-compose up -d 
+        docker compose up -d
         docker ps
         sleep 20s
         curl --fail http://localhost:8080/wp-json
