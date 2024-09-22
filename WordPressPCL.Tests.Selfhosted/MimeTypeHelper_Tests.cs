@@ -10,7 +10,7 @@ public class MimeTypeHelper_Tests {
         const string unknownExtension = "unknown";
         const string expectedMimeType = "application/octet-stream";
 
-        var resultMimeType = MimeTypeHelper.GetMIMETypeFromExtension(unknownExtension);
+        string resultMimeType = MimeTypeHelper.GetMIMETypeFromExtension(unknownExtension);
 
         Assert.AreEqual(expectedMimeType, resultMimeType);
     }

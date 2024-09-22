@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WordPressPCL.Models;
@@ -21,7 +22,7 @@ public class Themes_Tests
     [TestMethod]
     public async Task Themes_GetActive()
     {
-        var themes = await _clientAuth.Themes.QueryAsync(new ThemesQueryBuilder { Status = ActivationStatus.Active }, useAuth:true);
+        List<Theme> themes = await _clientAuth.Themes.QueryAsync(new ThemesQueryBuilder { Status = ActivationStatus.Active }, useAuth:true);
         Assert.IsNotNull(themes);
         Assert.AreNotEqual(themes.Count, 0);
 
@@ -29,7 +30,7 @@ public class Themes_Tests
     [TestMethod]
     public async Task Themes_Get()
     {
-        var themes = await _clientAuth.Themes.GetAsync (useAuth: true);
+        List<Theme> themes = await _clientAuth.Themes.GetAsync (useAuth: true);
         Assert.IsNotNull(themes);
         Assert.AreNotEqual(themes.Count, 0);
         CollectionAssert.AllItemsAreUnique(themes.Select(tag => tag.Stylesheet).ToList());
@@ -38,7 +39,7 @@ public class Themes_Tests
     [TestMethod]
     public async Task Themes_GetByID()
     {
-        var theme = await _clientAuth.Themes.GetByIDAsync("twentytwentythree", useAuth: true);
+        Theme theme = await _clientAuth.Themes.GetByIDAsync("twentytwentythree", useAuth: true);
         Assert.IsNotNull(theme);
     }
 

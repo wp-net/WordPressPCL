@@ -3,6 +3,7 @@ using WordPressPCL.Tests.Selfhosted.Utility;
 using System.Threading.Tasks;
 using WordPressPCL.Models;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace WordPressPCL.Tests.Selfhosted;
 
@@ -27,11 +28,11 @@ public class Basic_Tests
         // Initialize
         Assert.IsNotNull(_client);
         // Posts
-        var posts = await _client.Posts.GetAllAsync();
+        List<Post> posts = await _client.Posts.GetAllAsync();
         Assert.IsNotNull(posts);
 
         // Test Auth Client
-        var postsAuth = await _clientAuth.Posts.GetAllAsync();
+        List<Post> postsAuth = await _clientAuth.Posts.GetAllAsync();
         Assert.IsNotNull(postsAuth);
     }
 
@@ -39,8 +40,8 @@ public class Basic_Tests
     public async Task GetFirstPostTest()
     {
         // Initialize
-        var posts = await _client.Posts.GetAllAsync();
-        var post = await _client.Posts.GetByIDAsync(posts.First().Id);
+        List<Post> posts = await _client.Posts.GetAllAsync();
+        Post post = await _client.Posts.GetByIDAsync(posts.First().Id);
         Assert.IsTrue(posts.First().Id == post.Id);
         Assert.IsTrue(!string.IsNullOrEmpty(posts.First().Content.Rendered));
     }
@@ -49,7 +50,7 @@ public class Basic_Tests
     public async Task GetStickyPosts()
     {
         // Initialize
-        var posts = await _client.Posts.GetStickyPostsAsync();
+        List<Post> posts = await _client.Posts.GetStickyPostsAsync();
 
         foreach (Post post in posts)
         {
@@ -63,7 +64,7 @@ public class Basic_Tests
         // This CategoryID MUST exists at ApiCredentials.WordPressUri
         int category = 1;
         // Initialize
-        var posts = await _client.Posts.GetPostsByCategoryAsync(category);
+        List<Post> posts = await _client.Posts.GetPostsByCategoryAsync(category);
 
         foreach (Post post in posts)
         {
@@ -77,7 +78,7 @@ public class Basic_Tests
         // This TagID MUST exists at ApiCredentials.WordPressUri
         int tag = 12;
         // Initialize
-        var posts = await _client.Posts.GetPostsByTagAsync(tag);
+        List<Post> posts = await _client.Posts.GetPostsByTagAsync(tag);
 
         foreach (Post post in posts)
         {
@@ -91,7 +92,7 @@ public class Basic_Tests
         // This AuthorID MUST exists at ApiCredentials.WordPressUri
         int author = 2;
         // Initialize
-        var posts = await _client.Posts.GetPostsByAuthorAsync(author);
+        List<Post> posts = await _client.Posts.GetPostsByAuthorAsync(author);
 
         foreach (Post post in posts)
         {
@@ -105,7 +106,7 @@ public class Basic_Tests
         // This search term MUST be used at least once
         string search = "hello";
         // Initialize
-        var posts = await _client.Posts.GetPostsBySearchAsync(search);
+        List<Post> posts = await _client.Posts.GetPostsBySearchAsync(search);
 
         foreach (Post post in posts)
         {
@@ -123,7 +124,7 @@ public class Basic_Tests
     [TestMethod]
     public async Task Authorize()
     {
-        var validToken = await _clientAuth.Auth.IsValidJWTokenAsync();
+        bool validToken = await _clientAuth.Auth.IsValidJWTokenAsync();
         Assert.IsTrue(validToken);
     }
 }

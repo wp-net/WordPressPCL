@@ -25,12 +25,12 @@ public class Pages_Tests
     [TestMethod]
     public async Task Pages_Create()
     {
-        var page = new Page()
+        Page page = new()
         {
             Title = new Title("Title 1"),
             Content = new Content("Content PostCreate")
         };
-        var createdPage = await _clientAuth.Pages.CreateAsync(page);
+        Page createdPage = await _clientAuth.Pages.CreateAsync(page);
 
         Assert.AreEqual(page.Content.Raw, createdPage.Content.Raw);
         Assert.IsTrue(createdPage.Content.Rendered.Contains(page.Content.Rendered));
@@ -39,7 +39,7 @@ public class Pages_Tests
     [TestMethod]
     public async Task Pages_Read()
     {
-        var pages = await _client.Pages.QueryAsync(new PagesQueryBuilder());
+        List<Page> pages = await _client.Pages.QueryAsync(new PagesQueryBuilder());
         Assert.IsNotNull(pages);
         Assert.AreNotEqual(pages.Count, 0);
     }
@@ -47,7 +47,7 @@ public class Pages_Tests
     [TestMethod]
     public async Task Pages_Get()
     {
-        var pages = await _client.Pages.GetAsync();
+        List<Page> pages = await _client.Pages.GetAsync();
         Assert.IsNotNull(pages);
         Assert.AreNotEqual(pages.Count, 0);
     }
@@ -55,13 +55,13 @@ public class Pages_Tests
     [TestMethod]
     public async Task Pages_Update()
     {
-        var testContent = $"Test {System.Guid.NewGuid()}";
-        var pages = await _client.Pages.GetAllAsync();
+        string testContent = $"Test {System.Guid.NewGuid()}";
+        List<Page> pages = await _client.Pages.GetAllAsync();
         Assert.IsTrue(pages.Count > 0);
 
-        var page = pages.FirstOrDefault();
+        Page page = pages.FirstOrDefault();
         page.Content.Raw = testContent;
-        var updatedPage = await _clientAuth.Pages.UpdateAsync(page);
+        Page updatedPage = await _clientAuth.Pages.UpdateAsync(page);
         Assert.AreEqual(testContent, updatedPage.Content.Raw);
     }
 
@@ -69,26 +69,26 @@ public class Pages_Tests
     [TestMethod]
     public async Task Pages_Delete()
     {
-        var page = new Page()
+        Page page = new()
         {
             Title = new Title("Title 1"),
             Content = new Content("Content PostCreate")
         };
-        var createdPage = await _clientAuth.Pages.CreateAsync(page);
+        Page createdPage = await _clientAuth.Pages.CreateAsync(page);
         Assert.IsNotNull(createdPage);
 
-        var response = await _clientAuth.Pages.Delete(createdPage.Id);
+        bool response = await _clientAuth.Pages.Delete(createdPage.Id);
         Assert.IsTrue(response);
         await Assert.ThrowsExceptionAsync<WPException>(async () =>
         {
-            var pageById = await _client.Pages.GetByIDAsync(createdPage.Id);
+            Page pageById = await _client.Pages.GetByIDAsync(createdPage.Id);
         });
     }
 
     [TestMethod]
     public async Task Pages_Query()
     {
-        var queryBuilder = new PagesQueryBuilder()
+        PagesQueryBuilder queryBuilder = new()
         {
             Page = 1,
             PerPage = 15,
@@ -97,7 +97,7 @@ public class Pages_Tests
             Statuses = new List<Status> { Status.Publish },
             Embed = true
         };
-        var queryresult = await _client.Pages.QueryAsync(queryBuilder);
+        List<Page> queryresult = await _client.Pages.QueryAsync(queryBuilder);
         Assert.AreEqual("?page=1&per_page=15&orderby=title&status=publish&order=asc&_embed=true&context=view", queryBuilder.BuildQuery());
         Assert.IsNotNull(queryresult);
         Assert.AreNotSame(queryresult.Count, 0);

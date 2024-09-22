@@ -6,6 +6,7 @@ using WordPressPCL.Utility;
 using WordPressPCL.Models;
 using System.IO;
 using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace WordPressPCL.Tests.Selfhosted;
 
@@ -25,28 +26,28 @@ public class Media_Tests
     [TestMethod]
     public async Task Media_Create()
     {
-        var path = Directory.GetCurrentDirectory() + "/Assets/cat.jpg";
+        string path = Directory.GetCurrentDirectory() + "/Assets/cat.jpg";
         Stream s = File.OpenRead(path);
-        var mediaitem = await _clientAuth.Media.CreateAsync(s,"cat.jpg");
+        MediaItem mediaitem = await _clientAuth.Media.CreateAsync(s,"cat.jpg");
         Assert.IsNotNull(mediaitem);
     }
 
     [TestMethod]
     public async Task Media_Create_2_0()
     {
-        var path = Directory.GetCurrentDirectory() + "/Assets/cat.jpg";
-        
-        var mediaitem = await _clientAuth.Media.CreateAsync(path, "cat.jpg");
+        string path = Directory.GetCurrentDirectory() + "/Assets/cat.jpg";
+
+        MediaItem mediaitem = await _clientAuth.Media.CreateAsync(path, "cat.jpg");
         Assert.IsNotNull(mediaitem);
 
         // Create a new post with media item as featured image
-        var post = new Post()
+        Post post = new()
         {
             Title = new Title("Post with Featured Image"),
             Content = new Content("Content PostCreate"),
             FeaturedMedia = mediaitem.Id
         };
-        var createdPost = await _clientAuth.Posts.CreateAsync(post);
+        Post createdPost = await _clientAuth.Posts.CreateAsync(post);
 
         Assert.AreEqual(createdPost.FeaturedMedia, mediaitem.Id);
     }
@@ -54,7 +55,7 @@ public class Media_Tests
     [TestMethod]
     public async Task Media_With_Exif_Error_Should_Deserialize_Without_Exception() 
     {
-        var path = Directory.GetCurrentDirectory() + "/Assets/img_exif_error.jpg";
+        string path = Directory.GetCurrentDirectory() + "/Assets/img_exif_error.jpg";
         MediaItem mediaItem = null;
         try {
             mediaItem = await _clientAuth.Media.CreateAsync(path, "img_exif_error.jpg");
@@ -67,7 +68,7 @@ public class Media_Tests
     [TestMethod]
     public async Task Media_Read()
     {
-        var media = await _client.Media.GetAllAsync();
+        List<MediaItem> media = await _client.Media.GetAllAsync();
         Assert.IsNotNull(media);
         Assert.AreNotEqual(media.Count, 0);
     }
@@ -75,7 +76,7 @@ public class Media_Tests
     [TestMethod]
     public async Task Media_Get()
     {
-        var media = await _client.Media.GetAsync();
+        List<MediaItem> media = await _client.Media.GetAsync();
         Assert.IsNotNull(media);
         Assert.AreNotEqual(media.Count, 0);
     }
@@ -83,18 +84,18 @@ public class Media_Tests
     [TestMethod]
     public async Task Media_Update()
     {
-        var media = await _clientAuth.Media.GetAllAsync();
-        var file = media.FirstOrDefault();
+        List<MediaItem> media = await _clientAuth.Media.GetAllAsync();
+        MediaItem file = media.FirstOrDefault();
         Assert.IsNotNull(file);
 
-        var title = $"New Title {System.Guid.NewGuid()}";
+        string title = $"New Title {System.Guid.NewGuid()}";
         Assert.AreNotEqual(title, file.Title.Raw);
         file.Title.Raw = title;
 
-        var desc = $"This is a nice cat! {System.Guid.NewGuid()}";
+        string desc = $"This is a nice cat! {System.Guid.NewGuid()}";
         file.Description.Raw = desc;
 
-        var fileUpdated = await _clientAuth.Media.UpdateAsync(file);
+        MediaItem fileUpdated = await _clientAuth.Media.UpdateAsync(file);
         Assert.IsNotNull(fileUpdated);
         Assert.AreEqual(fileUpdated.Title.Raw, title);
         Assert.AreEqual(fileUpdated.Description.Raw, desc);
@@ -104,27 +105,27 @@ public class Media_Tests
     public async Task Media_Delete()
     {
         // Create file
-        var path = Directory.GetCurrentDirectory() + "/Assets/cat.jpg";
+        string path = Directory.GetCurrentDirectory() + "/Assets/cat.jpg";
         Stream s = File.OpenRead(path);
-        var mediaitem = await _clientAuth.Media.CreateAsync(s, "cat.jpg");
+        MediaItem mediaitem = await _clientAuth.Media.CreateAsync(s, "cat.jpg");
         Assert.IsNotNull(mediaitem);
 
         // Delete file
-        var response = await _clientAuth.Media.DeleteAsync(mediaitem.Id);
+        bool response = await _clientAuth.Media.DeleteAsync(mediaitem.Id);
         Assert.IsTrue(response);
     }
 
     [TestMethod]
     public async Task Media_Query()
     {
-        var queryBuilder = new MediaQueryBuilder()
+        MediaQueryBuilder queryBuilder = new()
         {
             Page = 1,
             PerPage = 15,
             OrderBy = MediaOrderBy.Date,
             Order = Order.ASC,
         };
-        var queryresult = await _clientAuth.Media.QueryAsync(queryBuilder);
+        List<MediaItem> queryresult = await _clientAuth.Media.QueryAsync(queryBuilder);
         Assert.AreEqual("?page=1&per_page=15&orderby=date&order=asc&context=view", queryBuilder.BuildQuery());
         Assert.IsNotNull(queryresult);
         Assert.AreNotSame(queryresult.Count, 0);
@@ -133,13 +134,13 @@ public class Media_Tests
     [TestMethod]
     public async Task MediaSizesInEmbeddedPost()
     {
-        var posts = await _client.Posts.GetAllAsync(true);
-        var i = 0;
-        foreach (var post in posts) {
+        List<Post> posts = await _client.Posts.GetAllAsync(true);
+        int i = 0;
+        foreach (Post post in posts) {
             if (post.Embedded.WpFeaturedmedia != null && post.Embedded.WpFeaturedmedia.Any())
             {
                 i++;
-                var img = post.Embedded.WpFeaturedmedia.First();
+                MediaItem img = post.Embedded.WpFeaturedmedia.First();
                 Assert.IsFalse(string.IsNullOrEmpty(img.MediaDetails.Sizes["full"].SourceUrl));
             }
         }

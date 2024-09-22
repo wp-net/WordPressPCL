@@ -28,7 +28,7 @@ public class ExceptionTests
 
         await Assert.ThrowsExceptionAsync<WPException>(async () =>
         {
-            var settings = await _client.Settings.GetSettingsAsync();
+            Settings settings = await _client.Settings.GetSettingsAsync();
         });
     }
 
@@ -71,7 +71,7 @@ public class ExceptionTests
         // Create empty post
         try
         {
-            var post = await _clientAuth.Posts.CreateAsync(new Post());
+            Post post = await _clientAuth.Posts.CreateAsync(new Post());
         }
         catch (WPException wpex)
         {
@@ -88,7 +88,7 @@ public class ExceptionTests
         // Delete nonexisted post
         try
         {
-            var result = await _clientAuth.Posts.DeleteAsync(int.MaxValue);
+            bool result = await _clientAuth.Posts.DeleteAsync(int.MaxValue);
         }
         catch (WPException wpex)
         {

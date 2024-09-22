@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WordPressPCL.Models;
@@ -22,27 +23,27 @@ public class Plugins_Tests
     [TestMethod]
     public async Task Plugins_Install_Activate_Deactivate_Delete()
     {
-        var plugin = await _clientAuth.Plugins.InstallAsync(PluginId);
+        Plugin plugin = await _clientAuth.Plugins.InstallAsync(PluginId);
         Assert.IsNotNull(plugin);
         Assert.AreEqual(PluginId, plugin.Id);
 
 
         //Activate plugin
-        var activePlugin = await _clientAuth.Plugins.ActivateAsync(plugin);
+        Plugin activePlugin = await _clientAuth.Plugins.ActivateAsync(plugin);
         Assert.AreEqual(activePlugin.Status, ActivationStatus.Active);
         Assert.AreEqual(activePlugin.Id, plugin.Id);
 
 
         //Deactivate plugin
-        var deactivatedPlugin = await _clientAuth.Plugins.DeactivateAsync(plugin);
+        Plugin deactivatedPlugin = await _clientAuth.Plugins.DeactivateAsync(plugin);
         Assert.AreEqual(deactivatedPlugin.Status, ActivationStatus.Inactive);
         Assert.AreEqual(deactivatedPlugin.Id, plugin.Id);
 
         //Delete plugin
-        var response = await _clientAuth.Plugins.DeleteAsync(plugin);
+        bool response = await _clientAuth.Plugins.DeleteAsync(plugin);
         Assert.IsTrue(response);
-        var plugins = await _clientAuth.Plugins.GetAllAsync(useAuth: true);
-        var c = plugins.Where(x => x.Id == plugin.Id).ToList();
+        List<Plugin> plugins = await _clientAuth.Plugins.GetAllAsync(useAuth: true);
+        List<Plugin> c = plugins.Where(x => x.Id == plugin.Id).ToList();
         Assert.AreEqual(c.Count, 0);
     }
 
@@ -50,7 +51,7 @@ public class Plugins_Tests
     public async Task Plugins_GetActive()
     {
         //Active plugin
-        var plugins = await _clientAuth.Plugins.QueryAsync(new PluginsQueryBuilder { Status = ActivationStatus.Active }, useAuth:true);
+        List<Plugin> plugins = await _clientAuth.Plugins.QueryAsync(new PluginsQueryBuilder { Status = ActivationStatus.Active }, useAuth:true);
         Assert.IsNotNull(plugins);
         Assert.AreNotEqual(plugins.Count, 0);
 
@@ -59,7 +60,7 @@ public class Plugins_Tests
     public async Task Plugins_Search ()
     {
         //Active plugin
-        var plugins = await _clientAuth.Plugins.QueryAsync(new PluginsQueryBuilder { Search="jwt" }, useAuth:true);
+        List<Plugin> plugins = await _clientAuth.Plugins.QueryAsync(new PluginsQueryBuilder { Search="jwt" }, useAuth:true);
         Assert.IsNotNull(plugins);
         Assert.AreNotEqual(plugins.Count, 0);
 
@@ -68,7 +69,7 @@ public class Plugins_Tests
     [TestMethod]
     public async Task Plugins_Get()
     {
-        var plugins = await _clientAuth.Plugins.GetAsync (useAuth: true);
+        List<Plugin> plugins = await _clientAuth.Plugins.GetAsync (useAuth: true);
         Assert.IsNotNull(plugins);
         Assert.AreNotEqual(plugins.Count, 0);
         CollectionAssert.AllItemsAreUnique(plugins.Select(tag => tag.Id).ToList());
@@ -77,7 +78,7 @@ public class Plugins_Tests
     [TestMethod]
     public async Task Plugins_GetByID()
     {
-        var plugin = await _clientAuth.Plugins.GetByIDAsync("jwt-auth/jwt-auth", useAuth: true);
+        Plugin plugin = await _clientAuth.Plugins.GetByIDAsync("jwt-auth/jwt-auth", useAuth: true);
         Assert.IsNotNull(plugin);
     }
 
