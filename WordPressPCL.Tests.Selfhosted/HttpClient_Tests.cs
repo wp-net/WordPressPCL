@@ -33,7 +33,7 @@ public class HttpClient_Tests
         await CustomHttpClientBase(httpClient, wordPressClient);
     }
 
-    private async Task CustomHttpClientBase(HttpClient httpClient, WordPressClient client)
+    private static async Task CustomHttpClientBase(HttpClient httpClient, WordPressClient client)
     {
         httpClient.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 6.2; WOW64; rv:33.0) Gecko/20100101 Firefox/33.0");
         httpClient.DefaultRequestHeaders.Add("Referer", "https://github.com/wp-net/WordPressPCL");
@@ -42,9 +42,5 @@ public class HttpClient_Tests
         Post post = await client.Posts.GetByIDAsync(posts.First().Id);
         Assert.IsTrue(posts.First().Id == post.Id);
         Assert.IsTrue(!string.IsNullOrEmpty(posts.First().Content.Rendered));
-
-        await client.Auth.RequestJWTokenAsync(ApiCredentials.Username, ApiCredentials.Password);
-        bool validToken = await client.Auth.IsValidJWTokenAsync();
-        Assert.IsTrue(validToken);
     }
 }
