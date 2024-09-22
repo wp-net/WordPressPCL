@@ -53,14 +53,14 @@ WordPressPCL is built on top of the [.NET Standard](https://docs.microsoft.com/e
 // Client construction
 
 //pass the Wordpress REST API base address as string
-var client = new WordPressClient("http://demo.wp-api.org/wp-json/");
+var client = new WordPressClient("https://demo.wp-api.org/wp-json/");
 
 //or pass the base address as strongly typed Uri
-const wpBaseAddress = new Uri("http://demo.wp-api.org/wp-json/");
+const wpBaseAddress = new Uri("https://demo.wp-api.org/wp-json/");
 var client = new WordPressClient(wpBaseAddress);
 
 //or to reuse an HttpClient pass the HttpClient with base address set to api's base address
-httpClient.BaseAddress = new Uri("http://demo.wp-api.org/wp-json/")
+httpClient.BaseAddress = new Uri("https://demo.wp-api.org/wp-json/")
 var client = new WordPressClient(httpClient);
 
 // Posts
