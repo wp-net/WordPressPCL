@@ -1,7 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Linq;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using WordPressPCL;
+using WordPressPCL.Models;
 using WordPressPCL.Tests.Selfhosted.Utility;
 
 namespace WordPressPCL.Tests.Selfhosted;
@@ -20,16 +20,16 @@ public class PostStatuses_Tests
     [TestMethod]
     public async Task PostStatuses_Read()
     {
-        var poststatuses = await _clientAuth.PostStatuses.GetAllAsync();
+        List<PostStatus> poststatuses = await _clientAuth.PostStatuses.GetAllAsync();
         Assert.IsNotNull(poststatuses);
-        Assert.AreNotEqual(poststatuses.Count(), 0);
+        Assert.AreNotEqual(poststatuses.Count, 0);
     }
 
     [TestMethod]
     public async Task PostStatuses_Get()
     {
-        var poststatuses = await _clientAuth.PostStatuses.GetAsync();
+        List<PostStatus> poststatuses = await _clientAuth.PostStatuses.GetAsync();
         Assert.IsNotNull(poststatuses);
-        Assert.AreNotEqual(poststatuses.Count(), 0);
+        Assert.AreNotEqual(poststatuses.Count, 0);
     }
 }

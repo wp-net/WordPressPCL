@@ -1,11 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
+using WordPressPCL.Models;
 using WordPressPCL.Tests.Selfhosted.Utility;
-using System.Linq;
-using WordPressPCL;
 
 namespace WordPressPCL.Tests.Selfhosted;
 
@@ -23,7 +19,7 @@ public class Settings_Tests
     [TestMethod]
     public async Task Get_Settings_Test()
     {
-        var settings = await _clientAuth.Settings.GetSettingsAsync();
+        Settings settings = await _clientAuth.Settings.GetSettingsAsync();
         Assert.IsNotNull(settings);
         Assert.IsNotNull(settings.Title);
     }

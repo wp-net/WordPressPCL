@@ -1,6 +1,5 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Diagnostics;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using WordPressPCL.Models;
 using WordPressPCL.Tests.Selfhosted.Utility;
@@ -21,7 +20,7 @@ public class ApplicationPasswords_Tests
     [TestMethod]
     public async Task Application_Passwords_Create()
     {
-        var password = await _clientAuth.Users.CreateApplicationPasswordAsync(System.Guid.NewGuid().ToString());
+        ApplicationPassword password = await _clientAuth.Users.CreateApplicationPasswordAsync(System.Guid.NewGuid().ToString());
         Assert.IsNotNull(password.Password);
     }
 
@@ -29,7 +28,7 @@ public class ApplicationPasswords_Tests
     public async Task Read()
     {
         await _clientAuth.Users.CreateApplicationPasswordAsync(System.Guid.NewGuid().ToString());
-        var passwords = await _clientAuth.Users.GetApplicationPasswords();
+        List<ApplicationPassword> passwords = await _clientAuth.Users.GetApplicationPasswords();
 
         Assert.IsNotNull(passwords);
         Assert.AreNotEqual(0, passwords.Count);
@@ -38,16 +37,16 @@ public class ApplicationPasswords_Tests
     [TestMethod]
     public async Task Application_Password_Auth()
     {
-        var appPassword = await _clientAuth.Users.CreateApplicationPasswordAsync(System.Guid.NewGuid().ToString());
-        var appPasswordClient = new WordPressClient(ApiCredentials.WordPressUri);
+        ApplicationPassword appPassword = await _clientAuth.Users.CreateApplicationPasswordAsync(System.Guid.NewGuid().ToString());
+        WordPressClient appPasswordClient = new(ApiCredentials.WordPressUri);
         appPasswordClient.Auth.UseBasicAuth(ApiCredentials.Username, appPassword.Password);
 
-        var post = new Post()
+        Post post = new()
         {
             Title = new Title("Title 1"),
             Content = new Content("Content PostCreate")
         };
-        var postCreated = await appPasswordClient.Posts.CreateAsync(post);
+        Post postCreated = await appPasswordClient.Posts.CreateAsync(post);
         Assert.IsNotNull(postCreated);
         Assert.AreEqual("Title 1", postCreated.Title.Raw);
     }

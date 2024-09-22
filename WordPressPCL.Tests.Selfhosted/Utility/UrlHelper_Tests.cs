@@ -12,7 +12,7 @@ public class UrlHelper_Tests
     public void SetQueryParam_Test()
     {
         string test = "test";
-        var result = test.SetQueryParam("param", "value");
+        string result = test.SetQueryParam("param", "value");
 
         Assert.AreEqual("test", test);
         Assert.AreEqual("test?param=value", result);

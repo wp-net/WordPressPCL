@@ -18,25 +18,27 @@ namespace WordPressPCL.Utility
         /// <param name="comments">list of comments which will be ordered</param>
         /// <param name="maxDepth">max hierarchy depth</param>
         /// <param name="isDescending">order by descending</param>
-        public static List<CommentThreaded> GetThreadedComments(IEnumerable<Comment> comments, int maxDepth = int.MaxValue, bool isDescending = false)
+        public static List<CommentThreaded> GetThreadedComments(List<Comment> comments, int maxDepth = int.MaxValue, bool isDescending = false)
         {
             if (comments == null)
+            {
                 return null;
+            }
 
-            var threadedCommentsFinal = new List<CommentThreaded>();
-            var dateSortedThreadedComments = DateSortedWithDepth(comments, maxDepth, isDescending);
+            List<CommentThreaded> threadedCommentsFinal = new();
+            List<CommentThreaded> dateSortedThreadedComments = DateSortedWithDepth(comments, maxDepth, isDescending);
 
             int lastrun = int.MaxValue;
             while (dateSortedThreadedComments.Count > 0)
             {
-                var thisrun = dateSortedThreadedComments.Count;
+                int thisrun = dateSortedThreadedComments.Count;
                 if (thisrun == lastrun)
                 {
                     // no comments could be moved, abort
                     break;
                 }
                 lastrun = thisrun;
-                foreach (var comment in dateSortedThreadedComments)
+                foreach (CommentThreaded comment in dateSortedThreadedComments)
                 {
                     if (comment.ParentId == 0)
                     {
@@ -45,19 +47,19 @@ namespace WordPressPCL.Utility
                     else
                     {
                         // is parent already in threadedComments?
-                        var parentComment = threadedCommentsFinal.Find(x => x.Id == comment.ParentId);
+                        CommentThreaded parentComment = threadedCommentsFinal.Find(x => x.Id == comment.ParentId);
                         if (parentComment != null)
                         {
-                            var index = threadedCommentsFinal.IndexOf(parentComment);
+                            int index = threadedCommentsFinal.IndexOf(parentComment);
                             threadedCommentsFinal.Insert(index + 1, comment);
                         }
                     }
                 }
 
                 // remove all comments that have been moved to the new sorted list
-                foreach (var comment in threadedCommentsFinal)
+                foreach (CommentThreaded comment in threadedCommentsFinal)
                 {
-                    var c = dateSortedThreadedComments.Find(x => x.Id == comment.Id);
+                    CommentThreaded c = dateSortedThreadedComments.Find(x => x.Id == comment.Id);
                     if (c != null)
                     {
                         dateSortedThreadedComments.Remove(c);
@@ -71,14 +73,14 @@ namespace WordPressPCL.Utility
             return threadedCommentsFinal;
         }
 
-        private static List<CommentThreaded> DateSortedWithDepth(IEnumerable<Comment> comments, int maxDepth, bool isDescending = false)
+        private static List<CommentThreaded> DateSortedWithDepth(List<Comment> comments, int maxDepth, bool isDescending = false)
         {
-            var dateSortedComments = isDescending ? comments.OrderByDescending(x => x.Date).ToList()
+            List<Comment> dateSortedComments = isDescending ? comments.OrderByDescending(x => x.Date).ToList()
                                                     : comments.OrderBy(x => x.Date).ToList();
-            var dateSortedthreadedComments = new List<CommentThreaded>();
-            foreach (var c in dateSortedComments)
+            List<CommentThreaded> dateSortedthreadedComments = new();
+            foreach (Comment c in dateSortedComments)
             {
-                var serialized = JsonConvert.SerializeObject(c);
+                string serialized = JsonConvert.SerializeObject(c);
                 CommentThreaded commentThreaded = JsonConvert.DeserializeObject<CommentThreaded>(serialized);
                 commentThreaded.Depth = GetCommentThreadedDepth(c, comments.ToList(), maxDepth);
                 dateSortedthreadedComments.Add(commentThreaded);
@@ -99,7 +101,7 @@ namespace WordPressPCL.Utility
             }
             else
             {
-                var parentComment = list.Find(x => x.Id == comment.ParentId);
+                Comment parentComment = list.Find(x => x.Id == comment.ParentId);
                 if (parentComment == null)
                 {
                     return Math.Min(depth, maxDepth);
@@ -117,7 +119,7 @@ namespace WordPressPCL.Utility
         /// <param name="comments">Comments which will be threaded</param>
         /// <param name="isDescending">Newest comments should be shown first</param>
         /// <returns>List of threaded comments</returns>
-        public static List<CommentThreaded> ToThreaded(this IEnumerable<Comment> comments, bool isDescending = false)
+        public static List<CommentThreaded> ToThreaded(this List<Comment> comments, bool isDescending = false)
         {
             return GetThreadedComments(comments, int.MaxValue, isDescending);
         }

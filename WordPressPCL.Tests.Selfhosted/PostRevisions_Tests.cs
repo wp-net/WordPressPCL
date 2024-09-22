@@ -1,7 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using WordPressPCL;
 using WordPressPCL.Models;
 using WordPressPCL.Tests.Selfhosted.Utility;
 
@@ -21,44 +21,44 @@ public class PostRevisions_Tests
     [TestMethod]
     public async Task PostRevisions_Read()
     {
-        var id = await CreatePostWithRevision();
-        var revisionsclient = _clientAuth.Posts.Revisions(id);
-        var revisions = await revisionsclient.GetAllAsync();
-        Assert.AreNotEqual(revisions.Count(), 0);
+        int id = await CreatePostWithRevision();
+        Client.PostRevisions revisionsclient = _clientAuth.Posts.Revisions(id);
+        List<PostRevision> revisions = await revisionsclient.GetAllAsync();
+        Assert.AreNotEqual(revisions.Count, 0);
     }
 
     [TestMethod]
     public async Task PostRevisions_Get()
     {
-        var id = await CreatePostWithRevision();
-        var revisionsclient = _clientAuth.Posts.Revisions(id);
-        var revisions = await revisionsclient.GetAsync();
-        Assert.AreNotEqual(revisions.Count(), 0);
+        int id = await CreatePostWithRevision();
+        Client.PostRevisions revisionsclient = _clientAuth.Posts.Revisions(id);
+        List<PostRevision> revisions = await revisionsclient.GetAsync();
+        Assert.AreNotEqual(revisions.Count, 0);
     }
 
     // TODO: check why revision can't be deleted
     //[TestMethod]
     public async Task PostRevisions_Delete()
     {
-        var id = await CreatePostWithRevision();
+        int id = await CreatePostWithRevision();
 
-        var revisionsclient = _clientAuth.Posts.Revisions(id);
-        var revisions = await revisionsclient.GetAllAsync();
-        Assert.AreNotEqual(revisions.Count(), 0);
-        var res = await revisionsclient.DeleteAsync(revisions.First().Id);
+        Client.PostRevisions revisionsclient = _clientAuth.Posts.Revisions(id);
+        List<PostRevision> revisions = await revisionsclient.GetAllAsync();
+        Assert.AreNotEqual(revisions.Count, 0);
+        bool res = await revisionsclient.DeleteAsync(revisions.First().Id);
         Assert.IsTrue(res);
     }
 
     private async Task<int> CreatePostWithRevision()
     {
-        var post = new Post()
+        Post post = new()
         {
             Title = new Title("Title 1"),
             Content = new Content("Content PostCreate"),
         };
-        var createdPost = await _clientAuth.Posts.CreateAsync(post);
+        Post createdPost = await _clientAuth.Posts.CreateAsync(post);
         createdPost.Content.Raw = "Updated Content";
-        var updatedPost = await _clientAuth.Posts.UpdateAsync(createdPost);
+        Post updatedPost = await _clientAuth.Posts.UpdateAsync(createdPost);
         return updatedPost.Id;
     }
 }

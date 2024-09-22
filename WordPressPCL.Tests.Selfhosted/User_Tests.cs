@@ -1,11 +1,10 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using WordPressPCL.Models;
-using WordPressPCL.Utility;
 using WordPressPCL.Tests.Selfhosted.Utility;
-using WordPressPCL.Models.Exceptions;
+using WordPressPCL.Utility;
 using Guid = System.Guid;
 
 namespace WordPressPCL.Tests.Selfhosted;
@@ -26,15 +25,15 @@ public class User_Tests
     [TestMethod]
     public async Task Users_Create()
     {
-        var username = Guid.NewGuid().ToString();
-        var nickname = $"Nickname{username}";
-        var email = $"{username}@test.com";
-        var firstname = $"Firstname{username}";
-        var lastname = $"Lastname{username}";
-        var password = $"testpassword{username}";
-        var name = $"{firstname} {lastname}";
+        string username = Guid.NewGuid().ToString();
+        string nickname = $"Nickname{username}";
+        string email = $"{username}@test.com";
+        string firstname = $"Firstname{username}";
+        string lastname = $"Lastname{username}";
+        string password = $"testpassword{username}";
+        string name = $"{firstname} {lastname}";
 
-        var user = await _clientAuth.Users.CreateAsync(new User(username, email, password)
+        User user = await _clientAuth.Users.CreateAsync(new User(username, email, password)
         {
             NickName = nickname,
             Name = name,
@@ -53,10 +52,10 @@ public class User_Tests
     [TestMethod]
     public async Task Users_Read()
     {
-        var users = await _client.Users.GetAllAsync();
+        List<User> users = await _client.Users.GetAllAsync();
         Assert.IsNotNull(users);
-        Assert.IsTrue(users.Count() >= 1);
-        var user = await _client.Users.GetByIDAsync(users.First().Id);
+        Assert.IsTrue(users.Count >= 1);
+        User user = await _client.Users.GetByIDAsync(users.First().Id);
         Assert.IsNotNull(user);
         Assert.AreEqual(user.Id, users.First().Id);
     }
@@ -64,10 +63,10 @@ public class User_Tests
     [TestMethod]
     public async Task Users_Get()
     {
-        var users = await _client.Users.GetAsync();
+        List<User> users = await _client.Users.GetAsync();
         Assert.IsNotNull(users);
-        Assert.IsTrue(users.Count() >= 1);
-        var user = await _client.Users.GetByIDAsync(users.First().Id);
+        Assert.IsTrue(users.Count >= 1);
+        User user = await _client.Users.GetByIDAsync(users.First().Id);
         Assert.IsNotNull(user);
         Assert.AreEqual(user.Id, users.First().Id);
     }
@@ -75,16 +74,16 @@ public class User_Tests
     [TestMethod]
     public async Task Users_Update()
     {
-        var user = await CreateRandomUser();
+        User user = await CreateRandomUser();
         Assert.IsNotNull(user);
 
-        var name = $"TestuserUpdate";
+        string name = $"TestuserUpdate";
         user.Name = name;
         user.NickName = name;
         user.FirstName = name;
         user.LastName = name;
 
-        var updatedUser = await _clientAuth.Users.UpdateAsync(user);
+        User updatedUser = await _clientAuth.Users.UpdateAsync(user);
         Assert.IsNotNull(updatedUser);
         Assert.AreEqual(updatedUser.Name, name);
         Assert.AreEqual(updatedUser.NickName, name);
@@ -95,10 +94,10 @@ public class User_Tests
     [TestMethod]
     public async Task Users_Delete()
     {
-        var user = await CreateRandomUser();
+        User user = await CreateRandomUser();
         Assert.IsNotNull(user);
-        var me = await _clientAuth.Users.GetCurrentUserAsync();
-        var response = await _clientAuth.Users.Delete(user.Id, me.Id);
+        User me = await _clientAuth.Users.GetCurrentUserAsync();
+        bool response = await _clientAuth.Users.Delete(user.Id, me.Id);
         Assert.IsTrue(response);
     }
 
@@ -106,36 +105,36 @@ public class User_Tests
     public async Task Users_Delete_And_Reassign_Posts()
     {
         // Create new user
-        var user1 = await CreateRandomUser();
+        User user1 = await CreateRandomUser();
         Assert.IsNotNull(user1);
-        var user2 = await CreateRandomUser();
+        User user2 = await CreateRandomUser();
         Assert.IsNotNull(user2);
 
         // Create post for user
-        var post = new Post()
+        Post post = new()
         {
             Title = new Title("Title 1"),
             Content = new Content("Content PostCreate"),
             Author = user1.Id
         };
-        var postCreated = await _clientAuth.Posts.CreateAsync(post);
+        Post postCreated = await _clientAuth.Posts.CreateAsync(post);
         Assert.IsNotNull(post);
         Assert.AreEqual(postCreated.Author, user1.Id);
 
         // Delete User1 and reassign posts to user2
-        var response = await _clientAuth.Users.Delete(user1.Id, user2.Id);
+        bool response = await _clientAuth.Users.Delete(user1.Id, user2.Id);
         Assert.IsTrue(response);
 
         // Get posts for user 2 and check if ID of postCreated is in there
-        var postsOfUser2 = await _clientAuth.Posts.GetPostsByAuthorAsync(user2.Id);
-        var postsById = postsOfUser2.Where(x => x.Id == postCreated.Id).ToList();
+        List<Post> postsOfUser2 = await _clientAuth.Posts.GetPostsByAuthorAsync(user2.Id);
+        List<Post> postsById = postsOfUser2.Where(x => x.Id == postCreated.Id).ToList();
         Assert.AreEqual(postsById.Count, 1);
     }
 
     [TestMethod]
     public async Task Users_Query()
     {
-        var queryBuilder = new UsersQueryBuilder()
+        UsersQueryBuilder queryBuilder = new()
         {
             Page = 1,
             PerPage = 15,
@@ -145,18 +144,38 @@ public class User_Tests
         };
         Assert.AreEqual("?page=1&per_page=15&orderby=registered_date&order=desc&context=edit", queryBuilder.BuildQuery());
 
-        var queryresult = await _clientAuth.Users.QueryAsync(queryBuilder, true);
+        List<User> queryresult = await _clientAuth.Users.QueryAsync(queryBuilder, true);
         Assert.IsNotNull(queryresult);
-        Assert.AreNotSame(queryresult.Count(), 0);
+        Assert.AreNotSame(queryresult.Count, 0);
+    }
+
+    [TestMethod]
+    public async Task Users_GetRoles()
+    {
+        UsersQueryBuilder queryBuilder = new()
+        {
+            // required for roles to be loaded
+            Context = Context.Edit
+        };
+
+        List<User> users = await _clientAuth.Users.QueryAsync(queryBuilder, true);
+        Assert.IsNotNull(users);
+        Assert.IsTrue(users.Count >= 1);
+
+        foreach (User user in users)
+        {
+            Assert.IsNotNull(user.Roles);
+            Assert.IsTrue(user.Roles.Count >= 1);
+        }
     }
 
     #region Utils
 
     private Task<User> CreateRandomUser()
     {
-        var username = Guid.NewGuid().ToString();
-        var email = $"{username}@test.com";
-        var password = $"testpassword{username}";
+        string username = Guid.NewGuid().ToString();
+        string email = $"{username}@test.com";
+        string password = $"testpassword{username}";
         return _clientAuth.Users.CreateAsync(new User(username, email, password));
     }
 

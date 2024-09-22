@@ -26,8 +26,10 @@ jobs:
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 8.x
+    - name: Dotnet Restore
+      run: dotnet restore ${{ env.solution }} --disable-parallel
     - name: Build Solution
-      run: dotnet build ${{ env.solution }} -c Release
+      run: dotnet build ${{ env.solution }} -c Release --no-restore
       
     - name: Create dockerzied WordPress
       run: |

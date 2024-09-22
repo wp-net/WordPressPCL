@@ -1,7 +1,4 @@
-﻿using System.Threading.Tasks;
-using WordPressPCL.Models;
-
-namespace WordPressPCL.Tests.Hosted.Utility;
+﻿namespace WordPressPCL.Tests.Hosted.Utility;
 
 public static class ClientHelper
 {

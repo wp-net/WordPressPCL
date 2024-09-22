@@ -1,11 +1,10 @@
-using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using WordPressPCL.Tests.Selfhosted.Utility;
-using WordPressPCL;
 using System.Threading.Tasks;
 using WordPressPCL.Models;
 using WordPressPCL.Utility;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace WordPressPCL.Tests.Selfhosted;
 
@@ -21,7 +20,7 @@ public class Tag_Tests
         _client = ClientHelper.GetWordPressClient();
         _clientAuth = await ClientHelper.GetAuthenticatedWordPressClient(testContext);
 
-        var tagname = $"Test {System.Guid.NewGuid()}";
+        string tagname = $"Test {System.Guid.NewGuid()}";
         await _clientAuth.Tags.CreateAsync(new Tag()
         {
             Name = tagname,
@@ -32,8 +31,8 @@ public class Tag_Tests
     [TestMethod]
     public async Task Tags_Create()
     {
-        var tagname = $"Test {System.Guid.NewGuid()}";
-        var tag = await _clientAuth.Tags.CreateAsync(new Tag()
+        string tagname = $"Test {System.Guid.NewGuid()}";
+        Tag tag = await _clientAuth.Tags.CreateAsync(new Tag()
         {
             Name = tagname,
             Description = "Test Description"
@@ -46,35 +45,35 @@ public class Tag_Tests
     [TestMethod]
     public async Task Tags_Read()
     {
-        var tags = await _clientAuth.Tags.GetAllAsync();
+        List<Tag> tags = await _clientAuth.Tags.GetAllAsync();
         Assert.IsNotNull(tags);
-        Assert.AreNotEqual(tags.Count(), 0);
+        Assert.AreNotEqual(tags.Count, 0);
         CollectionAssert.AllItemsAreUnique(tags.Select(tag => tag.Id).ToList());
     }
 
     [TestMethod]
     public async Task Tags_Get()
     {
-        var tags = await _client.Tags.GetAsync();
+        List<Tag> tags = await _client.Tags.GetAsync();
         Assert.IsNotNull(tags);
-        Assert.AreNotEqual(tags.Count(), 0);
+        Assert.AreNotEqual(tags.Count, 0);
         CollectionAssert.AllItemsAreUnique(tags.Select(tag => tag.Id).ToList());
     }
 
     [TestMethod]
     public async Task Tags_Update()
     {
-        var tags = await _clientAuth.Tags.GetAllAsync();
-        var tag = tags.FirstOrDefault();
+        List<Tag> tags = await _clientAuth.Tags.GetAllAsync();
+        Tag tag = tags.FirstOrDefault();
         if(tag == null)
         {
             Assert.Inconclusive();
         }
-        var tagname = $"Testname {System.Guid.NewGuid()}";
-        var tagdesc = "Test Description";
+        string tagname = $"Testname {System.Guid.NewGuid()}";
+        string tagdesc = "Test Description";
         tag.Name = tagname;
         tag.Description = tagdesc;
-        var tagUpdated = await _clientAuth.Tags.UpdateAsync(tag);
+        Tag tagUpdated = await _clientAuth.Tags.UpdateAsync(tag);
         Assert.AreEqual(tagname, tagUpdated.Name);
         Assert.AreEqual(tagdesc, tagUpdated.Description);
     }
@@ -82,33 +81,33 @@ public class Tag_Tests
     [TestMethod]
     public async Task Tags_Delete()
     {
-        var tags = await _clientAuth.Tags.GetAllAsync();
-        var tag = tags.FirstOrDefault();
+        List<Tag> tags = await _clientAuth.Tags.GetAllAsync();
+        Tag tag = tags.FirstOrDefault();
         if (tag == null)
         {
             Assert.Inconclusive();
         }
-        var tagId = tag.Id;
-        var response = await _clientAuth.Tags.DeleteAsync(tagId);
+        int tagId = tag.Id;
+        bool response = await _clientAuth.Tags.DeleteAsync(tagId);
         Assert.IsTrue(response);
         tags = await _clientAuth.Tags.GetAllAsync();
-        var tagsWithId = tags.Where(x => x.Id == tagId).ToList();
+        List<Tag> tagsWithId = tags.Where(x => x.Id == tagId).ToList();
         Assert.AreEqual(tagsWithId.Count, 0);
     }
     [TestMethod]
     public async Task Tags_Query()
     {
-        var queryBuilder = new TagsQueryBuilder()
+        TagsQueryBuilder queryBuilder = new()
         {
             Page = 1,
             PerPage = 15,
             OrderBy = TermsOrderBy.Id,
             Order = Order.DESC,
         };
-        var queryresult = await _clientAuth.Tags.QueryAsync(queryBuilder);
+        List<Tag> queryresult = await _clientAuth.Tags.QueryAsync(queryBuilder);
         Assert.AreEqual("?page=1&per_page=15&orderby=id&order=desc&context=view", queryBuilder.BuildQuery());
         Assert.IsNotNull(queryresult);
-        Assert.AreNotSame(queryresult.Count(), 0);
+        Assert.AreNotSame(queryresult.Count, 0);
     }
 
 }

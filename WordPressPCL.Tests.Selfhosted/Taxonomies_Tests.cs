@@ -1,9 +1,9 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Linq;
 using System.Threading.Tasks;
-using WordPressPCL;
 using WordPressPCL.Utility;
 using WordPressPCL.Tests.Selfhosted.Utility;
+using WordPressPCL.Models;
+using System.Collections.Generic;
 
 namespace WordPressPCL.Tests.Selfhosted;
 
@@ -21,29 +21,29 @@ public class Taxonomies_Tests
     [TestMethod]
     public async Task Taxonomies_Read()
     {
-        var taxonomies = await _clientAuth.Taxonomies.GetAllAsync();
+        List<Taxonomy> taxonomies = await _clientAuth.Taxonomies.GetAllAsync();
         Assert.IsNotNull(taxonomies);
-        Assert.AreNotEqual(taxonomies.Count(), 0);
+        Assert.AreNotEqual(taxonomies.Count, 0);
     }
 
     [TestMethod]
     public async Task Taxonomies_Get()
     {
-        var taxonomies = await _clientAuth.Taxonomies.GetAsync();
+        List<Taxonomy> taxonomies = await _clientAuth.Taxonomies.GetAsync();
         Assert.IsNotNull(taxonomies);
-        Assert.AreNotEqual(taxonomies.Count(), 0);
+        Assert.AreNotEqual(taxonomies.Count, 0);
     }
 
     [TestMethod]
     public async Task Taxonomies_Query()
     {
-        var queryBuilder = new TaxonomiesQueryBuilder()
+        TaxonomiesQueryBuilder queryBuilder = new()
         {
             Type = "post"
         };
-        var queryresult = await _clientAuth.Taxonomies.QueryAsync(queryBuilder);
+        List<Taxonomy> queryresult = await _clientAuth.Taxonomies.QueryAsync(queryBuilder);
         Assert.AreEqual("?type=post&order=desc&context=view", queryBuilder.BuildQuery());
         Assert.IsNotNull(queryresult);
-        Assert.AreNotSame(queryresult.Count(), 0);
+        Assert.AreNotSame(queryresult.Count, 0);
     }
 }

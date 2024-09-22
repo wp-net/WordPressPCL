@@ -37,6 +37,18 @@ queryBuilder.Before = DateTime.Now;
 var users = await client.Users.QueryAsync(queryBuilder);
 ```
 
+## Query with Roles
+To retreive users with roles, you'll need to set the `Context` property of the `UsersQueryBuilder` to `Context.Edit`.
+```C#
+UsersQueryBuilder queryBuilder = new()
+{
+    // required for roles to be loaded
+    Context = Context.Edit
+};
+
+List<User> users = await _clientAuth.Users.QueryAsync(queryBuilder, true);
+```
+
 ## Create new User
 
 ```C#

@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using WordPressPCL.Models;
+﻿using WordPressPCL.Models;
 
 namespace WordPressPCL.Utility
 {

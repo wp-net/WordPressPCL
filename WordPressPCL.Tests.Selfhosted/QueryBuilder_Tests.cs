@@ -13,7 +13,7 @@ public class QueryBuilder_Tests
     public void Multi_Parameter_Query_Works_Test()
     {
         // Initialize
-        var builder = new PostsQueryBuilder() {
+        PostsQueryBuilder builder = new() {
             Page = 1,
             PerPage = 15,
             OrderBy = PostsOrderBy.Title,

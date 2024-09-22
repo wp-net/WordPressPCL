@@ -1,6 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Diagnostics;
 using System.Threading.Tasks;
 using WordPressPCL.Models;
 
@@ -10,7 +9,7 @@ public static class ClientHelper
 {
     public static async Task<WordPressClient> GetAuthenticatedWordPressClient(TestContext context)
     {
-        var clientAuth = new WordPressClient(ApiCredentials.WordPressUri);
+        WordPressClient clientAuth = new(ApiCredentials.WordPressUri);
 
         Console.WriteLine($"Auth Plugin: {context?.Properties["authplugin"]}");
         if (context?.Properties["authplugin"]?.ToString() == "jwtAuthByUsefulTeam")
