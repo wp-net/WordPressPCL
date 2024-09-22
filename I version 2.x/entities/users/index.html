@@ -95,6 +95,8 @@
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#query">Query</a>
     </li>
+    <li class="toctree-l3"><a class="reference internal" href="#query-with-roles">Query with Roles</a>
+    </li>
     <li class="toctree-l3"><a class="reference internal" href="#create-new-user">Create new User</a>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#update-user">Update User</a>
@@ -203,6 +205,16 @@ queryBuilder.PerPage = 40;
 queryBuilder.Page = 2;
 queryBuilder.Before = DateTime.Now;
 var users = await client.Users.QueryAsync(queryBuilder);
+</code></pre>
+<h2 id="query-with-roles">Query with Roles</h2>
+<p>To retreive users with roles, you'll need to set the <code>Context</code> property of the <code>UsersQueryBuilder</code> to <code>Context.Edit</code>.</p>
+<pre><code class="language-C#">UsersQueryBuilder queryBuilder = new()
+{
+    // required for roles to be loaded
+    Context = Context.Edit
+};
+
+List&lt;User&gt; users = await _clientAuth.Users.QueryAsync(queryBuilder, true);
 </code></pre>
 <h2 id="create-new-user">Create new User</h2>
 <pre><code class="language-C#">// returns created user
