@@ -36,7 +36,7 @@ services:
       - db
       - wordpress
     image: wordpress:cli
-    user: xfs
+    user: 33:33
     container_name: wp-cli
     volumes:
       - wp-volume:/var/www/html
