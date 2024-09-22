@@ -1,14 +1,13 @@
 ﻿using Newtonsoft.Json.Linq;
-using System;
 using System.Collections.Generic;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using WordPressPCL.Models;
 using WordPressPCL.Models.Exceptions;
 using WordPressPCL.Utility;
 
-namespace WordPressPCL.Client {
+namespace WordPressPCL.Client
+{
 
     /// <summary>
     /// Client class for interaction with Auth endpoints of WP REST API

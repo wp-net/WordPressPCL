@@ -1,7 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Linq;
 using System.Threading.Tasks;
-using WordPressPCL;
 using WordPressPCL.Utility;
 using WordPressPCL.Tests.Selfhosted.Utility;
 

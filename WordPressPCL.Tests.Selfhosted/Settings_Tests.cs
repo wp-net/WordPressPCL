@@ -1,11 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using WordPressPCL.Tests.Selfhosted.Utility;
-using System.Linq;
-using WordPressPCL;
 
 namespace WordPressPCL.Tests.Selfhosted;
 
