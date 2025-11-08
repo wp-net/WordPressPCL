@@ -933,6 +933,31 @@
             <param name="Entity">object to update</param>
             <returns>Updated entity</returns>
         </member>
+        <member name="T:WordPressPCL.Interfaces.IWordPressApi">
+            <summary>
+            Refit interface for WordPress REST API
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Interfaces.IWordPressApi.GetAsync(System.String,System.String)">
+            <summary>
+            GET request to specified route with dynamic path
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Interfaces.IWordPressApi.PostAsync(System.String,System.Net.Http.HttpContent,System.String)">
+            <summary>
+            POST request to specified route with dynamic path
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Interfaces.IWordPressApi.DeleteAsync(System.String,System.String)">
+            <summary>
+            DELETE request to specified route with dynamic path
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Interfaces.IWordPressApi.HeadAsync(System.String,System.String)">
+            <summary>
+            HEAD request to specified route with dynamic path
+            </summary>
+        </member>
         <member name="T:WordPressPCL.Models.ApplicationPassword">
             <summary>
             Application Password
@@ -4615,6 +4640,42 @@
             <param name="httpClient">HttpClient with BaseAddress set which will be used for sending requests to the WordPress API endpoint.</param>
             <param name="defaultPath">Relative path to standard API endpoints, defaults to "wp/v2/"</param>
             <param name="uri">URI for WordPress API endpoint, e.g. "http://demo.wp-api.org/wp-json/".  Use this if the BaseAddress of the httpClient is not set.</param>
+        </member>
+        <member name="T:Refit.Implementation.Generated">
+            <inheritdoc />
+        </member>
+        <member name="T:Refit.Implementation.Generated.WordPressPCLInterfacesIWordPressApi">
+            <inheritdoc />
+        </member>
+        <member name="P:Refit.Implementation.Generated.WordPressPCLInterfacesIWordPressApi.Client">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIWordPressApi.#ctor(System.Net.Http.HttpClient,Refit.IRequestBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIWordPressApi.GetAsync(System.String,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIWordPressApi.PostAsync(System.String,System.Net.Http.HttpContent,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIWordPressApi.DeleteAsync(System.String,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIWordPressApi.HeadAsync(System.String,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIWordPressApi.WordPressPCL#Interfaces#IWordPressApi#GetAsync(System.String,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIWordPressApi.WordPressPCL#Interfaces#IWordPressApi#PostAsync(System.String,System.Net.Http.HttpContent,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIWordPressApi.WordPressPCL#Interfaces#IWordPressApi#DeleteAsync(System.String,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIWordPressApi.WordPressPCL#Interfaces#IWordPressApi#HeadAsync(System.String,System.String)">
+            <inheritdoc />
         </member>
     </members>
 </doc>

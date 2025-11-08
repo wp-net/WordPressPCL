@@ -5,6 +5,8 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using Refit;
+using WordPressPCL.Interfaces;
 using WordPressPCL.Models;
 using WordPressPCL.Models.Exceptions;
 
@@ -20,6 +22,7 @@ namespace WordPressPCL.Utility
         private readonly HttpClient _httpClient;
         private readonly string _defaultPath;
         private readonly Uri _baseUri;
+        private readonly IWordPressApi _refitClient;
 
         /// <summary>
         /// JSON Web Token
@@ -69,6 +72,9 @@ namespace WordPressPCL.Utility
             _httpClient = _defaultHttpClient;
             _httpClient.BaseAddress = wordpressURI;
             _defaultPath = defaultPath;
+            
+            // Initialize Refit client
+            _refitClient = RestService.For<IWordPressApi>(_httpClient);
 
             // by default don't crash on missing member
             JsonSerializerSettings = new JsonSerializerSettings
@@ -89,6 +95,10 @@ namespace WordPressPCL.Utility
             _httpClient = httpClient;
             _defaultPath = defaultPath;
             _baseUri = wordpressURI;
+            
+            // Initialize Refit client
+            _refitClient = RestService.For<IWordPressApi>(_httpClient);
+            
             // by default don't crash on missing member
             JsonSerializerSettings = new JsonSerializerSettings
             {
@@ -114,12 +124,13 @@ namespace WordPressPCL.Utility
             }
             route += embedParam;
 
-            HttpResponseMessage response;
-            using (HttpRequestMessage requestMessage = new(HttpMethod.Get, route))
+            string authHeader = null;
+            if (isAuthRequired)
             {
-                SetAuthHeader(isAuthRequired, requestMessage);
-                response = await _httpClient.SendAsync(requestMessage).ConfigureAwait(false);
+                authHeader = GetAuthHeader();
             }
+
+            HttpResponseMessage response = await _refitClient.GetAsync(route, authHeader).ConfigureAwait(false);
             LastResponseHeaders = response.Headers;
             string responseString = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
             if (response.IsSuccessStatusCode)
@@ -141,13 +152,14 @@ namespace WordPressPCL.Utility
             where TClass : class
         {
             route = BuildRoute(ignoreDefaultPath, route);
-            HttpResponseMessage response;
-            using (HttpRequestMessage requestMessage = new(HttpMethod.Post, route))
+            
+            string authHeader = null;
+            if (isAuthRequired)
             {
-                SetAuthHeader(isAuthRequired, requestMessage);
-                requestMessage.Content = postBody;
-                response = await _httpClient.SendAsync(requestMessage).ConfigureAwait(false);
+                authHeader = GetAuthHeader();
             }
+
+            HttpResponseMessage response = await _refitClient.PostAsync(route, postBody, authHeader).ConfigureAwait(false);
 
             LastResponseHeaders = response.Headers;
             string responseString = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
@@ -169,12 +181,14 @@ namespace WordPressPCL.Utility
         internal async Task<bool> DeleteRequestAsync(string route, bool isAuthRequired = true, bool ignoreDefaultPath = false)
         {
             route = BuildRoute(ignoreDefaultPath, route);
-            HttpResponseMessage response;
-            using (HttpRequestMessage requestMessage = new(HttpMethod.Delete, route))
+            
+            string authHeader = null;
+            if (isAuthRequired)
             {
-                SetAuthHeader(isAuthRequired, requestMessage);
-                response = await _httpClient.SendAsync(requestMessage).ConfigureAwait(false);
+                authHeader = GetAuthHeader();
             }
+
+            HttpResponseMessage response = await _refitClient.DeleteAsync(route, authHeader).ConfigureAwait(false);
 
             LastResponseHeaders = response.Headers;
             string responseString = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
@@ -191,12 +205,14 @@ namespace WordPressPCL.Utility
         internal async Task<HttpResponseHeaders> HeadRequestAsync(string route, bool isAuthRequired = false, bool ignoreDefaultPath = false)
         {
             route = BuildRoute(ignoreDefaultPath, route);
-            HttpResponseMessage response;
-            using (HttpRequestMessage requestMessage = new(HttpMethod.Head, route))
+            
+            string authHeader = null;
+            if (isAuthRequired)
             {
-                SetAuthHeader(isAuthRequired, requestMessage);
-                response = await _httpClient.SendAsync(requestMessage).ConfigureAwait(false);
+                authHeader = GetAuthHeader();
             }
+
+            HttpResponseMessage response = await _refitClient.HeadAsync(route, authHeader).ConfigureAwait(false);
 
             LastResponseHeaders = response.Headers;
             if (response.IsSuccessStatusCode)
@@ -207,23 +223,20 @@ namespace WordPressPCL.Utility
             throw new WPUnexpectedException(response, string.Empty);
         }
 
-        private void SetAuthHeader(bool isAuthRequired, HttpRequestMessage requestMessage)
+        private string GetAuthHeader()
         {
-            if (isAuthRequired)
+            if (AuthMethod == AuthMethod.Bearer)
             {
-                if (AuthMethod == AuthMethod.Bearer)
-                {
-                    requestMessage.Headers.Authorization = new AuthenticationHeaderValue("Bearer", JWToken);
-                }
-                else if (AuthMethod == AuthMethod.Basic)
-                {
-                    byte[] authToken = Encoding.ASCII.GetBytes($"{UserName}:{ApplicationPassword}");
-                    requestMessage.Headers.Authorization = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(authToken));
-                }
-                else
-                {
-                    throw new WPException("Unsupported Authentication Method");
-                }
+                return $"Bearer {JWToken}";
+            }
+            else if (AuthMethod == AuthMethod.Basic)
+            {
+                byte[] authToken = Encoding.ASCII.GetBytes($"{UserName}:{ApplicationPassword}");
+                return $"Basic {Convert.ToBase64String(authToken)}";
+            }
+            else
+            {
+                throw new WPException("Unsupported Authentication Method");
             }
         }
 
