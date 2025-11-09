@@ -838,6 +838,71 @@
             <param name="userId">User ID, defaults to "me"</param>
             <returns>List of registered Application Passwords (without the actual password)</returns>
         </member>
+        <member name="T:WordPressPCL.Interfaces.ICategoriesApi">
+            <summary>
+            Refit interface for WordPress Categories REST API
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Interfaces.ICategoriesApi.GetCategoriesAsync(System.String,System.String)">
+            <summary>
+            Get categories with query
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Interfaces.ICategoriesApi.GetCategoryByIdAsync(System.Int32,System.String)">
+            <summary>
+            Get category by ID
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Interfaces.ICategoriesApi.CreateCategoryAsync(System.Net.Http.HttpContent,System.String)">
+            <summary>
+            Create category
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Interfaces.ICategoriesApi.UpdateCategoryAsync(System.Int32,System.Net.Http.HttpContent,System.String)">
+            <summary>
+            Update category
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Interfaces.ICategoriesApi.DeleteCategoryAsync(System.Int32,System.String,System.String)">
+            <summary>
+            Delete category
+            </summary>
+        </member>
+        <member name="T:WordPressPCL.Interfaces.ICommentsApi">
+            <summary>
+            Refit interface for WordPress Comments REST API
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Interfaces.ICommentsApi.GetCommentsAsync(System.String)">
+            <summary>
+            Get comments
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Interfaces.ICommentsApi.GetCommentsAsync(System.String,System.String)">
+            <summary>
+            Get comments with query
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Interfaces.ICommentsApi.GetCommentByIdAsync(System.Int32,System.String)">
+            <summary>
+            Get comment by ID
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Interfaces.ICommentsApi.CreateCommentAsync(System.Net.Http.HttpContent,System.String)">
+            <summary>
+            Create comment
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Interfaces.ICommentsApi.UpdateCommentAsync(System.Int32,System.Net.Http.HttpContent,System.String)">
+            <summary>
+            Update comment
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Interfaces.ICommentsApi.DeleteCommentAsync(System.Int32,System.String,System.String)">
+            <summary>
+            Delete comment
+            </summary>
+        </member>
         <member name="T:WordPressPCL.Interfaces.ICountOperation">
             <summary>
             Interface for count of Wordpress items
@@ -862,6 +927,31 @@
             <param name="Entity">object to create</param>
             <returns>Created object</returns>
         </member>
+        <member name="T:WordPressPCL.Interfaces.ICustomRequestApi">
+            <summary>
+            Refit interface for generic/custom WordPress REST API endpoints
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Interfaces.ICustomRequestApi.GetAsync(System.String,System.String)">
+            <summary>
+            Generic GET request with dynamic path
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Interfaces.ICustomRequestApi.PostAsync(System.String,System.Net.Http.HttpContent,System.String)">
+            <summary>
+            Generic POST request with dynamic path
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Interfaces.ICustomRequestApi.DeleteAsync(System.String,System.String)">
+            <summary>
+            Generic DELETE request with dynamic path
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Interfaces.ICustomRequestApi.HeadAsync(System.String,System.String)">
+            <summary>
+            Generic HEAD request with dynamic path
+            </summary>
+        </member>
         <member name="T:WordPressPCL.Interfaces.IDeleteOperation">
             <summary>
             Interface with required Delete methods
@@ -873,6 +963,196 @@
             </summary>
             <param name="ID">ID ob object to delete</param>
             <returns>Result of operation</returns>
+        </member>
+        <member name="T:WordPressPCL.Interfaces.IJWTAuthApi">
+            <summary>
+            Refit interface for JWT Authentication endpoints
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Interfaces.IJWTAuthApi.RequestTokenAsync(System.Net.Http.HttpContent)">
+            <summary>
+            Request JWT token
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Interfaces.IJWTAuthApi.ValidateTokenAsync(System.String)">
+            <summary>
+            Validate JWT token
+            </summary>
+        </member>
+        <member name="T:WordPressPCL.Interfaces.IMediaApi">
+            <summary>
+            Refit interface for WordPress Media REST API
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Interfaces.IMediaApi.GetMediaAsync(System.String,System.String)">
+            <summary>
+            Get media items with query
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Interfaces.IMediaApi.GetMediaByIdAsync(System.Int32,System.String)">
+            <summary>
+            Get media item by ID
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Interfaces.IMediaApi.CreateMediaAsync(System.Net.Http.HttpContent,System.String)">
+            <summary>
+            Create media item
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Interfaces.IMediaApi.UpdateMediaAsync(System.Int32,System.Net.Http.HttpContent,System.String)">
+            <summary>
+            Update media item
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Interfaces.IMediaApi.DeleteMediaAsync(System.Int32,System.String,System.String)">
+            <summary>
+            Delete media item
+            </summary>
+        </member>
+        <member name="T:WordPressPCL.Interfaces.IPagesApi">
+            <summary>
+            Refit interface for WordPress Pages REST API
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Interfaces.IPagesApi.GetPagesAsync(System.String)">
+            <summary>
+            Get pages
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Interfaces.IPagesApi.GetPagesAsync(System.String,System.String)">
+            <summary>
+            Get pages with query
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Interfaces.IPagesApi.GetPageByIdAsync(System.Int32,System.String)">
+            <summary>
+            Get page by ID
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Interfaces.IPagesApi.CreatePageAsync(System.Net.Http.HttpContent,System.String)">
+            <summary>
+            Create page
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Interfaces.IPagesApi.UpdatePageAsync(System.Int32,System.Net.Http.HttpContent,System.String)">
+            <summary>
+            Update page
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Interfaces.IPagesApi.DeletePageAsync(System.Int32,System.String,System.String)">
+            <summary>
+            Delete page
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Interfaces.IPagesApi.GetPageCountAsync(System.String)">
+            <summary>
+            Get page count (HEAD request)
+            </summary>
+        </member>
+        <member name="T:WordPressPCL.Interfaces.IPluginsApi">
+            <summary>
+            Refit interface for WordPress Plugins REST API
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Interfaces.IPluginsApi.GetPluginsAsync(System.String,System.String)">
+            <summary>
+            Get plugins with query
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Interfaces.IPluginsApi.GetPluginAsync(System.String,System.String)">
+            <summary>
+            Get plugin by slug
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Interfaces.IPluginsApi.CreatePluginAsync(System.Net.Http.HttpContent,System.String)">
+            <summary>
+            Create/Install plugin
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Interfaces.IPluginsApi.UpdatePluginAsync(System.String,System.Net.Http.HttpContent,System.String)">
+            <summary>
+            Update plugin
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Interfaces.IPluginsApi.DeletePluginAsync(System.String,System.String)">
+            <summary>
+            Delete plugin
+            </summary>
+        </member>
+        <member name="T:WordPressPCL.Interfaces.IPostsApi">
+            <summary>
+            Refit interface for WordPress Posts REST API
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Interfaces.IPostsApi.GetPostsAsync(System.String)">
+            <summary>
+            Get posts
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Interfaces.IPostsApi.GetPostsAsync(System.String,System.String)">
+            <summary>
+            Get posts with query
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Interfaces.IPostsApi.GetPostByIdAsync(System.Int32,System.String)">
+            <summary>
+            Get post by ID
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Interfaces.IPostsApi.CreatePostAsync(System.Net.Http.HttpContent,System.String)">
+            <summary>
+            Create post
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Interfaces.IPostsApi.UpdatePostAsync(System.Int32,System.Net.Http.HttpContent,System.String)">
+            <summary>
+            Update post
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Interfaces.IPostsApi.DeletePostAsync(System.Int32,System.String)">
+            <summary>
+            Delete post
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Interfaces.IPostsApi.DeletePostAsync(System.Int32,System.String,System.String)">
+            <summary>
+            Delete post with query parameters
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Interfaces.IPostsApi.GetPostCountAsync(System.String)">
+            <summary>
+            Get post count (HEAD request)
+            </summary>
+        </member>
+        <member name="T:WordPressPCL.Interfaces.IPostStatusesApi">
+            <summary>
+            Refit interface for WordPress Post Statuses REST API
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Interfaces.IPostStatusesApi.GetPostStatusesAsync(System.String)">
+            <summary>
+            Get post statuses
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Interfaces.IPostStatusesApi.GetPostStatusAsync(System.String,System.String)">
+            <summary>
+            Get post status
+            </summary>
+        </member>
+        <member name="T:WordPressPCL.Interfaces.IPostTypesApi">
+            <summary>
+            Refit interface for WordPress Post Types REST API
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Interfaces.IPostTypesApi.GetPostTypesAsync(System.String,System.String)">
+            <summary>
+            Get post types with query
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Interfaces.IPostTypesApi.GetPostTypeAsync(System.String,System.String)">
+            <summary>
+            Get post type
+            </summary>
         </member>
         <member name="T:WordPressPCL.Interfaces.IQueryOperation`2">
             <summary>
@@ -920,6 +1200,86 @@
             <param name="useAuth">Is use auth header</param>
             <returns>List of objects</returns>
         </member>
+        <member name="T:WordPressPCL.Interfaces.ISettingsApi">
+            <summary>
+            Refit interface for WordPress Settings REST API
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Interfaces.ISettingsApi.GetSettingsAsync(System.String)">
+            <summary>
+            Get settings
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Interfaces.ISettingsApi.UpdateSettingsAsync(System.Net.Http.HttpContent,System.String)">
+            <summary>
+            Update settings
+            </summary>
+        </member>
+        <member name="T:WordPressPCL.Interfaces.ITagsApi">
+            <summary>
+            Refit interface for WordPress Tags REST API
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Interfaces.ITagsApi.GetTagsAsync(System.String,System.String)">
+            <summary>
+            Get tags with query
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Interfaces.ITagsApi.GetTagByIdAsync(System.Int32,System.String)">
+            <summary>
+            Get tag by ID
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Interfaces.ITagsApi.CreateTagAsync(System.Net.Http.HttpContent,System.String)">
+            <summary>
+            Create tag
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Interfaces.ITagsApi.UpdateTagAsync(System.Int32,System.Net.Http.HttpContent,System.String)">
+            <summary>
+            Update tag
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Interfaces.ITagsApi.DeleteTagAsync(System.Int32,System.String,System.String)">
+            <summary>
+            Delete tag
+            </summary>
+        </member>
+        <member name="T:WordPressPCL.Interfaces.ITaxonomiesApi">
+            <summary>
+            Refit interface for WordPress Taxonomies REST API
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Interfaces.ITaxonomiesApi.GetTaxonomiesAsync(System.String,System.String)">
+            <summary>
+            Get taxonomies with query
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Interfaces.ITaxonomiesApi.GetTaxonomyAsync(System.String,System.String)">
+            <summary>
+            Get taxonomy by type
+            </summary>
+        </member>
+        <member name="T:WordPressPCL.Interfaces.IThemesApi">
+            <summary>
+            Refit interface for WordPress Themes REST API
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Interfaces.IThemesApi.GetThemesAsync(System.String,System.String)">
+            <summary>
+            Get themes with query
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Interfaces.IThemesApi.GetThemeAsync(System.String,System.String)">
+            <summary>
+            Get theme by stylesheet
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Interfaces.IThemesApi.UpdateThemeAsync(System.String,System.Net.Http.HttpContent,System.String)">
+            <summary>
+            Update theme
+            </summary>
+        </member>
         <member name="T:WordPressPCL.Interfaces.IUpdateOperation`1">
             <summary>
             Interface with required Update methods
@@ -933,29 +1293,39 @@
             <param name="Entity">object to update</param>
             <returns>Updated entity</returns>
         </member>
-        <member name="T:WordPressPCL.Interfaces.IWordPressApi">
+        <member name="T:WordPressPCL.Interfaces.IUsersApi">
             <summary>
-            Refit interface for WordPress REST API
+            Refit interface for WordPress Users REST API
             </summary>
         </member>
-        <member name="M:WordPressPCL.Interfaces.IWordPressApi.GetAsync(System.String,System.String)">
+        <member name="M:WordPressPCL.Interfaces.IUsersApi.GetUsersAsync(System.String,System.String)">
             <summary>
-            GET request to specified route with dynamic path
+            Get users with query
             </summary>
         </member>
-        <member name="M:WordPressPCL.Interfaces.IWordPressApi.PostAsync(System.String,System.Net.Http.HttpContent,System.String)">
+        <member name="M:WordPressPCL.Interfaces.IUsersApi.GetUserByIdAsync(System.Int32,System.String)">
             <summary>
-            POST request to specified route with dynamic path
+            Get user by ID
             </summary>
         </member>
-        <member name="M:WordPressPCL.Interfaces.IWordPressApi.DeleteAsync(System.String,System.String)">
+        <member name="M:WordPressPCL.Interfaces.IUsersApi.CreateUserAsync(System.Net.Http.HttpContent,System.String)">
             <summary>
-            DELETE request to specified route with dynamic path
+            Create user
             </summary>
         </member>
-        <member name="M:WordPressPCL.Interfaces.IWordPressApi.HeadAsync(System.String,System.String)">
+        <member name="M:WordPressPCL.Interfaces.IUsersApi.UpdateUserAsync(System.Int32,System.Net.Http.HttpContent,System.String)">
             <summary>
-            HEAD request to specified route with dynamic path
+            Update user
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Interfaces.IUsersApi.DeleteUserAsync(System.Int32,System.String,System.String)">
+            <summary>
+            Delete user
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Interfaces.IUsersApi.GetCurrentUserAsync(System.String)">
+            <summary>
+            Get current user
             </summary>
         </member>
         <member name="T:WordPressPCL.Models.ApplicationPassword">
@@ -4644,37 +5014,523 @@
         <member name="T:Refit.Implementation.Generated">
             <inheritdoc />
         </member>
-        <member name="T:Refit.Implementation.Generated.WordPressPCLInterfacesIWordPressApi">
+        <member name="T:Refit.Implementation.Generated.WordPressPCLInterfacesICategoriesApi">
             <inheritdoc />
         </member>
-        <member name="P:Refit.Implementation.Generated.WordPressPCLInterfacesIWordPressApi.Client">
+        <member name="P:Refit.Implementation.Generated.WordPressPCLInterfacesICategoriesApi.Client">
             <inheritdoc />
         </member>
-        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIWordPressApi.#ctor(System.Net.Http.HttpClient,Refit.IRequestBuilder)">
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesICategoriesApi.#ctor(System.Net.Http.HttpClient,Refit.IRequestBuilder)">
             <inheritdoc />
         </member>
-        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIWordPressApi.GetAsync(System.String,System.String)">
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesICategoriesApi.GetCategoriesAsync(System.String,System.String)">
             <inheritdoc />
         </member>
-        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIWordPressApi.PostAsync(System.String,System.Net.Http.HttpContent,System.String)">
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesICategoriesApi.GetCategoryByIdAsync(System.Int32,System.String)">
             <inheritdoc />
         </member>
-        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIWordPressApi.DeleteAsync(System.String,System.String)">
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesICategoriesApi.CreateCategoryAsync(System.Net.Http.HttpContent,System.String)">
             <inheritdoc />
         </member>
-        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIWordPressApi.HeadAsync(System.String,System.String)">
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesICategoriesApi.UpdateCategoryAsync(System.Int32,System.Net.Http.HttpContent,System.String)">
             <inheritdoc />
         </member>
-        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIWordPressApi.WordPressPCL#Interfaces#IWordPressApi#GetAsync(System.String,System.String)">
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesICategoriesApi.DeleteCategoryAsync(System.Int32,System.String,System.String)">
             <inheritdoc />
         </member>
-        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIWordPressApi.WordPressPCL#Interfaces#IWordPressApi#PostAsync(System.String,System.Net.Http.HttpContent,System.String)">
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesICategoriesApi.WordPressPCL#Interfaces#ICategoriesApi#GetCategoriesAsync(System.String,System.String)">
             <inheritdoc />
         </member>
-        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIWordPressApi.WordPressPCL#Interfaces#IWordPressApi#DeleteAsync(System.String,System.String)">
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesICategoriesApi.WordPressPCL#Interfaces#ICategoriesApi#GetCategoryByIdAsync(System.Int32,System.String)">
             <inheritdoc />
         </member>
-        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIWordPressApi.WordPressPCL#Interfaces#IWordPressApi#HeadAsync(System.String,System.String)">
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesICategoriesApi.WordPressPCL#Interfaces#ICategoriesApi#CreateCategoryAsync(System.Net.Http.HttpContent,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesICategoriesApi.WordPressPCL#Interfaces#ICategoriesApi#UpdateCategoryAsync(System.Int32,System.Net.Http.HttpContent,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesICategoriesApi.WordPressPCL#Interfaces#ICategoriesApi#DeleteCategoryAsync(System.Int32,System.String,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="T:Refit.Implementation.Generated.WordPressPCLInterfacesICommentsApi">
+            <inheritdoc />
+        </member>
+        <member name="P:Refit.Implementation.Generated.WordPressPCLInterfacesICommentsApi.Client">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesICommentsApi.#ctor(System.Net.Http.HttpClient,Refit.IRequestBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesICommentsApi.GetCommentsAsync(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesICommentsApi.GetCommentsAsync(System.String,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesICommentsApi.GetCommentByIdAsync(System.Int32,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesICommentsApi.CreateCommentAsync(System.Net.Http.HttpContent,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesICommentsApi.UpdateCommentAsync(System.Int32,System.Net.Http.HttpContent,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesICommentsApi.DeleteCommentAsync(System.Int32,System.String,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesICommentsApi.WordPressPCL#Interfaces#ICommentsApi#GetCommentsAsync(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesICommentsApi.WordPressPCL#Interfaces#ICommentsApi#GetCommentsAsync(System.String,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesICommentsApi.WordPressPCL#Interfaces#ICommentsApi#GetCommentByIdAsync(System.Int32,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesICommentsApi.WordPressPCL#Interfaces#ICommentsApi#CreateCommentAsync(System.Net.Http.HttpContent,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesICommentsApi.WordPressPCL#Interfaces#ICommentsApi#UpdateCommentAsync(System.Int32,System.Net.Http.HttpContent,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesICommentsApi.WordPressPCL#Interfaces#ICommentsApi#DeleteCommentAsync(System.Int32,System.String,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="T:Refit.Implementation.Generated.WordPressPCLInterfacesICustomRequestApi">
+            <inheritdoc />
+        </member>
+        <member name="P:Refit.Implementation.Generated.WordPressPCLInterfacesICustomRequestApi.Client">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesICustomRequestApi.#ctor(System.Net.Http.HttpClient,Refit.IRequestBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesICustomRequestApi.GetAsync(System.String,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesICustomRequestApi.PostAsync(System.String,System.Net.Http.HttpContent,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesICustomRequestApi.DeleteAsync(System.String,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesICustomRequestApi.HeadAsync(System.String,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesICustomRequestApi.WordPressPCL#Interfaces#ICustomRequestApi#GetAsync(System.String,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesICustomRequestApi.WordPressPCL#Interfaces#ICustomRequestApi#PostAsync(System.String,System.Net.Http.HttpContent,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesICustomRequestApi.WordPressPCL#Interfaces#ICustomRequestApi#DeleteAsync(System.String,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesICustomRequestApi.WordPressPCL#Interfaces#ICustomRequestApi#HeadAsync(System.String,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="T:Refit.Implementation.Generated.WordPressPCLInterfacesIJWTAuthApi">
+            <inheritdoc />
+        </member>
+        <member name="P:Refit.Implementation.Generated.WordPressPCLInterfacesIJWTAuthApi.Client">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIJWTAuthApi.#ctor(System.Net.Http.HttpClient,Refit.IRequestBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIJWTAuthApi.RequestTokenAsync(System.Net.Http.HttpContent)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIJWTAuthApi.ValidateTokenAsync(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIJWTAuthApi.WordPressPCL#Interfaces#IJWTAuthApi#RequestTokenAsync(System.Net.Http.HttpContent)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIJWTAuthApi.WordPressPCL#Interfaces#IJWTAuthApi#ValidateTokenAsync(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="T:Refit.Implementation.Generated.WordPressPCLInterfacesIMediaApi">
+            <inheritdoc />
+        </member>
+        <member name="P:Refit.Implementation.Generated.WordPressPCLInterfacesIMediaApi.Client">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIMediaApi.#ctor(System.Net.Http.HttpClient,Refit.IRequestBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIMediaApi.GetMediaAsync(System.String,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIMediaApi.GetMediaByIdAsync(System.Int32,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIMediaApi.CreateMediaAsync(System.Net.Http.HttpContent,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIMediaApi.UpdateMediaAsync(System.Int32,System.Net.Http.HttpContent,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIMediaApi.DeleteMediaAsync(System.Int32,System.String,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIMediaApi.WordPressPCL#Interfaces#IMediaApi#GetMediaAsync(System.String,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIMediaApi.WordPressPCL#Interfaces#IMediaApi#GetMediaByIdAsync(System.Int32,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIMediaApi.WordPressPCL#Interfaces#IMediaApi#CreateMediaAsync(System.Net.Http.HttpContent,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIMediaApi.WordPressPCL#Interfaces#IMediaApi#UpdateMediaAsync(System.Int32,System.Net.Http.HttpContent,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIMediaApi.WordPressPCL#Interfaces#IMediaApi#DeleteMediaAsync(System.Int32,System.String,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="T:Refit.Implementation.Generated.WordPressPCLInterfacesIPagesApi">
+            <inheritdoc />
+        </member>
+        <member name="P:Refit.Implementation.Generated.WordPressPCLInterfacesIPagesApi.Client">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIPagesApi.#ctor(System.Net.Http.HttpClient,Refit.IRequestBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIPagesApi.GetPagesAsync(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIPagesApi.GetPagesAsync(System.String,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIPagesApi.GetPageByIdAsync(System.Int32,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIPagesApi.CreatePageAsync(System.Net.Http.HttpContent,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIPagesApi.UpdatePageAsync(System.Int32,System.Net.Http.HttpContent,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIPagesApi.DeletePageAsync(System.Int32,System.String,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIPagesApi.GetPageCountAsync(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIPagesApi.WordPressPCL#Interfaces#IPagesApi#GetPagesAsync(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIPagesApi.WordPressPCL#Interfaces#IPagesApi#GetPagesAsync(System.String,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIPagesApi.WordPressPCL#Interfaces#IPagesApi#GetPageByIdAsync(System.Int32,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIPagesApi.WordPressPCL#Interfaces#IPagesApi#CreatePageAsync(System.Net.Http.HttpContent,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIPagesApi.WordPressPCL#Interfaces#IPagesApi#UpdatePageAsync(System.Int32,System.Net.Http.HttpContent,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIPagesApi.WordPressPCL#Interfaces#IPagesApi#DeletePageAsync(System.Int32,System.String,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIPagesApi.WordPressPCL#Interfaces#IPagesApi#GetPageCountAsync(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="T:Refit.Implementation.Generated.WordPressPCLInterfacesIPluginsApi">
+            <inheritdoc />
+        </member>
+        <member name="P:Refit.Implementation.Generated.WordPressPCLInterfacesIPluginsApi.Client">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIPluginsApi.#ctor(System.Net.Http.HttpClient,Refit.IRequestBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIPluginsApi.GetPluginsAsync(System.String,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIPluginsApi.GetPluginAsync(System.String,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIPluginsApi.CreatePluginAsync(System.Net.Http.HttpContent,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIPluginsApi.UpdatePluginAsync(System.String,System.Net.Http.HttpContent,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIPluginsApi.DeletePluginAsync(System.String,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIPluginsApi.WordPressPCL#Interfaces#IPluginsApi#GetPluginsAsync(System.String,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIPluginsApi.WordPressPCL#Interfaces#IPluginsApi#GetPluginAsync(System.String,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIPluginsApi.WordPressPCL#Interfaces#IPluginsApi#CreatePluginAsync(System.Net.Http.HttpContent,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIPluginsApi.WordPressPCL#Interfaces#IPluginsApi#UpdatePluginAsync(System.String,System.Net.Http.HttpContent,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIPluginsApi.WordPressPCL#Interfaces#IPluginsApi#DeletePluginAsync(System.String,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="T:Refit.Implementation.Generated.WordPressPCLInterfacesIPostsApi">
+            <inheritdoc />
+        </member>
+        <member name="P:Refit.Implementation.Generated.WordPressPCLInterfacesIPostsApi.Client">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIPostsApi.#ctor(System.Net.Http.HttpClient,Refit.IRequestBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIPostsApi.GetPostsAsync(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIPostsApi.GetPostsAsync(System.String,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIPostsApi.GetPostByIdAsync(System.Int32,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIPostsApi.CreatePostAsync(System.Net.Http.HttpContent,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIPostsApi.UpdatePostAsync(System.Int32,System.Net.Http.HttpContent,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIPostsApi.DeletePostAsync(System.Int32,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIPostsApi.DeletePostAsync(System.Int32,System.String,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIPostsApi.GetPostCountAsync(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIPostsApi.WordPressPCL#Interfaces#IPostsApi#GetPostsAsync(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIPostsApi.WordPressPCL#Interfaces#IPostsApi#GetPostsAsync(System.String,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIPostsApi.WordPressPCL#Interfaces#IPostsApi#GetPostByIdAsync(System.Int32,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIPostsApi.WordPressPCL#Interfaces#IPostsApi#CreatePostAsync(System.Net.Http.HttpContent,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIPostsApi.WordPressPCL#Interfaces#IPostsApi#UpdatePostAsync(System.Int32,System.Net.Http.HttpContent,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIPostsApi.WordPressPCL#Interfaces#IPostsApi#DeletePostAsync(System.Int32,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIPostsApi.WordPressPCL#Interfaces#IPostsApi#DeletePostAsync(System.Int32,System.String,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIPostsApi.WordPressPCL#Interfaces#IPostsApi#GetPostCountAsync(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="T:Refit.Implementation.Generated.WordPressPCLInterfacesIPostStatusesApi">
+            <inheritdoc />
+        </member>
+        <member name="P:Refit.Implementation.Generated.WordPressPCLInterfacesIPostStatusesApi.Client">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIPostStatusesApi.#ctor(System.Net.Http.HttpClient,Refit.IRequestBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIPostStatusesApi.GetPostStatusesAsync(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIPostStatusesApi.GetPostStatusAsync(System.String,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIPostStatusesApi.WordPressPCL#Interfaces#IPostStatusesApi#GetPostStatusesAsync(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIPostStatusesApi.WordPressPCL#Interfaces#IPostStatusesApi#GetPostStatusAsync(System.String,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="T:Refit.Implementation.Generated.WordPressPCLInterfacesIPostTypesApi">
+            <inheritdoc />
+        </member>
+        <member name="P:Refit.Implementation.Generated.WordPressPCLInterfacesIPostTypesApi.Client">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIPostTypesApi.#ctor(System.Net.Http.HttpClient,Refit.IRequestBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIPostTypesApi.GetPostTypesAsync(System.String,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIPostTypesApi.GetPostTypeAsync(System.String,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIPostTypesApi.WordPressPCL#Interfaces#IPostTypesApi#GetPostTypesAsync(System.String,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIPostTypesApi.WordPressPCL#Interfaces#IPostTypesApi#GetPostTypeAsync(System.String,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="T:Refit.Implementation.Generated.WordPressPCLInterfacesISettingsApi">
+            <inheritdoc />
+        </member>
+        <member name="P:Refit.Implementation.Generated.WordPressPCLInterfacesISettingsApi.Client">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesISettingsApi.#ctor(System.Net.Http.HttpClient,Refit.IRequestBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesISettingsApi.GetSettingsAsync(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesISettingsApi.UpdateSettingsAsync(System.Net.Http.HttpContent,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesISettingsApi.WordPressPCL#Interfaces#ISettingsApi#GetSettingsAsync(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesISettingsApi.WordPressPCL#Interfaces#ISettingsApi#UpdateSettingsAsync(System.Net.Http.HttpContent,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="T:Refit.Implementation.Generated.WordPressPCLInterfacesITagsApi">
+            <inheritdoc />
+        </member>
+        <member name="P:Refit.Implementation.Generated.WordPressPCLInterfacesITagsApi.Client">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesITagsApi.#ctor(System.Net.Http.HttpClient,Refit.IRequestBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesITagsApi.GetTagsAsync(System.String,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesITagsApi.GetTagByIdAsync(System.Int32,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesITagsApi.CreateTagAsync(System.Net.Http.HttpContent,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesITagsApi.UpdateTagAsync(System.Int32,System.Net.Http.HttpContent,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesITagsApi.DeleteTagAsync(System.Int32,System.String,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesITagsApi.WordPressPCL#Interfaces#ITagsApi#GetTagsAsync(System.String,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesITagsApi.WordPressPCL#Interfaces#ITagsApi#GetTagByIdAsync(System.Int32,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesITagsApi.WordPressPCL#Interfaces#ITagsApi#CreateTagAsync(System.Net.Http.HttpContent,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesITagsApi.WordPressPCL#Interfaces#ITagsApi#UpdateTagAsync(System.Int32,System.Net.Http.HttpContent,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesITagsApi.WordPressPCL#Interfaces#ITagsApi#DeleteTagAsync(System.Int32,System.String,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="T:Refit.Implementation.Generated.WordPressPCLInterfacesITaxonomiesApi">
+            <inheritdoc />
+        </member>
+        <member name="P:Refit.Implementation.Generated.WordPressPCLInterfacesITaxonomiesApi.Client">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesITaxonomiesApi.#ctor(System.Net.Http.HttpClient,Refit.IRequestBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesITaxonomiesApi.GetTaxonomiesAsync(System.String,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesITaxonomiesApi.GetTaxonomyAsync(System.String,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesITaxonomiesApi.WordPressPCL#Interfaces#ITaxonomiesApi#GetTaxonomiesAsync(System.String,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesITaxonomiesApi.WordPressPCL#Interfaces#ITaxonomiesApi#GetTaxonomyAsync(System.String,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="T:Refit.Implementation.Generated.WordPressPCLInterfacesIThemesApi">
+            <inheritdoc />
+        </member>
+        <member name="P:Refit.Implementation.Generated.WordPressPCLInterfacesIThemesApi.Client">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIThemesApi.#ctor(System.Net.Http.HttpClient,Refit.IRequestBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIThemesApi.GetThemesAsync(System.String,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIThemesApi.GetThemeAsync(System.String,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIThemesApi.UpdateThemeAsync(System.String,System.Net.Http.HttpContent,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIThemesApi.WordPressPCL#Interfaces#IThemesApi#GetThemesAsync(System.String,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIThemesApi.WordPressPCL#Interfaces#IThemesApi#GetThemeAsync(System.String,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIThemesApi.WordPressPCL#Interfaces#IThemesApi#UpdateThemeAsync(System.String,System.Net.Http.HttpContent,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="T:Refit.Implementation.Generated.WordPressPCLInterfacesIUsersApi">
+            <inheritdoc />
+        </member>
+        <member name="P:Refit.Implementation.Generated.WordPressPCLInterfacesIUsersApi.Client">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIUsersApi.#ctor(System.Net.Http.HttpClient,Refit.IRequestBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIUsersApi.GetUsersAsync(System.String,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIUsersApi.GetUserByIdAsync(System.Int32,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIUsersApi.CreateUserAsync(System.Net.Http.HttpContent,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIUsersApi.UpdateUserAsync(System.Int32,System.Net.Http.HttpContent,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIUsersApi.DeleteUserAsync(System.Int32,System.String,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIUsersApi.GetCurrentUserAsync(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIUsersApi.WordPressPCL#Interfaces#IUsersApi#GetUsersAsync(System.String,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIUsersApi.WordPressPCL#Interfaces#IUsersApi#GetUserByIdAsync(System.Int32,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIUsersApi.WordPressPCL#Interfaces#IUsersApi#CreateUserAsync(System.Net.Http.HttpContent,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIUsersApi.WordPressPCL#Interfaces#IUsersApi#UpdateUserAsync(System.Int32,System.Net.Http.HttpContent,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIUsersApi.WordPressPCL#Interfaces#IUsersApi#DeleteUserAsync(System.Int32,System.String,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Refit.Implementation.Generated.WordPressPCLInterfacesIUsersApi.WordPressPCL#Interfaces#IUsersApi#GetCurrentUserAsync(System.String)">
             <inheritdoc />
         </member>
     </members>

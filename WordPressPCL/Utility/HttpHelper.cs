@@ -22,7 +22,23 @@ namespace WordPressPCL.Utility
         private readonly HttpClient _httpClient;
         private readonly string _defaultPath;
         private readonly Uri _baseUri;
-        private readonly IWordPressApi _refitClient;
+        
+        // Resource-specific Refit clients
+        internal readonly IPostsApi PostsApi;
+        internal readonly IPagesApi PagesApi;
+        internal readonly ICommentsApi CommentsApi;
+        internal readonly ITagsApi TagsApi;
+        internal readonly ICategoriesApi CategoriesApi;
+        internal readonly IUsersApi UsersApi;
+        internal readonly IMediaApi MediaApi;
+        internal readonly ITaxonomiesApi TaxonomiesApi;
+        internal readonly IPostTypesApi PostTypesApi;
+        internal readonly IPostStatusesApi PostStatusesApi;
+        internal readonly ISettingsApi SettingsApi;
+        internal readonly IPluginsApi PluginsApi;
+        internal readonly IThemesApi ThemesApi;
+        internal readonly IJWTAuthApi JWTAuthApi;
+        internal readonly ICustomRequestApi CustomRequestApi;
 
         /// <summary>
         /// JSON Web Token
@@ -73,8 +89,22 @@ namespace WordPressPCL.Utility
             _httpClient.BaseAddress = wordpressURI;
             _defaultPath = defaultPath;
             
-            // Initialize Refit client
-            _refitClient = RestService.For<IWordPressApi>(_httpClient);
+            // Initialize resource-specific Refit clients
+            PostsApi = RestService.For<IPostsApi>(_httpClient);
+            PagesApi = RestService.For<IPagesApi>(_httpClient);
+            CommentsApi = RestService.For<ICommentsApi>(_httpClient);
+            TagsApi = RestService.For<ITagsApi>(_httpClient);
+            CategoriesApi = RestService.For<ICategoriesApi>(_httpClient);
+            UsersApi = RestService.For<IUsersApi>(_httpClient);
+            MediaApi = RestService.For<IMediaApi>(_httpClient);
+            TaxonomiesApi = RestService.For<ITaxonomiesApi>(_httpClient);
+            PostTypesApi = RestService.For<IPostTypesApi>(_httpClient);
+            PostStatusesApi = RestService.For<IPostStatusesApi>(_httpClient);
+            SettingsApi = RestService.For<ISettingsApi>(_httpClient);
+            PluginsApi = RestService.For<IPluginsApi>(_httpClient);
+            ThemesApi = RestService.For<IThemesApi>(_httpClient);
+            JWTAuthApi = RestService.For<IJWTAuthApi>(_httpClient);
+            CustomRequestApi = RestService.For<ICustomRequestApi>(_httpClient);
 
             // by default don't crash on missing member
             JsonSerializerSettings = new JsonSerializerSettings
@@ -96,8 +126,22 @@ namespace WordPressPCL.Utility
             _defaultPath = defaultPath;
             _baseUri = wordpressURI;
             
-            // Initialize Refit client
-            _refitClient = RestService.For<IWordPressApi>(_httpClient);
+            // Initialize resource-specific Refit clients
+            PostsApi = RestService.For<IPostsApi>(_httpClient);
+            PagesApi = RestService.For<IPagesApi>(_httpClient);
+            CommentsApi = RestService.For<ICommentsApi>(_httpClient);
+            TagsApi = RestService.For<ITagsApi>(_httpClient);
+            CategoriesApi = RestService.For<ICategoriesApi>(_httpClient);
+            UsersApi = RestService.For<IUsersApi>(_httpClient);
+            MediaApi = RestService.For<IMediaApi>(_httpClient);
+            TaxonomiesApi = RestService.For<ITaxonomiesApi>(_httpClient);
+            PostTypesApi = RestService.For<IPostTypesApi>(_httpClient);
+            PostStatusesApi = RestService.For<IPostStatusesApi>(_httpClient);
+            SettingsApi = RestService.For<ISettingsApi>(_httpClient);
+            PluginsApi = RestService.For<IPluginsApi>(_httpClient);
+            ThemesApi = RestService.For<IThemesApi>(_httpClient);
+            JWTAuthApi = RestService.For<IJWTAuthApi>(_httpClient);
+            CustomRequestApi = RestService.For<ICustomRequestApi>(_httpClient);
             
             // by default don't crash on missing member
             JsonSerializerSettings = new JsonSerializerSettings
@@ -130,7 +174,7 @@ namespace WordPressPCL.Utility
                 authHeader = GetAuthHeader();
             }
 
-            HttpResponseMessage response = await _refitClient.GetAsync(route, authHeader).ConfigureAwait(false);
+            HttpResponseMessage response = await CustomRequestApi.GetAsync(route, authHeader).ConfigureAwait(false);
             LastResponseHeaders = response.Headers;
             string responseString = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
             if (response.IsSuccessStatusCode)
@@ -159,7 +203,7 @@ namespace WordPressPCL.Utility
                 authHeader = GetAuthHeader();
             }
 
-            HttpResponseMessage response = await _refitClient.PostAsync(route, postBody, authHeader).ConfigureAwait(false);
+            HttpResponseMessage response = await CustomRequestApi.PostAsync(route, postBody, authHeader).ConfigureAwait(false);
 
             LastResponseHeaders = response.Headers;
             string responseString = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
@@ -188,7 +232,7 @@ namespace WordPressPCL.Utility
                 authHeader = GetAuthHeader();
             }
 
-            HttpResponseMessage response = await _refitClient.DeleteAsync(route, authHeader).ConfigureAwait(false);
+            HttpResponseMessage response = await CustomRequestApi.DeleteAsync(route, authHeader).ConfigureAwait(false);
 
             LastResponseHeaders = response.Headers;
             string responseString = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
@@ -212,7 +256,7 @@ namespace WordPressPCL.Utility
                 authHeader = GetAuthHeader();
             }
 
-            HttpResponseMessage response = await _refitClient.HeadAsync(route, authHeader).ConfigureAwait(false);
+            HttpResponseMessage response = await CustomRequestApi.HeadAsync(route, authHeader).ConfigureAwait(false);
 
             LastResponseHeaders = response.Headers;
             if (response.IsSuccessStatusCode)
