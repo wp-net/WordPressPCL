@@ -117,10 +117,7 @@ namespace WordPressPCL.Client
                 body["author_url"] = Entity.AuthorUrl;
             }
 
-            if (!string.IsNullOrWhiteSpace(Entity.Status))
-            {
-                body["status"] = Entity.Status;
-            }
+            body["status"] = Entity.Status;
 
             if (Entity.Karma != 0)
             {
