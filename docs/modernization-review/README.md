@@ -29,6 +29,7 @@ This folder contains copy-pasteable GitHub issue drafts for modernizing the libr
 3. Reduce coupling to legacy implementation choices.
 4. Expose richer REST metadata and diagnostics.
 5. Tighten the build quality baseline.
+6. Improve repository structure and contributor experience.
 
 ## Issue drafts
 
@@ -41,3 +42,4 @@ This folder contains copy-pasteable GitHub issue drafts for modernizing the libr
 - [07 - Clean up build warnings and analyzer drift](./07-clean-up-build-warnings-and-analyzer-drift.md)
 - [08 - Target .NET 10 in the next major version](./08-multi-target-modern-dotnet.md)
 - [09 - Standardize public API naming and docs](./09-standardize-public-api-naming-and-docs.md)
+- [10 - Restructure the repository and GitHub-facing documentation](./10-restructure-repository-and-github-presence.md)
