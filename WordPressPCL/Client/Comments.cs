@@ -1,4 +1,5 @@
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -126,7 +127,7 @@ namespace WordPressPCL.Client
                 body["karma"] = Entity.Karma;
             }
 
-            if (Entity.Meta != null)
+            if (HasNonNullValue(Entity.Meta))
             {
                 body["meta"] = Entity.Meta;
             }
@@ -150,6 +151,33 @@ namespace WordPressPCL.Client
                 ?.GetCustomAttribute<EnumMemberAttribute>();
 
             return attribute?.Value ?? value.ToString().ToLowerInvariant();
+        }
+
+        private static bool HasNonNullValue(object value)
+        {
+            if (value == null)
+            {
+                return false;
+            }
+
+            JToken token = value as JToken ?? JToken.FromObject(value);
+
+            return HasNonNullValue(token);
+        }
+
+        private static bool HasNonNullValue(JToken token)
+        {
+            if (token == null || token.Type == JTokenType.Null)
+            {
+                return false;
+            }
+
+            if (token is JValue value)
+            {
+                return value.Value != null;
+            }
+
+            return token.Children().Any(HasNonNullValue);
         }
 
         #endregion Custom
