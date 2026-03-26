@@ -24,7 +24,7 @@ Introduce a serializer abstraction and evaluate a migration path toward `System.
 ## Suggested outcome
 
 - Introduce an internal serializer abstraction first.
-- Keep Json.NET support for compatibility while evaluating multi-targeted `System.Text.Json` support on newer TFMs.
+- Use the major-version change to decide whether Json.NET remains a compatibility layer or is replaced outright on the new public surface.
 - Decouple the public configuration surface from Json.NET-specific types over time.
 
 ## Acceptance criteria
@@ -35,4 +35,4 @@ Introduce a serializer abstraction and evaluate a migration path toward `System.
 
 ## Breaking change considerations
 
-Removing Json.NET outright may be breaking; a staged migration is safer.
+Because this is planned for a new major version, removing Json.NET-specific surface area is viable if the replacement behavior is documented clearly.

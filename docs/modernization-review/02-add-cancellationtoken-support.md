@@ -35,4 +35,4 @@ Add optional `CancellationToken` parameters to public async methods and thread t
 
 ## Breaking change considerations
 
-This can likely be shipped as a non-breaking additive change if token parameters are added at the end of existing method signatures.
+Because this work targets a new major version, the API can be updated consistently across all async methods without preserving the current signatures where that gets in the way of a cleaner design.

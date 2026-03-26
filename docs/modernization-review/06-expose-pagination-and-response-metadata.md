@@ -36,4 +36,4 @@ Add first-class access to pagination and response metadata instead of requiring 
 
 ## Breaking change considerations
 
-Prefer additive APIs or overloads to avoid breaking current `List<T>` callers immediately.
+Because this work is planned for a new major version, list APIs can be reshaped more directly if a paged result model produces a better long-term client surface.

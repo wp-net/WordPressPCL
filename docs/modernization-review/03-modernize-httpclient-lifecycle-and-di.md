@@ -35,4 +35,4 @@ Align the library with current .NET HTTP client guidance by improving default `H
 
 ## Breaking change considerations
 
-Review carefully if disposal semantics change for clients created internally versus supplied by callers.
+Because this is planned for a new major version, disposal semantics and constructor behavior can be redesigned more directly as long as ownership rules are clearly documented.

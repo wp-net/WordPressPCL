@@ -24,7 +24,7 @@ Enable nullable reference types and annotate the public API so consumers get com
 - Enable nullable reference types project-wide.
 - Annotate public APIs and DTOs deliberately.
 - Add guard clauses for required inputs where null should be rejected.
-- Preserve back-compat where practical, but make null behavior explicit.
+- Take advantage of the major-version window to make null behavior explicit throughout the API.
 
 ## Acceptance criteria
 
@@ -35,4 +35,4 @@ Enable nullable reference types and annotate the public API so consumers get com
 
 ## Breaking change considerations
 
-This should be treated as a source-compatibility review item because consumers may see new compiler warnings after the change.
+Because this work is planned for a new major version, nullable annotations and stricter argument validation can be adopted directly instead of being limited to compatibility-safe changes.

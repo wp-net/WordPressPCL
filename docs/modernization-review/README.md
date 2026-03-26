@@ -39,5 +39,5 @@ This folder contains copy-pasteable GitHub issue drafts for modernizing the libr
 - [05 - Reduce hard dependency on Newtonsoft.Json](./05-reduce-hard-dependency-on-newtonsoft-json.md)
 - [06 - Expose pagination and response metadata](./06-expose-pagination-and-response-metadata.md)
 - [07 - Clean up build warnings and analyzer drift](./07-clean-up-build-warnings-and-analyzer-drift.md)
-- [08 - Multi-target modern .NET while preserving compatibility](./08-multi-target-modern-dotnet.md)
+- [08 - Revisit target frameworks for the next major version](./08-multi-target-modern-dotnet.md)
 - [09 - Standardize public API naming and docs](./09-standardize-public-api-naming-and-docs.md)

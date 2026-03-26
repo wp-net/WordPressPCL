@@ -1,13 +1,13 @@
-# Multi-target modern .NET while preserving compatibility
+# Revisit target frameworks for the next major version
 
 ## Summary
 
-Keep broad compatibility, but add a modern target framework so the library can light up newer APIs and tooling.
+Use the next major version to choose target frameworks intentionally and light up newer APIs and tooling.
 
 ## Why this matters
 
 - The library currently targets only `netstandard2.0`, which maximizes reach but limits access to newer platform features.
-- Adding a modern TFM can unlock better serialization, diagnostics, analyzer defaults, and performance improvements without dropping compatibility immediately.
+- The next major version is a chance to re-evaluate whether `netstandard2.0` should remain, or whether the package should move fully to newer supported .NET targets.
 - The test projects already target `net6.0`, and the CI workflow uses the .NET 8 SDK.
 
 ## Evidence
@@ -23,16 +23,16 @@ Keep broad compatibility, but add a modern target framework so the library can l
 
 ## Suggested outcome
 
-- Evaluate multi-targeting, such as `netstandard2.0` plus a current .NET target.
-- Use the modern target to adopt better platform features incrementally.
-- Keep compatibility-focused behavior on the `netstandard2.0` target until a major-version decision is made.
+- Decide whether the next major version should multi-target or drop older frameworks entirely.
+- Use the chosen target framework strategy to adopt better platform features more aggressively.
+- Update CI, packaging, and docs to reflect the new support matrix clearly.
 
 ## Acceptance criteria
 
-- The project multi-targets with clear compatibility expectations.
+- The project targets an explicit, documented support matrix appropriate for the next major version.
 - CI builds and tests all supported TFMs intentionally.
-- Documentation explains consumer guidance for older versus newer runtimes.
+- Documentation explains the new runtime requirements and migration expectations.
 
 ## Breaking change considerations
 
-This can be additive if `netstandard2.0` remains supported.
+Because this is explicitly planned for a new major version, changing target framework support is acceptable if the migration impact is documented clearly.

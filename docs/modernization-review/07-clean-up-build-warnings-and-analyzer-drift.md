@@ -35,4 +35,4 @@ Bring the build back to a clean baseline by removing avoidable warnings and deci
 
 ## Breaking change considerations
 
-This should be non-breaking, but stricter analyzers may reveal follow-up work.
+Because this cleanup is part of a new major-version effort, analyzer rules and warning policy can be tightened deliberately as long as the resulting standards are documented.

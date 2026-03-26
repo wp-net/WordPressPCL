@@ -24,7 +24,7 @@ Normalize public API naming around current .NET conventions and ensure the docs 
 
 - Pick one naming convention, ideally `Id`, and apply it consistently.
 - Update docs and examples to match the supported API.
-- If a rename is made, consider compatibility shims or a major-version boundary.
+- Use the next major version to normalize the naming without carrying long-term compatibility shims unless they are genuinely helpful.
 
 ## Acceptance criteria
 
@@ -34,4 +34,4 @@ Normalize public API naming around current .NET conventions and ensure the docs 
 
 ## Breaking change considerations
 
-Renaming public methods is breaking unless a compatibility layer is added.
+Because this is planned for a new major version, public method renames are acceptable if the new naming convention is applied consistently and migration notes are provided.
