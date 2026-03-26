@@ -9,7 +9,7 @@ Wait until the setup container reports `WordPress test environment is ready.` in
 
 - The "Permanlinks" link structure in Wordpress settings is set to "Post name"
 
-- The environment uses pinned official `mariadb`, `wordpress`, and `wordpress:cli` images so local development and CI exercise the same stack more reliably.
+- The environment uses pinned official `mariadb` and `wordpress` images, and the custom WordPress image includes the official `wp-cli` binary so local development and CI exercise the same stack more reliably.
 
 To destroy the containers simply run `docker compose down` in the terminal
 
