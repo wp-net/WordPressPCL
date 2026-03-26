@@ -133,6 +133,13 @@
             <param name="force">force deletion</param>
             <returns>Result of operation</returns>
         </member>
+        <member name="M:WordPressPCL.Client.Comments.UpdateAsync(WordPressPCL.Models.Comment)">
+            <summary>
+            Update Comment
+            </summary>
+            <param name="Entity">Comment object</param>
+            <returns>Updated comment</returns>
+        </member>
         <member name="T:WordPressPCL.Client.CRUDOperation`2">
             <summary>
             Base class for CRUDOperation with default implementation of all necessary operations

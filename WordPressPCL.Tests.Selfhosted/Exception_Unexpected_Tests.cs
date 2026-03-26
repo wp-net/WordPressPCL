@@ -15,7 +15,7 @@ public class Exception_Unexpected_Tests
     [TestInitialize]
     public void Initialize()
     {
-        _badConnectionClient = new WordPressClient("https://microsoft.com");
+        _badConnectionClient = new WordPressClient("http://localhost:8080/not-a-wordpress-install/");
     }
 
     [TestMethod]
@@ -33,7 +33,7 @@ public class Exception_Unexpected_Tests
     [TestMethod]
     public async Task Tags_Delete_UnexpectedException()
     {
-        await CheckForUnexpectedException(async () => await _badConnectionClient.Tags.DeleteAsync(1), HttpStatusCode.NotImplemented);
+        await CheckForUnexpectedException(async () => await _badConnectionClient.Tags.DeleteAsync(1));
     }
 
     private async Task CheckForUnexpectedException(Func<Task> task, HttpStatusCode expectedStatus = HttpStatusCode.NotFound)

@@ -1,11 +1,15 @@
-Run `docker compose up` inside the `dev` folder and it will start a fully setup docker Wordpress instance on port 8080 to run tests.
+Run `docker compose up -d` inside the `dev` folder and it will start a fully setup Docker WordPress instance on port 8080 to run tests.
 
-- The Wordpress instance will have following already configured plugins:
+Wait until the setup container reports `WordPress test environment is ready.` in `docker compose logs cli`, or until `/var/www/html/.wp-tests-ready` exists inside the `wordpress` container.
+
+- The WordPress instance will have following already configured plugins:
   - [JWT Auth – WordPress JSON Web Token Authentication](https://wordpress.org/plugins/jwt-auth/)
   - [Contact Form 7](https://wordpress.org/plugins/contact-form-7/)
-  - https://github.com/wp-net/wordpress-docker-compose/raw/master/plugins/enable-application-passwords.1.0.zip
+  - [Application Passwords Enable](https://wordpress.org/plugins/application-passwords-enable/)
 
-- The "Permanlinks" link structure in Wordpress settings is set to "Post name"
+- The "Permalinks" link structure in WordPress settings is set to "Post name"
+
+- The environment uses pinned official `mariadb` and `wordpress` images, and the custom WordPress image includes the official `wp-cli` binary so local development and CI exercise the same stack more reliably.
 
 To destroy the containers simply run `docker compose down` in the terminal
 

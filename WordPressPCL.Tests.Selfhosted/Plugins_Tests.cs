@@ -1,8 +1,10 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WordPressPCL.Models;
+using WordPressPCL.Models.Exceptions;
 using WordPressPCL.Tests.Selfhosted.Utility;
 using WordPressPCL.Utility;
 
@@ -23,7 +25,17 @@ public class Plugins_Tests
     [TestMethod]
     public async Task Plugins_Install_Activate_Deactivate_Delete()
     {
-        Plugin plugin = await _clientAuth.Plugins.InstallAsync(PluginId);
+        Plugin plugin;
+        try
+        {
+            plugin = await _clientAuth.Plugins.InstallAsync(PluginId);
+        }
+        catch (WPException ex) when (ex.Message.Contains("WordPress.org", StringComparison.OrdinalIgnoreCase))
+        {
+            Assert.Inconclusive("WordPress.org is not reachable from the test environment, so plugin installation cannot be verified.");
+            return;
+        }
+
         Assert.IsNotNull(plugin);
         Assert.AreEqual(PluginId, plugin.Id);
 
