@@ -36,7 +36,16 @@ jobs:
         cd dev
         docker compose up -d
         docker ps
-        sleep 20s
+        for attempt in {1..60}; do
+          if docker exec wordpress test -f /var/www/html/.wp-tests-ready; then
+            break
+          fi
+          if [ "$attempt" -eq 60 ]; then
+            docker compose logs
+            exit 1
+          fi
+          sleep 2
+        done
         curl --fail http://localhost:8080/wp-json
 
     - name: 'Run Tests: Selfhosted WordPress with JWT-AUTH'

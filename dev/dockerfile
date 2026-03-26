@@ -1,3 +1,3 @@
-FROM wordpress:latest
+FROM wordpress:6.9.4-php8.3-apache
 
 COPY ./.htaccess /var/www/html/
