@@ -15,21 +15,23 @@ until [ -f "$WP_PATH/wp-config.php" ]; do
     sleep 2
 done
 
-echo "Waiting for database connectivity..."
-until wp db check --path="$WP_PATH" >/dev/null 2>&1; do
-    sleep 2
-done
+rm -f "$WP_READY_FILE"
 
-if ! wp core is-installed --path="$WP_PATH" >/dev/null 2>&1; then
+echo "Waiting for WordPress installation to complete..."
+until wp core is-installed --path="$WP_PATH" >/dev/null 2>&1; do
     echo "Installing WordPress..."
-    wp core install \
+    if wp core install \
         --path="$WP_PATH" \
         --url="$WP_URL" \
         --title="$WP_TITLE" \
         --admin_user="$WP_ADMIN_USER" \
         --admin_password="$WP_ADMIN_PASSWORD" \
-        --admin_email="$WP_ADMIN_EMAIL"
-fi
+        --admin_email="$WP_ADMIN_EMAIL"; then
+        break
+    fi
+
+    sleep 2
+done
 
 echo "Configuring WordPress for tests..."
 wp option update permalink_structure "/%postname%" --path="$WP_PATH"

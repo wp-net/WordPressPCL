@@ -33,7 +33,10 @@ services:
       WORDPRESS_DB_PASSWORD: ${WORDPRESS_DB_PASSWORD}
       WORDPRESS_DB_NAME: ${WORDPRESS_DB_NAME}
       WORDPRESS_DEBUG: ${WORDPRESS_DEBUG}
-      WORDPRESS_CONFIG_EXTRA: define('JWT_AUTH_SECRET_KEY', '.|)WaUppb-a>Z;(%p,4~^|5jjWom6Gw{(2_lqJv9r&]p<r4=rAvjM(LepuRf&+wI');
+      WORDPRESS_CONFIG_EXTRA: |
+        define('JWT_AUTH_SECRET_KEY', '.|)WaUppb-a>Z;(%p,4~^|5jjWom6Gw{(2_lqJv9r&]p<r4=rAvjM(LepuRf&+wI');
+        define('WP_DEBUG_DISPLAY', false);
+        @ini_set('display_errors', 0);
     restart: unless-stopped
 
   cli:

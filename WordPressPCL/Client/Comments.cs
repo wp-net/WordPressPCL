@@ -1,6 +1,9 @@
-﻿using System.Collections.Generic;
+using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 using WordPressPCL.Models;
 using WordPressPCL.Utility;
@@ -73,6 +76,58 @@ namespace WordPressPCL.Client
         public Task<bool> DeleteAsync(int ID, bool force = false)
         {
             return HttpHelper.DeleteRequestAsync($"{_methodPath}/{ID}?force={force.ToString().ToLower(CultureInfo.InvariantCulture)}");
+        }
+
+        /// <summary>
+        /// Update Comment
+        /// </summary>
+        /// <param name="Entity">Comment object</param>
+        /// <returns>Updated comment</returns>
+        public new async Task<Comment> UpdateAsync(Comment Entity)
+        {
+            Dictionary<string, object> body = new();
+
+            if (Entity.PostId != 0)
+            {
+                body["post"] = Entity.PostId;
+            }
+
+            if (Entity.ParentId != 0)
+            {
+                body["parent"] = Entity.ParentId;
+            }
+
+            if (Entity.AuthorId != 0)
+            {
+                body["author"] = Entity.AuthorId;
+            }
+
+            if (!string.IsNullOrWhiteSpace(Entity.AuthorName))
+            {
+                body["author_name"] = Entity.AuthorName;
+            }
+
+            if (!string.IsNullOrWhiteSpace(Entity.AuthorEmail))
+            {
+                body["author_email"] = Entity.AuthorEmail;
+            }
+
+            if (!string.IsNullOrWhiteSpace(Entity.AuthorUrl))
+            {
+                body["author_url"] = Entity.AuthorUrl;
+            }
+
+            if (!string.IsNullOrWhiteSpace(Entity.Content?.Raw) || !string.IsNullOrWhiteSpace(Entity.Content?.Rendered))
+            {
+                body["content"] = new
+                {
+                    raw = Entity.Content?.Raw ?? Entity.Content?.Rendered
+                };
+            }
+
+            string entity = HttpHelper.JsonSerializerSettings == null ? JsonConvert.SerializeObject(body) : JsonConvert.SerializeObject(body, HttpHelper.JsonSerializerSettings);
+            using StringContent postBody = new(entity, Encoding.UTF8, "application/json");
+            return (await HttpHelper.PostRequestAsync<Comment>($"{_methodPath}/{Entity?.Id}", postBody).ConfigureAwait(false)).Item1;
         }
 
         #endregion Custom
