@@ -13,7 +13,7 @@ var tags = await client.Tags.GetAllAsync();
 
 ```C#
 // returns tag by ID
-var tag = await client.Tags.GetByIDAsync(123);
+var tag = await client.Tags.GetByIdAsync(123);
 ```
 
 ## Query
@@ -46,7 +46,7 @@ if (await client.IsValidJWTokenAsync())
 
 ```C#
 // returns updated tag
-var tag = client.Tags.GetByIDAsync(123);
+var tag = client.Tags.GetByIdAsync(123);
 tag.Name = "New Name";
 if (await client.IsValidJWTokenAsync())
 {

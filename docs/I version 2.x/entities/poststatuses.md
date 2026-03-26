@@ -13,7 +13,7 @@ var poststatuses = await client.PostStatuses.GetAllAsync();
 
 ```C#
 // returns poststatus by ID
-var poststatus = await client.PostStatuses.GetByIDAsync(123);
+var poststatus = await client.PostStatuses.GetByIdAsync(123);
 ```
 
 ## Query

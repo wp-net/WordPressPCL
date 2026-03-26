@@ -90,7 +90,7 @@ public class Plugins_Tests
     [TestMethod]
     public async Task Plugins_GetByID()
     {
-        Plugin plugin = await _clientAuth.Plugins.GetByIDAsync("jwt-auth/jwt-auth", useAuth: true);
+        Plugin plugin = await _clientAuth.Plugins.GetByIdAsync("jwt-auth/jwt-auth", useAuth: true);
         Assert.IsNotNull(plugin);
     }
 

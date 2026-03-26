@@ -13,7 +13,7 @@ var posttypes = await client.PostTypes.GetAllAsync();
 
 ```C#
 // returns posttype by ID
-var posttype = await client.PostTypes.GetByIDAsync(123);
+var posttype = await client.PostTypes.GetByIdAsync(123);
 ```
 
 ## Query

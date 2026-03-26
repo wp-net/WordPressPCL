@@ -205,11 +205,11 @@
             <param name="useAuth">Send request with authentication header</param>
             <returns>List of all result</returns>
         </member>
-        <member name="M:WordPressPCL.Client.CRUDOperation`2.GetByIDAsync(System.Object,System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.CRUDOperation`2.GetByIdAsync(System.Object,System.Boolean,System.Boolean)">
             <summary>
             Get Entity by Id
             </summary>
-            <param name="ID">ID</param>
+            <param name="id">ID</param>
             <param name="embed">include embed info</param>
             <param name="useAuth">Send request with authentication header</param>
             <returns>Entity by Id</returns>
@@ -333,11 +333,11 @@
             <param name="useAuth">Send request with authentication header</param>
             <returns>List of all result</returns>
         </member>
-        <member name="M:WordPressPCL.Client.Media.GetByIDAsync(System.Object,System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.Media.GetByIdAsync(System.Object,System.Boolean,System.Boolean)">
             <summary>
             Get Entity by Id
             </summary>
-            <param name="ID">ID</param>
+            <param name="id">ID</param>
             <param name="embed">include embed info</param>
             <param name="useAuth">Send request with authentication header</param>
             <returns>Entity by Id</returns>
@@ -493,11 +493,11 @@
             <param name="useAuth">Send request with authentication header</param>
             <returns>List of all result</returns>
         </member>
-        <member name="M:WordPressPCL.Client.PostRevisions.GetByIDAsync(System.Object,System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.PostRevisions.GetByIdAsync(System.Object,System.Boolean,System.Boolean)">
             <summary>
             Get Entity by Id
             </summary>
-            <param name="ID">ID</param>
+            <param name="id">ID</param>
             <param name="embed">include embed info</param>
             <param name="useAuth">Send request with authentication header</param>
             <returns>Entity by Id</returns>
@@ -605,11 +605,11 @@
             <param name="useAuth">Send request with authentication header</param>
             <returns>List of all result</returns>
         </member>
-        <member name="M:WordPressPCL.Client.PostStatuses.GetByIDAsync(System.Object,System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.PostStatuses.GetByIdAsync(System.Object,System.Boolean,System.Boolean)">
             <summary>
             Get Entity by Id
             </summary>
-            <param name="ID">ID</param>
+            <param name="id">ID</param>
             <param name="embed">include embed info</param>
             <param name="useAuth">Send request with authentication header</param>
             <returns>Entity by Id</returns>
@@ -641,11 +641,11 @@
             <param name="useAuth">Send request with authentication header</param>
             <returns>List of all PostTypes</returns>
         </member>
-        <member name="M:WordPressPCL.Client.PostTypes.GetByIDAsync(System.Object,System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.PostTypes.GetByIdAsync(System.Object,System.Boolean,System.Boolean)">
             <summary>
             Get Entity by Id
             </summary>
-            <param name="ID">ID</param>
+            <param name="id">ID</param>
             <param name="embed">include embed info</param>
             <param name="useAuth">Send request with authentication header</param>
             <returns>Entity by Id</returns>
@@ -712,11 +712,11 @@
             <param name="useAuth">Send request with authentication header</param>
             <returns>List of all result</returns>
         </member>
-        <member name="M:WordPressPCL.Client.Taxonomies.GetByIDAsync(System.Object,System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.Taxonomies.GetByIdAsync(System.Object,System.Boolean,System.Boolean)">
             <summary>
             Get Entity by Id
             </summary>
-            <param name="ID">ID</param>
+            <param name="id">ID</param>
             <param name="embed">include embed info</param>
             <param name="useAuth">Send request with authentication header</param>
             <returns>Entity by Id</returns>
@@ -784,11 +784,11 @@
             <param name="useAuth">Send request with authentication header</param>
             <returns>List of all result</returns>
         </member>
-        <member name="M:WordPressPCL.Client.Users.GetByIDAsync(System.Object,System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.Users.GetByIdAsync(System.Object,System.Boolean,System.Boolean)">
             <summary>
             Get Entity by Id
             </summary>
-            <param name="ID">ID</param>
+            <param name="id">ID</param>
             <param name="embed">include embed info</param>
             <param name="useAuth">Send request with authentication header</param>
             <returns>Entity by Id</returns>
@@ -910,11 +910,11 @@
             <param name="useAuth">Is use auth header</param>
             <returns>requested object</returns>
         </member>
-        <member name="M:WordPressPCL.Interfaces.IReadOperation`1.GetByIDAsync(System.Object,System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Interfaces.IReadOperation`1.GetByIdAsync(System.Object,System.Boolean,System.Boolean)">
             <summary>
             Get object by Id
             </summary>
-            <param name="ID">Object Id</param>
+            <param name="id">Object Id</param>
             <param name="embed">Is use embed info</param>
             <param name="useAuth">Is use auth header</param>
             <returns>requested object</returns>

@@ -12,7 +12,7 @@ var posts = await client.Posts.GetAllAsync();```
 
 ```C#
 // returns post by ID
-var post = await client.Posts.GetByIDAsync(123);
+var post = await client.Posts.GetByIdAsync(123);
 ```
 
 ## Query
@@ -45,7 +45,7 @@ if (await client.IsValidJWTokenAsync())
 
 ```C#
 // returns updated post
-var post = client.Posts.GetByIDAsync(123);
+var post = client.Posts.GetByIdAsync(123);
 post.Content.Raw = "New Content";
 if (await client.IsValidJWTokenAsync())
 {

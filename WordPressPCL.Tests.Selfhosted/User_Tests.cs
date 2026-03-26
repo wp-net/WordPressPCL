@@ -55,7 +55,7 @@ public class User_Tests
         List<User> users = await _client.Users.GetAllAsync();
         Assert.IsNotNull(users);
         Assert.IsTrue(users.Count >= 1);
-        User user = await _client.Users.GetByIDAsync(users.First().Id);
+        User user = await _client.Users.GetByIdAsync(users.First().Id);
         Assert.IsNotNull(user);
         Assert.AreEqual(user.Id, users.First().Id);
     }
@@ -66,7 +66,7 @@ public class User_Tests
         List<User> users = await _client.Users.GetAsync();
         Assert.IsNotNull(users);
         Assert.IsTrue(users.Count >= 1);
-        User user = await _client.Users.GetByIDAsync(users.First().Id);
+        User user = await _client.Users.GetByIdAsync(users.First().Id);
         Assert.IsNotNull(user);
         Assert.AreEqual(user.Id, users.First().Id);
     }

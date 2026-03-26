@@ -81,13 +81,13 @@ namespace WordPressPCL.Client
         /// <summary>
         /// Get Entity by Id
         /// </summary>
-        /// <param name="ID">ID</param>
+        /// <param name="id">ID</param>
         /// <param name="embed">include embed info</param>
         /// <param name="useAuth">Send request with authentication header</param>
         /// <returns>Entity by Id</returns>
-        public Task<User> GetByIDAsync(object ID, bool embed = false, bool useAuth = false)
+        public Task<User> GetByIdAsync(object id, bool embed = false, bool useAuth = false)
         {
-            return _httpHelper.GetRequestAsync<User>($"{METHOD_PATH}/{ID}", embed, useAuth);
+            return _httpHelper.GetRequestAsync<User>($"{METHOD_PATH}/{id}", embed, useAuth);
         }
 
         /// <summary>
