@@ -5,7 +5,7 @@ Wait until the setup container reports `WordPress test environment is ready.` in
 - The WordPress instance will have following already configured plugins:
   - [JWT Auth – WordPress JSON Web Token Authentication](https://wordpress.org/plugins/jwt-auth/)
   - [Contact Form 7](https://wordpress.org/plugins/contact-form-7/)
-  - https://github.com/wp-net/wordpress-docker-compose/raw/master/plugins/enable-application-passwords.1.0.zip
+  - [Application Passwords Enable](https://wordpress.org/plugins/application-passwords-enable/)
 
 - The "Permalinks" link structure in WordPress settings is set to "Post name"
 
