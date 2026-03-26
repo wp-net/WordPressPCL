@@ -117,6 +117,20 @@ namespace WordPressPCL.Client
                 body["author_url"] = Entity.AuthorUrl;
             }
 
+            if (!string.IsNullOrWhiteSpace(Entity.Status))
+            {
+                body["status"] = Entity.Status;
+            }
+
+            if (Entity.Karma != 0)
+            {
+                body["karma"] = Entity.Karma;
+            }
+
+            if (Entity.Meta != null)
+            {
+                body["meta"] = Entity.Meta;
+            }
             if (!string.IsNullOrWhiteSpace(Entity.Content?.Raw) || !string.IsNullOrWhiteSpace(Entity.Content?.Rendered))
             {
                 body["content"] = new
