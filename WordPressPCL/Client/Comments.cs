@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Net.Http;
+using System.Reflection;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 using WordPressPCL.Models;
@@ -117,7 +119,7 @@ namespace WordPressPCL.Client
                 body["author_url"] = Entity.AuthorUrl;
             }
 
-            body["status"] = Entity.Status;
+            body["status"] = GetEnumMemberValue(Entity.Status);
 
             if (Entity.Karma != 0)
             {
@@ -139,6 +141,15 @@ namespace WordPressPCL.Client
             string entity = HttpHelper.JsonSerializerSettings == null ? JsonConvert.SerializeObject(body) : JsonConvert.SerializeObject(body, HttpHelper.JsonSerializerSettings);
             using StringContent postBody = new(entity, Encoding.UTF8, "application/json");
             return (await HttpHelper.PostRequestAsync<Comment>($"{_methodPath}/{Entity?.Id}", postBody).ConfigureAwait(false)).Item1;
+        }
+
+        private static string GetEnumMemberValue<TEnum>(TEnum value) where TEnum : struct, System.Enum
+        {
+            EnumMemberAttribute attribute = typeof(TEnum)
+                .GetRuntimeField(value.ToString())
+                ?.GetCustomAttribute<EnumMemberAttribute>();
+
+            return attribute?.Value ?? value.ToString().ToLowerInvariant();
         }
 
         #endregion Custom
