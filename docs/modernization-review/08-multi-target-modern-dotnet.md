@@ -1,14 +1,14 @@
-# Revisit target frameworks for the next major version
+# Target .NET 10 in the next major version
 
 ## Summary
 
-Use the next major version to choose target frameworks intentionally and light up newer APIs and tooling.
+Move the library and its test projects to .NET 10 in the next major version so the codebase can use current platform APIs and tooling consistently.
 
 ## Why this matters
 
-- The library currently targets only `netstandard2.0`, which maximizes reach but limits access to newer platform features.
-- The next major version is a chance to re-evaluate whether `netstandard2.0` should remain, or whether the package should move fully to newer supported .NET targets.
-- The test projects already target `net6.0`, and the CI workflow uses the .NET 8 SDK.
+- The library currently targets only `netstandard2.0`, which limits access to newer platform features and keeps the package tied to older compatibility trade-offs.
+- The test projects already target `net6.0`, and the CI workflow uses the .NET 8 SDK, so the repository is already carrying multiple generations of .NET decisions.
+- Moving to .NET 10 aligns the support matrix with the project's stated modernization goal and makes it easier to adopt current BCL, diagnostics, and serialization features.
 
 ## Evidence
 
@@ -19,20 +19,20 @@ Use the next major version to choose target frameworks intentionally and light u
 - `/home/runner/work/WordPressPCL/WordPressPCL/WordPressPCL.Tests.Selfhosted/WordPressPCL.Tests.Selfhosted.csproj:3-5`
   - self-hosted tests target `net6.0`.
 - `/home/runner/work/WordPressPCL/WordPressPCL/.github/workflows/integration-tests.yml:25-32`
-  - CI installs the .NET 8 SDK for restore and build.
+  - CI currently installs the .NET 8 SDK for restore and build.
 
 ## Suggested outcome
 
-- Decide whether the next major version should multi-target or drop older frameworks entirely.
-- Use the chosen target framework strategy to adopt better platform features more aggressively.
-- Update CI, packaging, and docs to reflect the new support matrix clearly.
+- Retarget the library and test projects to `.NET 10`.
+- Update CI to install the .NET 10 SDK and execute restore, build, and tests on that toolchain.
+- Refresh packaging and docs to state the new runtime requirement clearly.
 
 ## Acceptance criteria
 
-- The project targets an explicit, documented support matrix appropriate for the next major version.
-- CI builds and tests all supported TFMs intentionally.
-- Documentation explains the new runtime requirements and migration expectations.
+- The main library targets `.NET 10`.
+- CI builds and tests the solution with the .NET 10 SDK.
+- Documentation explains the new runtime requirement and migration expectations.
 
 ## Breaking change considerations
 
-Because this is explicitly planned for a new major version, changing target framework support is acceptable if the migration impact is documented clearly.
+Because this is explicitly planned for a new major version, dropping older target frameworks in favor of `.NET 10` is acceptable if the migration impact is documented clearly.

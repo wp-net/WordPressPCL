@@ -1,14 +1,14 @@
-# Reduce hard dependency on Newtonsoft.Json
+# Migrate serialization to System.Text.Json
 
 ## Summary
 
-Introduce a serializer abstraction and evaluate a migration path toward `System.Text.Json` for modern target frameworks.
+Move the library off `Newtonsoft.Json` and standardize on `System.Text.Json` for the next major version.
 
 ## Why this matters
 
 - The library is tightly coupled to `Newtonsoft.Json` in both API configuration and implementation.
-- Modern .NET libraries often prefer `System.Text.Json` where possible, or at least avoid hardwiring serializer details into the public surface.
-- A serializer abstraction would make the library easier to evolve without forcing a single implementation forever.
+- `System.Text.Json` is the default JSON stack for current .NET and aligns with the stated modernization direction for this project.
+- Removing Json.NET-specific public types will simplify the API surface and reduce dependency baggage.
 
 ## Evidence
 
@@ -23,16 +23,16 @@ Introduce a serializer abstraction and evaluate a migration path toward `System.
 
 ## Suggested outcome
 
-- Introduce an internal serializer abstraction first.
-- Use the major-version change to decide whether Json.NET remains a compatibility layer or is replaced outright on the new public surface.
-- Decouple the public configuration surface from Json.NET-specific types over time.
+- Replace Json.NET-based serialization and deserialization paths with `System.Text.Json`.
+- Remove `JsonSerializerSettings` and other Json.NET-specific types from the public configuration surface.
+- Add any required custom converters or naming policies inside the library so WordPress payload handling remains correct.
 
 ## Acceptance criteria
 
-- Serialization and deserialization go through a library-owned abstraction.
-- A migration plan exists for preserving current behavior where Json.NET quirks matter.
-- Public docs explain serializer customization in library terms, not only Json.NET terms.
+- Runtime serialization and deserialization use `System.Text.Json`.
+- The public API no longer exposes Json.NET-specific configuration types.
+- Public docs explain any supported serializer customization and call out behavior differences that matter for migration.
 
 ## Breaking change considerations
 
-Because this is planned for a new major version, removing Json.NET-specific surface area is viable if the replacement behavior is documented clearly.
+Because this is planned for a new major version, the library can migrate directly to `System.Text.Json` as long as any observable behavior changes are documented clearly.
