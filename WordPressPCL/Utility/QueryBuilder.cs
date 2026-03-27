@@ -52,14 +52,14 @@ namespace WordPressPCL.Utility
                     object? value = GetPropertyValue(property);
 
                     if (value is null) continue;
-                    if (exclusionAttribute != null && value.ToString()!.ToLowerInvariant() == exclusionAttribute.ExclusionValue) continue;
+                    if (exclusionAttribute != null && value.ToString()?.ToLowerInvariant() == exclusionAttribute.ExclusionValue) continue;
 
                     //pass default values
                     if (value is int valueInt && valueInt == default) continue;
                     if (value is string valueString && (string.IsNullOrEmpty(valueString) || valueString == DateTime.MinValue.ToString("yyyy-MM-ddTHH:mm:ss", CultureInfo.InvariantCulture))) continue;
                     if (value is DateTime valueDateTime && valueDateTime == default) continue;
                     if (property.PropertyType == typeof(bool) && (string)value == default(bool).ToString()!.ToLowerInvariant()) continue;
-                    query.Add(attribute.Text, value.ToString()!.ToLowerInvariant());
+                    query.Add(attribute.Text, value.ToString()?.ToLowerInvariant() ?? string.Empty);
                 }
             }
             string queryString = query.ToString() ?? string.Empty;

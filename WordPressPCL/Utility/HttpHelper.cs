@@ -305,7 +305,7 @@ namespace WordPressPCL.Utility
             {
                 return new WPUnexpectedException(response, responseString);
             }
-            return new WPException(badrequest.Message ?? string.Empty, badrequest);
+            return new WPException(badrequest.Message ?? "Unknown error", badrequest);
         }
     }
 }

@@ -151,7 +151,7 @@ namespace WordPressPCL
             {
                 throw new ArgumentNullException(nameof(httpClient));
             }
-            WordPressUri = (uri ?? httpClient.BaseAddress)!;
+            WordPressUri = uri ?? httpClient.BaseAddress ?? throw new ArgumentNullException(nameof(uri), "Either uri or httpClient.BaseAddress must be set.");
             _httpHelper = new HttpHelper(httpClient, defaultPath, uri);
             SetupSubClients(_httpHelper);
         }
