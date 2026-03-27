@@ -150,10 +150,10 @@ public class Posts_Tests
         Post createdPost = await _clientAuth.Posts.CreateAsync(post);
         Assert.IsNotNull(createdPost);
 
-        bool resonse = await _clientAuth.Posts.DeleteAsync(createdPost.Id);
-        Assert.IsTrue(resonse);
+        bool response = await _clientAuth.Posts.DeleteAsync(createdPost.Id);
+        Assert.IsTrue(response);
 
-        await Assert.ThrowsExceptionAsync<WPException>(async () =>
+        await Assert.ThrowsExactlyAsync<WPException>(async () =>
         {
             Post postById = await _clientAuth.Posts.GetByIdAsync(createdPost.Id);
         });

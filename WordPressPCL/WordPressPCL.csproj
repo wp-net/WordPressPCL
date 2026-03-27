@@ -1,9 +1,8 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <OutputType>Library</OutputType>
   </PropertyGroup>
   <PropertyGroup>
-    <TargetFramework>net10.0</TargetFramework>
     <DocumentationFile>WordPressPCL.xml</DocumentationFile>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <Authors>Thomas Pentenrieder</Authors>
@@ -17,7 +16,6 @@
     <FileVersion>3.0.0.0</FileVersion>
     <Version>3.0.0</Version>
     <PackageLicenseUrl></PackageLicenseUrl>
-    <LangVersion>9.0</LangVersion>
     <PackageReleaseNotes>V3.0.0
 - Target .NET 10
 - Dropped previous .NET Standard and .NET 6 test targets
@@ -27,7 +25,7 @@ V2.1.0
 - Fix GetCurrentUserAsync() naming
 - Allow httpclient injection without base address
 - Added optional ignoreDefaultPath on CustomRequest methods
-		
+
 V2.0.2
 - Support for Plugins
 - Support for Statuses in UsersQueryBuilder
@@ -149,12 +147,12 @@ V1.2
     <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="8.0.0">
+    <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="Microsoft.CSharp" />
+    <PackageReference Include="Newtonsoft.Json" />
   </ItemGroup>
   <ItemGroup>
     <None Update="icon.png">

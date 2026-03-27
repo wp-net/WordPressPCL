@@ -24,7 +24,7 @@ public class CapabilitiesJsonConverter_Tests
     [TestMethod]
     public void MUST_FAIL_CapabilitiesJsonConverterRead_Test()
     {
-        Assert.ThrowsException<FormatException>(() => JsonConvert.DeserializeObject<Dictionary<string, bool>>(BadTestData1, new CustomCapabilitiesJsonConverter()));
+        Assert.ThrowsExactly<FormatException>(() => JsonConvert.DeserializeObject<Dictionary<string, bool>>(BadTestData1, new CustomCapabilitiesJsonConverter()));
     }
 
     [TestMethod]
