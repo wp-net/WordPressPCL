@@ -12,13 +12,13 @@ namespace WordPressPCL.Models
         /// Rendered text
         /// </summary>
         [JsonProperty("rendered")]
-        public string Rendered { get; set; }
+        public string? Rendered { get; set; }
 
         /// <summary>
         /// Raw HTML text
         /// </summary>
         [JsonProperty("raw")]
-        public string Raw { get; set; }
+        public string? Raw { get; set; }
     }
 
     /// <summary>
@@ -30,13 +30,13 @@ namespace WordPressPCL.Models
         /// Rendered text
         /// </summary>
         [JsonProperty("rendered")]
-        public string  Rendered { get; set; }
+        public string?  Rendered { get; set; }
 
         /// <summary>
         /// Raw HTML text
         /// </summary>
         [JsonProperty("raw")]
-        public string [] Raw { get; set; }
+        public string[]? Raw { get; set; }
     }
 
     /// <summary>
@@ -48,7 +48,7 @@ namespace WordPressPCL.Models
         /// URL link
         /// </summary>
         [JsonProperty("href")]
-        public string Href { get; set; }
+        public string? Href { get; set; }
     }
 
     /// <summary>
@@ -225,10 +225,10 @@ namespace WordPressPCL.Models
         public bool EditorStyles { get; set; }
 
         [JsonProperty("html5")]
-        public List<string> Html5 { get; set; }
+        public List<string>? Html5 { get; set; }
 
         [JsonProperty("formats")]
-        public List<string> Formats { get; set; }
+        public List<string>? Formats { get; set; }
 
         [JsonProperty("post-thumbnails")]
         public bool PostThumbnails { get; set; }
@@ -448,7 +448,7 @@ namespace WordPressPCL.Models
         /// Cury name
         /// </summary>
         [JsonProperty("name")]
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
         /// <summary>
         /// Is cury templated
@@ -476,7 +476,7 @@ namespace WordPressPCL.Models
         /// Taxonomy name
         /// </summary>
         [JsonProperty("taxonomy")]
-        public string Taxonomy { get; set; }
+        public string? Taxonomy { get; set; }
 
         /// <summary>
         /// Has embedded info

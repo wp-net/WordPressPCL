@@ -23,16 +23,16 @@ namespace WordPressPCL.Models
         /// File
         /// </summary>
         [JsonProperty("file")]
-        public string File { get; set; }
+        public string? File { get; set; }
         /// <summary>
         /// Sizes
         /// </summary>
         [JsonProperty("sizes")]
-        public IDictionary<string, MediaSize> Sizes { get; set; }
+        public IDictionary<string, MediaSize>? Sizes { get; set; }
         /// <summary>
         /// Meta info of Image
         /// </summary>
         [JsonProperty("image_meta")]
-        public ImageMeta ImageMeta { get; set; }
+        public ImageMeta? ImageMeta { get; set; }
     }
 }

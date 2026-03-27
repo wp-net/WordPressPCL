@@ -40,7 +40,7 @@ namespace WordPressPCL.Client
         {
             // default values
             // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
-            return HttpHelper.GetRequestAsync<List<Theme>>(_methodPath.SetQueryParam("status", activationStatus.ToString().ToLower()), embed, true);
+            return HttpHelper.GetRequestAsync<List<Theme>>(_methodPath.SetQueryParam("status", activationStatus.ToString().ToLower())!, embed, true);
         }
 
 

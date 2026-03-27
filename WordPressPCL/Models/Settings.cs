@@ -11,43 +11,43 @@ namespace WordPressPCL.Models
         /// Site title.
         /// </summary>
         [JsonProperty("title")]
-        public string Title { get; set; }
+        public string? Title { get; set; }
 
         /// <summary>
         /// Site description.
         /// </summary>
         [JsonProperty("description")]
-        public string Description { get; set; }
+        public string? Description { get; set; }
 
         /// <summary>
         /// Site URL.
         /// </summary>
         [JsonProperty("url")]
-        public string Url { get; set; }
+        public string? Url { get; set; }
 
         /// <summary>
         /// This address is used for admin purposes. If you change this we will send you an email at your new address to confirm it. The new address will not become active until confirmed.
         /// </summary>
         [JsonProperty("email")]
-        public string Email { get; set; }
+        public string? Email { get; set; }
 
         /// <summary>
         /// A city in the same timezone as you.
         /// </summary>
         [JsonProperty("timezone")]
-        public string Timezone { get; set; }
+        public string? Timezone { get; set; }
 
         /// <summary>
         /// A date format for all date strings.
         /// </summary>
         [JsonProperty("date_format")]
-        public string DateFormat { get; set; }
+        public string? DateFormat { get; set; }
 
         /// <summary>
         /// A time format for all time strings.
         /// </summary>
         [JsonProperty("time_format")]
-        public string TimeFormat { get; set; }
+        public string? TimeFormat { get; set; }
 
         /// <summary>
         /// A day number of the week that the week should start on.
@@ -59,7 +59,7 @@ namespace WordPressPCL.Models
         /// WordPress locale code.
         /// </summary>
         [JsonProperty("language")]
-        public string Language { get; set; }
+        public string? Language { get; set; }
 
         /// <summary>
         /// Convert emoticons like :-) and :-P to graphics on display.
@@ -77,7 +77,7 @@ namespace WordPressPCL.Models
         /// Default post format.
         /// </summary>
         [JsonProperty("default_post_format")]
-        public string DefaultPostFormat { get; set; }
+        public string? DefaultPostFormat { get; set; }
 
         /// <summary>
         /// Blog pages show at most.

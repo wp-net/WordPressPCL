@@ -41,7 +41,7 @@ namespace WordPressPCL.Client
         /// <param name="filename">Name of file in WP Media Library</param>
         /// <param name="mimeType">Override for automatic mime type detection</param>
         /// <returns>Created media object</returns>
-        public async Task<MediaItem> CreateAsync(Stream fileStream, string filename, string mimeType = null)
+        public async Task<MediaItem> CreateAsync(Stream fileStream, string filename, string? mimeType = null)
         {
             if (string.IsNullOrEmpty(filename))
             {
@@ -69,7 +69,7 @@ namespace WordPressPCL.Client
         /// <param name="filename">Name of file in WP Media Library</param>
         /// <returns>Created media object</returns>
         /// <param name="mimeType">Override for automatic mime type detection</param>
-        public async Task<MediaItem> CreateAsync(string filePath, string filename, string mimeType = null)
+        public async Task<MediaItem> CreateAsync(string filePath, string filename, string? mimeType = null)
         {
             if (string.IsNullOrEmpty(filePath))
             {
@@ -133,7 +133,7 @@ namespace WordPressPCL.Client
         {
             //100 - Max posts per page in WordPress REST API, so this is hack with multiple requests
             List<MediaItem> entities = await _httpHelper.GetRequestAsync<List<MediaItem>>($"{_methodPath}?per_page=100&page=1", embed, useAuth).ConfigureAwait(false);
-            if (_httpHelper.LastResponseHeaders.Contains("X-WP-TotalPages") && Convert.ToInt32(_httpHelper.LastResponseHeaders.GetValues("X-WP-TotalPages").FirstOrDefault(), CultureInfo.InvariantCulture) > 1)
+            if (_httpHelper.LastResponseHeaders?.Contains("X-WP-TotalPages") == true && Convert.ToInt32(_httpHelper.LastResponseHeaders.GetValues("X-WP-TotalPages").FirstOrDefault(), CultureInfo.InvariantCulture) > 1)
             {
                 int totalpages = Convert.ToInt32(_httpHelper.LastResponseHeaders.GetValues("X-WP-TotalPages").FirstOrDefault(), CultureInfo.InvariantCulture);
                 for (int page = 2; page <= totalpages; page++)

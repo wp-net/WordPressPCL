@@ -4,6 +4,7 @@
   </PropertyGroup>
   <PropertyGroup>
     <DocumentationFile>WordPressPCL.xml</DocumentationFile>
+    <Nullable>enable</Nullable>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <Authors>Thomas Pentenrieder</Authors>
     <Company>medienstudio.net</Company>

@@ -12,19 +12,19 @@ namespace WordPressPCL.Models
         /// Unique ID
         /// </summary>
         [JsonProperty("uuid")]
-        public string Uuid { get; set; }
+        public string? Uuid { get; set; }
 
         /// <summary>
         /// App ID
         /// </summary>
         [JsonProperty("app_id")]
-        public string AppId { get; set; }
+        public string? AppId { get; set; }
 
         /// <summary>
         /// App Name
         /// </summary>
         [JsonProperty("name")]
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
         /// <summary>
         /// Created Timestamp
@@ -36,24 +36,24 @@ namespace WordPressPCL.Models
         /// Last Used
         /// </summary>
         [JsonProperty("last_used")]
-        public object LastUsed { get; set; }
+        public object? LastUsed { get; set; }
 
         /// <summary>
         /// Last IP
         /// </summary>
         [JsonProperty("last_ip")]
-        public object LastIp { get; set; }
+        public object? LastIp { get; set; }
 
         /// <summary>
         /// Application Password
         /// </summary>
         [JsonProperty("password")]
-        public string Password { get; set; }
+        public string? Password { get; set; }
 
         /// <summary>
         /// Links
         /// </summary>
         [JsonProperty("_links")]
-        public Links Links { get; set; }
+        public Links? Links { get; set; }
     }
 }

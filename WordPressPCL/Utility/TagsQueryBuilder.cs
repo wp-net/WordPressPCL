@@ -26,19 +26,19 @@ namespace WordPressPCL.Utility
         /// Limit results to those matching a string.
         /// </summary>
         [QueryText("search")]
-        public string Search { get; set; }
+        public string? Search { get; set; }
 
         /// <summary>
         /// Ensure result set excludes specific IDs.
         /// </summary>
         [QueryText("exclude")]
-        public List<int> Exclude { get; set; }
+        public List<int>? Exclude { get; set; }
 
         /// <summary>
         /// Limit result set to specific IDs.
         /// </summary>
         [QueryText("include")]
-        public List<int> Include { get; set; }
+        public List<int>? Include { get; set; }
 
         /// <summary>
         /// Offset the result set by a specific number of items.
@@ -58,7 +58,7 @@ namespace WordPressPCL.Utility
         /// Limit result set to users with a specific slug.
         /// </summary>
         [QueryText("slug")]
-        public List<string> Slugs { get; set; }
+        public List<string>? Slugs { get; set; }
 
         /// <summary>
         /// Whether to hide terms not assigned to any posts.

@@ -11,18 +11,18 @@ namespace WordPressPCL.Models
         /// Error type
         /// </summary>
         [JsonProperty("code")]
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
         /// <summary>
         /// Error description
         /// </summary>
         [JsonProperty("message")]
-        public string Message { get; set; }
+        public string? Message { get; set; }
 
         /// <summary>
         /// Additional info
         /// </summary>
         [JsonProperty("data")]
-        public dynamic Data { get; set; }
+        public dynamic? Data { get; set; }
     }
 }

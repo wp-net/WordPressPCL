@@ -58,7 +58,7 @@ namespace WordPressPCL.Client
         {
             //100 - Max comments per page in WordPress REST API, so this is hack with multiple requests
             List<Comment> comments = await HttpHelper.GetRequestAsync<List<Comment>>($"{_methodPath}?post={PostID}&per_page=100&page=1", embed, useAuth).ConfigureAwait(false);
-            if (HttpHelper.LastResponseHeaders.Contains("X-WP-TotalPages") &&
+            if (HttpHelper.LastResponseHeaders?.Contains("X-WP-TotalPages") == true &&
                 int.TryParse(HttpHelper.LastResponseHeaders.GetValues("X-WP-TotalPages").FirstOrDefault(), out int totalPages) &&
                 totalPages > 1)
             {
@@ -129,7 +129,7 @@ namespace WordPressPCL.Client
 
             if (HasNonNullValue(Entity.Meta))
             {
-                body["meta"] = Entity.Meta;
+                body["meta"] = Entity.Meta!;
             }
             if (!string.IsNullOrWhiteSpace(Entity.Content?.Raw) || !string.IsNullOrWhiteSpace(Entity.Content?.Rendered))
             {
@@ -146,7 +146,7 @@ namespace WordPressPCL.Client
 
         private static string GetEnumMemberValue<TEnum>(TEnum value) where TEnum : struct, System.Enum
         {
-            EnumMemberAttribute attribute = typeof(TEnum)
+            EnumMemberAttribute? attribute = typeof(TEnum)
                 .GetRuntimeField(value.ToString())
                 ?.GetCustomAttribute<EnumMemberAttribute>();
 

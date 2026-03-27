@@ -11,7 +11,7 @@ namespace WordPressPCL.Utility
         /// Limit results to those matching a string.
         /// </summary>
         [QueryText("search")]
-        public string Search { get; set; }
+        public string? Search { get; set; }
 
         /// <summary>
         /// Limit results to specific status

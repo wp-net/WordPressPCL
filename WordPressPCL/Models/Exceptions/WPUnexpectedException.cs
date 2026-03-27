@@ -50,12 +50,12 @@ namespace WordPressPCL.Models.Exceptions
         /// <summary>
         /// The response that triggered the error
         /// </summary>
-        public HttpResponseMessage Response { get; set; }
+        public HttpResponseMessage? Response { get; set; }
 
         /// <summary>
         /// The response body (if any) that was returned with the error status
         /// </summary>
-        public string ResponseBody { get; set; }
+        public string? ResponseBody { get; set; }
 
         private static string FormatExceptionMessage(HttpResponseMessage response)
         {

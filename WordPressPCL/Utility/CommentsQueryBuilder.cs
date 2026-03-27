@@ -25,7 +25,7 @@ namespace WordPressPCL.Utility
         /// Limit results to those matching a string.
         /// </summary>
         [QueryText("search")]
-        public string Search { get; set; }
+        public string? Search { get; set; }
         /// <summary>
         /// Limit response to posts published after a given date
         /// </summary>
@@ -35,17 +35,17 @@ namespace WordPressPCL.Utility
         /// Limit result set to posts assigned to specific authors.
         /// </summary>
         [QueryText("author")]
-        public List<int> Authors { get; set; }
+        public List<int>? Authors { get; set; }
         /// <summary>
         /// Ensure result set excludes posts assigned to specific authors.
         /// </summary>
         [QueryText("author_exclude")]
-        public List<int> AuthorsExclude { get; private set; }
+        public List<int>? AuthorsExclude { get; private set; }
         /// <summary>
         /// Limit result set to that from a specific author email. Requires authorization.
         /// </summary>
         [QueryText("author_email")]
-        public string AuthorEmail { get; set; }
+        public string? AuthorEmail { get; set; }
         /// <summary>
         /// Limit response to posts published before a given date
         /// </summary>
@@ -55,12 +55,12 @@ namespace WordPressPCL.Utility
         /// Ensure result set excludes specific IDs.
         /// </summary>
         [QueryText("exclude")]
-        public List<int> Exclude { get; set; }
+        public List<int>? Exclude { get; set; }
         /// <summary>
         /// Limit result set to specific IDs.
         /// </summary>
         [QueryText("include")]
-        public List<int> Include { get; set; }
+        public List<int>? Include { get; set; }
         /// <summary>
         /// Limit result set to that of a particular comment karma. Requires authorization.
         /// </summary>
@@ -87,28 +87,28 @@ namespace WordPressPCL.Utility
         /// Limit result set to those of particular parent ids.
         /// </summary>
         [QueryText("parent")]
-        public List<int> Parents { get; set; }
+        public List<int>? Parents { get; set; }
         /// <summary>
         /// Limit result set to all items except those of a particular parent id.
         /// </summary>
         [QueryText("parent_exclude")]
-        public List<int> ParentsExclude { get; set; }
+        public List<int>? ParentsExclude { get; set; }
         /// <summary>
         /// Limit result set to resources assigned to specific post ids.
         /// </summary>
         [QueryText("post")]
-        public List<int> Posts { get; set; }
+        public List<int>? Posts { get; set; }
         /// <summary>
         /// Limit result set to posts assigned one or more statuses.
         /// </summary>
         /// <remarks>Default: approve</remarks>
         [QueryText("status")]
-        public List<CommentStatus> Statuses { get; set; }
+        public List<CommentStatus>? Statuses { get; set; }
         /// <summary>
         /// Limit result set to comments assigned a specific type. Requires authorization.
         /// </summary>
         /// <remarks>Default: comment</remarks>
         [QueryText("type")]
-        public string Type { get; set; }
+        public string? Type { get; set; }
     }
 }

@@ -12,7 +12,7 @@ namespace WordPressPCL.Models
         /// File
         /// </summary>
         [JsonProperty("file")]
-        public string File { get; set; }
+        public string? File { get; set; }
         /// <summary>
         /// Media Width
         /// </summary>
@@ -27,11 +27,11 @@ namespace WordPressPCL.Models
         /// Mime Type
         /// </summary>
         [JsonProperty("mime_type")]
-        public string MimeType { get; set; }
+        public string? MimeType { get; set; }
         /// <summary>
         /// Url of source media
         /// </summary>
         [JsonProperty("source_url")]
-        public string SourceUrl { get; set; }
+        public string? SourceUrl { get; set; }
     }
 }

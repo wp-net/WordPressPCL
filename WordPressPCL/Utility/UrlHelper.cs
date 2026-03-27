@@ -13,7 +13,7 @@
         /// <param name="paramName">Query Parameter Name</param>
         /// <param name="paramValue">Query Parameter Value</param>
         /// <returns>New URL as string</returns>
-        public static string SetQueryParam(this string url, string paramName, string paramValue)
+        public static string? SetQueryParam(this string url, string paramName, string paramValue)
         {
             if(url == null)
             {
@@ -41,7 +41,7 @@
         /// <param name="paramName">Query Parameter Name</param>
         /// <param name="paramValue">Query Parameter Value</param>
         /// <returns>New URL as string</returns>
-        public static string SetQueryParam(this string url, string paramName, int paramValue)
+        public static string? SetQueryParam(this string url, string paramName, int paramValue)
         {
             return SetQueryParam(url, paramName, $"{paramValue}");
         }

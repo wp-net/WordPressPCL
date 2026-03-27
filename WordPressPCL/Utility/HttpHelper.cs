@@ -19,17 +19,17 @@ namespace WordPressPCL.Utility
         private readonly HttpClient _defaultHttpClient = new();
         private readonly HttpClient _httpClient;
         private readonly string _defaultPath;
-        private readonly Uri _baseUri;
+        private readonly Uri? _baseUri;
 
         /// <summary>
         /// JSON Web Token
         /// </summary>
-        public string JWToken { get; set; }
+        public string? JWToken { get; set; }
 
         /// <summary>
         /// The Application Password to be used for authentication
         /// </summary>
-        internal string ApplicationPassword { get; set; }
+        internal string? ApplicationPassword { get; set; }
 
         /// <summary>
         /// Authentication Method
@@ -39,13 +39,13 @@ namespace WordPressPCL.Utility
         /// <summary>
         /// The username to be used with the Application Password
         /// </summary>
-        internal string UserName { get; set; }
+        internal string? UserName { get; set; }
 
         /// <summary>
         /// Function called when a HttpRequest response is read
         /// Executed before trying to convert json content to a TClass object.
         /// </summary>
-        public Func<string, string> HttpResponsePreProcessing { get; set; }
+        public Func<string, string>? HttpResponsePreProcessing { get; set; }
 
 
         /// <summary>
@@ -56,7 +56,7 @@ namespace WordPressPCL.Utility
         /// <summary>
         /// Headers returns by WP and http server from last response
         /// </summary>
-        public HttpResponseHeaders LastResponseHeaders { get; set; }
+        public HttpResponseHeaders? LastResponseHeaders { get; set; }
 
         /// <summary>
         /// Constructor
@@ -84,7 +84,7 @@ namespace WordPressPCL.Utility
         /// <param name="httpClient">Http client which would be used for sending requests to the WordPress API endpoint.</param>
         /// <param name="defaultPath">Relative path to standard API endpoints, defaults to "wp/v2/"</param>
         /// <param name="wordpressURI">(optional) Base WP REST API endpoint EX. http://demo.com/wp-json/. Use this if the BaseAddress of the httpClient is not set.</param>
-        public HttpHelper(HttpClient httpClient, string defaultPath, Uri wordpressURI = null)
+        public HttpHelper(HttpClient httpClient, string defaultPath, Uri? wordpressURI = null)
         {
             _httpClient = httpClient;
             _defaultPath = defaultPath;
@@ -137,7 +137,7 @@ namespace WordPressPCL.Utility
             }
         }
 
-        internal async Task<(TClass, HttpResponseMessage)> PostRequestAsync<TClass>(string route, HttpContent postBody, bool isAuthRequired = true, bool ignoreDefaultPath = false)
+        internal async Task<(TClass, HttpResponseMessage)> PostRequestAsync<TClass>(string route, HttpContent? postBody, bool isAuthRequired = true, bool ignoreDefaultPath = false)
             where TClass : class
         {
             route = BuildRoute(ignoreDefaultPath, route);
@@ -248,11 +248,16 @@ namespace WordPressPCL.Utility
         {
             try
             {
-                if (JsonSerializerSettings != null)
+                TClass? result = JsonSerializerSettings != null
+                    ? JsonConvert.DeserializeObject<TClass>(responseString, JsonSerializerSettings)
+                    : JsonConvert.DeserializeObject<TClass>(responseString);
+
+                if (result is null)
                 {
-                    return JsonConvert.DeserializeObject<TClass>(responseString, JsonSerializerSettings);
+                    throw new WPUnexpectedException(response, responseString);
                 }
-                return JsonConvert.DeserializeObject<TClass>(responseString);
+
+                return result;
             }
             catch (JsonReaderException)
             {
@@ -262,11 +267,16 @@ namespace WordPressPCL.Utility
                     throw new WPUnexpectedException(response, responseString);
                 }
 
-                if (JsonSerializerSettings != null)
+                TClass? result = JsonSerializerSettings != null
+                    ? JsonConvert.DeserializeObject<TClass>(sanitizedResponse, JsonSerializerSettings)
+                    : JsonConvert.DeserializeObject<TClass>(sanitizedResponse);
+
+                if (result is null)
                 {
-                    return JsonConvert.DeserializeObject<TClass>(sanitizedResponse, JsonSerializerSettings);
+                    throw new WPUnexpectedException(response, sanitizedResponse);
                 }
-                return JsonConvert.DeserializeObject<TClass>(sanitizedResponse);
+
+                return result;
             }
         }
 
@@ -291,7 +301,7 @@ namespace WordPressPCL.Utility
 
         private static Exception CreateUnexpectedResponseException(HttpResponseMessage response, string responseString)
         {
-            BadRequest badrequest;
+            BadRequest? badrequest;
             try
             {
                 badrequest = JsonConvert.DeserializeObject<BadRequest>(responseString);
@@ -301,7 +311,11 @@ namespace WordPressPCL.Utility
                 // the response is not a well formed bad request
                 return new WPUnexpectedException(response, responseString);
             }
-            return new WPException(badrequest.Message, badrequest);
+            if (badrequest == null)
+            {
+                return new WPUnexpectedException(response, responseString);
+            }
+            return new WPException(badrequest.Message ?? "The server returned an error without providing a message.", badrequest);
         }
     }
 }

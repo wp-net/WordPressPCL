@@ -9,6 +9,6 @@
         /// Limit results to taxonomies associated with a specific post type.
         /// </summary>
         [QueryText("type")]
-        public string Type { get; set; }
+        public string? Type { get; set; }
     }
 }

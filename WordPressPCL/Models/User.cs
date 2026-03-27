@@ -15,7 +15,7 @@ namespace WordPressPCL.Models
         /// </summary>
         /// <remarks>Context: edit</remarks>
         [JsonProperty("username")]
-        public string UserName { get; set; }
+        public string? UserName { get; set; }
 
         /// <summary>
         /// Display name for the user.
@@ -24,42 +24,42 @@ namespace WordPressPCL.Models
         /// Context: embed, view, edit
         /// </remarks>
         [JsonProperty("name")]
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
         /// <summary>
         /// First name for the user.
         /// </summary>
         /// <remarks>Context: edit</remarks>
         [JsonProperty("first_name")]
-        public string FirstName { get; set; }
+        public string? FirstName { get; set; }
 
         /// <summary>
         /// Last name for the user.
         /// </summary>
         /// <remarks>Context: edit</remarks>
         [JsonProperty("last_name")]
-        public string LastName { get; set; }
+        public string? LastName { get; set; }
 
         /// <summary>
         /// The email address for the user.
         /// </summary>
         /// <remarks>Context: edit</remarks>
         [JsonProperty("email")]
-        public string Email { get; set; }
+        public string? Email { get; set; }
 
         /// <summary>
         /// URL of the user.
         /// </summary>
         /// <remarks>Context: embed, view, edit</remarks>
         [JsonProperty("url")]
-        public string Url { get; set; }
+        public string? Url { get; set; }
 
         /// <summary>
         /// Description of the user.
         /// </summary>
         /// <remarks>Context: embed, view, edit</remarks>
         [JsonProperty("description")]
-        public string Description { get; set; }
+        public string? Description { get; set; }
 
         /// <summary>
         /// Author URL of the user.
@@ -69,28 +69,28 @@ namespace WordPressPCL.Models
         /// Context: embed, view, edit
         /// </remarks>
         [JsonProperty("link", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public string Link { get; set; }
+        public string? Link { get; set; }
 
         /// <summary>
         /// Locale for the user.
         /// </summary>
         /// <remarks>Context: edit</remarks>
         [JsonProperty("locale", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public string Locale { get; set; }
+        public string? Locale { get; set; }
 
         /// <summary>
         /// The nickname for the user.
         /// </summary>
         /// <remarks>Context: edit</remarks>
         [JsonProperty("nickname", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public string NickName { get; set; }
+        public string? NickName { get; set; }
 
         /// <summary>
         /// An alphanumeric identifier for the user.
         /// </summary>
         /// <remarks>Context: embed, view, edit</remarks>
         [JsonProperty("slug")]
-        public string Slug { get; set; }
+        public string? Slug { get; set; }
 
         /// <summary>
         /// Registration date for the user.
@@ -104,28 +104,28 @@ namespace WordPressPCL.Models
         /// </summary>
         /// <remarks>Context: edit</remarks>
         [JsonProperty("roles", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public List<string> Roles { get; set; }
+        public List<string>? Roles { get; set; }
 
         /// <summary>
         /// Password for the user (never included).
         /// </summary>
         /// <remarks>Context:</remarks>
         [JsonProperty("password", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public string Password { get; set; }
+        public string? Password { get; set; }
 
         /// <summary>
         /// All capabilities assigned to the user.
         /// </summary>
         /// <remarks>Context: edit</remarks>
         [JsonProperty("capabilities", DefaultValueHandling = DefaultValueHandling.Ignore, ItemConverterType = typeof(CustomCapabilitiesJsonConverter))]
-        public IDictionary<string, bool> Capabilities { get; set; }
+        public IDictionary<string, bool>? Capabilities { get; set; }
 
         /// <summary>
         /// Any extra capabilities assigned to the user.
         /// </summary>
         /// <remarks>Context: edit</remarks>
         [JsonProperty("extra_capabilities", DefaultValueHandling = DefaultValueHandling.Ignore, ItemConverterType = typeof(CustomCapabilitiesJsonConverter))]
-        public IDictionary<string, bool> ExtraCapabilities { get; set; }
+        public IDictionary<string, bool>? ExtraCapabilities { get; set; }
 
         /// <summary>
         /// Avatar URLs for the user.
@@ -135,20 +135,20 @@ namespace WordPressPCL.Models
         /// Context: embed, view, edit
         /// </remarks>
         [JsonProperty("avatar_urls", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public AvatarURL AvatarUrls { get; set; }
+        public AvatarURL? AvatarUrls { get; set; }
 
         /// <summary>
         /// Meta fields.
         /// </summary>
         /// <remarks>Context: view, edit</remarks>
         [JsonProperty("meta", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public dynamic Meta { get; set; }
+        public dynamic? Meta { get; set; }
 
         /// <summary>
         /// Links to related resources
         /// </summary>
         [JsonProperty("_links", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public Links Links { get; set; }
+        public Links? Links { get; set; }
 
         /// <summary>
         /// Constructor with required parameters
