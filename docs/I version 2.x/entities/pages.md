@@ -46,7 +46,7 @@ if (await client.IsValidJWTokenAsync())
 
 ```C#
 // returns updated page
-var page= client.Pages.GetByIdAsync(123);
+var page = await client.Pages.GetByIdAsync(123);
 page.Content.Raw = "New Content";
 if (await client.IsValidJWTokenAsync())
 {

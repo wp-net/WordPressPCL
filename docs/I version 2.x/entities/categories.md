@@ -46,7 +46,7 @@ if (await client.IsValidJWToken())
 
 ```C#
 // returns updated category
-var category = client.Categories.GetByIdAsync(123);
+var category = await client.Categories.GetByIdAsync(123);
 category.Name = "New Name";
 if (await client.IsValidJWTokenAsync())
 {

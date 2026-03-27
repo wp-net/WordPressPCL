@@ -46,7 +46,7 @@ if (await client.IsValidJWTokenAsync())
 
 ```C#
 // returns updated tag
-var tag = client.Tags.GetByIdAsync(123);
+var tag = await client.Tags.GetByIdAsync(123);
 tag.Name = "New Name";
 if (await client.IsValidJWTokenAsync())
 {

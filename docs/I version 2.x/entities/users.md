@@ -67,7 +67,7 @@ if (await client.IsValidJWTokenAsync())
 
 ```C#
 // returns updated user
-var user = client.Users.GetByIdAsync(123);
+var user = await client.Users.GetByIdAsync(123);
 user.Name = "New Name";
 if (await client.IsValidJWTokenAsync())
 {

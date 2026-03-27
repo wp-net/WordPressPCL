@@ -61,7 +61,7 @@ if (await client.IsValidJWTokenAsync())
 
 ```C#
 // returns updated comment
-var comment= client.Comments.GetByIdAsync(123);
+var comment = await client.Comments.GetByIdAsync(123);
 comment.Content.Raw = "New Content";
 if (await client.IsValidJWTokenAsync())
 {
