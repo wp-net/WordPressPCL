@@ -159,7 +159,7 @@ public class NullHandling_Tests
     }
 
     [TestMethod]
-    public void User_ParameterlessConstrutor_AllPropertiesAreNull()
+    public void User_ParameterlessConstructor_AllPropertiesAreNull()
     {
         var user = new User();
         Assert.IsNull(user.UserName);
@@ -168,7 +168,7 @@ public class NullHandling_Tests
     }
 
     [TestMethod]
-    public void User_RequiredParamsConstrutor_SetsPropertiesCorrectly()
+    public void User_RequiredParamsConstructor_SetsPropertiesCorrectly()
     {
         var user = new User("name", "email@test.com", "pass");
         Assert.AreEqual("name", user.UserName);
