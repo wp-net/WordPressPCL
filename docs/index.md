@@ -1,6 +1,6 @@
 # Home
 
-This is a portable library for consuming the WordPress REST-API in (almost) any C# application.
+This is a .NET 10 library for consuming the WordPress REST API in C# applications.
 If you find bugs or have any suggestions, feel free to create an issue.
 
 ## License
@@ -21,14 +21,12 @@ The WordPressPCL API Wrapper is avaiable through [NuGet](https://www.nuget.org/p
 > Install-Package WordPressPCL
 ```
 
-## Supported Plattforms
-WordPressPCL is built on top of the new [.NET Standard](https://github.com/dotnet/standard) targeting netstandard versions 1.1 and 2.0 - therefore it should work on the following plaforms:
-* .NET Framework 4.5 and newer
-* .NET Core
-* Universal Windows Platform (uap)
-* Windows 8.0 and newer
-* Windows Phone (WinRT, not Silverlight)
-* Mono / Xamarin
+## Runtime Requirement
+WordPressPCL 3.0 targets .NET 10 only. Upgrading from 2.x is a breaking change and requires applications and test environments to move to the .NET 10 SDK/runtime before restoring, building, or running tests.
+
+## Supported Platforms
+WordPressPCL 3.0 targets .NET 10 and is intended for applications running on the current .NET platform:
+* .NET 10
 
 ## Quickstart: Using the API Wrapper
 

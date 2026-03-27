@@ -53,9 +53,9 @@ jobs:
     - name: Setup .NET SDK
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: 8.x
+        dotnet-version: 10.x
     - name: Build Solution
-      run: dotnet build ${{ env.solution }} -c Release
+      run: dotnet build WordPressPCL.sln -c Release
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v1
