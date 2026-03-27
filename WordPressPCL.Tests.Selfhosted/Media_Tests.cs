@@ -90,7 +90,7 @@ public class Media_Tests
 
         string title = $"New Title {System.Guid.NewGuid()}";
         Assert.AreNotEqual(title, file.Title!.Raw);
-        file.Title.Raw = title;
+        file.Title!.Raw = title;
 
         string desc = $"This is a nice cat! {System.Guid.NewGuid()}";
         file.Description!.Raw = desc;
