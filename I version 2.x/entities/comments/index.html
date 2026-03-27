@@ -171,7 +171,7 @@ var comments = await client.Comments.GetAllAsync();
 </code></pre>
 <h2 id="get-by-id">Get By ID</h2>
 <pre><code class="language-C#">// returns comment by ID
-var comment = await client.Comments.GetByIDAsync(123);
+var comment = await client.Comments.GetByIdAsync(123);
 </code></pre>
 <h2 id="get-comments-by-post-id">Get Comments by Post ID</h2>
 <pre><code class="language-C#">// returns comments from post
@@ -207,7 +207,7 @@ if (await client.IsValidJWTokenAsync())
 </code></pre>
 <h2 id="update-comment">Update Comment</h2>
 <pre><code class="language-C#">// returns updated comment
-var comment= client.Comments.GetByIDAsync(123);
+var comment = await client.Comments.GetByIdAsync(123);
 comment.Content.Raw = &quot;New Content&quot;;
 if (await client.IsValidJWTokenAsync())
 {
@@ -216,7 +216,7 @@ if (await client.IsValidJWTokenAsync())
 </code></pre>
 <h2 id="delete-comment">Delete Comment</h2>
 <pre><code class="language-C#">// returns result of deletion
-if (await client.IsValidJWToken())
+if (await client.IsValidJWTokenAsync())
 {
     var result = await client.Comments.DeleteAsync(123);
 }

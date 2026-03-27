@@ -184,7 +184,7 @@ var pages = await client.Pages.GetAllAsync();
 </code></pre>
 <h2 id="get-by-id">Get By ID</h2>
 <pre><code class="language-C#">// returns page by ID
-var page = await client.Pages.GetByIDAsync(123);
+var page = await client.Pages.GetByIdAsync(123);
 </code></pre>
 <h2 id="query">Query</h2>
 <p>Create parametrized request</p>
@@ -209,7 +209,7 @@ if (await client.IsValidJWTokenAsync())
 </code></pre>
 <h2 id="update-page">Update Page</h2>
 <pre><code class="language-C#">// returns updated page
-var page= client.Pages.GetByIDAsync(123);
+var page = await client.Pages.GetByIdAsync(123);
 page.Content.Raw = &quot;New Content&quot;;
 if (await client.IsValidJWTokenAsync())
 {

@@ -184,7 +184,7 @@ var categories = await client.Categories.GetAllAsync();
 </code></pre>
 <h2 id="get-by-id">Get by ID</h2>
 <pre><code class="language-C#">// returns category by ID
-var category = await client.Categories.GetByIDAsync(123);
+var category = await client.Categories.GetByIdAsync(123);
 </code></pre>
 <h2 id="query">Query</h2>
 <p>Create parametrized request</p>
@@ -202,14 +202,14 @@ var category = new Category()
     Name = &quot;Title 1&quot;,
     Description = &quot;Content&quot;
 };
-if (await client.IsValidJWToken())
+if (await client.IsValidJWTokenAsync())
 {
     var createdCategory = await client.Categories.CreateAsync(category);
 }
 </code></pre>
 <h2 id="update-category">Update Category</h2>
 <pre><code class="language-C#">// returns updated category
-var category = client.Categories.GetByIDAsync(123);
+var category = await client.Categories.GetByIdAsync(123);
 category.Name = &quot;New Name&quot;;
 if (await client.IsValidJWTokenAsync())
 {

@@ -184,7 +184,7 @@ var tags = await client.Tags.GetAllAsync();
 </code></pre>
 <h2 id="get-by-id">Get By ID</h2>
 <pre><code class="language-C#">// returns tag by ID
-var tag = await client.Tags.GetByIDAsync(123);
+var tag = await client.Tags.GetByIdAsync(123);
 </code></pre>
 <h2 id="query">Query</h2>
 <p>Create parametrized request</p>
@@ -209,7 +209,7 @@ if (await client.IsValidJWTokenAsync())
 </code></pre>
 <h2 id="update-tag">Update Tag</h2>
 <pre><code class="language-C#">// returns updated tag
-var tag = client.Tags.GetByIDAsync(123);
+var tag = await client.Tags.GetByIdAsync(123);
 tag.Name = &quot;New Name&quot;;
 if (await client.IsValidJWTokenAsync())
 {

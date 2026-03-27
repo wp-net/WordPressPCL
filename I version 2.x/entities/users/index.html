@@ -193,7 +193,7 @@ var users = await client.Users.GetAllAsync(useAuth:true);
 </code></pre>
 <h2 id="get-by-id">Get By ID</h2>
 <pre><code class="language-C#">// returns user by ID
-var user = await client.Users.GetByIDAsync(123);
+var user = await client.Users.GetByIdAsync(123);
 </code></pre>
 <h2 id="get-current-user">Get Current User</h2>
 <pre><code class="language-C#">// returns current user
@@ -231,7 +231,7 @@ if (await client.IsValidJWTokenAsync())
 </code></pre>
 <h2 id="update-user">Update User</h2>
 <pre><code class="language-C#">// returns updated user
-var user = client.Users.GetByIDAsync(123);
+var user = await client.Users.GetByIdAsync(123);
 user.Name = &quot;New Name&quot;;
 if (await client.IsValidJWTokenAsync())
 {

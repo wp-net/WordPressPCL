@@ -188,7 +188,7 @@ var posts = await client.Posts.GetAllAsync();```
 
 ```csharp
 // returns post by ID
-var post = await client.Posts.GetByIDAsync(123);
+var post = await client.Posts.GetByIdAsync(123);
 </code></pre>
 <h2 id="query">Query</h2>
 <p>Create parametrized request</p>
@@ -213,7 +213,7 @@ if (await client.IsValidJWTokenAsync())
 </code></pre>
 <h2 id="update-post">Update Post</h2>
 <pre><code class="language-csharp">// returns updated post
-var post = client.Posts.GetByIDAsync(123);
+var post = await client.Posts.GetByIdAsync(123);
 post.Content.Raw = &quot;New Content&quot;;
 if (await client.IsValidJWTokenAsync())
 {
@@ -247,9 +247,8 @@ if (await client.IsValidJWTokenAsync())
 }
 </code></pre>
 <h2 id="get-post-revisions">Get Post Revisions</h2>
-<pre><code class="language-csharp">// returns a client for revisions of a post
-var revisionsClient = client.Posts.Revisions(123);
-var revisions = await revisionsClient.GetAllAsync();
+<pre><code class="language-csharp">// returns revisions of post
+var revisions = await client.Posts.RevisionsAsync(123);
 </code></pre>
               
             </div>

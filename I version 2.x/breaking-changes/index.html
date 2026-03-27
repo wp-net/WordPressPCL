@@ -170,6 +170,7 @@
 <li>Default MIME type for media is <strong>application/octet-stream</strong> instead of text/plain</li>
 <li>Async methods have an Async suffix as per naming C# naming guidelines e.g. <code>client.Posts.GetAllAsync()</code></li>
 <li>MediaQueryBuilder by default will return all types of media instead of just images.</li>
+<li><code>GetByIDAsync(...)</code> was renamed to <code>GetByIdAsync(...)</code> to align public API naming with .NET <code>Id</code> conventions.</li>
 <li>Model properties that returned arrays are changed to List type e.g. <code>Tags</code> in <code>Post</code> class is now of type <code>List&lt;int&gt;</code> instead of <code>int[]</code> type</li>
 </ul>
               
