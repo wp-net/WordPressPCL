@@ -37,7 +37,7 @@ public class Themes_Tests
     }
 
     [TestMethod]
-    public async Task Themes_GetByID()
+    public async Task Themes_GetByIdAsync()
     {
         Theme theme = await _clientAuth.Themes.GetByIdAsync("twentytwentyfour", useAuth: true);
         Assert.IsNotNull(theme);
