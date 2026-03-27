@@ -1,7 +1,7 @@
 # WordPressPCL
 ![Integration Tests](https://github.com/wp-net/WordPressPCL/workflows/Integration%20Tests/badge.svg?branch=master) [![NuGet](https://img.shields.io/nuget/vpre/WordPressPCL)](https://www.nuget.org/packages/WordPressPCL/)
 
-This is a portable library for consuming the WordPress REST-API in (almost) any C# application.
+This is a .NET 10 library for consuming the WordPress REST API in C# applications.
 If you find bugs or have any suggestions, feel free to create an issue.
 
 ## Documentation
@@ -32,20 +32,16 @@ The WordPressPCL API Wrapper is avaiable through [NuGet](https://www.nuget.org/p
 > Install-Package WordPressPCL
 ```
 
+## Runtime Requirement
+WordPressPCL 3.0 targets .NET 10 only. Upgrading from 2.x is a breaking change and requires applications and test environments to move to the .NET 10 SDK/runtime before restoring, building, or running tests.
+
 ## Supported Plattforms
-WordPressPCL is built on top of the [.NET Standard](https://docs.microsoft.com/en-us/dotnet/standard/net-standard?tabs=net-standard-2-0) targeting netstandard version 2.0 - therefore it should work on the following plaforms (and newer):
+WordPressPCL 3.0 targets .NET 10 and is intended for applications running on the current .NET platform:
 
 
 | .NET implementation |	Version support |
 |---------------------|------------------|
-|.NET and .NET Core |	2.0, 2.1, 2.2, 3.0, 3.1, 5.0, 6.0, 7.0, 8.0 |
-|.NET Framework | 4.6.1 2, 4.6.2, 4.7, 4.7.1, 4.7.2, 4.8 |
-| Mono | 5.4, 6.4 |
-| Xamarin.iOS | 10.14, 12.16 |
-| Xamarin.Mac | 3.8, 5.16 |
-| Xamarin.Android | 8.0, 10.0 |
-| Universal Windows Platform | 10.0.16299, TBD |
-| Unity | 2018.1 |
+| .NET | 10.0 |
 
 ## Quickstart: Using the API Wrapper
 
