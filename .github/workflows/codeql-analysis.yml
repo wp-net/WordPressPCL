@@ -55,7 +55,7 @@ jobs:
       with:
         dotnet-version: 10.x
     - name: Build Solution
-      run: dotnet build ${{ env.solution }} -c Release
+      run: dotnet build WordPressPCL.sln -c Release
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v1
