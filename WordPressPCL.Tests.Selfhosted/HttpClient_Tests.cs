@@ -41,6 +41,6 @@ public class HttpClient_Tests
         List<Post> posts = await client.Posts.GetAllAsync();
         Post post = await client.Posts.GetByIdAsync(posts.First().Id);
         Assert.IsTrue(posts.First().Id == post.Id);
-        Assert.IsTrue(!string.IsNullOrEmpty(posts.First().Content.Rendered));
+        Assert.IsTrue(!string.IsNullOrEmpty(posts.First().Content!.Rendered));
     }
 }

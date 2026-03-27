@@ -9,8 +9,8 @@ namespace WordPressPCL.Tests.Selfhosted;
 [TestClass]
 public class ExceptionTests
 {
-    private static WordPressClient _client;
-    private static WordPressClient _clientAuth;
+    private static WordPressClient _client = null!;
+    private static WordPressClient _clientAuth = null!;
 
     [ClassInitialize]
     public static async Task Init(TestContext testContext)

@@ -13,8 +13,8 @@ namespace WordPressPCL.Tests.Selfhosted;
 [TestClass]
 public class Media_Tests
 {
-    private static WordPressClient _client;
-    private static WordPressClient _clientAuth;
+    private static WordPressClient _client = null!;
+    private static WordPressClient _clientAuth = null!;
 
     [ClassInitialize]
     public static async Task Init(TestContext testContext)
@@ -56,7 +56,7 @@ public class Media_Tests
     public async Task Media_With_Exif_Error_Should_Deserialize_Without_Exception() 
     {
         string path = Directory.GetCurrentDirectory() + "/Assets/img_exif_error.jpg";
-        MediaItem mediaItem = null;
+        MediaItem? mediaItem = null;
         try {
             mediaItem = await _clientAuth.Media.CreateAsync(path, "img_exif_error.jpg");
         } catch (JsonReaderException) {
@@ -85,20 +85,20 @@ public class Media_Tests
     public async Task Media_Update()
     {
         List<MediaItem> media = await _clientAuth.Media.GetAllAsync();
-        MediaItem file = media.FirstOrDefault();
+        MediaItem? file = media.FirstOrDefault();
         Assert.IsNotNull(file);
 
         string title = $"New Title {System.Guid.NewGuid()}";
-        Assert.AreNotEqual(title, file.Title.Raw);
-        file.Title.Raw = title;
+        Assert.AreNotEqual(title, file.Title!.Raw);
+        file.Title!.Raw = title;
 
         string desc = $"This is a nice cat! {System.Guid.NewGuid()}";
-        file.Description.Raw = desc;
+        file.Description!.Raw = desc;
 
         MediaItem fileUpdated = await _clientAuth.Media.UpdateAsync(file);
         Assert.IsNotNull(fileUpdated);
-        Assert.AreEqual(fileUpdated.Title.Raw, title);
-        Assert.AreEqual(fileUpdated.Description.Raw, desc);
+        Assert.AreEqual(fileUpdated.Title!.Raw, title);
+        Assert.AreEqual(fileUpdated.Description!.Raw, desc);
     }
 
     [TestMethod]
@@ -137,11 +137,12 @@ public class Media_Tests
         List<Post> posts = await _client.Posts.GetAllAsync(true);
         int i = 0;
         foreach (Post post in posts) {
-            if (post.Embedded.WpFeaturedmedia != null && post.Embedded.WpFeaturedmedia.Any())
+            var featured = post.Embedded?.WpFeaturedmedia;
+            if (featured != null && featured.Any())
             {
                 i++;
-                MediaItem img = post.Embedded.WpFeaturedmedia.First();
-                Assert.IsFalse(string.IsNullOrEmpty(img.MediaDetails.Sizes["full"].SourceUrl));
+                MediaItem img = featured.First();
+                Assert.IsFalse(string.IsNullOrEmpty(img.MediaDetails!.Sizes!["full"].SourceUrl));
             }
         }
         if (i == 0)

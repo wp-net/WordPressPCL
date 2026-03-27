@@ -2,7 +2,7 @@
 
 public static class ClientHelper
 {
-    private static WordPressClient _client;
+    private static WordPressClient _client = null!;
 
     public static WordPressClient GetWordPressClient()
     {

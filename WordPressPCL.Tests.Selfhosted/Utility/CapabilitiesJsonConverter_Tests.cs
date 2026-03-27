@@ -15,7 +15,7 @@ public class CapabilitiesJsonConverter_Tests
     [TestMethod]
     public void CapabilitiesJsonConverterRead_Test()
     {
-        Dictionary<string, bool> result = JsonConvert.DeserializeObject<Dictionary<string, bool>>(TestData1, new CustomCapabilitiesJsonConverter());
+        Dictionary<string, bool>? result = JsonConvert.DeserializeObject<Dictionary<string, bool>>(TestData1, new CustomCapabilitiesJsonConverter());
         Assert.IsNotNull(result);
         Assert.IsTrue(result["administrator"]);
         Assert.IsTrue(result["level_0"]);

@@ -18,7 +18,7 @@ public class CommentsThreaded_Tests
     private static int comment2id;
     private static int comment3id;
     private static int comment4id;
-    private static WordPressClient _clientAuth;
+    private static WordPressClient _clientAuth = null!;
 
     [ClassInitialize]
     public static async Task CommentsThreaded_SetupAsync(TestContext testContext)
@@ -83,20 +83,20 @@ public class CommentsThreaded_Tests
     {
         List<Comment> allComments = await _clientAuth.Comments.GetAllCommentsForPostAsync(postid);
 
-        List<CommentThreaded> threaded = ThreadedCommentsHelper.GetThreadedComments(allComments);
+        List<CommentThreaded>? threaded = ThreadedCommentsHelper.GetThreadedComments(allComments);
         Assert.IsNotNull(threaded);
-        CommentThreaded ct0 = threaded.Find(x => x.Id == comment0id);
+        CommentThreaded ct0 = threaded.Find(x => x.Id == comment0id)!;
         Assert.AreEqual(ct0.Depth, 0);
-        CommentThreaded ct1 = threaded.Find(x => x.Id == comment1id);
+        CommentThreaded ct1 = threaded.Find(x => x.Id == comment1id)!;
         Assert.AreEqual(ct1.Depth, 1);
-        CommentThreaded ct2 = threaded.Find(x => x.Id == comment2id);
+        CommentThreaded ct2 = threaded.Find(x => x.Id == comment2id)!;
         Assert.AreEqual(ct2.Depth, 2);
-        CommentThreaded ct3 = threaded.Find(x => x.Id == comment3id);
+        CommentThreaded ct3 = threaded.Find(x => x.Id == comment3id)!;
         Assert.AreEqual(ct3.Depth, 3);
-        CommentThreaded ct4 = threaded.Find(x => x.Id == comment4id);
+        CommentThreaded ct4 = threaded.Find(x => x.Id == comment4id)!;
         Assert.AreEqual(ct4.Depth, 2);
 
-        CommentThreaded ct00 = threaded.Find(x => x.Id == comment00id);
+        CommentThreaded ct00 = threaded.Find(x => x.Id == comment00id)!;
         Assert.AreEqual(ct00.Depth, 0);
 
         for (int i = 0; i < threaded.Count - 1; i++)
@@ -126,20 +126,20 @@ public class CommentsThreaded_Tests
     {
         List<Comment> allComments = await _clientAuth.Comments.GetAllCommentsForPostAsync(postid);
 
-        List<CommentThreaded> threaded = ThreadedCommentsHelper.GetThreadedComments(allComments, 1);
+        List<CommentThreaded>? threaded = ThreadedCommentsHelper.GetThreadedComments(allComments, 1);
         Assert.IsNotNull(threaded);
-        CommentThreaded ct0 = threaded.Find(x => x.Id == comment0id);
+        CommentThreaded ct0 = threaded.Find(x => x.Id == comment0id)!;
         Assert.AreEqual(ct0.Depth, 0);
-        CommentThreaded ct1 = threaded.Find(x => x.Id == comment1id);
+        CommentThreaded ct1 = threaded.Find(x => x.Id == comment1id)!;
         Assert.AreEqual(ct1.Depth, 1);
-        CommentThreaded ct2 = threaded.Find(x => x.Id == comment2id);
+        CommentThreaded ct2 = threaded.Find(x => x.Id == comment2id)!;
         Assert.AreEqual(ct2.Depth, 1);
-        CommentThreaded ct3 = threaded.Find(x => x.Id == comment3id);
+        CommentThreaded ct3 = threaded.Find(x => x.Id == comment3id)!;
         Assert.AreEqual(ct3.Depth, 1);
-        CommentThreaded ct4 = threaded.Find(x => x.Id == comment4id);
+        CommentThreaded ct4 = threaded.Find(x => x.Id == comment4id)!;
         Assert.AreEqual(ct4.Depth, 1);
 
-        CommentThreaded ct00 = threaded.Find(x => x.Id == comment00id);
+        CommentThreaded ct00 = threaded.Find(x => x.Id == comment00id)!;
         Assert.AreEqual(ct00.Depth, 0);
     }
 
@@ -150,20 +150,20 @@ public class CommentsThreaded_Tests
 
         Assert.IsTrue(allComments.Any());
         //ExtensionMethod
-        List<CommentThreaded> threaded = ThreadedCommentsHelper.ToThreaded(allComments);
+        List<CommentThreaded>? threaded = ThreadedCommentsHelper.ToThreaded(allComments);
         Assert.IsNotNull(threaded);
-        CommentThreaded ct0 = threaded.Find(x => x.Id == comment0id);
+        CommentThreaded ct0 = threaded.Find(x => x.Id == comment0id)!;
         Assert.AreEqual(ct0.Depth, 0);
-        CommentThreaded ct1 = threaded.Find(x => x.Id == comment1id);
+        CommentThreaded ct1 = threaded.Find(x => x.Id == comment1id)!;
         Assert.AreEqual(ct1.Depth, 1);
-        CommentThreaded ct2 = threaded.Find(x => x.Id == comment2id);
+        CommentThreaded ct2 = threaded.Find(x => x.Id == comment2id)!;
         Assert.AreEqual(ct2.Depth, 2);
-        CommentThreaded ct3 = threaded.Find(x => x.Id == comment3id);
+        CommentThreaded ct3 = threaded.Find(x => x.Id == comment3id)!;
         Assert.AreEqual(ct3.Depth, 3);
-        CommentThreaded ct4 = threaded.Find(x => x.Id == comment4id);
+        CommentThreaded ct4 = threaded.Find(x => x.Id == comment4id)!;
         Assert.AreEqual(ct4.Depth, 2);
 
-        CommentThreaded ct00 = threaded.Find(x => x.Id == comment00id);
+        CommentThreaded ct00 = threaded.Find(x => x.Id == comment00id)!;
         Assert.AreEqual(ct00.Depth, 0);
         //Assert.AreEqual(threaded.Count, threaded.IndexOf(ct00) + 1);
 
@@ -195,22 +195,22 @@ public class CommentsThreaded_Tests
         List<Comment> allComments = await _clientAuth.Comments.GetAllCommentsForPostAsync(postid);
         Assert.IsTrue(allComments.Any());
 
-        List<CommentThreaded> threaded = ThreadedCommentsHelper.ToThreaded(allComments, true);
+        List<CommentThreaded>? threaded = ThreadedCommentsHelper.ToThreaded(allComments, true);
 
         // Depth should be the same regardless of desc or asc
         Assert.IsNotNull(threaded);
-        CommentThreaded ct0 = threaded.Find(x => x.Id == comment0id);
+        CommentThreaded ct0 = threaded.Find(x => x.Id == comment0id)!;
         Assert.AreEqual(ct0.Depth, 0);
-        CommentThreaded ct1 = threaded.Find(x => x.Id == comment1id);
+        CommentThreaded ct1 = threaded.Find(x => x.Id == comment1id)!;
         Assert.AreEqual(ct1.Depth, 1);
-        CommentThreaded ct2 = threaded.Find(x => x.Id == comment2id);
+        CommentThreaded ct2 = threaded.Find(x => x.Id == comment2id)!;
         Assert.AreEqual(ct2.Depth, 2);
-        CommentThreaded ct3 = threaded.Find(x => x.Id == comment3id);
+        CommentThreaded ct3 = threaded.Find(x => x.Id == comment3id)!;
         Assert.AreEqual(ct3.Depth, 3);
-        CommentThreaded ct4 = threaded.Find(x => x.Id == comment4id);
+        CommentThreaded ct4 = threaded.Find(x => x.Id == comment4id)!;
         Assert.AreEqual(ct4.Depth, 2);
 
-        CommentThreaded ct00 = threaded.Find(x => x.Id == comment00id);
+        CommentThreaded ct00 = threaded.Find(x => x.Id == comment00id)!;
         Assert.AreEqual(ct00.Depth, 0);
 
         for (int i = 0; i < threaded.Count - 1; i++)

@@ -9,7 +9,7 @@ namespace WordPressPCL.Tests.Selfhosted;
 [TestClass]
 public class PostStatuses_Tests
 {
-    private static WordPressClient _clientAuth;
+    private static WordPressClient _clientAuth = null!;
 
     [ClassInitialize]
     public static async Task Init(TestContext testContext)

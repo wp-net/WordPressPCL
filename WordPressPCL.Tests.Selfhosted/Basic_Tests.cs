@@ -10,9 +10,9 @@ namespace WordPressPCL.Tests.Selfhosted;
 [TestClass]
 public class Basic_Tests
 {
-    private static WordPressClient _client;
-    private static WordPressClient _clientAuth;
-    private static TestContext _context;
+    private static WordPressClient _client = null!;
+    private static WordPressClient _clientAuth = null!;
+    private static TestContext _context = null!;
 
     [ClassInitialize]
     public static async Task Init(TestContext testContext)
@@ -43,7 +43,7 @@ public class Basic_Tests
         List<Post> posts = await _client.Posts.GetAllAsync();
         Post post = await _client.Posts.GetByIdAsync(posts.First().Id);
         Assert.IsTrue(posts.First().Id == post.Id);
-        Assert.IsTrue(!string.IsNullOrEmpty(posts.First().Content.Rendered));
+        Assert.IsTrue(!string.IsNullOrEmpty(posts.First().Content!.Rendered));
     }
 
     [TestMethod]
@@ -68,7 +68,7 @@ public class Basic_Tests
 
         foreach (Post post in posts)
         {
-            Assert.IsTrue(post.Categories.ToList().Contains(category));
+            Assert.IsTrue(post.Categories!.ToList().Contains(category));
         }
     }
 
@@ -82,7 +82,7 @@ public class Basic_Tests
 
         foreach (Post post in posts)
         {
-            Assert.IsTrue(post.Tags.ToList().Contains(tag));
+            Assert.IsTrue(post.Tags!.ToList().Contains(tag));
         }
     }
 
@@ -112,7 +112,7 @@ public class Basic_Tests
         {
             bool containsOnContentOrTitle = false;
 
-            if (post.Content.Rendered.ToUpper().Contains(search.ToUpper()) || post.Title.Rendered.ToUpper().Contains(search.ToUpper()))
+            if (post.Content!.Rendered!.ToUpper().Contains(search.ToUpper()) || post.Title!.Rendered!.ToUpper().Contains(search.ToUpper()))
             {
                 containsOnContentOrTitle = true;
             }

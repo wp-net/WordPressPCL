@@ -10,7 +10,7 @@ namespace WordPressPCL.Hosted;
 [TestClass]
 public class Basic_Tests
 {
-    private static WordPressClient _client;
+    private static WordPressClient _client = null!;
 
     [ClassInitialize]
     public static void Init(TestContext testContext)
@@ -36,7 +36,7 @@ public class Basic_Tests
         var posts = await _client.Posts.GetAllAsync();
         var post = await _client.Posts.GetByIdAsync(posts.First().Id);
         Assert.IsTrue(posts.First().Id == post.Id);
-        Assert.IsTrue(!String.IsNullOrEmpty(posts.First().Content.Rendered));
+        Assert.IsTrue(!String.IsNullOrEmpty(posts.First().Content!.Rendered));
     }
 
     [TestMethod]
@@ -61,7 +61,7 @@ public class Basic_Tests
 
         foreach (Post post in posts)
         {
-            Assert.IsTrue(post.Categories.ToList().Contains(category));
+            Assert.IsTrue(post.Categories!.ToList().Contains(category));
         }
     }
 
@@ -69,14 +69,15 @@ public class Basic_Tests
     public async Task Hosted_GetPostsByTag()
     {
         var tags = await _client.Tags.GetAsync();
-        int tagId = tags.FirstOrDefault().Id;
+        Assert.IsTrue(tags.Any(), "No tags returned from the API; cannot test posts by tag.");
+        int tagId = tags.First().Id;
 
         // Initialize
         var posts = await _client.Posts.GetPostsByTagAsync(tagId);
         Assert.AreNotEqual(0, posts.Count);
         foreach (Post post in posts)
         {
-            Assert.IsTrue(post.Tags.ToList().Contains(tagId));
+            Assert.IsTrue(post.Tags!.ToList().Contains(tagId));
         }
     }
 
@@ -106,7 +107,7 @@ public class Basic_Tests
         {
             bool containsOnContentOrTitle = false;
 
-            if (post.Content.Rendered.ToUpper().Contains(search.ToUpper()) || post.Title.Rendered.ToUpper().Contains(search.ToUpper()))
+            if (post.Content!.Rendered!.ToUpper().Contains(search.ToUpper()) || post.Title!.Rendered!.ToUpper().Contains(search.ToUpper()))
             {
                 containsOnContentOrTitle = true;
             }
