@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using WordPressPCL.Tests.Hosted.Utility;
 using System.Threading.Tasks;
