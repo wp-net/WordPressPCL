@@ -165,7 +165,7 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="home">Home</h1>
-<p>This is a portable library for consuming the WordPress REST-API in (almost) any C# application.
+<p>This is a .NET 10 library for consuming the WordPress REST API in C# applications.
 If you find bugs or have any suggestions, feel free to create an issue.</p>
 <h2 id="license">License</h2>
 <p>WordPressPCL is published under the <a href="https://github.com/wp-net/WordPressPCL/blob/master/LICENSE">MIT License</a></p>
@@ -180,14 +180,11 @@ If you find bugs or have any suggestions, feel free to create an issue.</p>
 <p>The WordPressPCL API Wrapper is avaiable through <a href="https://www.nuget.org/packages/WordPressPCL/">NuGet</a>:</p>
 <pre><code>&gt; Install-Package WordPressPCL
 </code></pre>
-<h2 id="supported-plattforms">Supported Plattforms</h2>
-<p>WordPressPCL is built on top of the new <a href="https://github.com/dotnet/standard">.NET Standard</a> targeting netstandard versions 1.1 and 2.0 - therefore it should work on the following plaforms:
-* .NET Framework 4.5 and newer
-* .NET Core
-* Universal Windows Platform (uap)
-* Windows 8.0 and newer
-* Windows Phone (WinRT, not Silverlight)
-* Mono / Xamarin</p>
+<h2 id="runtime-requirement">Runtime Requirement</h2>
+<p>WordPressPCL 3.0 targets .NET 10 only. Upgrading from 2.x is a breaking change and requires applications and test environments to move to the .NET 10 SDK/runtime before restoring, building, or running tests.</p>
+<h2 id="supported-platforms">Supported Platforms</h2>
+<p>WordPressPCL 3.0 targets .NET 10 and is intended for applications running on the current .NET platform:
+* .NET 10</p>
 <h2 id="quickstart-using-the-api-wrapper">Quickstart: Using the API Wrapper</h2>
 <pre><code class="language-c#">// Initialize
 var client = new WordPressClient(&quot;http://demo.wp-api.org/wp-json/&quot;);
@@ -369,5 +366,5 @@ var response = client.Posts.Delete(postid);
 
 <!--
 MkDocs version : 1.6.1
-Build Date UTC : 2026-03-27 10:46:43.131989+00:00
+Build Date UTC : 2026-03-27 12:35:49.651256+00:00
 -->
