@@ -114,7 +114,10 @@ var response = client.Posts.DeleteAsync(postId);
 | **Plugins**        | yes     | yes     | yes     | yes     |
 | **Themes**         | ---     | yes     | ---     | ---     |
 
-Post revisions are available through `client.Posts.Revisions(postId)`. WordPressPCL does not currently provide a dedicated wrapper for page revisions or autosaves.
+Notes:
+
+- Post revisions are available through `client.Posts.Revisions(postId)`.
+- WordPressPCL does not currently provide a dedicated wrapper for page revisions or autosaves.
 
 ## Endpoint Coverage and Gaps
 

@@ -42,6 +42,8 @@ Use the site index to discover available namespaces and routes:
 dynamic apiIndex = await client.CustomRequest.GetAsync<dynamic>("", ignoreDefaultPath: true);
 ```
 
+These examples use `dynamic` for brevity. If you already know the response shape, prefer a DTO or a JSON type that matches your project style.
+
 Use `CustomRequest` for standard endpoints that do not yet have dedicated wrappers:
 
 ```C#
