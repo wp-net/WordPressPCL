@@ -158,8 +158,59 @@ namespace WordPressPCL.Client
             {
                 return false;
             }
-            string json = JsonSerializer.Serialize(value);
-            return json != "null";
+
+            JsonElement element;
+            try
+            {
+                element = JsonSerializer.SerializeToElement(value);
+            }
+            catch
+            {
+                // If the value cannot be serialized, fall back to considering it as having a value
+                // to avoid silently dropping data compared to the previous behavior.
+                return true;
+            }
+
+            return HasNonNullValue(element);
+        }
+
+        private static bool HasNonNullValue(JsonElement element)
+        {
+            switch (element.ValueKind)
+            {
+                case JsonValueKind.Null:
+                case JsonValueKind.Undefined:
+                    return false;
+
+                case JsonValueKind.String:
+                case JsonValueKind.Number:
+                case JsonValueKind.True:
+                case JsonValueKind.False:
+                    return true;
+
+                case JsonValueKind.Array:
+                    foreach (JsonElement item in element.EnumerateArray())
+                    {
+                        if (HasNonNullValue(item))
+                        {
+                            return true;
+                        }
+                    }
+                    return false;
+
+                case JsonValueKind.Object:
+                    foreach (System.Text.Json.JsonProperty property in element.EnumerateObject())
+                    {
+                        if (HasNonNullValue(property.Value))
+                        {
+                            return true;
+                        }
+                    }
+                    return false;
+
+                default:
+                    return false;
+            }
         }
 
         #endregion Custom

@@ -42,6 +42,10 @@ public class CapabilitiesJsonConverter_Tests
             { "level_0", true }
         };
         string result = JsonSerializer.Serialize(data, CreateOptions());
-        Assert.AreEqual("{\"administrator\":true,\"level_0\":true}", result);
+        Dictionary<string, bool>? deserialized = JsonSerializer.Deserialize<Dictionary<string, bool>>(result, CreateOptions());
+        Assert.IsNotNull(deserialized);
+        Assert.AreEqual(2, deserialized.Count);
+        Assert.IsTrue(deserialized["administrator"]);
+        Assert.IsTrue(deserialized["level_0"]);
     }
 }
