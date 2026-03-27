@@ -69,7 +69,8 @@ public class Basic_Tests
     public async Task Hosted_GetPostsByTag()
     {
         var tags = await _client.Tags.GetAsync();
-        int tagId = tags.FirstOrDefault()!.Id;
+        Assert.IsTrue(tags.Any(), "No tags returned from the API; cannot test posts by tag.");
+        int tagId = tags.First().Id;
 
         // Initialize
         var posts = await _client.Posts.GetPostsByTagAsync(tagId);

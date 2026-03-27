@@ -35,7 +35,7 @@ public class Posts_Tests
 
 
         Assert.AreEqual(post.Content!.Raw, createdPost.Content!.Raw);
-        Assert.IsTrue(createdPost.Content.Rendered!.Contains(post.Content.Rendered!));
+        Assert.IsTrue(createdPost.Content!.Rendered!.Contains(post.Content.Rendered!));
     }
 
     [TestMethod]
@@ -62,7 +62,7 @@ public class Posts_Tests
         Assert.IsTrue(postsTask.Any(x => x.Title!.Rendered == title));
 
         Assert.AreEqual(post.Content!.Raw, createdPost.Content!.Raw);
-        Assert.IsTrue(createdPost.Content.Rendered!.Contains(post.Content.Rendered!));
+        Assert.IsTrue(createdPost.Content!.Rendered!.Contains(post.Content.Rendered!));
     }
 
     [TestMethod]

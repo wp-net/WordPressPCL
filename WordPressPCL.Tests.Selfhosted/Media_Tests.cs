@@ -137,10 +137,11 @@ public class Media_Tests
         List<Post> posts = await _client.Posts.GetAllAsync(true);
         int i = 0;
         foreach (Post post in posts) {
-            if (post.Embedded!.WpFeaturedmedia != null && post.Embedded.WpFeaturedmedia.Any())
+            var featured = post.Embedded?.WpFeaturedmedia;
+            if (featured != null && featured.Any())
             {
                 i++;
-                MediaItem img = post.Embedded.WpFeaturedmedia.First();
+                MediaItem img = featured.First();
                 Assert.IsFalse(string.IsNullOrEmpty(img.MediaDetails!.Sizes!["full"].SourceUrl));
             }
         }
