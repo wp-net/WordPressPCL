@@ -11,7 +11,7 @@ namespace WordPressPCL.Tests.Selfhosted;
 [TestClass]
 public class ListPosts_QueryBuilder_Tests
 {
-    private static WordPressClient _client;
+    private static WordPressClient _client = null!;
 
     [ClassInitialize]
     public static void Init(TestContext testContext)

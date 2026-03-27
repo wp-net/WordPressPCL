@@ -13,8 +13,8 @@ namespace WordPressPCL.Tests.Selfhosted;
 [TestClass]
 public class Posts_Tests
 {
-    private static WordPressClient _client;
-    private static WordPressClient _clientAuth;
+    private static WordPressClient _client = null!;
+    private static WordPressClient _clientAuth = null!;
 
     [ClassInitialize]
     public static async Task Init(TestContext testContext)
@@ -34,8 +34,8 @@ public class Posts_Tests
         Post createdPost = await _clientAuth.Posts.CreateAsync(post);
 
 
-        Assert.AreEqual(post.Content.Raw, createdPost.Content.Raw);
-        Assert.IsTrue(createdPost.Content.Rendered.Contains(post.Content.Rendered));
+        Assert.AreEqual(post.Content!.Raw, createdPost.Content!.Raw);
+        Assert.IsTrue(createdPost.Content.Rendered!.Contains(post.Content.Rendered!));
     }
 
     [TestMethod]
@@ -59,10 +59,10 @@ public class Posts_Tests
         };
 
         List<Post> postsTask = await _clientAuth.Posts.QueryAsync(queryBuilder, true);
-        Assert.IsTrue(postsTask.Any(x => x.Title.Rendered == title));
+        Assert.IsTrue(postsTask.Any(x => x.Title!.Rendered == title));
 
-        Assert.AreEqual(post.Content.Raw, createdPost.Content.Raw);
-        Assert.IsTrue(createdPost.Content.Rendered.Contains(post.Content.Rendered));
+        Assert.AreEqual(post.Content!.Raw, createdPost.Content!.Raw);
+        Assert.IsTrue(createdPost.Content.Rendered!.Contains(post.Content.Rendered!));
     }
 
     [TestMethod]
@@ -80,7 +80,7 @@ public class Posts_Tests
         }, true);
         Assert.AreEqual(1, postsEdit.Count);
         Assert.IsNotNull(postsEdit.FirstOrDefault());
-        Assert.IsNotNull(postsEdit.FirstOrDefault().Content.Raw);
+        Assert.IsNotNull(postsEdit.FirstOrDefault()!.Content!.Raw);
     }
 
     [TestMethod]
@@ -133,10 +133,10 @@ public class Posts_Tests
 
         // edit first post and update it
         Post post = await _clientAuth.Posts.GetByIdAsync(posts.First().Id);
-        post.Content.Raw = testContent;
+        post.Content!.Raw = testContent;
         Post updatedPost = await _clientAuth.Posts.UpdateAsync(post);
-        Assert.AreEqual(updatedPost.Content.Raw, testContent);
-        Assert.IsTrue(updatedPost.Content.Rendered.Contains(testContent));
+        Assert.AreEqual(updatedPost.Content!.Raw, testContent);
+        Assert.IsTrue(updatedPost.Content!.Rendered!.Contains(testContent));
     }
 
     [TestMethod]
@@ -166,7 +166,7 @@ public class Posts_Tests
         };
         List<Post> posts = await _clientAuth.Posts.QueryAsync(queryBuilder, true);
 
-        Post deletedPost = posts.Where(x => x.Id == createdPost.Id).FirstOrDefault();
+        Post? deletedPost = posts.Where(x => x.Id == createdPost.Id).FirstOrDefault();
         Assert.IsNotNull(deletedPost);
     }
 

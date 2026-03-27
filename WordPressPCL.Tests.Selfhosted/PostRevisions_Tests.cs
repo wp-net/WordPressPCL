@@ -10,7 +10,7 @@ namespace WordPressPCL.Tests.Selfhosted;
 [TestClass]
 public class PostRevisions_Tests
 {
-    private static WordPressClient _clientAuth;
+    private static WordPressClient _clientAuth = null!;
 
     [ClassInitialize]
     public static async Task Init(TestContext testContext)
@@ -57,7 +57,7 @@ public class PostRevisions_Tests
             Content = new Content("Content PostCreate"),
         };
         Post createdPost = await _clientAuth.Posts.CreateAsync(post);
-        createdPost.Content.Raw = "Updated Content";
+        createdPost.Content!.Raw = "Updated Content";
         Post updatedPost = await _clientAuth.Posts.UpdateAsync(createdPost);
         return updatedPost.Id;
     }

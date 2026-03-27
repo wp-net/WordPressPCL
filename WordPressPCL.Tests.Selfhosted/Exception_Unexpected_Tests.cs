@@ -10,7 +10,7 @@ namespace WordPressPCL.Tests.Selfhosted;
 [TestClass]
 public class Exception_Unexpected_Tests
 {
-    private WordPressClient _badConnectionClient;
+    private WordPressClient _badConnectionClient = null!;
 
     [TestInitialize]
     public void Initialize()

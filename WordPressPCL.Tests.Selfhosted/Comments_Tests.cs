@@ -13,8 +13,8 @@ namespace WordPressPCL.Tests.Selfhosted;
 [TestClass]
 public class Comments_Tests
 {
-    private static WordPressClient _client;
-    private static WordPressClient _clientAuth;
+    private static WordPressClient _client = null!;
+    private static WordPressClient _clientAuth = null!;
 
     [ClassInitialize]
     public static async Task Init(TestContext testContext)
@@ -97,15 +97,15 @@ public class Comments_Tests
             Authors = new List<int> { me.Id }
         };
         List<Comment> comments = await _clientAuth.Comments.QueryAsync(queryBuilder, true);
-        Comment comment = comments.FirstOrDefault();
+        Comment? comment = comments.FirstOrDefault();
         if (comment == null)
         {
             Assert.Inconclusive();
         }
         string title = $"TestComment {System.Guid.NewGuid()}";
-        comment.Content.Raw = title;
+        comment.Content!.Raw = title;
         Comment commentUpdated = await _clientAuth.Comments.UpdateAsync(comment);
-        Assert.AreEqual(commentUpdated.Content.Raw, title);
+        Assert.AreEqual(commentUpdated.Content!.Raw, title);
     }
     
     [TestMethod]

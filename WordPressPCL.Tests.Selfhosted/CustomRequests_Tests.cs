@@ -17,14 +17,14 @@ public class CustomRequests_Tests
         [JsonProperty("id")]
         public int? Id { get; set; }
         [JsonProperty("title")]
-        public string Title { get; set; }
+        public string? Title { get; set; }
         [JsonProperty("slug")]
-        public string Slug { get; set; }
+        public string? Slug { get; set; }
         [JsonProperty("locale")]
-        public string Locale { get; set; }
+        public string? Locale { get; set; }
     }
 
-    private static WordPressClient _clientAuth;
+    private static WordPressClient _clientAuth = null!;
 
     [ClassInitialize]
     public static async Task Init(TestContext testContext)
@@ -63,7 +63,7 @@ public class CustomRequests_Tests
         Assert.AreNotEqual(forms.Count, 0);
         ContactFormItem editform = forms.First();
         editform.Title += "test";
-        ContactFormItem form2 = await _clientAuth.CustomRequest.UpdateAsync<ContactFormItem, ContactFormItem>($"contact-form-7/v1/contact-forms/{editform.Id.Value}", editform);
+        ContactFormItem form2 = await _clientAuth.CustomRequest.UpdateAsync<ContactFormItem, ContactFormItem>($"contact-form-7/v1/contact-forms/{editform.Id!.Value}", editform);
         Assert.IsNotNull(form2);
         Assert.AreEqual(form.Title, editform.Title);
     }
@@ -76,7 +76,7 @@ public class CustomRequests_Tests
         Assert.IsNotNull(forms);
         Assert.AreNotEqual(forms.Count, 0);
         ContactFormItem deleteform = forms.First();
-        bool result = await _clientAuth.CustomRequest.DeleteAsync($"contact-form-7/v1/contact-forms/{deleteform.Id.Value}");
+        bool result = await _clientAuth.CustomRequest.DeleteAsync($"contact-form-7/v1/contact-forms/{deleteform.Id!.Value}");
         Assert.IsTrue(result);
     }
 }

@@ -11,8 +11,8 @@ namespace WordPressPCL.Tests.Selfhosted;
 [TestClass]
 public class Tag_Tests
 {
-    private static WordPressClient _client;
-    private static WordPressClient _clientAuth;
+    private static WordPressClient _client = null!;
+    private static WordPressClient _clientAuth = null!;
 
     [ClassInitialize]
     public static async Task Init(TestContext testContext)
@@ -64,7 +64,7 @@ public class Tag_Tests
     public async Task Tags_Update()
     {
         List<Tag> tags = await _clientAuth.Tags.GetAllAsync();
-        Tag tag = tags.FirstOrDefault();
+        Tag? tag = tags.FirstOrDefault();
         if(tag == null)
         {
             Assert.Inconclusive();
@@ -82,7 +82,7 @@ public class Tag_Tests
     public async Task Tags_Delete()
     {
         List<Tag> tags = await _clientAuth.Tags.GetAllAsync();
-        Tag tag = tags.FirstOrDefault();
+        Tag? tag = tags.FirstOrDefault();
         if (tag == null)
         {
             Assert.Inconclusive();

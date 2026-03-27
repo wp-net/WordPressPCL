@@ -9,7 +9,7 @@ namespace WordPressPCL.Tests.Selfhosted;
 [TestClass]
 public class ApplicationPasswords_Tests
 {
-    private static WordPressClient _clientAuth;
+    private static WordPressClient _clientAuth = null!;
 
     [ClassInitialize]
     public static async Task Init(TestContext testContext)
@@ -39,7 +39,7 @@ public class ApplicationPasswords_Tests
     {
         ApplicationPassword appPassword = await _clientAuth.Users.CreateApplicationPasswordAsync(System.Guid.NewGuid().ToString());
         WordPressClient appPasswordClient = new(ApiCredentials.WordPressUri);
-        appPasswordClient.Auth.UseBasicAuth(ApiCredentials.Username, appPassword.Password);
+        appPasswordClient.Auth.UseBasicAuth(ApiCredentials.Username, appPassword.Password!);
 
         Post post = new()
         {
@@ -48,6 +48,6 @@ public class ApplicationPasswords_Tests
         };
         Post postCreated = await appPasswordClient.Posts.CreateAsync(post);
         Assert.IsNotNull(postCreated);
-        Assert.AreEqual("Title 1", postCreated.Title.Raw);
+        Assert.AreEqual("Title 1", postCreated.Title!.Raw);
     }
 }

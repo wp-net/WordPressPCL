@@ -13,7 +13,7 @@ namespace WordPressPCL.Tests.Selfhosted;
 [TestClass]
 public class Plugins_Tests
 {
-    private static WordPressClient _clientAuth;
+    private static WordPressClient _clientAuth = null!;
     private static string PluginId= "wordpress-seo";
 
     [ClassInitialize]

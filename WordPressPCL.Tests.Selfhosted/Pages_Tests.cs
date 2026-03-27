@@ -12,8 +12,8 @@ namespace WordPressPCL.Tests.Selfhosted;
 [TestClass]
 public class Pages_Tests
 {
-    private static WordPressClient _client;
-    private static WordPressClient _clientAuth;
+    private static WordPressClient _client = null!;
+    private static WordPressClient _clientAuth = null!;
 
     [ClassInitialize]
     public static async Task Init(TestContext testContext)
@@ -32,8 +32,8 @@ public class Pages_Tests
         };
         Page createdPage = await _clientAuth.Pages.CreateAsync(page);
 
-        Assert.AreEqual(page.Content.Raw, createdPage.Content.Raw);
-        Assert.IsTrue(createdPage.Content.Rendered.Contains(page.Content.Rendered));
+        Assert.AreEqual(page.Content!.Raw, createdPage.Content!.Raw);
+        Assert.IsTrue(createdPage.Content.Rendered!.Contains(page.Content.Rendered!));
     }
 
     [TestMethod]
@@ -59,10 +59,10 @@ public class Pages_Tests
         List<Page> pages = await _client.Pages.GetAllAsync();
         Assert.IsTrue(pages.Count > 0);
 
-        Page page = pages.FirstOrDefault();
-        page.Content.Raw = testContent;
+        Page page = pages.First();
+        page.Content!.Raw = testContent;
         Page updatedPage = await _clientAuth.Pages.UpdateAsync(page);
-        Assert.AreEqual(testContent, updatedPage.Content.Raw);
+        Assert.AreEqual(testContent, updatedPage.Content!.Raw);
     }
 
 
