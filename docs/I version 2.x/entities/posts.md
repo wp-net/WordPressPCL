@@ -91,6 +91,7 @@ if (await client.IsValidJWTokenAsync())
 ## Get Post Revisions
 
 ```C#
-// returns revisions of post
-var revisions = await client.Posts.RevisionsAsync(123);
+// returns a client for revisions of a post
+var revisionsClient = client.Posts.Revisions(123);
+var revisions = await revisionsClient.GetAllAsync();
 ```

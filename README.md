@@ -112,6 +112,41 @@ var response = client.Posts.DeleteAsync(postId);
 | **Post Statuses**  | ---     | yes     | ---     | ---     |
 | **Settings**       | ---     | yes     | yes     | ---     |
 | **Plugins**        | yes     | yes     | yes     | yes     |
+| **Themes**         | ---     | yes     | ---     | ---     |
+
+Post revisions are available through `client.Posts.Revisions(postId)`. WordPressPCL does not currently provide a dedicated wrapper for page revisions or autosaves.
+
+## Endpoint Coverage and Gaps
+
+WordPressPCL currently provides dedicated clients for the most common `wp/v2` endpoints:
+
+- Posts, Pages, Comments, Categories, Tags, Users and Media
+- Taxonomies, Post Types, Post Statuses and Settings
+- Post revisions via `client.Posts.Revisions(postId)`
+- Plugins and Themes
+
+The standard WordPress REST API reference also includes endpoints that do not yet have first-class wrappers in this library, including:
+
+- `wp/v2/search`
+- newer block editor endpoints such as block types, blocks, block rendering, templates, template parts and global styles
+- navigation, sidebars, widgets and widget types
+- `wp/v2/url-details`
+- autosaves and page revisions
+
+You can still work with unsupported standard endpoints, plugin namespaces and site-specific custom endpoints by using `CustomRequest`.
+
+```csharp
+// Discover the namespaces and routes exposed by a site
+dynamic apiIndex = await client.CustomRequest.GetAsync<dynamic>("", ignoreDefaultPath: true);
+
+// Call a standard wp/v2 endpoint that does not have a dedicated client
+dynamic searchResults = await client.CustomRequest.GetAsync<dynamic>("search?search=hello", ignoreDefaultPath: false);
+
+// Call a plugin or custom namespace route
+dynamic customEndpoint = await client.CustomRequest.GetAsync<dynamic>("wc/v3/products", useAuth: true);
+```
+
+For a fuller endpoint-by-endpoint summary, see [docs/I version 2.x/endpoint-coverage.md](docs/I%20version%202.x/endpoint-coverage.md).
 
 
 ## Additional Features
