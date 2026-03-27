@@ -26,19 +26,19 @@ namespace WordPressPCL.Utility
         /// Limit results to those matching a string.
         /// </summary>
         [QueryText("search")]
-        public string Search { get; set; }
+        public string? Search { get; set; }
 
         /// <summary>
         /// Ensure result set excludes specific IDs.
         /// </summary>
         [QueryText("exclude")]
-        public List<int> Exclude { get; set; }
+        public List<int>? Exclude { get; set; }
 
         /// <summary>
         /// Limit result set to specific IDs.
         /// </summary>
         [QueryText("include")]
-        public List<int> Include { get; set; }
+        public List<int>? Include { get; set; }
 
         /// <summary>
         /// Offset the result set by a specific number of items.
@@ -58,7 +58,7 @@ namespace WordPressPCL.Utility
         /// Limit result set to users with a specific slug.
         /// </summary>
         [QueryText("slug")]
-        public List<string> Slugs { get; set; }
+        public List<string>? Slugs { get; set; }
 
         //
         // Summary:
@@ -67,12 +67,12 @@ namespace WordPressPCL.Utility
         // Remarks:
         //     Default: publish
         [QueryText("status")]
-        public List<Status> Statuses { get; set; }
+        public List<Status>? Statuses { get; set; }
 
         /// <summary>
         /// Limit result set to users matching at least one specific role provided. Accepts csv list or single role.
         /// </summary>
         [QueryText("roles")]
-        public List<string> Roles { get; set; }
+        public List<string>? Roles { get; set; }
     }
 }

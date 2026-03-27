@@ -25,7 +25,7 @@ namespace WordPressPCL.Utility
         /// Limit results to those matching a string.
         /// </summary>
         [QueryText("search")]
-        public string Search { get; set; }
+        public string? Search { get; set; }
         /// <summary>
         /// Limit response to posts published after a given date
         /// </summary>
@@ -35,12 +35,12 @@ namespace WordPressPCL.Utility
         /// Limit result set to posts assigned to specific authors.
         /// </summary>
         [QueryText("author")]
-        public List<int> Authors { get; set; }
+        public List<int>? Authors { get; set; }
         /// <summary>
         /// Ensure result set excludes posts assigned to specific authors.
         /// </summary>
         [QueryText("author_exclude")]
-        public List<int> AuthorsExclude { get; set; }
+        public List<int>? AuthorsExclude { get; set; }
         /// <summary>
         /// Limit response to posts published before a given date
         /// </summary>
@@ -50,12 +50,12 @@ namespace WordPressPCL.Utility
         /// Ensure result set excludes specific IDs.
         /// </summary>
         [QueryText("exclude")]
-        public List<int> Exclude { get; set; }
+        public List<int>? Exclude { get; set; }
         /// <summary>
         /// Limit result set to specific IDs.
         /// </summary>
         [QueryText("include")]
-        public List<int> Include { get; set; }
+        public List<int>? Include { get; set; }
         /// <summary>
         /// Offset the result set by a specific number of items.
         /// </summary>
@@ -72,33 +72,33 @@ namespace WordPressPCL.Utility
         /// Limit result set to posts with one or more specific slugs.
         /// </summary>
         [QueryText("slug")]
-        public List<string> Slugs { get; set; }
+        public List<string>? Slugs { get; set; }
         /// <summary>
         /// Limit result set to posts assigned one or more statuses.
         /// </summary>
         /// <remarks>Default: publish</remarks>
         [QueryText("status")]
-        public List<Status> Statuses { get; set; }
+        public List<Status>? Statuses { get; set; }
         /// <summary>
         /// Limit result set to all items that have the specified term assigned in the categories taxonomy.
         /// </summary>
         [QueryText("categories")]
-        public List<int> Categories { get; set; }
+        public List<int>? Categories { get; set; }
         /// <summary>
         /// Limit result set to all items except those that have the specified term assigned in the categories taxonomy.
         /// </summary>
         [QueryText("categories_exclude")]
-        public List<int> CategoriesExclude { get; set; }
+        public List<int>? CategoriesExclude { get; set; }
         /// <summary>
         /// Limit result set to all items that have the specified term assigned in the tags taxonomy.
         /// </summary>
         [QueryText("tags")]
-        public List<int> Tags { get; set; }
+        public List<int>? Tags { get; set; }
         /// <summary>
         /// Limit result set to all items except those that have the specified term assigned in the tags taxonomy.
         /// </summary>
         [QueryText("tags_exclude")]
-        public List<int> TagsExclude { get; set; }
+        public List<int>? TagsExclude { get; set; }
         /// <summary>
         /// Limit result set to items that are sticky.
         /// </summary>

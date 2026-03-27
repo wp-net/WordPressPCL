@@ -11,24 +11,24 @@ namespace WordPressPCL.Models
         /// JWT Token
         /// </summary>
         [JsonProperty("token")]
-        public string Token { get; set; }
+        public string? Token { get; set; }
 
         /// <summary>
         /// User Display Name
         /// </summary>
         [JsonProperty("displayName")]
-        public string DisplayName { get; set; }
+        public string? DisplayName { get; set; }
 
         /// <summary>
         /// User Email
         /// </summary>
         [JsonProperty("email")]
-        public string Email { get; set; }
+        public string? Email { get; set; }
 
         /// <summary>
         /// User Nice Names
         /// </summary>
         [JsonProperty("nicename")]
-        public string NiceName { get; set; }
+        public string? NiceName { get; set; }
     }
 }

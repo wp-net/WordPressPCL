@@ -12,29 +12,29 @@ namespace WordPressPCL.Models
         /// Post Author
         /// </summary>
         [JsonProperty("author")]
-        public List<User> Author { get; set; }
+        public List<User>? Author { get; set; }
 
         /// <summary>
         /// Comments on the post
         /// </summary>
         [JsonProperty("replies")]
-        public List<IList<Comment>> Replies { get; set; }
+        public List<IList<Comment>>? Replies { get; set; }
 
         /// <summary>
         /// Featured images for the post
         /// </summary>
         [JsonProperty("wp:featuredmedia")]
-        public List<MediaItem> WpFeaturedmedia { get; set; }
+        public List<MediaItem>? WpFeaturedmedia { get; set; }
 
         /// <summary>
         /// Terms for the post (categories, tags etc.)
         /// </summary>
         [JsonProperty("wp:term")]
-        public List<List<Term>> WpTerm { get; set; }
+        public List<List<Term>>? WpTerm { get; set; }
         /// <summary>
         /// Parent page
         /// </summary>
         [JsonProperty("up")]
-        public List<Page> Up { get; set; }
+        public List<Page>? Up { get; set; }
     }
 }

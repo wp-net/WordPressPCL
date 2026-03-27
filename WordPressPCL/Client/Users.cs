@@ -67,7 +67,7 @@ namespace WordPressPCL.Client
         {
             //100 - Max posts per page in WordPress REST API, so this is hack with multiple requests
             List<User> entities = await _httpHelper.GetRequestAsync<List<User>>($"{METHOD_PATH}?per_page=100&page=1", embed, useAuth).ConfigureAwait(false);
-            if (_httpHelper.LastResponseHeaders.Contains("X-WP-TotalPages") && Convert.ToInt32(_httpHelper.LastResponseHeaders.GetValues("X-WP-TotalPages").FirstOrDefault(), CultureInfo.InvariantCulture) > 1)
+            if (_httpHelper.LastResponseHeaders?.Contains("X-WP-TotalPages") == true && Convert.ToInt32(_httpHelper.LastResponseHeaders.GetValues("X-WP-TotalPages").FirstOrDefault(), CultureInfo.InvariantCulture) > 1)
             {
                 int totalpages = Convert.ToInt32(_httpHelper.LastResponseHeaders.GetValues("X-WP-TotalPages").FirstOrDefault(), CultureInfo.InvariantCulture);
                 for (int page = 2; page <= totalpages; page++)

@@ -31,7 +31,7 @@ namespace WordPressPCL.Models
         /// Context: view, edit
         /// </remarks>
         [JsonProperty("guid", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public Guid Guid { get; set; }
+        public Guid? Guid { get; set; }
 
         /// <summary>
         /// The date the object was last modified, in the site's timezone.
@@ -58,14 +58,14 @@ namespace WordPressPCL.Models
         /// </summary>
         /// <remarks>Context: edit</remarks>
         [JsonProperty("password")]
-        public string Password { get; set; }
+        public string? Password { get; set; }
 
         /// <summary>
         /// An alphanumeric identifier for the object unique to its type.
         /// </summary>
         /// <remarks>Context: view, edit, embed</remarks>
         [JsonProperty("slug")]
-        public string Slug { get; set; }
+        public string? Slug { get; set; }
 
         /// <summary>
         /// A named status for the object.
@@ -85,14 +85,14 @@ namespace WordPressPCL.Models
         /// Context: view, edit, embed
         /// </remarks>
         [JsonProperty("type")]
-        public string Type { get; set; }
+        public string? Type { get; set; }
 
         /// <summary>
         /// The title for the object.
         /// </summary>
         /// <remarks>Context: view, edit, embed</remarks>
         [JsonProperty("title")]
-        public Title Title { get; set; }
+        public Title? Title { get; set; }
 
         /// <summary>
         /// URL to the object.
@@ -102,21 +102,21 @@ namespace WordPressPCL.Models
         /// Context: view, edit, embed
         /// </remarks>
         [JsonProperty("link")]
-        public string Link { get; set; }
+        public string? Link { get; set; }
 
         /// <summary>
         /// The content for the object.
         /// </summary>
         /// <remarks>Context: view, edit</remarks>
         [JsonProperty("content")]
-        public Content Content { get; set; }
+        public Content? Content { get; set; }
 
         /// <summary>
         /// The excerpt for the object.
         /// </summary>
         /// <remarks>Context: view, edit, embed</remarks>
         [JsonProperty("excerpt")]
-        public Excerpt Excerpt { get; set; }
+        public Excerpt? Excerpt { get; set; }
 
         /// <summary>
         /// The ID for the author of the object.
@@ -167,21 +167,21 @@ namespace WordPressPCL.Models
         /// One of: standard
         /// </remarks>
         [JsonProperty("format")]
-        public string Format { get; set; }
+        public string? Format { get; set; }
 
         /// <summary>
         /// The terms assigned to the object in the category taxonomy.
         /// </summary>
         /// <remarks>Context: view, edit</remarks>
         [JsonProperty("categories", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public List<int> Categories { get; set; }
+        public List<int>? Categories { get; set; }
 
         /// <summary>
         /// The terms assigned to the object in the post_tag taxonomy.
         /// </summary>
         /// <remarks>Context: view, edit</remarks>
         [JsonProperty("tags", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public List<int> Tags { get; set; }
+        public List<int>? Tags { get; set; }
 
         /// <summary>
         /// The theme file to use to display the object.
@@ -191,7 +191,7 @@ namespace WordPressPCL.Models
         /// One of:
         /// </remarks>
         [JsonProperty("template", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public string Template { get; set; }
+        public string? Template { get; set; }
 
         /// <summary>
         /// The number of Liveblog Likes the post has.
@@ -205,19 +205,19 @@ namespace WordPressPCL.Models
         /// </summary>
         /// <remarks>Context: view, edit</remarks>
         [JsonProperty("meta", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public dynamic Meta { get; set; }
+        public dynamic? Meta { get; set; }
 
         /// <summary>
         /// Links to related resources
         /// </summary>
         [JsonProperty("_links", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public Links Links { get; set; }
+        public Links? Links { get; set; }
 
         /// <summary>
         /// Embedded information like featured images
         /// </summary>
         [JsonProperty("_embedded", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public Embedded Embedded { get; set; }
+        public Embedded? Embedded { get; set; }
 
         /// <summary>
         /// Parameterless constructor

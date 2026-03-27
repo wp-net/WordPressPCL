@@ -34,28 +34,28 @@ namespace WordPressPCL.Models
         /// </summary>
         /// <remarks>Context: view, edit, embed</remarks>
 		[JsonProperty("author_name", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public string AuthorName { get; set; }
+        public string? AuthorName { get; set; }
 
         /// <summary>
         /// Email address for the object author.
         /// </summary>
         /// <remarks>Context: edit</remarks>
         [JsonProperty("author_email", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public string AuthorEmail { get; set; }
+        public string? AuthorEmail { get; set; }
 
         /// <summary>
         /// URL for the object author.
         /// </summary>
         /// <remarks>Context: view, edit, embed</remarks>
         [JsonProperty("author_url", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public string AuthorUrl { get; set; }
+        public string? AuthorUrl { get; set; }
 
         /// <summary>
         /// IP address for the object author.
         /// </summary>
         /// <remarks>Context: edit</remarks>
         [JsonProperty("author_ip", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public string AuthorIP { get; set; }
+        public string? AuthorIP { get; set; }
 
         /// <summary>
         /// Avatar URLs for the object author.
@@ -63,14 +63,14 @@ namespace WordPressPCL.Models
         /// </summary>
         /// <remarks>Context: view, edit, embed</remarks>
         [JsonProperty("author_avatar_urls", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public AvatarURL AuthorAvatarUrls { get; set; }
+        public AvatarURL? AuthorAvatarUrls { get; set; }
 
         /// <summary>
         /// User agent for the object author.
         /// </summary>
         /// <remarks>Context: edit</remarks>
         [JsonProperty("author_user_agent", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public string AuthorUserAgent { get; set; }
+        public string? AuthorUserAgent { get; set; }
 
         /// <summary>
         /// The date the object was published.
@@ -92,14 +92,14 @@ namespace WordPressPCL.Models
         /// </summary>
         /// <remarks>Context: view, edit, embed</remarks>
         [JsonProperty("content")]
-        public Content Content { get; set; }
+        public Content? Content { get; set; }
 
         /// <summary>
         /// URL to the object.
         /// </summary>
         /// <remarks>Context: view, edit, embed</remarks>
         [JsonProperty("link")]
-        public string Link { get; set; }
+        public string? Link { get; set; }
 
         /// <summary>
         /// State of the object.
@@ -113,14 +113,14 @@ namespace WordPressPCL.Models
         /// </summary>
         /// <remarks>Context: view, edit, embed</remarks>
         [JsonProperty("type")]
-		public string Type { get; set; }
+		public string? Type { get; set; }
 
         /// <summary>
         /// Meta fields.
         /// </summary>
         /// <remarks>Context: view, edit</remarks>
         [JsonProperty("meta", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public dynamic Meta { get; set; }
+        public dynamic? Meta { get; set; }
 
         /// <summary>
         /// Karma for the object.
@@ -133,7 +133,7 @@ namespace WordPressPCL.Models
         /// Links to another entities
         /// </summary>
         [JsonProperty("_links", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public Links Links { get; set; }
+        public Links? Links { get; set; }
 
         /// <summary>
         /// Parameterless constructor

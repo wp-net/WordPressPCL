@@ -37,7 +37,7 @@ namespace WordPressPCL.Models
         /// Context: view, edit
         /// </remarks>
         [JsonProperty("guid", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public Guid Guid { get; set; }
+        public Guid? Guid { get; set; }
 
         /// <summary>
         /// The date the object was last modified, in the site's timezone.
@@ -71,47 +71,47 @@ namespace WordPressPCL.Models
         /// </summary>
         /// <remarks>Context: view, edit, embed</remarks>
         [JsonProperty("slug")]
-        public string Slug { get; set; }
+        public string? Slug { get; set; }
 
         /// <summary>
         /// The title for the object.
         /// </summary>
         /// <remarks>Context: view, edit, embed</remarks>
         [JsonProperty("title")]
-        public Title Title { get; set; }
+        public Title? Title { get; set; }
 
         /// <summary>
         /// The content for the object.
         /// </summary>
         /// <remarks>Context: view, edit</remarks>
         [JsonProperty("content")]
-        public Content Content { get; set; }
+        public Content? Content { get; set; }
 
         /// <summary>
         /// The excerpt for the object.
         /// </summary>
         /// <remarks>Context: view, edit, embed</remarks>
         [JsonProperty("excerpt")]
-        public Excerpt Excerpt { get; set; }
+        public Excerpt? Excerpt { get; set; }
 
         /// <summary>
         /// Meta fields.
         /// </summary>
         /// <remarks>Context: view, edit</remarks>
         [JsonProperty("meta", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public dynamic Meta { get; set; }
+        public dynamic? Meta { get; set; }
 
         /// <summary>
         /// Links to related resources
         /// </summary>
         [JsonProperty("_links", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public Links Links { get; set; }
+        public Links? Links { get; set; }
 
         /// <summary>
         /// Embedded information like featured images
         /// </summary>
         [JsonProperty("_embedded", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public Embedded Embedded { get; set; }
+        public Embedded? Embedded { get; set; }
 
         /// <summary>
         /// Default Constructor

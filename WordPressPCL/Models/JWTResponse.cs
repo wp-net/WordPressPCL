@@ -18,13 +18,13 @@ namespace WordPressPCL.Models
         /// The response message
         /// </summary>
         [JsonProperty("message")]
-        public string Message { get; set; }
+        public string? Message { get; set; }
 
         /// <summary>
         /// The JWT Content
         /// </summary>
         [JsonProperty("data")]
         [DefaultValue(null)]
-        public JWTData Data { get; set; }
+        public JWTData? Data { get; set; }
     }
 }

@@ -55,6 +55,6 @@ namespace WordPressPCL.Models.Exceptions
         /// <summary>
         /// Bad request data info
         /// </summary>
-        public BadRequest RequestData { get; set; }
+        public BadRequest? RequestData { get; set; }
     }
 }

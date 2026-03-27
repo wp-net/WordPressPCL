@@ -12,18 +12,18 @@ namespace WordPressPCL.Models
         /// Avatar URL 24x24 pixels
         /// </summary>
         [JsonProperty("24")]
-        public string Size24 { get; set; }
+        public string? Size24 { get; set; }
 
         /// <summary>
         /// Avatar URL 48x48 pixels
         /// </summary>
         [JsonProperty("48")]
-        public string Size48 { get; set; }
+        public string? Size48 { get; set; }
 
         /// <summary>
         /// Avatar URL 96x96 pixels
         /// </summary>
         [JsonProperty("96")]
-        public string Size96 { get; set; }
+        public string? Size96 { get; set; }
     }
 }

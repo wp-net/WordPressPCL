@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -64,6 +65,8 @@ namespace WordPressPCL.Client
         /// <param name="applicationPassword">Application Password for Basic Authentication</param>
         public void UseBasicAuth(string username, string applicationPassword) 
         {
+            ArgumentNullException.ThrowIfNull(username);
+            ArgumentNullException.ThrowIfNull(applicationPassword);
             AuthMethod = AuthMethod.Basic;
             Username = username;
             _httpHelper.AuthMethod = AuthMethod.Basic;
@@ -77,6 +80,8 @@ namespace WordPressPCL.Client
         /// <param name="username">username</param>
         /// <param name="password">password</param>
         public async Task RequestJWTokenAsync(string username, string password) {
+            ArgumentNullException.ThrowIfNull(username);
+            ArgumentNullException.ThrowIfNull(password);
             if (AuthMethod == AuthMethod.Basic) {
                 throw new WPException("Cannot request JWToken with Basic Authentication");
             }
@@ -108,9 +113,9 @@ namespace WordPressPCL.Client
         /// Forget the JWT Auth Token, won't invalidate it serverside though
         /// </summary>
         public void Logout() {
-            _httpHelper.JWToken = default;
-            _httpHelper.UserName = default;
-            _httpHelper.ApplicationPassword = default;
+            _httpHelper.JWToken = null;
+            _httpHelper.UserName = null;
+            _httpHelper.ApplicationPassword = null;
         }
 
         /// <summary>
@@ -148,7 +153,8 @@ namespace WordPressPCL.Client
         /// <returns>Json response output string</returns>
         private string RemoveEmptyData(string response) {
             JObject jo = JObject.Parse(response);
-            if (jo.SelectToken("data") != null && !jo.SelectToken("data").HasValues) {
+            var dataToken = jo.SelectToken("data");
+            if (dataToken != null && !dataToken.HasValues) {
                 jo.Remove("data");
             }
             return jo.ToString();
@@ -166,7 +172,7 @@ namespace WordPressPCL.Client
         /// Gets the JWToken from the client
         /// </summary>
         /// <returns></returns>
-        public string GetToken() {
+        public string? GetToken() {
             return _httpHelper.JWToken;
         }
 

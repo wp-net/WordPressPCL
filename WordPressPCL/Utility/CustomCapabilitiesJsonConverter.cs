@@ -14,7 +14,7 @@ namespace WordPressPCL.Utility
         /// <inheritdoc />
         public override bool ReadJson(JsonReader reader, Type objectType, bool existingValue, bool hasExistingValue, JsonSerializer serializer)
         {
-            return Convert.ToBoolean(reader?.ValueType == typeof(string) ? Convert.ToByte(reader.Value, CultureInfo.InvariantCulture) : reader.Value, CultureInfo.InvariantCulture);
+            return Convert.ToBoolean(reader?.ValueType == typeof(string) ? Convert.ToByte(reader.Value!, CultureInfo.InvariantCulture) : reader?.Value, CultureInfo.InvariantCulture);
         }
 
         /// <inheritdoc />

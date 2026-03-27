@@ -39,7 +39,7 @@ namespace WordPressPCL.Client
         {
             // default values
             // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
-            return HttpHelper.GetRequestAsync<List<Post>>(_methodPath.SetQueryParam("sticky", "true"), embed, useAuth);
+            return HttpHelper.GetRequestAsync<List<Post>>(_methodPath.SetQueryParam("sticky", "true")!, embed, useAuth);
         }
 
         /// <summary>
@@ -53,7 +53,7 @@ namespace WordPressPCL.Client
         {
             // default values
             // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
-            return HttpHelper.GetRequestAsync<List<Post>>(_methodPath.SetQueryParam("categories", categoryId), embed, useAuth);
+            return HttpHelper.GetRequestAsync<List<Post>>(_methodPath.SetQueryParam("categories", categoryId)!, embed, useAuth);
         }
 
         /// <summary>
@@ -67,7 +67,7 @@ namespace WordPressPCL.Client
         {
             // default values
             // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
-            return HttpHelper.GetRequestAsync<List<Post>>(_methodPath.SetQueryParam("tags", tagId), embed, useAuth);
+            return HttpHelper.GetRequestAsync<List<Post>>(_methodPath.SetQueryParam("tags", tagId)!, embed, useAuth);
         }
 
         /// <summary>
@@ -81,7 +81,7 @@ namespace WordPressPCL.Client
         {
             // default values
             // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
-            return HttpHelper.GetRequestAsync<List<Post>>(_methodPath.SetQueryParam("author", authorId), embed, useAuth);
+            return HttpHelper.GetRequestAsync<List<Post>>(_methodPath.SetQueryParam("author", authorId)!, embed, useAuth);
         }
 
         /// <summary>
@@ -95,7 +95,7 @@ namespace WordPressPCL.Client
         {
             // default values
             // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
-            return HttpHelper.GetRequestAsync<List<Post>>(_methodPath.SetQueryParam("search", searchTerm), embed, useAuth);
+            return HttpHelper.GetRequestAsync<List<Post>>(_methodPath.SetQueryParam("search", searchTerm)!, embed, useAuth);
         }
 
         /// <summary>
@@ -119,7 +119,7 @@ namespace WordPressPCL.Client
         {
 #pragma warning disable CA1507 // Use nameof to express symbol names
             return HttpHelper.DeleteRequestAsync($"{_methodPath}/{Id}"
-                .SetQueryParam("force", force.ToString().ToLower(CultureInfo.InvariantCulture))
+                .SetQueryParam("force", force.ToString().ToLower(CultureInfo.InvariantCulture))!
             );
 #pragma warning restore CA1507 // Use nameof to express symbol names
         }

@@ -12,7 +12,7 @@ namespace WordPressPCL.Models
         /// </summary>
         /// <remarks>Context: view, edit, embed</remarks>
         [JsonProperty("name")]
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
         /// <summary>
         /// Whether posts with this resource should be private.
@@ -54,13 +54,13 @@ namespace WordPressPCL.Models
         /// </summary>
         /// <remarks>Context: view, edit, embed</remarks>
         [JsonProperty("slug")]
-        public string Slug { get; set; }
+        public string? Slug { get; set; }
 
         /// <summary>
         /// Links to related resources
         /// </summary>
         [JsonProperty("_links", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public Links Links { get; set; }
+        public Links? Links { get; set; }
 
         /// <summary>
         /// Default constructor

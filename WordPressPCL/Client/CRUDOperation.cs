@@ -27,7 +27,7 @@ namespace WordPressPCL.Client
         /// <summary>
         /// Helper for HTTP requests
         /// </summary>
-        internal protected HttpHelper _httpHelper;
+        internal protected HttpHelper _httpHelper = null!;
 
         /// <summary>
         /// Helper for HTTP requests
@@ -75,7 +75,7 @@ namespace WordPressPCL.Client
         /// <returns>Result of operation</returns>
         public Task<bool> DeleteAsync(int Id)
         {
-            string path = $"{MethodPath}/{Id}".SetQueryParam("force", ForceDeletion.ToString().ToLower(CultureInfo.InvariantCulture));
+            string path = $"{MethodPath}/{Id}".SetQueryParam("force", ForceDeletion.ToString().ToLower(CultureInfo.InvariantCulture))!;
             return HttpHelper.DeleteRequestAsync(path);
         }
 
@@ -99,14 +99,14 @@ namespace WordPressPCL.Client
         public async Task<List<TClass>> GetAllAsync(bool embed = false, bool useAuth = false)
         {
             //100 - Max posts per page in WordPress REST API, so this is hack with multiple requests
-            string url = MethodPath.SetQueryParam("per_page", "100").SetQueryParam("page", "1");
+            string url = MethodPath.SetQueryParam("per_page", "100")!.SetQueryParam("page", "1")!;
             List<TClass> entities = await HttpHelper.GetRequestAsync<List<TClass>>(url, embed, useAuth).ConfigureAwait(false);
-            if (HttpHelper.LastResponseHeaders.Contains("X-WP-TotalPages") && Convert.ToInt32(HttpHelper.LastResponseHeaders.GetValues("X-WP-TotalPages").FirstOrDefault(), CultureInfo.InvariantCulture) > 1)
+            if (HttpHelper.LastResponseHeaders?.Contains("X-WP-TotalPages") == true && Convert.ToInt32(HttpHelper.LastResponseHeaders.GetValues("X-WP-TotalPages").FirstOrDefault(), CultureInfo.InvariantCulture) > 1)
             {
                 int totalpages = Convert.ToInt32(HttpHelper.LastResponseHeaders.GetValues("X-WP-TotalPages").FirstOrDefault(), CultureInfo.InvariantCulture);
                 for (int page = 2; page <= totalpages; page++)
                 {
-                    url = MethodPath.SetQueryParam("per_page", "100").SetQueryParam("page", page.ToString());
+                    url = MethodPath.SetQueryParam("per_page", "100")!.SetQueryParam("page", page.ToString())!;
                     entities.AddRange(await HttpHelper.GetRequestAsync<List<TClass>>(url, embed, useAuth).ConfigureAwait(false));
                 }
             }

@@ -22,7 +22,7 @@ namespace WordPressPCL.Models
         /// </summary>
         /// <remarks>Context: view, edit</remarks>
         [JsonProperty("description")]
-        public string Description { get; set; }
+        public string? Description { get; set; }
 
         /// <summary>
         /// The parent term ID.
@@ -36,7 +36,7 @@ namespace WordPressPCL.Models
         /// </summary>
         /// <remarks>Context: view, edit</remarks>
         [JsonProperty("meta", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public dynamic Meta { get; set; }
+        public dynamic? Meta { get; set; }
 
         /// <summary>
         /// Parameterless constructor

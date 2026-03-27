@@ -27,7 +27,7 @@ namespace WordPressPCL.Models
         /// </summary>
         /// <remarks>Context: view, edit</remarks>
         [JsonProperty("guid", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public Guid Guid { get; set; }
+        public Guid? Guid { get; set; }
 
         /// <summary>
         /// The date the object was last modified, in the site’s timezone.
@@ -48,7 +48,7 @@ namespace WordPressPCL.Models
         /// </summary>
         /// <remarks>Context: view, edit, embed</remarks>
         [JsonProperty("slug")]
-        public string Slug { get; set; }
+        public string? Slug { get; set; }
 
         /// <summary>
         /// A named status for the object.
@@ -65,14 +65,14 @@ namespace WordPressPCL.Models
         /// </summary>
         /// <remarks>Context: view, edit, embed</remarks>
         [JsonProperty("type")]
-        public string Type { get; set; }
+        public string? Type { get; set; }
 
         /// <summary>
         /// URL to the object.
         /// </summary>
         /// <remarks>Context: view, edit, embed</remarks>
         [JsonProperty("link")]
-        public string Link { get; set; }
+        public string? Link { get; set; }
 
         /// <summary>
         /// The title for the object.
@@ -80,7 +80,7 @@ namespace WordPressPCL.Models
         /// </summary>
         /// <remarks>Context: view, edit, embed</remarks>
         [JsonProperty("title")]
-        public Title Title { get; set; }
+        public Title? Title { get; set; }
 
         /// <summary>
         /// The id for the author of the object.
@@ -112,7 +112,7 @@ namespace WordPressPCL.Models
         /// </summary>
         /// <remarks>Context: view, edit, embed</remarks>
         [JsonProperty("alt_text")]
-        public string AltText { get; set; }
+        public string? AltText { get; set; }
 
         /// <summary>
         /// The caption for the resource.
@@ -120,14 +120,14 @@ namespace WordPressPCL.Models
         /// </summary>
         /// <remarks>Context: view, edit</remarks>
         [JsonProperty("caption")]
-        public Caption Caption { get; set; }
+        public Caption? Caption { get; set; }
 
         /// <summary>
         /// The description for the resource.
         /// </summary>
         /// <remarks>Context: view, edit</remarks>
         [JsonProperty("description")]
-        public Description Description { get; set; }
+        public Description? Description { get; set; }
 
         /// <summary>
         /// Type of resource.
@@ -143,7 +143,7 @@ namespace WordPressPCL.Models
         /// </summary>
         /// <remarks>Context: view, edit, embed</remarks>
         [JsonProperty("mime_type")]
-        public string MimeType { get; set; }
+        public string? MimeType { get; set; }
 
         /// <summary>
         /// Details about the resource file, specific to its type.
@@ -151,7 +151,7 @@ namespace WordPressPCL.Models
         /// </summary>
         /// <remarks>Context: view, edit, embed</remarks>
         [JsonProperty("media_details")]
-        public MediaDetails MediaDetails { get; set; }
+        public MediaDetails? MediaDetails { get; set; }
 
         /// <summary>
         /// The id for the associated post of the resource.
@@ -165,20 +165,20 @@ namespace WordPressPCL.Models
         /// </summary>
         /// <remarks>Context: view, edit, embed</remarks>
         [JsonProperty("source_url")]
-        public string SourceUrl { get; set; }
+        public string? SourceUrl { get; set; }
 
         /// <summary>
         /// Meta fields.
         /// </summary>
         /// <remarks>Context: view, edit</remarks>
         [JsonProperty("meta", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public dynamic Meta { get; set; }
+        public dynamic? Meta { get; set; }
 
         /// <summary>
         /// Links to related resources
         /// </summary>
         [JsonProperty("_links", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public Links Links { get; set; }
+        public Links? Links { get; set; }
 
         /// <summary>
         /// Parameterless constructor
