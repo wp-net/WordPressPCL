@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+using System.Text.Json.Serialization;
+
 
 namespace WordPressPCL.Models
 {
@@ -10,25 +11,25 @@ namespace WordPressPCL.Models
         /// <summary>
         /// JWT Token
         /// </summary>
-        [JsonProperty("token")]
+        [JsonPropertyName("token")]
         public string? Token { get; set; }
 
         /// <summary>
         /// User Display Name
         /// </summary>
-        [JsonProperty("displayName")]
+        [JsonPropertyName("displayName")]
         public string? DisplayName { get; set; }
 
         /// <summary>
         /// User Email
         /// </summary>
-        [JsonProperty("email")]
+        [JsonPropertyName("email")]
         public string? Email { get; set; }
 
         /// <summary>
         /// User Nice Names
         /// </summary>
-        [JsonProperty("nicename")]
+        [JsonPropertyName("nicename")]
         public string? NiceName { get; set; }
     }
 }

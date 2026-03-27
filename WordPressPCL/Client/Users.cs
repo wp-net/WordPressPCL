@@ -4,8 +4,8 @@ using System.Globalization;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
 using WordPressPCL.Interfaces;
 using WordPressPCL.Models;
 using WordPressPCL.Utility;
@@ -41,7 +41,7 @@ namespace WordPressPCL.Client
         /// <returns>Created object</returns>
         public virtual async Task<User> CreateAsync(User Entity)
         {
-            string entity = _httpHelper.JsonSerializerSettings == null ? JsonConvert.SerializeObject(Entity) : JsonConvert.SerializeObject(Entity, _httpHelper.JsonSerializerSettings);
+            string entity = JsonSerializer.Serialize(Entity, _httpHelper.JsonSerializerOptions);
             using StringContent postBody = new(entity, Encoding.UTF8, "application/json");
             return (await _httpHelper.PostRequestAsync<User>($"{METHOD_PATH}", postBody).ConfigureAwait(false)).Item1;
         }
@@ -108,7 +108,7 @@ namespace WordPressPCL.Client
         /// <returns>Updated object</returns>
         public async Task<User> UpdateAsync(User Entity)
         {
-            string entity = _httpHelper.JsonSerializerSettings == null ? JsonConvert.SerializeObject(Entity) : JsonConvert.SerializeObject(Entity, _httpHelper.JsonSerializerSettings);
+            string entity = JsonSerializer.Serialize(Entity, _httpHelper.JsonSerializerOptions);
             using StringContent postBody = new(entity, Encoding.UTF8, "application/json");
             return (await _httpHelper.PostRequestAsync<User>($"{METHOD_PATH}/{Entity?.Id}", postBody).ConfigureAwait(false)).Item1;
         }
@@ -159,7 +159,7 @@ namespace WordPressPCL.Client
         public async Task<ApplicationPassword> CreateApplicationPasswordAsync(string applicationName, string userId = "me")
         {
             var body = new { name = applicationName };
-            string entity = _httpHelper.JsonSerializerSettings == null ? JsonConvert.SerializeObject(body) : JsonConvert.SerializeObject(body, _httpHelper.JsonSerializerSettings);
+            string entity = JsonSerializer.Serialize(body, _httpHelper.JsonSerializerOptions);
             using StringContent postBody = new(entity, Encoding.UTF8, "application/json");
             return (await _httpHelper.PostRequestAsync<ApplicationPassword>($"{METHOD_PATH}/{userId}/{APPLICATION_PASSWORDS_PATH}", postBody, true).ConfigureAwait(false)).Item1;
         }

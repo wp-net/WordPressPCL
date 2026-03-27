@@ -1,7 +1,7 @@
 ﻿using System.Net.Http;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
 using WordPressPCL.Utility;
 
 namespace WordPressPCL.Client
@@ -33,7 +33,7 @@ namespace WordPressPCL.Client
         /// <returns>Created object</returns>
         public async Task<TOutput> CreateAsync<TInput, TOutput>(string route, TInput Entity, bool ignoreDefaultPath = true) where TOutput : class
         {
-            string entity = _httpHelper.JsonSerializerSettings == null ? JsonConvert.SerializeObject(Entity) : JsonConvert.SerializeObject(Entity, _httpHelper.JsonSerializerSettings);
+            string entity = JsonSerializer.Serialize(Entity, _httpHelper.JsonSerializerOptions);
             using StringContent sc = new(entity, Encoding.UTF8, "application/json");
             return (await _httpHelper.PostRequestAsync<TOutput>(route, sc, true, ignoreDefaultPath).ConfigureAwait(false)).Item1;
         }

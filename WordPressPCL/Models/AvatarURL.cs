@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+using System.Text.Json.Serialization;
+
 
 namespace WordPressPCL.Models
 {
@@ -11,19 +12,19 @@ namespace WordPressPCL.Models
         /// <summary>
         /// Avatar URL 24x24 pixels
         /// </summary>
-        [JsonProperty("24")]
+        [JsonPropertyName("24")]
         public string? Size24 { get; set; }
 
         /// <summary>
         /// Avatar URL 48x48 pixels
         /// </summary>
-        [JsonProperty("48")]
+        [JsonPropertyName("48")]
         public string? Size48 { get; set; }
 
         /// <summary>
         /// Avatar URL 96x96 pixels
         /// </summary>
-        [JsonProperty("96")]
+        [JsonPropertyName("96")]
         public string? Size96 { get; set; }
     }
 }

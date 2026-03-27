@@ -1,5 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace WordPressPCL.Models
 {
@@ -11,13 +12,13 @@ namespace WordPressPCL.Models
         /// <summary>
         /// Rendered text
         /// </summary>
-        [JsonProperty("rendered")]
+        [JsonPropertyName("rendered")]
         public string? Rendered { get; set; }
 
         /// <summary>
         /// Raw HTML text
         /// </summary>
-        [JsonProperty("raw")]
+        [JsonPropertyName("raw")]
         public string? Raw { get; set; }
     }
 
@@ -29,13 +30,13 @@ namespace WordPressPCL.Models
         /// <summary>
         /// Rendered text
         /// </summary>
-        [JsonProperty("rendered")]
+        [JsonPropertyName("rendered")]
         public string?  Rendered { get; set; }
 
         /// <summary>
         /// Raw HTML text
         /// </summary>
-        [JsonProperty("raw")]
+        [JsonPropertyName("raw")]
         public string[]? Raw { get; set; }
     }
 
@@ -47,7 +48,7 @@ namespace WordPressPCL.Models
         /// <summary>
         /// URL link
         /// </summary>
-        [JsonProperty("href")]
+        [JsonPropertyName("href")]
         public string? Href { get; set; }
     }
 
@@ -59,7 +60,7 @@ namespace WordPressPCL.Models
         /// <summary>
         /// Can content be edited
         /// </summary>
-        [JsonProperty("protected")]
+        [JsonPropertyName("protected")]
         public bool IsProtected { get; set; }
 
         /// <summary>
@@ -97,7 +98,7 @@ namespace WordPressPCL.Models
         /// <summary>
         /// Can description be edited
         /// </summary>
-        [JsonProperty("protected")]
+        [JsonPropertyName("protected")]
         public bool IsProtected { get; set; }
 
         /// <summary>
@@ -173,73 +174,73 @@ namespace WordPressPCL.Models
 
     public class ThemeSupports
     {
-        [JsonProperty("align-wide")]
+        [JsonPropertyName("align-wide")]
         public bool AlignWide { get; set; }
 
-        [JsonProperty("automatic-feed-links")]
+        [JsonPropertyName("automatic-feed-links")]
         public bool AutomaticFeedLinks { get; set; }
 
-        [JsonProperty("block-templates")]
+        [JsonPropertyName("block-templates")]
         public bool BlockTemplates { get; set; }
 
-        [JsonProperty("block-template-parts")]
+        [JsonPropertyName("block-template-parts")]
         public bool BlockTemplateParts { get; set; }
 
-        [JsonProperty("custom-background")]
+        [JsonPropertyName("custom-background")]
         public bool CustomBackground { get; set; }
 
-        [JsonProperty("custom-header")]
+        [JsonPropertyName("custom-header")]
         public bool CustomHeader { get; set; }
 
-        [JsonProperty("custom-logo")]
+        [JsonPropertyName("custom-logo")]
         public bool CustomLogo { get; set; }
 
-        [JsonProperty("customize-selective-refresh-widgets")]
+        [JsonPropertyName("customize-selective-refresh-widgets")]
         public bool CustomizeSelectiveRefreshWidgets { get; set; }
 
-        [JsonProperty("dark-editor-style")]
+        [JsonPropertyName("dark-editor-style")]
         public bool DarkEditorStyle { get; set; }
 
-        [JsonProperty("disable-custom-colors")]
+        [JsonPropertyName("disable-custom-colors")]
         public bool DisableCustomColors { get; set; }
 
-        [JsonProperty("disable-custom-font-sizes")]
+        [JsonPropertyName("disable-custom-font-sizes")]
         public bool DisableCustomFontSizes { get; set; }
 
-        [JsonProperty("disable-custom-gradients")]
+        [JsonPropertyName("disable-custom-gradients")]
         public bool DisableCustomGradients { get; set; }
 
-        [JsonProperty("disable-layout-styles")]
+        [JsonPropertyName("disable-layout-styles")]
         public bool DisableLayoutStyles { get; set; }
 
-        [JsonProperty("editor-color-palette")]
+        [JsonPropertyName("editor-color-palette")]
         public bool EditorColorPalette { get; set; }
 
-        [JsonProperty("editor-font-sizes")]
+        [JsonPropertyName("editor-font-sizes")]
         public bool EditorFontSizes { get; set; }
 
-        [JsonProperty("editor-gradient-presets")]
+        [JsonPropertyName("editor-gradient-presets")]
         public bool EditorGradientPresets { get; set; }
 
-        [JsonProperty("editor-styles")]
+        [JsonPropertyName("editor-styles")]
         public bool EditorStyles { get; set; }
 
-        [JsonProperty("html5")]
+        [JsonPropertyName("html5")]
         public List<string>? Html5 { get; set; }
 
-        [JsonProperty("formats")]
+        [JsonPropertyName("formats")]
         public List<string>? Formats { get; set; }
 
-        [JsonProperty("post-thumbnails")]
+        [JsonPropertyName("post-thumbnails")]
         public bool PostThumbnails { get; set; }
 
-        [JsonProperty("responsive-embeds")]
+        [JsonPropertyName("responsive-embeds")]
         public bool ResponsiveEmbeds { get; set; }
 
-        [JsonProperty("title-tag")]
+        [JsonPropertyName("title-tag")]
         public bool TitleTag { get; set; }
 
-        [JsonProperty("wp-block-styles")]
+        [JsonPropertyName("wp-block-styles")]
         public bool WpBlockStyles { get; set; }
     }
 
@@ -319,7 +320,7 @@ namespace WordPressPCL.Models
         /// <summary>
         /// Can the except be edited?
         /// </summary>
-        [JsonProperty("protected")]
+        [JsonPropertyName("protected")]
         public bool IsProtected { get; set; }
 
         /// <summary>
@@ -396,7 +397,7 @@ namespace WordPressPCL.Models
         /// <summary>
         /// Has embedded info
         /// </summary>
-        [JsonProperty("embeddable")]
+        [JsonPropertyName("embeddable")]
         public bool Embeddable { get; set; }
     }
 
@@ -423,7 +424,7 @@ namespace WordPressPCL.Models
         /// <summary>
         /// Have embedded info
         /// </summary>
-        [JsonProperty("embeddable")]
+        [JsonPropertyName("embeddable")]
         public bool Embeddable { get; set; }
     }
 
@@ -435,7 +436,7 @@ namespace WordPressPCL.Models
         /// <summary>
         /// Has embedded info
         /// </summary>
-        [JsonProperty("embeddable")]
+        [JsonPropertyName("embeddable")]
         public bool Embeddable { get; set; }
     }
 
@@ -447,13 +448,13 @@ namespace WordPressPCL.Models
         /// <summary>
         /// Cury name
         /// </summary>
-        [JsonProperty("name")]
+        [JsonPropertyName("name")]
         public string? Name { get; set; }
 
         /// <summary>
         /// Is cury templated
         /// </summary>
-        [JsonProperty("templated")]
+        [JsonPropertyName("templated")]
         public bool Templated { get; set; }
     }
 
@@ -475,13 +476,13 @@ namespace WordPressPCL.Models
         /// <summary>
         /// Taxonomy name
         /// </summary>
-        [JsonProperty("taxonomy")]
+        [JsonPropertyName("taxonomy")]
         public string? Taxonomy { get; set; }
 
         /// <summary>
         /// Has embedded info
         /// </summary>
-        [JsonProperty("embeddable")]
+        [JsonPropertyName("embeddable")]
         public bool Embeddable { get; set; }
     }
 
@@ -493,7 +494,7 @@ namespace WordPressPCL.Models
         /// <summary>
         /// Has embedded info
         /// </summary>
-        [JsonProperty("embeddable")]
+        [JsonPropertyName("embeddable")]
         public bool Embeddable { get; set; }
     }
 }

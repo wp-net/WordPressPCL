@@ -5,8 +5,8 @@ using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
 using WordPressPCL.Interfaces;
 using WordPressPCL.Models;
 using WordPressPCL.Utility;
@@ -174,7 +174,7 @@ namespace WordPressPCL.Client
         /// <returns>Updated object</returns>
         public async Task<MediaItem> UpdateAsync(MediaItem Entity)
         {
-            string entity = _httpHelper.JsonSerializerSettings == null ? JsonConvert.SerializeObject(Entity) : JsonConvert.SerializeObject(Entity, _httpHelper.JsonSerializerSettings);
+            string entity = JsonSerializer.Serialize(Entity, _httpHelper.JsonSerializerOptions);
             using StringContent postBody = new(entity, Encoding.UTF8, "application/json");
             return (await _httpHelper.PostRequestAsync<MediaItem>($"{_methodPath}/{Entity?.Id}", postBody).ConfigureAwait(false)).Item1;
         }

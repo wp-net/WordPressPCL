@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+using System.Text.Json.Serialization;
+
 
 namespace WordPressPCL.Models
 {
@@ -14,7 +15,8 @@ namespace WordPressPCL.Models
         /// Read only
         /// Context: view, edit, embed
         /// </remarks>
-        [JsonProperty("id", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        [JsonPropertyName("id")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public int Id { get; set; }
     }
 }

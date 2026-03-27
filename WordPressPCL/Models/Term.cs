@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+using System.Text.Json.Serialization;
+
 
 namespace WordPressPCL.Models
 {
@@ -14,21 +15,21 @@ namespace WordPressPCL.Models
         /// Read only
         /// Context: view, embed, edit
         /// </remarks>
-        [JsonProperty("link")]
+        [JsonPropertyName("link")]
         public string? Link { get; set; }
 
         /// <summary>
         /// HTML title for the term.
         /// </summary>
         /// <remarks>Context: view, embed, edit</remarks>
-        [JsonProperty("name")]
+        [JsonPropertyName("name")]
         public string? Name { get; set; }
 
         /// <summary>
         /// An alphanumeric identifier for the term unique to its type.
         /// </summary>
         /// <remarks>Context: view, embed, edit</remarks>
-        [JsonProperty("slug")]
+        [JsonPropertyName("slug")]
         public string? Slug { get; set; }
 
         /// <summary>
@@ -39,13 +40,14 @@ namespace WordPressPCL.Models
         /// Context: view, embed, edit
         /// One of: category, post_tag, nav_menu, link_category, post_format
         /// </remarks>
-        [JsonProperty("taxonomy")]
+        [JsonPropertyName("taxonomy")]
         public string? Taxonomy { get; set; }
 
         /// <summary>
         /// Links to related resources
         /// </summary>
-        [JsonProperty("_links", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        [JsonPropertyName("_links")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public Links? Links { get; set; }
 
         /// <summary>

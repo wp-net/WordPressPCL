@@ -1,5 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿
 using System.ComponentModel;
+using System.Text.Json.Serialization;
 
 namespace WordPressPCL.Models
 {
@@ -11,19 +12,19 @@ namespace WordPressPCL.Models
         /// <summary>
         /// Indicates if the call was successful
         /// </summary>
-        [JsonProperty("success")]
+        [JsonPropertyName("success")]
         public bool Success { get; set; }
          
         /// <summary>
         /// The response message
         /// </summary>
-        [JsonProperty("message")]
+        [JsonPropertyName("message")]
         public string? Message { get; set; }
 
         /// <summary>
         /// The JWT Content
         /// </summary>
-        [JsonProperty("data")]
+        [JsonPropertyName("data")]
         [DefaultValue(null)]
         public JWTData? Data { get; set; }
     }

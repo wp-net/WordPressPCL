@@ -2,11 +2,13 @@
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
 using WordPressPCL.Models;
 using WordPressPCL.Models.Exceptions;
+using WordPressPCL.Utility;
 
 namespace WordPressPCL.Utility
 {
@@ -49,10 +51,9 @@ namespace WordPressPCL.Utility
 
 
         /// <summary>
-        /// Serialization/Deserialization settings for Json.NET library
-        /// https://www.newtonsoft.com/json/help/html/SerializationSettings.htm
+        /// Serialization/deserialization options for <see cref="System.Text.Json.JsonSerializer"/>.
         /// </summary>
-        public JsonSerializerSettings JsonSerializerSettings { get; set; }
+        public JsonSerializerOptions JsonSerializerOptions { get; set; }
         /// <summary>
         /// Headers returns by WP and http server from last response
         /// </summary>
@@ -69,12 +70,7 @@ namespace WordPressPCL.Utility
             _httpClient = _defaultHttpClient;
             _httpClient.BaseAddress = wordpressURI;
             _defaultPath = defaultPath;
-
-            // by default don't crash on missing member
-            JsonSerializerSettings = new JsonSerializerSettings
-            {
-                MissingMemberHandling = MissingMemberHandling.Ignore
-            };
+            JsonSerializerOptions = CreateDefaultOptions();
         }
 
         /// <summary>
@@ -89,11 +85,7 @@ namespace WordPressPCL.Utility
             _httpClient = httpClient;
             _defaultPath = defaultPath;
             _baseUri = wordpressURI;
-            // by default don't crash on missing member
-            JsonSerializerSettings = new JsonSerializerSettings
-            {
-                MissingMemberHandling = MissingMemberHandling.Ignore
-            };
+            JsonSerializerOptions = CreateDefaultOptions();
         }
 
         internal async Task<TClass> GetRequestAsync<TClass>(string route, bool embed, bool isAuthRequired = false, bool ignoreDefaultPath = false)
@@ -248,9 +240,7 @@ namespace WordPressPCL.Utility
         {
             try
             {
-                TClass? result = JsonSerializerSettings != null
-                    ? JsonConvert.DeserializeObject<TClass>(responseString, JsonSerializerSettings)
-                    : JsonConvert.DeserializeObject<TClass>(responseString);
+                TClass? result = JsonSerializer.Deserialize<TClass>(responseString, JsonSerializerOptions);
 
                 if (result is null)
                 {
@@ -259,7 +249,7 @@ namespace WordPressPCL.Utility
 
                 return result;
             }
-            catch (JsonReaderException)
+            catch (JsonException)
             {
                 (bool success, string sanitizedResponse) = TryGetResponseFromMalformedResponse(responseString);
                 if (!success)
@@ -267,9 +257,7 @@ namespace WordPressPCL.Utility
                     throw new WPUnexpectedException(response, responseString);
                 }
 
-                TClass? result = JsonSerializerSettings != null
-                    ? JsonConvert.DeserializeObject<TClass>(sanitizedResponse, JsonSerializerSettings)
-                    : JsonConvert.DeserializeObject<TClass>(sanitizedResponse);
+                TClass? result = JsonSerializer.Deserialize<TClass>(sanitizedResponse, JsonSerializerOptions);
 
                 if (result is null)
                 {
@@ -304,9 +292,9 @@ namespace WordPressPCL.Utility
             BadRequest? badrequest;
             try
             {
-                badrequest = JsonConvert.DeserializeObject<BadRequest>(responseString);
+                badrequest = JsonSerializer.Deserialize<BadRequest>(responseString);
             }
-            catch (JsonReaderException)
+            catch (JsonException)
             {
                 // the response is not a well formed bad request
                 return new WPUnexpectedException(response, responseString);
@@ -316,6 +304,14 @@ namespace WordPressPCL.Utility
                 return new WPUnexpectedException(response, responseString);
             }
             return new WPException(badrequest.Message ?? "The server returned an error without providing a message.", badrequest);
+        }
+
+        private static JsonSerializerOptions CreateDefaultOptions()
+        {
+            return new JsonSerializerOptions
+            {
+                Converters = { new JsonStringEnumMemberConverter() }
+            };
         }
     }
 }

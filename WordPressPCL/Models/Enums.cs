@@ -1,13 +1,13 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using System.Runtime.Serialization;
+﻿using System.Runtime.Serialization;
+using System.Text.Json.Serialization;
+using WordPressPCL.Utility;
 
 namespace WordPressPCL.Models
 {
     /// <summary>
     /// Status of Post/Page/Media
     /// </summary>
-    [JsonConverter(typeof(StringEnumConverter))]
+    [JsonConverter(typeof(JsonStringEnumMemberConverter))]
     public enum Status
     {
         /// <summary>
@@ -50,7 +50,7 @@ namespace WordPressPCL.Models
     /// <summary>
     /// Status of Comments, Pings etc.
     /// </summary>
-    [JsonConverter(typeof(StringEnumConverter))]
+    [JsonConverter(typeof(JsonStringEnumMemberConverter))]
     public enum OpenStatus
     {
         /// <summary>
@@ -69,7 +69,7 @@ namespace WordPressPCL.Models
     /// <summary>
     /// Status of Plugin
     /// </summary>
-    [JsonConverter(typeof(StringEnumConverter))]
+    [JsonConverter(typeof(JsonStringEnumMemberConverter))]
     public enum ActivationStatus
     {
         /// <summary>
@@ -88,7 +88,7 @@ namespace WordPressPCL.Models
     /// <summary>
     /// Status of Comments
     /// </summary>
-    [JsonConverter(typeof(StringEnumConverter))]
+    [JsonConverter(typeof(JsonStringEnumMemberConverter))]
     public enum CommentStatus
     {
         /// <summary>
@@ -119,7 +119,7 @@ namespace WordPressPCL.Models
     /// <summary>
     /// Status of Media for query builder
     /// </summary>
-    [JsonConverter(typeof(StringEnumConverter))]
+    [JsonConverter(typeof(JsonStringEnumMemberConverter))]
     public enum MediaQueryStatus
     {
         /// <summary>
@@ -145,7 +145,7 @@ namespace WordPressPCL.Models
     /// Sort posts collection by object attribute.
     /// </summary>
     /// <remarks>Default: date</remarks>
-    [JsonConverter(typeof(StringEnumConverter))]
+    [JsonConverter(typeof(JsonStringEnumMemberConverter))]
     public enum PostsOrderBy
     {
         /// <summary>
@@ -207,7 +207,7 @@ namespace WordPressPCL.Models
     /// Sort users collection by object attribute.
     /// </summary>
     /// <remarks>Default: name</remarks>
-    [JsonConverter(typeof(StringEnumConverter))]
+    [JsonConverter(typeof(JsonStringEnumMemberConverter))]
     public enum UsersOrderBy
     {
         /// <summary>
@@ -257,7 +257,7 @@ namespace WordPressPCL.Models
     /// Sort terms collection by object attribute.
     /// </summary>
     /// <remarks>Default: name</remarks>
-    [JsonConverter(typeof(StringEnumConverter))]
+    [JsonConverter(typeof(JsonStringEnumMemberConverter))]
     public enum TermsOrderBy
     {
         /// <summary>
@@ -307,7 +307,7 @@ namespace WordPressPCL.Models
     /// Sort posts collection by object attribute.
     /// </summary>
     /// <remarks>Default: date</remarks>
-    [JsonConverter(typeof(StringEnumConverter))]
+    [JsonConverter(typeof(JsonStringEnumMemberConverter))]
     public enum MediaOrderBy
     {
         /// <summary>
@@ -351,7 +351,7 @@ namespace WordPressPCL.Models
     /// Sort pages collection by object attribute.
     /// </summary>
     /// <remarks>Default: date</remarks>
-    [JsonConverter(typeof(StringEnumConverter))]
+    [JsonConverter(typeof(JsonStringEnumMemberConverter))]
     public enum PagesOrderBy
     {
         /// <summary>
@@ -401,7 +401,7 @@ namespace WordPressPCL.Models
     /// Sort comments collection by object attribute.
     /// </summary>
     /// <remarks>Default: date</remarks>
-    [JsonConverter(typeof(StringEnumConverter))]
+    [JsonConverter(typeof(JsonStringEnumMemberConverter))]
     public enum CommentsOrderBy
     {
         /// <summary>
@@ -472,7 +472,7 @@ namespace WordPressPCL.Models
     /// Default: view
     /// One of: view, embed, edit
     /// </remarks>
-    [JsonConverter(typeof(StringEnumConverter))]
+    [JsonConverter(typeof(JsonStringEnumMemberConverter))]
     public enum Context
     {
         /// <summary>
@@ -497,7 +497,7 @@ namespace WordPressPCL.Models
     /// <summary>
     /// Type of Media Item
     /// </summary>
-    [JsonConverter(typeof(StringEnumConverter))]
+    [JsonConverter(typeof(JsonStringEnumMemberConverter))]
     public enum MediaType
     {
         /// <summary>
@@ -516,7 +516,7 @@ namespace WordPressPCL.Models
     /// <summary>
     /// Type of Media Query Item
     /// </summary>
-    [JsonConverter(typeof(StringEnumConverter))]
+    [JsonConverter(typeof(JsonStringEnumMemberConverter))]
     public enum MediaQueryType
     {
         /// <summary>

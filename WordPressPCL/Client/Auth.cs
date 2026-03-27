@@ -1,7 +1,9 @@
-﻿using Newtonsoft.Json.Linq;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Net.Http;
+using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using WordPressPCL.Models;
 using WordPressPCL.Models.Exceptions;
@@ -152,12 +154,32 @@ namespace WordPressPCL.Client
         /// <param name="response">Json response input string</param>
         /// <returns>Json response output string</returns>
         private string RemoveEmptyData(string response) {
-            JObject jo = JObject.Parse(response);
-            var dataToken = jo.SelectToken("data");
-            if (dataToken != null && !dataToken.HasValues) {
-                jo.Remove("data");
+            using JsonDocument doc = JsonDocument.Parse(response);
+            JsonElement root = doc.RootElement;
+
+            // If "data" property is missing or has values, return as-is
+            if (!root.TryGetProperty("data", out JsonElement dataElement) ||
+                dataElement.ValueKind != JsonValueKind.Object ||
+                dataElement.EnumerateObject().MoveNext())
+            {
+                return response;
             }
-            return jo.ToString();
+
+            // Re-serialize without the "data" property
+            using MemoryStream ms = new();
+            using (Utf8JsonWriter writer = new(ms))
+            {
+                writer.WriteStartObject();
+                foreach (JsonProperty prop in root.EnumerateObject())
+                {
+                    if (prop.Name != "data")
+                    {
+                        prop.WriteTo(writer);
+                    }
+                }
+                writer.WriteEndObject();
+            }
+            return Encoding.UTF8.GetString(ms.ToArray());
         }
 
         /// <summary>

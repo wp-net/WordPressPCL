@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace WordPressPCL.Models
 {
@@ -11,69 +11,69 @@ namespace WordPressPCL.Models
         /// <summary>
         /// Self link
         /// </summary>
-        [JsonProperty("self")]
+        [JsonPropertyName("self")]
         public List<Self>? Self { get; set; }
 
         /// <summary>
         /// Collection of links
         /// <see cref="Models.Collection"/>
         /// </summary>
-        [JsonProperty("collection")]
+        [JsonPropertyName("collection")]
         public List<Collection>? Collection { get; set; }
 
         /// <summary>
         /// About info
         /// <see cref="Models.About"/>
         /// </summary>
-        [JsonProperty("about")]
+        [JsonPropertyName("about")]
         public List<About>? About { get; set; }
 
         /// <summary>
         /// WordPress post Type
         /// </summary>
-        [JsonProperty("wp:post_type")]
+        [JsonPropertyName("wp:post_type")]
         public List<WpPostType>? WpPostType { get; set; }
 
         /// <summary>
         /// Curries
         /// </summary>
-        [JsonProperty("curies")]
+        [JsonPropertyName("curies")]
         public List<Cury>? Curies { get; set; }
 
         /// <summary>
         /// Author
         /// </summary>
-        [JsonProperty("author")]
+        [JsonPropertyName("author")]
         public List<Author>? Author { get; set; }
 
         /// <summary>
         /// Replies
         /// </summary>
-        [JsonProperty("replies")]
+        [JsonPropertyName("replies")]
         public List<Reply>? Replies { get; set; }
 
         /// <summary>
         /// Versions
         /// </summary>
-        [JsonProperty("version-history")]
+        [JsonPropertyName("version-history")]
         public List<VersionHistory>? Versions { get; set; }
 
         /// <summary>
         /// Attachment
         /// </summary>
-        [JsonProperty("wp:attachment")]
+        [JsonPropertyName("wp:attachment")]
         public List<HttpsApiWOrgAttachment>? Attachment { get; set; }
 
         /// <summary>
         /// Featured media
         /// </summary>
-        [JsonProperty("wp:featuredmedia")]
+        [JsonPropertyName("wp:featuredmedia")]
         public List<HttpsApiWOrgFeaturedmedia>? FeaturedMedia { get; set; }
 
         /// <summary>
         /// Featured media
         /// </summary>
-        [JsonProperty("wp:term")]
+        [JsonPropertyName("wp:term")]
         public List<HttpsApiWOrgTerm>? Term { get; set; }
     }
 }

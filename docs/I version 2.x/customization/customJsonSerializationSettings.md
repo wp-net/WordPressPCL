@@ -1,15 +1,22 @@
 
-# Custom JsonSerializationSettings
+# Custom JsonSerializerOptions
 
-In some cases, it may be useful to change the default settings for the serialization / deserialization process of the Json.NET library
-You can do this in the following way:
+In some cases it may be useful to change the default serialization / deserialization behaviour.
+You can do this by providing a custom `JsonSerializerOptions` instance:
+
 ```c#
+using System.Text.Json;
+
 var client = new WordPressClient("https://site.com/wp-json/");
-client.JsonSerializationSettings = new JsonSerializationSettings()
+client.JsonSerializerOptions = new JsonSerializerOptions
 {
-        DateFormatHandling=DateFormatHandling.IsoDateFormat,
-        DateFormatString = "d MMMM YYYY"
+    PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower,
+    // add any other options here
 };
 // working with library
 ```
-For detailed information on the available settings, see the Json.NET documentation https://www.newtonsoft.com/json/help/html/SerializationSettings.htm
+
+For detailed information on the available options, see the [System.Text.Json documentation](https://learn.microsoft.com/en-us/dotnet/api/system.text.json.jsonserializeroptions).
+
+> **Migration note (v3):** The `JsonSerializerSettings` property (Newtonsoft.Json) has been replaced by
+> `JsonSerializerOptions` (System.Text.Json). The library no longer depends on Newtonsoft.Json.

@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace WordPressPCL.Models
 {
@@ -12,69 +12,71 @@ namespace WordPressPCL.Models
         /// All capabilities used by the taxonomy.
         /// </summary>
         /// <remarks>Context: edit</remarks>
-        [JsonProperty("capabilities", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        [JsonPropertyName("capabilities")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public IDictionary<string, bool>? Capabilities { get; set; }
 
         /// <summary>
         /// A human-readable description of the taxonomy.
         /// </summary>
         /// <remarks>Context: view, edit</remarks>
-        [JsonProperty("description")]
+        [JsonPropertyName("description")]
         public string? Description { get; set; }
 
         /// <summary>
         /// Whether or not the taxonomy should have children.
         /// </summary>
         /// <remarks>Context: view, edit</remarks>
-        [JsonProperty("hierarchical")]
+        [JsonPropertyName("hierarchical")]
         public bool Hierarchical { get; set; }
 
         /// <summary>
         /// Human-readable labels for the taxonomy for various contexts.
         /// </summary>
         /// <remarks>Context: edit</remarks>
-        [JsonProperty("labels")]
+        [JsonPropertyName("labels")]
         public List<string>? Labels { get; set; }
 
         /// <summary>
         /// The title for the taxonomy.
         /// </summary>
         /// <remarks>Context: view, edit, embed</remarks>
-        [JsonProperty("name")]
+        [JsonPropertyName("name")]
         public string? Name { get; set; }
 
         /// <summary>
         /// An alphanumeric identifier for the taxonomy.
         /// </summary>
         /// <remarks>Context: view, edit, embed</remarks>
-        [JsonProperty("slug")]
+        [JsonPropertyName("slug")]
         public string? Slug { get; set; }
 
         /// <summary>
         /// Whether or not the term cloud should be displayed.
         /// </summary>
         /// <remarks>Context: edit</remarks>
-        [JsonProperty("show_cloud")]
+        [JsonPropertyName("show_cloud")]
         public bool ShowCloud { get; set; }
 
         /// <summary>
         /// List of taxonomies
         /// </summary>
         /// <remarks>Context: edit</remarks>
-        [JsonProperty("taxonomies")]
+        [JsonPropertyName("taxonomies")]
         public List<string>? Taxonomies { get; set; }
 
         /// <summary>
         /// REST base route for the taxonomy.
         /// </summary>
         /// <remarks>Context: view, edit, embed</remarks>
-        [JsonProperty("rest_base")]
+        [JsonPropertyName("rest_base")]
         public string? RestBase { get; set; }
 
         /// <summary>
         /// Links to related resources
         /// </summary>
-        [JsonProperty("_links", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        [JsonPropertyName("_links")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public Links? Links { get; set; }
 
         /// <summary>
