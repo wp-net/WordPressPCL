@@ -24,7 +24,7 @@ The WordPressPCL API Wrapper is avaiable through [NuGet](https://www.nuget.org/p
 ## Runtime Requirement
 WordPressPCL 3.0 targets .NET 10 only. Upgrading from 2.x is a breaking change and requires applications and test environments to move to the .NET 10 SDK/runtime before restoring, building, or running tests.
 
-## Supported Plattforms
+## Supported Platforms
 WordPressPCL 3.0 targets .NET 10 and is intended for applications running on the current .NET platform:
 * .NET 10
 
