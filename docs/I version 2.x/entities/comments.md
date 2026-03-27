@@ -11,7 +11,7 @@ var comments = await client.Comments.GetAllAsync();
 
 ```C#
 // returns comment by ID
-var comment = await client.Comments.GetByIDAsync(123);
+var comment = await client.Comments.GetByIdAsync(123);
 ```
 
 ## Get Comments by Post ID
@@ -61,7 +61,7 @@ if (await client.IsValidJWTokenAsync())
 
 ```C#
 // returns updated comment
-var comment= client.Comments.GetByIDAsync(123);
+var comment = await client.Comments.GetByIdAsync(123);
 comment.Content.Raw = "New Content";
 if (await client.IsValidJWTokenAsync())
 {
@@ -73,7 +73,7 @@ if (await client.IsValidJWTokenAsync())
 
 ```C#
 // returns result of deletion
-if (await client.IsValidJWToken())
+if (await client.IsValidJWTokenAsync())
 {
     var result = await client.Comments.DeleteAsync(123);
 }

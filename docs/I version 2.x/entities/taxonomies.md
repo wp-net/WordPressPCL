@@ -13,7 +13,7 @@ var taxonomies = await client.Taxonomies.GetAllAsync();
 
 ```C#
 // returns taxonomy by ID
-var taxonomy = await client.Taxonomies.GetByIDAsync(123);
+var taxonomy = await client.Taxonomies.GetByIdAsync(123);
 ```
 
 ## Query

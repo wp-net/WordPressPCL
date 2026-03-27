@@ -39,7 +39,7 @@ public class HttpClient_Tests
         httpClient.DefaultRequestHeaders.Add("Referer", "https://github.com/wp-net/WordPressPCL");
 
         List<Post> posts = await client.Posts.GetAllAsync();
-        Post post = await client.Posts.GetByIDAsync(posts.First().Id);
+        Post post = await client.Posts.GetByIdAsync(posts.First().Id);
         Assert.IsTrue(posts.First().Id == post.Id);
         Assert.IsTrue(!string.IsNullOrEmpty(posts.First().Content.Rendered));
     }

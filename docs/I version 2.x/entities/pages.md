@@ -13,7 +13,7 @@ var pages = await client.Pages.GetAllAsync();
 
 ```C#
 // returns page by ID
-var page = await client.Pages.GetByIDAsync(123);
+var page = await client.Pages.GetByIdAsync(123);
 ```
 
 ## Query
@@ -46,7 +46,7 @@ if (await client.IsValidJWTokenAsync())
 
 ```C#
 // returns updated page
-var page= client.Pages.GetByIDAsync(123);
+var page = await client.Pages.GetByIdAsync(123);
 page.Content.Raw = "New Content";
 if (await client.IsValidJWTokenAsync())
 {

@@ -20,11 +20,11 @@ namespace WordPressPCL.Interfaces
         /// <summary>
         /// Get object by Id
         /// </summary>
-        /// <param name="ID">Object Id</param>
+        /// <param name="id">Object Id</param>
         /// <param name="embed">Is use embed info</param>
         /// <param name="useAuth">Is use auth header</param>
         /// <returns>requested object</returns>
-        Task<TClass> GetByIDAsync(object ID, bool embed = false, bool useAuth = false);
+        Task<TClass> GetByIdAsync(object id, bool embed = false, bool useAuth = false);
 
         /// <summary>
         /// Get all objects

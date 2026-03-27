@@ -60,13 +60,13 @@ namespace WordPressPCL.Client
         /// <summary>
         /// Get Entity by Id
         /// </summary>
-        /// <param name="ID">ID</param>
+        /// <param name="id">ID</param>
         /// <param name="embed">include embed info</param>
         /// <param name="useAuth">Send request with authentication header</param>
         /// <returns>Entity by Id</returns>
-        public Task<PostRevision> GetByIDAsync(object ID, bool embed = false, bool useAuth = true)
+        public Task<PostRevision> GetByIdAsync(object id, bool embed = false, bool useAuth = true)
         {
-            return _httpHelper.GetRequestAsync<PostRevision>($"posts/{_postId}/{_methodPath}/{ID}", embed, useAuth);
+            return _httpHelper.GetRequestAsync<PostRevision>($"posts/{_postId}/{_methodPath}/{id}", embed, useAuth);
         }
     }
 }

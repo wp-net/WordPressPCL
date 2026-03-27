@@ -132,7 +132,7 @@ public class Posts_Tests
         Assert.IsTrue(posts.Count > 0);
 
         // edit first post and update it
-        Post post = await _clientAuth.Posts.GetByIDAsync(posts.First().Id);
+        Post post = await _clientAuth.Posts.GetByIdAsync(posts.First().Id);
         post.Content.Raw = testContent;
         Post updatedPost = await _clientAuth.Posts.UpdateAsync(post);
         Assert.AreEqual(updatedPost.Content.Raw, testContent);
@@ -155,7 +155,7 @@ public class Posts_Tests
 
         await Assert.ThrowsExceptionAsync<WPException>(async () =>
         {
-            Post postById = await _clientAuth.Posts.GetByIDAsync(createdPost.Id);
+            Post postById = await _clientAuth.Posts.GetByIdAsync(createdPost.Id);
         });
 
         // Post should be available in trash

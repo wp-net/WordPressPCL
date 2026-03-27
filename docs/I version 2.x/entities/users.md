@@ -16,7 +16,7 @@ var users = await client.Users.GetAllAsync(useAuth:true);
 
 ```C#
 // returns user by ID
-var user = await client.Users.GetByIDAsync(123);
+var user = await client.Users.GetByIdAsync(123);
 ```
 
 ## Get Current User
@@ -67,7 +67,7 @@ if (await client.IsValidJWTokenAsync())
 
 ```C#
 // returns updated user
-var user = client.Users.GetByIDAsync(123);
+var user = await client.Users.GetByIdAsync(123);
 user.Name = "New Name";
 if (await client.IsValidJWTokenAsync())
 {

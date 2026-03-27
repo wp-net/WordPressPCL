@@ -13,7 +13,7 @@ var categories = await client.Categories.GetAllAsync();
 
 ```C#
 // returns category by ID
-var category = await client.Categories.GetByIDAsync(123);
+var category = await client.Categories.GetByIdAsync(123);
 ```
 
 ## Query
@@ -36,7 +36,7 @@ var category = new Category()
     Name = "Title 1",
     Description = "Content"
 };
-if (await client.IsValidJWToken())
+if (await client.IsValidJWTokenAsync())
 {
     var createdCategory = await client.Categories.CreateAsync(category);
 }
@@ -46,7 +46,7 @@ if (await client.IsValidJWToken())
 
 ```C#
 // returns updated category
-var category = client.Categories.GetByIDAsync(123);
+var category = await client.Categories.GetByIdAsync(123);
 category.Name = "New Name";
 if (await client.IsValidJWTokenAsync())
 {

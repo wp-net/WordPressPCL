@@ -81,7 +81,7 @@ public class Pages_Tests
         Assert.IsTrue(response);
         await Assert.ThrowsExceptionAsync<WPException>(async () =>
         {
-            Page pageById = await _client.Pages.GetByIDAsync(createdPage.Id);
+            Page pageById = await _client.Pages.GetByIdAsync(createdPage.Id);
         });
     }
 

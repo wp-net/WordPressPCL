@@ -41,7 +41,7 @@ public class Basic_Tests
     {
         // Initialize
         List<Post> posts = await _client.Posts.GetAllAsync();
-        Post post = await _client.Posts.GetByIDAsync(posts.First().Id);
+        Post post = await _client.Posts.GetByIdAsync(posts.First().Id);
         Assert.IsTrue(posts.First().Id == post.Id);
         Assert.IsTrue(!string.IsNullOrEmpty(posts.First().Content.Rendered));
     }

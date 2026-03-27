@@ -9,11 +9,11 @@ Here is a list of methods and examples of working with Media
 var media = await client.Media.GetAllAsync();
 ```
 
-## GetByID
+## GetByIdAsync
 
 ```C#
 // returns media by ID
-var media = await client.Media.GetByIDAsync(123);
+var media = await client.Media.GetByIdAsync(123);
 ```
 
 ## Query
@@ -44,7 +44,7 @@ if (await client.IsValidJWTokenAsync())
 ```C#
 // returns created media
 // for create media item you must read them to Stream. Media items can be audio, video, image, pdf ot any othe type supported by wordpress
-if (await client.IsValidJWToken())
+if (await client.IsValidJWTokenAsync())
 {
     var createdMedia = await client.Media.CreateAsync(@"C:\pathToFile\media.jpg","media.jpg");
 }
@@ -54,7 +54,7 @@ if (await client.IsValidJWToken())
 
 ```C#
 // returns updated media
-var media= client.Media.GetByID(123);
+var media = await client.Media.GetByIdAsync(123);
 media.Title.Raw = "New Title";
 
 if (await client.IsValidJWTokenAsync())
