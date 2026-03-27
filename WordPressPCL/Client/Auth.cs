@@ -157,10 +157,23 @@ namespace WordPressPCL.Client
             using JsonDocument doc = JsonDocument.Parse(response);
             JsonElement root = doc.RootElement;
 
-            // If "data" property is missing or has values, return as-is
-            if (!root.TryGetProperty("data", out JsonElement dataElement) ||
-                dataElement.ValueKind != JsonValueKind.Object ||
-                dataElement.EnumerateObject().MoveNext())
+            // If "data" property is missing, return as-is
+            if (!root.TryGetProperty("data", out JsonElement dataElement))
+            {
+                return response;
+            }
+
+            // Match Newtonsoft JToken.HasValues semantics: data "has values" when it is a
+            // non-empty object or a non-empty array. Primitives (string, number, bool, null)
+            // and empty containers have no values and should be removed.
+            bool dataHasValues = dataElement.ValueKind switch
+            {
+                JsonValueKind.Object => dataElement.EnumerateObject().MoveNext(),
+                JsonValueKind.Array  => dataElement.EnumerateArray().MoveNext(),
+                _                    => false
+            };
+
+            if (dataHasValues)
             {
                 return response;
             }
