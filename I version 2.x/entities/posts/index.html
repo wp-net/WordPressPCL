@@ -47,6 +47,8 @@
               <ul class="current">
                   <li class="toctree-l1"><a class="reference internal" href="../../breaking-changes/">Breaking Changes in Version 2.x</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../endpoint-coverage/">Endpoint coverage</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../../troubleshooting/">Troubleshooting</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" >Customization</a>
@@ -179,18 +181,18 @@
                 <h1 id="posts">Posts</h1>
 <p>Here is a list of methods and examples of working with Posts</p>
 <h2 id="get-all">Get All</h2>
-<pre><code class="language-C#">// returns all posts
+<pre><code class="language-csharp">// returns all posts
 var posts = await client.Posts.GetAllAsync();```
 
 ## Get By ID
 
-```C#
+```csharp
 // returns post by ID
 var post = await client.Posts.GetByIDAsync(123);
 </code></pre>
 <h2 id="query">Query</h2>
 <p>Create parametrized request</p>
-<pre><code class="language-C#">// returns result of query
+<pre><code class="language-csharp">// returns result of query
 var queryBuilder = new PostsQueryBuilder();
 queryBuilder.PerPage = 40;
 queryBuilder.Page = 2;
@@ -198,7 +200,7 @@ queryBuilder.Categories = new int[]{1,2,3};
 var posts = await client.Posts.QueryAsync(queryBuilder);
 </code></pre>
 <h2 id="create-new-post">Create new Post</h2>
-<pre><code class="language-C#">// returns created post
+<pre><code class="language-csharp">// returns created post
 var post = new Post()
 {
     Title = new Title(&quot;Title 1&quot;),
@@ -210,7 +212,7 @@ if (await client.IsValidJWTokenAsync())
 }
 </code></pre>
 <h2 id="update-post">Update Post</h2>
-<pre><code class="language-C#">// returns updated post
+<pre><code class="language-csharp">// returns updated post
 var post = client.Posts.GetByIDAsync(123);
 post.Content.Raw = &quot;New Content&quot;;
 if (await client.IsValidJWTokenAsync())
@@ -219,7 +221,7 @@ if (await client.IsValidJWTokenAsync())
 }
 </code></pre>
 <h2 id="update-custom-fields">Update Custom Fields</h2>
-<pre><code class="language-C#">var post = new Post
+<pre><code class="language-csharp">var post = new Post
 {
     Id = 123,
     Meta = new Dictionary&lt;string, string&gt;
@@ -238,15 +240,16 @@ await client.Posts.UpdateAsync(post);
 ]);
 </code></pre>
 <h2 id="delete-post">Delete Post</h2>
-<pre><code class="language-C#">// returns result of deletion
+<pre><code class="language-csharp">// returns result of deletion
 if (await client.IsValidJWTokenAsync())
 {
     var result = await client.Posts.DeleteAsync(123);
 }
 </code></pre>
 <h2 id="get-post-revisions">Get Post Revisions</h2>
-<pre><code class="language-C#">// returns revisions of post
-var revisions = await client.Posts.RevisionsAsync(123);
+<pre><code class="language-csharp">// returns a client for revisions of a post
+var revisionsClient = client.Posts.Revisions(123);
+var revisions = await revisionsClient.GetAllAsync();
 </code></pre>
               
             </div>
