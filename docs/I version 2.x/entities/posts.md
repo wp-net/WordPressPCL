@@ -4,20 +4,20 @@ Here is a list of methods and examples of working with Posts
 
 ## Get All
 
-```C#
+```csharp
 // returns all posts
 var posts = await client.Posts.GetAllAsync();```
 
 ## Get By ID
 
-```C#
+```csharp
 // returns post by ID
 var post = await client.Posts.GetByIdAsync(123);
 ```
 
 ## Query
 Create parametrized request
-```C#
+```csharp
 // returns result of query
 var queryBuilder = new PostsQueryBuilder();
 queryBuilder.PerPage = 40;
@@ -28,7 +28,7 @@ var posts = await client.Posts.QueryAsync(queryBuilder);
 
 ## Create new Post
 
-```C#
+```csharp
 // returns created post
 var post = new Post()
 {
@@ -43,7 +43,7 @@ if (await client.IsValidJWTokenAsync())
 
 ## Update Post
 
-```C#
+```csharp
 // returns updated post
 var post = await client.Posts.GetByIdAsync(123);
 post.Content.Raw = "New Content";
@@ -55,7 +55,7 @@ if (await client.IsValidJWTokenAsync())
 
 ## Update Custom Fields
 
-```C#
+```csharp
 var post = new Post
 {
     Id = 123,
@@ -80,7 +80,7 @@ register_post_meta('post', 'my-custom-key', [
 
 ## Delete Post
 
-```C#
+```csharp
 // returns result of deletion
 if (await client.IsValidJWTokenAsync())
 {
@@ -90,7 +90,7 @@ if (await client.IsValidJWTokenAsync())
 
 ## Get Post Revisions
 
-```C#
+```csharp
 // returns revisions of post
 var revisions = await client.Posts.RevisionsAsync(123);
 ```
