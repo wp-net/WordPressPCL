@@ -44,7 +44,7 @@ if (await client.IsValidJWTokenAsync())
 ```C#
 // returns created media
 // for create media item you must read them to Stream. Media items can be audio, video, image, pdf ot any othe type supported by wordpress
-if (await client.IsValidJWToken())
+if (await client.IsValidJWTokenAsync())
 {
     var createdMedia = await client.Media.CreateAsync(@"C:\pathToFile\media.jpg","media.jpg");
 }
