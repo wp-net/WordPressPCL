@@ -38,7 +38,7 @@ As WordPress adds more standard endpoints, the authoritative way to see what a s
 
 Use the site index to discover available namespaces and routes:
 
-```C#
+```csharp
 dynamic apiIndex = await client.CustomRequest.GetAsync<dynamic>("", ignoreDefaultPath: true);
 ```
 
@@ -46,14 +46,14 @@ These examples use `dynamic` for brevity. If you already know the response shape
 
 Use `CustomRequest` for standard endpoints that do not yet have dedicated wrappers:
 
-```C#
+```csharp
 dynamic searchResults = await client.CustomRequest.GetAsync<dynamic>("search?search=hello", ignoreDefaultPath: false);
 dynamic pageRevisions = await client.CustomRequest.GetAsync<dynamic>("pages/42/revisions", useAuth: true, ignoreDefaultPath: false);
 ```
 
 Use `CustomRequest` for plugin namespaces and custom site routes:
 
-```C#
+```csharp
 dynamic products = await client.CustomRequest.GetAsync<dynamic>("wc/v3/products", useAuth: true);
 ```
 
