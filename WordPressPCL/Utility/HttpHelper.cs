@@ -248,11 +248,16 @@ namespace WordPressPCL.Utility
         {
             try
             {
-                if (JsonSerializerSettings != null)
+                TClass? result = JsonSerializerSettings != null
+                    ? JsonConvert.DeserializeObject<TClass>(responseString, JsonSerializerSettings)
+                    : JsonConvert.DeserializeObject<TClass>(responseString);
+
+                if (result is null)
                 {
-                    return JsonConvert.DeserializeObject<TClass>(responseString, JsonSerializerSettings)!;
+                    throw new WPUnexpectedException(response, responseString);
                 }
-                return JsonConvert.DeserializeObject<TClass>(responseString)!;
+
+                return result;
             }
             catch (JsonReaderException)
             {
@@ -262,11 +267,16 @@ namespace WordPressPCL.Utility
                     throw new WPUnexpectedException(response, responseString);
                 }
 
-                if (JsonSerializerSettings != null)
+                TClass? result = JsonSerializerSettings != null
+                    ? JsonConvert.DeserializeObject<TClass>(sanitizedResponse, JsonSerializerSettings)
+                    : JsonConvert.DeserializeObject<TClass>(sanitizedResponse);
+
+                if (result is null)
                 {
-                    return JsonConvert.DeserializeObject<TClass>(sanitizedResponse, JsonSerializerSettings)!;
+                    throw new WPUnexpectedException(response, sanitizedResponse);
                 }
-                return JsonConvert.DeserializeObject<TClass>(sanitizedResponse)!;
+
+                return result;
             }
         }
 
