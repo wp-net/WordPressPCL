@@ -45,7 +45,7 @@ public class HttpHelper_Tests
         {
             throw new InvalidOperationException("PreProcessing must fail");
         };
-        await Assert.ThrowsExceptionAsync<InvalidOperationException>(async () =>
+        await Assert.ThrowsExactlyAsync<InvalidOperationException>(async () =>
         {
             await _clientAuth.Tags.GetAllAsync();
         });

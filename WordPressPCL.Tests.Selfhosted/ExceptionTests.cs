@@ -26,7 +26,7 @@ public class ExceptionTests
         Assert.IsNotNull(_client);
         // Get settings without auth
 
-        await Assert.ThrowsExceptionAsync<WPException>(async () =>
+        await Assert.ThrowsExactlyAsync<WPException>(async () =>
         {
             Settings settings = await _client.Settings.GetSettingsAsync();
         });
@@ -42,7 +42,7 @@ public class ExceptionTests
         
         _client.Auth.UseBasicAuth(dummyUser, dummyPassword);
         
-        await Assert.ThrowsExceptionAsync<WPException>(async () => 
+        await Assert.ThrowsExactlyAsync<WPException>(async () => 
         {
             await _client.Auth.RequestJWTokenAsync(dummyUser, dummyPassword);
         });
@@ -58,7 +58,7 @@ public class ExceptionTests
         
         _client.Auth.UseBasicAuth(dummyUser, dummyPassword);
 
-        await Assert.ThrowsExceptionAsync<WPException>(async () => {
+        await Assert.ThrowsExactlyAsync<WPException>(async () => {
             await _client.Auth.IsValidJWTokenAsync();
         });
     }

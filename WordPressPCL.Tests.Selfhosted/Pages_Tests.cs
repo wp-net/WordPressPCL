@@ -79,7 +79,7 @@ public class Pages_Tests
 
         bool response = await _clientAuth.Pages.Delete(createdPage.Id);
         Assert.IsTrue(response);
-        await Assert.ThrowsExceptionAsync<WPException>(async () =>
+        await Assert.ThrowsExactlyAsync<WPException>(async () =>
         {
             Page pageById = await _client.Pages.GetByIdAsync(createdPage.Id);
         });

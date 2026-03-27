@@ -45,7 +45,7 @@ public class Comments_Tests
         Assert.IsNotNull(resultComment);
 
         // Posting same comment twice should fail
-        await Assert.ThrowsExceptionAsync<WPException>(async () =>
+        await Assert.ThrowsExactlyAsync<WPException>(async () =>
         {
             Comment secondResultComment = await _clientAuth.Comments.CreateAsync(comment);
         });
