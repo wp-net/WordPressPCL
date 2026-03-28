@@ -49,7 +49,7 @@ public class Plugins_Tests
         //Deactivate plugin
         Plugin deactivatedPlugin = await _clientAuth.Plugins.DeactivateAsync(plugin);
         Assert.AreEqual(ActivationStatus.Inactive, deactivatedPlugin.Status);
-        Assert.AreEqual(deactivatedPlugin.Id, plugin.Id);
+        Assert.AreEqual(plugin.Id, deactivatedPlugin.Id);
 
         //Delete plugin
         bool response = await _clientAuth.Plugins.DeleteAsync(plugin);
