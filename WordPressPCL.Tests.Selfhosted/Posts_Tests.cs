@@ -187,4 +187,43 @@ public class Posts_Tests
         Assert.IsNotNull(queryresult);
         Assert.AreNotEqual(0, queryresult.Count);
     }
+
+    [TestMethod]
+    public async Task Posts_GetPaged_Returns_Metadata()
+    {
+        PagedResult<Post> paged = await _client.Posts.GetPagedAsync(page: 1, perPage: 5);
+
+        Assert.IsNotNull(paged);
+        Assert.IsNotNull(paged.Items);
+        Assert.IsTrue(paged.Items.Count <= 5);
+        Assert.IsTrue(paged.TotalCount > 0, "TotalCount should be populated from X-WP-Total");
+        Assert.IsTrue(paged.TotalPages >= 1, "TotalPages should be populated from X-WP-TotalPages");
+    }
+
+    [TestMethod]
+    public async Task Posts_QueryPaged_Returns_Metadata()
+    {
+        PostsQueryBuilder queryBuilder = new()
+        {
+            Page = 1,
+            PerPage = 3,
+            Statuses = new List<Status> { Status.Publish }
+        };
+        PagedResult<Post> paged = await _client.Posts.QueryPagedAsync(queryBuilder);
+
+        Assert.IsNotNull(paged);
+        Assert.IsNotNull(paged.Items);
+        Assert.IsTrue(paged.Items.Count <= 3);
+        Assert.IsTrue(paged.TotalCount > 0, "TotalCount should be populated from X-WP-Total");
+        Assert.IsTrue(paged.TotalPages >= 1, "TotalPages should be populated from X-WP-TotalPages");
+    }
+
+    [TestMethod]
+    public async Task Posts_GetPaged_TotalCount_Matches_GetCount()
+    {
+        PagedResult<Post> paged = await _client.Posts.GetPagedAsync(page: 1, perPage: 1);
+        int count = await _client.Posts.GetCountAsync();
+
+        Assert.AreEqual(count, paged.TotalCount, "TotalCount from GetPagedAsync should match GetCountAsync");
+    }
 }

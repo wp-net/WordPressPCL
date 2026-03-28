@@ -169,6 +169,35 @@ public class User_Tests
         }
     }
 
+    [TestMethod]
+    public async Task Users_GetPaged_Returns_Metadata()
+    {
+        PagedResult<User> paged = await _clientAuth.Users.GetPagedAsync(page: 1, perPage: 5, useAuth: true);
+
+        Assert.IsNotNull(paged);
+        Assert.IsNotNull(paged.Items);
+        Assert.IsTrue(paged.Items.Count <= 5);
+        Assert.IsTrue(paged.TotalCount > 0, "TotalCount should be populated from X-WP-Total");
+        Assert.IsTrue(paged.TotalPages >= 1, "TotalPages should be populated from X-WP-TotalPages");
+    }
+
+    [TestMethod]
+    public async Task Users_QueryPaged_Returns_Metadata()
+    {
+        UsersQueryBuilder queryBuilder = new()
+        {
+            Page = 1,
+            PerPage = 3,
+        };
+        PagedResult<User> paged = await _clientAuth.Users.QueryPagedAsync(queryBuilder, useAuth: true);
+
+        Assert.IsNotNull(paged);
+        Assert.IsNotNull(paged.Items);
+        Assert.IsTrue(paged.Items.Count <= 3);
+        Assert.IsTrue(paged.TotalCount > 0, "TotalCount should be populated from X-WP-Total");
+        Assert.IsTrue(paged.TotalPages >= 1, "TotalPages should be populated from X-WP-TotalPages");
+    }
+
     #region Utils
 
     private Task<User> CreateRandomUser()

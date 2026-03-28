@@ -215,6 +215,32 @@
             <param name="cancellationToken">Cancellation token</param>
             <returns>List of all result</returns>
         </member>
+        <member name="M:WordPressPCL.Client.CRUDOperation`2.GetPagedAsync(System.Int32,System.Int32,System.Boolean,System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            Get a single page of results with pagination metadata.
+            </summary>
+            <param name="page">Page number (1-based). Default: 1</param>
+            <param name="perPage">Items per page (1–100). Default: 10</param>
+            <param name="embed">Include embed info</param>
+            <param name="useAuth">Send request with authentication header</param>
+            <param name="cancellationToken">Cancellation token</param>
+            <returns>
+            A <see cref="T:WordPressPCL.Models.PagedResult`1"/> containing the items for the requested page
+            plus the <c>X-WP-Total</c> and <c>X-WP-TotalPages</c> metadata.
+            </returns>
+        </member>
+        <member name="M:WordPressPCL.Client.CRUDOperation`2.QueryPagedAsync(`1,System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            Execute a parametrized query and return results with pagination metadata.
+            </summary>
+            <param name="queryBuilder">Query builder with specific parameters</param>
+            <param name="useAuth">Send request with authentication header</param>
+            <param name="cancellationToken">Cancellation token</param>
+            <returns>
+            A <see cref="T:WordPressPCL.Models.PagedResult`1"/> containing the matching items plus
+            <c>X-WP-Total</c> and <c>X-WP-TotalPages</c> metadata.
+            </returns>
+        </member>
         <member name="M:WordPressPCL.Client.CRUDOperation`2.GetByIdAsync(System.Object,System.Boolean,System.Boolean,System.Threading.CancellationToken)">
             <summary>
             Get Entity by Id
@@ -354,6 +380,32 @@
             <param name="useAuth">Send request with authentication header</param>
             <param name="cancellationToken">Cancellation token</param>
             <returns>List of all result</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Media.GetPagedAsync(System.Int32,System.Int32,System.Boolean,System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            Get a single page of media items with pagination metadata.
+            </summary>
+            <param name="page">Page number (1-based). Default: 1</param>
+            <param name="perPage">Items per page (1–100). Default: 10</param>
+            <param name="embed">Include embed info</param>
+            <param name="useAuth">Send request with authentication header</param>
+            <param name="cancellationToken">Cancellation token</param>
+            <returns>
+            A <see cref="T:WordPressPCL.Models.PagedResult`1"/> containing the items for the requested page
+            plus the <c>X-WP-Total</c> and <c>X-WP-TotalPages</c> metadata.
+            </returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Media.QueryPagedAsync(WordPressPCL.Utility.MediaQueryBuilder,System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            Execute a parametrized query and return media items with pagination metadata.
+            </summary>
+            <param name="queryBuilder">Query builder with specific parameters</param>
+            <param name="useAuth">Send request with authentication header</param>
+            <param name="cancellationToken">Cancellation token</param>
+            <returns>
+            A <see cref="T:WordPressPCL.Models.PagedResult`1"/> containing the matching items plus
+            <c>X-WP-Total</c> and <c>X-WP-TotalPages</c> metadata.
+            </returns>
         </member>
         <member name="M:WordPressPCL.Client.Media.GetByIdAsync(System.Object,System.Boolean,System.Boolean,System.Threading.CancellationToken)">
             <summary>
@@ -603,7 +655,10 @@
             Get count of posts
             </summary>
             <param name="cancellationToken">Cancellation token</param>
-            <returns>Result of operation</returns>
+            <returns>Total number of posts</returns>
+            <exception cref="T:WordPressPCL.Models.Exceptions.WPException">
+            Thrown when the server response does not include a valid <c>X-WP-Total</c> header.
+            </exception>
         </member>
         <member name="M:WordPressPCL.Client.Posts.DeleteAsync(System.Int32,System.Boolean,System.Threading.CancellationToken)">
             <summary>
@@ -842,6 +897,32 @@
             <param name="useAuth">Send request with authentication header</param>
             <param name="cancellationToken">Cancellation token</param>
             <returns>List of all result</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Users.GetPagedAsync(System.Int32,System.Int32,System.Boolean,System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            Get a single page of users with pagination metadata.
+            </summary>
+            <param name="page">Page number (1-based). Default: 1</param>
+            <param name="perPage">Items per page (1–100). Default: 10</param>
+            <param name="embed">Include embed info</param>
+            <param name="useAuth">Send request with authentication header</param>
+            <param name="cancellationToken">Cancellation token</param>
+            <returns>
+            A <see cref="T:WordPressPCL.Models.PagedResult`1"/> containing the items for the requested page
+            plus the <c>X-WP-Total</c> and <c>X-WP-TotalPages</c> metadata.
+            </returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Users.QueryPagedAsync(WordPressPCL.Utility.UsersQueryBuilder,System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            Execute a parametrized query and return users with pagination metadata.
+            </summary>
+            <param name="queryBuilder">Query builder with specific parameters</param>
+            <param name="useAuth">Send request with authentication header</param>
+            <param name="cancellationToken">Cancellation token</param>
+            <returns>
+            A <see cref="T:WordPressPCL.Models.PagedResult`1"/> containing the matching items plus
+            <c>X-WP-Total</c> and <c>X-WP-TotalPages</c> metadata.
+            </returns>
         </member>
         <member name="M:WordPressPCL.Client.Users.GetByIdAsync(System.Object,System.Boolean,System.Boolean,System.Threading.CancellationToken)">
             <summary>
@@ -2489,6 +2570,39 @@
             <summary>
             Parameterless constructor
             </summary>
+        </member>
+        <member name="T:WordPressPCL.Models.PagedResult`1">
+            <summary>
+            Represents a single page of results from a WordPress REST API list endpoint,
+            carrying both the items and the pagination metadata extracted from the
+            <c>X-WP-Total</c> and <c>X-WP-TotalPages</c> response headers.
+            </summary>
+            <typeparam name="T">The item type returned by the endpoint.</typeparam>
+        </member>
+        <member name="P:WordPressPCL.Models.PagedResult`1.Items">
+            <summary>
+            The items returned in this page.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.PagedResult`1.TotalCount">
+            <summary>
+            Total number of items across all pages, as reported by the
+            <c>X-WP-Total</c> response header.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.PagedResult`1.TotalPages">
+            <summary>
+            Total number of pages available, as reported by the
+            <c>X-WP-TotalPages</c> response header.
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Models.PagedResult`1.#ctor(System.Collections.Generic.IReadOnlyList{`0},System.Int32,System.Int32)">
+            <summary>
+            Initializes a new instance of <see cref="T:WordPressPCL.Models.PagedResult`1"/>.
+            </summary>
+            <param name="items">Items in this page.</param>
+            <param name="totalCount">Total item count from <c>X-WP-Total</c>.</param>
+            <param name="totalPages">Total page count from <c>X-WP-TotalPages</c>.</param>
         </member>
         <member name="T:WordPressPCL.Models.Plugin">
             <summary>
@@ -4166,6 +4280,23 @@
             <param name="httpClient">Http client which would be used for sending requests to the WordPress API endpoint.</param>
             <param name="defaultPath">Relative path to standard API endpoints, defaults to "wp/v2/"</param>
             <param name="wordpressURI">(optional) Base WP REST API endpoint EX. http://demo.com/wp-json/. Use this if the BaseAddress of the httpClient is not set.</param>
+        </member>
+        <member name="M:WordPressPCL.Utility.HttpHelper.GetRequestWithHeadersAsync``1(System.String,System.Boolean,System.Boolean,System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            Issues a GET request and returns both the deserialized response and the raw response headers.
+            Use <see cref="M:WordPressPCL.Utility.HttpHelper.ParsePaginationHeaders(System.Net.Http.Headers.HttpResponseHeaders)"/> to extract <c>X-WP-Total</c> / <c>X-WP-TotalPages</c> values.
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Utility.HttpHelper.ParsePaginationHeaders(System.Net.Http.Headers.HttpResponseHeaders)">
+            <summary>
+            Parses the WordPress pagination headers from a response.
+            </summary>
+            <param name="headers">The response headers to inspect.</param>
+            <returns>
+            A tuple of (<c>total</c>, <c>totalPages</c>) where <c>total</c> comes from
+            <c>X-WP-Total</c> and <c>totalPages</c> comes from <c>X-WP-TotalPages</c>.
+            Returns <c>(0, 1)</c> when the headers are absent.
+            </returns>
         </member>
         <member name="T:WordPressPCL.Utility.JsonStringEnumMemberConverter">
             <summary>

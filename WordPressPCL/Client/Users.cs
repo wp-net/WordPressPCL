@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
@@ -70,16 +68,51 @@ namespace WordPressPCL.Client
         public async Task<List<User>> GetAllAsync(bool embed = false, bool useAuth = false, CancellationToken cancellationToken = default)
         {
             //100 - Max posts per page in WordPress REST API, so this is hack with multiple requests
-            List<User> entities = await _httpHelper.GetRequestAsync<List<User>>($"{METHOD_PATH}?per_page=100&page=1", embed, useAuth, cancellationToken: cancellationToken).ConfigureAwait(false);
-            if (_httpHelper.LastResponseHeaders?.Contains("X-WP-TotalPages") == true && Convert.ToInt32(_httpHelper.LastResponseHeaders.GetValues("X-WP-TotalPages").FirstOrDefault(), CultureInfo.InvariantCulture) > 1)
+            var (entities, headers) = await _httpHelper.GetRequestWithHeadersAsync<List<User>>($"{METHOD_PATH}?per_page=100&page=1", embed, useAuth, cancellationToken: cancellationToken).ConfigureAwait(false);
+            var (_, totalPages) = HttpHelper.ParsePaginationHeaders(headers);
+            for (int page = 2; page <= totalPages; page++)
             {
-                int totalpages = Convert.ToInt32(_httpHelper.LastResponseHeaders.GetValues("X-WP-TotalPages").FirstOrDefault(), CultureInfo.InvariantCulture);
-                for (int page = 2; page <= totalpages; page++)
-                {
-                    entities.AddRange(await _httpHelper.GetRequestAsync<List<User>>($"{METHOD_PATH}?per_page=100&page={page}", embed, useAuth, cancellationToken: cancellationToken).ConfigureAwait(false));
-                }
+                entities.AddRange(await _httpHelper.GetRequestAsync<List<User>>($"{METHOD_PATH}?per_page=100&page={page}", embed, useAuth, cancellationToken: cancellationToken).ConfigureAwait(false));
             }
             return entities;
+        }
+
+        /// <summary>
+        /// Get a single page of users with pagination metadata.
+        /// </summary>
+        /// <param name="page">Page number (1-based). Default: 1</param>
+        /// <param name="perPage">Items per page (1–100). Default: 10</param>
+        /// <param name="embed">Include embed info</param>
+        /// <param name="useAuth">Send request with authentication header</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>
+        /// A <see cref="PagedResult{User}"/> containing the items for the requested page
+        /// plus the <c>X-WP-Total</c> and <c>X-WP-TotalPages</c> metadata.
+        /// </returns>
+        public async Task<PagedResult<User>> GetPagedAsync(int page = 1, int perPage = 10, bool embed = false, bool useAuth = false, CancellationToken cancellationToken = default)
+        {
+            var (items, headers) = await _httpHelper.GetRequestWithHeadersAsync<List<User>>(
+                $"{METHOD_PATH}?per_page={perPage.ToString(CultureInfo.InvariantCulture)}&page={page.ToString(CultureInfo.InvariantCulture)}",
+                embed, useAuth, cancellationToken: cancellationToken).ConfigureAwait(false);
+            var (total, totalPages) = HttpHelper.ParsePaginationHeaders(headers);
+            return new PagedResult<User>(items, total, totalPages);
+        }
+
+        /// <summary>
+        /// Execute a parametrized query and return users with pagination metadata.
+        /// </summary>
+        /// <param name="queryBuilder">Query builder with specific parameters</param>
+        /// <param name="useAuth">Send request with authentication header</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>
+        /// A <see cref="PagedResult{User}"/> containing the matching items plus
+        /// <c>X-WP-Total</c> and <c>X-WP-TotalPages</c> metadata.
+        /// </returns>
+        public async Task<PagedResult<User>> QueryPagedAsync(UsersQueryBuilder queryBuilder, bool useAuth = false, CancellationToken cancellationToken = default)
+        {
+            var (items, headers) = await _httpHelper.GetRequestWithHeadersAsync<List<User>>($"{METHOD_PATH}{queryBuilder.BuildQuery()}", false, useAuth, cancellationToken: cancellationToken).ConfigureAwait(false);
+            var (total, totalPages) = HttpHelper.ParsePaginationHeaders(headers);
+            return new PagedResult<User>(items, total, totalPages);
         }
 
         /// <summary>
