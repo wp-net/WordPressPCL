@@ -5,14 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://wp-net.github.io/WordPressPCL/I%20version%202.x/customization/customJsonSerializationSettings/" />
       <link rel="shortcut icon" href="../../../img/favicon.ico" />
-    <title>Custom JsonSerializationSettings - WordPressPCL</title>
+    <title>Custom JsonSerializerOptions - WordPressPCL</title>
     <link rel="stylesheet" href="../../../css/theme.css" />
     <link rel="stylesheet" href="../../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
     
       <script>
         // Current page data
-        var mkdocs_page_name = "Custom JsonSerializationSettings";
+        var mkdocs_page_name = "Custom JsonSerializerOptions";
         var mkdocs_page_input_path = "I version 2.x/customization/customJsonSerializationSettings.md";
         var mkdocs_page_url = "/WordPressPCL/I%20version%202.x/customization/customJsonSerializationSettings/";
       </script>
@@ -55,7 +55,7 @@
     <ul class="current">
                 <li class="toctree-l2"><a class="reference internal" href="../customHttpClient/">Custom HttpClient</a>
                 </li>
-                <li class="toctree-l2 current"><a class="reference internal current" href="#">Custom JsonSerializationSettings</a>
+                <li class="toctree-l2 current"><a class="reference internal current" href="#">Custom JsonSerializerOptions</a>
     <ul class="current">
     </ul>
                 </li>
@@ -155,7 +155,7 @@
     <li><a href="../../.." class="icon icon-home" aria-label="Docs"></a></li>
           <li class="breadcrumb-item">I version 2.x</li>
           <li class="breadcrumb-item">Customization</li>
-      <li class="breadcrumb-item active">Custom JsonSerializationSettings</li>
+      <li class="breadcrumb-item active">Custom JsonSerializerOptions</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -164,18 +164,24 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="custom-jsonserializationsettings">Custom JsonSerializationSettings</h1>
-<p>In some cases, it may be useful to change the default settings for the serialization / deserialization process of the Json.NET library
-You can do this in the following way:</p>
-<pre><code class="language-c#">var client = new WordPressClient(&quot;https://site.com/wp-json/&quot;);
-client.JsonSerializationSettings = new JsonSerializationSettings()
+                <h1 id="custom-jsonserializeroptions">Custom JsonSerializerOptions</h1>
+<p>In some cases it may be useful to change the default serialization / deserialization behaviour.
+You can do this by providing a custom <code>JsonSerializerOptions</code> instance:</p>
+<pre><code class="language-c#">using System.Text.Json;
+
+var client = new WordPressClient(&quot;https://site.com/wp-json/&quot;);
+client.JsonSerializerOptions = new JsonSerializerOptions
 {
-        DateFormatHandling=DateFormatHandling.IsoDateFormat,
-        DateFormatString = &quot;d MMMM YYYY&quot;
+    PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower,
+    // add any other options here
 };
 // working with library
 </code></pre>
-<p>For detailed information on the available settings, see the Json.NET documentation https://www.newtonsoft.com/json/help/html/SerializationSettings.htm</p>
+<p>For detailed information on the available options, see the <a href="https://learn.microsoft.com/en-us/dotnet/api/system.text.json.jsonserializeroptions">System.Text.Json documentation</a>.</p>
+<blockquote>
+<p><strong>Migration note (v3):</strong> The <code>JsonSerializerSettings</code> property (Newtonsoft.Json) has been replaced by
+<code>JsonSerializerOptions</code> (System.Text.Json). The library no longer depends on Newtonsoft.Json.</p>
+</blockquote>
               
             </div>
           </div><footer>
