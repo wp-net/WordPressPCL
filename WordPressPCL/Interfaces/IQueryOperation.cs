@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using WordPressPCL.Utility;
 
@@ -16,7 +17,8 @@ namespace WordPressPCL.Interfaces
         /// </summary>
         /// <param name="queryBuilder">query builder with parameters for query</param>
         /// <param name="useAuth">Is use auth header</param>
+        /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>list of filtered objects</returns>
-        Task<List<TClass>> QueryAsync(TQueryClass queryBuilder, bool useAuth = false);
+        Task<List<TClass>> QueryAsync(TQueryClass queryBuilder, bool useAuth = false, CancellationToken cancellationToken = default);
     }
 }

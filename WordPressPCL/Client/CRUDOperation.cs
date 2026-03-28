@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
+using System.Threading;
 using System.Threading.Tasks;
 using WordPressPCL.Interfaces;
 using WordPressPCL.Models;
@@ -60,23 +61,25 @@ namespace WordPressPCL.Client
         /// Create Entity
         /// </summary>
         /// <param name="Entity">Entity object</param>
+        /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>Created object</returns>
-        public async Task<TClass> CreateAsync(TClass Entity)
+        public async Task<TClass> CreateAsync(TClass Entity, CancellationToken cancellationToken = default)
         {
             string entity = JsonSerializer.Serialize(Entity, HttpHelper.JsonSerializerOptions);
             using StringContent postBody = new(entity, Encoding.UTF8, "application/json");
-            return (await HttpHelper.PostRequestAsync<TClass>(MethodPath, postBody).ConfigureAwait(false)).Item1;
+            return (await HttpHelper.PostRequestAsync<TClass>(MethodPath, postBody, cancellationToken: cancellationToken).ConfigureAwait(false)).Item1;
         }
 
         /// <summary>
         /// Delete Entity
         /// </summary>
         /// <param name="Id">Entity Id</param>
+        /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>Result of operation</returns>
-        public Task<bool> DeleteAsync(int Id)
+        public Task<bool> DeleteAsync(int Id, CancellationToken cancellationToken = default)
         {
             string path = $"{MethodPath}/{Id}".SetQueryParam("force", ForceDeletion.ToString().ToLower(CultureInfo.InvariantCulture))!;
-            return HttpHelper.DeleteRequestAsync(path);
+            return HttpHelper.DeleteRequestAsync(path, cancellationToken: cancellationToken);
         }
 
         /// <summary>
@@ -84,10 +87,11 @@ namespace WordPressPCL.Client
         /// </summary>
         /// <param name="embed">include embed info</param>
         /// <param name="useAuth">Send request with authentication header</param>
+        /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>Entity by Id</returns>
-        public Task<List<TClass>> GetAsync(bool embed = false, bool useAuth = false)
+        public Task<List<TClass>> GetAsync(bool embed = false, bool useAuth = false, CancellationToken cancellationToken = default)
         {
-            return HttpHelper.GetRequestAsync<List<TClass>>(MethodPath, embed, useAuth);
+            return HttpHelper.GetRequestAsync<List<TClass>>(MethodPath, embed, useAuth, cancellationToken: cancellationToken);
         }
 
         /// <summary>
@@ -95,19 +99,20 @@ namespace WordPressPCL.Client
         /// </summary>
         /// <param name="embed">Include embed info</param>
         /// <param name="useAuth">Send request with authentication header</param>
+        /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>List of all result</returns>
-        public async Task<List<TClass>> GetAllAsync(bool embed = false, bool useAuth = false)
+        public async Task<List<TClass>> GetAllAsync(bool embed = false, bool useAuth = false, CancellationToken cancellationToken = default)
         {
             //100 - Max posts per page in WordPress REST API, so this is hack with multiple requests
             string url = MethodPath.SetQueryParam("per_page", "100")!.SetQueryParam("page", "1")!;
-            List<TClass> entities = await HttpHelper.GetRequestAsync<List<TClass>>(url, embed, useAuth).ConfigureAwait(false);
+            List<TClass> entities = await HttpHelper.GetRequestAsync<List<TClass>>(url, embed, useAuth, cancellationToken: cancellationToken).ConfigureAwait(false);
             if (HttpHelper.LastResponseHeaders?.Contains("X-WP-TotalPages") == true && Convert.ToInt32(HttpHelper.LastResponseHeaders.GetValues("X-WP-TotalPages").FirstOrDefault(), CultureInfo.InvariantCulture) > 1)
             {
                 int totalpages = Convert.ToInt32(HttpHelper.LastResponseHeaders.GetValues("X-WP-TotalPages").FirstOrDefault(), CultureInfo.InvariantCulture);
                 for (int page = 2; page <= totalpages; page++)
                 {
                     url = MethodPath.SetQueryParam("per_page", "100")!.SetQueryParam("page", page.ToString())!;
-                    entities.AddRange(await HttpHelper.GetRequestAsync<List<TClass>>(url, embed, useAuth).ConfigureAwait(false));
+                    entities.AddRange(await HttpHelper.GetRequestAsync<List<TClass>>(url, embed, useAuth, cancellationToken: cancellationToken).ConfigureAwait(false));
                 }
             }
             return entities;
@@ -119,10 +124,11 @@ namespace WordPressPCL.Client
         /// <param name="id">ID</param>
         /// <param name="embed">include embed info</param>
         /// <param name="useAuth">Send request with authentication header</param>
+        /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>Entity by Id</returns>
-        public Task<TClass> GetByIdAsync(object id, bool embed = false, bool useAuth = false)
+        public Task<TClass> GetByIdAsync(object id, bool embed = false, bool useAuth = false, CancellationToken cancellationToken = default)
         {
-            return HttpHelper.GetRequestAsync<TClass>($"{MethodPath}/{id}", embed, useAuth);
+            return HttpHelper.GetRequestAsync<TClass>($"{MethodPath}/{id}", embed, useAuth, cancellationToken: cancellationToken);
         }
 
         /// <summary>
@@ -130,22 +136,24 @@ namespace WordPressPCL.Client
         /// </summary>
         /// <param name="queryBuilder">Query builder with specific parameters</param>
         /// <param name="useAuth">Send request with authentication header</param>
+        /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>List of filtered result</returns>
-        public Task<List<TClass>> QueryAsync(QClass queryBuilder, bool useAuth = false)
+        public Task<List<TClass>> QueryAsync(QClass queryBuilder, bool useAuth = false, CancellationToken cancellationToken = default)
         {
-            return HttpHelper.GetRequestAsync<List<TClass>>($"{MethodPath}{queryBuilder.BuildQuery()}", false, useAuth);
+            return HttpHelper.GetRequestAsync<List<TClass>>($"{MethodPath}{queryBuilder.BuildQuery()}", false, useAuth, cancellationToken: cancellationToken);
         }
 
         /// <summary>
         /// Update Entity
         /// </summary>
         /// <param name="Entity">Entity object</param>
+        /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>Updated object</returns>
-        public async Task<TClass> UpdateAsync(TClass Entity)
+        public async Task<TClass> UpdateAsync(TClass Entity, CancellationToken cancellationToken = default)
         {
             string entity = JsonSerializer.Serialize(Entity, HttpHelper.JsonSerializerOptions);
             using StringContent postBody = new(entity, Encoding.UTF8, "application/json");
-            return (await HttpHelper.PostRequestAsync<TClass>($"{MethodPath}/{(Entity as Base)?.Id}", postBody).ConfigureAwait(false)).Item1;
+            return (await HttpHelper.PostRequestAsync<TClass>($"{MethodPath}/{(Entity as Base)?.Id}", postBody, cancellationToken: cancellationToken).ConfigureAwait(false)).Item1;
         }
     }
 }

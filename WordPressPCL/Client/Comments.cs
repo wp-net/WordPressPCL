@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Text.Json;
+using System.Threading;
 using System.Threading.Tasks;
 using WordPressPCL.Models;
 using WordPressPCL.Utility;
@@ -40,10 +41,11 @@ namespace WordPressPCL.Client
         /// <param name="PostID">Post id</param>
         /// <param name="embed">include embed info</param>
         /// <param name="useAuth">Send request with authentication header</param>
+        /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>List of comments for post</returns>
-        public Task<List<Comment>> GetCommentsForPostAsync(int PostID, bool embed = false, bool useAuth = false)
+        public Task<List<Comment>> GetCommentsForPostAsync(int PostID, bool embed = false, bool useAuth = false, CancellationToken cancellationToken = default)
         {
-            return HttpHelper.GetRequestAsync<List<Comment>>($"{_methodPath}?post={PostID}", embed, useAuth);
+            return HttpHelper.GetRequestAsync<List<Comment>>($"{_methodPath}?post={PostID}", embed, useAuth, cancellationToken: cancellationToken);
         }
 
         /// <summary>
@@ -52,18 +54,19 @@ namespace WordPressPCL.Client
         /// <param name="PostID">Post id</param>
         /// <param name="embed">include embed info</param>
         /// <param name="useAuth">Send request with authentication header</param>
+        /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>List of comments for post</returns>
-        public async Task<List<Comment>> GetAllCommentsForPostAsync(int PostID, bool embed = false, bool useAuth = false)
+        public async Task<List<Comment>> GetAllCommentsForPostAsync(int PostID, bool embed = false, bool useAuth = false, CancellationToken cancellationToken = default)
         {
             //100 - Max comments per page in WordPress REST API, so this is hack with multiple requests
-            List<Comment> comments = await HttpHelper.GetRequestAsync<List<Comment>>($"{_methodPath}?post={PostID}&per_page=100&page=1", embed, useAuth).ConfigureAwait(false);
+            List<Comment> comments = await HttpHelper.GetRequestAsync<List<Comment>>($"{_methodPath}?post={PostID}&per_page=100&page=1", embed, useAuth, cancellationToken: cancellationToken).ConfigureAwait(false);
             if (HttpHelper.LastResponseHeaders?.Contains("X-WP-TotalPages") == true &&
                 int.TryParse(HttpHelper.LastResponseHeaders.GetValues("X-WP-TotalPages").FirstOrDefault(), out int totalPages) &&
                 totalPages > 1)
             {
                 for (int page = 2; page <= totalPages; page++)
                 {
-                    comments.AddRange(await HttpHelper.GetRequestAsync<List<Comment>>($"{_methodPath}?post={PostID}&per_page=100&page={page}", embed, useAuth).ConfigureAwait(false));
+                    comments.AddRange(await HttpHelper.GetRequestAsync<List<Comment>>($"{_methodPath}?post={PostID}&per_page=100&page={page}", embed, useAuth, cancellationToken: cancellationToken).ConfigureAwait(false));
                 }
             }
             return comments;
@@ -74,18 +77,20 @@ namespace WordPressPCL.Client
         /// </summary>
         /// <param name="ID">Comment Id</param>
         /// <param name="force">force deletion</param>
+        /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>Result of operation</returns>
-        public Task<bool> DeleteAsync(int ID, bool force = false)
+        public Task<bool> DeleteAsync(int ID, bool force = false, CancellationToken cancellationToken = default)
         {
-            return HttpHelper.DeleteRequestAsync($"{_methodPath}/{ID}?force={force.ToString().ToLower(CultureInfo.InvariantCulture)}");
+            return HttpHelper.DeleteRequestAsync($"{_methodPath}/{ID}?force={force.ToString().ToLower(CultureInfo.InvariantCulture)}", cancellationToken: cancellationToken);
         }
 
         /// <summary>
         /// Update Comment
         /// </summary>
         /// <param name="Entity">Comment object</param>
+        /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>Updated comment</returns>
-        public new async Task<Comment> UpdateAsync(Comment Entity)
+        public new async Task<Comment> UpdateAsync(Comment Entity, CancellationToken cancellationToken = default)
         {
             Dictionary<string, object> body = new();
 
@@ -140,7 +145,7 @@ namespace WordPressPCL.Client
 
             string entity = JsonSerializer.Serialize(body, HttpHelper.JsonSerializerOptions);
             using StringContent postBody = new(entity, Encoding.UTF8, "application/json");
-            return (await HttpHelper.PostRequestAsync<Comment>($"{_methodPath}/{Entity?.Id}", postBody).ConfigureAwait(false)).Item1;
+            return (await HttpHelper.PostRequestAsync<Comment>($"{_methodPath}/{Entity?.Id}", postBody, cancellationToken: cancellationToken).ConfigureAwait(false)).Item1;
         }
 
         private static string GetEnumMemberValue<TEnum>(TEnum value) where TEnum : struct, System.Enum

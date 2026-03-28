@@ -4,6 +4,7 @@ using System.IO;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
+using System.Threading;
 using System.Threading.Tasks;
 using WordPressPCL.Models;
 using WordPressPCL.Models.Exceptions;
@@ -81,7 +82,8 @@ namespace WordPressPCL.Client
         /// </summary>
         /// <param name="username">username</param>
         /// <param name="password">password</param>
-        public async Task RequestJWTokenAsync(string username, string password) {
+        /// <param name="cancellationToken">Cancellation token</param>
+        public async Task RequestJWTokenAsync(string username, string password, CancellationToken cancellationToken = default) {
             ArgumentNullException.ThrowIfNull(username);
             ArgumentNullException.ThrowIfNull(password);
             if (AuthMethod == AuthMethod.Basic) {
@@ -97,12 +99,12 @@ namespace WordPressPCL.Client
             
             switch (JWTPlugin) {
                 case JWTPlugin.JWTAuthByEnriqueChavez:
-                    var (jwtUser, _) = await _httpHelper.PostRequestAsync<JWTUser>(route, formContent, isAuthRequired: false, ignoreDefaultPath: true).ConfigureAwait(false);
+                    var (jwtUser, _) = await _httpHelper.PostRequestAsync<JWTUser>(route, formContent, isAuthRequired: false, ignoreDefaultPath: true, cancellationToken: cancellationToken).ConfigureAwait(false);
                     _httpHelper.JWToken = jwtUser?.Token;
                     break;
                 case JWTPlugin.JWTAuthByUsefulTeam:
                     _httpHelper.HttpResponsePreProcessing = RemoveEmptyData;
-                    var (jwtResponse, _) = await _httpHelper.PostRequestAsync<JWTResponse>(route, formContent, isAuthRequired: false, ignoreDefaultPath: true).ConfigureAwait(false);
+                    var (jwtResponse, _) = await _httpHelper.PostRequestAsync<JWTResponse>(route, formContent, isAuthRequired: false, ignoreDefaultPath: true, cancellationToken: cancellationToken).ConfigureAwait(false);
                     _httpHelper.HttpResponsePreProcessing = null;
                     _httpHelper.JWToken = jwtResponse?.Data?.Token;
                     break;
@@ -123,8 +125,9 @@ namespace WordPressPCL.Client
         /// <summary>
         /// Check if token is valid
         /// </summary>
+        /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>Result of checking</returns>
-        public async Task<bool> IsValidJWTokenAsync() {
+        public async Task<bool> IsValidJWTokenAsync(CancellationToken cancellationToken = default) {
             if (AuthMethod == AuthMethod.Basic) {
                 throw new WPException("Cannot check validity of JWToken with Basic Authentication");
             }
@@ -133,11 +136,11 @@ namespace WordPressPCL.Client
             try {
                 switch (JWTPlugin) {
                     case JWTPlugin.JWTAuthByEnriqueChavez:
-                        var (jwtUser, repsonse) = await _httpHelper.PostRequestAsync<JWTUser>(route, null, isAuthRequired: true, ignoreDefaultPath: true).ConfigureAwait(false);
+                        var (jwtUser, repsonse) = await _httpHelper.PostRequestAsync<JWTUser>(route, null, isAuthRequired: true, ignoreDefaultPath: true, cancellationToken: cancellationToken).ConfigureAwait(false);
                         return repsonse.IsSuccessStatusCode;
                     case JWTPlugin.JWTAuthByUsefulTeam:
                         _httpHelper.HttpResponsePreProcessing = RemoveEmptyData;
-                        var (jwtResponse, _) = await _httpHelper.PostRequestAsync<JWTResponse>(route, null, isAuthRequired: true, ignoreDefaultPath: true).ConfigureAwait(false);
+                        var (jwtResponse, _) = await _httpHelper.PostRequestAsync<JWTResponse>(route, null, isAuthRequired: true, ignoreDefaultPath: true, cancellationToken: cancellationToken).ConfigureAwait(false);
                         _httpHelper.HttpResponsePreProcessing = null;
                         return jwtResponse.Success;
                     default:

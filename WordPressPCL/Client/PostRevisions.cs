@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using WordPressPCL.Interfaces;
 using WordPressPCL.Models;
@@ -29,10 +30,11 @@ namespace WordPressPCL.Client
         /// Delete Entity
         /// </summary>
         /// <param name="ID">Entity Id</param>
+        /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>Result of operation</returns>
-        public Task<bool> DeleteAsync(int ID)
+        public Task<bool> DeleteAsync(int ID, CancellationToken cancellationToken = default)
         {
-            return _httpHelper.DeleteRequestAsync($"posts/{_postId}/{_methodPath}/{ID}?force=true");
+            return _httpHelper.DeleteRequestAsync($"posts/{_postId}/{_methodPath}/{ID}?force=true", cancellationToken: cancellationToken);
         }
 
         /// <summary>
@@ -40,10 +42,11 @@ namespace WordPressPCL.Client
         /// </summary>
         /// <param name="embed">include embed info</param>
         /// <param name="useAuth">Send request with authentication header</param>
+        /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>Latest PostRevisions</returns>
-        public Task<List<PostRevision>> GetAsync(bool embed = false, bool useAuth = true)
+        public Task<List<PostRevision>> GetAsync(bool embed = false, bool useAuth = true, CancellationToken cancellationToken = default)
         {
-            return _httpHelper.GetRequestAsync<List<PostRevision>>($"posts/{_postId}/{_methodPath}", embed, useAuth);
+            return _httpHelper.GetRequestAsync<List<PostRevision>>($"posts/{_postId}/{_methodPath}", embed, useAuth, cancellationToken: cancellationToken);
         }
 
         /// <summary>
@@ -51,10 +54,11 @@ namespace WordPressPCL.Client
         /// </summary>
         /// <param name="embed">Include embed info</param>
         /// <param name="useAuth">Send request with authentication header</param>
+        /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>List of all result</returns>
-        public Task<List<PostRevision>> GetAllAsync(bool embed = false, bool useAuth = true)
+        public Task<List<PostRevision>> GetAllAsync(bool embed = false, bool useAuth = true, CancellationToken cancellationToken = default)
         {
-            return _httpHelper.GetRequestAsync<List<PostRevision>>($"posts/{_postId}/{_methodPath}", embed, useAuth);
+            return _httpHelper.GetRequestAsync<List<PostRevision>>($"posts/{_postId}/{_methodPath}", embed, useAuth, cancellationToken: cancellationToken);
         }
 
         /// <summary>
@@ -63,10 +67,11 @@ namespace WordPressPCL.Client
         /// <param name="id">ID</param>
         /// <param name="embed">include embed info</param>
         /// <param name="useAuth">Send request with authentication header</param>
+        /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>Entity by Id</returns>
-        public Task<PostRevision> GetByIdAsync(object id, bool embed = false, bool useAuth = true)
+        public Task<PostRevision> GetByIdAsync(object id, bool embed = false, bool useAuth = true, CancellationToken cancellationToken = default)
         {
-            return _httpHelper.GetRequestAsync<PostRevision>($"posts/{_postId}/{_methodPath}/{id}", embed, useAuth);
+            return _httpHelper.GetRequestAsync<PostRevision>($"posts/{_postId}/{_methodPath}/{id}", embed, useAuth, cancellationToken: cancellationToken);
         }
     }
 }

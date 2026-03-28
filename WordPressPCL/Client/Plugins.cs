@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
+using System.Threading;
 using System.Threading.Tasks;
 using WordPressPCL.Models;
 using WordPressPCL.Utility;
@@ -35,12 +36,13 @@ namespace WordPressPCL.Client
         /// Installs a plugin based on the Plugin
         /// </summary>
         /// <param name="Plugin"></param>
+        /// <param name="cancellationToken">Cancellation token</param>
         /// <returns></returns>
-        public async Task<Plugin> InstallAsync(Plugin Plugin)
+        public async Task<Plugin> InstallAsync(Plugin Plugin, CancellationToken cancellationToken = default)
         {
 
             using StringContent postBody = new StringContent(JsonSerializer.Serialize(new { slug = Plugin.Id }), Encoding.UTF8, "application/json");
-            (Plugin plugin, HttpResponseMessage _) = await _httpHelper.PostRequestAsync<Plugin>("plugins", postBody).ConfigureAwait(false);
+            (Plugin plugin, HttpResponseMessage _) = await _httpHelper.PostRequestAsync<Plugin>("plugins", postBody, cancellationToken: cancellationToken).ConfigureAwait(false);
             return plugin;
 
         }
@@ -49,12 +51,13 @@ namespace WordPressPCL.Client
         /// Installs a plugin based on the Id
         /// </summary>
         /// <param name="Id"></param>
+        /// <param name="cancellationToken">Cancellation token</param>
         /// <returns></returns>
-        public async Task<Plugin> InstallAsync(string Id)
+        public async Task<Plugin> InstallAsync(string Id, CancellationToken cancellationToken = default)
         {
 
             using StringContent postBody = new StringContent(JsonSerializer.Serialize(new { slug = Id }), Encoding.UTF8, "application/json");
-            (Plugin plugin, HttpResponseMessage _) = await _httpHelper.PostRequestAsync<Plugin>("plugins", postBody).ConfigureAwait(false);
+            (Plugin plugin, HttpResponseMessage _) = await _httpHelper.PostRequestAsync<Plugin>("plugins", postBody, cancellationToken: cancellationToken).ConfigureAwait(false);
             return plugin;
         }
 
@@ -62,11 +65,12 @@ namespace WordPressPCL.Client
         /// Activates an existing plugin
         /// </summary>
         /// <param name="Plugin"></param>
+        /// <param name="cancellationToken">Cancellation token</param>
         /// <returns></returns>
-        public async Task<Plugin> ActivateAsync(Plugin Plugin)
+        public async Task<Plugin> ActivateAsync(Plugin Plugin, CancellationToken cancellationToken = default)
         {
             using StringContent postBody = new StringContent(JsonSerializer.Serialize(new { status = "active" }), Encoding.UTF8, "application/json");
-            (Plugin plugin, HttpResponseMessage _) = await _httpHelper.PostRequestAsync<Plugin>($"plugins/{Plugin.PluginFile}", postBody).ConfigureAwait(false);
+            (Plugin plugin, HttpResponseMessage _) = await _httpHelper.PostRequestAsync<Plugin>($"plugins/{Plugin.PluginFile}", postBody, cancellationToken: cancellationToken).ConfigureAwait(false);
             return plugin;
         }
 
@@ -74,12 +78,13 @@ namespace WordPressPCL.Client
         /// Deactivates an existing plugin
         /// </summary>
         /// <param name="Plugin"></param>
+        /// <param name="cancellationToken">Cancellation token</param>
         /// <returns></returns>
-        public async Task<Plugin> DeactivateAsync(Plugin Plugin)
+        public async Task<Plugin> DeactivateAsync(Plugin Plugin, CancellationToken cancellationToken = default)
         {
 
             using StringContent postBody = new(JsonSerializer.Serialize(new { status = "inactive" }), Encoding.UTF8, "application/json");
-            (Plugin plugin, HttpResponseMessage _) = await _httpHelper.PostRequestAsync<Plugin>($"plugins/{Plugin.PluginFile}", postBody).ConfigureAwait(false);
+            (Plugin plugin, HttpResponseMessage _) = await _httpHelper.PostRequestAsync<Plugin>($"plugins/{Plugin.PluginFile}", postBody, cancellationToken: cancellationToken).ConfigureAwait(false);
             return plugin;
         }
 
@@ -88,25 +93,27 @@ namespace WordPressPCL.Client
         /// </summary>
         /// <param name="searchTerm">Search term</param>
         /// <param name="embed">include embed info</param>
+        /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>List of posts</returns>
-        public Task<List<Plugin>> GetPluginsBySearchAsync(string searchTerm, bool embed = false)
+        public Task<List<Plugin>> GetPluginsBySearchAsync(string searchTerm, bool embed = false, CancellationToken cancellationToken = default)
         {
             // default values
             // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
-            return HttpHelper.GetRequestAsync<List<Plugin>>(_methodPath.SetQueryParam("search", searchTerm)!, embed, true);
+            return HttpHelper.GetRequestAsync<List<Plugin>>(_methodPath.SetQueryParam("search", searchTerm)!, embed, true, cancellationToken: cancellationToken);
         }
 
         /// <summary>
-        /// Get plugins by search term
+        /// Get plugins by activation status
         /// </summary>
         /// <param name="activationStatus">active or inactive</param>
         /// <param name="embed">include embed info</param>
+        /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>List of posts</returns>
-        public Task<List<Plugin>> GetPluginsByActivationStatusAsync(ActivationStatus activationStatus, bool embed = false)
+        public Task<List<Plugin>> GetPluginsByActivationStatusAsync(ActivationStatus activationStatus, bool embed = false, CancellationToken cancellationToken = default)
         {
             // default values
             // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
-            return HttpHelper.GetRequestAsync<List<Plugin>>(_methodPath.SetQueryParam("status", activationStatus.ToString().ToLower())!, embed, true);
+            return HttpHelper.GetRequestAsync<List<Plugin>>(_methodPath.SetQueryParam("status", activationStatus.ToString().ToLower())!, embed, true, cancellationToken: cancellationToken);
         }
 
 
@@ -114,11 +121,12 @@ namespace WordPressPCL.Client
         /// Deletes an existing plugin
         /// </summary>
         /// <param name="Plugin"></param>
+        /// <param name="cancellationToken">Cancellation token</param>
         /// <returns></returns>
-        public Task<bool> DeleteAsync(Plugin Plugin)
+        public Task<bool> DeleteAsync(Plugin Plugin, CancellationToken cancellationToken = default)
         {
 #pragma warning disable CA1507 // Use nameof to express symbol names
-            return HttpHelper.DeleteRequestAsync($"{_methodPath}/{Plugin.PluginFile}");
+            return HttpHelper.DeleteRequestAsync($"{_methodPath}/{Plugin.PluginFile}", cancellationToken: cancellationToken);
 #pragma warning restore CA1507 // Use nameof to express symbol names
         }
 

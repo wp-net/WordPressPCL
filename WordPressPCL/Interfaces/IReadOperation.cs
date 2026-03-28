@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace WordPressPCL.Interfaces
@@ -14,8 +15,9 @@ namespace WordPressPCL.Interfaces
         /// </summary>
         /// <param name="embed">Is use embed info</param>
         /// <param name="useAuth">Is use auth header</param>
+        /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>requested object</returns>
-        Task<List<TClass>> GetAsync(bool embed = false, bool useAuth = false);
+        Task<List<TClass>> GetAsync(bool embed = false, bool useAuth = false, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Get object by Id
@@ -23,15 +25,17 @@ namespace WordPressPCL.Interfaces
         /// <param name="id">Object Id</param>
         /// <param name="embed">Is use embed info</param>
         /// <param name="useAuth">Is use auth header</param>
+        /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>requested object</returns>
-        Task<TClass> GetByIdAsync(object id, bool embed = false, bool useAuth = false);
+        Task<TClass> GetByIdAsync(object id, bool embed = false, bool useAuth = false, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Get all objects
         /// </summary>
         /// <param name="embed">Is use embed info</param>
         /// <param name="useAuth">Is use auth header</param>
+        /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>List of objects</returns>
-        Task<List<TClass>> GetAllAsync(bool embed = false, bool useAuth = false);
+        Task<List<TClass>> GetAllAsync(bool embed = false, bool useAuth = false, CancellationToken cancellationToken = default);
     }
 }

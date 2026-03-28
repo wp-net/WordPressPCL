@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using WordPressPCL.Interfaces;
 using WordPressPCL.Models;
@@ -28,11 +29,12 @@ namespace WordPressPCL.Client
         /// </summary>
         /// <param name="embed">Include embed info</param>
         /// <param name="useAuth">Send request with authentication header</param>
+        /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>List of latest PostTypes</returns>
-        public async Task<List<PostType>> GetAsync(bool embed = false, bool useAuth = false)
+        public async Task<List<PostType>> GetAsync(bool embed = false, bool useAuth = false, CancellationToken cancellationToken = default)
         {
             List<PostType> entities = new();
-            Dictionary<string, PostType> entities_page = (await _httpHelper.GetRequestAsync<Dictionary<string, PostType>>($"{_methodPath}", embed, useAuth).ConfigureAwait(false));
+            Dictionary<string, PostType> entities_page = (await _httpHelper.GetRequestAsync<Dictionary<string, PostType>>($"{_methodPath}", embed, useAuth, cancellationToken: cancellationToken).ConfigureAwait(false));
             foreach (KeyValuePair<string, PostType> ent in entities_page)
             {
                 entities.Add(ent.Value);
@@ -45,12 +47,13 @@ namespace WordPressPCL.Client
         /// </summary>
         /// <param name="embed">Include embed info</param>
         /// <param name="useAuth">Send request with authentication header</param>
+        /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>List of all PostTypes</returns>
-        public async Task<List<PostType>> GetAllAsync(bool embed = false, bool useAuth = false)
+        public async Task<List<PostType>> GetAllAsync(bool embed = false, bool useAuth = false, CancellationToken cancellationToken = default)
         {
             //100 - Max posts per page in WordPress REST API, so this is hack with multiple requests
             List<PostType> entities = new();
-            Dictionary<string, PostType> entities_page = (await _httpHelper.GetRequestAsync<Dictionary<string, PostType>>($"{_methodPath}", embed, useAuth).ConfigureAwait(false));
+            Dictionary<string, PostType> entities_page = (await _httpHelper.GetRequestAsync<Dictionary<string, PostType>>($"{_methodPath}", embed, useAuth, cancellationToken: cancellationToken).ConfigureAwait(false));
             foreach (KeyValuePair<string, PostType> ent in entities_page)
             {
                 entities.Add(ent.Value);
@@ -64,10 +67,11 @@ namespace WordPressPCL.Client
         /// <param name="id">ID</param>
         /// <param name="embed">include embed info</param>
         /// <param name="useAuth">Send request with authentication header</param>
+        /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>Entity by Id</returns>
-        public Task<PostType> GetByIdAsync(object id, bool embed = false, bool useAuth = false)
+        public Task<PostType> GetByIdAsync(object id, bool embed = false, bool useAuth = false, CancellationToken cancellationToken = default)
         {
-            return _httpHelper.GetRequestAsync<PostType>($"{_methodPath}/{id}", embed, useAuth);
+            return _httpHelper.GetRequestAsync<PostType>($"{_methodPath}/{id}", embed, useAuth, cancellationToken: cancellationToken);
         }
     }
 }

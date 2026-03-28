@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Threading;
+using System.Threading.Tasks;
 
 namespace WordPressPCL.Interfaces {
 
@@ -10,7 +11,8 @@ namespace WordPressPCL.Interfaces {
         /// <summary>
         /// Get Count of Wordpress items
         /// </summary>
+        /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>Result of Operation</returns>
-        Task<int> GetCountAsync();
+        Task<int> GetCountAsync(CancellationToken cancellationToken = default);
     }
 }

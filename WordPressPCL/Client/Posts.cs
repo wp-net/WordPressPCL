@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using WordPressPCL.Interfaces;
 using WordPressPCL.Models;
@@ -34,12 +35,13 @@ namespace WordPressPCL.Client
         /// </summary>
         /// <param name="embed">include embed info</param>
         /// <param name="useAuth">Send request with authentication header</param>
+        /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>List of posts</returns>
-        public Task<List<Post>> GetStickyPostsAsync(bool embed = false, bool useAuth = false)
+        public Task<List<Post>> GetStickyPostsAsync(bool embed = false, bool useAuth = false, CancellationToken cancellationToken = default)
         {
             // default values
             // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
-            return HttpHelper.GetRequestAsync<List<Post>>(_methodPath.SetQueryParam("sticky", "true")!, embed, useAuth);
+            return HttpHelper.GetRequestAsync<List<Post>>(_methodPath.SetQueryParam("sticky", "true")!, embed, useAuth, cancellationToken: cancellationToken);
         }
 
         /// <summary>
@@ -48,12 +50,13 @@ namespace WordPressPCL.Client
         /// <param name="categoryId">Category Id</param>
         /// <param name="embed">include embed info</param>
         /// <param name="useAuth">Send request with authentication header</param>
+        /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>List of posts</returns>
-        public Task<List<Post>> GetPostsByCategoryAsync(int categoryId, bool embed = false, bool useAuth = false)
+        public Task<List<Post>> GetPostsByCategoryAsync(int categoryId, bool embed = false, bool useAuth = false, CancellationToken cancellationToken = default)
         {
             // default values
             // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
-            return HttpHelper.GetRequestAsync<List<Post>>(_methodPath.SetQueryParam("categories", categoryId)!, embed, useAuth);
+            return HttpHelper.GetRequestAsync<List<Post>>(_methodPath.SetQueryParam("categories", categoryId)!, embed, useAuth, cancellationToken: cancellationToken);
         }
 
         /// <summary>
@@ -62,12 +65,13 @@ namespace WordPressPCL.Client
         /// <param name="tagId">Tag Id</param>
         /// <param name="embed">include embed info</param>
         /// <param name="useAuth">Send request with authentication header</param>
+        /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>List of posts</returns>
-        public Task<List<Post>> GetPostsByTagAsync(int tagId, bool embed = false, bool useAuth = false)
+        public Task<List<Post>> GetPostsByTagAsync(int tagId, bool embed = false, bool useAuth = false, CancellationToken cancellationToken = default)
         {
             // default values
             // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
-            return HttpHelper.GetRequestAsync<List<Post>>(_methodPath.SetQueryParam("tags", tagId)!, embed, useAuth);
+            return HttpHelper.GetRequestAsync<List<Post>>(_methodPath.SetQueryParam("tags", tagId)!, embed, useAuth, cancellationToken: cancellationToken);
         }
 
         /// <summary>
@@ -76,12 +80,13 @@ namespace WordPressPCL.Client
         /// <param name="authorId">Author id</param>
         /// <param name="embed">include embed info</param>
         /// <param name="useAuth">Send request with authentication header</param>
+        /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>List of posts</returns>
-        public Task<List<Post>> GetPostsByAuthorAsync(int authorId, bool embed = false, bool useAuth = false)
+        public Task<List<Post>> GetPostsByAuthorAsync(int authorId, bool embed = false, bool useAuth = false, CancellationToken cancellationToken = default)
         {
             // default values
             // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
-            return HttpHelper.GetRequestAsync<List<Post>>(_methodPath.SetQueryParam("author", authorId)!, embed, useAuth);
+            return HttpHelper.GetRequestAsync<List<Post>>(_methodPath.SetQueryParam("author", authorId)!, embed, useAuth, cancellationToken: cancellationToken);
         }
 
         /// <summary>
@@ -90,21 +95,23 @@ namespace WordPressPCL.Client
         /// <param name="searchTerm">Search term</param>
         /// <param name="embed">include embed info</param>
         /// <param name="useAuth">Send request with authentication header</param>
+        /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>List of posts</returns>
-        public Task<List<Post>> GetPostsBySearchAsync(string searchTerm, bool embed = false, bool useAuth = false)
+        public Task<List<Post>> GetPostsBySearchAsync(string searchTerm, bool embed = false, bool useAuth = false, CancellationToken cancellationToken = default)
         {
             // default values
             // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
-            return HttpHelper.GetRequestAsync<List<Post>>(_methodPath.SetQueryParam("search", searchTerm)!, embed, useAuth);
+            return HttpHelper.GetRequestAsync<List<Post>>(_methodPath.SetQueryParam("search", searchTerm)!, embed, useAuth, cancellationToken: cancellationToken);
         }
 
         /// <summary>
         /// Get count of posts
         /// </summary>
+        /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>Result of operation</returns>
-        public async Task<int> GetCountAsync()
+        public async Task<int> GetCountAsync(CancellationToken cancellationToken = default)
         {
-            var responseHeaders = await HttpHelper.HeadRequestAsync(_methodPath).ConfigureAwait(false);
+            var responseHeaders = await HttpHelper.HeadRequestAsync(_methodPath, cancellationToken: cancellationToken).ConfigureAwait(false);
             var totalHeaderVal = responseHeaders.GetValues("X-WP-Total").First();
             return int.Parse(totalHeaderVal, CultureInfo.InvariantCulture);
         }
@@ -114,12 +121,14 @@ namespace WordPressPCL.Client
         /// </summary>
         /// <param name="Id">Post id</param>
         /// <param name="force">force deletion</param>
+        /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>Result of operation</returns>
-        public Task<bool> DeleteAsync(int Id, bool force = false)
+        public Task<bool> DeleteAsync(int Id, bool force = false, CancellationToken cancellationToken = default)
         {
 #pragma warning disable CA1507 // Use nameof to express symbol names
             return HttpHelper.DeleteRequestAsync($"{_methodPath}/{Id}"
-                .SetQueryParam("force", force.ToString().ToLower(CultureInfo.InvariantCulture))!
+                .SetQueryParam("force", force.ToString().ToLower(CultureInfo.InvariantCulture))!,
+                cancellationToken: cancellationToken
             );
 #pragma warning restore CA1507 // Use nameof to express symbol names
         }

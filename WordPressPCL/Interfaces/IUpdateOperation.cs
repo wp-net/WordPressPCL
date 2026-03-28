@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Threading;
+using System.Threading.Tasks;
 
 namespace WordPressPCL.Interfaces
 {
@@ -12,7 +13,8 @@ namespace WordPressPCL.Interfaces
         /// Update entity method
         /// </summary>
         /// <param name="Entity">object to update</param>
+        /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>Updated entity</returns>
-        Task<TClass> UpdateAsync(TClass Entity);
+        Task<TClass> UpdateAsync(TClass Entity, CancellationToken cancellationToken = default);
     }
 }

@@ -5,6 +5,7 @@ using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using WordPressPCL.Models;
 using WordPressPCL.Models.Exceptions;
@@ -88,7 +89,7 @@ namespace WordPressPCL.Utility
             JsonSerializerOptions = CreateDefaultOptions();
         }
 
-        internal async Task<TClass> GetRequestAsync<TClass>(string route, bool embed, bool isAuthRequired = false, bool ignoreDefaultPath = false)
+        internal async Task<TClass> GetRequestAsync<TClass>(string route, bool embed, bool isAuthRequired = false, bool ignoreDefaultPath = false, CancellationToken cancellationToken = default)
             where TClass : class
         {
             route = BuildRoute(ignoreDefaultPath, route);
@@ -110,10 +111,10 @@ namespace WordPressPCL.Utility
             using (HttpRequestMessage requestMessage = new(HttpMethod.Get, route))
             {
                 SetAuthHeader(isAuthRequired, requestMessage);
-                response = await _httpClient.SendAsync(requestMessage).ConfigureAwait(false);
+                response = await _httpClient.SendAsync(requestMessage, cancellationToken).ConfigureAwait(false);
             }
             LastResponseHeaders = response.Headers;
-            string responseString = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+            string responseString = await response.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
             if (response.IsSuccessStatusCode)
             {
                 if (HttpResponsePreProcessing != null)
@@ -129,7 +130,7 @@ namespace WordPressPCL.Utility
             }
         }
 
-        internal async Task<(TClass, HttpResponseMessage)> PostRequestAsync<TClass>(string route, HttpContent? postBody, bool isAuthRequired = true, bool ignoreDefaultPath = false)
+        internal async Task<(TClass, HttpResponseMessage)> PostRequestAsync<TClass>(string route, HttpContent? postBody, bool isAuthRequired = true, bool ignoreDefaultPath = false, CancellationToken cancellationToken = default)
             where TClass : class
         {
             route = BuildRoute(ignoreDefaultPath, route);
@@ -138,11 +139,11 @@ namespace WordPressPCL.Utility
             {
                 SetAuthHeader(isAuthRequired, requestMessage);
                 requestMessage.Content = postBody;
-                response = await _httpClient.SendAsync(requestMessage).ConfigureAwait(false);
+                response = await _httpClient.SendAsync(requestMessage, cancellationToken).ConfigureAwait(false);
             }
 
             LastResponseHeaders = response.Headers;
-            string responseString = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+            string responseString = await response.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
             if (response.IsSuccessStatusCode)
             {
                 if (HttpResponsePreProcessing != null)
@@ -158,18 +159,18 @@ namespace WordPressPCL.Utility
             }
         }
 
-        internal async Task<bool> DeleteRequestAsync(string route, bool isAuthRequired = true, bool ignoreDefaultPath = false)
+        internal async Task<bool> DeleteRequestAsync(string route, bool isAuthRequired = true, bool ignoreDefaultPath = false, CancellationToken cancellationToken = default)
         {
             route = BuildRoute(ignoreDefaultPath, route);
             HttpResponseMessage response;
             using (HttpRequestMessage requestMessage = new(HttpMethod.Delete, route))
             {
                 SetAuthHeader(isAuthRequired, requestMessage);
-                response = await _httpClient.SendAsync(requestMessage).ConfigureAwait(false);
+                response = await _httpClient.SendAsync(requestMessage, cancellationToken).ConfigureAwait(false);
             }
 
             LastResponseHeaders = response.Headers;
-            string responseString = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+            string responseString = await response.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
             if (response.IsSuccessStatusCode)
             {
                 return true;
@@ -180,14 +181,14 @@ namespace WordPressPCL.Utility
             }
         }
 
-        internal async Task<HttpResponseHeaders> HeadRequestAsync(string route, bool isAuthRequired = false, bool ignoreDefaultPath = false)
+        internal async Task<HttpResponseHeaders> HeadRequestAsync(string route, bool isAuthRequired = false, bool ignoreDefaultPath = false, CancellationToken cancellationToken = default)
         {
             route = BuildRoute(ignoreDefaultPath, route);
             HttpResponseMessage response;
             using (HttpRequestMessage requestMessage = new(HttpMethod.Head, route))
             {
                 SetAuthHeader(isAuthRequired, requestMessage);
-                response = await _httpClient.SendAsync(requestMessage).ConfigureAwait(false);
+                response = await _httpClient.SendAsync(requestMessage, cancellationToken).ConfigureAwait(false);
             }
 
             LastResponseHeaders = response.Headers;
