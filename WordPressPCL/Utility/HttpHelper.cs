@@ -5,13 +5,11 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
-using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using WordPressPCL.Models;
 using WordPressPCL.Models.Exceptions;
-using WordPressPCL.Utility;
 
 namespace WordPressPCL.Utility;
 
@@ -94,7 +92,7 @@ public class HttpHelper
     internal async Task<TClass> GetRequestAsync<TClass>(string route, bool embed, bool isAuthRequired = false, bool ignoreDefaultPath = false, CancellationToken cancellationToken = default)
         where TClass : class
     {
-        var (result, _) = await GetRequestWithHeadersAsync<TClass>(route, embed, isAuthRequired, ignoreDefaultPath, cancellationToken).ConfigureAwait(false);
+        (TClass? result, HttpResponseHeaders _) = await GetRequestWithHeadersAsync<TClass>(route, embed, isAuthRequired, ignoreDefaultPath, cancellationToken).ConfigureAwait(false);
         return result;
     }
 
@@ -109,7 +107,7 @@ public class HttpHelper
         string embedParam = "";
         if (embed)
         {
-            embedParam = route.Contains("?") ? "&_embed" : "?_embed";
+            embedParam = route.Contains('?') ? "&_embed" : "?_embed";
         }
         route += embedParam;
 

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Globalization;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
 using System.Threading;
@@ -68,8 +69,8 @@ public class Users : ICreateOperation<User>, IUpdateOperation<User>, IReadOperat
     public async Task<List<User>> GetAllAsync(bool embed = false, bool useAuth = false, CancellationToken cancellationToken = default)
     {
         //100 - Max posts per page in WordPress REST API, so this is hack with multiple requests
-        var (entities, headers) = await _httpHelper.GetRequestWithHeadersAsync<List<User>>($"{METHOD_PATH}?per_page=100&page=1", embed, useAuth, cancellationToken: cancellationToken).ConfigureAwait(false);
-        var (_, totalPages) = HttpHelper.ParsePaginationHeaders(headers);
+        (List<User>? entities, HttpResponseHeaders? headers) = await _httpHelper.GetRequestWithHeadersAsync<List<User>>($"{METHOD_PATH}?per_page=100&page=1", embed, useAuth, cancellationToken: cancellationToken).ConfigureAwait(false);
+        (int _, int totalPages) = HttpHelper.ParsePaginationHeaders(headers);
         for (int page = 2; page <= totalPages; page++)
         {
             entities.AddRange(await _httpHelper.GetRequestAsync<List<User>>($"{METHOD_PATH}?per_page=100&page={page}", embed, useAuth, cancellationToken: cancellationToken).ConfigureAwait(false));
@@ -91,10 +92,10 @@ public class Users : ICreateOperation<User>, IUpdateOperation<User>, IReadOperat
     /// </returns>
     public async Task<PagedResult<User>> GetPagedAsync(int page = 1, int perPage = 10, bool embed = false, bool useAuth = false, CancellationToken cancellationToken = default)
     {
-        var (items, headers) = await _httpHelper.GetRequestWithHeadersAsync<List<User>>(
+        (List<User>? items, HttpResponseHeaders? headers) = await _httpHelper.GetRequestWithHeadersAsync<List<User>>(
             $"{METHOD_PATH}?per_page={perPage.ToString(CultureInfo.InvariantCulture)}&page={page.ToString(CultureInfo.InvariantCulture)}",
             embed, useAuth, cancellationToken: cancellationToken).ConfigureAwait(false);
-        var (total, totalPages) = HttpHelper.ParsePaginationHeaders(headers);
+        (int total, int totalPages) = HttpHelper.ParsePaginationHeaders(headers);
         return new PagedResult<User>(items, total, totalPages);
     }
 
@@ -110,8 +111,8 @@ public class Users : ICreateOperation<User>, IUpdateOperation<User>, IReadOperat
     /// </returns>
     public async Task<PagedResult<User>> QueryPagedAsync(UsersQueryBuilder queryBuilder, bool useAuth = false, CancellationToken cancellationToken = default)
     {
-        var (items, headers) = await _httpHelper.GetRequestWithHeadersAsync<List<User>>($"{METHOD_PATH}{queryBuilder.BuildQuery()}", false, useAuth, cancellationToken: cancellationToken).ConfigureAwait(false);
-        var (total, totalPages) = HttpHelper.ParsePaginationHeaders(headers);
+        (List<User>? items, HttpResponseHeaders? headers) = await _httpHelper.GetRequestWithHeadersAsync<List<User>>($"{METHOD_PATH}{queryBuilder.BuildQuery()}", false, useAuth, cancellationToken: cancellationToken).ConfigureAwait(false);
+        (int total, int totalPages) = HttpHelper.ParsePaginationHeaders(headers);
         return new PagedResult<User>(items, total, totalPages);
     }
 

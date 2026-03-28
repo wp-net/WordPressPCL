@@ -102,12 +102,12 @@ public class Auth
         switch (JWTPlugin)
         {
             case JWTPlugin.JWTAuthByEnriqueChavez:
-                var (jwtUser, _) = await _httpHelper.PostRequestAsync<JWTUser>(route, formContent, isAuthRequired: false, ignoreDefaultPath: true, cancellationToken: cancellationToken).ConfigureAwait(false);
+                (JWTUser? jwtUser, HttpResponseMessage _) = await _httpHelper.PostRequestAsync<JWTUser>(route, formContent, isAuthRequired: false, ignoreDefaultPath: true, cancellationToken: cancellationToken).ConfigureAwait(false);
                 _httpHelper.JWToken = jwtUser?.Token;
                 break;
             case JWTPlugin.JWTAuthByUsefulTeam:
                 _httpHelper.HttpResponsePreProcessing = RemoveEmptyData;
-                var (jwtResponse, _) = await _httpHelper.PostRequestAsync<JWTResponse>(route, formContent, isAuthRequired: false, ignoreDefaultPath: true, cancellationToken: cancellationToken).ConfigureAwait(false);
+                (JWTResponse? jwtResponse, HttpResponseMessage _) = await _httpHelper.PostRequestAsync<JWTResponse>(route, formContent, isAuthRequired: false, ignoreDefaultPath: true, cancellationToken: cancellationToken).ConfigureAwait(false);
                 _httpHelper.HttpResponsePreProcessing = null;
                 _httpHelper.JWToken = jwtResponse?.Data?.Token;
                 break;
@@ -144,11 +144,11 @@ public class Auth
             switch (JWTPlugin)
             {
                 case JWTPlugin.JWTAuthByEnriqueChavez:
-                    var (jwtUser, repsonse) = await _httpHelper.PostRequestAsync<JWTUser>(route, null, isAuthRequired: true, ignoreDefaultPath: true, cancellationToken: cancellationToken).ConfigureAwait(false);
+                    (JWTUser? jwtUser, HttpResponseMessage? repsonse) = await _httpHelper.PostRequestAsync<JWTUser>(route, null, isAuthRequired: true, ignoreDefaultPath: true, cancellationToken: cancellationToken).ConfigureAwait(false);
                     return repsonse.IsSuccessStatusCode;
                 case JWTPlugin.JWTAuthByUsefulTeam:
                     _httpHelper.HttpResponsePreProcessing = RemoveEmptyData;
-                    var (jwtResponse, _) = await _httpHelper.PostRequestAsync<JWTResponse>(route, null, isAuthRequired: true, ignoreDefaultPath: true, cancellationToken: cancellationToken).ConfigureAwait(false);
+                    (JWTResponse? jwtResponse, HttpResponseMessage _) = await _httpHelper.PostRequestAsync<JWTResponse>(route, null, isAuthRequired: true, ignoreDefaultPath: true, cancellationToken: cancellationToken).ConfigureAwait(false);
                     _httpHelper.HttpResponsePreProcessing = null;
                     return jwtResponse.Success;
                 default:

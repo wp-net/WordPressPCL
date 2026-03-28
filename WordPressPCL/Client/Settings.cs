@@ -43,7 +43,7 @@ public class Settings
     public async Task<Models.Settings> UpdateSettingsAsync(Models.Settings settings, CancellationToken cancellationToken = default)
     {
         using var postBody = new StringContent(JsonSerializer.Serialize(settings, _httpHelper.JsonSerializerOptions), Encoding.UTF8, "application/json");
-        var (setting, _) = await _httpHelper.PostRequestAsync<Models.Settings>("settings", postBody, cancellationToken: cancellationToken).ConfigureAwait(false);
+        (Models.Settings? setting, HttpResponseMessage _) = await _httpHelper.PostRequestAsync<Models.Settings>("settings", postBody, cancellationToken: cancellationToken).ConfigureAwait(false);
         return setting;
     }
 }

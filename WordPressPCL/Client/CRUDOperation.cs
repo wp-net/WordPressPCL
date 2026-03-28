@@ -26,7 +26,7 @@ public abstract class CRUDOperation<TClass, QClass> : IReadOperation<TClass>, IU
     /// <summary>
     /// Helper for HTTP requests
     /// </summary>
-    internal protected HttpHelper _httpHelper = null!;
+    protected internal HttpHelper _httpHelper = null!;
 
     /// <summary>
     /// Helper for HTTP requests
@@ -103,8 +103,8 @@ public abstract class CRUDOperation<TClass, QClass> : IReadOperation<TClass>, IU
     {
         //100 - Max posts per page in WordPress REST API, so this is hack with multiple requests
         string url = MethodPath.SetQueryParam("per_page", "100")!.SetQueryParam("page", "1")!;
-        var (entities, headers) = await HttpHelper.GetRequestWithHeadersAsync<List<TClass>>(url, embed, useAuth, cancellationToken: cancellationToken).ConfigureAwait(false);
-        var (_, totalPages) = global::WordPressPCL.Utility.HttpHelper.ParsePaginationHeaders(headers);
+        (List<TClass>? entities, System.Net.Http.Headers.HttpResponseHeaders? headers) = await HttpHelper.GetRequestWithHeadersAsync<List<TClass>>(url, embed, useAuth, cancellationToken: cancellationToken).ConfigureAwait(false);
+        (int _, int totalPages) = HttpHelper.ParsePaginationHeaders(headers);
         for (int page = 2; page <= totalPages; page++)
         {
             url = MethodPath.SetQueryParam("per_page", "100")!.SetQueryParam("page", page.ToString(CultureInfo.InvariantCulture))!;
@@ -131,8 +131,8 @@ public abstract class CRUDOperation<TClass, QClass> : IReadOperation<TClass>, IU
         string url = MethodPath.SetQueryParam("per_page", perPage.ToString(CultureInfo.InvariantCulture))!
                                .SetQueryParam("page", page.ToString(CultureInfo.InvariantCulture))!;
 #pragma warning restore CA1507
-        var (items, headers) = await HttpHelper.GetRequestWithHeadersAsync<List<TClass>>(url, embed, useAuth, cancellationToken: cancellationToken).ConfigureAwait(false);
-        var (total, totalPages) = global::WordPressPCL.Utility.HttpHelper.ParsePaginationHeaders(headers);
+        (List<TClass>? items, System.Net.Http.Headers.HttpResponseHeaders? headers) = await HttpHelper.GetRequestWithHeadersAsync<List<TClass>>(url, embed, useAuth, cancellationToken: cancellationToken).ConfigureAwait(false);
+        (int total, int totalPages) = HttpHelper.ParsePaginationHeaders(headers);
         return new PagedResult<TClass>(items, total, totalPages);
     }
 
@@ -148,8 +148,8 @@ public abstract class CRUDOperation<TClass, QClass> : IReadOperation<TClass>, IU
     /// </returns>
     public async Task<PagedResult<TClass>> QueryPagedAsync(QClass queryBuilder, bool useAuth = false, CancellationToken cancellationToken = default)
     {
-        var (items, headers) = await HttpHelper.GetRequestWithHeadersAsync<List<TClass>>($"{MethodPath}{queryBuilder.BuildQuery()}", false, useAuth, cancellationToken: cancellationToken).ConfigureAwait(false);
-        var (total, totalPages) = global::WordPressPCL.Utility.HttpHelper.ParsePaginationHeaders(headers);
+        (List<TClass>? items, System.Net.Http.Headers.HttpResponseHeaders? headers) = await HttpHelper.GetRequestWithHeadersAsync<List<TClass>>($"{MethodPath}{queryBuilder.BuildQuery()}", false, useAuth, cancellationToken: cancellationToken).ConfigureAwait(false);
+        (int total, int totalPages) = HttpHelper.ParsePaginationHeaders(headers);
         return new PagedResult<TClass>(items, total, totalPages);
     }
 

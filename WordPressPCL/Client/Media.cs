@@ -4,6 +4,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
 using System.Threading;
@@ -138,8 +139,8 @@ public class Media : IUpdateOperation<MediaItem>, IReadOperation<MediaItem>, IDe
     public async Task<List<MediaItem>> GetAllAsync(bool embed = false, bool useAuth = false, CancellationToken cancellationToken = default)
     {
         //100 - Max posts per page in WordPress REST API, so this is hack with multiple requests
-        var (entities, headers) = await _httpHelper.GetRequestWithHeadersAsync<List<MediaItem>>($"{_methodPath}?per_page=100&page=1", embed, useAuth, cancellationToken: cancellationToken).ConfigureAwait(false);
-        var (_, totalPages) = HttpHelper.ParsePaginationHeaders(headers);
+        (List<MediaItem>? entities, HttpResponseHeaders? headers) = await _httpHelper.GetRequestWithHeadersAsync<List<MediaItem>>($"{_methodPath}?per_page=100&page=1", embed, useAuth, cancellationToken: cancellationToken).ConfigureAwait(false);
+        (int _, int totalPages) = HttpHelper.ParsePaginationHeaders(headers);
         for (int page = 2; page <= totalPages; page++)
         {
             entities.AddRange(await _httpHelper.GetRequestAsync<List<MediaItem>>($"{_methodPath}?per_page=100&page={page}", embed, useAuth, cancellationToken: cancellationToken).ConfigureAwait(false));
@@ -161,10 +162,10 @@ public class Media : IUpdateOperation<MediaItem>, IReadOperation<MediaItem>, IDe
     /// </returns>
     public async Task<PagedResult<MediaItem>> GetPagedAsync(int page = 1, int perPage = 10, bool embed = false, bool useAuth = false, CancellationToken cancellationToken = default)
     {
-        var (items, headers) = await _httpHelper.GetRequestWithHeadersAsync<List<MediaItem>>(
+        (List<MediaItem>? items, System.Net.Http.Headers.HttpResponseHeaders? headers) = await _httpHelper.GetRequestWithHeadersAsync<List<MediaItem>>(
             $"{_methodPath}?per_page={perPage.ToString(CultureInfo.InvariantCulture)}&page={page.ToString(CultureInfo.InvariantCulture)}",
             embed, useAuth, cancellationToken: cancellationToken).ConfigureAwait(false);
-        var (total, totalPages) = HttpHelper.ParsePaginationHeaders(headers);
+        (int total, int totalPages) = HttpHelper.ParsePaginationHeaders(headers);
         return new PagedResult<MediaItem>(items, total, totalPages);
     }
 
@@ -180,8 +181,8 @@ public class Media : IUpdateOperation<MediaItem>, IReadOperation<MediaItem>, IDe
     /// </returns>
     public async Task<PagedResult<MediaItem>> QueryPagedAsync(MediaQueryBuilder queryBuilder, bool useAuth = false, CancellationToken cancellationToken = default)
     {
-        var (items, headers) = await _httpHelper.GetRequestWithHeadersAsync<List<MediaItem>>($"{_methodPath}{queryBuilder.BuildQuery()}", false, useAuth, cancellationToken: cancellationToken).ConfigureAwait(false);
-        var (total, totalPages) = HttpHelper.ParsePaginationHeaders(headers);
+        (List<MediaItem>? items, System.Net.Http.Headers.HttpResponseHeaders? headers) = await _httpHelper.GetRequestWithHeadersAsync<List<MediaItem>>($"{_methodPath}{queryBuilder.BuildQuery()}", false, useAuth, cancellationToken: cancellationToken).ConfigureAwait(false);
+        (int total, int totalPages) = HttpHelper.ParsePaginationHeaders(headers);
         return new PagedResult<MediaItem>(items, total, totalPages);
     }
 

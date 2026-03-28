@@ -141,7 +141,7 @@ public class Media_Tests
         int i = 0;
         foreach (Post post in posts)
         {
-            var featured = post.Embedded?.WpFeaturedmedia;
+            List<MediaItem>? featured = post.Embedded?.WpFeaturedmedia;
             if (featured != null && featured.Any())
             {
                 i++;

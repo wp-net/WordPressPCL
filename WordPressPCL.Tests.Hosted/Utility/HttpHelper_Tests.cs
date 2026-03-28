@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -25,7 +26,7 @@ public class HttpHelper_Tests
 
         // Create a random tag , must works:
         var tagname = $"Test {System.Guid.NewGuid()}";
-        var tag = await client.Tags.CreateAsync(new Tag()
+        Tag tag = await client.Tags.CreateAsync(new Tag()
         {
             Name = tagname,
             Description = "Test Description"
@@ -36,7 +37,7 @@ public class HttpHelper_Tests
         Assert.AreEqual("Test Description", tag.Description);
 
         // We call Get tag list without pre processing
-        var tags = await client.Tags.GetAllAsync(cancellationToken: TestContext.CancellationToken);
+        List<Tag> tags = await client.Tags.GetAllAsync(cancellationToken: TestContext.CancellationToken);
         Assert.IsNotNull(tags);
         Assert.AreNotEqual(0, tags.Count);
         CollectionAssert.AllItemsAreUnique(tags.Select(e => e.Id).ToList());
@@ -61,7 +62,7 @@ public class HttpHelper_Tests
 
         // Create a random tag
         var tagname = $"Test {System.Guid.NewGuid()}";
-        var tag = await client.Tags.CreateAsync(new Tag()
+        Tag tag = await client.Tags.CreateAsync(new Tag()
         {
             Name = tagname,
             Description = "Test Description"
@@ -72,7 +73,7 @@ public class HttpHelper_Tests
         Assert.AreEqual("Test Description", tag.Description);
 
         // We call Get tag list without pre processing
-        var tags = await client.Tags.GetAllAsync(cancellationToken: TestContext.CancellationToken);
+        List<Tag> tags = await client.Tags.GetAllAsync(cancellationToken: TestContext.CancellationToken);
         Assert.IsNotNull(tags);
         Assert.AreNotEqual(0, tags.Count);
         CollectionAssert.AllItemsAreUnique(tags.Select(e => e.Id).ToList());

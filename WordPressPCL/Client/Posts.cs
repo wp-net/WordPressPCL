@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
 using WordPressPCL.Interfaces;
@@ -115,8 +116,8 @@ public class Posts : CRUDOperation<Post, PostsQueryBuilder>, ICountOperation
     /// </exception>
     public async Task<int> GetCountAsync(CancellationToken cancellationToken = default)
     {
-        var responseHeaders = await HttpHelper.HeadRequestAsync(_methodPath, cancellationToken: cancellationToken).ConfigureAwait(false);
-        if (!responseHeaders.TryGetValues("X-WP-Total", out var values) ||
+        HttpResponseHeaders responseHeaders = await HttpHelper.HeadRequestAsync(_methodPath, cancellationToken: cancellationToken).ConfigureAwait(false);
+        if (!responseHeaders.TryGetValues("X-WP-Total", out IEnumerable<string>? values) ||
             !int.TryParse(values.FirstOrDefault(), NumberStyles.Integer, CultureInfo.InvariantCulture, out int total))
         {
             throw new WPException("The server response did not include a valid X-WP-Total header.");
