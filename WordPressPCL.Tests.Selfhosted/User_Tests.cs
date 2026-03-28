@@ -97,7 +97,7 @@ public class User_Tests
         User user = await CreateRandomUser();
         Assert.IsNotNull(user);
         User me = await _clientAuth.Users.GetCurrentUserAsync(TestContext.CancellationToken);
-        bool response = await _clientAuth.Users.Delete(user.Id, me.Id, TestContext.CancellationToken);
+        bool response = await _clientAuth.Users.DeleteAsync(user.Id, me.Id, TestContext.CancellationToken);
         Assert.IsTrue(response);
     }
 
@@ -122,7 +122,7 @@ public class User_Tests
         Assert.AreEqual(postCreated.Author, user1.Id);
 
         // Delete User1 and reassign posts to user2
-        bool response = await _clientAuth.Users.Delete(user1.Id, user2.Id, TestContext.CancellationToken);
+        bool response = await _clientAuth.Users.DeleteAsync(user1.Id, user2.Id, TestContext.CancellationToken);
         Assert.IsTrue(response);
 
         // Get posts for user 2 and check if ID of postCreated is in there

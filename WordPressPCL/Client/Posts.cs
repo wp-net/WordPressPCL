@@ -149,7 +149,7 @@ public class Posts : CRUDOperation<Post, PostsQueryBuilder>, ICountOperation
     /// <returns>Post revisions object</returns>
     public PostRevisions Revisions(int postId)
     {
-        return new PostRevisions(ref _httpHelper, postId);
+        return new PostRevisions(HttpHelper, postId);
     }
 
     #endregion Custom

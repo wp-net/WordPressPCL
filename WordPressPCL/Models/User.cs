@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json;
 using System.Text.Json.Serialization;
 using WordPressPCL.Utility;
 
@@ -154,7 +155,7 @@ public class User : Base
     /// <remarks>Context: view, edit</remarks>
     [JsonPropertyName("meta")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
-    public dynamic? Meta { get; set; }
+    public JsonElement? Meta { get; set; }
 
     /// <summary>
     /// Links to related resources

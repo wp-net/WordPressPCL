@@ -12,7 +12,7 @@ namespace WordPressPCL.Client;
 /// </summary>
 public class PostTypes : IReadOperation<PostType>
 {
-    private HttpHelper _httpHelper;
+    private readonly HttpHelper _httpHelper;
     private const string _methodPath = "types";
 
     /// <summary>

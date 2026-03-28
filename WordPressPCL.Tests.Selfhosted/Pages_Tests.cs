@@ -77,7 +77,7 @@ public class Pages_Tests
         Page createdPage = await _clientAuth.Pages.CreateAsync(page, TestContext.CancellationToken);
         Assert.IsNotNull(createdPage);
 
-        bool response = await _clientAuth.Pages.Delete(createdPage.Id);
+        bool response = await _clientAuth.Pages.DeleteAsync(createdPage.Id);
         Assert.IsTrue(response);
         await Assert.ThrowsExactlyAsync<WPException>(async () =>
         {

@@ -26,16 +26,7 @@ public abstract class CRUDOperation<TClass, QClass> : IReadOperation<TClass>, IU
     /// <summary>
     /// Helper for HTTP requests
     /// </summary>
-    protected internal HttpHelper _httpHelper = null!;
-
-    /// <summary>
-    /// Helper for HTTP requests
-    /// </summary>
-    protected HttpHelper HttpHelper
-    {
-        get => _httpHelper;
-        private set => _httpHelper = value;
-    }
+    protected HttpHelper HttpHelper { get; }
 
     /// <summary>
     /// Is object must be force deleted

@@ -308,17 +308,18 @@ public class HttpHelper
         }
     }
 
+    private static readonly Regex s_jsonSingleItemRegex = new(@"\{""id"":.+\}$", RegexOptions.Compiled);
+    private static readonly Regex s_jsonCollectionRegex = new(@"\[({""id"":.+},?)*\]$", RegexOptions.Compiled);
+
     private static (bool, string) TryGetResponseFromMalformedResponse(string responseString)
     {
         responseString = responseString.Trim();
-        string jsonSingleItemRegex = @"\{""id"":.+\}$";
-        Match match = Regex.Match(responseString, jsonSingleItemRegex);
+        Match match = s_jsonSingleItemRegex.Match(responseString);
         if (match.Success)
         {
             return (true, match.Value);
         }
-        string jsonCollectionRegex = @"\[({""id"":.+},?)*\]$";
-        match = Regex.Match(responseString, jsonCollectionRegex);
+        match = s_jsonCollectionRegex.Match(responseString);
         if (match.Success)
         {
             return (true, match.Value);

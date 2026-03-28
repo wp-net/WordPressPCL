@@ -59,15 +59,11 @@ public class Comments : CRUDOperation<Comment, CommentsQueryBuilder>
     public async Task<List<Comment>> GetAllCommentsForPostAsync(int PostID, bool embed = false, bool useAuth = false, CancellationToken cancellationToken = default)
     {
         //100 - Max comments per page in WordPress REST API, so this is hack with multiple requests
-        List<Comment> comments = await HttpHelper.GetRequestAsync<List<Comment>>($"{_methodPath}?post={PostID}&per_page=100&page=1", embed, useAuth, cancellationToken: cancellationToken).ConfigureAwait(false);
-        if (HttpHelper.LastResponseHeaders?.Contains("X-WP-TotalPages") == true &&
-            int.TryParse(HttpHelper.LastResponseHeaders.GetValues("X-WP-TotalPages").FirstOrDefault(), out int totalPages) &&
-            totalPages > 1)
+        (List<Comment> comments, System.Net.Http.Headers.HttpResponseHeaders headers) = await HttpHelper.GetRequestWithHeadersAsync<List<Comment>>($"{_methodPath}?post={PostID}&per_page=100&page=1", embed, useAuth, cancellationToken: cancellationToken).ConfigureAwait(false);
+        (int _, int totalPages) = HttpHelper.ParsePaginationHeaders(headers);
+        for (int page = 2; page <= totalPages; page++)
         {
-            for (int page = 2; page <= totalPages; page++)
-            {
-                comments.AddRange(await HttpHelper.GetRequestAsync<List<Comment>>($"{_methodPath}?post={PostID}&per_page=100&page={page}", embed, useAuth, cancellationToken: cancellationToken).ConfigureAwait(false));
-            }
+            comments.AddRange(await HttpHelper.GetRequestAsync<List<Comment>>($"{_methodPath}?post={PostID}&per_page=100&page={page}", embed, useAuth, cancellationToken: cancellationToken).ConfigureAwait(false));
         }
         return comments;
     }

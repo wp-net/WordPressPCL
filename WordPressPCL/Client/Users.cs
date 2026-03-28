@@ -173,7 +173,7 @@ public class Users : ICreateOperation<User>, IUpdateOperation<User>, IReadOperat
     /// <param name="ReassignUserID">User id for reassign</param>
     /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>Result of operation</returns>
-    public Task<bool> Delete(int ID, int ReassignUserID, CancellationToken cancellationToken = default)
+    public Task<bool> DeleteAsync(int ID, int ReassignUserID, CancellationToken cancellationToken = default)
     {
         return _httpHelper.DeleteRequestAsync($"{METHOD_PATH}/{ID}?force=true&reassign={ReassignUserID}", cancellationToken: cancellationToken);
     }
@@ -185,7 +185,7 @@ public class Users : ICreateOperation<User>, IUpdateOperation<User>, IReadOperat
     /// <param name="ReassignUser">User object for reassign</param>
     /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>Result of operation</returns>
-    public Task<bool> Delete(int ID, User ReassignUser, CancellationToken cancellationToken = default)
+    public Task<bool> DeleteAsync(int ID, User ReassignUser, CancellationToken cancellationToken = default)
     {
         return _httpHelper.DeleteRequestAsync($"{METHOD_PATH}/{ID}?force=true&reassign={ReassignUser?.Id}", cancellationToken: cancellationToken);
     }
@@ -215,7 +215,7 @@ public class Users : ICreateOperation<User>, IUpdateOperation<User>, IReadOperat
     /// <param name="userId">User ID, defaults to "me"</param>
     /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>List of registered Application Passwords (without the actual password)</returns>
-    public Task<List<ApplicationPassword>> GetApplicationPasswords(string userId = "me", CancellationToken cancellationToken = default)
+    public Task<List<ApplicationPassword>> GetApplicationPasswordsAsync(string userId = "me", CancellationToken cancellationToken = default)
     {
         return _httpHelper.GetRequestAsync<List<ApplicationPassword>>($"{METHOD_PATH}/{userId}/{APPLICATION_PASSWORDS_PATH}", false, true, cancellationToken: cancellationToken);
     }

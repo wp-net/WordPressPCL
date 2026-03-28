@@ -158,11 +158,6 @@
             path to endpoint EX. posts
             </summary>
         </member>
-        <member name="F:WordPressPCL.Client.CRUDOperation`2._httpHelper">
-            <summary>
-            Helper for HTTP requests
-            </summary>
-        </member>
         <member name="P:WordPressPCL.Client.CRUDOperation`2.HttpHelper">
             <summary>
             Helper for HTTP requests
@@ -445,30 +440,33 @@
             </summary>
             <param name="HttpHelper">reference to HttpHelper class for interaction with HTTP</param>
         </member>
-        <member name="M:WordPressPCL.Client.Pages.GetPagesByAuthorAsync(System.Int32,System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.Pages.GetPagesByAuthorAsync(System.Int32,System.Boolean,System.Boolean,System.Threading.CancellationToken)">
             <summary>
             Get pages by its author
             </summary>
             <param name="authorId">Author id</param>
             <param name="embed">include embed info</param>
             <param name="useAuth">Send request with authentication header</param>
+            <param name="cancellationToken">Cancellation token</param>
             <returns>List of pages</returns>
         </member>
-        <member name="M:WordPressPCL.Client.Pages.GetPagesBySearchAsync(System.String,System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.Pages.GetPagesBySearchAsync(System.String,System.Boolean,System.Boolean,System.Threading.CancellationToken)">
             <summary>
             Get pages by search term
             </summary>
             <param name="searchTerm">Search term</param>
             <param name="embed">include embed info</param>
             <param name="useAuth">Send request with authentication header</param>
+            <param name="cancellationToken">Cancellation token</param>
             <returns>List of pages</returns>
         </member>
-        <member name="M:WordPressPCL.Client.Pages.Delete(System.Int32,System.Boolean)">
+        <member name="M:WordPressPCL.Client.Pages.DeleteAsync(System.Int32,System.Boolean,System.Threading.CancellationToken)">
             <summary>
             Delete page with force deletion
             </summary>
             <param name="ID">Page id</param>
             <param name="force">force deletion</param>
+            <param name="cancellationToken">Cancellation token</param>
             <returns>Result of operation</returns>
         </member>
         <member name="T:WordPressPCL.Client.Plugins">
@@ -547,7 +545,7 @@
             Client class for interaction with Post revisions endpoint WP REST API
             </summary>
         </member>
-        <member name="M:WordPressPCL.Client.PostRevisions.#ctor(WordPressPCL.Utility.HttpHelper@,System.Int32)">
+        <member name="M:WordPressPCL.Client.PostRevisions.#ctor(WordPressPCL.Utility.HttpHelper,System.Int32)">
             <summary>
             Constructor
             </summary>
@@ -958,7 +956,7 @@
             <param name="cancellationToken">Cancellation token</param>
             <returns>Current User</returns>
         </member>
-        <member name="M:WordPressPCL.Client.Users.Delete(System.Int32,System.Int32,System.Threading.CancellationToken)">
+        <member name="M:WordPressPCL.Client.Users.DeleteAsync(System.Int32,System.Int32,System.Threading.CancellationToken)">
             <summary>
             Delete user with reassign articles
             </summary>
@@ -967,7 +965,7 @@
             <param name="cancellationToken">Cancellation token</param>
             <returns>Result of operation</returns>
         </member>
-        <member name="M:WordPressPCL.Client.Users.Delete(System.Int32,WordPressPCL.Models.User,System.Threading.CancellationToken)">
+        <member name="M:WordPressPCL.Client.Users.DeleteAsync(System.Int32,WordPressPCL.Models.User,System.Threading.CancellationToken)">
             <summary>
             Delete user with reassign articles
             </summary>
@@ -985,7 +983,7 @@
             <param name="cancellationToken">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:WordPressPCL.Client.Users.GetApplicationPasswords(System.String,System.Threading.CancellationToken)">
+        <member name="M:WordPressPCL.Client.Users.GetApplicationPasswordsAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get Application Passwords for specified user
             </summary>
@@ -4959,7 +4957,7 @@
         </member>
         <member name="P:WordPressPCL.WordPressClient.Themes">
             <summary>
-            Plugins client interaction object
+            Themes client interaction object
             </summary>
         </member>
         <member name="M:WordPressPCL.WordPressClient.#ctor(System.Uri,System.String)">

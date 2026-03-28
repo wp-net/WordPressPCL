@@ -28,7 +28,7 @@ public class ApplicationPasswords_Tests
     public async Task Read()
     {
         await _clientAuth.Users.CreateApplicationPasswordAsync(System.Guid.NewGuid().ToString(), cancellationToken: TestContext.CancellationToken);
-        List<ApplicationPassword> passwords = await _clientAuth.Users.GetApplicationPasswords(cancellationToken: TestContext.CancellationToken);
+        List<ApplicationPassword> passwords = await _clientAuth.Users.GetApplicationPasswordsAsync(cancellationToken: TestContext.CancellationToken);
 
         Assert.IsNotNull(passwords);
         Assert.AreNotEqual(0, passwords.Count);

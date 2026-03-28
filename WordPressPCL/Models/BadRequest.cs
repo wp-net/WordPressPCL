@@ -1,3 +1,4 @@
+using System.Text.Json;
 using System.Text.Json.Serialization;
 
 
@@ -24,5 +25,5 @@ public class BadRequest
     /// Additional info
     /// </summary>
     [JsonPropertyName("data")]
-    public dynamic? Data { get; set; }
+    public JsonElement? Data { get; set; }
 }

@@ -107,9 +107,15 @@ public class Auth
                 break;
             case JWTPlugin.JWTAuthByUsefulTeam:
                 _httpHelper.HttpResponsePreProcessing = RemoveEmptyData;
-                (JWTResponse? jwtResponse, HttpResponseMessage _) = await _httpHelper.PostRequestAsync<JWTResponse>(route, formContent, isAuthRequired: false, ignoreDefaultPath: true, cancellationToken: cancellationToken).ConfigureAwait(false);
-                _httpHelper.HttpResponsePreProcessing = null;
-                _httpHelper.JWToken = jwtResponse?.Data?.Token;
+                try
+                {
+                    (JWTResponse? jwtResponse, HttpResponseMessage _) = await _httpHelper.PostRequestAsync<JWTResponse>(route, formContent, isAuthRequired: false, ignoreDefaultPath: true, cancellationToken: cancellationToken).ConfigureAwait(false);
+                    _httpHelper.JWToken = jwtResponse?.Data?.Token;
+                }
+                finally
+                {
+                    _httpHelper.HttpResponsePreProcessing = null;
+                }
                 break;
             default:
                 throw new WPException("Invalid JWT Plugin");
@@ -144,13 +150,19 @@ public class Auth
             switch (JWTPlugin)
             {
                 case JWTPlugin.JWTAuthByEnriqueChavez:
-                    (JWTUser? jwtUser, HttpResponseMessage? repsonse) = await _httpHelper.PostRequestAsync<JWTUser>(route, null, isAuthRequired: true, ignoreDefaultPath: true, cancellationToken: cancellationToken).ConfigureAwait(false);
-                    return repsonse.IsSuccessStatusCode;
+                    (JWTUser? jwtUser, HttpResponseMessage? response) = await _httpHelper.PostRequestAsync<JWTUser>(route, null, isAuthRequired: true, ignoreDefaultPath: true, cancellationToken: cancellationToken).ConfigureAwait(false);
+                    return response.IsSuccessStatusCode;
                 case JWTPlugin.JWTAuthByUsefulTeam:
                     _httpHelper.HttpResponsePreProcessing = RemoveEmptyData;
-                    (JWTResponse? jwtResponse, HttpResponseMessage _) = await _httpHelper.PostRequestAsync<JWTResponse>(route, null, isAuthRequired: true, ignoreDefaultPath: true, cancellationToken: cancellationToken).ConfigureAwait(false);
-                    _httpHelper.HttpResponsePreProcessing = null;
-                    return jwtResponse.Success;
+                    try
+                    {
+                        (JWTResponse? jwtResponse, HttpResponseMessage _) = await _httpHelper.PostRequestAsync<JWTResponse>(route, null, isAuthRequired: true, ignoreDefaultPath: true, cancellationToken: cancellationToken).ConfigureAwait(false);
+                        return jwtResponse.Success;
+                    }
+                    finally
+                    {
+                        _httpHelper.HttpResponsePreProcessing = null;
+                    }
                 default:
                     throw new WPException("Invalid JWT Plugin");
             }

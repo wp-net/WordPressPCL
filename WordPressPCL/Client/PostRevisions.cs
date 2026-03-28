@@ -21,7 +21,7 @@ public class PostRevisions : IReadOperation<PostRevision>, IDeleteOperation
     /// </summary>
     /// <param name="httpHelper">reference to HttpHelper class for interaction with HTTP</param>
     /// <param name="postId">ID of post</param>
-    public PostRevisions(ref HttpHelper httpHelper, int postId)
+    public PostRevisions(HttpHelper httpHelper, int postId)
     {
         _httpHelper = httpHelper;
         _postId = postId;

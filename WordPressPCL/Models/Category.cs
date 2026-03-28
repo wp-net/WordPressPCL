@@ -1,3 +1,4 @@
+using System.Text.Json;
 using System.Text.Json.Serialization;
 
 
@@ -39,7 +40,7 @@ public class Category : Term
     /// <remarks>Context: view, edit</remarks>
     [JsonPropertyName("meta")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
-    public dynamic? Meta { get; set; }
+    public JsonElement? Meta { get; set; }
 
     /// <summary>
     /// Parameterless constructor

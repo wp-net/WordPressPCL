@@ -42,7 +42,7 @@ public class Plugins : CRUDOperation<Plugin, PluginsQueryBuilder>
     {
 
         using StringContent postBody = new StringContent(JsonSerializer.Serialize(new { slug = Plugin.Id }), Encoding.UTF8, "application/json");
-        (Plugin plugin, HttpResponseMessage _) = await _httpHelper.PostRequestAsync<Plugin>("plugins", postBody, cancellationToken: cancellationToken).ConfigureAwait(false);
+        (Plugin plugin, HttpResponseMessage _) = await HttpHelper.PostRequestAsync<Plugin>("plugins", postBody, cancellationToken: cancellationToken).ConfigureAwait(false);
         return plugin;
 
     }
@@ -57,7 +57,7 @@ public class Plugins : CRUDOperation<Plugin, PluginsQueryBuilder>
     {
 
         using StringContent postBody = new StringContent(JsonSerializer.Serialize(new { slug = Id }), Encoding.UTF8, "application/json");
-        (Plugin plugin, HttpResponseMessage _) = await _httpHelper.PostRequestAsync<Plugin>("plugins", postBody, cancellationToken: cancellationToken).ConfigureAwait(false);
+        (Plugin plugin, HttpResponseMessage _) = await HttpHelper.PostRequestAsync<Plugin>("plugins", postBody, cancellationToken: cancellationToken).ConfigureAwait(false);
         return plugin;
     }
 
@@ -70,7 +70,7 @@ public class Plugins : CRUDOperation<Plugin, PluginsQueryBuilder>
     public async Task<Plugin> ActivateAsync(Plugin Plugin, CancellationToken cancellationToken = default)
     {
         using StringContent postBody = new StringContent(JsonSerializer.Serialize(new { status = "active" }), Encoding.UTF8, "application/json");
-        (Plugin plugin, HttpResponseMessage _) = await _httpHelper.PostRequestAsync<Plugin>($"plugins/{Plugin.PluginFile}", postBody, cancellationToken: cancellationToken).ConfigureAwait(false);
+        (Plugin plugin, HttpResponseMessage _) = await HttpHelper.PostRequestAsync<Plugin>($"plugins/{Plugin.PluginFile}", postBody, cancellationToken: cancellationToken).ConfigureAwait(false);
         return plugin;
     }
 
@@ -84,7 +84,7 @@ public class Plugins : CRUDOperation<Plugin, PluginsQueryBuilder>
     {
 
         using StringContent postBody = new(JsonSerializer.Serialize(new { status = "inactive" }), Encoding.UTF8, "application/json");
-        (Plugin plugin, HttpResponseMessage _) = await _httpHelper.PostRequestAsync<Plugin>($"plugins/{Plugin.PluginFile}", postBody, cancellationToken: cancellationToken).ConfigureAwait(false);
+        (Plugin plugin, HttpResponseMessage _) = await HttpHelper.PostRequestAsync<Plugin>($"plugins/{Plugin.PluginFile}", postBody, cancellationToken: cancellationToken).ConfigureAwait(false);
         return plugin;
     }
 

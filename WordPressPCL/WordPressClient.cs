@@ -110,7 +110,7 @@ public class WordPressClient
     public Plugins Plugins { get; private set; } = null!;
 
     /// <summary>
-    /// Plugins client interaction object
+    /// Themes client interaction object
     /// </summary>
     public Themes Themes { get; private set; } = null!;
 
