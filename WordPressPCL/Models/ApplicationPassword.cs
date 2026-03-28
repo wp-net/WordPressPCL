@@ -1,5 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿
 using System;
+using System.Text.Json.Serialization;
 
 namespace WordPressPCL.Models
 {
@@ -11,49 +12,49 @@ namespace WordPressPCL.Models
         /// <summary>
         /// Unique ID
         /// </summary>
-        [JsonProperty("uuid")]
+        [JsonPropertyName("uuid")]
         public string? Uuid { get; set; }
 
         /// <summary>
         /// App ID
         /// </summary>
-        [JsonProperty("app_id")]
+        [JsonPropertyName("app_id")]
         public string? AppId { get; set; }
 
         /// <summary>
         /// App Name
         /// </summary>
-        [JsonProperty("name")]
+        [JsonPropertyName("name")]
         public string? Name { get; set; }
 
         /// <summary>
         /// Created Timestamp
         /// </summary>
-        [JsonProperty("created")]
+        [JsonPropertyName("created")]
         public DateTime Created { get; set; }
 
         /// <summary>
         /// Last Used
         /// </summary>
-        [JsonProperty("last_used")]
+        [JsonPropertyName("last_used")]
         public object? LastUsed { get; set; }
 
         /// <summary>
         /// Last IP
         /// </summary>
-        [JsonProperty("last_ip")]
+        [JsonPropertyName("last_ip")]
         public object? LastIp { get; set; }
 
         /// <summary>
         /// Application Password
         /// </summary>
-        [JsonProperty("password")]
+        [JsonPropertyName("password")]
         public string? Password { get; set; }
 
         /// <summary>
         /// Links
         /// </summary>
-        [JsonProperty("_links")]
+        [JsonPropertyName("_links")]
         public Links? Links { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+using System.Text.Json.Serialization;
+
 
 namespace WordPressPCL.Models
 {
@@ -10,19 +11,19 @@ namespace WordPressPCL.Models
         /// <summary>
         /// Error type
         /// </summary>
-        [JsonProperty("code")]
+        [JsonPropertyName("code")]
         public string? Name { get; set; }
 
         /// <summary>
         /// Error description
         /// </summary>
-        [JsonProperty("message")]
+        [JsonPropertyName("message")]
         public string? Message { get; set; }
 
         /// <summary>
         /// Additional info
         /// </summary>
-        [JsonProperty("data")]
+        [JsonPropertyName("data")]
         public dynamic? Data { get; set; }
     }
 }

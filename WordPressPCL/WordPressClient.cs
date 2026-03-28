@@ -1,6 +1,6 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Net.Http;
+using System.Text.Json;
 using WordPressPCL.Client;
 using WordPressPCL.Utility;
 
@@ -30,13 +30,12 @@ namespace WordPressPCL
         }
 
         /// <summary>
-        /// Serialization/Deserialization settings for Json.NET library
-        /// https://www.newtonsoft.com/json/help/html/SerializationSettings.htm
+        /// Serialization/deserialization options for <see cref="JsonSerializer"/>.
         /// </summary>
-        public JsonSerializerSettings JsonSerializerSettings
+        public JsonSerializerOptions JsonSerializerOptions
         {
-            get => _httpHelper.JsonSerializerSettings;
-            set => _httpHelper.JsonSerializerSettings = value;
+            get => _httpHelper.JsonSerializerOptions;
+            set => _httpHelper.JsonSerializerOptions = value;
         }
 
         /// <summary>

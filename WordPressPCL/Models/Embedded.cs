@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace WordPressPCL.Models
 {
@@ -11,30 +11,30 @@ namespace WordPressPCL.Models
         /// <summary>
         /// Post Author
         /// </summary>
-        [JsonProperty("author")]
+        [JsonPropertyName("author")]
         public List<User>? Author { get; set; }
 
         /// <summary>
         /// Comments on the post
         /// </summary>
-        [JsonProperty("replies")]
+        [JsonPropertyName("replies")]
         public List<IList<Comment>>? Replies { get; set; }
 
         /// <summary>
         /// Featured images for the post
         /// </summary>
-        [JsonProperty("wp:featuredmedia")]
+        [JsonPropertyName("wp:featuredmedia")]
         public List<MediaItem>? WpFeaturedmedia { get; set; }
 
         /// <summary>
         /// Terms for the post (categories, tags etc.)
         /// </summary>
-        [JsonProperty("wp:term")]
+        [JsonPropertyName("wp:term")]
         public List<List<Term>>? WpTerm { get; set; }
         /// <summary>
         /// Parent page
         /// </summary>
-        [JsonProperty("up")]
+        [JsonPropertyName("up")]
         public List<Page>? Up { get; set; }
     }
 }

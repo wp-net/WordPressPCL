@@ -4,8 +4,8 @@ using System.Globalization;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
 using WordPressPCL.Interfaces;
 using WordPressPCL.Models;
 using WordPressPCL.Utility;
@@ -63,7 +63,7 @@ namespace WordPressPCL.Client
         /// <returns>Created object</returns>
         public async Task<TClass> CreateAsync(TClass Entity)
         {
-            string entity = HttpHelper.JsonSerializerSettings == null ? JsonConvert.SerializeObject(Entity) : JsonConvert.SerializeObject(Entity, HttpHelper.JsonSerializerSettings);
+            string entity = JsonSerializer.Serialize(Entity, HttpHelper.JsonSerializerOptions);
             using StringContent postBody = new(entity, Encoding.UTF8, "application/json");
             return (await HttpHelper.PostRequestAsync<TClass>(MethodPath, postBody).ConfigureAwait(false)).Item1;
         }
@@ -143,7 +143,7 @@ namespace WordPressPCL.Client
         /// <returns>Updated object</returns>
         public async Task<TClass> UpdateAsync(TClass Entity)
         {
-            string entity = HttpHelper.JsonSerializerSettings == null ? JsonConvert.SerializeObject(Entity) : JsonConvert.SerializeObject(Entity, HttpHelper.JsonSerializerSettings);
+            string entity = JsonSerializer.Serialize(Entity, HttpHelper.JsonSerializerOptions);
             using StringContent postBody = new(entity, Encoding.UTF8, "application/json");
             return (await HttpHelper.PostRequestAsync<TClass>($"{MethodPath}/{(Entity as Base)?.Id}", postBody).ConfigureAwait(false)).Item1;
         }

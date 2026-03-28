@@ -1,5 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿
 using System;
+using System.Text.Json.Serialization;
 
 namespace WordPressPCL.Models
 {
@@ -12,21 +13,24 @@ namespace WordPressPCL.Models
         /// The ID for the author of the object.
         /// </summary>
         /// <remarks>Context: view, edit, embed</remarks>
-        [JsonProperty("author", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        [JsonPropertyName("author")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public int Author { get; set; }
 
         /// <summary>
         /// The date the object was published, in the site's timezone.
         /// </summary>
         /// <remarks>Context: view, edit, embed</remarks>
-		[JsonProperty("date", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		[JsonPropertyName("date")]
+		[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public DateTime Date { get; set; }
 
         /// <summary>
         /// The date the object was published, as GMT.
         /// </summary>
         /// <remarks>Context: view, edit</remarks>
-        [JsonProperty("date_gmt", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        [JsonPropertyName("date_gmt")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public DateTime DateGmt { get; set; }
 
         /// <summary>
@@ -36,7 +40,8 @@ namespace WordPressPCL.Models
         /// Read only
         /// Context: view, edit
         /// </remarks>
-        [JsonProperty("guid", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        [JsonPropertyName("guid")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public Guid? Guid { get; set; }
 
         /// <summary>
@@ -46,7 +51,8 @@ namespace WordPressPCL.Models
         /// Read only
         /// Context: view, edit
         /// </remarks>
-        [JsonProperty("modified", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        [JsonPropertyName("modified")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public DateTime Modified { get; set; }
 
         /// <summary>
@@ -56,61 +62,65 @@ namespace WordPressPCL.Models
         /// Read only
         /// Context: view, edit
         /// </remarks>
-        [JsonProperty("modified_gmt", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        [JsonPropertyName("modified_gmt")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public DateTime ModifiedGmt { get; set; }
 
         /// <summary>
         /// The id for the parent of the object.
         /// </summary>
         /// <remarks>Context: view</remarks>
-        [JsonProperty("parent")]
+        [JsonPropertyName("parent")]
         public int Parent { get; set; }
 
         /// <summary>
         /// An alphanumeric identifier for the object unique to its type.
         /// </summary>
         /// <remarks>Context: view, edit, embed</remarks>
-        [JsonProperty("slug")]
+        [JsonPropertyName("slug")]
         public string? Slug { get; set; }
 
         /// <summary>
         /// The title for the object.
         /// </summary>
         /// <remarks>Context: view, edit, embed</remarks>
-        [JsonProperty("title")]
+        [JsonPropertyName("title")]
         public Title? Title { get; set; }
 
         /// <summary>
         /// The content for the object.
         /// </summary>
         /// <remarks>Context: view, edit</remarks>
-        [JsonProperty("content")]
+        [JsonPropertyName("content")]
         public Content? Content { get; set; }
 
         /// <summary>
         /// The excerpt for the object.
         /// </summary>
         /// <remarks>Context: view, edit, embed</remarks>
-        [JsonProperty("excerpt")]
+        [JsonPropertyName("excerpt")]
         public Excerpt? Excerpt { get; set; }
 
         /// <summary>
         /// Meta fields.
         /// </summary>
         /// <remarks>Context: view, edit</remarks>
-        [JsonProperty("meta", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        [JsonPropertyName("meta")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public dynamic? Meta { get; set; }
 
         /// <summary>
         /// Links to related resources
         /// </summary>
-        [JsonProperty("_links", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        [JsonPropertyName("_links")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public Links? Links { get; set; }
 
         /// <summary>
         /// Embedded information like featured images
         /// </summary>
-        [JsonProperty("_embedded", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        [JsonPropertyName("_embedded")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public Embedded? Embedded { get; set; }
 
         /// <summary>

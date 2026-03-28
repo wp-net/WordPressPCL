@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+using System.Text.Json.Serialization;
+
 
 namespace WordPressPCL.Models
 {
@@ -12,7 +13,7 @@ namespace WordPressPCL.Models
         /// <summary>
         /// The plugin file. unique identifier.
         /// </summary>
-        [JsonProperty("plugin")]
+        [JsonPropertyName("plugin")]
         public string? PluginFile
         {
             get
@@ -39,73 +40,73 @@ namespace WordPressPCL.Models
         /// <summary>
         /// The plugin activation status.
         /// </summary>
-        [JsonProperty("status")]
+        [JsonPropertyName("status")]
         public ActivationStatus Status { get; set; }
 
         /// <summary>
         /// The plugin name.
         /// </summary>
-        [JsonProperty("name")]
+        [JsonPropertyName("name")]
         public string? Name { get; set; }
 
         /// <summary>
         /// The plugin's website address.
         /// </summary>
-        [JsonProperty("plugin_uri")]
+        [JsonPropertyName("plugin_uri")]
         public string? PluginUri { get; set; }
 
         /// <summary>
         /// The plugin author.
         /// </summary>
-        [JsonProperty("author")]
+        [JsonPropertyName("author")]
         public string? Author { get; set; }
 
         /// <summary>
         /// Plugin author's website address.
         /// </summary>
-        [JsonProperty("author_uri")]
+        [JsonPropertyName("author_uri")]
         public string? AuthorUri { get; set; }
 
         /// <summary>
         /// The plugin description.
         /// </summary>
-        [JsonProperty("description")]
+        [JsonPropertyName("description")]
         public Description? Description { get; set; }
 
         /// <summary>
         /// The plugin version number.
         /// </summary>
-        [JsonProperty("version")]
+        [JsonPropertyName("version")]
         public string? Version { get; set; }
 
         /// <summary>
         /// Whether the plugin can only be activated network-wide.
         /// </summary>
-        [JsonProperty("network_only")]
+        [JsonPropertyName("network_only")]
         public bool NetworkOnly { get; set; }
 
         /// <summary>
         /// Minimum required version of WordPress.
         /// </summary>
-        [JsonProperty("requires_wp")]
+        [JsonPropertyName("requires_wp")]
         public string? RequiresWordPress { get; set; }
 
         /// <summary>
         /// Minimum required version of PHP.
         /// </summary>
-        [JsonProperty("requires_php")]
+        [JsonPropertyName("requires_php")]
         public string? RequiresPHP { get; set; }
 
         /// <summary>
         /// The plugin's text domain.
         /// </summary>
-        [JsonProperty("textdomain")]
+        [JsonPropertyName("textdomain")]
         public string? TextDomain { get; set; }
 
         /// <summary>
         /// The plugin's links.
         /// </summary>
-        [JsonProperty("_links")]
+        [JsonPropertyName("_links")]
         public Links? Links { get; set; }
     }
 }

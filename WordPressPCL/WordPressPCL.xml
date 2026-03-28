@@ -3863,15 +3863,39 @@
         </member>
         <member name="T:WordPressPCL.Utility.CustomCapabilitiesJsonConverter">
             <summary>
-            Custom JSON converter to convert string values to boolean in capabilities and extra_capabilities properties
-            <see cref="P:WordPressPCL.Models.User.Capabilities"/>
-            <see cref="P:WordPressPCL.Models.User.ExtraCapabilities"/>
+            Custom JSON converter for individual boolean capability values that may be
+            represented as JSON booleans or as the string literals <c>"0"</c>/<c>"1"</c> in
+            WordPress REST API responses.
+            <para>
+            Use <see cref="T:WordPressPCL.Utility.CapabilitiesDictionaryConverter"/> when you need to deserialize an
+            entire capabilities dictionary (i.e. on
+            <see cref="P:WordPressPCL.Models.User.Capabilities"/> or
+            <see cref="P:WordPressPCL.Models.User.ExtraCapabilities"/>).
+            </para>
             </summary>
         </member>
-        <member name="M:WordPressPCL.Utility.CustomCapabilitiesJsonConverter.ReadJson(Newtonsoft.Json.JsonReader,System.Type,System.Boolean,System.Boolean,Newtonsoft.Json.JsonSerializer)">
+        <member name="M:WordPressPCL.Utility.CustomCapabilitiesJsonConverter.Read(System.Text.Json.Utf8JsonReader@,System.Type,System.Text.Json.JsonSerializerOptions)">
             <inheritdoc />
         </member>
-        <member name="M:WordPressPCL.Utility.CustomCapabilitiesJsonConverter.WriteJson(Newtonsoft.Json.JsonWriter,System.Boolean,Newtonsoft.Json.JsonSerializer)">
+        <member name="M:WordPressPCL.Utility.CustomCapabilitiesJsonConverter.Write(System.Text.Json.Utf8JsonWriter,System.Boolean,System.Text.Json.JsonSerializerOptions)">
+            <inheritdoc />
+        </member>
+        <member name="T:WordPressPCL.Utility.CapabilitiesDictionaryConverter">
+            <summary>
+            Custom JSON converter for <see cref="T:System.Collections.Generic.IDictionary`2">IDictionary&lt;string, bool&gt;</see>
+            where each value may be a JSON boolean or the string literals <c>"0"</c>/<c>"1"</c>.
+            Apply this converter on the
+            <see cref="P:WordPressPCL.Models.User.Capabilities"/> and
+            <see cref="P:WordPressPCL.Models.User.ExtraCapabilities"/> properties.
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Utility.CapabilitiesDictionaryConverter.CanConvert(System.Type)">
+            <inheritdoc />
+        </member>
+        <member name="M:WordPressPCL.Utility.CapabilitiesDictionaryConverter.Read(System.Text.Json.Utf8JsonReader@,System.Type,System.Text.Json.JsonSerializerOptions)">
+            <inheritdoc />
+        </member>
+        <member name="M:WordPressPCL.Utility.CapabilitiesDictionaryConverter.Write(System.Text.Json.Utf8JsonWriter,System.Collections.Generic.IDictionary{System.String,System.Boolean},System.Text.Json.JsonSerializerOptions)">
             <inheritdoc />
         </member>
         <member name="T:WordPressPCL.Utility.ExcludeQueryTextAttribute">
@@ -3921,10 +3945,9 @@
             Executed before trying to convert json content to a TClass object.
             </summary>
         </member>
-        <member name="P:WordPressPCL.Utility.HttpHelper.JsonSerializerSettings">
+        <member name="P:WordPressPCL.Utility.HttpHelper.JsonSerializerOptions">
             <summary>
-            Serialization/Deserialization settings for Json.NET library
-            https://www.newtonsoft.com/json/help/html/SerializationSettings.htm
+            Serialization/deserialization options for <see cref="T:System.Text.Json.JsonSerializer"/>.
             </summary>
         </member>
         <member name="P:WordPressPCL.Utility.HttpHelper.LastResponseHeaders">
@@ -3948,6 +3971,19 @@
             <param name="httpClient">Http client which would be used for sending requests to the WordPress API endpoint.</param>
             <param name="defaultPath">Relative path to standard API endpoints, defaults to "wp/v2/"</param>
             <param name="wordpressURI">(optional) Base WP REST API endpoint EX. http://demo.com/wp-json/. Use this if the BaseAddress of the httpClient is not set.</param>
+        </member>
+        <member name="T:WordPressPCL.Utility.JsonStringEnumMemberConverter">
+            <summary>
+            A <see cref="T:System.Text.Json.Serialization.JsonConverterFactory"/> that serializes and deserializes enum values using
+            their <see cref="P:System.Runtime.Serialization.EnumMemberAttribute.Value"/> when present, falling back to the lower-case
+            member name otherwise.
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Utility.JsonStringEnumMemberConverter.CanConvert(System.Type)">
+            <inheritdoc />
+        </member>
+        <member name="M:WordPressPCL.Utility.JsonStringEnumMemberConverter.CreateConverter(System.Type,System.Text.Json.JsonSerializerOptions)">
+            <inheritdoc />
         </member>
         <member name="T:WordPressPCL.Utility.MediaQueryBuilder">
             <summary>
@@ -4520,10 +4556,9 @@
             Executed before trying to convert json content to a TClass object.
             </summary>
         </member>
-        <member name="P:WordPressPCL.WordPressClient.JsonSerializerSettings">
+        <member name="P:WordPressPCL.WordPressClient.JsonSerializerOptions">
             <summary>
-            Serialization/Deserialization settings for Json.NET library
-            https://www.newtonsoft.com/json/help/html/SerializationSettings.htm
+            Serialization/deserialization options for <see cref="T:System.Text.Json.JsonSerializer"/>.
             </summary>
         </member>
         <member name="P:WordPressPCL.WordPressClient.Auth">

@@ -1,7 +1,7 @@
 using System.Net.Http;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
 using WordPressPCL.Utility;
 
 namespace WordPressPCL.Client {
@@ -36,7 +36,7 @@ namespace WordPressPCL.Client {
         /// <returns>Updated settings</returns>
         public async Task<Models.Settings> UpdateSettingsAsync(Models.Settings settings)
         {
-            using var postBody = new StringContent(JsonConvert.SerializeObject(settings), Encoding.UTF8, "application/json");
+            using var postBody = new StringContent(JsonSerializer.Serialize(settings, _httpHelper.JsonSerializerOptions), Encoding.UTF8, "application/json");
             var (setting, _) = await _httpHelper.PostRequestAsync<Models.Settings>("settings", postBody).ConfigureAwait(false);
             return setting;
         }

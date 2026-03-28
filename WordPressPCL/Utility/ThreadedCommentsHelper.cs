@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Newtonsoft.Json;
+using System.Text.Json;
 using WordPressPCL.Models;
 
 namespace WordPressPCL.Utility
@@ -80,8 +80,8 @@ namespace WordPressPCL.Utility
             List<CommentThreaded> dateSortedthreadedComments = new();
             foreach (Comment c in dateSortedComments)
             {
-                string serialized = JsonConvert.SerializeObject(c);
-                CommentThreaded? commentThreaded = JsonConvert.DeserializeObject<CommentThreaded>(serialized);
+                string serialized = JsonSerializer.Serialize(c);
+                CommentThreaded? commentThreaded = JsonSerializer.Deserialize<CommentThreaded>(serialized);
                 if (commentThreaded != null)
                 {
                     commentThreaded.Depth = GetCommentThreadedDepth(c, comments.ToList(), maxDepth);

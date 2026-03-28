@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+using System.Text.Json.Serialization;
+
 
 namespace WordPressPCL.Models
 {
@@ -11,27 +12,27 @@ namespace WordPressPCL.Models
         /// <summary>
         /// File
         /// </summary>
-        [JsonProperty("file")]
+        [JsonPropertyName("file")]
         public string? File { get; set; }
         /// <summary>
         /// Media Width
         /// </summary>
-        [JsonProperty("width")]
+        [JsonPropertyName("width")]
         public int? Width { get; set; }
         /// <summary>
         /// Media Height
         /// </summary>
-        [JsonProperty("height")]
+        [JsonPropertyName("height")]
         public int? Height { get; set; }
         /// <summary>
         /// Mime Type
         /// </summary>
-        [JsonProperty("mime_type")]
+        [JsonPropertyName("mime_type")]
         public string? MimeType { get; set; }
         /// <summary>
         /// Url of source media
         /// </summary>
-        [JsonProperty("source_url")]
+        [JsonPropertyName("source_url")]
         public string? SourceUrl { get; set; }
     }
 }

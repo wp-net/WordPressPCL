@@ -1,5 +1,3 @@
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -7,6 +5,7 @@ using System.Net.Http;
 using System.Reflection;
 using System.Runtime.Serialization;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using WordPressPCL.Models;
 using WordPressPCL.Utility;
@@ -139,7 +138,7 @@ namespace WordPressPCL.Client
                 };
             }
 
-            string entity = HttpHelper.JsonSerializerSettings == null ? JsonConvert.SerializeObject(body) : JsonConvert.SerializeObject(body, HttpHelper.JsonSerializerSettings);
+            string entity = JsonSerializer.Serialize(body, HttpHelper.JsonSerializerOptions);
             using StringContent postBody = new(entity, Encoding.UTF8, "application/json");
             return (await HttpHelper.PostRequestAsync<Comment>($"{_methodPath}/{Entity?.Id}", postBody).ConfigureAwait(false)).Item1;
         }
@@ -153,31 +152,65 @@ namespace WordPressPCL.Client
             return attribute?.Value ?? value.ToString().ToLowerInvariant();
         }
 
-        private static bool HasNonNullValue(object value)
+        private static bool HasNonNullValue(object? value)
         {
-            if (value == null)
+            if (value is null)
             {
                 return false;
             }
 
-            JToken token = value as JToken ?? JToken.FromObject(value);
+            JsonElement element;
+            try
+            {
+                element = JsonSerializer.SerializeToElement(value);
+            }
+            catch
+            {
+                // If the value cannot be serialized, fall back to considering it as having a value
+                // to avoid silently dropping data compared to the previous behavior.
+                return true;
+            }
 
-            return HasNonNullValue(token);
+            return HasNonNullValue(element);
         }
 
-        private static bool HasNonNullValue(JToken token)
+        private static bool HasNonNullValue(JsonElement element)
         {
-            if (token == null || token.Type == JTokenType.Null)
+            switch (element.ValueKind)
             {
-                return false;
-            }
+                case JsonValueKind.Null:
+                case JsonValueKind.Undefined:
+                    return false;
 
-            if (token is JValue value)
-            {
-                return value.Value != null;
-            }
+                case JsonValueKind.String:
+                case JsonValueKind.Number:
+                case JsonValueKind.True:
+                case JsonValueKind.False:
+                    return true;
 
-            return token.Children().Any(HasNonNullValue);
+                case JsonValueKind.Array:
+                    foreach (JsonElement item in element.EnumerateArray())
+                    {
+                        if (HasNonNullValue(item))
+                        {
+                            return true;
+                        }
+                    }
+                    return false;
+
+                case JsonValueKind.Object:
+                    foreach (System.Text.Json.JsonProperty property in element.EnumerateObject())
+                    {
+                        if (HasNonNullValue(property.Value))
+                        {
+                            return true;
+                        }
+                    }
+                    return false;
+
+                default:
+                    return false;
+            }
         }
 
         #endregion Custom

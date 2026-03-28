@@ -1,5 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace WordPressPCL.Models
 {
@@ -12,62 +13,62 @@ namespace WordPressPCL.Models
         /// <summary>
         /// Aperture
         /// </summary>
-        [JsonProperty("aperture")]
+        [JsonPropertyName("aperture")]
         public string? Aperture { get; set; }
         /// <summary>
         /// Credit
         /// </summary>
-        [JsonProperty("credit")]
+        [JsonPropertyName("credit")]
         public string? Credit { get; set; }
         /// <summary>
         /// Camera Model
         /// </summary>
-        [JsonProperty("camera")]
+        [JsonPropertyName("camera")]
         public string? Camera { get; set; }
         /// <summary>
         /// Image Caption
         /// </summary>
-        [JsonProperty("caption")]
+        [JsonPropertyName("caption")]
         public string? Caption { get; set; }
         /// <summary>
         /// Created Date
         /// </summary>
-        [JsonProperty("created_timestamp")]
+        [JsonPropertyName("created_timestamp")]
         public string? CreatedTimestamp { get; set; }
         /// <summary>
         /// Copyright
         /// </summary>
-        [JsonProperty("copyright")]
+        [JsonPropertyName("copyright")]
         public string? Copyright { get; set; }
         /// <summary>
         /// Focal Length
         /// </summary>
-        [JsonProperty("focal_length")]
+        [JsonPropertyName("focal_length")]
         public string? FocalLength { get; set; }
         /// <summary>
         /// ISO
         /// </summary>
-        [JsonProperty("iso")]
+        [JsonPropertyName("iso")]
         public string? Iso { get; set; }
         /// <summary>
         /// Shutter Speed
         /// </summary>
-        [JsonProperty("shutter_speed")]
+        [JsonPropertyName("shutter_speed")]
         public string? ShutterSpeed { get; set; }
         /// <summary>
         /// Image Title
         /// </summary>
-        [JsonProperty("title")]
+        [JsonPropertyName("title")]
         public string? Title { get; set; }
         /// <summary>
         /// Orientation
         /// </summary>
-        [JsonProperty("orientation")]
+        [JsonPropertyName("orientation")]
         public string? Orientation { get; set; }
         /// <summary>
         /// Image keywords
         /// </summary>
-        [JsonProperty("keywords")]
+        [JsonPropertyName("keywords")]
         public IList<string>? Keywords { get; set; }
     }
 }

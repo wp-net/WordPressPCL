@@ -1,5 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿
 using System;
+using System.Text.Json.Serialization;
 
 namespace WordPressPCL.Models
 {
@@ -12,49 +13,55 @@ namespace WordPressPCL.Models
         /// The id of the associated post object.
         /// </summary>
         /// <remarks>Context: view, edit</remarks>
-        [JsonProperty("post")]
+        [JsonPropertyName("post")]
         public int PostId { get; set; }
 
         /// <summary>
         /// The id for the parent of the object.
         /// </summary>
         /// <remarks>Context: view, edit, embed</remarks>
-        [JsonProperty("parent", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        [JsonPropertyName("parent")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public int ParentId { get; set; }
 
         /// <summary>
         /// The id of the user object, if author was a user.
         /// </summary>
         /// <remarks>Context: view, edit, embed</remarks>
-        [JsonProperty("author", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        [JsonPropertyName("author")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public int AuthorId { get; set; }
 
         /// <summary>
         /// Display name for the object author.
         /// </summary>
         /// <remarks>Context: view, edit, embed</remarks>
-		[JsonProperty("author_name", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		[JsonPropertyName("author_name")]
+		[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public string? AuthorName { get; set; }
 
         /// <summary>
         /// Email address for the object author.
         /// </summary>
         /// <remarks>Context: edit</remarks>
-        [JsonProperty("author_email", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        [JsonPropertyName("author_email")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public string? AuthorEmail { get; set; }
 
         /// <summary>
         /// URL for the object author.
         /// </summary>
         /// <remarks>Context: view, edit, embed</remarks>
-        [JsonProperty("author_url", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        [JsonPropertyName("author_url")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public string? AuthorUrl { get; set; }
 
         /// <summary>
         /// IP address for the object author.
         /// </summary>
         /// <remarks>Context: edit</remarks>
-        [JsonProperty("author_ip", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        [JsonPropertyName("author_ip")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public string? AuthorIP { get; set; }
 
         /// <summary>
@@ -62,28 +69,32 @@ namespace WordPressPCL.Models
         /// <see cref="AvatarURL"/>
         /// </summary>
         /// <remarks>Context: view, edit, embed</remarks>
-        [JsonProperty("author_avatar_urls", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        [JsonPropertyName("author_avatar_urls")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public AvatarURL? AuthorAvatarUrls { get; set; }
 
         /// <summary>
         /// User agent for the object author.
         /// </summary>
         /// <remarks>Context: edit</remarks>
-        [JsonProperty("author_user_agent", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        [JsonPropertyName("author_user_agent")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public string? AuthorUserAgent { get; set; }
 
         /// <summary>
         /// The date the object was published.
         /// </summary>
         /// <remarks>Context: view, edit, embed</remarks>
-        [JsonProperty("date", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        [JsonPropertyName("date")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public DateTime Date { get; set; }
 
         /// <summary>
         /// The date the object was published as GMT.
         /// </summary>
         /// <remarks>Context: view, edit</remarks>
-		[JsonProperty("date_gmt", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		[JsonPropertyName("date_gmt")]
+		[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public DateTime DateGmt { get; set; }
 
         /// <summary>
@@ -91,48 +102,51 @@ namespace WordPressPCL.Models
         /// <see cref="Models.Content"/>
         /// </summary>
         /// <remarks>Context: view, edit, embed</remarks>
-        [JsonProperty("content")]
+        [JsonPropertyName("content")]
         public Content? Content { get; set; }
 
         /// <summary>
         /// URL to the object.
         /// </summary>
         /// <remarks>Context: view, edit, embed</remarks>
-        [JsonProperty("link")]
+        [JsonPropertyName("link")]
         public string? Link { get; set; }
 
         /// <summary>
         /// State of the object.
         /// </summary>
         /// <remarks>Context: view, edit</remarks>
-        [JsonProperty("status", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        [JsonPropertyName("status")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
 		public CommentStatus Status { get; set; }
 
         /// <summary>
         /// Type of Comment for the object.
         /// </summary>
         /// <remarks>Context: view, edit, embed</remarks>
-        [JsonProperty("type")]
+        [JsonPropertyName("type")]
 		public string? Type { get; set; }
 
         /// <summary>
         /// Meta fields.
         /// </summary>
         /// <remarks>Context: view, edit</remarks>
-        [JsonProperty("meta", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        [JsonPropertyName("meta")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public dynamic? Meta { get; set; }
 
         /// <summary>
         /// Karma for the object.
         /// </summary>
         /// <remarks>Context: edit</remarks>
-        [JsonProperty("karma")]
+        [JsonPropertyName("karma")]
         public int Karma { get; set; }
 
         /// <summary>
         /// Links to another entities
         /// </summary>
-        [JsonProperty("_links", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        [JsonPropertyName("_links")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public Links? Links { get; set; }
 
         /// <summary>

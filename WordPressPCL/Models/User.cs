@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 using WordPressPCL.Utility;
 
 namespace WordPressPCL.Models
@@ -14,7 +14,7 @@ namespace WordPressPCL.Models
         /// Login name for the user.
         /// </summary>
         /// <remarks>Context: edit</remarks>
-        [JsonProperty("username")]
+        [JsonPropertyName("username")]
         public string? UserName { get; set; }
 
         /// <summary>
@@ -23,42 +23,42 @@ namespace WordPressPCL.Models
         /// <remarks>
         /// Context: embed, view, edit
         /// </remarks>
-        [JsonProperty("name")]
+        [JsonPropertyName("name")]
         public string? Name { get; set; }
 
         /// <summary>
         /// First name for the user.
         /// </summary>
         /// <remarks>Context: edit</remarks>
-        [JsonProperty("first_name")]
+        [JsonPropertyName("first_name")]
         public string? FirstName { get; set; }
 
         /// <summary>
         /// Last name for the user.
         /// </summary>
         /// <remarks>Context: edit</remarks>
-        [JsonProperty("last_name")]
+        [JsonPropertyName("last_name")]
         public string? LastName { get; set; }
 
         /// <summary>
         /// The email address for the user.
         /// </summary>
         /// <remarks>Context: edit</remarks>
-        [JsonProperty("email")]
+        [JsonPropertyName("email")]
         public string? Email { get; set; }
 
         /// <summary>
         /// URL of the user.
         /// </summary>
         /// <remarks>Context: embed, view, edit</remarks>
-        [JsonProperty("url")]
+        [JsonPropertyName("url")]
         public string? Url { get; set; }
 
         /// <summary>
         /// Description of the user.
         /// </summary>
         /// <remarks>Context: embed, view, edit</remarks>
-        [JsonProperty("description")]
+        [JsonPropertyName("description")]
         public string? Description { get; set; }
 
         /// <summary>
@@ -68,63 +68,73 @@ namespace WordPressPCL.Models
         /// Read only
         /// Context: embed, view, edit
         /// </remarks>
-        [JsonProperty("link", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        [JsonPropertyName("link")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public string? Link { get; set; }
 
         /// <summary>
         /// Locale for the user.
         /// </summary>
         /// <remarks>Context: edit</remarks>
-        [JsonProperty("locale", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        [JsonPropertyName("locale")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public string? Locale { get; set; }
 
         /// <summary>
         /// The nickname for the user.
         /// </summary>
         /// <remarks>Context: edit</remarks>
-        [JsonProperty("nickname", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        [JsonPropertyName("nickname")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public string? NickName { get; set; }
 
         /// <summary>
         /// An alphanumeric identifier for the user.
         /// </summary>
         /// <remarks>Context: embed, view, edit</remarks>
-        [JsonProperty("slug")]
+        [JsonPropertyName("slug")]
         public string? Slug { get; set; }
 
         /// <summary>
         /// Registration date for the user.
         /// </summary>
         /// <remarks>Context: edit</remarks>
-        [JsonProperty("registered_date", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        [JsonPropertyName("registered_date")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public DateTime RegisteredDate { get; set; }
 
         /// <summary>
         /// Roles assigned to the user.
         /// </summary>
         /// <remarks>Context: edit</remarks>
-        [JsonProperty("roles", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        [JsonPropertyName("roles")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public List<string>? Roles { get; set; }
 
         /// <summary>
         /// Password for the user (never included).
         /// </summary>
         /// <remarks>Context:</remarks>
-        [JsonProperty("password", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        [JsonPropertyName("password")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public string? Password { get; set; }
 
         /// <summary>
         /// All capabilities assigned to the user.
         /// </summary>
         /// <remarks>Context: edit</remarks>
-        [JsonProperty("capabilities", DefaultValueHandling = DefaultValueHandling.Ignore, ItemConverterType = typeof(CustomCapabilitiesJsonConverter))]
+        [JsonPropertyName("capabilities")]
+        [JsonConverter(typeof(CapabilitiesDictionaryConverter))]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public IDictionary<string, bool>? Capabilities { get; set; }
 
         /// <summary>
         /// Any extra capabilities assigned to the user.
         /// </summary>
         /// <remarks>Context: edit</remarks>
-        [JsonProperty("extra_capabilities", DefaultValueHandling = DefaultValueHandling.Ignore, ItemConverterType = typeof(CustomCapabilitiesJsonConverter))]
+        [JsonPropertyName("extra_capabilities")]
+        [JsonConverter(typeof(CapabilitiesDictionaryConverter))]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public IDictionary<string, bool>? ExtraCapabilities { get; set; }
 
         /// <summary>
@@ -134,20 +144,23 @@ namespace WordPressPCL.Models
         /// Read only
         /// Context: embed, view, edit
         /// </remarks>
-        [JsonProperty("avatar_urls", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        [JsonPropertyName("avatar_urls")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public AvatarURL? AvatarUrls { get; set; }
 
         /// <summary>
         /// Meta fields.
         /// </summary>
         /// <remarks>Context: view, edit</remarks>
-        [JsonProperty("meta", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        [JsonPropertyName("meta")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public dynamic? Meta { get; set; }
 
         /// <summary>
         /// Links to related resources
         /// </summary>
-        [JsonProperty("_links", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        [JsonPropertyName("_links")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public Links? Links { get; set; }
 
         /// <summary>

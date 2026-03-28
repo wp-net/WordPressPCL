@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+using System.Text.Json.Serialization;
+
 
 namespace WordPressPCL.Models
 {
@@ -14,20 +15,21 @@ namespace WordPressPCL.Models
         /// Read only
         /// Context: view, edit
         /// </remarks>
-        [JsonProperty("count")]
+        [JsonPropertyName("count")]
         public int Count { get; set; }
 
         /// <summary>
         /// HTML description of the term.
         /// </summary>
         /// <remarks>Context: view, edit</remarks>
-        [JsonProperty("description")]
+        [JsonPropertyName("description")]
         public string? Description { get; set; }
         /// <summary>
         /// Meta object
         /// </summary>
         /// <remarks>Context: view</remarks>
-        [JsonProperty("meta", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        [JsonPropertyName("meta")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public dynamic? Meta { get; set; }
         /// <summary>
         /// Parameterless constructor

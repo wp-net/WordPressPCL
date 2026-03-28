@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
 using WordPressPCL.Models;
 using WordPressPCL.Utility;
 
@@ -39,7 +39,7 @@ namespace WordPressPCL.Client
         public async Task<Plugin> InstallAsync(Plugin Plugin)
         {
 
-            using StringContent postBody = new StringContent(JsonConvert.SerializeObject(new { slug = Plugin.Id }), Encoding.UTF8, "application/json");
+            using StringContent postBody = new StringContent(JsonSerializer.Serialize(new { slug = Plugin.Id }), Encoding.UTF8, "application/json");
             (Plugin plugin, HttpResponseMessage _) = await _httpHelper.PostRequestAsync<Plugin>("plugins", postBody).ConfigureAwait(false);
             return plugin;
 
@@ -53,7 +53,7 @@ namespace WordPressPCL.Client
         public async Task<Plugin> InstallAsync(string Id)
         {
 
-            using StringContent postBody = new StringContent(JsonConvert.SerializeObject(new { slug = Id }), Encoding.UTF8, "application/json");
+            using StringContent postBody = new StringContent(JsonSerializer.Serialize(new { slug = Id }), Encoding.UTF8, "application/json");
             (Plugin plugin, HttpResponseMessage _) = await _httpHelper.PostRequestAsync<Plugin>("plugins", postBody).ConfigureAwait(false);
             return plugin;
         }
@@ -65,7 +65,7 @@ namespace WordPressPCL.Client
         /// <returns></returns>
         public async Task<Plugin> ActivateAsync(Plugin Plugin)
         {
-            using StringContent postBody = new StringContent(JsonConvert.SerializeObject(new { status = "active" }), Encoding.UTF8, "application/json");
+            using StringContent postBody = new StringContent(JsonSerializer.Serialize(new { status = "active" }), Encoding.UTF8, "application/json");
             (Plugin plugin, HttpResponseMessage _) = await _httpHelper.PostRequestAsync<Plugin>($"plugins/{Plugin.PluginFile}", postBody).ConfigureAwait(false);
             return plugin;
         }
@@ -78,7 +78,7 @@ namespace WordPressPCL.Client
         public async Task<Plugin> DeactivateAsync(Plugin Plugin)
         {
 
-            using StringContent postBody = new(JsonConvert.SerializeObject(new { status = "inactive" }), Encoding.UTF8, "application/json");
+            using StringContent postBody = new(JsonSerializer.Serialize(new { status = "inactive" }), Encoding.UTF8, "application/json");
             (Plugin plugin, HttpResponseMessage _) = await _httpHelper.PostRequestAsync<Plugin>($"plugins/{Plugin.PluginFile}", postBody).ConfigureAwait(false);
             return plugin;
         }
