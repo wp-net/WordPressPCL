@@ -55,10 +55,6 @@ public class HttpHelper
     /// Serialization/deserialization options for <see cref="System.Text.Json.JsonSerializer"/>.
     /// </summary>
     public JsonSerializerOptions JsonSerializerOptions { get; set; }
-    /// <summary>
-    /// Headers returns by WP and http server from last response
-    /// </summary>
-    public HttpResponseHeaders? LastResponseHeaders { get; set; }
 
     /// <summary>
     /// Constructor
@@ -120,7 +116,6 @@ public class HttpHelper
 
         using (response)
         {
-            LastResponseHeaders = response.Headers;
             string responseString = await response.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
             if (response.IsSuccessStatusCode)
             {
@@ -181,7 +176,6 @@ public class HttpHelper
             response = await _httpClient.SendAsync(requestMessage, cancellationToken).ConfigureAwait(false);
         }
 
-        LastResponseHeaders = response.Headers;
         string responseString = await response.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
         if (response.IsSuccessStatusCode)
         {
@@ -208,7 +202,6 @@ public class HttpHelper
             response = await _httpClient.SendAsync(requestMessage, cancellationToken).ConfigureAwait(false);
         }
 
-        LastResponseHeaders = response.Headers;
         string responseString = await response.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
         if (response.IsSuccessStatusCode)
         {
@@ -230,7 +223,6 @@ public class HttpHelper
             response = await _httpClient.SendAsync(requestMessage, cancellationToken).ConfigureAwait(false);
         }
 
-        LastResponseHeaders = response.Headers;
         if (response.IsSuccessStatusCode)
         {
             return response.Headers;

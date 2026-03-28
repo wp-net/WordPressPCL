@@ -4257,11 +4257,6 @@
             Serialization/deserialization options for <see cref="T:System.Text.Json.JsonSerializer"/>.
             </summary>
         </member>
-        <member name="P:WordPressPCL.Utility.HttpHelper.LastResponseHeaders">
-            <summary>
-            Headers returns by WP and http server from last response
-            </summary>
-        </member>
         <member name="M:WordPressPCL.Utility.HttpHelper.#ctor(System.Uri,System.String)">
             <summary>
             Constructor
