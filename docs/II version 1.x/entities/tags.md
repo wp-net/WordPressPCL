@@ -6,39 +6,39 @@ Here is a list of methods and examples of working with Tags
 
 ```C#
 // returns all tags
-var tags = await client.Tags.GetAll();
+List<Tag> tags = await client.Tags.GetAll();
 ```
 
 ## GetByID
 
 ```C#
 // returns tag by ID
-var tag = await client.Tags.GetByID(123);
+Tag tag = await client.Tags.GetByID(123);
 ```
 
 ## Query
 Create parametrized request
 ```C#
 // returns result of query
-var queryBuilder = new TagsQueryBuilder();
+TagsQueryBuilder queryBuilder = new TagsQueryBuilder();
 queryBuilder.PerPage = 40;
 queryBuilder.Page = 2;
 queryBuilder.Before = DateTime.Now;
-var tags = await client.Tags.Query(queryBuilder);
+List<Tag> tags = await client.Tags.Query(queryBuilder);
 ```
 
 ## Create new Tag
 
 ```C#
 // returns created tag
-var tag = new Tag()
+Tag tag = new Tag()
 {
     Name = "Name",
     Description = "Tag"
 };
 if (await client.IsValidJWToken())
 {
-    var createdtag = await client.Tags.Create(tag);
+    Tag createdtag = await client.Tags.Create(tag);
 }
 ```
 
@@ -46,11 +46,11 @@ if (await client.IsValidJWToken())
 
 ```C#
 // returns updated tag
-var tag = client.Tags.GetByID(123);
+Tag tag = client.Tags.GetByID(123);
 tag.Name = "New Name";
 if (await client.IsValidJWToken())
 {
-    var updatedTag = await client.Tags.Update(tag);
+    Tag updatedTag = await client.Tags.Update(tag);
 }
 ```
 
@@ -60,6 +60,6 @@ if (await client.IsValidJWToken())
 // returns result of deletion
 if (await client.IsValidJWToken())
 {
-    var result = await client.Tags.Delete(123);
+    bool result = await client.Tags.Delete(123);
 }
 ```

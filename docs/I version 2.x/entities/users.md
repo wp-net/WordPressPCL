@@ -6,35 +6,35 @@ Here is a list of methods and examples of working with Users
 
 ```C#
 // execute request users without credentials - returns only you
-var users = await client.Users.GetAllAsync();
+List<User> users = await client.Users.GetAllAsync();
 
 // send credentials - list of all users
-var users = await client.Users.GetAllAsync(useAuth:true);
+List<User> users = await client.Users.GetAllAsync(useAuth:true);
 ```
 
 ## Get By ID
 
 ```C#
 // returns user by ID
-var user = await client.Users.GetByIdAsync(123);
+User user = await client.Users.GetByIdAsync(123);
 ```
 
 ## Get Current User
 
 ```C#
 // returns current user
-var user = await client.Users.GetCurrentUserAsync();
+User user = await client.Users.GetCurrentUserAsync();
 ```
 
 ## Query
 Create parametrized request
 ```C#
 // returns result of query
-var queryBuilder = new UsersQueryBuilder();
+UsersQueryBuilder queryBuilder = new UsersQueryBuilder();
 queryBuilder.PerPage = 40;
 queryBuilder.Page = 2;
 queryBuilder.Before = DateTime.Now;
-var users = await client.Users.QueryAsync(queryBuilder);
+List<User> users = await client.Users.QueryAsync(queryBuilder);
 ```
 
 ## Query with Roles
@@ -53,13 +53,13 @@ List<User> users = await _clientAuth.Users.QueryAsync(queryBuilder, true);
 
 ```C#
 // returns created user
-var user = new User("username","email","password")
+User user = new User("username","email","password")
 {
     NickName= "nickname"
 };
 if (await client.IsValidJWTokenAsync())
 {
-    var user = await client.Users.CreateAsync(user);
+    User createdUser = await client.Users.CreateAsync(user);
 }
 ```
 
@@ -67,11 +67,11 @@ if (await client.IsValidJWTokenAsync())
 
 ```C#
 // returns updated user
-var user = await client.Users.GetByIdAsync(123);
+User user = await client.Users.GetByIdAsync(123);
 user.Name = "New Name";
 if (await client.IsValidJWTokenAsync())
 {
-    var updatedUser = await client.Users.UpdateAsync(user);
+    User updatedUser = await client.Users.UpdateAsync(user);
 }
 ```
 
@@ -82,7 +82,7 @@ if (await client.IsValidJWTokenAsync())
 if (await client.IsValidJWTokenAsync())
 {
     //second param - user to reassign all content
-    var result = await client.Users.DeleteAsync(123,321);
+    bool result = await client.Users.DeleteAsync(123,321);
 }
 ```
 
@@ -90,8 +90,8 @@ if (await client.IsValidJWTokenAsync())
 
 ```C#
 // Create an application password for the current user
-var password = await client.Users.CreateApplicationPasswordAsync("application-name");
+ApplicationPassword password = await client.Users.CreateApplicationPasswordAsync("application-name");
 
 // Create an application password for a specific user
-var password = await client.Users.CreateApplicationPasswordAsync("application-name", userId: "3");
+ApplicationPassword password = await client.Users.CreateApplicationPasswordAsync("application-name", userId: "3");
 ```

@@ -6,38 +6,38 @@ Here is a list of methods and examples of working with Posts
 
 ```csharp
 // returns all posts
-var posts = await client.Posts.GetAllAsync();```
+List<Post> posts = await client.Posts.GetAllAsync();```
 
 ## Get By ID
 
 ```csharp
 // returns post by ID
-var post = await client.Posts.GetByIdAsync(123);
+Post post = await client.Posts.GetByIdAsync(123);
 ```
 
 ## Query
 Create parametrized request
 ```csharp
 // returns result of query
-var queryBuilder = new PostsQueryBuilder();
+PostsQueryBuilder queryBuilder = new PostsQueryBuilder();
 queryBuilder.PerPage = 40;
 queryBuilder.Page = 2;
 queryBuilder.Categories = new int[]{1,2,3};
-var posts = await client.Posts.QueryAsync(queryBuilder);
+List<Post> posts = await client.Posts.QueryAsync(queryBuilder);
 ```
 
 ## Create new Post
 
 ```csharp
 // returns created post
-var post = new Post()
+Post post = new Post()
 {
     Title = new Title("Title 1"),
     Content = new Content("Content PostCreate")
 };
 if (await client.IsValidJWTokenAsync())
 {
-    var createdPost = await client.Posts.CreateAsync(post);
+    Post createdPost = await client.Posts.CreateAsync(post);
 }
 ```
 
@@ -45,18 +45,18 @@ if (await client.IsValidJWTokenAsync())
 
 ```csharp
 // returns updated post
-var post = await client.Posts.GetByIdAsync(123);
+Post post = await client.Posts.GetByIdAsync(123);
 post.Content.Raw = "New Content";
 if (await client.IsValidJWTokenAsync())
 {
-    var updatedPost = await client.Posts.UpdateAsync(post);
+    Post updatedPost = await client.Posts.UpdateAsync(post);
 }
 ```
 
 ## Update Custom Fields
 
 ```csharp
-var post = new Post
+Post post = new Post
 {
     Id = 123,
     Meta = new Dictionary<string, string>
@@ -84,7 +84,7 @@ register_post_meta('post', 'my-custom-key', [
 // returns result of deletion
 if (await client.IsValidJWTokenAsync())
 {
-    var result = await client.Posts.DeleteAsync(123);
+    bool result = await client.Posts.DeleteAsync(123);
 }
 ```
 
@@ -92,5 +92,5 @@ if (await client.IsValidJWTokenAsync())
 
 ```csharp
 // returns revisions of post
-var revisions = await client.Posts.RevisionsAsync(123);
+PostRevisions revisions = client.Posts.Revisions(123);
 ```

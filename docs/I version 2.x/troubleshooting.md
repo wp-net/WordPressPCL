@@ -11,7 +11,7 @@ Example:
 try
 {
    //create empty post is not allowed
-   var post = await client.Posts.CreateAsync(new Post());   
+   Post post = await client.Posts.CreateAsync(new Post());   
 }
 catch (WPException wpex)
 {

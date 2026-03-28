@@ -6,39 +6,39 @@ Here is a list of methods and examples of working with Tags
 
 ```C#
 // returns all tags
-var tags = await client.Tags.GetAllAsync();
+List<Tag> tags = await client.Tags.GetAllAsync();
 ```
 
 ## Get By ID
 
 ```C#
 // returns tag by ID
-var tag = await client.Tags.GetByIdAsync(123);
+Tag tag = await client.Tags.GetByIdAsync(123);
 ```
 
 ## Query
 Create parametrized request
 ```C#
 // returns result of query
-var queryBuilder = new TagsQueryBuilder();
+TagsQueryBuilder queryBuilder = new TagsQueryBuilder();
 queryBuilder.PerPage = 40;
 queryBuilder.Page = 2;
 queryBuilder.Before = DateTime.Now;
-var tags = await client.Tags.QueryAsync(queryBuilder);
+List<Tag> tags = await client.Tags.QueryAsync(queryBuilder);
 ```
 
 ## Create new Tag
 
 ```C#
 // returns created tag
-var tag = new Tag()
+Tag tag = new Tag()
 {
     Name = "Name",
     Description = "Tag"
 };
 if (await client.IsValidJWTokenAsync())
 {
-    var createdtag = await client.Tags.CreateAsync(tag);
+    Tag createdtag = await client.Tags.CreateAsync(tag);
 }
 ```
 
@@ -46,11 +46,11 @@ if (await client.IsValidJWTokenAsync())
 
 ```C#
 // returns updated tag
-var tag = await client.Tags.GetByIdAsync(123);
+Tag tag = await client.Tags.GetByIdAsync(123);
 tag.Name = "New Name";
 if (await client.IsValidJWTokenAsync())
 {
-    var updatedTag = await client.Tags.UpdateAsync(tag);
+    Tag updatedTag = await client.Tags.UpdateAsync(tag);
 }
 ```
 
@@ -60,6 +60,6 @@ if (await client.IsValidJWTokenAsync())
 // returns result of deletion
 if (await client.IsValidJWTokenAsync())
 {
-    var result = await client.Tags.DeleteAsync(123);
+    bool result = await client.Tags.DeleteAsync(123);
 }
 ```

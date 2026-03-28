@@ -20,22 +20,22 @@ public class ContactFormItem
 
 ## Get
 ```C#
-var forms = client.CustomRequest.Get<IEnumerable<ContactFormItem>>("contact-form-7/v1/contact-forms");
+IEnumerable<ContactFormItem> forms = client.CustomRequest.Get<IEnumerable<ContactFormItem>>("contact-form-7/v1/contact-forms");
 ```
 
 ## Create
 ```C#
 //requires two T parameters: first - input model, second - output model
-var forms = client.CustomRequest.Create<ContactFormItem,ContactFormItem>("contact-form-7/v1/contact-forms",new ContactFormItem() { title = "test" });
+ContactFormItem forms = client.CustomRequest.Create<ContactFormItem,ContactFormItem>("contact-form-7/v1/contact-forms",new ContactFormItem() { title = "test" });
 ```
 
 ## Update
 ```C#
 //requires two T parameters: first - input model, second - output model
-var forms = client.CustomRequest.Update<ContactFormItem,ContactFormItem>("contact-form-7/v1/contact-forms/123",new ContactFormItem() { title = "test" });
+ContactFormItem forms = client.CustomRequest.Update<ContactFormItem,ContactFormItem>("contact-form-7/v1/contact-forms/123",new ContactFormItem() { title = "test" });
 ```
 
 ## Delete
 ```C#
-var forms = client.CustomRequest.Delete("contact-form-7/v1/contact-forms/123");
+bool forms = client.CustomRequest.Delete("contact-form-7/v1/contact-forms/123");
 ```
