@@ -172,7 +172,7 @@ public class User_Tests
     [TestMethod]
     public async Task Users_GetPaged_Returns_Metadata()
     {
-        PagedResult<User> paged = await _clientAuth.Users.GetPagedAsync(page: 1, perPage: 5, useAuth: true, TestContext.CancellationToken);
+        PagedResult<User> paged = await _clientAuth.Users.GetPagedAsync(page: 1, perPage: 5, useAuth: true, cancellationToken: TestContext.CancellationToken);
 
         Assert.IsNotNull(paged);
         Assert.IsNotNull(paged.Items);

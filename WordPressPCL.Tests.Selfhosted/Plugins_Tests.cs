@@ -1,8 +1,8 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using WordPressPCL.Models;
 using WordPressPCL.Models.Exceptions;
 using WordPressPCL.Tests.Selfhosted.Utility;
@@ -52,9 +52,9 @@ public class Plugins_Tests
         Assert.AreEqual(plugin.Id, deactivatedPlugin.Id);
 
         //Delete plugin
-        bool response = await _clientAuth.Plugins.DeleteAsync(plugin, TestContext.CancellationToken);
+        bool response = await _clientAuth.Plugins.DeleteAsync(plugin, cancellationToken: TestContext.CancellationToken);
         Assert.IsTrue(response);
-        List<Plugin> plugins = await _clientAuth.Plugins.GetAllAsync(useAuth: true, TestContext.CancellationToken);
+        List<Plugin> plugins = await _clientAuth.Plugins.GetAllAsync(useAuth: true, cancellationToken: TestContext.CancellationToken);
         List<Plugin> c = plugins.Where(x => x.Id == plugin.Id).ToList();
         Assert.IsEmpty(c);
     }
@@ -81,7 +81,7 @@ public class Plugins_Tests
     [TestMethod]
     public async Task Plugins_Get()
     {
-        List<Plugin> plugins = await _clientAuth.Plugins.GetAsync(useAuth: true, TestContext.CancellationToken);
+        List<Plugin> plugins = await _clientAuth.Plugins.GetAsync(useAuth: true, cancellationToken: TestContext.CancellationToken);
         Assert.IsNotNull(plugins);
         Assert.AreNotEqual(0, plugins.Count);
         CollectionAssert.AllItemsAreUnique(plugins.Select(tag => tag.Id).ToList());
@@ -90,7 +90,7 @@ public class Plugins_Tests
     [TestMethod]
     public async Task Plugins_GetByIdAsync()
     {
-        Plugin plugin = await _clientAuth.Plugins.GetByIdAsync("jwt-auth/jwt-auth", useAuth: true, TestContext.CancellationToken);
+        Plugin plugin = await _clientAuth.Plugins.GetByIdAsync("jwt-auth/jwt-auth", useAuth: true, cancellationToken: TestContext.CancellationToken);
         Assert.IsNotNull(plugin);
     }
 
