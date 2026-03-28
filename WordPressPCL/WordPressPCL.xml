@@ -48,22 +48,24 @@
             <param name="username">Username for Basic Authentication</param>
             <param name="applicationPassword">Application Password for Basic Authentication</param>
         </member>
-        <member name="M:WordPressPCL.Client.Auth.RequestJWTokenAsync(System.String,System.String)">
+        <member name="M:WordPressPCL.Client.Auth.RequestJWTokenAsync(System.String,System.String,System.Threading.CancellationToken)">
             <summary>
             Perform authentication by JWToken
             </summary>
             <param name="username">username</param>
             <param name="password">password</param>
+            <param name="cancellationToken">Cancellation token</param>
         </member>
         <member name="M:WordPressPCL.Client.Auth.Logout">
             <summary>
             Forget the JWT Auth Token, won't invalidate it serverside though
             </summary>
         </member>
-        <member name="M:WordPressPCL.Client.Auth.IsValidJWTokenAsync">
+        <member name="M:WordPressPCL.Client.Auth.IsValidJWTokenAsync(System.Threading.CancellationToken)">
             <summary>
             Check if token is valid
             </summary>
+            <param name="cancellationToken">Cancellation token</param>
             <returns>Result of checking</returns>
         </member>
         <member name="M:WordPressPCL.Client.Auth.RemoveEmptyData(System.String)">
@@ -107,37 +109,41 @@
             </summary>
             <param name="HttpHelper">reference to HttpHelper class for interaction with HTTP</param>
         </member>
-        <member name="M:WordPressPCL.Client.Comments.GetCommentsForPostAsync(System.Int32,System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.Comments.GetCommentsForPostAsync(System.Int32,System.Boolean,System.Boolean,System.Threading.CancellationToken)">
             <summary>
             Get comments for Post
             </summary>
             <param name="PostID">Post id</param>
             <param name="embed">include embed info</param>
             <param name="useAuth">Send request with authentication header</param>
+            <param name="cancellationToken">Cancellation token</param>
             <returns>List of comments for post</returns>
         </member>
-        <member name="M:WordPressPCL.Client.Comments.GetAllCommentsForPostAsync(System.Int32,System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.Comments.GetAllCommentsForPostAsync(System.Int32,System.Boolean,System.Boolean,System.Threading.CancellationToken)">
             <summary>
             Get all comments for Post
             </summary>
             <param name="PostID">Post id</param>
             <param name="embed">include embed info</param>
             <param name="useAuth">Send request with authentication header</param>
+            <param name="cancellationToken">Cancellation token</param>
             <returns>List of comments for post</returns>
         </member>
-        <member name="M:WordPressPCL.Client.Comments.DeleteAsync(System.Int32,System.Boolean)">
+        <member name="M:WordPressPCL.Client.Comments.DeleteAsync(System.Int32,System.Boolean,System.Threading.CancellationToken)">
             <summary>
             Force deletion of comments
             </summary>
             <param name="ID">Comment Id</param>
             <param name="force">force deletion</param>
+            <param name="cancellationToken">Cancellation token</param>
             <returns>Result of operation</returns>
         </member>
-        <member name="M:WordPressPCL.Client.Comments.UpdateAsync(WordPressPCL.Models.Comment)">
+        <member name="M:WordPressPCL.Client.Comments.UpdateAsync(WordPressPCL.Models.Comment,System.Threading.CancellationToken)">
             <summary>
             Update Comment
             </summary>
             <param name="Entity">Comment object</param>
+            <param name="cancellationToken">Cancellation token</param>
             <returns>Updated comment</returns>
         </member>
         <member name="T:WordPressPCL.Client.CRUDOperation`2">
@@ -175,58 +181,65 @@
             <param name="methodPath">path to endpoint, EX. posts</param>
             <param name="forceDeletion">is objects must be force deleted</param>
         </member>
-        <member name="M:WordPressPCL.Client.CRUDOperation`2.CreateAsync(`0)">
+        <member name="M:WordPressPCL.Client.CRUDOperation`2.CreateAsync(`0,System.Threading.CancellationToken)">
             <summary>
             Create Entity
             </summary>
             <param name="Entity">Entity object</param>
+            <param name="cancellationToken">Cancellation token</param>
             <returns>Created object</returns>
         </member>
-        <member name="M:WordPressPCL.Client.CRUDOperation`2.DeleteAsync(System.Int32)">
+        <member name="M:WordPressPCL.Client.CRUDOperation`2.DeleteAsync(System.Int32,System.Threading.CancellationToken)">
             <summary>
             Delete Entity
             </summary>
             <param name="Id">Entity Id</param>
+            <param name="cancellationToken">Cancellation token</param>
             <returns>Result of operation</returns>
         </member>
-        <member name="M:WordPressPCL.Client.CRUDOperation`2.GetAsync(System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.CRUDOperation`2.GetAsync(System.Boolean,System.Boolean,System.Threading.CancellationToken)">
             <summary>
             Get latest
             </summary>
             <param name="embed">include embed info</param>
             <param name="useAuth">Send request with authentication header</param>
+            <param name="cancellationToken">Cancellation token</param>
             <returns>Entity by Id</returns>
         </member>
-        <member name="M:WordPressPCL.Client.CRUDOperation`2.GetAllAsync(System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.CRUDOperation`2.GetAllAsync(System.Boolean,System.Boolean,System.Threading.CancellationToken)">
             <summary>
             Get All
             </summary>
             <param name="embed">Include embed info</param>
             <param name="useAuth">Send request with authentication header</param>
+            <param name="cancellationToken">Cancellation token</param>
             <returns>List of all result</returns>
         </member>
-        <member name="M:WordPressPCL.Client.CRUDOperation`2.GetByIdAsync(System.Object,System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.CRUDOperation`2.GetByIdAsync(System.Object,System.Boolean,System.Boolean,System.Threading.CancellationToken)">
             <summary>
             Get Entity by Id
             </summary>
             <param name="id">ID</param>
             <param name="embed">include embed info</param>
             <param name="useAuth">Send request with authentication header</param>
+            <param name="cancellationToken">Cancellation token</param>
             <returns>Entity by Id</returns>
         </member>
-        <member name="M:WordPressPCL.Client.CRUDOperation`2.QueryAsync(`1,System.Boolean)">
+        <member name="M:WordPressPCL.Client.CRUDOperation`2.QueryAsync(`1,System.Boolean,System.Threading.CancellationToken)">
             <summary>
             Create a parametrized query and get a result
             </summary>
             <param name="queryBuilder">Query builder with specific parameters</param>
             <param name="useAuth">Send request with authentication header</param>
+            <param name="cancellationToken">Cancellation token</param>
             <returns>List of filtered result</returns>
         </member>
-        <member name="M:WordPressPCL.Client.CRUDOperation`2.UpdateAsync(`0)">
+        <member name="M:WordPressPCL.Client.CRUDOperation`2.UpdateAsync(`0,System.Threading.CancellationToken)">
             <summary>
             Update Entity
             </summary>
             <param name="Entity">Entity object</param>
+            <param name="cancellationToken">Cancellation token</param>
             <returns>Updated object</returns>
         </member>
         <member name="T:WordPressPCL.Client.CustomRequest">
@@ -240,7 +253,7 @@
             </summary>
             <param name="httpHelper">HttpHelper class to operate with Http methods</param>
         </member>
-        <member name="M:WordPressPCL.Client.CustomRequest.CreateAsync``2(System.String,``0,System.Boolean)">
+        <member name="M:WordPressPCL.Client.CustomRequest.CreateAsync``2(System.String,``0,System.Boolean,System.Threading.CancellationToken)">
             <summary>
             Create object
             </summary>
@@ -249,17 +262,19 @@
             <param name="route">path to exec request</param>
             <param name="Entity">object for creation</param>
             <param name="ignoreDefaultPath">request should prepend default path to route, defaults to true</param>
+            <param name="cancellationToken">Cancellation token</param>
             <returns>Created object</returns>
         </member>
-        <member name="M:WordPressPCL.Client.CustomRequest.DeleteAsync(System.String,System.Boolean)">
+        <member name="M:WordPressPCL.Client.CustomRequest.DeleteAsync(System.String,System.Boolean,System.Threading.CancellationToken)">
             <summary>
             Delete object
             </summary>
             <param name="route">path to exec delete request</param>
             <param name="ignoreDefaultPath">request should prepend default path to route, defaults to true</param>
+            <param name="cancellationToken">Cancellation token</param>
             <returns>Result of deletion</returns>
         </member>
-        <member name="M:WordPressPCL.Client.CustomRequest.GetAsync``1(System.String,System.Boolean,System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.CustomRequest.GetAsync``1(System.String,System.Boolean,System.Boolean,System.Boolean,System.Threading.CancellationToken)">
             <summary>
             Get object/s
             </summary>
@@ -268,9 +283,10 @@
             <param name="embed">is get embed params</param>
             <param name="useAuth">i use auth</param>
             <param name="ignoreDefaultPath">request should prepend default path to route, defaults to true</param>
+            <param name="cancellationToken">Cancellation token</param>
             <returns>List of objects</returns>
         </member>
-        <member name="M:WordPressPCL.Client.CustomRequest.UpdateAsync``2(System.String,``0,System.Boolean)">
+        <member name="M:WordPressPCL.Client.CustomRequest.UpdateAsync``2(System.String,``0,System.Boolean,System.Threading.CancellationToken)">
             <summary>
             Update object
             </summary>
@@ -279,6 +295,7 @@
             <param name="route">path to exec request</param>
             <param name="Entity">object for update</param>
             <param name="ignoreDefaultPath">request should prepend default path to route, defaults to true</param>
+            <param name="cancellationToken">Cancellation token</param>
             <returns>Updated object</returns>
         </member>
         <member name="T:WordPressPCL.Client.Media">
@@ -292,69 +309,77 @@
             </summary>
             <param name="HttpHelper">reference to HttpHelper class for interaction with HTTP</param>
         </member>
-        <member name="M:WordPressPCL.Client.Media.CreateAsync(System.IO.Stream,System.String,System.String)">
+        <member name="M:WordPressPCL.Client.Media.CreateAsync(System.IO.Stream,System.String,System.String,System.Threading.CancellationToken)">
             <summary>
             Create Media entity with attachment
             </summary>
             <param name="fileStream">stream with file content</param>
             <param name="filename">Name of file in WP Media Library</param>
             <param name="mimeType">Override for automatic mime type detection</param>
+            <param name="cancellationToken">Cancellation token</param>
             <returns>Created media object</returns>
         </member>
-        <member name="M:WordPressPCL.Client.Media.CreateAsync(System.String,System.String,System.String)">
+        <member name="M:WordPressPCL.Client.Media.CreateAsync(System.String,System.String,System.String,System.Threading.CancellationToken)">
             <summary>
             Create Media entity with attachment
             </summary>
             <param name="filePath">Local Path to file</param>
             <param name="filename">Name of file in WP Media Library</param>
-            <returns>Created media object</returns>
             <param name="mimeType">Override for automatic mime type detection</param>
+            <param name="cancellationToken">Cancellation token</param>
+            <returns>Created media object</returns>
         </member>
-        <member name="M:WordPressPCL.Client.Media.DeleteAsync(System.Int32)">
+        <member name="M:WordPressPCL.Client.Media.DeleteAsync(System.Int32,System.Threading.CancellationToken)">
             <summary>
             Delete Entity
             </summary>
             <param name="ID">Entity Id</param>
+            <param name="cancellationToken">Cancellation token</param>
             <returns>Result of operation</returns>
         </member>
-        <member name="M:WordPressPCL.Client.Media.GetAsync(System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.Media.GetAsync(System.Boolean,System.Boolean,System.Threading.CancellationToken)">
             <summary>
             Get latest
             </summary>
             <param name="embed">include embed info</param>
             <param name="useAuth">Send request with authentication header</param>
+            <param name="cancellationToken">Cancellation token</param>
             <returns>Latest media items</returns>
         </member>
-        <member name="M:WordPressPCL.Client.Media.GetAllAsync(System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.Media.GetAllAsync(System.Boolean,System.Boolean,System.Threading.CancellationToken)">
             <summary>
             Get All
             </summary>
             <param name="embed">Include embed info</param>
             <param name="useAuth">Send request with authentication header</param>
+            <param name="cancellationToken">Cancellation token</param>
             <returns>List of all result</returns>
         </member>
-        <member name="M:WordPressPCL.Client.Media.GetByIdAsync(System.Object,System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.Media.GetByIdAsync(System.Object,System.Boolean,System.Boolean,System.Threading.CancellationToken)">
             <summary>
             Get Entity by Id
             </summary>
             <param name="id">ID</param>
             <param name="embed">include embed info</param>
             <param name="useAuth">Send request with authentication header</param>
+            <param name="cancellationToken">Cancellation token</param>
             <returns>Entity by Id</returns>
         </member>
-        <member name="M:WordPressPCL.Client.Media.QueryAsync(WordPressPCL.Utility.MediaQueryBuilder,System.Boolean)">
+        <member name="M:WordPressPCL.Client.Media.QueryAsync(WordPressPCL.Utility.MediaQueryBuilder,System.Boolean,System.Threading.CancellationToken)">
             <summary>
             Create a parametrized query and get a result
             </summary>
             <param name="queryBuilder">Query builder with specific parameters</param>
             <param name="useAuth">Send request with authentication header</param>
+            <param name="cancellationToken">Cancellation token</param>
             <returns>List of filtered result</returns>
         </member>
-        <member name="M:WordPressPCL.Client.Media.UpdateAsync(WordPressPCL.Models.MediaItem)">
+        <member name="M:WordPressPCL.Client.Media.UpdateAsync(WordPressPCL.Models.MediaItem,System.Threading.CancellationToken)">
             <summary>
             Update Entity
             </summary>
             <param name="Entity">Entity object</param>
+            <param name="cancellationToken">Cancellation token</param>
             <returns>Updated object</returns>
         </member>
         <member name="T:WordPressPCL.Client.Pages">
@@ -407,55 +432,62 @@
             </summary>
             <param name="HttpHelper">reference to HttpHelper class for interaction with HTTP</param>
         </member>
-        <member name="M:WordPressPCL.Client.Plugins.InstallAsync(WordPressPCL.Models.Plugin)">
+        <member name="M:WordPressPCL.Client.Plugins.InstallAsync(WordPressPCL.Models.Plugin,System.Threading.CancellationToken)">
             <summary>
             Installs a plugin based on the Plugin
             </summary>
             <param name="Plugin"></param>
+            <param name="cancellationToken">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:WordPressPCL.Client.Plugins.InstallAsync(System.String)">
+        <member name="M:WordPressPCL.Client.Plugins.InstallAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Installs a plugin based on the Id
             </summary>
             <param name="Id"></param>
+            <param name="cancellationToken">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:WordPressPCL.Client.Plugins.ActivateAsync(WordPressPCL.Models.Plugin)">
+        <member name="M:WordPressPCL.Client.Plugins.ActivateAsync(WordPressPCL.Models.Plugin,System.Threading.CancellationToken)">
             <summary>
             Activates an existing plugin
             </summary>
             <param name="Plugin"></param>
+            <param name="cancellationToken">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:WordPressPCL.Client.Plugins.DeactivateAsync(WordPressPCL.Models.Plugin)">
+        <member name="M:WordPressPCL.Client.Plugins.DeactivateAsync(WordPressPCL.Models.Plugin,System.Threading.CancellationToken)">
             <summary>
             Deactivates an existing plugin
             </summary>
             <param name="Plugin"></param>
+            <param name="cancellationToken">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:WordPressPCL.Client.Plugins.GetPluginsBySearchAsync(System.String,System.Boolean)">
+        <member name="M:WordPressPCL.Client.Plugins.GetPluginsBySearchAsync(System.String,System.Boolean,System.Threading.CancellationToken)">
             <summary>
             Get plugins by search term
             </summary>
             <param name="searchTerm">Search term</param>
             <param name="embed">include embed info</param>
+            <param name="cancellationToken">Cancellation token</param>
             <returns>List of posts</returns>
         </member>
-        <member name="M:WordPressPCL.Client.Plugins.GetPluginsByActivationStatusAsync(WordPressPCL.Models.ActivationStatus,System.Boolean)">
+        <member name="M:WordPressPCL.Client.Plugins.GetPluginsByActivationStatusAsync(WordPressPCL.Models.ActivationStatus,System.Boolean,System.Threading.CancellationToken)">
             <summary>
-            Get plugins by search term
+            Get plugins by activation status
             </summary>
             <param name="activationStatus">active or inactive</param>
             <param name="embed">include embed info</param>
+            <param name="cancellationToken">Cancellation token</param>
             <returns>List of posts</returns>
         </member>
-        <member name="M:WordPressPCL.Client.Plugins.DeleteAsync(WordPressPCL.Models.Plugin)">
+        <member name="M:WordPressPCL.Client.Plugins.DeleteAsync(WordPressPCL.Models.Plugin,System.Threading.CancellationToken)">
             <summary>
             Deletes an existing plugin
             </summary>
             <param name="Plugin"></param>
+            <param name="cancellationToken">Cancellation token</param>
             <returns></returns>
         </member>
         <member name="T:WordPressPCL.Client.PostRevisions">
@@ -470,36 +502,40 @@
             <param name="httpHelper">reference to HttpHelper class for interaction with HTTP</param>
             <param name="postId">ID of post</param>
         </member>
-        <member name="M:WordPressPCL.Client.PostRevisions.DeleteAsync(System.Int32)">
+        <member name="M:WordPressPCL.Client.PostRevisions.DeleteAsync(System.Int32,System.Threading.CancellationToken)">
             <summary>
             Delete Entity
             </summary>
             <param name="ID">Entity Id</param>
+            <param name="cancellationToken">Cancellation token</param>
             <returns>Result of operation</returns>
         </member>
-        <member name="M:WordPressPCL.Client.PostRevisions.GetAsync(System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.PostRevisions.GetAsync(System.Boolean,System.Boolean,System.Threading.CancellationToken)">
             <summary>
             Get latest
             </summary>
             <param name="embed">include embed info</param>
             <param name="useAuth">Send request with authentication header</param>
+            <param name="cancellationToken">Cancellation token</param>
             <returns>Latest PostRevisions</returns>
         </member>
-        <member name="M:WordPressPCL.Client.PostRevisions.GetAllAsync(System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.PostRevisions.GetAllAsync(System.Boolean,System.Boolean,System.Threading.CancellationToken)">
             <summary>
             Get All
             </summary>
             <param name="embed">Include embed info</param>
             <param name="useAuth">Send request with authentication header</param>
+            <param name="cancellationToken">Cancellation token</param>
             <returns>List of all result</returns>
         </member>
-        <member name="M:WordPressPCL.Client.PostRevisions.GetByIdAsync(System.Object,System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.PostRevisions.GetByIdAsync(System.Object,System.Boolean,System.Boolean,System.Threading.CancellationToken)">
             <summary>
             Get Entity by Id
             </summary>
             <param name="id">ID</param>
             <param name="embed">include embed info</param>
             <param name="useAuth">Send request with authentication header</param>
+            <param name="cancellationToken">Cancellation token</param>
             <returns>Entity by Id</returns>
         </member>
         <member name="T:WordPressPCL.Client.Posts">
@@ -513,62 +549,69 @@
             </summary>
             <param name="HttpHelper">reference to HttpHelper class for interaction with HTTP</param>
         </member>
-        <member name="M:WordPressPCL.Client.Posts.GetStickyPostsAsync(System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.Posts.GetStickyPostsAsync(System.Boolean,System.Boolean,System.Threading.CancellationToken)">
             <summary>
             Get sticky posts
             </summary>
             <param name="embed">include embed info</param>
             <param name="useAuth">Send request with authentication header</param>
+            <param name="cancellationToken">Cancellation token</param>
             <returns>List of posts</returns>
         </member>
-        <member name="M:WordPressPCL.Client.Posts.GetPostsByCategoryAsync(System.Int32,System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.Posts.GetPostsByCategoryAsync(System.Int32,System.Boolean,System.Boolean,System.Threading.CancellationToken)">
             <summary>
             Get posts by category
             </summary>
             <param name="categoryId">Category Id</param>
             <param name="embed">include embed info</param>
             <param name="useAuth">Send request with authentication header</param>
+            <param name="cancellationToken">Cancellation token</param>
             <returns>List of posts</returns>
         </member>
-        <member name="M:WordPressPCL.Client.Posts.GetPostsByTagAsync(System.Int32,System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.Posts.GetPostsByTagAsync(System.Int32,System.Boolean,System.Boolean,System.Threading.CancellationToken)">
             <summary>
             Get posts by tag
             </summary>
             <param name="tagId">Tag Id</param>
             <param name="embed">include embed info</param>
             <param name="useAuth">Send request with authentication header</param>
+            <param name="cancellationToken">Cancellation token</param>
             <returns>List of posts</returns>
         </member>
-        <member name="M:WordPressPCL.Client.Posts.GetPostsByAuthorAsync(System.Int32,System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.Posts.GetPostsByAuthorAsync(System.Int32,System.Boolean,System.Boolean,System.Threading.CancellationToken)">
             <summary>
             Get posts by its author
             </summary>
             <param name="authorId">Author id</param>
             <param name="embed">include embed info</param>
             <param name="useAuth">Send request with authentication header</param>
+            <param name="cancellationToken">Cancellation token</param>
             <returns>List of posts</returns>
         </member>
-        <member name="M:WordPressPCL.Client.Posts.GetPostsBySearchAsync(System.String,System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.Posts.GetPostsBySearchAsync(System.String,System.Boolean,System.Boolean,System.Threading.CancellationToken)">
             <summary>
             Get posts by search term
             </summary>
             <param name="searchTerm">Search term</param>
             <param name="embed">include embed info</param>
             <param name="useAuth">Send request with authentication header</param>
+            <param name="cancellationToken">Cancellation token</param>
             <returns>List of posts</returns>
         </member>
-        <member name="M:WordPressPCL.Client.Posts.GetCountAsync">
+        <member name="M:WordPressPCL.Client.Posts.GetCountAsync(System.Threading.CancellationToken)">
             <summary>
             Get count of posts
             </summary>
+            <param name="cancellationToken">Cancellation token</param>
             <returns>Result of operation</returns>
         </member>
-        <member name="M:WordPressPCL.Client.Posts.DeleteAsync(System.Int32,System.Boolean)">
+        <member name="M:WordPressPCL.Client.Posts.DeleteAsync(System.Int32,System.Boolean,System.Threading.CancellationToken)">
             <summary>
             Delete post with force deletion
             </summary>
             <param name="Id">Post id</param>
             <param name="force">force deletion</param>
+            <param name="cancellationToken">Cancellation token</param>
             <returns>Result of operation</returns>
         </member>
         <member name="M:WordPressPCL.Client.Posts.Revisions(System.Int32)">
@@ -589,29 +632,32 @@
             </summary>
             <param name="httpHelper">reference to HttpHelper class for interaction with HTTP</param>
         </member>
-        <member name="M:WordPressPCL.Client.PostStatuses.GetAsync(System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.PostStatuses.GetAsync(System.Boolean,System.Boolean,System.Threading.CancellationToken)">
             <summary>
             Get latest Post Statuses
             </summary>
             <param name="embed">include embed info</param>
             <param name="useAuth">Send request with authentication header</param>
+            <param name="cancellationToken">Cancellation token</param>
             <returns>Entity by Id</returns>
         </member>
-        <member name="M:WordPressPCL.Client.PostStatuses.GetAllAsync(System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.PostStatuses.GetAllAsync(System.Boolean,System.Boolean,System.Threading.CancellationToken)">
             <summary>
             Get All
             </summary>
             <param name="embed">Include embed info</param>
             <param name="useAuth">Send request with authentication header</param>
+            <param name="cancellationToken">Cancellation token</param>
             <returns>List of all result</returns>
         </member>
-        <member name="M:WordPressPCL.Client.PostStatuses.GetByIdAsync(System.Object,System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.PostStatuses.GetByIdAsync(System.Object,System.Boolean,System.Boolean,System.Threading.CancellationToken)">
             <summary>
             Get Entity by Id
             </summary>
             <param name="id">ID</param>
             <param name="embed">include embed info</param>
             <param name="useAuth">Send request with authentication header</param>
+            <param name="cancellationToken">Cancellation token</param>
             <returns>Entity by Id</returns>
         </member>
         <member name="T:WordPressPCL.Client.PostTypes">
@@ -625,29 +671,32 @@
             </summary>
             <param name="httpHelper">reference to HttpHelper class for interaction with HTTP</param>
         </member>
-        <member name="M:WordPressPCL.Client.PostTypes.GetAsync(System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.PostTypes.GetAsync(System.Boolean,System.Boolean,System.Threading.CancellationToken)">
             <summary>
             Get latest
             </summary>
             <param name="embed">Include embed info</param>
             <param name="useAuth">Send request with authentication header</param>
+            <param name="cancellationToken">Cancellation token</param>
             <returns>List of latest PostTypes</returns>
         </member>
-        <member name="M:WordPressPCL.Client.PostTypes.GetAllAsync(System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.PostTypes.GetAllAsync(System.Boolean,System.Boolean,System.Threading.CancellationToken)">
             <summary>
             Get All
             </summary>
             <param name="embed">Include embed info</param>
             <param name="useAuth">Send request with authentication header</param>
+            <param name="cancellationToken">Cancellation token</param>
             <returns>List of all PostTypes</returns>
         </member>
-        <member name="M:WordPressPCL.Client.PostTypes.GetByIdAsync(System.Object,System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.PostTypes.GetByIdAsync(System.Object,System.Boolean,System.Boolean,System.Threading.CancellationToken)">
             <summary>
             Get Entity by Id
             </summary>
             <param name="id">ID</param>
             <param name="embed">include embed info</param>
             <param name="useAuth">Send request with authentication header</param>
+            <param name="cancellationToken">Cancellation token</param>
             <returns>Entity by Id</returns>
         </member>
         <member name="T:WordPressPCL.Client.Settings">
@@ -661,17 +710,19 @@
             </summary>
             <param name="httpHelper">reference to HttpHelper class for interaction with HTTP</param>
         </member>
-        <member name="M:WordPressPCL.Client.Settings.GetSettingsAsync">
+        <member name="M:WordPressPCL.Client.Settings.GetSettingsAsync(System.Threading.CancellationToken)">
             <summary>
             Get site settings
             </summary>
+            <param name="cancellationToken">Cancellation token</param>
             <returns>Site settings</returns>
         </member>
-        <member name="M:WordPressPCL.Client.Settings.UpdateSettingsAsync(WordPressPCL.Models.Settings)">
+        <member name="M:WordPressPCL.Client.Settings.UpdateSettingsAsync(WordPressPCL.Models.Settings,System.Threading.CancellationToken)">
             <summary>
             Update site settings
             </summary>
             <param name="settings">Settings object</param>
+            <param name="cancellationToken">Cancellation token</param>
             <returns>Updated settings</returns>
         </member>
         <member name="T:WordPressPCL.Client.Tags">
@@ -696,37 +747,41 @@
             </summary>
             <param name="httpHelper">reference to HttpHelper class for interaction with HTTP</param>
         </member>
-        <member name="M:WordPressPCL.Client.Taxonomies.GetAsync(System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.Taxonomies.GetAsync(System.Boolean,System.Boolean,System.Threading.CancellationToken)">
             <summary>
             Get latest
             </summary>
             <param name="embed">include embed info</param>
             <param name="useAuth">Send request with authentication header</param>
+            <param name="cancellationToken">Cancellation token</param>
             <returns>Get latest taxonomies</returns>
         </member>
-        <member name="M:WordPressPCL.Client.Taxonomies.GetAllAsync(System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.Taxonomies.GetAllAsync(System.Boolean,System.Boolean,System.Threading.CancellationToken)">
             <summary>
             Get All
             </summary>
             <param name="embed">Include embed info</param>
             <param name="useAuth">Send request with authentication header</param>
+            <param name="cancellationToken">Cancellation token</param>
             <returns>List of all result</returns>
         </member>
-        <member name="M:WordPressPCL.Client.Taxonomies.GetByIdAsync(System.Object,System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.Taxonomies.GetByIdAsync(System.Object,System.Boolean,System.Boolean,System.Threading.CancellationToken)">
             <summary>
             Get Entity by Id
             </summary>
             <param name="id">ID</param>
             <param name="embed">include embed info</param>
             <param name="useAuth">Send request with authentication header</param>
+            <param name="cancellationToken">Cancellation token</param>
             <returns>Entity by Id</returns>
         </member>
-        <member name="M:WordPressPCL.Client.Taxonomies.QueryAsync(WordPressPCL.Utility.TaxonomiesQueryBuilder,System.Boolean)">
+        <member name="M:WordPressPCL.Client.Taxonomies.QueryAsync(WordPressPCL.Utility.TaxonomiesQueryBuilder,System.Boolean,System.Threading.CancellationToken)">
             <summary>
             Create a parametrized query and get a result
             </summary>
             <param name="queryBuilder">Query builder with specific parameters</param>
             <param name="useAuth">Send request with authentication header</param>
+            <param name="cancellationToken">Cancellation token</param>
             <returns>List of filtered result</returns>
         </member>
         <member name="T:WordPressPCL.Client.Themes">
@@ -742,12 +797,13 @@
             </summary>
             <param name="HttpHelper">reference to HttpHelper class for interaction with HTTP</param>
         </member>
-        <member name="M:WordPressPCL.Client.Themes.GetThemesByActivationStatusAsync(WordPressPCL.Models.ActivationStatus,System.Boolean)">
+        <member name="M:WordPressPCL.Client.Themes.GetThemesByActivationStatusAsync(WordPressPCL.Models.ActivationStatus,System.Boolean,System.Threading.CancellationToken)">
             <summary>
-            Get themes by search term
+            Get themes by activation status
             </summary>
             <param name="activationStatus">active or inactive</param>
             <param name="embed">include embed info</param>
+            <param name="cancellationToken">Cancellation token</param>
             <returns>List of posts</returns>
         </member>
         <member name="T:WordPressPCL.Client.Users">
@@ -761,88 +817,99 @@
             </summary>
             <param name="HttpHelper">reference to HttpHelper class for interaction with HTTP</param>
         </member>
-        <member name="M:WordPressPCL.Client.Users.CreateAsync(WordPressPCL.Models.User)">
+        <member name="M:WordPressPCL.Client.Users.CreateAsync(WordPressPCL.Models.User,System.Threading.CancellationToken)">
             <summary>
             Create Entity
             </summary>
             <param name="Entity">Entity object</param>
+            <param name="cancellationToken">Cancellation token</param>
             <returns>Created object</returns>
         </member>
-        <member name="M:WordPressPCL.Client.Users.GetAsync(System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.Users.GetAsync(System.Boolean,System.Boolean,System.Threading.CancellationToken)">
             <summary>
             Get latest
             </summary>
             <param name="embed">include embed info</param>
             <param name="useAuth">Send request with authentication header</param>
+            <param name="cancellationToken">Cancellation token</param>
             <returns>Get latest users</returns>
         </member>
-        <member name="M:WordPressPCL.Client.Users.GetAllAsync(System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.Users.GetAllAsync(System.Boolean,System.Boolean,System.Threading.CancellationToken)">
             <summary>
             Get All
             </summary>
             <param name="embed">Include embed info</param>
             <param name="useAuth">Send request with authentication header</param>
+            <param name="cancellationToken">Cancellation token</param>
             <returns>List of all result</returns>
         </member>
-        <member name="M:WordPressPCL.Client.Users.GetByIdAsync(System.Object,System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.Users.GetByIdAsync(System.Object,System.Boolean,System.Boolean,System.Threading.CancellationToken)">
             <summary>
             Get Entity by Id
             </summary>
             <param name="id">ID</param>
             <param name="embed">include embed info</param>
             <param name="useAuth">Send request with authentication header</param>
+            <param name="cancellationToken">Cancellation token</param>
             <returns>Entity by Id</returns>
         </member>
-        <member name="M:WordPressPCL.Client.Users.QueryAsync(WordPressPCL.Utility.UsersQueryBuilder,System.Boolean)">
+        <member name="M:WordPressPCL.Client.Users.QueryAsync(WordPressPCL.Utility.UsersQueryBuilder,System.Boolean,System.Threading.CancellationToken)">
             <summary>
             Create a parametrized query and get a result
             </summary>
             <param name="queryBuilder">Query builder with specific parameters</param>
             <param name="useAuth">Send request with authentication header</param>
+            <param name="cancellationToken">Cancellation token</param>
             <returns>List of filtered result</returns>
         </member>
-        <member name="M:WordPressPCL.Client.Users.UpdateAsync(WordPressPCL.Models.User)">
+        <member name="M:WordPressPCL.Client.Users.UpdateAsync(WordPressPCL.Models.User,System.Threading.CancellationToken)">
             <summary>
             Update Entity
             </summary>
             <param name="Entity">Entity object</param>
+            <param name="cancellationToken">Cancellation token</param>
             <returns>Updated object</returns>
         </member>
-        <member name="M:WordPressPCL.Client.Users.GetCurrentUserAsync">
+        <member name="M:WordPressPCL.Client.Users.GetCurrentUserAsync(System.Threading.CancellationToken)">
             <summary>
             Get current User
             </summary>
+            <param name="cancellationToken">Cancellation token</param>
             <returns>Current User</returns>
         </member>
-        <member name="M:WordPressPCL.Client.Users.Delete(System.Int32,System.Int32)">
+        <member name="M:WordPressPCL.Client.Users.Delete(System.Int32,System.Int32,System.Threading.CancellationToken)">
             <summary>
             Delete user with reassign articles
             </summary>
             <param name="ID">User id for delete</param>
             <param name="ReassignUserID">User id for reassign</param>
+            <param name="cancellationToken">Cancellation token</param>
             <returns>Result of operation</returns>
         </member>
-        <member name="M:WordPressPCL.Client.Users.Delete(System.Int32,WordPressPCL.Models.User)">
+        <member name="M:WordPressPCL.Client.Users.Delete(System.Int32,WordPressPCL.Models.User,System.Threading.CancellationToken)">
             <summary>
             Delete user with reassign articles
             </summary>
             <param name="ID">User id for delete</param>
             <param name="ReassignUser">User object for reassign</param>
+            <param name="cancellationToken">Cancellation token</param>
             <returns>Result of operation</returns>
         </member>
-        <member name="M:WordPressPCL.Client.Users.CreateApplicationPasswordAsync(System.String,System.String)">
+        <member name="M:WordPressPCL.Client.Users.CreateApplicationPasswordAsync(System.String,System.String,System.Threading.CancellationToken)">
             <summary>
             Create a new Application Password
             </summary>
             <param name="applicationName">User-defined name for application</param>
             <param name="userId">User ID, defaults to "me"</param>
+            <param name="cancellationToken">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:WordPressPCL.Client.Users.GetApplicationPasswords(System.String)">
+        <member name="M:WordPressPCL.Client.Users.GetApplicationPasswords(System.String,System.Threading.CancellationToken)">
             <summary>
             Get Application Passwords for specified user
             </summary>
             <param name="userId">User ID, defaults to "me"</param>
+            <param name="cancellationToken">Cancellation token</param>
             <returns>List of registered Application Passwords (without the actual password)</returns>
         </member>
         <member name="T:WordPressPCL.Interfaces.ICountOperation">
@@ -850,10 +917,11 @@
             Interface for count of Wordpress items
             </summary>
         </member>
-        <member name="M:WordPressPCL.Interfaces.ICountOperation.GetCountAsync">
+        <member name="M:WordPressPCL.Interfaces.ICountOperation.GetCountAsync(System.Threading.CancellationToken)">
             <summary>
             Get Count of Wordpress items
             </summary>
+            <param name="cancellationToken">Cancellation token</param>
             <returns>Result of Operation</returns>
         </member>
         <member name="T:WordPressPCL.Interfaces.ICreateOperation`1">
@@ -862,11 +930,12 @@
             </summary>
             <typeparam name="TClass">return class type</typeparam>
         </member>
-        <member name="M:WordPressPCL.Interfaces.ICreateOperation`1.CreateAsync(`0)">
+        <member name="M:WordPressPCL.Interfaces.ICreateOperation`1.CreateAsync(`0,System.Threading.CancellationToken)">
             <summary>
             Create object
             </summary>
             <param name="Entity">object to create</param>
+            <param name="cancellationToken">Cancellation token</param>
             <returns>Created object</returns>
         </member>
         <member name="T:WordPressPCL.Interfaces.IDeleteOperation">
@@ -874,11 +943,12 @@
             Interface with required Delete methods
             </summary>
         </member>
-        <member name="M:WordPressPCL.Interfaces.IDeleteOperation.DeleteAsync(System.Int32)">
+        <member name="M:WordPressPCL.Interfaces.IDeleteOperation.DeleteAsync(System.Int32,System.Threading.CancellationToken)">
             <summary>
             Delete object by Id
             </summary>
-            <param name="ID">ID ob object to delete</param>
+            <param name="ID">ID of object to delete</param>
+            <param name="cancellationToken">Cancellation token</param>
             <returns>Result of operation</returns>
         </member>
         <member name="T:WordPressPCL.Interfaces.IQueryOperation`2">
@@ -888,12 +958,13 @@
             <typeparam name="TClass">return class type</typeparam>
             <typeparam name="TQueryClass">Query Builder class</typeparam>
         </member>
-        <member name="M:WordPressPCL.Interfaces.IQueryOperation`2.QueryAsync(`1,System.Boolean)">
+        <member name="M:WordPressPCL.Interfaces.IQueryOperation`2.QueryAsync(`1,System.Boolean,System.Threading.CancellationToken)">
             <summary>
             Execute query
             </summary>
             <param name="queryBuilder">query builder with parameters for query</param>
             <param name="useAuth">Is use auth header</param>
+            <param name="cancellationToken">Cancellation token</param>
             <returns>list of filtered objects</returns>
         </member>
         <member name="T:WordPressPCL.Interfaces.IReadOperation`1">
@@ -902,29 +973,32 @@
             </summary>
             <typeparam name="TClass">return class type</typeparam>
         </member>
-        <member name="M:WordPressPCL.Interfaces.IReadOperation`1.GetAsync(System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Interfaces.IReadOperation`1.GetAsync(System.Boolean,System.Boolean,System.Threading.CancellationToken)">
             <summary>
             Get latest
             </summary>
             <param name="embed">Is use embed info</param>
             <param name="useAuth">Is use auth header</param>
+            <param name="cancellationToken">Cancellation token</param>
             <returns>requested object</returns>
         </member>
-        <member name="M:WordPressPCL.Interfaces.IReadOperation`1.GetByIdAsync(System.Object,System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Interfaces.IReadOperation`1.GetByIdAsync(System.Object,System.Boolean,System.Boolean,System.Threading.CancellationToken)">
             <summary>
             Get object by Id
             </summary>
             <param name="id">Object Id</param>
             <param name="embed">Is use embed info</param>
             <param name="useAuth">Is use auth header</param>
+            <param name="cancellationToken">Cancellation token</param>
             <returns>requested object</returns>
         </member>
-        <member name="M:WordPressPCL.Interfaces.IReadOperation`1.GetAllAsync(System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Interfaces.IReadOperation`1.GetAllAsync(System.Boolean,System.Boolean,System.Threading.CancellationToken)">
             <summary>
             Get all objects
             </summary>
             <param name="embed">Is use embed info</param>
             <param name="useAuth">Is use auth header</param>
+            <param name="cancellationToken">Cancellation token</param>
             <returns>List of objects</returns>
         </member>
         <member name="T:WordPressPCL.Interfaces.IUpdateOperation`1">
@@ -933,11 +1007,12 @@
             </summary>
             <typeparam name="TClass">return class type</typeparam>
         </member>
-        <member name="M:WordPressPCL.Interfaces.IUpdateOperation`1.UpdateAsync(`0)">
+        <member name="M:WordPressPCL.Interfaces.IUpdateOperation`1.UpdateAsync(`0,System.Threading.CancellationToken)">
             <summary>
             Update entity method
             </summary>
             <param name="Entity">object to update</param>
+            <param name="cancellationToken">Cancellation token</param>
             <returns>Updated entity</returns>
         </member>
         <member name="T:WordPressPCL.Models.ApplicationPassword">

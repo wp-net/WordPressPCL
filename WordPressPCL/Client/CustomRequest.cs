@@ -1,6 +1,7 @@
 ﻿using System.Net.Http;
 using System.Text;
 using System.Text.Json;
+using System.Threading;
 using System.Threading.Tasks;
 using WordPressPCL.Utility;
 
@@ -30,12 +31,13 @@ namespace WordPressPCL.Client
         /// <param name="route">path to exec request</param>
         /// <param name="Entity">object for creation</param>
         /// <param name="ignoreDefaultPath">request should prepend default path to route, defaults to true</param>
+        /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>Created object</returns>
-        public async Task<TOutput> CreateAsync<TInput, TOutput>(string route, TInput Entity, bool ignoreDefaultPath = true) where TOutput : class
+        public async Task<TOutput> CreateAsync<TInput, TOutput>(string route, TInput Entity, bool ignoreDefaultPath = true, CancellationToken cancellationToken = default) where TOutput : class
         {
             string entity = JsonSerializer.Serialize(Entity, _httpHelper.JsonSerializerOptions);
             using StringContent sc = new(entity, Encoding.UTF8, "application/json");
-            return (await _httpHelper.PostRequestAsync<TOutput>(route, sc, true, ignoreDefaultPath).ConfigureAwait(false)).Item1;
+            return (await _httpHelper.PostRequestAsync<TOutput>(route, sc, true, ignoreDefaultPath, cancellationToken).ConfigureAwait(false)).Item1;
         }
 
         /// <summary>
@@ -43,10 +45,11 @@ namespace WordPressPCL.Client
         /// </summary>
         /// <param name="route">path to exec delete request</param>
         /// <param name="ignoreDefaultPath">request should prepend default path to route, defaults to true</param>
+        /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>Result of deletion</returns>
-        public Task<bool> DeleteAsync(string route, bool ignoreDefaultPath = true)
+        public Task<bool> DeleteAsync(string route, bool ignoreDefaultPath = true, CancellationToken cancellationToken = default)
         {
-            return _httpHelper.DeleteRequestAsync(route, true, ignoreDefaultPath);
+            return _httpHelper.DeleteRequestAsync(route, true, ignoreDefaultPath, cancellationToken);
         }
 
         /// <summary>
@@ -57,10 +60,11 @@ namespace WordPressPCL.Client
         /// <param name="embed">is get embed params</param>
         /// <param name="useAuth">i use auth</param>
         /// <param name="ignoreDefaultPath">request should prepend default path to route, defaults to true</param>
+        /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>List of objects</returns>
-        public Task<TClass> GetAsync<TClass>(string route, bool embed = false, bool useAuth = false, bool ignoreDefaultPath = true) where TClass : class
+        public Task<TClass> GetAsync<TClass>(string route, bool embed = false, bool useAuth = false, bool ignoreDefaultPath = true, CancellationToken cancellationToken = default) where TClass : class
         {
-            return _httpHelper.GetRequestAsync<TClass>(route, embed, useAuth, ignoreDefaultPath);
+            return _httpHelper.GetRequestAsync<TClass>(route, embed, useAuth, ignoreDefaultPath, cancellationToken);
         }
 
         /// <summary>
@@ -71,10 +75,11 @@ namespace WordPressPCL.Client
         /// <param name="route">path to exec request</param>
         /// <param name="Entity">object for update</param>
         /// <param name="ignoreDefaultPath">request should prepend default path to route, defaults to true</param>
+        /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>Updated object</returns>
-        public Task<TOutput> UpdateAsync<TInput, TOutput>(string route, TInput Entity, bool ignoreDefaultPath = true) where TOutput : class
+        public Task<TOutput> UpdateAsync<TInput, TOutput>(string route, TInput Entity, bool ignoreDefaultPath = true, CancellationToken cancellationToken = default) where TOutput : class
         {
-            return CreateAsync<TInput, TOutput>(route, Entity, ignoreDefaultPath);
+            return CreateAsync<TInput, TOutput>(route, Entity, ignoreDefaultPath, cancellationToken);
         }
     }
 }

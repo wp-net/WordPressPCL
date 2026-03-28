@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Threading;
+using System.Threading.Tasks;
 
 namespace WordPressPCL.Interfaces
 {
@@ -12,7 +13,8 @@ namespace WordPressPCL.Interfaces
         /// Create object
         /// </summary>
         /// <param name="Entity">object to create</param>
+        /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>Created object</returns>
-        Task<TClass> CreateAsync(TClass Entity);
+        Task<TClass> CreateAsync(TClass Entity, CancellationToken cancellationToken = default);
     }
 }

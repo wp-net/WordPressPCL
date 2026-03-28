@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using WordPressPCL.Models;
 using WordPressPCL.Utility;
@@ -31,16 +32,17 @@ namespace WordPressPCL.Client
 
 
         /// <summary>
-        /// Get themes by search term
+        /// Get themes by activation status
         /// </summary>
         /// <param name="activationStatus">active or inactive</param>
         /// <param name="embed">include embed info</param>
+        /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>List of posts</returns>
-        public Task<List<Theme>> GetThemesByActivationStatusAsync(ActivationStatus activationStatus, bool embed = false)
+        public Task<List<Theme>> GetThemesByActivationStatusAsync(ActivationStatus activationStatus, bool embed = false, CancellationToken cancellationToken = default)
         {
             // default values
             // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
-            return HttpHelper.GetRequestAsync<List<Theme>>(_methodPath.SetQueryParam("status", activationStatus.ToString().ToLower())!, embed, true);
+            return HttpHelper.GetRequestAsync<List<Theme>>(_methodPath.SetQueryParam("status", activationStatus.ToString().ToLower())!, embed, true, cancellationToken: cancellationToken);
         }
 
 

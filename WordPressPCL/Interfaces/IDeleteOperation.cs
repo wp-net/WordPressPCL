@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Threading;
+using System.Threading.Tasks;
 
 namespace WordPressPCL.Interfaces
 {
@@ -10,8 +11,9 @@ namespace WordPressPCL.Interfaces
         /// <summary>
         /// Delete object by Id
         /// </summary>
-        /// <param name="ID">ID ob object to delete</param>
+        /// <param name="ID">ID of object to delete</param>
+        /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>Result of operation</returns>
-        Task<bool> DeleteAsync(int ID);
+        Task<bool> DeleteAsync(int ID, CancellationToken cancellationToken = default);
     }
 }
