@@ -43,7 +43,7 @@ public class Plugins_Tests
         //Activate plugin
         Plugin activePlugin = await _clientAuth.Plugins.ActivateAsync(plugin);
         Assert.AreEqual(ActivationStatus.Active, activePlugin.Status);
-        Assert.AreEqual(activePlugin.Id, plugin.Id);
+        Assert.AreEqual(plugin.Id, activePlugin.Id);
 
 
         //Deactivate plugin

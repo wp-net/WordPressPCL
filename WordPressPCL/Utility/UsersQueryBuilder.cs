@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using WordPressPCL.Models;
 
 namespace WordPressPCL.Utility
@@ -59,13 +59,6 @@ namespace WordPressPCL.Utility
         /// </summary>
         [QueryText("slug")]
         public List<string>? Slugs { get; set; }
-
-        /// <summary>
-        /// Limit result set to users assigned one or more statuses.
-        /// </summary>
-        /// <remarks>Default: publish</remarks>
-        [QueryText("status")]
-        public List<Status>? Statuses { get; set; }
 
         /// <summary>
         /// Limit result set to users matching at least one specific role provided. Accepts csv list or single role.

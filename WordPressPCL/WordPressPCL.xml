@@ -4655,12 +4655,6 @@
             Limit result set to users with a specific slug.
             </summary>
         </member>
-        <member name="P:WordPressPCL.Utility.UsersQueryBuilder.Statuses">
-            <summary>
-            Limit result set to users assigned one or more statuses.
-            </summary>
-            <remarks>Default: publish</remarks>
-        </member>
         <member name="P:WordPressPCL.Utility.UsersQueryBuilder.Roles">
             <summary>
             Limit result set to users matching at least one specific role provided. Accepts csv list or single role.
