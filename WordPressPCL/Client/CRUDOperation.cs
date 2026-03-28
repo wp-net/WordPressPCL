@@ -104,7 +104,7 @@ namespace WordPressPCL.Client
             //100 - Max posts per page in WordPress REST API, so this is hack with multiple requests
             string url = MethodPath.SetQueryParam("per_page", "100")!.SetQueryParam("page", "1")!;
             var (entities, headers) = await HttpHelper.GetRequestWithHeadersAsync<List<TClass>>(url, embed, useAuth, cancellationToken: cancellationToken).ConfigureAwait(false);
-            var (_, totalPages) = HttpHelper.ParsePaginationHeaders(headers);
+            var (_, totalPages) = global::WordPressPCL.Utility.HttpHelper.ParsePaginationHeaders(headers);
             for (int page = 2; page <= totalPages; page++)
             {
                 url = MethodPath.SetQueryParam("per_page", "100")!.SetQueryParam("page", page.ToString(CultureInfo.InvariantCulture))!;
@@ -132,7 +132,7 @@ namespace WordPressPCL.Client
                                    .SetQueryParam("page", page.ToString(CultureInfo.InvariantCulture))!;
 #pragma warning restore CA1507
             var (items, headers) = await HttpHelper.GetRequestWithHeadersAsync<List<TClass>>(url, embed, useAuth, cancellationToken: cancellationToken).ConfigureAwait(false);
-            var (total, totalPages) = HttpHelper.ParsePaginationHeaders(headers);
+            var (total, totalPages) = global::WordPressPCL.Utility.HttpHelper.ParsePaginationHeaders(headers);
             return new PagedResult<TClass>(items, total, totalPages);
         }
 
@@ -149,7 +149,7 @@ namespace WordPressPCL.Client
         public async Task<PagedResult<TClass>> QueryPagedAsync(QClass queryBuilder, bool useAuth = false, CancellationToken cancellationToken = default)
         {
             var (items, headers) = await HttpHelper.GetRequestWithHeadersAsync<List<TClass>>($"{MethodPath}{queryBuilder.BuildQuery()}", false, useAuth, cancellationToken: cancellationToken).ConfigureAwait(false);
-            var (total, totalPages) = HttpHelper.ParsePaginationHeaders(headers);
+            var (total, totalPages) = global::WordPressPCL.Utility.HttpHelper.ParsePaginationHeaders(headers);
             return new PagedResult<TClass>(items, total, totalPages);
         }
 

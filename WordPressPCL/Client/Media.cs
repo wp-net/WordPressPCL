@@ -180,7 +180,7 @@ namespace WordPressPCL.Client
         /// </returns>
         public async Task<PagedResult<MediaItem>> QueryPagedAsync(MediaQueryBuilder queryBuilder, bool useAuth = false, CancellationToken cancellationToken = default)
         {
-            var (items, headers) = await _httpHelper.GetRequestWithHeadersAsync<List<MediaItem>>($"{_methodPath}{queryBuilder?.BuildQuery()}", false, useAuth, cancellationToken: cancellationToken).ConfigureAwait(false);
+            var (items, headers) = await _httpHelper.GetRequestWithHeadersAsync<List<MediaItem>>($"{_methodPath}{queryBuilder.BuildQuery()}", false, useAuth, cancellationToken: cancellationToken).ConfigureAwait(false);
             var (total, totalPages) = HttpHelper.ParsePaginationHeaders(headers);
             return new PagedResult<MediaItem>(items, total, totalPages);
         }

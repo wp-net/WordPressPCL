@@ -119,20 +119,26 @@ namespace WordPressPCL.Utility
                 SetAuthHeader(isAuthRequired, requestMessage);
                 response = await _httpClient.SendAsync(requestMessage, cancellationToken).ConfigureAwait(false);
             }
-            LastResponseHeaders = response.Headers;
-            string responseString = await response.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
-            if (response.IsSuccessStatusCode)
-            {
-                if (HttpResponsePreProcessing != null)
-                {
-                    responseString = HttpResponsePreProcessing(responseString);
-                }
 
-                return (DeserializeJsonResponse<TClass>(response, responseString), response.Headers);
-            }
-            else
+            using (response)
             {
-                throw CreateUnexpectedResponseException(response, responseString);
+                LastResponseHeaders = response.Headers;
+                string responseString = await response.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
+                if (response.IsSuccessStatusCode)
+                {
+                    if (HttpResponsePreProcessing != null)
+                    {
+                        responseString = HttpResponsePreProcessing(responseString);
+                    }
+
+                    TClass result = DeserializeJsonResponse<TClass>(response, responseString);
+                    HttpResponseHeaders capturedHeaders = response.Headers;
+                    return (result, capturedHeaders);
+                }
+                else
+                {
+                    throw CreateUnexpectedResponseException(response, responseString);
+                }
             }
         }
 

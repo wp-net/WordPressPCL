@@ -150,4 +150,33 @@ public class Media_Tests
             Assert.Inconclusive("no images to test");
         }
     }
+
+    [TestMethod]
+    public async Task Media_GetPaged_Returns_Metadata()
+    {
+        PagedResult<MediaItem> paged = await _client.Media.GetPagedAsync(page: 1, perPage: 5);
+
+        Assert.IsNotNull(paged);
+        Assert.IsNotNull(paged.Items);
+        Assert.IsTrue(paged.Items.Count <= 5);
+        Assert.IsTrue(paged.TotalCount > 0, "TotalCount should be populated from X-WP-Total");
+        Assert.IsTrue(paged.TotalPages >= 1, "TotalPages should be populated from X-WP-TotalPages");
+    }
+
+    [TestMethod]
+    public async Task Media_QueryPaged_Returns_Metadata()
+    {
+        MediaQueryBuilder queryBuilder = new()
+        {
+            Page = 1,
+            PerPage = 3,
+        };
+        PagedResult<MediaItem> paged = await _client.Media.QueryPagedAsync(queryBuilder);
+
+        Assert.IsNotNull(paged);
+        Assert.IsNotNull(paged.Items);
+        Assert.IsTrue(paged.Items.Count <= 3);
+        Assert.IsTrue(paged.TotalCount > 0, "TotalCount should be populated from X-WP-Total");
+        Assert.IsTrue(paged.TotalPages >= 1, "TotalPages should be populated from X-WP-TotalPages");
+    }
 }
