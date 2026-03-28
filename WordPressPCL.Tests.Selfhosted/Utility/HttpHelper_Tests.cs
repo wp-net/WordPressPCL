@@ -28,14 +28,14 @@ public class HttpHelper_Tests
         {
             Name = tagname,
             Description = "Test Description"
-        });
-        Assert.IsTrue(tag.Id > 0);
+        }, TestContext.CancellationToken);
+        Assert.IsGreaterThan(0, tag.Id);
         Assert.IsNotNull(tag);
         Assert.AreEqual(tagname, tag.Name);
         Assert.AreEqual("Test Description", tag.Description);
 
         // We call Get tag list without pre processing
-        List<Tag> tags = await _clientAuth.Tags.GetAllAsync();
+        List<Tag> tags = await _clientAuth.Tags.GetAllAsync(cancellationToken: TestContext.CancellationToken);
         Assert.IsNotNull(tags);
         Assert.AreNotEqual(0, tags.Count);
         CollectionAssert.AllItemsAreUnique(tags.Select(e => e.Id).ToList());
@@ -47,7 +47,7 @@ public class HttpHelper_Tests
         };
         await Assert.ThrowsExactlyAsync<InvalidOperationException>(async () =>
         {
-            await _clientAuth.Tags.GetAllAsync();
+            await _clientAuth.Tags.GetAllAsync(cancellationToken: TestContext.CancellationToken);
         });
         _clientAuth.HttpResponsePreProcessing = null;
     }
@@ -64,14 +64,14 @@ public class HttpHelper_Tests
         {
             Name = tagname,
             Description = "Test Description"
-        });
-        Assert.IsTrue(tag.Id > 0);
+        }, TestContext.CancellationToken);
+        Assert.IsGreaterThan(0, tag.Id);
         Assert.IsNotNull(tag);
         Assert.AreEqual(tagname, tag.Name);
         Assert.AreEqual("Test Description", tag.Description);
 
         // We call Get tag list without pre processing
-        List<Tag> tags = await _clientAuth.Tags.GetAllAsync();
+        List<Tag> tags = await _clientAuth.Tags.GetAllAsync(cancellationToken: TestContext.CancellationToken);
         Assert.IsNotNull(tags);
         Assert.AreNotEqual(0, tags.Count);
         CollectionAssert.AllItemsAreUnique(tags.Select(e => e.Id).ToList());
@@ -82,10 +82,12 @@ public class HttpHelper_Tests
             return response;
         };
 
-        tags = await _clientAuth.Tags.GetAllAsync();
+        tags = await _clientAuth.Tags.GetAllAsync(cancellationToken: TestContext.CancellationToken);
         Assert.IsNotNull(tags);
         Assert.AreNotEqual(0, tags.Count);
         CollectionAssert.AllItemsAreUnique(tags.Select(e => e.Id).ToList());
         _clientAuth.HttpResponsePreProcessing = null;
     }
+
+    public TestContext TestContext { get; set; }
 }

@@ -25,7 +25,7 @@ public class Tag_Tests
         {
             Name = tagname,
             Description = "Test Description"
-        });
+        }, testContext.CancellationToken);
     }
 
     [TestMethod]
@@ -36,7 +36,7 @@ public class Tag_Tests
         {
             Name = tagname,
             Description = "Test Description"
-        });
+        }, TestContext.CancellationToken);
         Assert.IsNotNull(tag);
         Assert.AreEqual(tagname, tag.Name);
         Assert.AreEqual("Test Description", tag.Description);
@@ -45,7 +45,7 @@ public class Tag_Tests
     [TestMethod]
     public async Task Tags_Read()
     {
-        List<Tag> tags = await _clientAuth.Tags.GetAllAsync();
+        List<Tag> tags = await _clientAuth.Tags.GetAllAsync(cancellationToken: TestContext.CancellationToken);
         Assert.IsNotNull(tags);
         Assert.AreNotEqual(0, tags.Count);
         CollectionAssert.AllItemsAreUnique(tags.Select(tag => tag.Id).ToList());
@@ -54,7 +54,7 @@ public class Tag_Tests
     [TestMethod]
     public async Task Tags_Get()
     {
-        List<Tag> tags = await _client.Tags.GetAsync();
+        List<Tag> tags = await _client.Tags.GetAsync(cancellationToken: TestContext.CancellationToken);
         Assert.IsNotNull(tags);
         Assert.AreNotEqual(0, tags.Count);
         CollectionAssert.AllItemsAreUnique(tags.Select(tag => tag.Id).ToList());
@@ -63,7 +63,7 @@ public class Tag_Tests
     [TestMethod]
     public async Task Tags_Update()
     {
-        List<Tag> tags = await _clientAuth.Tags.GetAllAsync();
+        List<Tag> tags = await _clientAuth.Tags.GetAllAsync(cancellationToken: TestContext.CancellationToken);
         Tag? tag = tags.FirstOrDefault();
         if (tag == null)
         {
@@ -73,7 +73,7 @@ public class Tag_Tests
         string tagdesc = "Test Description";
         tag.Name = tagname;
         tag.Description = tagdesc;
-        Tag tagUpdated = await _clientAuth.Tags.UpdateAsync(tag);
+        Tag tagUpdated = await _clientAuth.Tags.UpdateAsync(tag, TestContext.CancellationToken);
         Assert.AreEqual(tagname, tagUpdated.Name);
         Assert.AreEqual(tagdesc, tagUpdated.Description);
     }
@@ -81,18 +81,18 @@ public class Tag_Tests
     [TestMethod]
     public async Task Tags_Delete()
     {
-        List<Tag> tags = await _clientAuth.Tags.GetAllAsync();
+        List<Tag> tags = await _clientAuth.Tags.GetAllAsync(cancellationToken: TestContext.CancellationToken);
         Tag? tag = tags.FirstOrDefault();
         if (tag == null)
         {
             Assert.Inconclusive();
         }
         int tagId = tag.Id;
-        bool response = await _clientAuth.Tags.DeleteAsync(tagId);
+        bool response = await _clientAuth.Tags.DeleteAsync(tagId, TestContext.CancellationToken);
         Assert.IsTrue(response);
-        tags = await _clientAuth.Tags.GetAllAsync();
+        tags = await _clientAuth.Tags.GetAllAsync(cancellationToken: TestContext.CancellationToken);
         List<Tag> tagsWithId = tags.Where(x => x.Id == tagId).ToList();
-        Assert.AreEqual(0, tagsWithId.Count);
+        Assert.IsEmpty(tagsWithId);
     }
     [TestMethod]
     public async Task Tags_Query()
@@ -104,11 +104,12 @@ public class Tag_Tests
             OrderBy = TermsOrderBy.Id,
             Order = Order.DESC,
         };
-        List<Tag> queryresult = await _clientAuth.Tags.QueryAsync(queryBuilder);
+        List<Tag> queryresult = await _clientAuth.Tags.QueryAsync(queryBuilder, cancellationToken: TestContext.CancellationToken);
         Assert.AreEqual("?page=1&per_page=15&orderby=id&order=desc&context=view", queryBuilder.BuildQuery());
         Assert.IsNotNull(queryresult);
         Assert.AreNotEqual(0, queryresult.Count);
     }
 
+    public TestContext TestContext { get; set; }
 }
 

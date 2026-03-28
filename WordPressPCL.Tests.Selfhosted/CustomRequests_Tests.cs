@@ -35,14 +35,14 @@ public class CustomRequests_Tests
     [TestMethod]
     public async Task CustomRequests_Read()
     {
-        List<ContactFormItem> forms = await _clientAuth.CustomRequest.GetAsync<List<ContactFormItem>>("contact-form-7/v1/contact-forms", false, true);
+        List<ContactFormItem> forms = await _clientAuth.CustomRequest.GetAsync<List<ContactFormItem>>("contact-form-7/v1/contact-forms", false, true, cancellationToken: TestContext.CancellationToken);
         Assert.IsNotNull(forms);
         Assert.AreNotEqual(0, forms.Count);
     }
 
     // TODO: check why this isn't returning the form
     //[TestMethod]
-    public async Task CustomRequests_Create()
+    public static async Task CustomRequests_Create()
     {
         string title = $"Test Form {Guid.NewGuid()}";
         ContactFormItem form = await _clientAuth.CustomRequest.CreateAsync<ContactFormItem, ContactFormItem>("contact-form-7/v1/contact-forms", new ContactFormItem() { Title = title, Locale = "en-US" });
@@ -53,7 +53,7 @@ public class CustomRequests_Tests
 
     // TODO: make test not depend on other tests
     //[TestMethod]
-    public async Task CustomRequests_Update()
+    public static async Task CustomRequests_Update()
     {
         string title = $"Test Form {Guid.NewGuid()}";
         ContactFormItem form = await _clientAuth.CustomRequest.CreateAsync<ContactFormItem, ContactFormItem>("contact-form-7/v1/contact-forms", new ContactFormItem() { Title = title, Locale = "en-US" });
@@ -70,7 +70,7 @@ public class CustomRequests_Tests
 
     // TODO: make test not depend on other tests
     //[TestMethod]
-    public async Task CustomRequests_Delete()
+    public static async Task CustomRequests_Delete()
     {
         List<ContactFormItem> forms = await _clientAuth.CustomRequest.GetAsync<List<ContactFormItem>>("contact-form-7/v1/contact-forms", false, true);
         Assert.IsNotNull(forms);
@@ -79,4 +79,6 @@ public class CustomRequests_Tests
         bool result = await _clientAuth.CustomRequest.DeleteAsync($"contact-form-7/v1/contact-forms/{deleteform.Id!.Value}");
         Assert.IsTrue(result);
     }
+
+    public TestContext TestContext { get; set; }
 }

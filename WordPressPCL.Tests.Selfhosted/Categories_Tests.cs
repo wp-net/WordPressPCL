@@ -31,7 +31,7 @@ public class Categories_Tests
         {
             Name = name,
             Description = "Test"
-        });
+        }, TestContext.CancellationToken);
         Assert.IsNotNull(category);
         Assert.AreEqual(name, category.Name);
         Assert.AreEqual("Test", category.Description);
@@ -40,7 +40,7 @@ public class Categories_Tests
     [TestMethod]
     public async Task Categories_Read()
     {
-        List<Category> categories = await _client.Categories.GetAllAsync();
+        List<Category> categories = await _client.Categories.GetAllAsync(cancellationToken: TestContext.CancellationToken);
         Assert.IsNotNull(categories);
         Assert.AreNotEqual(0, categories.Count);
         CollectionAssert.AllItemsAreUnique(categories.Select(tag => tag.Id).ToList());
@@ -49,7 +49,7 @@ public class Categories_Tests
     [TestMethod]
     public async Task Categories_Get()
     {
-        List<Category> categories = await _client.Categories.GetAsync();
+        List<Category> categories = await _client.Categories.GetAsync(cancellationToken: TestContext.CancellationToken);
         Assert.IsNotNull(categories);
         Assert.AreNotEqual(0, categories.Count);
         CollectionAssert.AllItemsAreUnique(categories.Select(tag => tag.Id).ToList());
@@ -58,12 +58,12 @@ public class Categories_Tests
     [TestMethod]
     public async Task Categories_Update()
     {
-        List<Category> categories = await _clientAuth.Categories.GetAllAsync();
+        List<Category> categories = await _clientAuth.Categories.GetAllAsync(cancellationToken: TestContext.CancellationToken);
         Category category = categories.First();
         Random random = new();
         string name = $"UpdatedCategory {random.Next(0, 10000)}";
         category.Name = name;
-        Category updatedCategory = await _clientAuth.Categories.UpdateAsync(category);
+        Category updatedCategory = await _clientAuth.Categories.UpdateAsync(category, TestContext.CancellationToken);
         Assert.AreEqual(updatedCategory.Name, name);
         Assert.AreEqual(updatedCategory.Id, category.Id);
     }
@@ -77,17 +77,17 @@ public class Categories_Tests
         {
             Name = name,
             Description = "Test"
-        });
+        }, TestContext.CancellationToken);
 
         if (category == null)
         {
             Assert.Inconclusive();
         }
-        bool response = await _clientAuth.Categories.DeleteAsync(category.Id);
+        bool response = await _clientAuth.Categories.DeleteAsync(category.Id, TestContext.CancellationToken);
         Assert.IsTrue(response);
-        List<Category> categories = await _clientAuth.Categories.GetAllAsync();
+        List<Category> categories = await _clientAuth.Categories.GetAllAsync(cancellationToken: TestContext.CancellationToken);
         List<Category> c = categories.Where(x => x.Id == category.Id).ToList();
-        Assert.AreEqual(0, c.Count);
+        Assert.IsEmpty(c);
     }
 
     [TestMethod]
@@ -100,9 +100,11 @@ public class Categories_Tests
             OrderBy = TermsOrderBy.Id,
             Order = Order.DESC,
         };
-        List<Category> queryresult = await _clientAuth.Categories.QueryAsync(queryBuilder);
+        List<Category> queryresult = await _clientAuth.Categories.QueryAsync(queryBuilder, cancellationToken: TestContext.CancellationToken);
         Assert.AreEqual("?page=1&per_page=15&orderby=id&order=desc&context=view", queryBuilder.BuildQuery());
         Assert.IsNotNull(queryresult);
         Assert.AreNotEqual(0, queryresult.Count);
     }
+
+    public TestContext TestContext { get; set; }
 }

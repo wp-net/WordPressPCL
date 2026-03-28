@@ -26,10 +26,10 @@ public class Comments_Tests
     [TestMethod]
     public async Task Comments_Create()
     {
-        List<Post> posts = await _clientAuth.Posts.GetAllAsync();
+        List<Post> posts = await _clientAuth.Posts.GetAllAsync(cancellationToken: TestContext.CancellationToken);
         int postId = posts.First().Id;
 
-        User me = await _clientAuth.Users.GetCurrentUserAsync();
+        User me = await _clientAuth.Users.GetCurrentUserAsync(TestContext.CancellationToken);
 
         // Create random content to prevent duplicate commment errors
         string content = $"TestComment {System.Guid.NewGuid()}";
@@ -41,19 +41,19 @@ public class Comments_Tests
             AuthorEmail = "test@test.com",
             AuthorName = me.Name
         };
-        Comment resultComment = await _clientAuth.Comments.CreateAsync(comment);
+        Comment resultComment = await _clientAuth.Comments.CreateAsync(comment, TestContext.CancellationToken);
         Assert.IsNotNull(resultComment);
 
         // Posting same comment twice should fail
         await Assert.ThrowsExactlyAsync<WPException>(async () =>
         {
-            Comment secondResultComment = await _clientAuth.Comments.CreateAsync(comment);
+            Comment secondResultComment = await _clientAuth.Comments.CreateAsync(comment, TestContext.CancellationToken);
         });
     }
     [TestMethod]
     public async Task Comments_Read()
     {
-        List<Comment> comments = await _client.Comments.GetAllAsync();
+        List<Comment> comments = await _client.Comments.GetAllAsync(cancellationToken: TestContext.CancellationToken);
 
         if (!comments.Any())
         {
@@ -76,7 +76,7 @@ public class Comments_Tests
     [TestMethod]
     public async Task Comments_Get()
     {
-        List<Comment> comments = await _client.Comments.GetAsync();
+        List<Comment> comments = await _client.Comments.GetAsync(cancellationToken: TestContext.CancellationToken);
 
         if (!comments.Any())
         {
@@ -89,12 +89,12 @@ public class Comments_Tests
     [TestMethod]
     public async Task Comments_Update()
     {
-        User me = await _clientAuth.Users.GetCurrentUserAsync();
+        User me = await _clientAuth.Users.GetCurrentUserAsync(TestContext.CancellationToken);
         CommentsQueryBuilder queryBuilder = new()
         {
             Authors = new List<int> { me.Id }
         };
-        List<Comment> comments = await _clientAuth.Comments.QueryAsync(queryBuilder, true);
+        List<Comment> comments = await _clientAuth.Comments.QueryAsync(queryBuilder, true, TestContext.CancellationToken);
         Comment? comment = comments.FirstOrDefault();
         if (comment == null)
         {
@@ -102,17 +102,17 @@ public class Comments_Tests
         }
         string title = $"TestComment {System.Guid.NewGuid()}";
         comment.Content!.Raw = title;
-        Comment commentUpdated = await _clientAuth.Comments.UpdateAsync(comment);
+        Comment commentUpdated = await _clientAuth.Comments.UpdateAsync(comment, TestContext.CancellationToken);
         Assert.AreEqual(title, commentUpdated.Content!.Raw);
     }
 
     [TestMethod]
     public async Task Comments_Delete()
     {
-        List<Post> posts = await _clientAuth.Posts.GetAllAsync();
+        List<Post> posts = await _clientAuth.Posts.GetAllAsync(cancellationToken: TestContext.CancellationToken);
         int postId = posts.First().Id;
 
-        User me = await _clientAuth.Users.GetCurrentUserAsync();
+        User me = await _clientAuth.Users.GetCurrentUserAsync(TestContext.CancellationToken);
 
         // Create random content to prevent duplicate commment errors
         Comment comment = new()
@@ -123,9 +123,9 @@ public class Comments_Tests
             AuthorEmail = "test@test.com",
             AuthorName = me.Name
         };
-        Comment resultComment = await _clientAuth.Comments.CreateAsync(comment);
+        Comment resultComment = await _clientAuth.Comments.CreateAsync(comment, TestContext.CancellationToken);
 
-        bool response = await _clientAuth.Comments.DeleteAsync(resultComment.Id);
+        bool response = await _clientAuth.Comments.DeleteAsync(resultComment.Id, cancellationToken: TestContext.CancellationToken);
         Assert.IsTrue(response);
 
     }
@@ -140,7 +140,7 @@ public class Comments_Tests
             OrderBy = CommentsOrderBy.Id,
             Order = Order.DESC,
         };
-        List<Comment> queryresult = await _clientAuth.Comments.QueryAsync(queryBuilder);
+        List<Comment> queryresult = await _clientAuth.Comments.QueryAsync(queryBuilder, cancellationToken: TestContext.CancellationToken);
         Assert.AreEqual("?page=1&per_page=15&orderby=id&order=desc&context=view", queryBuilder.BuildQuery());
         Assert.IsNotNull(queryresult);
         Assert.AreNotEqual(0, queryresult.Count);
@@ -148,7 +148,7 @@ public class Comments_Tests
 
     // TODO: Can't create pending comment from Admin Account
     //[TestMethod]
-    public async Task Comments_Query_Pending()
+    public static async Task Comments_Query_Pending()
     {
         // Create new pending comment
         List<Post> posts = await _clientAuth.Posts.GetAllAsync();
@@ -192,7 +192,7 @@ public class Comments_Tests
     [TestMethod]
     public async Task Comments_GetAllForPost()
     {
-        User me = await _clientAuth.Users.GetCurrentUserAsync();
+        User me = await _clientAuth.Users.GetCurrentUserAsync(TestContext.CancellationToken);
 
         // create test post and add comments
         Post post = new()
@@ -200,7 +200,7 @@ public class Comments_Tests
             Title = new Title("Title 1"),
             Content = new Content("Content PostCreate")
         };
-        Post createdPost = await _clientAuth.Posts.CreateAsync(post);
+        Post createdPost = await _clientAuth.Posts.CreateAsync(post, TestContext.CancellationToken);
         Assert.IsNotNull(createdPost);
 
         for (int i = 0; i < 30; i++)
@@ -215,22 +215,23 @@ public class Comments_Tests
                 AuthorEmail = "test@test.com",
                 AuthorName = me.Name
             };
-            Comment resultComment = await _clientAuth.Comments.CreateAsync(comment);
+            Comment resultComment = await _clientAuth.Comments.CreateAsync(comment, TestContext.CancellationToken);
             Assert.IsNotNull(resultComment);
         }
 
         // shoud work without auth
         WordPressClient nonauthclient = ClientHelper.GetWordPressClient();
-        List<Comment> comments = await nonauthclient.Comments.GetCommentsForPostAsync(createdPost.Id);
-        Assert.IsTrue(comments.Count <= 10);
+        List<Comment> comments = await nonauthclient.Comments.GetCommentsForPostAsync(createdPost.Id, cancellationToken: TestContext.CancellationToken);
+        Assert.IsLessThanOrEqualTo(10, comments.Count);
 
-        List<Comment> allComments = await nonauthclient.Comments.GetAllCommentsForPostAsync(createdPost.Id);
-        Assert.IsTrue(allComments.Count > 20);
+        List<Comment> allComments = await nonauthclient.Comments.GetAllCommentsForPostAsync(createdPost.Id, cancellationToken: TestContext.CancellationToken);
+        Assert.IsGreaterThan(20, allComments.Count);
 
         // cleanup
-        bool result = await _clientAuth.Posts.DeleteAsync(createdPost.Id);
+        bool result = await _clientAuth.Posts.DeleteAsync(createdPost.Id, cancellationToken: TestContext.CancellationToken);
         Assert.IsTrue(result);
     }
 
+    public TestContext TestContext { get; set; }
 }
 

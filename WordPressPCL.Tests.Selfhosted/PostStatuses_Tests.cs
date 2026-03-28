@@ -20,7 +20,7 @@ public class PostStatuses_Tests
     [TestMethod]
     public async Task PostStatuses_Read()
     {
-        List<PostStatus> poststatuses = await _clientAuth.PostStatuses.GetAllAsync();
+        List<PostStatus> poststatuses = await _clientAuth.PostStatuses.GetAllAsync(cancellationToken: TestContext.CancellationToken);
         Assert.IsNotNull(poststatuses);
         Assert.AreNotEqual(0, poststatuses.Count);
     }
@@ -28,8 +28,10 @@ public class PostStatuses_Tests
     [TestMethod]
     public async Task PostStatuses_Get()
     {
-        List<PostStatus> poststatuses = await _clientAuth.PostStatuses.GetAsync();
+        List<PostStatus> poststatuses = await _clientAuth.PostStatuses.GetAsync(cancellationToken: TestContext.CancellationToken);
         Assert.IsNotNull(poststatuses);
         Assert.AreNotEqual(0, poststatuses.Count);
     }
+
+    public TestContext TestContext { get; set; }
 }

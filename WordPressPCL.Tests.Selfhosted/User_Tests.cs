@@ -39,7 +39,7 @@ public class User_Tests
             Name = name,
             FirstName = firstname,
             LastName = lastname
-        });
+        }, TestContext.CancellationToken);
         Assert.IsNotNull(user);
         Assert.AreEqual(nickname, user.NickName);
         Assert.AreEqual(name, user.Name);
@@ -52,10 +52,10 @@ public class User_Tests
     [TestMethod]
     public async Task Users_Read()
     {
-        List<User> users = await _client.Users.GetAllAsync();
+        List<User> users = await _client.Users.GetAllAsync(cancellationToken: TestContext.CancellationToken);
         Assert.IsNotNull(users);
-        Assert.IsTrue(users.Count >= 1);
-        User user = await _client.Users.GetByIdAsync(users.First().Id);
+        Assert.IsGreaterThanOrEqualTo(1, users.Count);
+        User user = await _client.Users.GetByIdAsync(users.First().Id, cancellationToken: TestContext.CancellationToken);
         Assert.IsNotNull(user);
         Assert.AreEqual(user.Id, users.First().Id);
     }
@@ -63,10 +63,10 @@ public class User_Tests
     [TestMethod]
     public async Task Users_Get()
     {
-        List<User> users = await _client.Users.GetAsync();
+        List<User> users = await _client.Users.GetAsync(cancellationToken: TestContext.CancellationToken);
         Assert.IsNotNull(users);
-        Assert.IsTrue(users.Count >= 1);
-        User user = await _client.Users.GetByIdAsync(users.First().Id);
+        Assert.IsGreaterThanOrEqualTo(1, users.Count);
+        User user = await _client.Users.GetByIdAsync(users.First().Id, cancellationToken: TestContext.CancellationToken);
         Assert.IsNotNull(user);
         Assert.AreEqual(user.Id, users.First().Id);
     }
@@ -83,7 +83,7 @@ public class User_Tests
         user.FirstName = name;
         user.LastName = name;
 
-        User updatedUser = await _clientAuth.Users.UpdateAsync(user);
+        User updatedUser = await _clientAuth.Users.UpdateAsync(user, TestContext.CancellationToken);
         Assert.IsNotNull(updatedUser);
         Assert.AreEqual(updatedUser.Name, name);
         Assert.AreEqual(updatedUser.NickName, name);
@@ -96,8 +96,8 @@ public class User_Tests
     {
         User user = await CreateRandomUser();
         Assert.IsNotNull(user);
-        User me = await _clientAuth.Users.GetCurrentUserAsync();
-        bool response = await _clientAuth.Users.Delete(user.Id, me.Id);
+        User me = await _clientAuth.Users.GetCurrentUserAsync(TestContext.CancellationToken);
+        bool response = await _clientAuth.Users.Delete(user.Id, me.Id, TestContext.CancellationToken);
         Assert.IsTrue(response);
     }
 
@@ -117,18 +117,18 @@ public class User_Tests
             Content = new Content("Content PostCreate"),
             Author = user1.Id
         };
-        Post postCreated = await _clientAuth.Posts.CreateAsync(post);
+        Post postCreated = await _clientAuth.Posts.CreateAsync(post, TestContext.CancellationToken);
         Assert.IsNotNull(post);
         Assert.AreEqual(postCreated.Author, user1.Id);
 
         // Delete User1 and reassign posts to user2
-        bool response = await _clientAuth.Users.Delete(user1.Id, user2.Id);
+        bool response = await _clientAuth.Users.Delete(user1.Id, user2.Id, TestContext.CancellationToken);
         Assert.IsTrue(response);
 
         // Get posts for user 2 and check if ID of postCreated is in there
-        List<Post> postsOfUser2 = await _clientAuth.Posts.GetPostsByAuthorAsync(user2.Id);
+        List<Post> postsOfUser2 = await _clientAuth.Posts.GetPostsByAuthorAsync(user2.Id, cancellationToken: TestContext.CancellationToken);
         List<Post> postsById = postsOfUser2.Where(x => x.Id == postCreated.Id).ToList();
-        Assert.AreEqual(1, postsById.Count);
+        Assert.HasCount(1, postsById);
     }
 
     [TestMethod]
@@ -144,7 +144,7 @@ public class User_Tests
         };
         Assert.AreEqual("?page=1&per_page=15&orderby=registered_date&order=desc&context=edit", queryBuilder.BuildQuery());
 
-        List<User> queryresult = await _clientAuth.Users.QueryAsync(queryBuilder, true);
+        List<User> queryresult = await _clientAuth.Users.QueryAsync(queryBuilder, true, TestContext.CancellationToken);
         Assert.IsNotNull(queryresult);
         Assert.AreNotEqual(0, queryresult.Count);
     }
@@ -158,27 +158,27 @@ public class User_Tests
             Context = Context.Edit
         };
 
-        List<User> users = await _clientAuth.Users.QueryAsync(queryBuilder, true);
+        List<User> users = await _clientAuth.Users.QueryAsync(queryBuilder, true, TestContext.CancellationToken);
         Assert.IsNotNull(users);
-        Assert.IsTrue(users.Count >= 1);
+        Assert.IsGreaterThanOrEqualTo(1, users.Count);
 
         foreach (User user in users)
         {
             Assert.IsNotNull(user.Roles);
-            Assert.IsTrue(user.Roles.Count >= 1);
+            Assert.IsGreaterThanOrEqualTo(1, user.Roles.Count);
         }
     }
 
     [TestMethod]
     public async Task Users_GetPaged_Returns_Metadata()
     {
-        PagedResult<User> paged = await _clientAuth.Users.GetPagedAsync(page: 1, perPage: 5, useAuth: true);
+        PagedResult<User> paged = await _clientAuth.Users.GetPagedAsync(page: 1, perPage: 5, useAuth: true, TestContext.CancellationToken);
 
         Assert.IsNotNull(paged);
         Assert.IsNotNull(paged.Items);
-        Assert.IsTrue(paged.Items.Count <= 5);
-        Assert.IsTrue(paged.TotalCount > 0, "TotalCount should be populated from X-WP-Total");
-        Assert.IsTrue(paged.TotalPages >= 1, "TotalPages should be populated from X-WP-TotalPages");
+        Assert.IsLessThanOrEqualTo(5, paged.Items.Count);
+        Assert.IsGreaterThan(0, paged.TotalCount, "TotalCount should be populated from X-WP-Total");
+        Assert.IsGreaterThanOrEqualTo(1, paged.TotalPages, "TotalPages should be populated from X-WP-TotalPages");
     }
 
     [TestMethod]
@@ -189,24 +189,26 @@ public class User_Tests
             Page = 1,
             PerPage = 3,
         };
-        PagedResult<User> paged = await _clientAuth.Users.QueryPagedAsync(queryBuilder, useAuth: true);
+        PagedResult<User> paged = await _clientAuth.Users.QueryPagedAsync(queryBuilder, useAuth: true, TestContext.CancellationToken);
 
         Assert.IsNotNull(paged);
         Assert.IsNotNull(paged.Items);
-        Assert.IsTrue(paged.Items.Count <= 3);
-        Assert.IsTrue(paged.TotalCount > 0, "TotalCount should be populated from X-WP-Total");
-        Assert.IsTrue(paged.TotalPages >= 1, "TotalPages should be populated from X-WP-TotalPages");
+        Assert.IsLessThanOrEqualTo(3, paged.Items.Count);
+        Assert.IsGreaterThan(0, paged.TotalCount, "TotalCount should be populated from X-WP-Total");
+        Assert.IsGreaterThanOrEqualTo(1, paged.TotalPages, "TotalPages should be populated from X-WP-TotalPages");
     }
 
     #region Utils
 
-    private Task<User> CreateRandomUser()
+    private static Task<User> CreateRandomUser()
     {
         string username = Guid.NewGuid().ToString();
         string email = $"{username}@test.com";
         string password = $"testpassword{username}";
         return _clientAuth.Users.CreateAsync(new User(username, email, password));
     }
+
+    public TestContext TestContext { get; set; }
 
     #endregion Utils
 }

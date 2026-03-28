@@ -24,7 +24,7 @@ public class Basic_Tests
         // Initialize
         Assert.IsNotNull(_client);
         // Posts
-        var posts = await _client.Posts.GetAllAsync();
+        var posts = await _client.Posts.GetAllAsync(cancellationToken: TestContext.CancellationToken);
         Assert.IsNotNull(posts);
         Assert.AreNotEqual(0, posts!.Count);
     }
@@ -33,9 +33,9 @@ public class Basic_Tests
     public async Task Hosted_GetFirstPostTest()
     {
         // Initialize
-        var posts = await _client.Posts.GetAllAsync();
-        var post = await _client.Posts.GetByIdAsync(posts.First().Id);
-        Assert.IsTrue(posts.First().Id == post.Id);
+        var posts = await _client.Posts.GetAllAsync(cancellationToken: TestContext.CancellationToken);
+        var post = await _client.Posts.GetByIdAsync(posts.First().Id, cancellationToken: TestContext.CancellationToken);
+        Assert.AreEqual(post.Id, posts.First().Id);
         Assert.IsTrue(!String.IsNullOrEmpty(posts.First().Content!.Rendered));
     }
 
@@ -43,7 +43,7 @@ public class Basic_Tests
     public async Task Hosted_GetStickyPosts()
     {
         // Initialize
-        var posts = await _client.Posts.GetStickyPostsAsync();
+        var posts = await _client.Posts.GetStickyPostsAsync(cancellationToken: TestContext.CancellationToken);
 
         foreach (Post post in posts)
         {
@@ -57,27 +57,27 @@ public class Basic_Tests
         // This CategoryID MUST exists at ApiCredentials.WordPressUri
         int category = 1;
         // Initialize
-        var posts = await _client.Posts.GetPostsByCategoryAsync(category);
+        var posts = await _client.Posts.GetPostsByCategoryAsync(category, cancellationToken: TestContext.CancellationToken);
 
         foreach (Post post in posts)
         {
-            Assert.IsTrue(post.Categories!.ToList().Contains(category));
+            Assert.Contains(category, post.Categories!.ToList());
         }
     }
 
     [TestMethod]
     public async Task Hosted_GetPostsByTag()
     {
-        var tags = await _client.Tags.GetAsync();
+        var tags = await _client.Tags.GetAsync(cancellationToken: TestContext.CancellationToken);
         Assert.IsTrue(tags.Any(), "No tags returned from the API; cannot test posts by tag.");
         int tagId = tags.First().Id;
 
         // Initialize
-        var posts = await _client.Posts.GetPostsByTagAsync(tagId);
+        var posts = await _client.Posts.GetPostsByTagAsync(tagId, cancellationToken: TestContext.CancellationToken);
         Assert.AreNotEqual(0, posts.Count);
         foreach (Post post in posts)
         {
-            Assert.IsTrue(post.Tags!.ToList().Contains(tagId));
+            Assert.Contains(tagId, post.Tags!.ToList());
         }
     }
 
@@ -87,11 +87,11 @@ public class Basic_Tests
         // This AuthorID MUST exists at ApiCredentials.WordPressUri
         int author = 3722200;
         // Initialize
-        var posts = await _client.Posts.GetPostsByAuthorAsync(author);
+        var posts = await _client.Posts.GetPostsByAuthorAsync(author, cancellationToken: TestContext.CancellationToken);
         Assert.AreNotEqual(0, posts.Count);
         foreach (Post post in posts)
         {
-            Assert.IsTrue(post.Author == author);
+            Assert.AreEqual(author, post.Author);
         }
     }
 
@@ -101,7 +101,7 @@ public class Basic_Tests
         // This search term MUST be used at least once
         string search = "hello";
         // Initialize
-        var posts = await _client.Posts.GetPostsBySearchAsync(search);
+        var posts = await _client.Posts.GetPostsBySearchAsync(search, cancellationToken: TestContext.CancellationToken);
         Assert.AreNotEqual(0, posts.Count);
         foreach (Post post in posts)
         {
@@ -115,4 +115,6 @@ public class Basic_Tests
             Assert.IsTrue(containsOnContentOrTitle);
         }
     }
+
+    public TestContext TestContext { get; set; }
 }
