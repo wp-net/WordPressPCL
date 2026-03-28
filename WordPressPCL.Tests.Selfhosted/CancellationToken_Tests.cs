@@ -17,10 +17,10 @@ public class CancellationToken_Tests
 {
     /// <summary>
     /// Verifies that a pre-cancelled token causes the request to throw
-    /// TaskCanceledException immediately.
+    /// <see cref="TaskCanceledException"/> immediately.
     /// </summary>
     [TestMethod]
-    public async Task GetAsync_WithPreCancelledToken_ThrowsOperationCanceledException()
+    public async Task GetAsync_WithPreCancelledToken_ThrowsTaskCanceledException()
     {
         using var cts = new CancellationTokenSource();
         cts.Cancel();
@@ -36,10 +36,10 @@ public class CancellationToken_Tests
 
     /// <summary>
     /// Verifies that cancellation during an in-flight request causes
-    /// TaskCanceledException and that the token was passed to SendAsync.
+    /// <see cref="TaskCanceledException"/> and that the token was passed to SendAsync.
     /// </summary>
     [TestMethod]
-    public async Task GetAsync_CancelledDuringRequest_ThrowsOperationCanceledException()
+    public async Task GetAsync_CancelledDuringRequest_ThrowsTaskCanceledException()
     {
         using var cts = new CancellationTokenSource();
         using var handler = new DelayingCancellationHandler(cts);
@@ -54,7 +54,7 @@ public class CancellationToken_Tests
     /// Verifies that CancellationToken is threaded through PostRequestAsync (CreateAsync).
     /// </summary>
     [TestMethod]
-    public async Task CreateAsync_WithPreCancelledToken_ThrowsOperationCanceledException()
+    public async Task CreateAsync_WithPreCancelledToken_ThrowsTaskCanceledException()
     {
         using var cts = new CancellationTokenSource();
         cts.Cancel();
@@ -71,7 +71,7 @@ public class CancellationToken_Tests
     /// Verifies that CancellationToken is threaded through DeleteRequestAsync.
     /// </summary>
     [TestMethod]
-    public async Task DeleteAsync_WithPreCancelledToken_ThrowsOperationCanceledException()
+    public async Task DeleteAsync_WithPreCancelledToken_ThrowsTaskCanceledException()
     {
         using var cts = new CancellationTokenSource();
         cts.Cancel();
