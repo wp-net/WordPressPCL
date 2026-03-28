@@ -1,60 +1,59 @@
 using System.Text.Json.Serialization;
 
 
-namespace WordPressPCL.Models
+namespace WordPressPCL.Models;
+
+/// <summary>
+/// This is the base class for all terms, like categories and tags
+/// </summary>
+public class Term : Base
 {
     /// <summary>
-    /// This is the base class for all terms, like categories and tags
+    /// URL of the term.
     /// </summary>
-    public class Term : Base
+    /// <remarks>
+    /// Read only
+    /// Context: view, embed, edit
+    /// </remarks>
+    [JsonPropertyName("link")]
+    public string? Link { get; set; }
+
+    /// <summary>
+    /// HTML title for the term.
+    /// </summary>
+    /// <remarks>Context: view, embed, edit</remarks>
+    [JsonPropertyName("name")]
+    public string? Name { get; set; }
+
+    /// <summary>
+    /// An alphanumeric identifier for the term unique to its type.
+    /// </summary>
+    /// <remarks>Context: view, embed, edit</remarks>
+    [JsonPropertyName("slug")]
+    public string? Slug { get; set; }
+
+    /// <summary>
+    /// Type attribution for the term.
+    /// </summary>
+    /// <remarks>
+    /// Read only
+    /// Context: view, embed, edit
+    /// One of: category, post_tag, nav_menu, link_category, post_format
+    /// </remarks>
+    [JsonPropertyName("taxonomy")]
+    public string? Taxonomy { get; set; }
+
+    /// <summary>
+    /// Links to related resources
+    /// </summary>
+    [JsonPropertyName("_links")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+    public Links? Links { get; set; }
+
+    /// <summary>
+    /// parameterless constructor
+    /// </summary>
+    public Term()
     {
-        /// <summary>
-        /// URL of the term.
-        /// </summary>
-        /// <remarks>
-        /// Read only
-        /// Context: view, embed, edit
-        /// </remarks>
-        [JsonPropertyName("link")]
-        public string? Link { get; set; }
-
-        /// <summary>
-        /// HTML title for the term.
-        /// </summary>
-        /// <remarks>Context: view, embed, edit</remarks>
-        [JsonPropertyName("name")]
-        public string? Name { get; set; }
-
-        /// <summary>
-        /// An alphanumeric identifier for the term unique to its type.
-        /// </summary>
-        /// <remarks>Context: view, embed, edit</remarks>
-        [JsonPropertyName("slug")]
-        public string? Slug { get; set; }
-
-        /// <summary>
-        /// Type attribution for the term.
-        /// </summary>
-        /// <remarks>
-        /// Read only
-        /// Context: view, embed, edit
-        /// One of: category, post_tag, nav_menu, link_category, post_format
-        /// </remarks>
-        [JsonPropertyName("taxonomy")]
-        public string? Taxonomy { get; set; }
-
-        /// <summary>
-        /// Links to related resources
-        /// </summary>
-        [JsonPropertyName("_links")]
-        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
-        public Links? Links { get; set; }
-
-        /// <summary>
-        /// parameterless constructor
-        /// </summary>
-        public Term()
-        {
-        }
     }
 }

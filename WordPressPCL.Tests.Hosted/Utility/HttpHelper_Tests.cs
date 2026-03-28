@@ -53,7 +53,8 @@ public class HttpHelper_Tests
     }
 
     [TestMethod]
-    public async Task Hosted_HttpHelper_ValidPreProcessing() {
+    public async Task Hosted_HttpHelper_ValidPreProcessing()
+    {
         var client = new WordPressClient(ApiCredentials.WordPressUri);
         client.Auth.UseBearerAuth(JWTPlugin.JWTAuthByEnriqueChavez);
         await client.Auth.RequestJWTokenAsync(ApiCredentials.Username, ApiCredentials.Password);

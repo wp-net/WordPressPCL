@@ -33,32 +33,33 @@ public class ExceptionTests
     }
 
     [TestMethod]
-    public async Task Exception_RequestJWTokenForBasicAuth() 
+    public async Task Exception_RequestJWTokenForBasicAuth()
     {
         //Initialize
         Assert.IsNotNull(_client);
         const string dummyUser = "dummy";
         const string dummyPassword = "dummy";
-        
+
         _client.Auth.UseBasicAuth(dummyUser, dummyPassword);
-        
-        await Assert.ThrowsExactlyAsync<WPException>(async () => 
+
+        await Assert.ThrowsExactlyAsync<WPException>(async () =>
         {
             await _client.Auth.RequestJWTokenAsync(dummyUser, dummyPassword);
         });
     }
 
     [TestMethod]
-    public async Task Exception_IsValidJWTokenForBasicAuth() 
+    public async Task Exception_IsValidJWTokenForBasicAuth()
     {
         //Initialize
         Assert.IsNotNull(_client);
         const string dummyUser = "dummy";
         const string dummyPassword = "dummy";
-        
+
         _client.Auth.UseBasicAuth(dummyUser, dummyPassword);
 
-        await Assert.ThrowsExactlyAsync<WPException>(async () => {
+        await Assert.ThrowsExactlyAsync<WPException>(async () =>
+        {
             await _client.Auth.IsValidJWTokenAsync();
         });
     }

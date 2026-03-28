@@ -65,7 +65,7 @@ public class Tag_Tests
     {
         List<Tag> tags = await _clientAuth.Tags.GetAllAsync();
         Tag? tag = tags.FirstOrDefault();
-        if(tag == null)
+        if (tag == null)
         {
             Assert.Inconclusive();
         }

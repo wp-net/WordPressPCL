@@ -1,20 +1,21 @@
-namespace WordPressPCL.Models {
-    
+namespace WordPressPCL.Models;
+
+
+/// <summary>
+/// JWT Plugins supported
+/// </summary>
+public enum JWTPlugin
+{
+
     /// <summary>
-    /// JWT Plugins supported
+    /// JWT Authentication for WP REST API plugin
+    /// Author - Enrique Chavez
     /// </summary>
-    public enum JWTPlugin {
-        
-        /// <summary>
-        /// JWT Authentication for WP REST API plugin
-        /// Author - Enrique Chavez
-        /// </summary>
-        JWTAuthByEnriqueChavez,
-        /// <summary>
-        /// JWT Auth – WordPress JSON Web Token Authentication plugin
-        /// Author - Useful Team
-        /// </summary>
-        JWTAuthByUsefulTeam
-        
-    }
+    JWTAuthByEnriqueChavez,
+    /// <summary>
+    /// JWT Auth – WordPress JSON Web Token Authentication plugin
+    /// Author - Useful Team
+    /// </summary>
+    JWTAuthByUsefulTeam
+
 }

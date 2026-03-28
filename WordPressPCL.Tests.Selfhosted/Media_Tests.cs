@@ -28,7 +28,7 @@ public class Media_Tests
     {
         string path = Directory.GetCurrentDirectory() + "/Assets/cat.jpg";
         Stream s = File.OpenRead(path);
-        MediaItem mediaitem = await _clientAuth.Media.CreateAsync(s,"cat.jpg");
+        MediaItem mediaitem = await _clientAuth.Media.CreateAsync(s, "cat.jpg");
         Assert.IsNotNull(mediaitem);
     }
 
@@ -53,13 +53,16 @@ public class Media_Tests
     }
 
     [TestMethod]
-    public async Task Media_With_Exif_Error_Should_Deserialize_Without_Exception() 
+    public async Task Media_With_Exif_Error_Should_Deserialize_Without_Exception()
     {
         string path = Directory.GetCurrentDirectory() + "/Assets/img_exif_error.jpg";
         MediaItem? mediaItem = null;
-        try {
+        try
+        {
             mediaItem = await _clientAuth.Media.CreateAsync(path, "img_exif_error.jpg");
-        } catch (JsonReaderException) {
+        }
+        catch (JsonReaderException)
+        {
             Assert.Fail("Could not deserialize created Media due to JsonReaderException");
         }
         Assert.IsNotNull(mediaItem);
@@ -136,7 +139,8 @@ public class Media_Tests
     {
         List<Post> posts = await _client.Posts.GetAllAsync(true);
         int i = 0;
-        foreach (Post post in posts) {
+        foreach (Post post in posts)
+        {
             var featured = post.Embedded?.WpFeaturedmedia;
             if (featured != null && featured.Any())
             {

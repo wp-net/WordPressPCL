@@ -1,50 +1,49 @@
 using System.Text.Json.Serialization;
 
 
-namespace WordPressPCL.Models
+namespace WordPressPCL.Models;
+
+/// <summary>
+/// Terms of the type tag
+/// </summary>
+public class Tag : Term
 {
     /// <summary>
-    /// Terms of the type tag
+    /// Number of published posts for the term.
     /// </summary>
-    public class Tag : Term
+    /// <remarks>
+    /// Read only
+    /// Context: view, edit
+    /// </remarks>
+    [JsonPropertyName("count")]
+    public int Count { get; set; }
+
+    /// <summary>
+    /// HTML description of the term.
+    /// </summary>
+    /// <remarks>Context: view, edit</remarks>
+    [JsonPropertyName("description")]
+    public string? Description { get; set; }
+    /// <summary>
+    /// Meta object
+    /// </summary>
+    /// <remarks>Context: view</remarks>
+    [JsonPropertyName("meta")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+    public dynamic? Meta { get; set; }
+    /// <summary>
+    /// Parameterless constructor
+    /// </summary>
+    public Tag() : base()
     {
-        /// <summary>
-        /// Number of published posts for the term.
-        /// </summary>
-        /// <remarks>
-        /// Read only
-        /// Context: view, edit
-        /// </remarks>
-        [JsonPropertyName("count")]
-        public int Count { get; set; }
 
-        /// <summary>
-        /// HTML description of the term.
-        /// </summary>
-        /// <remarks>Context: view, edit</remarks>
-        [JsonPropertyName("description")]
-        public string? Description { get; set; }
-        /// <summary>
-        /// Meta object
-        /// </summary>
-        /// <remarks>Context: view</remarks>
-        [JsonPropertyName("meta")]
-        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
-        public dynamic? Meta { get; set; }
-        /// <summary>
-        /// Parameterless constructor
-        /// </summary>
-        public Tag():base()
-        {
-
-        }
-        /// <summary>
-        /// Constructor with required parameters
-        /// </summary>
-        /// <param name="name">Tag name</param>
-        public Tag(string name):this()
-        {
-            Name = name;
-        }
+    }
+    /// <summary>
+    /// Constructor with required parameters
+    /// </summary>
+    /// <param name="name">Tag name</param>
+    public Tag(string name) : this()
+    {
+        Name = name;
     }
 }

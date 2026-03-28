@@ -14,7 +14,7 @@ namespace WordPressPCL.Tests.Selfhosted;
 public class Plugins_Tests
 {
     private static WordPressClient _clientAuth = null!;
-    private static string PluginId= "wordpress-seo";
+    private static string PluginId = "wordpress-seo";
 
     [ClassInitialize]
     public static async Task Init(TestContext testContext)
@@ -63,16 +63,16 @@ public class Plugins_Tests
     public async Task Plugins_GetActive()
     {
         //Active plugin
-        List<Plugin> plugins = await _clientAuth.Plugins.QueryAsync(new PluginsQueryBuilder { Status = ActivationStatus.Active }, useAuth:true);
+        List<Plugin> plugins = await _clientAuth.Plugins.QueryAsync(new PluginsQueryBuilder { Status = ActivationStatus.Active }, useAuth: true);
         Assert.IsNotNull(plugins);
         Assert.AreNotEqual(0, plugins.Count);
 
     }
     [TestMethod]
-    public async Task Plugins_Search ()
+    public async Task Plugins_Search()
     {
         //Active plugin
-        List<Plugin> plugins = await _clientAuth.Plugins.QueryAsync(new PluginsQueryBuilder { Search="jwt" }, useAuth:true);
+        List<Plugin> plugins = await _clientAuth.Plugins.QueryAsync(new PluginsQueryBuilder { Search = "jwt" }, useAuth: true);
         Assert.IsNotNull(plugins);
         Assert.AreNotEqual(0, plugins.Count);
 
@@ -81,7 +81,7 @@ public class Plugins_Tests
     [TestMethod]
     public async Task Plugins_Get()
     {
-        List<Plugin> plugins = await _clientAuth.Plugins.GetAsync (useAuth: true);
+        List<Plugin> plugins = await _clientAuth.Plugins.GetAsync(useAuth: true);
         Assert.IsNotNull(plugins);
         Assert.AreNotEqual(0, plugins.Count);
         CollectionAssert.AllItemsAreUnique(plugins.Select(tag => tag.Id).ToList());

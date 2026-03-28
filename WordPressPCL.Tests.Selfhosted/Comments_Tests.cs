@@ -105,7 +105,7 @@ public class Comments_Tests
         Comment commentUpdated = await _clientAuth.Comments.UpdateAsync(comment);
         Assert.AreEqual(title, commentUpdated.Content!.Raw);
     }
-    
+
     [TestMethod]
     public async Task Comments_Delete()
     {
@@ -129,7 +129,7 @@ public class Comments_Tests
         Assert.IsTrue(response);
 
     }
-    
+
     [TestMethod]
     public async Task Comments_Query()
     {
