@@ -63,12 +63,10 @@ public class Comments_Tests
         foreach (Comment comment in comments)
         {
             // test Date parsing was successfull
-            Assert.IsNotNull(comment.Date);
             Assert.AreNotEqual(DateTime.Now, comment.Date);
             Assert.AreNotEqual(DateTime.MaxValue, comment.Date);
             Assert.AreNotEqual(DateTime.MinValue, comment.Date);
 
-            Assert.IsNotNull(comment.DateGmt);
             Assert.AreNotEqual(DateTime.Now, comment.DateGmt);
             Assert.AreNotEqual(DateTime.MaxValue, comment.DateGmt);
             Assert.AreNotEqual(DateTime.MinValue, comment.DateGmt);
@@ -105,7 +103,7 @@ public class Comments_Tests
         string title = $"TestComment {System.Guid.NewGuid()}";
         comment.Content!.Raw = title;
         Comment commentUpdated = await _clientAuth.Comments.UpdateAsync(comment);
-        Assert.AreEqual(commentUpdated.Content!.Raw, title);
+        Assert.AreEqual(title, commentUpdated.Content!.Raw);
     }
     
     [TestMethod]
@@ -145,7 +143,7 @@ public class Comments_Tests
         List<Comment> queryresult = await _clientAuth.Comments.QueryAsync(queryBuilder);
         Assert.AreEqual("?page=1&per_page=15&orderby=id&order=desc&context=view", queryBuilder.BuildQuery());
         Assert.IsNotNull(queryresult);
-        Assert.AreNotSame(queryresult.Count, 0);
+        Assert.AreNotEqual(0, queryresult.Count);
     }
 
     // TODO: Can't create pending comment from Admin Account
@@ -185,7 +183,7 @@ public class Comments_Tests
         string querystring = "page=1&per_page=15&orderby=id&status=hold";
         Assert.AreEqual(querystring, queryBuilder.BuildQuery());
         Assert.IsNotNull(queryresult);
-        Assert.AreNotEqual(queryresult.Count, 0);
+        Assert.AreNotEqual(0, queryresult.Count);
 
         // Delete Pending comment
         await _clientAuth.Comments.DeleteAsync(resultComment.Id);

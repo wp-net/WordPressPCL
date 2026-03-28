@@ -1,4 +1,4 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using WordPressPCL.Tests.Selfhosted.Utility;
 using System.Threading.Tasks;
 using WordPressPCL.Models;
@@ -47,7 +47,7 @@ public class Tag_Tests
     {
         List<Tag> tags = await _clientAuth.Tags.GetAllAsync();
         Assert.IsNotNull(tags);
-        Assert.AreNotEqual(tags.Count, 0);
+        Assert.AreNotEqual(0, tags.Count);
         CollectionAssert.AllItemsAreUnique(tags.Select(tag => tag.Id).ToList());
     }
 
@@ -56,7 +56,7 @@ public class Tag_Tests
     {
         List<Tag> tags = await _client.Tags.GetAsync();
         Assert.IsNotNull(tags);
-        Assert.AreNotEqual(tags.Count, 0);
+        Assert.AreNotEqual(0, tags.Count);
         CollectionAssert.AllItemsAreUnique(tags.Select(tag => tag.Id).ToList());
     }
 
@@ -92,7 +92,7 @@ public class Tag_Tests
         Assert.IsTrue(response);
         tags = await _clientAuth.Tags.GetAllAsync();
         List<Tag> tagsWithId = tags.Where(x => x.Id == tagId).ToList();
-        Assert.AreEqual(tagsWithId.Count, 0);
+        Assert.AreEqual(0, tagsWithId.Count);
     }
     [TestMethod]
     public async Task Tags_Query()
@@ -107,7 +107,7 @@ public class Tag_Tests
         List<Tag> queryresult = await _clientAuth.Tags.QueryAsync(queryBuilder);
         Assert.AreEqual("?page=1&per_page=15&orderby=id&order=desc&context=view", queryBuilder.BuildQuery());
         Assert.IsNotNull(queryresult);
-        Assert.AreNotSame(queryresult.Count, 0);
+        Assert.AreNotEqual(0, queryresult.Count);
     }
 
 }

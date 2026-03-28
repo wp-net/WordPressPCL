@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using WordPressPCL.Tests.Hosted.Utility;
 using System.Threading.Tasks;
@@ -25,7 +25,7 @@ public class Basic_Tests
         Assert.IsNotNull(_client);
         // Posts
         var posts = await _client.Posts.GetAllAsync();
-        Assert.AreNotEqual(posts.Count, 0);
+        Assert.AreNotEqual(0, posts.Count);
         Assert.IsNotNull(posts);
     }
 

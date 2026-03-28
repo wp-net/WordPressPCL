@@ -3123,6 +3123,126 @@
             <param name="TagsRaw">Raw HTML text for author</param>
             <param name="TagsRendered">Rendered text for author</param>
         </member>
+        <member name="T:WordPressPCL.Models.ThemeSupports">
+            <summary>
+            Describes the features supported by the active theme.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ThemeSupports.AlignWide">
+            <summary>
+            Indicates whether the theme supports wide and full-width alignment options.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ThemeSupports.AutomaticFeedLinks">
+            <summary>
+            Indicates whether the theme supports automatic feed links.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ThemeSupports.BlockTemplates">
+            <summary>
+            Indicates whether the theme supports block templates.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ThemeSupports.BlockTemplateParts">
+            <summary>
+            Indicates whether the theme supports block template parts.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ThemeSupports.CustomBackground">
+            <summary>
+            Indicates whether the theme supports custom backgrounds.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ThemeSupports.CustomHeader">
+            <summary>
+            Indicates whether the theme supports custom headers.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ThemeSupports.CustomLogo">
+            <summary>
+            Indicates whether the theme supports custom logos.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ThemeSupports.CustomizeSelectiveRefreshWidgets">
+            <summary>
+            Indicates whether the theme supports selective refresh for widgets in the customizer.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ThemeSupports.DarkEditorStyle">
+            <summary>
+            Indicates whether the theme supports a dark editor style.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ThemeSupports.DisableCustomColors">
+            <summary>
+            Indicates whether the theme disables custom colors.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ThemeSupports.DisableCustomFontSizes">
+            <summary>
+            Indicates whether the theme disables custom font sizes.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ThemeSupports.DisableCustomGradients">
+            <summary>
+            Indicates whether the theme disables custom gradients.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ThemeSupports.DisableLayoutStyles">
+            <summary>
+            Indicates whether the theme disables layout styles.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ThemeSupports.EditorColorPalette">
+            <summary>
+            Indicates whether the theme provides an editor color palette.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ThemeSupports.EditorFontSizes">
+            <summary>
+            Indicates whether the theme provides editor font sizes.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ThemeSupports.EditorGradientPresets">
+            <summary>
+            Indicates whether the theme provides editor gradient presets.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ThemeSupports.EditorStyles">
+            <summary>
+            Indicates whether the theme provides editor styles.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ThemeSupports.Html5">
+            <summary>
+            Gets the supported HTML5 feature set.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ThemeSupports.Formats">
+            <summary>
+            Gets the supported post formats.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ThemeSupports.PostThumbnails">
+            <summary>
+            Indicates whether the theme supports post thumbnails.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ThemeSupports.ResponsiveEmbeds">
+            <summary>
+            Indicates whether the theme supports responsive embeds.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ThemeSupports.TitleTag">
+            <summary>
+            Indicates whether the theme supports automatic document titles.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ThemeSupports.WpBlockStyles">
+            <summary>
+            Indicates whether the theme supports default block styles.
+            </summary>
+        </member>
         <member name="T:WordPressPCL.Models.Rendered">
             <summary>
             The tags for the object.
@@ -4534,6 +4654,12 @@
             <summary>
             Limit result set to users with a specific slug.
             </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.UsersQueryBuilder.Statuses">
+            <summary>
+            Limit result set to users assigned one or more statuses.
+            </summary>
+            <remarks>Default: publish</remarks>
         </member>
         <member name="P:WordPressPCL.Utility.UsersQueryBuilder.Roles">
             <summary>

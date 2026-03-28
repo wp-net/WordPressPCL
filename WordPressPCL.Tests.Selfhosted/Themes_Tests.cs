@@ -24,7 +24,7 @@ public class Themes_Tests
     {
         List<Theme> themes = await _clientAuth.Themes.QueryAsync(new ThemesQueryBuilder { Status = ActivationStatus.Active }, useAuth:true);
         Assert.IsNotNull(themes);
-        Assert.AreNotEqual(themes.Count, 0);
+        Assert.AreNotEqual(0, themes.Count);
 
     }
     [TestMethod]
@@ -32,7 +32,7 @@ public class Themes_Tests
     {
         List<Theme> themes = await _clientAuth.Themes.GetAsync (useAuth: true);
         Assert.IsNotNull(themes);
-        Assert.AreNotEqual(themes.Count, 0);
+        Assert.AreNotEqual(0, themes.Count);
         CollectionAssert.AllItemsAreUnique(themes.Select(tag => tag.Stylesheet).ToList());
     }
 

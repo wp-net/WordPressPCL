@@ -23,7 +23,7 @@ public class Taxonomies_Tests
     {
         List<Taxonomy> taxonomies = await _clientAuth.Taxonomies.GetAllAsync();
         Assert.IsNotNull(taxonomies);
-        Assert.AreNotEqual(taxonomies.Count, 0);
+        Assert.AreNotEqual(0, taxonomies.Count);
     }
 
     [TestMethod]
@@ -31,7 +31,7 @@ public class Taxonomies_Tests
     {
         List<Taxonomy> taxonomies = await _clientAuth.Taxonomies.GetAsync();
         Assert.IsNotNull(taxonomies);
-        Assert.AreNotEqual(taxonomies.Count, 0);
+        Assert.AreNotEqual(0, taxonomies.Count);
     }
 
     [TestMethod]
@@ -44,6 +44,6 @@ public class Taxonomies_Tests
         List<Taxonomy> queryresult = await _clientAuth.Taxonomies.QueryAsync(queryBuilder);
         Assert.AreEqual("?type=post&order=desc&context=view", queryBuilder.BuildQuery());
         Assert.IsNotNull(queryresult);
-        Assert.AreNotSame(queryresult.Count, 0);
+        Assert.AreNotEqual(0, queryresult.Count);
     }
 }

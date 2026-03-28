@@ -1,4 +1,4 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using WordPressPCL.Tests.Selfhosted.Utility;
 using System.Threading.Tasks;
 using WordPressPCL.Models;
@@ -12,12 +12,10 @@ public class Basic_Tests
 {
     private static WordPressClient _client = null!;
     private static WordPressClient _clientAuth = null!;
-    private static TestContext _context = null!;
 
     [ClassInitialize]
     public static async Task Init(TestContext testContext)
     {
-        _context = testContext;
         _client = ClientHelper.GetWordPressClient();
         _clientAuth = await ClientHelper.GetAuthenticatedWordPressClient(testContext);
     }

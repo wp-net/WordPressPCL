@@ -37,7 +37,7 @@ public class CustomRequests_Tests
     {
         List<ContactFormItem> forms = await _clientAuth.CustomRequest.GetAsync<List<ContactFormItem>>("contact-form-7/v1/contact-forms", false, true);
         Assert.IsNotNull(forms);
-        Assert.AreNotEqual(forms.Count, 0);
+        Assert.AreNotEqual(0, forms.Count);
     }
 
     // TODO: check why this isn't returning the form
@@ -60,7 +60,7 @@ public class CustomRequests_Tests
 
         List<ContactFormItem> forms = await _clientAuth.CustomRequest.GetAsync<List<ContactFormItem>>("contact-form-7/v1/contact-forms", false, true);
         Assert.IsNotNull(forms);
-        Assert.AreNotEqual(forms.Count, 0);
+        Assert.AreNotEqual(0, forms.Count);
         ContactFormItem editform = forms.First();
         editform.Title += "test";
         ContactFormItem form2 = await _clientAuth.CustomRequest.UpdateAsync<ContactFormItem, ContactFormItem>($"contact-form-7/v1/contact-forms/{editform.Id!.Value}", editform);
@@ -74,7 +74,7 @@ public class CustomRequests_Tests
     {
         List<ContactFormItem> forms = await _clientAuth.CustomRequest.GetAsync<List<ContactFormItem>>("contact-form-7/v1/contact-forms", false, true);
         Assert.IsNotNull(forms);
-        Assert.AreNotEqual(forms.Count, 0);
+        Assert.AreNotEqual(0, forms.Count);
         ContactFormItem deleteform = forms.First();
         bool result = await _clientAuth.CustomRequest.DeleteAsync($"contact-form-7/v1/contact-forms/{deleteform.Id!.Value}");
         Assert.IsTrue(result);

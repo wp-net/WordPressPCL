@@ -172,74 +172,146 @@ namespace WordPressPCL.Models
         }
     }
 
+    /// <summary>
+    /// Describes the features supported by the active theme.
+    /// </summary>
     public class ThemeSupports
     {
+        /// <summary>
+        /// Indicates whether the theme supports wide and full-width alignment options.
+        /// </summary>
         [JsonPropertyName("align-wide")]
         public bool AlignWide { get; set; }
 
+        /// <summary>
+        /// Indicates whether the theme supports automatic feed links.
+        /// </summary>
         [JsonPropertyName("automatic-feed-links")]
         public bool AutomaticFeedLinks { get; set; }
 
+        /// <summary>
+        /// Indicates whether the theme supports block templates.
+        /// </summary>
         [JsonPropertyName("block-templates")]
         public bool BlockTemplates { get; set; }
 
+        /// <summary>
+        /// Indicates whether the theme supports block template parts.
+        /// </summary>
         [JsonPropertyName("block-template-parts")]
         public bool BlockTemplateParts { get; set; }
 
+        /// <summary>
+        /// Indicates whether the theme supports custom backgrounds.
+        /// </summary>
         [JsonPropertyName("custom-background")]
         public bool CustomBackground { get; set; }
 
+        /// <summary>
+        /// Indicates whether the theme supports custom headers.
+        /// </summary>
         [JsonPropertyName("custom-header")]
         public bool CustomHeader { get; set; }
 
+        /// <summary>
+        /// Indicates whether the theme supports custom logos.
+        /// </summary>
         [JsonPropertyName("custom-logo")]
         public bool CustomLogo { get; set; }
 
+        /// <summary>
+        /// Indicates whether the theme supports selective refresh for widgets in the customizer.
+        /// </summary>
         [JsonPropertyName("customize-selective-refresh-widgets")]
         public bool CustomizeSelectiveRefreshWidgets { get; set; }
 
+        /// <summary>
+        /// Indicates whether the theme supports a dark editor style.
+        /// </summary>
         [JsonPropertyName("dark-editor-style")]
         public bool DarkEditorStyle { get; set; }
 
+        /// <summary>
+        /// Indicates whether the theme disables custom colors.
+        /// </summary>
         [JsonPropertyName("disable-custom-colors")]
         public bool DisableCustomColors { get; set; }
 
+        /// <summary>
+        /// Indicates whether the theme disables custom font sizes.
+        /// </summary>
         [JsonPropertyName("disable-custom-font-sizes")]
         public bool DisableCustomFontSizes { get; set; }
 
+        /// <summary>
+        /// Indicates whether the theme disables custom gradients.
+        /// </summary>
         [JsonPropertyName("disable-custom-gradients")]
         public bool DisableCustomGradients { get; set; }
 
+        /// <summary>
+        /// Indicates whether the theme disables layout styles.
+        /// </summary>
         [JsonPropertyName("disable-layout-styles")]
         public bool DisableLayoutStyles { get; set; }
 
+        /// <summary>
+        /// Indicates whether the theme provides an editor color palette.
+        /// </summary>
         [JsonPropertyName("editor-color-palette")]
         public bool EditorColorPalette { get; set; }
 
+        /// <summary>
+        /// Indicates whether the theme provides editor font sizes.
+        /// </summary>
         [JsonPropertyName("editor-font-sizes")]
         public bool EditorFontSizes { get; set; }
 
+        /// <summary>
+        /// Indicates whether the theme provides editor gradient presets.
+        /// </summary>
         [JsonPropertyName("editor-gradient-presets")]
         public bool EditorGradientPresets { get; set; }
 
+        /// <summary>
+        /// Indicates whether the theme provides editor styles.
+        /// </summary>
         [JsonPropertyName("editor-styles")]
         public bool EditorStyles { get; set; }
 
+        /// <summary>
+        /// Gets the supported HTML5 feature set.
+        /// </summary>
         [JsonPropertyName("html5")]
         public List<string>? Html5 { get; set; }
 
+        /// <summary>
+        /// Gets the supported post formats.
+        /// </summary>
         [JsonPropertyName("formats")]
         public List<string>? Formats { get; set; }
 
+        /// <summary>
+        /// Indicates whether the theme supports post thumbnails.
+        /// </summary>
         [JsonPropertyName("post-thumbnails")]
         public bool PostThumbnails { get; set; }
 
+        /// <summary>
+        /// Indicates whether the theme supports responsive embeds.
+        /// </summary>
         [JsonPropertyName("responsive-embeds")]
         public bool ResponsiveEmbeds { get; set; }
 
+        /// <summary>
+        /// Indicates whether the theme supports automatic document titles.
+        /// </summary>
         [JsonPropertyName("title-tag")]
         public bool TitleTag { get; set; }
 
+        /// <summary>
+        /// Indicates whether the theme supports default block styles.
+        /// </summary>
         [JsonPropertyName("wp-block-styles")]
         public bool WpBlockStyles { get; set; }
     }

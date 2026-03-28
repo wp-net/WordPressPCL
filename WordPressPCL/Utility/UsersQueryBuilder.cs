@@ -60,12 +60,10 @@ namespace WordPressPCL.Utility
         [QueryText("slug")]
         public List<string>? Slugs { get; set; }
 
-        //
-        // Summary:
-        //     Limit result set to posts assigned one or more statuses.
-        //
-        // Remarks:
-        //     Default: publish
+        /// <summary>
+        /// Limit result set to users assigned one or more statuses.
+        /// </summary>
+        /// <remarks>Default: publish</remarks>
         [QueryText("status")]
         public List<Status>? Statuses { get; set; }
 

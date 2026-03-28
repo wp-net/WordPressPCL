@@ -1,4 +1,4 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using WordPressPCL.Tests.Selfhosted.Utility;
 using System.Threading.Tasks;
 using WordPressPCL.Utility;
@@ -36,8 +36,8 @@ public class ListPosts_QueryBuilder_Tests
         });
         Assert.IsNotNull(postsA);
         Assert.IsNotNull(postsB);
-        Assert.AreNotEqual(postsA.Count, 0);
-        Assert.AreNotEqual(postsB.Count, 0);
+        Assert.AreNotEqual(0, postsA.Count);
+        Assert.AreNotEqual(0, postsB.Count);
         CollectionAssert.AreNotEqual(postsA.Select(post => post.Id).ToList(), postsB.Select(post => post.Id).ToList());
     }
 
