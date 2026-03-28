@@ -112,8 +112,8 @@ namespace WordPressPCL.Client
         public async Task<int> GetCountAsync(CancellationToken cancellationToken = default)
         {
             var responseHeaders = await HttpHelper.HeadRequestAsync(_methodPath, cancellationToken: cancellationToken).ConfigureAwait(false);
-            var totalHeaderVal = responseHeaders.GetValues("X-WP-Total").First();
-            return int.Parse(totalHeaderVal, CultureInfo.InvariantCulture);
+            var (total, _) = HttpHelper.ParsePaginationHeaders(responseHeaders);
+            return total;
         }
 
         /// <summary>

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Globalization;
+using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -92,18 +94,22 @@ namespace WordPressPCL.Utility
         internal async Task<TClass> GetRequestAsync<TClass>(string route, bool embed, bool isAuthRequired = false, bool ignoreDefaultPath = false, CancellationToken cancellationToken = default)
             where TClass : class
         {
+            var (result, _) = await GetRequestWithHeadersAsync<TClass>(route, embed, isAuthRequired, ignoreDefaultPath, cancellationToken).ConfigureAwait(false);
+            return result;
+        }
+
+        /// <summary>
+        /// Issues a GET request and returns both the deserialized response and the raw response headers.
+        /// Use <see cref="ParsePaginationHeaders"/> to extract <c>X-WP-Total</c> / <c>X-WP-TotalPages</c> values.
+        /// </summary>
+        internal async Task<(TClass result, HttpResponseHeaders headers)> GetRequestWithHeadersAsync<TClass>(string route, bool embed, bool isAuthRequired = false, bool ignoreDefaultPath = false, CancellationToken cancellationToken = default)
+            where TClass : class
+        {
             route = BuildRoute(ignoreDefaultPath, route);
             string embedParam = "";
             if (embed)
             {
-                if (route.Contains("?"))
-                {
-                    embedParam = "&_embed";
-                }
-                else
-                {
-                    embedParam = "?_embed";
-                }
+                embedParam = route.Contains("?") ? "&_embed" : "?_embed";
             }
             route += embedParam;
 
@@ -122,12 +128,41 @@ namespace WordPressPCL.Utility
                     responseString = HttpResponsePreProcessing(responseString);
                 }
 
-                return DeserializeJsonResponse<TClass>(response, responseString);
+                return (DeserializeJsonResponse<TClass>(response, responseString), response.Headers);
             }
             else
             {
                 throw CreateUnexpectedResponseException(response, responseString);
             }
+        }
+
+        /// <summary>
+        /// Parses the WordPress pagination headers from a response.
+        /// </summary>
+        /// <param name="headers">The response headers to inspect.</param>
+        /// <returns>
+        /// A tuple of (<c>total</c>, <c>totalPages</c>) where <c>total</c> comes from
+        /// <c>X-WP-Total</c> and <c>totalPages</c> comes from <c>X-WP-TotalPages</c>.
+        /// Returns <c>(0, 1)</c> when the headers are absent.
+        /// </returns>
+        internal static (int total, int totalPages) ParsePaginationHeaders(HttpResponseHeaders headers)
+        {
+            int total = 0;
+            int totalPages = 1;
+
+            if (headers.Contains("X-WP-Total") &&
+                int.TryParse(headers.GetValues("X-WP-Total").FirstOrDefault(), NumberStyles.Integer, CultureInfo.InvariantCulture, out int t))
+            {
+                total = t;
+            }
+
+            if (headers.Contains("X-WP-TotalPages") &&
+                int.TryParse(headers.GetValues("X-WP-TotalPages").FirstOrDefault(), NumberStyles.Integer, CultureInfo.InvariantCulture, out int tp))
+            {
+                totalPages = tp;
+            }
+
+            return (total, totalPages);
         }
 
         internal async Task<(TClass, HttpResponseMessage)> PostRequestAsync<TClass>(string route, HttpContent? postBody, bool isAuthRequired = true, bool ignoreDefaultPath = false, CancellationToken cancellationToken = default)
