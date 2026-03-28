@@ -70,7 +70,7 @@ public class Posts_Tests
     {
         List<Post> posts = await _clientAuth.Posts.QueryAsync(new PostsQueryBuilder());
         Assert.IsNotNull(posts);
-        Assert.AreNotEqual(posts.Count, 0);
+        Assert.AreNotEqual(0, posts.Count);
 
         List<Post> postsEdit = await _clientAuth.Posts.QueryAsync(new PostsQueryBuilder()
         {
@@ -88,7 +88,7 @@ public class Posts_Tests
     {
         List<Post> posts = await _client.Posts.GetAsync();
         Assert.IsNotNull(posts);
-        Assert.AreNotEqual(posts.Count, 0);
+        Assert.AreNotEqual(0, posts.Count);
     }
 
     [TestMethod]
@@ -185,6 +185,6 @@ public class Posts_Tests
         List<Post> queryresult = await _clientAuth.Posts.QueryAsync(queryBuilder);
         Assert.AreEqual("?page=1&per_page=15&orderby=title&status=publish&order=asc&_embed=true&context=view", queryBuilder.BuildQuery());
         Assert.IsNotNull(queryresult);
-        Assert.AreNotSame(queryresult.Count, 0);
+        Assert.AreNotEqual(0, queryresult.Count);
     }
 }

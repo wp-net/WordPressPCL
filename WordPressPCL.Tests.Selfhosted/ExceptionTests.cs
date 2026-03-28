@@ -76,7 +76,7 @@ public class ExceptionTests
         catch (WPException wpex)
         {
             Assert.IsNotNull(wpex.RequestData);
-            Assert.AreEqual(wpex.RequestData.Name, "empty_content");
+            Assert.AreEqual("empty_content", wpex.RequestData.Name);
         }
     }
 
@@ -93,7 +93,7 @@ public class ExceptionTests
         catch (WPException wpex)
         {
             Assert.IsNotNull(wpex.RequestData);
-            Assert.AreEqual(wpex.RequestData.Name, "rest_post_invalid_id");
+            Assert.AreEqual("rest_post_invalid_id", wpex.RequestData.Name);
         }
     }
 }

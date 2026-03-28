@@ -128,7 +128,7 @@ public class User_Tests
         // Get posts for user 2 and check if ID of postCreated is in there
         List<Post> postsOfUser2 = await _clientAuth.Posts.GetPostsByAuthorAsync(user2.Id);
         List<Post> postsById = postsOfUser2.Where(x => x.Id == postCreated.Id).ToList();
-        Assert.AreEqual(postsById.Count, 1);
+        Assert.AreEqual(1, postsById.Count);
     }
 
     [TestMethod]
@@ -146,7 +146,7 @@ public class User_Tests
 
         List<User> queryresult = await _clientAuth.Users.QueryAsync(queryBuilder, true);
         Assert.IsNotNull(queryresult);
-        Assert.AreNotSame(queryresult.Count, 0);
+        Assert.AreNotEqual(0, queryresult.Count);
     }
 
     [TestMethod]

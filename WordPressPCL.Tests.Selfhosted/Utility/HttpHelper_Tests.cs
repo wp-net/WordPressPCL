@@ -37,7 +37,7 @@ public class HttpHelper_Tests
         // We call Get tag list without pre processing
         List<Tag> tags = await _clientAuth.Tags.GetAllAsync();
         Assert.IsNotNull(tags);
-        Assert.AreNotEqual(tags.Count, 0);
+        Assert.AreNotEqual(0, tags.Count);
         CollectionAssert.AllItemsAreUnique(tags.Select(e => e.Id).ToList());
 
         // Now we add a PreProcessing task
@@ -73,7 +73,7 @@ public class HttpHelper_Tests
         // We call Get tag list without pre processing
         List<Tag> tags = await _clientAuth.Tags.GetAllAsync();
         Assert.IsNotNull(tags);
-        Assert.AreNotEqual(tags.Count, 0);
+        Assert.AreNotEqual(0, tags.Count);
         CollectionAssert.AllItemsAreUnique(tags.Select(e => e.Id).ToList());
 
         // Now we add a PreProcessing task
@@ -84,7 +84,7 @@ public class HttpHelper_Tests
 
         tags = await _clientAuth.Tags.GetAllAsync();
         Assert.IsNotNull(tags);
-        Assert.AreNotEqual(tags.Count, 0);
+        Assert.AreNotEqual(0, tags.Count);
         CollectionAssert.AllItemsAreUnique(tags.Select(e => e.Id).ToList());
         _clientAuth.HttpResponsePreProcessing = null;
     }

@@ -70,7 +70,7 @@ public class Media_Tests
     {
         List<MediaItem> media = await _client.Media.GetAllAsync();
         Assert.IsNotNull(media);
-        Assert.AreNotEqual(media.Count, 0);
+        Assert.AreNotEqual(0, media.Count);
     }
 
     [TestMethod]
@@ -78,7 +78,7 @@ public class Media_Tests
     {
         List<MediaItem> media = await _client.Media.GetAsync();
         Assert.IsNotNull(media);
-        Assert.AreNotEqual(media.Count, 0);
+        Assert.AreNotEqual(0, media.Count);
     }
 
     [TestMethod]
@@ -128,7 +128,7 @@ public class Media_Tests
         List<MediaItem> queryresult = await _clientAuth.Media.QueryAsync(queryBuilder);
         Assert.AreEqual("?page=1&per_page=15&orderby=date&order=asc&context=view", queryBuilder.BuildQuery());
         Assert.IsNotNull(queryresult);
-        Assert.AreNotSame(queryresult.Count, 0);
+        Assert.AreNotEqual(0, queryresult.Count);
     }
 
     [TestMethod]

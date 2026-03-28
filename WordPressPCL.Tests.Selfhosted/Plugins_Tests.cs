@@ -42,21 +42,21 @@ public class Plugins_Tests
 
         //Activate plugin
         Plugin activePlugin = await _clientAuth.Plugins.ActivateAsync(plugin);
-        Assert.AreEqual(activePlugin.Status, ActivationStatus.Active);
-        Assert.AreEqual(activePlugin.Id, plugin.Id);
+        Assert.AreEqual(ActivationStatus.Active, activePlugin.Status);
+        Assert.AreEqual(plugin.Id, activePlugin.Id);
 
 
         //Deactivate plugin
         Plugin deactivatedPlugin = await _clientAuth.Plugins.DeactivateAsync(plugin);
-        Assert.AreEqual(deactivatedPlugin.Status, ActivationStatus.Inactive);
-        Assert.AreEqual(deactivatedPlugin.Id, plugin.Id);
+        Assert.AreEqual(ActivationStatus.Inactive, deactivatedPlugin.Status);
+        Assert.AreEqual(plugin.Id, deactivatedPlugin.Id);
 
         //Delete plugin
         bool response = await _clientAuth.Plugins.DeleteAsync(plugin);
         Assert.IsTrue(response);
         List<Plugin> plugins = await _clientAuth.Plugins.GetAllAsync(useAuth: true);
         List<Plugin> c = plugins.Where(x => x.Id == plugin.Id).ToList();
-        Assert.AreEqual(c.Count, 0);
+        Assert.AreEqual(0, c.Count);
     }
 
     [TestMethod]
@@ -65,7 +65,7 @@ public class Plugins_Tests
         //Active plugin
         List<Plugin> plugins = await _clientAuth.Plugins.QueryAsync(new PluginsQueryBuilder { Status = ActivationStatus.Active }, useAuth:true);
         Assert.IsNotNull(plugins);
-        Assert.AreNotEqual(plugins.Count, 0);
+        Assert.AreNotEqual(0, plugins.Count);
 
     }
     [TestMethod]
@@ -74,7 +74,7 @@ public class Plugins_Tests
         //Active plugin
         List<Plugin> plugins = await _clientAuth.Plugins.QueryAsync(new PluginsQueryBuilder { Search="jwt" }, useAuth:true);
         Assert.IsNotNull(plugins);
-        Assert.AreNotEqual(plugins.Count, 0);
+        Assert.AreNotEqual(0, plugins.Count);
 
     }
 
@@ -83,7 +83,7 @@ public class Plugins_Tests
     {
         List<Plugin> plugins = await _clientAuth.Plugins.GetAsync (useAuth: true);
         Assert.IsNotNull(plugins);
-        Assert.AreNotEqual(plugins.Count, 0);
+        Assert.AreNotEqual(0, plugins.Count);
         CollectionAssert.AllItemsAreUnique(plugins.Select(tag => tag.Id).ToList());
     }
 

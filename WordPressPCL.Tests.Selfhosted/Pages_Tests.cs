@@ -41,7 +41,7 @@ public class Pages_Tests
     {
         List<Page> pages = await _client.Pages.QueryAsync(new PagesQueryBuilder());
         Assert.IsNotNull(pages);
-        Assert.AreNotEqual(pages.Count, 0);
+        Assert.AreNotEqual(0, pages.Count);
     }
 
     [TestMethod]
@@ -49,7 +49,7 @@ public class Pages_Tests
     {
         List<Page> pages = await _client.Pages.GetAsync();
         Assert.IsNotNull(pages);
-        Assert.AreNotEqual(pages.Count, 0);
+        Assert.AreNotEqual(0, pages.Count);
     }
 
     [TestMethod]
@@ -100,6 +100,6 @@ public class Pages_Tests
         List<Page> queryresult = await _client.Pages.QueryAsync(queryBuilder);
         Assert.AreEqual("?page=1&per_page=15&orderby=title&status=publish&order=asc&_embed=true&context=view", queryBuilder.BuildQuery());
         Assert.IsNotNull(queryresult);
-        Assert.AreNotSame(queryresult.Count, 0);
+        Assert.AreNotEqual(0, queryresult.Count);
     }
 }
