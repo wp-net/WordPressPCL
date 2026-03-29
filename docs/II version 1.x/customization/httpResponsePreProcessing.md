@@ -26,8 +26,8 @@ In order to correct this, you can add a HttpResponsePreProcessing function that 
 ```C#
 client.HttpResponsePreProcessing = (responseString) =>
 {
-    var clearedString = responseString.Replace("\n", "");
-    var regex = @"\<head(.+)body\>";
+    string clearedString = responseString.Replace("\n", "");
+    string regex = @"\<head(.+)body\>";
     return System.Text.RegularExpressions.Regex.Replace(clearedString, regex, "");
 };
 ```

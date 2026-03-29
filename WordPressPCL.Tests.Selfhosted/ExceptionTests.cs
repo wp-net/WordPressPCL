@@ -28,38 +28,39 @@ public class ExceptionTests
 
         await Assert.ThrowsExactlyAsync<WPException>(async () =>
         {
-            Settings settings = await _client.Settings.GetSettingsAsync();
+            Settings settings = await _client.Settings.GetSettingsAsync(TestContext.CancellationToken);
         });
     }
 
     [TestMethod]
-    public async Task Exception_RequestJWTokenForBasicAuth() 
+    public async Task Exception_RequestJWTokenForBasicAuth()
     {
         //Initialize
         Assert.IsNotNull(_client);
         const string dummyUser = "dummy";
         const string dummyPassword = "dummy";
-        
+
         _client.Auth.UseBasicAuth(dummyUser, dummyPassword);
-        
-        await Assert.ThrowsExactlyAsync<WPException>(async () => 
+
+        await Assert.ThrowsExactlyAsync<WPException>(async () =>
         {
-            await _client.Auth.RequestJWTokenAsync(dummyUser, dummyPassword);
+            await _client.Auth.RequestJWTokenAsync(dummyUser, dummyPassword, TestContext.CancellationToken);
         });
     }
 
     [TestMethod]
-    public async Task Exception_IsValidJWTokenForBasicAuth() 
+    public async Task Exception_IsValidJWTokenForBasicAuth()
     {
         //Initialize
         Assert.IsNotNull(_client);
         const string dummyUser = "dummy";
         const string dummyPassword = "dummy";
-        
+
         _client.Auth.UseBasicAuth(dummyUser, dummyPassword);
 
-        await Assert.ThrowsExactlyAsync<WPException>(async () => {
-            await _client.Auth.IsValidJWTokenAsync();
+        await Assert.ThrowsExactlyAsync<WPException>(async () =>
+        {
+            await _client.Auth.IsValidJWTokenAsync(TestContext.CancellationToken);
         });
     }
 
@@ -71,7 +72,7 @@ public class ExceptionTests
         // Create empty post
         try
         {
-            Post post = await _clientAuth.Posts.CreateAsync(new Post());
+            Post post = await _clientAuth.Posts.CreateAsync(new Post(), TestContext.CancellationToken);
         }
         catch (WPException wpex)
         {
@@ -88,7 +89,7 @@ public class ExceptionTests
         // Delete nonexisted post
         try
         {
-            bool result = await _clientAuth.Posts.DeleteAsync(int.MaxValue);
+            bool result = await _clientAuth.Posts.DeleteAsync(int.MaxValue, cancellationToken: TestContext.CancellationToken);
         }
         catch (WPException wpex)
         {
@@ -96,4 +97,6 @@ public class ExceptionTests
             Assert.AreEqual("rest_post_invalid_id", wpex.RequestData.Name);
         }
     }
+
+    public TestContext TestContext { get; set; } = null!;
 }

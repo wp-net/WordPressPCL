@@ -26,11 +26,11 @@ public class Basic_Tests
         // Initialize
         Assert.IsNotNull(_client);
         // Posts
-        List<Post> posts = await _client.Posts.GetAllAsync();
+        List<Post> posts = await _client.Posts.GetAllAsync(cancellationToken: TestContext.CancellationToken);
         Assert.IsNotNull(posts);
 
         // Test Auth Client
-        List<Post> postsAuth = await _clientAuth.Posts.GetAllAsync();
+        List<Post> postsAuth = await _clientAuth.Posts.GetAllAsync(cancellationToken: TestContext.CancellationToken);
         Assert.IsNotNull(postsAuth);
     }
 
@@ -38,9 +38,9 @@ public class Basic_Tests
     public async Task GetFirstPostTest()
     {
         // Initialize
-        List<Post> posts = await _client.Posts.GetAllAsync();
-        Post post = await _client.Posts.GetByIdAsync(posts.First().Id);
-        Assert.IsTrue(posts.First().Id == post.Id);
+        List<Post> posts = await _client.Posts.GetAllAsync(cancellationToken: TestContext.CancellationToken);
+        Post post = await _client.Posts.GetByIdAsync(posts.First().Id, cancellationToken: TestContext.CancellationToken);
+        Assert.AreEqual(post.Id, posts.First().Id);
         Assert.IsTrue(!string.IsNullOrEmpty(posts.First().Content!.Rendered));
     }
 
@@ -48,7 +48,7 @@ public class Basic_Tests
     public async Task GetStickyPosts()
     {
         // Initialize
-        List<Post> posts = await _client.Posts.GetStickyPostsAsync();
+        List<Post> posts = await _client.Posts.GetStickyPostsAsync(cancellationToken: TestContext.CancellationToken);
 
         foreach (Post post in posts)
         {
@@ -62,11 +62,11 @@ public class Basic_Tests
         // This CategoryID MUST exists at ApiCredentials.WordPressUri
         int category = 1;
         // Initialize
-        List<Post> posts = await _client.Posts.GetPostsByCategoryAsync(category);
+        List<Post> posts = await _client.Posts.GetPostsByCategoryAsync(category, cancellationToken: TestContext.CancellationToken);
 
         foreach (Post post in posts)
         {
-            Assert.IsTrue(post.Categories!.ToList().Contains(category));
+            Assert.Contains(category, post.Categories!.ToList());
         }
     }
 
@@ -76,11 +76,11 @@ public class Basic_Tests
         // This TagID MUST exists at ApiCredentials.WordPressUri
         int tag = 12;
         // Initialize
-        List<Post> posts = await _client.Posts.GetPostsByTagAsync(tag);
+        List<Post> posts = await _client.Posts.GetPostsByTagAsync(tag, cancellationToken: TestContext.CancellationToken);
 
         foreach (Post post in posts)
         {
-            Assert.IsTrue(post.Tags!.ToList().Contains(tag));
+            Assert.Contains(tag, post.Tags!.ToList());
         }
     }
 
@@ -90,11 +90,11 @@ public class Basic_Tests
         // This AuthorID MUST exists at ApiCredentials.WordPressUri
         int author = 2;
         // Initialize
-        List<Post> posts = await _client.Posts.GetPostsByAuthorAsync(author);
+        List<Post> posts = await _client.Posts.GetPostsByAuthorAsync(author, cancellationToken: TestContext.CancellationToken);
 
         foreach (Post post in posts)
         {
-            Assert.IsTrue(post.Author == author);
+            Assert.AreEqual(author, post.Author);
         }
     }
 
@@ -104,7 +104,7 @@ public class Basic_Tests
         // This search term MUST be used at least once
         string search = "hello";
         // Initialize
-        List<Post> posts = await _client.Posts.GetPostsBySearchAsync(search);
+        List<Post> posts = await _client.Posts.GetPostsBySearchAsync(search, cancellationToken: TestContext.CancellationToken);
 
         foreach (Post post in posts)
         {
@@ -122,7 +122,9 @@ public class Basic_Tests
     [TestMethod]
     public async Task Authorize()
     {
-        bool validToken = await _clientAuth.Auth.IsValidJWTokenAsync();
+        bool validToken = await _clientAuth.Auth.IsValidJWTokenAsync(TestContext.CancellationToken);
         Assert.IsTrue(validToken);
     }
+
+    public TestContext TestContext { get; set; } = null!;
 }

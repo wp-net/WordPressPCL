@@ -7,7 +7,7 @@ You can do this by providing a custom `JsonSerializerOptions` instance:
 ```c#
 using System.Text.Json;
 
-var client = new WordPressClient("https://site.com/wp-json/");
+WordPressClient client = new WordPressClient("https://site.com/wp-json/");
 client.JsonSerializerOptions = new JsonSerializerOptions
 {
     PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower,

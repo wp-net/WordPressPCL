@@ -21,7 +21,7 @@ public class Taxonomies_Tests
     [TestMethod]
     public async Task Taxonomies_Read()
     {
-        List<Taxonomy> taxonomies = await _clientAuth.Taxonomies.GetAllAsync();
+        List<Taxonomy> taxonomies = await _clientAuth.Taxonomies.GetAllAsync(cancellationToken: TestContext.CancellationToken);
         Assert.IsNotNull(taxonomies);
         Assert.AreNotEqual(0, taxonomies.Count);
     }
@@ -29,7 +29,7 @@ public class Taxonomies_Tests
     [TestMethod]
     public async Task Taxonomies_Get()
     {
-        List<Taxonomy> taxonomies = await _clientAuth.Taxonomies.GetAsync();
+        List<Taxonomy> taxonomies = await _clientAuth.Taxonomies.GetAsync(cancellationToken: TestContext.CancellationToken);
         Assert.IsNotNull(taxonomies);
         Assert.AreNotEqual(0, taxonomies.Count);
     }
@@ -41,9 +41,11 @@ public class Taxonomies_Tests
         {
             Type = "post"
         };
-        List<Taxonomy> queryresult = await _clientAuth.Taxonomies.QueryAsync(queryBuilder);
+        List<Taxonomy> queryresult = await _clientAuth.Taxonomies.QueryAsync(queryBuilder, cancellationToken: TestContext.CancellationToken);
         Assert.AreEqual("?type=post&order=desc&context=view", queryBuilder.BuildQuery());
         Assert.IsNotNull(queryresult);
         Assert.AreNotEqual(0, queryresult.Count);
     }
+
+    public TestContext TestContext { get; set; } = null!;
 }

@@ -4,47 +4,47 @@ Here is a list of methods and examples of working with Comments
 
 ```C#
 // returns all comments
-var comments = await client.Comments.GetAllAsync();
+List<Comment> comments = await client.Comments.GetAllAsync();
 ```
 
 ## Get By ID
 
 ```C#
 // returns comment by ID
-var comment = await client.Comments.GetByIdAsync(123);
+Comment comment = await client.Comments.GetByIdAsync(123);
 ```
 
 ## Get Comments by Post ID
 
 ```C#
 // returns comments from post
-var comments = await client.Comments.GetCommentsForPostAsync(123)
+List<Comment> comments = await client.Comments.GetCommentsForPostAsync(123)
 ```
 
 ## Query
 Create parametrized request
 ```C#
 // returns result of query
-var queryBuilder = new CommentsQueryBuilder();
+CommentsQueryBuilder queryBuilder = new CommentsQueryBuilder();
 queryBuilder.PerPage = 40;
 queryBuilder.Page = 2;
 queryBuilder.Before = DateTime.Now;
-var comments = await client.Comments.Query(queryBuilder);
+List<Comment> comments = await client.Comments.QueryAsync(queryBuilder);
 ```
 
 ## Get threaded comments
 If your blog supports threaded comments (comments with direct answers) you can order and get the right depth for them with this handy extension method:
 
 ```c#
-var comments = await client.Comments.GetCommentsForPostAsync(123)
-var commentsThreaded = comments.ToThreaded();
+List<Comment> comments = await client.Comments.GetCommentsForPostAsync(123)
+List<CommentThreaded>? commentsThreaded = comments.ToThreaded();
 ```
 
 ## Create new Comment
 
 ```C#
 // returns created comment
-var comment = new Comment()
+Comment comment = new Comment()
 {
     Content = new Content("Comment"),
     PostId = 123,
@@ -53,7 +53,7 @@ var comment = new Comment()
 };
 if (await client.IsValidJWTokenAsync())
 {
-    var createdComment = await client.Comments.CreateAsync(comment);
+    Comment createdComment = await client.Comments.CreateAsync(comment);
 }
 ```
 
@@ -61,11 +61,11 @@ if (await client.IsValidJWTokenAsync())
 
 ```C#
 // returns updated comment
-var comment = await client.Comments.GetByIdAsync(123);
+Comment comment = await client.Comments.GetByIdAsync(123);
 comment.Content.Raw = "New Content";
 if (await client.IsValidJWTokenAsync())
 {
-    var updatedComment = await client.Comments.UpdateAsync(comment);
+    Comment updatedComment = await client.Comments.UpdateAsync(comment);
 }
 ```
 
@@ -75,6 +75,6 @@ if (await client.IsValidJWTokenAsync())
 // returns result of deletion
 if (await client.IsValidJWTokenAsync())
 {
-    var result = await client.Comments.DeleteAsync(123);
+    bool result = await client.Comments.DeleteAsync(123);
 }
 ```

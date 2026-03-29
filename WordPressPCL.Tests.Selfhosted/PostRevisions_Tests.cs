@@ -23,7 +23,7 @@ public class PostRevisions_Tests
     {
         int id = await CreatePostWithRevision();
         Client.PostRevisions revisionsclient = _clientAuth.Posts.Revisions(id);
-        List<PostRevision> revisions = await revisionsclient.GetAllAsync();
+        List<PostRevision> revisions = await revisionsclient.GetAllAsync(cancellationToken: TestContext.CancellationToken);
         Assert.AreNotEqual(0, revisions.Count);
     }
 
@@ -32,7 +32,7 @@ public class PostRevisions_Tests
     {
         int id = await CreatePostWithRevision();
         Client.PostRevisions revisionsclient = _clientAuth.Posts.Revisions(id);
-        List<PostRevision> revisions = await revisionsclient.GetAsync();
+        List<PostRevision> revisions = await revisionsclient.GetAsync(cancellationToken: TestContext.CancellationToken);
         Assert.AreNotEqual(0, revisions.Count);
     }
 
@@ -49,7 +49,7 @@ public class PostRevisions_Tests
         Assert.IsTrue(res);
     }
 
-    private async Task<int> CreatePostWithRevision()
+    private static async Task<int> CreatePostWithRevision()
     {
         Post post = new()
         {
@@ -61,4 +61,6 @@ public class PostRevisions_Tests
         Post updatedPost = await _clientAuth.Posts.UpdateAsync(createdPost);
         return updatedPost.Id;
     }
+
+    public TestContext TestContext { get; set; } = null!;
 }

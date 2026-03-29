@@ -8,12 +8,12 @@ To create post of custom post type you should do 2 things
 Example:
 
 ```c#
-var post = new Post()
+Post post = new Post()
 {
        Title = new Title("Title 1"),
        Content = new Content("Content PostCreate"),
        Type = "portfolio" //your custom post type
 };
 //change portfolio to your custom post type
-var createdPost = await _clientAuth.CustomRequest.CreateAsync<Post, Post>("wp/v2/portfolio", post); 
+Post createdPost = await _clientAuth.CustomRequest.CreateAsync<Post, Post>("wp/v2/portfolio", post); 
 ```

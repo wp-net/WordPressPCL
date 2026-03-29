@@ -31,11 +31,11 @@ public class Posts_Tests
             Title = new Title("Title 1"),
             Content = new Content("Content PostCreate")
         };
-        Post createdPost = await _clientAuth.Posts.CreateAsync(post);
+        Post createdPost = await _clientAuth.Posts.CreateAsync(post, TestContext.CancellationToken);
 
 
         Assert.AreEqual(post.Content!.Raw, createdPost.Content!.Raw);
-        Assert.IsTrue(createdPost.Content!.Rendered!.Contains(post.Content.Rendered!));
+        Assert.Contains(post.Content.Rendered, createdPost.Content!.Rendered);
     }
 
     [TestMethod]
@@ -48,7 +48,7 @@ public class Posts_Tests
             Content = new Content("Content PostCreateScheduled"),
             Date = DateTime.Now + TimeSpan.FromDays(5),
         };
-        Post createdPost = await _clientAuth.Posts.CreateAsync(post);
+        Post createdPost = await _clientAuth.Posts.CreateAsync(post, TestContext.CancellationToken);
 
         PostsQueryBuilder queryBuilder = new()
         {
@@ -58,17 +58,17 @@ public class Posts_Tests
             Statuses = new List<Status> { Status.Future, Status.Pending }
         };
 
-        List<Post> postsTask = await _clientAuth.Posts.QueryAsync(queryBuilder, true);
-        Assert.IsTrue(postsTask.Any(x => x.Title!.Rendered == title));
+        List<Post> postsTask = await _clientAuth.Posts.QueryAsync(queryBuilder, true, TestContext.CancellationToken);
+        Assert.Contains(x => x.Title!.Rendered == title, postsTask);
 
         Assert.AreEqual(post.Content!.Raw, createdPost.Content!.Raw);
-        Assert.IsTrue(createdPost.Content!.Rendered!.Contains(post.Content.Rendered!));
+        Assert.Contains(post.Content.Rendered, createdPost.Content!.Rendered);
     }
 
     [TestMethod]
     public async Task Posts_Read()
     {
-        List<Post> posts = await _clientAuth.Posts.QueryAsync(new PostsQueryBuilder());
+        List<Post> posts = await _clientAuth.Posts.QueryAsync(new PostsQueryBuilder(), cancellationToken: TestContext.CancellationToken);
         Assert.IsNotNull(posts);
         Assert.AreNotEqual(0, posts.Count);
 
@@ -77,8 +77,8 @@ public class Posts_Tests
             Context = Context.Edit,
             PerPage = 1,
             Page = 1
-        }, true);
-        Assert.AreEqual(1, postsEdit.Count);
+        }, true, TestContext.CancellationToken);
+        Assert.HasCount(1, postsEdit);
         Assert.IsNotNull(postsEdit.FirstOrDefault());
         Assert.IsNotNull(postsEdit.FirstOrDefault()!.Content!.Raw);
     }
@@ -86,7 +86,7 @@ public class Posts_Tests
     [TestMethod]
     public async Task Posts_Get()
     {
-        List<Post> posts = await _client.Posts.GetAsync();
+        List<Post> posts = await _client.Posts.GetAsync(cancellationToken: TestContext.CancellationToken);
         Assert.IsNotNull(posts);
         Assert.AreNotEqual(0, posts.Count);
     }
@@ -104,11 +104,11 @@ public class Posts_Tests
         ).ToList();
         foreach (Post post in postsCreate)
         {
-            Post createdPost = await _clientAuth.Posts.CreateAsync(post);
+            Post createdPost = await _clientAuth.Posts.CreateAsync(post, TestContext.CancellationToken);
         }
 
-        List<Post> posts = await _client.Posts.GetAllAsync();
-        int postsCount = await _client.Posts.GetCountAsync();
+        List<Post> posts = await _client.Posts.GetAllAsync(cancellationToken: TestContext.CancellationToken);
+        int postsCount = await _client.Posts.GetCountAsync(TestContext.CancellationToken);
         Assert.AreEqual(posts.Count, postsCount);
     }
 
@@ -120,7 +120,7 @@ public class Posts_Tests
             PerPage = 10,
             Page = 1,
             Embed = true
-        }, false);
+        }, false, TestContext.CancellationToken);
         Assert.IsNotNull(posts);
     }
 
@@ -128,15 +128,15 @@ public class Posts_Tests
     public async Task Posts_Update()
     {
         string testContent = $"Test {System.Guid.NewGuid()}";
-        List<Post> posts = await _clientAuth.Posts.GetAllAsync();
-        Assert.IsTrue(posts.Count > 0);
+        List<Post> posts = await _clientAuth.Posts.GetAllAsync(cancellationToken: TestContext.CancellationToken);
+        Assert.IsNotEmpty(posts);
 
         // edit first post and update it
-        Post post = await _clientAuth.Posts.GetByIdAsync(posts.First().Id);
+        Post post = await _clientAuth.Posts.GetByIdAsync(posts.First().Id, cancellationToken: TestContext.CancellationToken);
         post.Content!.Raw = testContent;
-        Post updatedPost = await _clientAuth.Posts.UpdateAsync(post);
+        Post updatedPost = await _clientAuth.Posts.UpdateAsync(post, TestContext.CancellationToken);
         Assert.AreEqual(updatedPost.Content!.Raw, testContent);
-        Assert.IsTrue(updatedPost.Content!.Rendered!.Contains(testContent));
+        Assert.Contains(testContent, updatedPost.Content!.Rendered);
     }
 
     [TestMethod]
@@ -147,15 +147,15 @@ public class Posts_Tests
             Title = new Title("Title 1"),
             Content = new Content("Content PostCreate")
         };
-        Post createdPost = await _clientAuth.Posts.CreateAsync(post);
+        Post createdPost = await _clientAuth.Posts.CreateAsync(post, TestContext.CancellationToken);
         Assert.IsNotNull(createdPost);
 
-        bool response = await _clientAuth.Posts.DeleteAsync(createdPost.Id);
+        bool response = await _clientAuth.Posts.DeleteAsync(createdPost.Id, cancellationToken: TestContext.CancellationToken);
         Assert.IsTrue(response);
 
         await Assert.ThrowsExactlyAsync<WPException>(async () =>
         {
-            Post postById = await _clientAuth.Posts.GetByIdAsync(createdPost.Id);
+            Post postById = await _clientAuth.Posts.GetByIdAsync(createdPost.Id, cancellationToken: TestContext.CancellationToken);
         });
 
         // Post should be available in trash
@@ -164,7 +164,7 @@ public class Posts_Tests
             Statuses = new List<Status> { Status.Trash },
             PerPage = 100
         };
-        List<Post> posts = await _clientAuth.Posts.QueryAsync(queryBuilder, true);
+        List<Post> posts = await _clientAuth.Posts.QueryAsync(queryBuilder, true, TestContext.CancellationToken);
 
         Post? deletedPost = posts.Where(x => x.Id == createdPost.Id).FirstOrDefault();
         Assert.IsNotNull(deletedPost);
@@ -182,7 +182,7 @@ public class Posts_Tests
             Statuses = new List<Status>() { Status.Publish },
             Embed = true
         };
-        List<Post> queryresult = await _clientAuth.Posts.QueryAsync(queryBuilder);
+        List<Post> queryresult = await _clientAuth.Posts.QueryAsync(queryBuilder, cancellationToken: TestContext.CancellationToken);
         Assert.AreEqual("?page=1&per_page=15&orderby=title&status=publish&order=asc&_embed=true&context=view", queryBuilder.BuildQuery());
         Assert.IsNotNull(queryresult);
         Assert.AreNotEqual(0, queryresult.Count);
@@ -191,13 +191,13 @@ public class Posts_Tests
     [TestMethod]
     public async Task Posts_GetPaged_Returns_Metadata()
     {
-        PagedResult<Post> paged = await _client.Posts.GetPagedAsync(page: 1, perPage: 5);
+        PagedResult<Post> paged = await _client.Posts.GetPagedAsync(page: 1, perPage: 5, cancellationToken: TestContext.CancellationToken);
 
         Assert.IsNotNull(paged);
         Assert.IsNotNull(paged.Items);
-        Assert.IsTrue(paged.Items.Count <= 5);
-        Assert.IsTrue(paged.TotalCount > 0, "TotalCount should be populated from X-WP-Total");
-        Assert.IsTrue(paged.TotalPages >= 1, "TotalPages should be populated from X-WP-TotalPages");
+        Assert.IsLessThanOrEqualTo(5, paged.Items.Count);
+        Assert.IsGreaterThan(0, paged.TotalCount, "TotalCount should be populated from X-WP-Total");
+        Assert.IsGreaterThanOrEqualTo(1, paged.TotalPages, "TotalPages should be populated from X-WP-TotalPages");
     }
 
     [TestMethod]
@@ -209,21 +209,23 @@ public class Posts_Tests
             PerPage = 3,
             Statuses = new List<Status> { Status.Publish }
         };
-        PagedResult<Post> paged = await _client.Posts.QueryPagedAsync(queryBuilder);
+        PagedResult<Post> paged = await _client.Posts.QueryPagedAsync(queryBuilder, cancellationToken: TestContext.CancellationToken);
 
         Assert.IsNotNull(paged);
         Assert.IsNotNull(paged.Items);
-        Assert.IsTrue(paged.Items.Count <= 3);
-        Assert.IsTrue(paged.TotalCount > 0, "TotalCount should be populated from X-WP-Total");
-        Assert.IsTrue(paged.TotalPages >= 1, "TotalPages should be populated from X-WP-TotalPages");
+        Assert.IsLessThanOrEqualTo(3, paged.Items.Count);
+        Assert.IsGreaterThan(0, paged.TotalCount, "TotalCount should be populated from X-WP-Total");
+        Assert.IsGreaterThanOrEqualTo(1, paged.TotalPages, "TotalPages should be populated from X-WP-TotalPages");
     }
 
     [TestMethod]
     public async Task Posts_GetPaged_TotalCount_Matches_GetCount()
     {
-        PagedResult<Post> paged = await _client.Posts.GetPagedAsync(page: 1, perPage: 1);
-        int count = await _client.Posts.GetCountAsync();
+        PagedResult<Post> paged = await _client.Posts.GetPagedAsync(page: 1, perPage: 1, cancellationToken: TestContext.CancellationToken);
+        int count = await _client.Posts.GetCountAsync(TestContext.CancellationToken);
 
         Assert.AreEqual(count, paged.TotalCount, "TotalCount from GetPagedAsync should match GetCountAsync");
     }
+
+    public TestContext TestContext { get; set; } = null!;
 }

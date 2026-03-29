@@ -1,20 +1,19 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 
-namespace WordPressPCL.Interfaces
+namespace WordPressPCL.Interfaces;
+
+/// <summary>
+/// Interface with required Create methods
+/// </summary>
+/// <typeparam name="TClass">return class type</typeparam>
+public interface ICreateOperation<TClass>
 {
     /// <summary>
-    /// Interface with required Create methods
+    /// Create object
     /// </summary>
-    /// <typeparam name="TClass">return class type</typeparam>
-    public interface ICreateOperation<TClass>
-    {
-        /// <summary>
-        /// Create object
-        /// </summary>
-        /// <param name="Entity">object to create</param>
-        /// <param name="cancellationToken">Cancellation token</param>
-        /// <returns>Created object</returns>
-        Task<TClass> CreateAsync(TClass Entity, CancellationToken cancellationToken = default);
-    }
+    /// <param name="Entity">object to create</param>
+    /// <param name="cancellationToken">Cancellation token</param>
+    /// <returns>Created object</returns>
+    Task<TClass> CreateAsync(TClass Entity, CancellationToken cancellationToken = default);
 }

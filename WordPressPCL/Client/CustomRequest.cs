@@ -5,81 +5,80 @@ using System.Threading;
 using System.Threading.Tasks;
 using WordPressPCL.Utility;
 
-namespace WordPressPCL.Client
+namespace WordPressPCL.Client;
+
+/// <summary>
+/// Class to create custom requests
+/// </summary>
+public class CustomRequest
 {
+    private readonly HttpHelper _httpHelper;
+
     /// <summary>
-    /// Class to create custom requests
+    /// Constructor
     /// </summary>
-    public class CustomRequest
+    /// <param name="httpHelper">HttpHelper class to operate with Http methods</param>
+    public CustomRequest(HttpHelper httpHelper)
     {
-        private readonly HttpHelper _httpHelper;
+        _httpHelper = httpHelper;
+    }
 
-        /// <summary>
-        /// Constructor
-        /// </summary>
-        /// <param name="httpHelper">HttpHelper class to operate with Http methods</param>
-        public CustomRequest(HttpHelper httpHelper)
-        {
-            _httpHelper = httpHelper;
-        }
+    /// <summary>
+    /// Create object
+    /// </summary>
+    /// <typeparam name="TInput">type of input object</typeparam>
+    /// <typeparam name="TOutput">type of result object</typeparam>
+    /// <param name="route">path to exec request</param>
+    /// <param name="Entity">object for creation</param>
+    /// <param name="ignoreDefaultPath">request should prepend default path to route, defaults to true</param>
+    /// <param name="cancellationToken">Cancellation token</param>
+    /// <returns>Created object</returns>
+    public async Task<TOutput> CreateAsync<TInput, TOutput>(string route, TInput Entity, bool ignoreDefaultPath = true, CancellationToken cancellationToken = default) where TOutput : class
+    {
+        string entity = JsonSerializer.Serialize(Entity, _httpHelper.JsonSerializerOptions);
+        using StringContent sc = new(entity, Encoding.UTF8, "application/json");
+        return (await _httpHelper.PostRequestAsync<TOutput>(route, sc, true, ignoreDefaultPath, cancellationToken).ConfigureAwait(false)).Item1;
+    }
 
-        /// <summary>
-        /// Create object
-        /// </summary>
-        /// <typeparam name="TInput">type of input object</typeparam>
-        /// <typeparam name="TOutput">type of result object</typeparam>
-        /// <param name="route">path to exec request</param>
-        /// <param name="Entity">object for creation</param>
-        /// <param name="ignoreDefaultPath">request should prepend default path to route, defaults to true</param>
-        /// <param name="cancellationToken">Cancellation token</param>
-        /// <returns>Created object</returns>
-        public async Task<TOutput> CreateAsync<TInput, TOutput>(string route, TInput Entity, bool ignoreDefaultPath = true, CancellationToken cancellationToken = default) where TOutput : class
-        {
-            string entity = JsonSerializer.Serialize(Entity, _httpHelper.JsonSerializerOptions);
-            using StringContent sc = new(entity, Encoding.UTF8, "application/json");
-            return (await _httpHelper.PostRequestAsync<TOutput>(route, sc, true, ignoreDefaultPath, cancellationToken).ConfigureAwait(false)).Item1;
-        }
+    /// <summary>
+    /// Delete object
+    /// </summary>
+    /// <param name="route">path to exec delete request</param>
+    /// <param name="ignoreDefaultPath">request should prepend default path to route, defaults to true</param>
+    /// <param name="cancellationToken">Cancellation token</param>
+    /// <returns>Result of deletion</returns>
+    public Task<bool> DeleteAsync(string route, bool ignoreDefaultPath = true, CancellationToken cancellationToken = default)
+    {
+        return _httpHelper.DeleteRequestAsync(route, true, ignoreDefaultPath, cancellationToken);
+    }
 
-        /// <summary>
-        /// Delete object
-        /// </summary>
-        /// <param name="route">path to exec delete request</param>
-        /// <param name="ignoreDefaultPath">request should prepend default path to route, defaults to true</param>
-        /// <param name="cancellationToken">Cancellation token</param>
-        /// <returns>Result of deletion</returns>
-        public Task<bool> DeleteAsync(string route, bool ignoreDefaultPath = true, CancellationToken cancellationToken = default)
-        {
-            return _httpHelper.DeleteRequestAsync(route, true, ignoreDefaultPath, cancellationToken);
-        }
+    /// <summary>
+    /// Get object/s
+    /// </summary>
+    /// <typeparam name="TClass">type of object</typeparam>
+    /// <param name="route">path to exec request</param>
+    /// <param name="embed">is get embed params</param>
+    /// <param name="useAuth">i use auth</param>
+    /// <param name="ignoreDefaultPath">request should prepend default path to route, defaults to true</param>
+    /// <param name="cancellationToken">Cancellation token</param>
+    /// <returns>List of objects</returns>
+    public Task<TClass> GetAsync<TClass>(string route, bool embed = false, bool useAuth = false, bool ignoreDefaultPath = true, CancellationToken cancellationToken = default) where TClass : class
+    {
+        return _httpHelper.GetRequestAsync<TClass>(route, embed, useAuth, ignoreDefaultPath, cancellationToken);
+    }
 
-        /// <summary>
-        /// Get object/s
-        /// </summary>
-        /// <typeparam name="TClass">type of object</typeparam>
-        /// <param name="route">path to exec request</param>
-        /// <param name="embed">is get embed params</param>
-        /// <param name="useAuth">i use auth</param>
-        /// <param name="ignoreDefaultPath">request should prepend default path to route, defaults to true</param>
-        /// <param name="cancellationToken">Cancellation token</param>
-        /// <returns>List of objects</returns>
-        public Task<TClass> GetAsync<TClass>(string route, bool embed = false, bool useAuth = false, bool ignoreDefaultPath = true, CancellationToken cancellationToken = default) where TClass : class
-        {
-            return _httpHelper.GetRequestAsync<TClass>(route, embed, useAuth, ignoreDefaultPath, cancellationToken);
-        }
-
-        /// <summary>
-        /// Update object
-        /// </summary>
-        /// <typeparam name="TInput">type of input object</typeparam>
-        /// <typeparam name="TOutput">type of result object</typeparam>
-        /// <param name="route">path to exec request</param>
-        /// <param name="Entity">object for update</param>
-        /// <param name="ignoreDefaultPath">request should prepend default path to route, defaults to true</param>
-        /// <param name="cancellationToken">Cancellation token</param>
-        /// <returns>Updated object</returns>
-        public Task<TOutput> UpdateAsync<TInput, TOutput>(string route, TInput Entity, bool ignoreDefaultPath = true, CancellationToken cancellationToken = default) where TOutput : class
-        {
-            return CreateAsync<TInput, TOutput>(route, Entity, ignoreDefaultPath, cancellationToken);
-        }
+    /// <summary>
+    /// Update object
+    /// </summary>
+    /// <typeparam name="TInput">type of input object</typeparam>
+    /// <typeparam name="TOutput">type of result object</typeparam>
+    /// <param name="route">path to exec request</param>
+    /// <param name="Entity">object for update</param>
+    /// <param name="ignoreDefaultPath">request should prepend default path to route, defaults to true</param>
+    /// <param name="cancellationToken">Cancellation token</param>
+    /// <returns>Updated object</returns>
+    public Task<TOutput> UpdateAsync<TInput, TOutput>(string route, TInput Entity, bool ignoreDefaultPath = true, CancellationToken cancellationToken = default) where TOutput : class
+    {
+        return CreateAsync<TInput, TOutput>(route, Entity, ignoreDefaultPath, cancellationToken);
     }
 }

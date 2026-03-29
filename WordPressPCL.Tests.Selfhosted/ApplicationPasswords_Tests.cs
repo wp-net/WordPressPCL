@@ -20,15 +20,15 @@ public class ApplicationPasswords_Tests
     [TestMethod]
     public async Task Application_Passwords_Create()
     {
-        ApplicationPassword password = await _clientAuth.Users.CreateApplicationPasswordAsync(System.Guid.NewGuid().ToString());
+        ApplicationPassword password = await _clientAuth.Users.CreateApplicationPasswordAsync(System.Guid.NewGuid().ToString(), cancellationToken: TestContext.CancellationToken);
         Assert.IsNotNull(password.Password);
     }
 
     [TestMethod]
     public async Task Read()
     {
-        await _clientAuth.Users.CreateApplicationPasswordAsync(System.Guid.NewGuid().ToString());
-        List<ApplicationPassword> passwords = await _clientAuth.Users.GetApplicationPasswords();
+        await _clientAuth.Users.CreateApplicationPasswordAsync(System.Guid.NewGuid().ToString(), cancellationToken: TestContext.CancellationToken);
+        List<ApplicationPassword> passwords = await _clientAuth.Users.GetApplicationPasswordsAsync(cancellationToken: TestContext.CancellationToken);
 
         Assert.IsNotNull(passwords);
         Assert.AreNotEqual(0, passwords.Count);
@@ -37,7 +37,7 @@ public class ApplicationPasswords_Tests
     [TestMethod]
     public async Task Application_Password_Auth()
     {
-        ApplicationPassword appPassword = await _clientAuth.Users.CreateApplicationPasswordAsync(System.Guid.NewGuid().ToString());
+        ApplicationPassword appPassword = await _clientAuth.Users.CreateApplicationPasswordAsync(System.Guid.NewGuid().ToString(), cancellationToken: TestContext.CancellationToken);
         WordPressClient appPasswordClient = new(ApiCredentials.WordPressUri);
         appPasswordClient.Auth.UseBasicAuth(ApiCredentials.Username, appPassword.Password!);
 
@@ -46,8 +46,10 @@ public class ApplicationPasswords_Tests
             Title = new Title("Title 1"),
             Content = new Content("Content PostCreate")
         };
-        Post postCreated = await appPasswordClient.Posts.CreateAsync(post);
+        Post postCreated = await appPasswordClient.Posts.CreateAsync(post, TestContext.CancellationToken);
         Assert.IsNotNull(postCreated);
         Assert.AreEqual("Title 1", postCreated.Title!.Raw);
     }
+
+    public TestContext TestContext { get; set; } = null!;
 }

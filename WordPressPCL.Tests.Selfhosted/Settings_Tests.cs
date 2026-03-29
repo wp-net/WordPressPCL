@@ -1,5 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using WordPressPCL.Models;
 using WordPressPCL.Tests.Selfhosted.Utility;
 
@@ -19,8 +19,10 @@ public class Settings_Tests
     [TestMethod]
     public async Task Get_Settings_Test()
     {
-        Settings settings = await _clientAuth.Settings.GetSettingsAsync();
+        Settings settings = await _clientAuth.Settings.GetSettingsAsync(TestContext.CancellationToken);
         Assert.IsNotNull(settings);
         Assert.IsNotNull(settings.Title);
     }
+
+    public TestContext TestContext { get; set; } = null!;
 }

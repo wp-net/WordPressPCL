@@ -21,22 +21,22 @@ public class Exception_Unexpected_Tests
     [TestMethod]
     public async Task Tags_Get_UnexpectedException()
     {
-        await CheckForUnexpectedException(async () => await _badConnectionClient.Tags.GetAsync());
+        await CheckForUnexpectedException(async () => await _badConnectionClient.Tags.GetAsync(cancellationToken: TestContext.CancellationToken));
     }
 
     [TestMethod]
     public async Task Tags_Post_UnexpectedException()
     {
-        await CheckForUnexpectedException(async () => await _badConnectionClient.Tags.UpdateAsync(new Tag()));
+        await CheckForUnexpectedException(async () => await _badConnectionClient.Tags.UpdateAsync(new Tag(), TestContext.CancellationToken));
     }
 
     [TestMethod]
     public async Task Tags_Delete_UnexpectedException()
     {
-        await CheckForUnexpectedException(async () => await _badConnectionClient.Tags.DeleteAsync(1));
+        await CheckForUnexpectedException(async () => await _badConnectionClient.Tags.DeleteAsync(1, TestContext.CancellationToken));
     }
 
-    private async Task CheckForUnexpectedException(Func<Task> task, HttpStatusCode expectedStatus = HttpStatusCode.NotFound)
+    private static async Task CheckForUnexpectedException(Func<Task> task, HttpStatusCode expectedStatus = HttpStatusCode.NotFound)
     {
         bool exceptionCaught = false;
 
@@ -63,4 +63,6 @@ public class Exception_Unexpected_Tests
 
         Assert.IsTrue(exceptionCaught, "Exception was expected but none was seen");
     }
+
+    public TestContext TestContext { get; set; } = null!;
 }

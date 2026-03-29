@@ -21,7 +21,7 @@ public class ListPosts_QueryBuilder_Tests
 
     // TODO: initialize more test posts
     //[TestMethod]
-    public async Task List_Posts_QueryBuilder_Test_Pagination()
+    public static async Task List_Posts_QueryBuilder_Test_Pagination()
     {
         // Posts
         List<Post> postsA = await _client.Posts.QueryAsync(new PostsQueryBuilder()
@@ -46,7 +46,9 @@ public class ListPosts_QueryBuilder_Tests
     public async Task List_Posts_QueryBuilder_After()
     {
         // Posts
-        List<Post> posts = await _client.Posts.QueryAsync(new PostsQueryBuilder { After = System.DateTime.Parse("2017-05-22T13:41:09") });
+        List<Post> posts = await _client.Posts.QueryAsync(new PostsQueryBuilder { After = System.DateTime.Parse("2017-05-22T13:41:09") }, cancellationToken: TestContext.CancellationToken);
         Assert.IsNotNull(posts);
     }
+
+    public TestContext TestContext { get; set; } = null!;
 }

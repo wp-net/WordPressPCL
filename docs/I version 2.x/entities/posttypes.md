@@ -6,23 +6,23 @@ Here is a list of methods and examples of working with PostTypes
 
 ```C#
 // returns all posttypes
-var posttypes = await client.PostTypes.GetAllAsync();
+List<PostType> posttypes = await client.PostTypes.GetAllAsync();
 ```
 
 ## Get By ID
 
 ```C#
 // returns posttype by ID
-var posttype = await client.PostTypes.GetByIdAsync(123);
+PostType posttype = await client.PostTypes.GetByIdAsync(123);
 ```
 
 ## Query
 Create parametrized request
 ```C#
 // returns result of query
-var queryBuilder = new PostTypesQueryBuilder();
+PostTypesQueryBuilder queryBuilder = new PostTypesQueryBuilder();
 queryBuilder.PerPage = 40;
 queryBuilder.Page = 2;
 queryBuilder.Before = DateTime.Now;
-var posttypes = await client.PostTypes.QueryAsync(queryBuilder);
+List<PostType> posttypes = await client.PostTypes.QueryAsync(queryBuilder);
 ```

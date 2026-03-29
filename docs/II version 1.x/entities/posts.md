@@ -6,39 +6,39 @@ Here is a list of methods and examples of working with Posts
 
 ```C#
 // returns all posts
-var posts = await client.Posts.GetAll();
+List<Post> posts = await client.Posts.GetAll();
 ```
 
 ## GetByID
 
 ```C#
 // returns post by ID
-var post = await client.Posts.GetByID(123);
+Post post = await client.Posts.GetByID(123);
 ```
 
 ## Query
 Create parametrized request
 ```C#
 // returns result of query
-var queryBuilder = new PostsQueryBuilder();
+PostsQueryBuilder queryBuilder = new PostsQueryBuilder();
 queryBuilder.PerPage=40;
 queryBuilder.Page=2;
 queryBuilder.Categories= new int[]{1,2,3};
-var posts = await client.Posts.Query(queryBuilder);
+List<Post> posts = await client.Posts.Query(queryBuilder);
 ```
 
 ## Create new Post
 
 ```C#
 // returns created post
-var post = new Post()
+Post post = new Post()
 {
     Title = new Title("Title 1"),
     Content = new Content("Content PostCreate")
 };
 if (await client.IsValidJWToken())
 {
-    var createdPost = await client.Posts.Create(post);
+    Post createdPost = await client.Posts.Create(post);
 }
 ```
 
@@ -46,11 +46,11 @@ if (await client.IsValidJWToken())
 
 ```C#
 // returns updated post
-var post = client.Posts.GetByID(123);
+Post post = client.Posts.GetByID(123);
 post.Content.Raw = "New Content";
 if (await client.IsValidJWToken())
 {
-    var updatedPost = await client.Posts.Update(post);
+    Post updatedPost = await client.Posts.Update(post);
 }
 ```
 
@@ -60,7 +60,7 @@ if (await client.IsValidJWToken())
 // returns result of deletion
 if (await client.IsValidJWToken())
 {
-    var result = await client.Posts.Delete(123);
+    bool result = await client.Posts.Delete(123);
 }
 ```
 
@@ -68,5 +68,5 @@ if (await client.IsValidJWToken())
 
 ```C#
 // returns revisions of post
-var revisions = await client.Posts.Revisions(123);
+PostRevisions revisions = client.Posts.Revisions(123);
 ```

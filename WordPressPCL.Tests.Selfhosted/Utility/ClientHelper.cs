@@ -16,10 +16,11 @@ public static class ClientHelper
         {
             clientAuth.Auth.UseBearerAuth(JWTPlugin.JWTAuthByUsefulTeam);
         }
-        else {
+        else
+        {
             clientAuth.Auth.UseBearerAuth(JWTPlugin.JWTAuthByEnriqueChavez);
         }
-        await clientAuth.Auth.RequestJWTokenAsync(ApiCredentials.Username, ApiCredentials.Password);
+        await clientAuth.Auth.RequestJWTokenAsync(ApiCredentials.Username, ApiCredentials.Password, context.CancellationToken);
 
         return clientAuth;
     }

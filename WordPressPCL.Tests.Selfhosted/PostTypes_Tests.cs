@@ -22,7 +22,7 @@ public class PostTypes_Tests
     [TestMethod]
     public async Task PostTypes_Read()
     {
-        List<PostType> posttypes = await _clientAuth.PostTypes.GetAllAsync();
+        List<PostType> posttypes = await _clientAuth.PostTypes.GetAllAsync(cancellationToken: TestContext.CancellationToken);
         Assert.IsNotNull(posttypes);
         Assert.AreNotEqual(0, posttypes.Count);
     }
@@ -30,8 +30,10 @@ public class PostTypes_Tests
     [TestMethod]
     public async Task PostTypes_Get()
     {
-        List<PostType> posttypes = await _clientAuth.PostTypes.GetAsync();
+        List<PostType> posttypes = await _clientAuth.PostTypes.GetAsync(cancellationToken: TestContext.CancellationToken);
         Assert.IsNotNull(posttypes);
         Assert.AreNotEqual(0, posttypes.Count);
     }
+
+    public TestContext TestContext { get; set; } = null!;
 }

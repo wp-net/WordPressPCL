@@ -91,7 +91,7 @@ public class NullHandling_Tests
     {
         var client = new WordPressClient("http://example.com/wp-json/");
         await Assert.ThrowsExactlyAsync<ArgumentNullException>(async () =>
-            await client.Auth.RequestJWTokenAsync(null!, "password"));
+            await client.Auth.RequestJWTokenAsync(null!, "password", TestContext.CancellationToken));
     }
 
     [TestMethod]
@@ -99,7 +99,7 @@ public class NullHandling_Tests
     {
         var client = new WordPressClient("http://example.com/wp-json/");
         await Assert.ThrowsExactlyAsync<ArgumentNullException>(async () =>
-            await client.Auth.RequestJWTokenAsync("user", null!));
+            await client.Auth.RequestJWTokenAsync("user", null!, TestContext.CancellationToken));
     }
 
     // -----------------------------------------------------------------------
@@ -112,7 +112,7 @@ public class NullHandling_Tests
         var client = new WordPressClient("http://example.com/wp-json/");
         using var stream = new MemoryStream();
         await Assert.ThrowsExactlyAsync<ArgumentNullException>(async () =>
-            await client.Media.CreateAsync(stream, null!));
+            await client.Media.CreateAsync(stream, null!, cancellationToken: TestContext.CancellationToken));
     }
 
     [TestMethod]
@@ -121,7 +121,7 @@ public class NullHandling_Tests
         var client = new WordPressClient("http://example.com/wp-json/");
         using var stream = new MemoryStream();
         await Assert.ThrowsExactlyAsync<ArgumentNullException>(async () =>
-            await client.Media.CreateAsync(stream, string.Empty));
+            await client.Media.CreateAsync(stream, string.Empty, cancellationToken: TestContext.CancellationToken));
     }
 
     // -----------------------------------------------------------------------
@@ -133,7 +133,7 @@ public class NullHandling_Tests
     {
         var client = new WordPressClient("http://example.com/wp-json/");
         await Assert.ThrowsExactlyAsync<ArgumentNullException>(async () =>
-            await client.Media.CreateAsync((string)null!, "file.jpg"));
+            await client.Media.CreateAsync((string)null!, "file.jpg", cancellationToken: TestContext.CancellationToken));
     }
 
     [TestMethod]
@@ -141,7 +141,7 @@ public class NullHandling_Tests
     {
         var client = new WordPressClient("http://example.com/wp-json/");
         await Assert.ThrowsExactlyAsync<ArgumentNullException>(async () =>
-            await client.Media.CreateAsync("/tmp/file.jpg", null!));
+            await client.Media.CreateAsync("/tmp/file.jpg", null!, cancellationToken: TestContext.CancellationToken));
     }
 
     // -----------------------------------------------------------------------
@@ -190,4 +190,6 @@ public class NullHandling_Tests
         Assert.AreEqual(42, comment.PostId);
         Assert.AreEqual("Hello world", comment.Content!.Raw);
     }
+
+    public TestContext TestContext { get; set; } = null!;
 }

@@ -5,12 +5,12 @@ To create post of custom post type you should do 2 things
 2. This is a one of contrintuitive things in WP REST API, but for creating post with custom type you should send requests to custom endpoint. For this task you can use our [Custom Requests](https://github.com/wp-net/WordPressPCL/wiki/CustomRequests) feature
 Example:
 ```c#
-var post = new Post()
+Post post = new Post()
 {
        Title = new Title("Title 1"),
        Content = new Content("Content PostCreate"),
        Type = "portfolio" //your custom post type
 };
 //change portfolio to your custom post type
-var createdPost = await _clientAuth.CustomRequest.Create<Post, Post>("wp/v2/portfolio",post); 
+Post createdPost = await _clientAuth.CustomRequest.Create<Post, Post>("wp/v2/portfolio",post); 
 ```

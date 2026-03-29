@@ -32,28 +32,28 @@ WordPressPCL 3.0 targets .NET 10 and is intended for applications running on the
 
 ```c#
 // Initialize
-var client = new WordPressClient("http://demo.wp-api.org/wp-json/");
+WordPressClient client = new WordPressClient("http://demo.wp-api.org/wp-json/");
 
 // Posts
-var posts = await client.Posts.GetAll();
-var postbyid = await client.Posts.GetById(id);
+List<Post> posts = await client.Posts.GetAll();
+Post postbyid = await client.Posts.GetById(id);
 
 // Comments
-var comments = await client.Comments.GetAll();
-var commentbyid = await client.Comments.GetById(id);
-var commentsbypost = await client.Comments.GetCommentsForPost(postid, true, false);
+List<Comment> comments = await client.Comments.GetAll();
+Comment commentbyid = await client.Comments.GetById(id);
+List<Comment> commentsbypost = await client.Comments.GetCommentsForPost(postid, true, false);
 
 // Users
 // JWT authentication
-var client = new WordPressClient(ApiCredentials.WordPressUri);
+WordPressClient client = new WordPressClient(ApiCredentials.WordPressUri);
 client.AuthMethod = AuthMethod.JWT;
 await client.RequestJWToken(ApiCredentials.Username,ApiCredentials.Password);
 
 // check if authentication has been successful
-var isValidToken = await client.IsValidJWToken();
+bool isValidToken = await client.IsValidJWToken();
 
 // now you can send requests that require authentication
-var response = client.Posts.Delete(postid);
+Task<bool> response = client.Posts.Delete(postid);
 ```
 
 ## Supported REST Methods

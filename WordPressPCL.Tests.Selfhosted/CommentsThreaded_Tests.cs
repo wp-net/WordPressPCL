@@ -24,51 +24,51 @@ public class CommentsThreaded_Tests
     public static async Task CommentsThreaded_SetupAsync(TestContext testContext)
     {
         _clientAuth = await ClientHelper.GetAuthenticatedWordPressClient(testContext);
-        bool IsValidToken = await _clientAuth.Auth.IsValidJWTokenAsync();
+        bool IsValidToken = await _clientAuth.Auth.IsValidJWTokenAsync(testContext.CancellationToken);
         Assert.IsTrue(IsValidToken);
 
         Post post = await _clientAuth.Posts.CreateAsync(new Post()
         {
             Title = new Title("Title 1"),
             Content = new Content("Content PostCreate")
-        });
-        await Task.Delay(1000);
+        }, testContext.CancellationToken);
+        await Task.Delay(1000, testContext.CancellationToken);
         Comment comment0 = await _clientAuth.Comments.CreateAsync(new Comment()
         {
             PostId = post.Id,
             Content = new Content("orem ipsum dolor sit amet")
-        });
+        }, testContext.CancellationToken);
 
         Comment comment00 = await _clientAuth.Comments.CreateAsync(new Comment()
         {
             PostId = post.Id,
             Content = new Content("r sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam non")
-        });
+        }, testContext.CancellationToken);
 
         Comment comment1 = await _clientAuth.Comments.CreateAsync(new Comment()
         {
             PostId = post.Id,
             ParentId = comment0.Id,
             Content = new Content("onsetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna ali")
-        });
+        }, testContext.CancellationToken);
         Comment comment2 = await _clientAuth.Comments.CreateAsync(new Comment()
         {
             PostId = post.Id,
             ParentId = comment1.Id,
             Content = new Content("ro eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem i")
-        });
+        }, testContext.CancellationToken);
         Comment comment3 = await _clientAuth.Comments.CreateAsync(new Comment()
         {
             PostId = post.Id,
             ParentId = comment2.Id,
             Content = new Content("tetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam e")
-        });
+        }, testContext.CancellationToken);
         Comment comment4 = await _clientAuth.Comments.CreateAsync(new Comment()
         {
             PostId = post.Id,
             ParentId = comment1.Id,
             Content = new Content("t ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum do")
-        });
+        }, testContext.CancellationToken);
         postid = post.Id;
         comment0id = comment0.Id;
         comment00id = comment00.Id;
@@ -81,7 +81,7 @@ public class CommentsThreaded_Tests
     [TestMethod]
     public async Task CommentsThreaded_Sort()
     {
-        List<Comment> allComments = await _clientAuth.Comments.GetAllCommentsForPostAsync(postid);
+        List<Comment> allComments = await _clientAuth.Comments.GetAllCommentsForPostAsync(postid, cancellationToken: TestContext.CancellationToken);
 
         List<CommentThreaded>? threaded = ThreadedCommentsHelper.GetThreadedComments(allComments);
         Assert.IsNotNull(threaded);
@@ -124,7 +124,7 @@ public class CommentsThreaded_Tests
     [TestMethod]
     public async Task CommentsThreaded_MaxDepth()
     {
-        List<Comment> allComments = await _clientAuth.Comments.GetAllCommentsForPostAsync(postid);
+        List<Comment> allComments = await _clientAuth.Comments.GetAllCommentsForPostAsync(postid, cancellationToken: TestContext.CancellationToken);
 
         List<CommentThreaded>? threaded = ThreadedCommentsHelper.GetThreadedComments(allComments, 1);
         Assert.IsNotNull(threaded);
@@ -146,7 +146,7 @@ public class CommentsThreaded_Tests
     [TestMethod]
     public async Task CommentsThreaded_Sort_Extension()
     {
-        List<Comment> allComments = await _clientAuth.Comments.GetAllCommentsForPostAsync(postid);
+        List<Comment> allComments = await _clientAuth.Comments.GetAllCommentsForPostAsync(postid, cancellationToken: TestContext.CancellationToken);
 
         Assert.IsTrue(allComments.Any());
         //ExtensionMethod
@@ -192,7 +192,7 @@ public class CommentsThreaded_Tests
     [TestMethod]
     public async Task CommentsThreaded_Sort_Extension_Desc()
     {
-        List<Comment> allComments = await _clientAuth.Comments.GetAllCommentsForPostAsync(postid);
+        List<Comment> allComments = await _clientAuth.Comments.GetAllCommentsForPostAsync(postid, cancellationToken: TestContext.CancellationToken);
         Assert.IsTrue(allComments.Any());
 
         List<CommentThreaded>? threaded = ThreadedCommentsHelper.ToThreaded(allComments, true);
@@ -248,14 +248,16 @@ public class CommentsThreaded_Tests
             System.DateTime nidate = threaded[ni].Date;
 
             // The following comment date has to be older
-            Assert.IsTrue(threaded[i].Id > threaded[ni].Id);
-            Assert.IsTrue(idate <= nidate);
+            Assert.IsGreaterThan(threaded[ni].Id, threaded[i].Id);
+            Assert.IsLessThanOrEqualTo(nidate, idate);
         }
     }
 
     [ClassCleanup]
-    public async static Task CommentsThreaded_Cleanup()
+    public async static Task CommentsThreaded_Cleanup(TestContext testContext)
     {
-        await _clientAuth.Posts.DeleteAsync(postid);
+        await _clientAuth.Posts.DeleteAsync(postid, cancellationToken: testContext.CancellationToken);
     }
+
+    public TestContext TestContext { get; set; } = null!;
 }

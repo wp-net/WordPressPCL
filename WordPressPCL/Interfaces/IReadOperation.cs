@@ -2,40 +2,39 @@
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace WordPressPCL.Interfaces
+namespace WordPressPCL.Interfaces;
+
+/// <summary>
+/// Interface with required Get methods
+/// </summary>
+/// <typeparam name="TClass">return class type</typeparam>
+public interface IReadOperation<TClass>
 {
     /// <summary>
-    /// Interface with required Get methods
+    /// Get latest
     /// </summary>
-    /// <typeparam name="TClass">return class type</typeparam>
-    public interface IReadOperation<TClass>
-    {
-        /// <summary>
-        /// Get latest
-        /// </summary>
-        /// <param name="embed">Is use embed info</param>
-        /// <param name="useAuth">Is use auth header</param>
-        /// <param name="cancellationToken">Cancellation token</param>
-        /// <returns>requested object</returns>
-        Task<List<TClass>> GetAsync(bool embed = false, bool useAuth = false, CancellationToken cancellationToken = default);
+    /// <param name="embed">Is use embed info</param>
+    /// <param name="useAuth">Is use auth header</param>
+    /// <param name="cancellationToken">Cancellation token</param>
+    /// <returns>requested object</returns>
+    Task<List<TClass>> GetAsync(bool embed = false, bool useAuth = false, CancellationToken cancellationToken = default);
 
-        /// <summary>
-        /// Get object by Id
-        /// </summary>
-        /// <param name="id">Object Id</param>
-        /// <param name="embed">Is use embed info</param>
-        /// <param name="useAuth">Is use auth header</param>
-        /// <param name="cancellationToken">Cancellation token</param>
-        /// <returns>requested object</returns>
-        Task<TClass> GetByIdAsync(object id, bool embed = false, bool useAuth = false, CancellationToken cancellationToken = default);
+    /// <summary>
+    /// Get object by Id
+    /// </summary>
+    /// <param name="id">Object Id</param>
+    /// <param name="embed">Is use embed info</param>
+    /// <param name="useAuth">Is use auth header</param>
+    /// <param name="cancellationToken">Cancellation token</param>
+    /// <returns>requested object</returns>
+    Task<TClass> GetByIdAsync(object id, bool embed = false, bool useAuth = false, CancellationToken cancellationToken = default);
 
-        /// <summary>
-        /// Get all objects
-        /// </summary>
-        /// <param name="embed">Is use embed info</param>
-        /// <param name="useAuth">Is use auth header</param>
-        /// <param name="cancellationToken">Cancellation token</param>
-        /// <returns>List of objects</returns>
-        Task<List<TClass>> GetAllAsync(bool embed = false, bool useAuth = false, CancellationToken cancellationToken = default);
-    }
+    /// <summary>
+    /// Get all objects
+    /// </summary>
+    /// <param name="embed">Is use embed info</param>
+    /// <param name="useAuth">Is use auth header</param>
+    /// <param name="cancellationToken">Cancellation token</param>
+    /// <returns>List of objects</returns>
+    Task<List<TClass>> GetAllAsync(bool embed = false, bool useAuth = false, CancellationToken cancellationToken = default);
 }

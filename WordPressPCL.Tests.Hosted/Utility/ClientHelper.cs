@@ -6,7 +6,7 @@ public static class ClientHelper
 
     public static WordPressClient GetWordPressClient()
     {
-        if(_client == null)
+        if (_client == null)
             _client = new WordPressClient(ApiCredentials.WordPressUri, "");
         return _client;
     }

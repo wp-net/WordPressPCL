@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -21,22 +22,22 @@ public class HttpHelper_Tests
         // AUTHENTICATION DOES NOT YET WORK FOR HOSTED SITES
         var client = new WordPressClient(ApiCredentials.WordPressUri);
         client.Auth.UseBearerAuth(JWTPlugin.JWTAuthByEnriqueChavez);
-        await client.Auth.RequestJWTokenAsync(ApiCredentials.Username, ApiCredentials.Password);
+        await client.Auth.RequestJWTokenAsync(ApiCredentials.Username, ApiCredentials.Password, TestContext.CancellationToken);
 
         // Create a random tag , must works:
         var tagname = $"Test {System.Guid.NewGuid()}";
-        var tag = await client.Tags.CreateAsync(new Tag()
+        Tag tag = await client.Tags.CreateAsync(new Tag()
         {
             Name = tagname,
             Description = "Test Description"
-        });
-        Assert.IsTrue(tag.Id > 0);
+        }, TestContext.CancellationToken);
+        Assert.IsGreaterThan(0, tag.Id);
         Assert.IsNotNull(tag);
         Assert.AreEqual(tagname, tag.Name);
         Assert.AreEqual("Test Description", tag.Description);
 
         // We call Get tag list without pre processing
-        var tags = await client.Tags.GetAllAsync();
+        List<Tag> tags = await client.Tags.GetAllAsync(cancellationToken: TestContext.CancellationToken);
         Assert.IsNotNull(tags);
         Assert.AreNotEqual(0, tags.Count);
         CollectionAssert.AllItemsAreUnique(tags.Select(e => e.Id).ToList());
@@ -48,30 +49,31 @@ public class HttpHelper_Tests
         };
         await Assert.ThrowsExactlyAsync<InvalidOperationException>(async () =>
         {
-            await client.Tags.GetAllAsync();
+            await client.Tags.GetAllAsync(cancellationToken: TestContext.CancellationToken);
         });
     }
 
     [TestMethod]
-    public async Task Hosted_HttpHelper_ValidPreProcessing() {
+    public async Task Hosted_HttpHelper_ValidPreProcessing()
+    {
         var client = new WordPressClient(ApiCredentials.WordPressUri);
         client.Auth.UseBearerAuth(JWTPlugin.JWTAuthByEnriqueChavez);
-        await client.Auth.RequestJWTokenAsync(ApiCredentials.Username, ApiCredentials.Password);
+        await client.Auth.RequestJWTokenAsync(ApiCredentials.Username, ApiCredentials.Password, TestContext.CancellationToken);
 
         // Create a random tag
         var tagname = $"Test {System.Guid.NewGuid()}";
-        var tag = await client.Tags.CreateAsync(new Tag()
+        Tag tag = await client.Tags.CreateAsync(new Tag()
         {
             Name = tagname,
             Description = "Test Description"
-        });
-        Assert.IsTrue(tag.Id > 0);
+        }, TestContext.CancellationToken);
+        Assert.IsGreaterThan(0, tag.Id);
         Assert.IsNotNull(tag);
         Assert.AreEqual(tagname, tag.Name);
         Assert.AreEqual("Test Description", tag.Description);
 
         // We call Get tag list without pre processing
-        var tags = await client.Tags.GetAllAsync();
+        List<Tag> tags = await client.Tags.GetAllAsync(cancellationToken: TestContext.CancellationToken);
         Assert.IsNotNull(tags);
         Assert.AreNotEqual(0, tags.Count);
         CollectionAssert.AllItemsAreUnique(tags.Select(e => e.Id).ToList());
@@ -82,9 +84,11 @@ public class HttpHelper_Tests
             return response;
         };
 
-        tags = await client.Tags.GetAllAsync();
+        tags = await client.Tags.GetAllAsync(cancellationToken: TestContext.CancellationToken);
         Assert.IsNotNull(tags);
         Assert.AreNotEqual(0, tags.Count);
         CollectionAssert.AllItemsAreUnique(tags.Select(e => e.Id).ToList());
     }
+
+    public TestContext TestContext { get; set; } = null!;
 }

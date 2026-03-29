@@ -4,7 +4,7 @@
 In some cases, it may be useful to change the default settings for the serialization / deserialization process of the Json.NET library
 You can do this in the following way:
 ```c#
-var client = new WordPressClient("https://site.com/wp-json/");
+WordPressClient client = new WordPressClient("https://site.com/wp-json/");
 client.JsonSerializationSettings = new JsonSerializationSettings()
 {
         DateFormatHandling=DateFormatHandling.IsoDateFormat,
