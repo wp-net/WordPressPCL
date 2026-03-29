@@ -126,5 +126,5 @@ public class Basic_Tests
         Assert.IsTrue(validToken);
     }
 
-    public TestContext TestContext { get; set; }
+    public TestContext TestContext { get; set; } = null!;
 }

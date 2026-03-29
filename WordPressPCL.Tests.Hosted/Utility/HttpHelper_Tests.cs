@@ -90,5 +90,5 @@ public class HttpHelper_Tests
         CollectionAssert.AllItemsAreUnique(tags.Select(e => e.Id).ToList());
     }
 
-    public TestContext TestContext { get; set; }
+    public TestContext TestContext { get; set; } = null!;
 }

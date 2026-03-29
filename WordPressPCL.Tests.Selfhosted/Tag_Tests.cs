@@ -110,6 +110,6 @@ public class Tag_Tests
         Assert.AreNotEqual(0, queryresult.Count);
     }
 
-    public TestContext TestContext { get; set; }
+    public TestContext TestContext { get; set; } = null!;
 }
 

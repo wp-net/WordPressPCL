@@ -51,5 +51,5 @@ public class ApplicationPasswords_Tests
         Assert.AreEqual("Title 1", postCreated.Title!.Raw);
     }
 
-    public TestContext TestContext { get; set; }
+    public TestContext TestContext { get; set; } = null!;
 }

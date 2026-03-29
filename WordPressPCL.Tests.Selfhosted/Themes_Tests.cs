@@ -22,7 +22,7 @@ public class Themes_Tests
     [TestMethod]
     public async Task Themes_GetActive()
     {
-        List<Theme> themes = await _clientAuth.Themes.QueryAsync(new ThemesQueryBuilder { Status = ActivationStatus.Active }, useAuth: true, TestContext.CancellationToken);
+        List<Theme> themes = await _clientAuth.Themes.QueryAsync(new ThemesQueryBuilder { Status = ActivationStatus.Active }, useAuth: true, cancellationToken: TestContext.CancellationToken);
         Assert.IsNotNull(themes);
         Assert.AreNotEqual(0, themes.Count);
 
@@ -43,5 +43,5 @@ public class Themes_Tests
         Assert.IsNotNull(theme);
     }
 
-    public TestContext TestContext { get; set; }
+    public TestContext TestContext { get; set; } = null!;
 }

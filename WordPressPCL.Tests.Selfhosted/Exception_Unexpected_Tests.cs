@@ -64,5 +64,5 @@ public class Exception_Unexpected_Tests
         Assert.IsTrue(exceptionCaught, "Exception was expected but none was seen");
     }
 
-    public TestContext TestContext { get; set; }
+    public TestContext TestContext { get; set; } = null!;
 }

@@ -62,5 +62,5 @@ public class PostRevisions_Tests
         return updatedPost.Id;
     }
 
-    public TestContext TestContext { get; set; }
+    public TestContext TestContext { get; set; } = null!;
 }

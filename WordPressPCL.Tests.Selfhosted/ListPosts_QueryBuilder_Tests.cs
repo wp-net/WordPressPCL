@@ -50,5 +50,5 @@ public class ListPosts_QueryBuilder_Tests
         Assert.IsNotNull(posts);
     }
 
-    public TestContext TestContext { get; set; }
+    public TestContext TestContext { get; set; } = null!;
 }

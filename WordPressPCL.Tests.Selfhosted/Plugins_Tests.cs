@@ -63,7 +63,7 @@ public class Plugins_Tests
     public async Task Plugins_GetActive()
     {
         //Active plugin
-        List<Plugin> plugins = await _clientAuth.Plugins.QueryAsync(new PluginsQueryBuilder { Status = ActivationStatus.Active }, useAuth: true, TestContext.CancellationToken);
+        List<Plugin> plugins = await _clientAuth.Plugins.QueryAsync(new PluginsQueryBuilder { Status = ActivationStatus.Active }, useAuth: true, cancellationToken: TestContext.CancellationToken);
         Assert.IsNotNull(plugins);
         Assert.AreNotEqual(0, plugins.Count);
 
@@ -72,7 +72,7 @@ public class Plugins_Tests
     public async Task Plugins_Search()
     {
         //Active plugin
-        List<Plugin> plugins = await _clientAuth.Plugins.QueryAsync(new PluginsQueryBuilder { Search = "jwt" }, useAuth: true, TestContext.CancellationToken);
+        List<Plugin> plugins = await _clientAuth.Plugins.QueryAsync(new PluginsQueryBuilder { Search = "jwt" }, useAuth: true, cancellationToken: TestContext.CancellationToken);
         Assert.IsNotNull(plugins);
         Assert.AreNotEqual(0, plugins.Count);
 
@@ -94,5 +94,5 @@ public class Plugins_Tests
         Assert.IsNotNull(plugin);
     }
 
-    public TestContext TestContext { get; set; }
+    public TestContext TestContext { get; set; } = null!;
 }

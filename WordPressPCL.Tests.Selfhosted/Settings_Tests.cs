@@ -24,5 +24,5 @@ public class Settings_Tests
         Assert.IsNotNull(settings.Title);
     }
 
-    public TestContext TestContext { get; set; }
+    public TestContext TestContext { get; set; } = null!;
 }

@@ -35,5 +35,5 @@ public class PostTypes_Tests
         Assert.AreNotEqual(0, posttypes.Count);
     }
 
-    public TestContext TestContext { get; set; }
+    public TestContext TestContext { get; set; } = null!;
 }

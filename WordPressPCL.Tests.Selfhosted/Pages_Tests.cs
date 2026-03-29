@@ -33,7 +33,7 @@ public class Pages_Tests
         Page createdPage = await _clientAuth.Pages.CreateAsync(page, TestContext.CancellationToken);
 
         Assert.AreEqual(page.Content!.Raw, createdPage.Content!.Raw);
-        Assert.Contains(page.Content.Rendered, createdPage.Content.Rendered);
+        StringAssert.Contains(createdPage.Content.Rendered, page.Content.Rendered);
     }
 
     [TestMethod]
@@ -103,5 +103,5 @@ public class Pages_Tests
         Assert.AreNotEqual(0, queryresult.Count);
     }
 
-    public TestContext TestContext { get; set; }
+    public TestContext TestContext { get; set; } = null!;
 }

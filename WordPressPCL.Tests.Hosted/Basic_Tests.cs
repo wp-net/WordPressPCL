@@ -117,5 +117,5 @@ public class Basic_Tests
         }
     }
 
-    public TestContext TestContext { get; set; }
+    public TestContext TestContext { get; set; } = null!;
 }

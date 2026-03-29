@@ -208,7 +208,7 @@ public class User_Tests
         return _clientAuth.Users.CreateAsync(new User(username, email, password));
     }
 
-    public TestContext TestContext { get; set; }
+    public TestContext TestContext { get; set; } = null!;
 
     #endregion Utils
 }

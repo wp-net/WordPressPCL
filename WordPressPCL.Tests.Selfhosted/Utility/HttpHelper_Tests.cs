@@ -89,5 +89,5 @@ public class HttpHelper_Tests
         _clientAuth.HttpResponsePreProcessing = null;
     }
 
-    public TestContext TestContext { get; set; }
+    public TestContext TestContext { get; set; } = null!;
 }

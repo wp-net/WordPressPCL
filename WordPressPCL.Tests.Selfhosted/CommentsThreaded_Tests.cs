@@ -259,5 +259,5 @@ public class CommentsThreaded_Tests
         await _clientAuth.Posts.DeleteAsync(postid, cancellationToken: testContext.CancellationToken);
     }
 
-    public TestContext TestContext { get; set; }
+    public TestContext TestContext { get; set; } = null!;
 }

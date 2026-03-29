@@ -80,5 +80,5 @@ public class CustomRequests_Tests
         Assert.IsTrue(result);
     }
 
-    public TestContext TestContext { get; set; }
+    public TestContext TestContext { get; set; } = null!;
 }

@@ -191,5 +191,5 @@ public class NullHandling_Tests
         Assert.AreEqual("Hello world", comment.Content!.Raw);
     }
 
-    public TestContext TestContext { get; set; }
+    public TestContext TestContext { get; set; } = null!;
 }
