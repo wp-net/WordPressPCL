@@ -1,4 +1,4 @@
-namespace WordPressPCL.Models {
+﻿namespace WordPressPCL.Models {
     
     /// <summary>
     /// JWT Plugins supported
@@ -14,7 +14,13 @@ namespace WordPressPCL.Models {
         /// JWT Auth – WordPress JSON Web Token Authentication plugin
         /// Author - Useful Team
         /// </summary>
-        JWTAuthByUsefulTeam
-        
+        JWTAuthByUsefulTeam,
+        /// <summary>
+        /// simple-jwt-login – WordPress JSON Web Token Authentication plugin
+        /// https://wordpress.org/plugins/simple-jwt-login/
+        /// Author - Nicu Micle
+        /// </summary>
+        JWTSimpleJwtLogin
+
     }
 }
