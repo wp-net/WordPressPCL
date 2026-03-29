@@ -67,7 +67,7 @@ public abstract class CRUDOperation<TClass, QClass> : IReadOperation<TClass>, IU
     /// <returns>Result of operation</returns>
     public Task<bool> DeleteAsync(int Id, CancellationToken cancellationToken = default)
     {
-        string path = $"{MethodPath}/{Id}".SetQueryParam("force", ForceDeletion.ToString().ToLower(CultureInfo.InvariantCulture))!;
+        string path = $"{MethodPath}/{Id}".SetQueryParam("force", ForceDeletion.ToString().ToLower(CultureInfo.InvariantCulture));
         return HttpHelper.DeleteRequestAsync(path, cancellationToken: cancellationToken);
     }
 
@@ -93,12 +93,12 @@ public abstract class CRUDOperation<TClass, QClass> : IReadOperation<TClass>, IU
     public async Task<List<TClass>> GetAllAsync(bool embed = false, bool useAuth = false, CancellationToken cancellationToken = default)
     {
         //100 - Max posts per page in WordPress REST API, so this is hack with multiple requests
-        string url = MethodPath.SetQueryParam("per_page", "100")!.SetQueryParam("page", "1")!;
+        string url = MethodPath.SetQueryParam("per_page", "100").SetQueryParam("page", "1");
         (List<TClass>? entities, System.Net.Http.Headers.HttpResponseHeaders? headers) = await HttpHelper.GetRequestWithHeadersAsync<List<TClass>>(url, embed, useAuth, cancellationToken: cancellationToken).ConfigureAwait(false);
         (int _, int totalPages) = HttpHelper.ParsePaginationHeaders(headers);
         for (int page = 2; page <= totalPages; page++)
         {
-            url = MethodPath.SetQueryParam("per_page", "100")!.SetQueryParam("page", page.ToString(CultureInfo.InvariantCulture))!;
+            url = MethodPath.SetQueryParam("per_page", "100").SetQueryParam("page", page.ToString(CultureInfo.InvariantCulture));
             entities.AddRange(await HttpHelper.GetRequestAsync<List<TClass>>(url, embed, useAuth, cancellationToken: cancellationToken).ConfigureAwait(false));
         }
         return entities;
@@ -118,9 +118,9 @@ public abstract class CRUDOperation<TClass, QClass> : IReadOperation<TClass>, IU
     /// </returns>
     public async Task<PagedResult<TClass>> GetPagedAsync(int page = 1, int perPage = 10, bool embed = false, bool useAuth = false, CancellationToken cancellationToken = default)
     {
-#pragma warning disable CA1507 // Use nameof to express symbol names
-        string url = MethodPath.SetQueryParam("per_page", perPage.ToString(CultureInfo.InvariantCulture))!
-                               .SetQueryParam("page", page.ToString(CultureInfo.InvariantCulture))!;
+#pragma warning disable CA1507 // "page" is a query parameter name, not the method parameter
+        string url = MethodPath.SetQueryParam("per_page", perPage.ToString(CultureInfo.InvariantCulture))
+                               .SetQueryParam("page", page.ToString(CultureInfo.InvariantCulture));
 #pragma warning restore CA1507
         (List<TClass>? items, System.Net.Http.Headers.HttpResponseHeaders? headers) = await HttpHelper.GetRequestWithHeadersAsync<List<TClass>>(url, embed, useAuth, cancellationToken: cancellationToken).ConfigureAwait(false);
         (int total, int totalPages) = HttpHelper.ParsePaginationHeaders(headers);

@@ -29,8 +29,6 @@ public class Themes : CRUDOperation<Theme, ThemesQueryBuilder>
 
     #region Custom
 
-
-
     /// <summary>
     /// Get themes by activation status
     /// </summary>
@@ -42,7 +40,7 @@ public class Themes : CRUDOperation<Theme, ThemesQueryBuilder>
     {
         // default values
         // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
-        return HttpHelper.GetRequestAsync<List<Theme>>(_methodPath.SetQueryParam("status", activationStatus.ToString().ToLower())!, embed, true, cancellationToken: cancellationToken);
+        return HttpHelper.GetRequestAsync<List<Theme>>(_methodPath.SetQueryParam("status", activationStatus.ToString().ToLower()), embed, true, cancellationToken: cancellationToken);
     }
 
 

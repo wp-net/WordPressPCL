@@ -43,7 +43,7 @@ public class Posts : CRUDOperation<Post, PostsQueryBuilder>, ICountOperation
     {
         // default values
         // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
-        return HttpHelper.GetRequestAsync<List<Post>>(_methodPath.SetQueryParam("sticky", "true")!, embed, useAuth, cancellationToken: cancellationToken);
+        return HttpHelper.GetRequestAsync<List<Post>>(_methodPath.SetQueryParam("sticky", "true"), embed, useAuth, cancellationToken: cancellationToken);
     }
 
     /// <summary>
@@ -58,7 +58,7 @@ public class Posts : CRUDOperation<Post, PostsQueryBuilder>, ICountOperation
     {
         // default values
         // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
-        return HttpHelper.GetRequestAsync<List<Post>>(_methodPath.SetQueryParam("categories", categoryId)!, embed, useAuth, cancellationToken: cancellationToken);
+        return HttpHelper.GetRequestAsync<List<Post>>(_methodPath.SetQueryParam("categories", categoryId), embed, useAuth, cancellationToken: cancellationToken);
     }
 
     /// <summary>
@@ -73,7 +73,7 @@ public class Posts : CRUDOperation<Post, PostsQueryBuilder>, ICountOperation
     {
         // default values
         // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
-        return HttpHelper.GetRequestAsync<List<Post>>(_methodPath.SetQueryParam("tags", tagId)!, embed, useAuth, cancellationToken: cancellationToken);
+        return HttpHelper.GetRequestAsync<List<Post>>(_methodPath.SetQueryParam("tags", tagId), embed, useAuth, cancellationToken: cancellationToken);
     }
 
     /// <summary>
@@ -88,7 +88,7 @@ public class Posts : CRUDOperation<Post, PostsQueryBuilder>, ICountOperation
     {
         // default values
         // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
-        return HttpHelper.GetRequestAsync<List<Post>>(_methodPath.SetQueryParam("author", authorId)!, embed, useAuth, cancellationToken: cancellationToken);
+        return HttpHelper.GetRequestAsync<List<Post>>(_methodPath.SetQueryParam("author", authorId), embed, useAuth, cancellationToken: cancellationToken);
     }
 
     /// <summary>
@@ -103,7 +103,7 @@ public class Posts : CRUDOperation<Post, PostsQueryBuilder>, ICountOperation
     {
         // default values
         // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
-        return HttpHelper.GetRequestAsync<List<Post>>(_methodPath.SetQueryParam("search", searchTerm)!, embed, useAuth, cancellationToken: cancellationToken);
+        return HttpHelper.GetRequestAsync<List<Post>>(_methodPath.SetQueryParam("search", searchTerm), embed, useAuth, cancellationToken: cancellationToken);
     }
 
     /// <summary>
@@ -136,7 +136,7 @@ public class Posts : CRUDOperation<Post, PostsQueryBuilder>, ICountOperation
     {
 #pragma warning disable CA1507 // Use nameof to express symbol names
         return HttpHelper.DeleteRequestAsync($"{_methodPath}/{Id}"
-            .SetQueryParam("force", force.ToString().ToLower(CultureInfo.InvariantCulture))!,
+            .SetQueryParam("force", force.ToString().ToLower(CultureInfo.InvariantCulture)),
             cancellationToken: cancellationToken
         );
 #pragma warning restore CA1507 // Use nameof to express symbol names

@@ -38,13 +38,9 @@ public class Plugins : CRUDOperation<Plugin, PluginsQueryBuilder>
     /// <param name="Plugin"></param>
     /// <param name="cancellationToken">Cancellation token</param>
     /// <returns></returns>
-    public async Task<Plugin> InstallAsync(Plugin Plugin, CancellationToken cancellationToken = default)
+    public Task<Plugin> InstallAsync(Plugin Plugin, CancellationToken cancellationToken = default)
     {
-
-        using StringContent postBody = new StringContent(JsonSerializer.Serialize(new { slug = Plugin.Id }), Encoding.UTF8, "application/json");
-        (Plugin plugin, HttpResponseMessage _) = await HttpHelper.PostRequestAsync<Plugin>("plugins", postBody, cancellationToken: cancellationToken).ConfigureAwait(false);
-        return plugin;
-
+        return InstallAsync(Plugin.Id!, cancellationToken);
     }
 
     /// <summary>
@@ -99,7 +95,7 @@ public class Plugins : CRUDOperation<Plugin, PluginsQueryBuilder>
     {
         // default values
         // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
-        return HttpHelper.GetRequestAsync<List<Plugin>>(_methodPath.SetQueryParam("search", searchTerm)!, embed, true, cancellationToken: cancellationToken);
+        return HttpHelper.GetRequestAsync<List<Plugin>>(_methodPath.SetQueryParam("search", searchTerm), embed, true, cancellationToken: cancellationToken);
     }
 
     /// <summary>
@@ -113,7 +109,7 @@ public class Plugins : CRUDOperation<Plugin, PluginsQueryBuilder>
     {
         // default values
         // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
-        return HttpHelper.GetRequestAsync<List<Plugin>>(_methodPath.SetQueryParam("status", activationStatus.ToString().ToLower())!, embed, true, cancellationToken: cancellationToken);
+        return HttpHelper.GetRequestAsync<List<Plugin>>(_methodPath.SetQueryParam("status", activationStatus.ToString().ToLower()), embed, true, cancellationToken: cancellationToken);
     }
 
 

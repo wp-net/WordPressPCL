@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using WordPressPCL.Interfaces;
@@ -33,13 +34,8 @@ public class PostStatuses : IReadOperation<PostStatus>
     /// <returns>Entity by Id</returns>
     public async Task<List<PostStatus>> GetAsync(bool embed = false, bool useAuth = false, CancellationToken cancellationToken = default)
     {
-        List<PostStatus> entities = new();
         Dictionary<string, PostStatus> entities_page = await _httpHelper.GetRequestAsync<Dictionary<string, PostStatus>>($"{_methodPath}", embed, useAuth, cancellationToken: cancellationToken).ConfigureAwait(false);
-        foreach (KeyValuePair<string, PostStatus> ent in entities_page)
-        {
-            entities.Add(ent.Value);
-        }
-        return entities;
+        return entities_page.Values.ToList();
     }
 
     /// <summary>
@@ -49,16 +45,9 @@ public class PostStatuses : IReadOperation<PostStatus>
     /// <param name="useAuth">Send request with authentication header</param>
     /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>List of all result</returns>
-    public async Task<List<PostStatus>> GetAllAsync(bool embed = false, bool useAuth = false, CancellationToken cancellationToken = default)
+    public Task<List<PostStatus>> GetAllAsync(bool embed = false, bool useAuth = false, CancellationToken cancellationToken = default)
     {
-        //100 - Max posts per page in WordPress REST API, so this is hack with multiple requests
-        List<PostStatus> entities = new();
-        Dictionary<string, PostStatus> entities_page = await _httpHelper.GetRequestAsync<Dictionary<string, PostStatus>>($"{_methodPath}", embed, useAuth, cancellationToken: cancellationToken).ConfigureAwait(false);
-        foreach (KeyValuePair<string, PostStatus> ent in entities_page)
-        {
-            entities.Add(ent.Value);
-        }
-        return entities;
+        return GetAsync(embed, useAuth, cancellationToken);
     }
 
     /// <summary>

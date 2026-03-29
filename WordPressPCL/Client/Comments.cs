@@ -38,32 +38,32 @@ public class Comments : CRUDOperation<Comment, CommentsQueryBuilder>
     /// <summary>
     /// Get comments for Post
     /// </summary>
-    /// <param name="PostID">Post id</param>
+    /// <param name="postId">Post id</param>
     /// <param name="embed">include embed info</param>
     /// <param name="useAuth">Send request with authentication header</param>
     /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>List of comments for post</returns>
-    public Task<List<Comment>> GetCommentsForPostAsync(int PostID, bool embed = false, bool useAuth = false, CancellationToken cancellationToken = default)
+    public Task<List<Comment>> GetCommentsForPostAsync(int postId, bool embed = false, bool useAuth = false, CancellationToken cancellationToken = default)
     {
-        return HttpHelper.GetRequestAsync<List<Comment>>($"{_methodPath}?post={PostID}", embed, useAuth, cancellationToken: cancellationToken);
+        return HttpHelper.GetRequestAsync<List<Comment>>($"{_methodPath}?post={postId}", embed, useAuth, cancellationToken: cancellationToken);
     }
 
     /// <summary>
     /// Get all comments for Post
     /// </summary>
-    /// <param name="PostID">Post id</param>
+    /// <param name="postId">Post id</param>
     /// <param name="embed">include embed info</param>
     /// <param name="useAuth">Send request with authentication header</param>
     /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>List of comments for post</returns>
-    public async Task<List<Comment>> GetAllCommentsForPostAsync(int PostID, bool embed = false, bool useAuth = false, CancellationToken cancellationToken = default)
+    public async Task<List<Comment>> GetAllCommentsForPostAsync(int postId, bool embed = false, bool useAuth = false, CancellationToken cancellationToken = default)
     {
         //100 - Max comments per page in WordPress REST API, so this is hack with multiple requests
-        (List<Comment> comments, System.Net.Http.Headers.HttpResponseHeaders headers) = await HttpHelper.GetRequestWithHeadersAsync<List<Comment>>($"{_methodPath}?post={PostID}&per_page=100&page=1", embed, useAuth, cancellationToken: cancellationToken).ConfigureAwait(false);
+        (List<Comment> comments, System.Net.Http.Headers.HttpResponseHeaders headers) = await HttpHelper.GetRequestWithHeadersAsync<List<Comment>>($"{_methodPath}?post={postId}&per_page=100&page=1", embed, useAuth, cancellationToken: cancellationToken).ConfigureAwait(false);
         (int _, int totalPages) = HttpHelper.ParsePaginationHeaders(headers);
         for (int page = 2; page <= totalPages; page++)
         {
-            comments.AddRange(await HttpHelper.GetRequestAsync<List<Comment>>($"{_methodPath}?post={PostID}&per_page=100&page={page}", embed, useAuth, cancellationToken: cancellationToken).ConfigureAwait(false));
+            comments.AddRange(await HttpHelper.GetRequestAsync<List<Comment>>($"{_methodPath}?post={postId}&per_page=100&page={page}", embed, useAuth, cancellationToken: cancellationToken).ConfigureAwait(false));
         }
         return comments;
     }

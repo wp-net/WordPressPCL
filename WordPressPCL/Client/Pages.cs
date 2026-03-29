@@ -40,7 +40,7 @@ public class Pages : CRUDOperation<Page, PagesQueryBuilder>
     {
         // default values
         // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
-        return HttpHelper.GetRequestAsync<List<Page>>($"{_methodPath}?author={authorId}", embed, useAuth, cancellationToken: cancellationToken);
+        return HttpHelper.GetRequestAsync<List<Page>>(_methodPath.SetQueryParam("author", authorId), embed, useAuth, cancellationToken: cancellationToken);
     }
 
     /// <summary>
@@ -55,7 +55,7 @@ public class Pages : CRUDOperation<Page, PagesQueryBuilder>
     {
         // default values
         // int page = 1, int per_page = 10, int offset = 0, Post.OrderBy orderby = Post.OrderBy.date
-        return HttpHelper.GetRequestAsync<List<Page>>($"{_methodPath}?search={searchTerm}", embed, useAuth, cancellationToken: cancellationToken);
+        return HttpHelper.GetRequestAsync<List<Page>>(_methodPath.SetQueryParam("search", searchTerm), embed, useAuth, cancellationToken: cancellationToken);
     }
 
     /// <summary>

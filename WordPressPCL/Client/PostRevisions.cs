@@ -58,7 +58,7 @@ public class PostRevisions : IReadOperation<PostRevision>, IDeleteOperation
     /// <returns>List of all result</returns>
     public Task<List<PostRevision>> GetAllAsync(bool embed = false, bool useAuth = true, CancellationToken cancellationToken = default)
     {
-        return _httpHelper.GetRequestAsync<List<PostRevision>>($"posts/{_postId}/{_methodPath}", embed, useAuth, cancellationToken: cancellationToken);
+        return GetAsync(embed, useAuth, cancellationToken);
     }
 
     /// <summary>

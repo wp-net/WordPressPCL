@@ -113,7 +113,7 @@
             <summary>
             Get comments for Post
             </summary>
-            <param name="PostID">Post id</param>
+            <param name="postId">Post id</param>
             <param name="embed">include embed info</param>
             <param name="useAuth">Send request with authentication header</param>
             <param name="cancellationToken">Cancellation token</param>
@@ -123,7 +123,7 @@
             <summary>
             Get all comments for Post
             </summary>
-            <param name="PostID">Post id</param>
+            <param name="postId">Post id</param>
             <param name="embed">include embed info</param>
             <param name="useAuth">Send request with authentication header</param>
             <param name="cancellationToken">Cancellation token</param>
@@ -961,7 +961,7 @@
             Delete user with reassign articles
             </summary>
             <param name="ID">User id for delete</param>
-            <param name="ReassignUserID">User id for reassign</param>
+            <param name="reassignUserId">User id for reassign</param>
             <param name="cancellationToken">Cancellation token</param>
             <returns>Result of operation</returns>
         </member>
@@ -970,7 +970,7 @@
             Delete user with reassign articles
             </summary>
             <param name="ID">User id for delete</param>
-            <param name="ReassignUser">User object for reassign</param>
+            <param name="reassignUser">User object for reassign</param>
             <param name="cancellationToken">Cancellation token</param>
             <returns>Result of operation</returns>
         </member>

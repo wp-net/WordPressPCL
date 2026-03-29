@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using WordPressPCL.Interfaces;
@@ -33,13 +34,8 @@ public class PostTypes : IReadOperation<PostType>
     /// <returns>List of latest PostTypes</returns>
     public async Task<List<PostType>> GetAsync(bool embed = false, bool useAuth = false, CancellationToken cancellationToken = default)
     {
-        List<PostType> entities = new();
-        Dictionary<string, PostType> entities_page = (await _httpHelper.GetRequestAsync<Dictionary<string, PostType>>($"{_methodPath}", embed, useAuth, cancellationToken: cancellationToken).ConfigureAwait(false));
-        foreach (KeyValuePair<string, PostType> ent in entities_page)
-        {
-            entities.Add(ent.Value);
-        }
-        return entities;
+        Dictionary<string, PostType> entities_page = await _httpHelper.GetRequestAsync<Dictionary<string, PostType>>($"{_methodPath}", embed, useAuth, cancellationToken: cancellationToken).ConfigureAwait(false);
+        return entities_page.Values.ToList();
     }
 
     /// <summary>
@@ -49,16 +45,9 @@ public class PostTypes : IReadOperation<PostType>
     /// <param name="useAuth">Send request with authentication header</param>
     /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>List of all PostTypes</returns>
-    public async Task<List<PostType>> GetAllAsync(bool embed = false, bool useAuth = false, CancellationToken cancellationToken = default)
+    public Task<List<PostType>> GetAllAsync(bool embed = false, bool useAuth = false, CancellationToken cancellationToken = default)
     {
-        //100 - Max posts per page in WordPress REST API, so this is hack with multiple requests
-        List<PostType> entities = new();
-        Dictionary<string, PostType> entities_page = (await _httpHelper.GetRequestAsync<Dictionary<string, PostType>>($"{_methodPath}", embed, useAuth, cancellationToken: cancellationToken).ConfigureAwait(false));
-        foreach (KeyValuePair<string, PostType> ent in entities_page)
-        {
-            entities.Add(ent.Value);
-        }
-        return entities;
+        return GetAsync(embed, useAuth, cancellationToken);
     }
 
     /// <summary>

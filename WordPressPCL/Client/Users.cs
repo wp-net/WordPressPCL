@@ -170,24 +170,24 @@ public class Users : ICreateOperation<User>, IUpdateOperation<User>, IReadOperat
     /// Delete user with reassign articles
     /// </summary>
     /// <param name="ID">User id for delete</param>
-    /// <param name="ReassignUserID">User id for reassign</param>
+    /// <param name="reassignUserId">User id for reassign</param>
     /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>Result of operation</returns>
-    public Task<bool> DeleteAsync(int ID, int ReassignUserID, CancellationToken cancellationToken = default)
+    public Task<bool> DeleteAsync(int ID, int reassignUserId, CancellationToken cancellationToken = default)
     {
-        return _httpHelper.DeleteRequestAsync($"{METHOD_PATH}/{ID}?force=true&reassign={ReassignUserID}", cancellationToken: cancellationToken);
+        return _httpHelper.DeleteRequestAsync($"{METHOD_PATH}/{ID}?force=true&reassign={reassignUserId}", cancellationToken: cancellationToken);
     }
 
     /// <summary>
     /// Delete user with reassign articles
     /// </summary>
     /// <param name="ID">User id for delete</param>
-    /// <param name="ReassignUser">User object for reassign</param>
+    /// <param name="reassignUser">User object for reassign</param>
     /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>Result of operation</returns>
-    public Task<bool> DeleteAsync(int ID, User ReassignUser, CancellationToken cancellationToken = default)
+    public Task<bool> DeleteAsync(int ID, User reassignUser, CancellationToken cancellationToken = default)
     {
-        return _httpHelper.DeleteRequestAsync($"{METHOD_PATH}/{ID}?force=true&reassign={ReassignUser?.Id}", cancellationToken: cancellationToken);
+        return _httpHelper.DeleteRequestAsync($"{METHOD_PATH}/{ID}?force=true&reassign={reassignUser?.Id}", cancellationToken: cancellationToken);
     }
 
     #endregion Custom
