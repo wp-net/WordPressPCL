@@ -174,20 +174,20 @@
 <p>Here is a list of methods and examples of working with Taxonomies</p>
 <h2 id="get-all">Get All</h2>
 <pre><code class="language-C#">// returns all taxonomies
-var taxonomies = await client.Taxonomies.GetAllAsync();
+List&lt;Taxonomy&gt; taxonomies = await client.Taxonomies.GetAllAsync();
 </code></pre>
 <h2 id="get-by-id">Get By ID</h2>
 <pre><code class="language-C#">// returns taxonomy by ID
-var taxonomy = await client.Taxonomies.GetByIdAsync(123);
+Taxonomy taxonomy = await client.Taxonomies.GetByIdAsync(123);
 </code></pre>
 <h2 id="query">Query</h2>
 <p>Create parametrized request</p>
 <pre><code class="language-C#">// returns result of query
-var queryBuilder = new TaxonomiesQueryBuilder();
+TaxonomiesQueryBuilder queryBuilder = new TaxonomiesQueryBuilder();
 queryBuilder.PerPage = 40;
 queryBuilder.Page = 2;
 queryBuilder.Before = DateTime.Now;
-var taxonomies = await client.Taxonomies.QueryAsync(queryBuilder);
+List&lt;Taxonomy&gt; taxonomies = await client.Taxonomies.QueryAsync(queryBuilder);
 </code></pre>
               
             </div>

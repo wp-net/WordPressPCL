@@ -180,47 +180,47 @@
 <p>Here is a list of methods and examples of working with Tags</p>
 <h2 id="getall">GetAll()</h2>
 <pre><code class="language-C#">// returns all tags
-var tags = await client.Tags.GetAll();
+List&lt;Tag&gt; tags = await client.Tags.GetAll();
 </code></pre>
 <h2 id="getbyid">GetByID</h2>
 <pre><code class="language-C#">// returns tag by ID
-var tag = await client.Tags.GetByID(123);
+Tag tag = await client.Tags.GetByID(123);
 </code></pre>
 <h2 id="query">Query</h2>
 <p>Create parametrized request</p>
 <pre><code class="language-C#">// returns result of query
-var queryBuilder = new TagsQueryBuilder();
+TagsQueryBuilder queryBuilder = new TagsQueryBuilder();
 queryBuilder.PerPage = 40;
 queryBuilder.Page = 2;
 queryBuilder.Before = DateTime.Now;
-var tags = await client.Tags.Query(queryBuilder);
+List&lt;Tag&gt; tags = await client.Tags.Query(queryBuilder);
 </code></pre>
 <h2 id="create-new-tag">Create new Tag</h2>
 <pre><code class="language-C#">// returns created tag
-var tag = new Tag()
+Tag tag = new Tag()
 {
     Name = &quot;Name&quot;,
     Description = &quot;Tag&quot;
 };
 if (await client.IsValidJWToken())
 {
-    var createdtag = await client.Tags.Create(tag);
+    Tag createdtag = await client.Tags.Create(tag);
 }
 </code></pre>
 <h2 id="update-tag">Update Tag</h2>
 <pre><code class="language-C#">// returns updated tag
-var tag = client.Tags.GetByID(123);
+Tag tag = client.Tags.GetByID(123);
 tag.Name = &quot;New Name&quot;;
 if (await client.IsValidJWToken())
 {
-    var updatedTag = await client.Tags.Update(tag);
+    Tag updatedTag = await client.Tags.Update(tag);
 }
 </code></pre>
 <h2 id="delete-tag">Delete Tag</h2>
 <pre><code class="language-C#">// returns result of deletion
 if (await client.IsValidJWToken())
 {
-    var result = await client.Tags.Delete(123);
+    bool result = await client.Tags.Delete(123);
 }
 </code></pre>
               

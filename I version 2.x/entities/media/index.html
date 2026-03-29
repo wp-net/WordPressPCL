@@ -186,20 +186,20 @@
 <p>Here is a list of methods and examples of working with Media</p>
 <h2 id="getall">GetAll()</h2>
 <pre><code class="language-C#">// returns all media
-var media = await client.Media.GetAllAsync();
+List&lt;MediaItem&gt; media = await client.Media.GetAllAsync();
 </code></pre>
 <h2 id="getbyidasync">GetByIdAsync</h2>
 <pre><code class="language-C#">// returns media by ID
-var media = await client.Media.GetByIdAsync(123);
+MediaItem media = await client.Media.GetByIdAsync(123);
 </code></pre>
 <h2 id="query">Query</h2>
 <p>Create parametrized request</p>
 <pre><code class="language-C#">// returns result of query
-var queryBuilder = new MediaQueryBuilder();
+MediaQueryBuilder queryBuilder = new MediaQueryBuilder();
 queryBuilder.PerPage = 40;
 queryBuilder.Page = 2;
 queryBuilder.Before = DateTime.Now;
-var media = await client.Pages.QueryAsync(queryBuilder);
+List&lt;MediaItem&gt; media = await client.Media.QueryAsync(queryBuilder);
 </code></pre>
 <h2 id="create-new-media">Create new Media</h2>
 <h3 id="create-from-stream">Create from Stream</h3>
@@ -208,7 +208,7 @@ var media = await client.Pages.QueryAsync(queryBuilder);
 Stream s = File.OpenRead(&quot;pathToMedia/media.jpg&quot;);
 if (await client.IsValidJWTokenAsync())
 {
-    var createdMedia = await client.Media.CreateAsync(s,&quot;media.jpg&quot;);
+    MediaItem createdMedia = await client.Media.CreateAsync(s,&quot;media.jpg&quot;);
 }
 </code></pre>
 <h3 id="create-from-file-path">Create from file path</h3>
@@ -216,24 +216,24 @@ if (await client.IsValidJWTokenAsync())
 // for create media item you must read them to Stream. Media items can be audio, video, image, pdf ot any othe type supported by wordpress
 if (await client.IsValidJWTokenAsync())
 {
-    var createdMedia = await client.Media.CreateAsync(@&quot;C:\pathToFile\media.jpg&quot;,&quot;media.jpg&quot;);
+    MediaItem createdMedia = await client.Media.CreateAsync(@&quot;C:\pathToFile\media.jpg&quot;,&quot;media.jpg&quot;);
 }
 </code></pre>
 <h2 id="update-media">Update Media</h2>
 <pre><code class="language-C#">// returns updated media
-var media = await client.Media.GetByIdAsync(123);
+MediaItem media = await client.Media.GetByIdAsync(123);
 media.Title.Raw = &quot;New Title&quot;;
 
 if (await client.IsValidJWTokenAsync())
 {
-    var updatedMedia = await client.Media.UpdateAsync(media);
+    MediaItem updatedMedia = await client.Media.UpdateAsync(media);
 }
 </code></pre>
 <h2 id="delete-media">Delete Media</h2>
 <pre><code class="language-C#">// returns result of deletion
 if (await client.IsValidJWTokenAsync())
 {
-    var result = await client.Media.DeleteAsync(123);
+    bool result = await client.Media.DeleteAsync(123);
 }
 </code></pre>
               

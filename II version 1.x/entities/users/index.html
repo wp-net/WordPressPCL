@@ -182,46 +182,46 @@
 <p>Here is a list of methods and examples of working with Users</p>
 <h2 id="getall">GetAll()</h2>
 <pre><code class="language-C#">// execute request users without credentials - returns only you
-var users = await client.Users.GetAll();
+List&lt;User&gt; users = await client.Users.GetAll();
 
 // send credentials - list of all users
-var users = await client.Users.GetAll(useAuth:true);
+List&lt;User&gt; users = await client.Users.GetAll(useAuth:true);
 </code></pre>
 <h2 id="getbyid">GetByID</h2>
 <pre><code class="language-C#">// returns user by ID
-var user = await client.Users.GetByID(123);
+User user = await client.Users.GetByID(123);
 </code></pre>
 <h2 id="getcurrentuser">GetCurrentUser</h2>
 <pre><code class="language-C#">// returns current user
-var user = await client.Users.GetCurrentUser();
+User user = await client.Users.GetCurrentUser();
 </code></pre>
 <h2 id="query">Query</h2>
 <p>Create parametrized request</p>
 <pre><code class="language-C#">// returns result of query
-var queryBuilder = new UsersQueryBuilder();
+UsersQueryBuilder queryBuilder = new UsersQueryBuilder();
 queryBuilder.PerPage = 40;
 queryBuilder.Page = 2;
 queryBuilder.Before = DateTime.Now;
-var users = await client.Users.Query(queryBuilder);
+List&lt;User&gt; users = await client.Users.Query(queryBuilder);
 </code></pre>
 <h2 id="create-new-user">Create new User</h2>
 <pre><code class="language-C#">// returns created user
-var user = new User(&quot;username&quot;,&quot;email&quot;,&quot;password&quot;)
+User user = new User(&quot;username&quot;,&quot;email&quot;,&quot;password&quot;)
 {
     NickName= &quot;nickname&quot;
 };
 if (await client.IsValidJWToken())
 {
-    var user = await client.Users.Create(user);
+    User createdUser = await client.Users.Create(user);
 }
 </code></pre>
 <h2 id="update-user">Update User</h2>
 <pre><code class="language-C#">// returns updated user
-var user = client.Users.GetByID(123);
+User user = client.Users.GetByID(123);
 user.Name = &quot;New Name&quot;;
 if (await client.IsValidJWToken())
 {
-    var updatedUser = await client.Users.Update(user);
+    User updatedUser = await client.Users.Update(user);
 }
 </code></pre>
 <h2 id="delete-user">Delete User</h2>
@@ -229,7 +229,7 @@ if (await client.IsValidJWToken())
 if (await client.IsValidJWToken())
 {
     //second param - user to reassign all content
-    var result = await client.Users.Delete(123,321);
+    bool result = await client.Users.Delete(123,321);
 }
 </code></pre>
               

@@ -187,28 +187,28 @@ If you find bugs or have any suggestions, feel free to create an issue.</p>
 * .NET 10</p>
 <h2 id="quickstart-using-the-api-wrapper">Quickstart: Using the API Wrapper</h2>
 <pre><code class="language-c#">// Initialize
-var client = new WordPressClient(&quot;http://demo.wp-api.org/wp-json/&quot;);
+WordPressClient client = new WordPressClient(&quot;http://demo.wp-api.org/wp-json/&quot;);
 
 // Posts
-var posts = await client.Posts.GetAll();
-var postbyid = await client.Posts.GetById(id);
+List&lt;Post&gt; posts = await client.Posts.GetAll();
+Post postbyid = await client.Posts.GetById(id);
 
 // Comments
-var comments = await client.Comments.GetAll();
-var commentbyid = await client.Comments.GetById(id);
-var commentsbypost = await client.Comments.GetCommentsForPost(postid, true, false);
+List&lt;Comment&gt; comments = await client.Comments.GetAll();
+Comment commentbyid = await client.Comments.GetById(id);
+List&lt;Comment&gt; commentsbypost = await client.Comments.GetCommentsForPost(postid, true, false);
 
 // Users
 // JWT authentication
-var client = new WordPressClient(ApiCredentials.WordPressUri);
+WordPressClient client = new WordPressClient(ApiCredentials.WordPressUri);
 client.AuthMethod = AuthMethod.JWT;
 await client.RequestJWToken(ApiCredentials.Username,ApiCredentials.Password);
 
 // check if authentication has been successful
-var isValidToken = await client.IsValidJWToken();
+bool isValidToken = await client.IsValidJWToken();
 
 // now you can send requests that require authentication
-var response = client.Posts.Delete(postid);
+Task&lt;bool&gt; response = client.Posts.Delete(postid);
 </code></pre>
 <h2 id="supported-rest-methods">Supported REST Methods</h2>
 <table>
@@ -366,5 +366,5 @@ var response = client.Posts.Delete(postid);
 
 <!--
 MkDocs version : 1.6.1
-Build Date UTC : 2026-03-28 23:06:55.801981+00:00
+Build Date UTC : 2026-03-29 14:48:43.213689+00:00
 -->

@@ -172,13 +172,13 @@
 <p>Here is a list of methods and examples of working with Settings</p>
 <h2 id="get-settings">Get Settings</h2>
 <pre><code class="language-C#">// returns current settings
-var settings = await client.Settings.GetSettingsAsync();
+Settings settings = await client.Settings.GetSettingsAsync();
 </code></pre>
 <h2 id="update-settings">Update Settings</h2>
 <pre><code class="language-C#">//update settings
-var settings = await client.Settings.GetSettingsAsync();
+Settings settings = await client.Settings.GetSettingsAsync();
 settings.Description = &quot;New Site Description&quot;;
-var updatedSettings = await client.Settings.UpdateSettingsAsync(settings);
+Settings updatedSettings = await client.Settings.UpdateSettingsAsync(settings);
 </code></pre>
               
             </div>

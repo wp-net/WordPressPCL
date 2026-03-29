@@ -180,47 +180,47 @@
 <p>Here is a list of methods and examples of working with Categories</p>
 <h2 id="get-all">Get All</h2>
 <pre><code class="language-C#">// returns all categories
-var categories = await client.Categories.GetAllAsync();
+List&lt;Category&gt; categories = await client.Categories.GetAllAsync();
 </code></pre>
 <h2 id="get-by-id">Get by ID</h2>
 <pre><code class="language-C#">// returns category by ID
-var category = await client.Categories.GetByIdAsync(123);
+Category category = await client.Categories.GetByIdAsync(123);
 </code></pre>
 <h2 id="query">Query</h2>
 <p>Create parametrized request</p>
 <pre><code class="language-C#">// returns result of query
-var queryBuilder = new CategoriesQueryBuilder();
+CategoriesQueryBuilder queryBuilder = new CategoriesQueryBuilder();
 queryBuilder.PerPage = 40;
 queryBuilder.Page = 2;
 queryBuilder.Before = DateTime.Now;
-var categories = await client.Categories.QueryAsync(queryBuilder);
+List&lt;Category&gt; categories = await client.Categories.QueryAsync(queryBuilder);
 </code></pre>
 <h2 id="create-new-category">Create new Category</h2>
 <pre><code class="language-C#">// returns created category
-var category = new Category()
+Category category = new Category()
 {
     Name = &quot;Title 1&quot;,
     Description = &quot;Content&quot;
 };
 if (await client.IsValidJWTokenAsync())
 {
-    var createdCategory = await client.Categories.CreateAsync(category);
+    Category createdCategory = await client.Categories.CreateAsync(category);
 }
 </code></pre>
 <h2 id="update-category">Update Category</h2>
 <pre><code class="language-C#">// returns updated category
-var category = await client.Categories.GetByIdAsync(123);
+Category category = await client.Categories.GetByIdAsync(123);
 category.Name = &quot;New Name&quot;;
 if (await client.IsValidJWTokenAsync())
 {
-    var updatedCategory = await client.Categories.UpdateAsync(category);
+    Category updatedCategory = await client.Categories.UpdateAsync(category);
 }
 </code></pre>
 <h2 id="delete-category">Delete Category</h2>
 <pre><code class="language-C#">// returns result of deletion
 if (await client.IsValidJWTokenAsync())
 {
-    var result = await client.Categories.DeleteAsync(123);
+    bool result = await client.Categories.DeleteAsync(123);
 }
 </code></pre>
               

@@ -174,20 +174,20 @@
 <p>Here is a list of methods and examples of working with PostStatuses</p>
 <h2 id="get-all">Get All</h2>
 <pre><code class="language-C#">// returns all poststatuses
-var poststatuses = await client.PostStatuses.GetAllAsync();
+List&lt;PostStatus&gt; poststatuses = await client.PostStatuses.GetAllAsync();
 </code></pre>
 <h2 id="get-by-id">Get By ID</h2>
 <pre><code class="language-C#">// returns poststatus by ID
-var poststatus = await client.PostStatuses.GetByIdAsync(123);
+PostStatus poststatus = await client.PostStatuses.GetByIdAsync(123);
 </code></pre>
 <h2 id="query">Query</h2>
 <p>Create parametrized request</p>
 <pre><code class="language-C#">// returns result of query
-var queryBuilder = new PostStatusesQueryBuilder();
+PostStatusesQueryBuilder queryBuilder = new PostStatusesQueryBuilder();
 queryBuilder.PerPage = 40;
 queryBuilder.Page = 2;
 queryBuilder.Before = DateTime.Now;
-var poststatuses = await client.PostStatuses.QueryAsync(queryBuilder);
+List&lt;PostStatus&gt; poststatuses = await client.PostStatuses.QueryAsync(queryBuilder);
 </code></pre>
               
             </div>

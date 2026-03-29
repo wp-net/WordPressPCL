@@ -166,15 +166,15 @@
               
                 <h1 id="custom-httpclient">Custom HttpClient</h1>
 <p>You can inject your own instance of an HttpClient into the WordPressClient. This allows you to re-use an existing instance, set desired headers etc.</p>
-<pre><code class="language-csharp">var httpClient = new HttpClient
+<pre><code class="language-csharp">HttpClient httpClient = new HttpClient
 {
     BaseAddress = new Uri(ApiCredentials.WordPressUri)
 };
 httpClient.DefaultRequestHeaders.Add(&quot;User-Agent&quot;, &quot;Mozilla/5.0 (Windows NT 6.2; WOW64; rv:33.0) Gecko/20100101 Firefox/33.0&quot;);
 httpClient.DefaultRequestHeaders.Add(&quot;Referer&quot;, &quot;https://github.com/wp-net/WordPressPCL&quot;);
 
-var client = new WordPressClient(httpClient);
-var posts = await client.Posts.GetAll();
+WordPressClient client = new WordPressClient(httpClient);
+List&lt;Post&gt; posts = await client.Posts.GetAll();
 </code></pre>
               
             </div>

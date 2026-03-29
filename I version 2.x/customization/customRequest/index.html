@@ -192,18 +192,18 @@ Here is an example with Contact Form 7 plugin</p>
 }
 </code></pre>
 <h2 id="get">Get</h2>
-<pre><code class="language-C#">var forms = client.CustomRequest.GetAsync&lt;IEnumerable&lt;ContactFormItem&gt;&gt;(&quot;contact-form-7/v1/contact-forms&quot;);
+<pre><code class="language-C#">Task&lt;IEnumerable&lt;ContactFormItem&gt;&gt; forms = client.CustomRequest.GetAsync&lt;IEnumerable&lt;ContactFormItem&gt;&gt;(&quot;contact-form-7/v1/contact-forms&quot;);
 </code></pre>
 <h2 id="create">Create</h2>
 <pre><code class="language-C#">//requires two T parameters: first - input model, second - output model
-var forms = client.CustomRequest.CreateAsync&lt;ContactFormItem, ContactFormItem&gt;(&quot;contact-form-7/v1/contact-forms&quot;, new ContactFormItem() { title = &quot;test&quot; });
+Task&lt;ContactFormItem&gt; forms = client.CustomRequest.CreateAsync&lt;ContactFormItem, ContactFormItem&gt;(&quot;contact-form-7/v1/contact-forms&quot;, new ContactFormItem() { title = &quot;test&quot; });
 </code></pre>
 <h2 id="update">Update</h2>
 <pre><code class="language-C#">//requires two T parameters: first - input model, second - output model
-var forms = client.CustomRequest.UpdateAsync&lt;ContactFormItem,ContactFormItem&gt;(&quot;contact-form-7/v1/contact-forms/123&quot;,new ContactFormItem() { title = &quot;test&quot; });
+Task&lt;ContactFormItem&gt; forms = client.CustomRequest.UpdateAsync&lt;ContactFormItem,ContactFormItem&gt;(&quot;contact-form-7/v1/contact-forms/123&quot;,new ContactFormItem() { title = &quot;test&quot; });
 </code></pre>
 <h2 id="delete">Delete</h2>
-<pre><code class="language-C#">var forms = client.CustomRequest.DeleteAsync(&quot;contact-form-7/v1/contact-forms/123&quot;);
+<pre><code class="language-C#">Task&lt;bool&gt; forms = client.CustomRequest.DeleteAsync(&quot;contact-form-7/v1/contact-forms/123&quot;);
 </code></pre>
               
             </div>

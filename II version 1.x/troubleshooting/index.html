@@ -182,7 +182,7 @@ Example:</p>
 <pre><code class="language-C#">try
 {
    //create empty post is not allowed
-   var post = await client.Posts.Create(new Post());   
+   Post post = await client.Posts.Create(new Post());   
 }
 catch (WPException wpex)
 {

@@ -169,7 +169,7 @@
 You can do this by providing a custom <code>JsonSerializerOptions</code> instance:</p>
 <pre><code class="language-c#">using System.Text.Json;
 
-var client = new WordPressClient(&quot;https://site.com/wp-json/&quot;);
+WordPressClient client = new WordPressClient(&quot;https://site.com/wp-json/&quot;);
 client.JsonSerializerOptions = new JsonSerializerOptions
 {
     PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower,

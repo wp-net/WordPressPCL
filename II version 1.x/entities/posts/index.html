@@ -182,52 +182,52 @@
 <p>Here is a list of methods and examples of working with Posts</p>
 <h2 id="getall">GetAll()</h2>
 <pre><code class="language-C#">// returns all posts
-var posts = await client.Posts.GetAll();
+List&lt;Post&gt; posts = await client.Posts.GetAll();
 </code></pre>
 <h2 id="getbyid">GetByID</h2>
 <pre><code class="language-C#">// returns post by ID
-var post = await client.Posts.GetByID(123);
+Post post = await client.Posts.GetByID(123);
 </code></pre>
 <h2 id="query">Query</h2>
 <p>Create parametrized request</p>
 <pre><code class="language-C#">// returns result of query
-var queryBuilder = new PostsQueryBuilder();
+PostsQueryBuilder queryBuilder = new PostsQueryBuilder();
 queryBuilder.PerPage=40;
 queryBuilder.Page=2;
 queryBuilder.Categories= new int[]{1,2,3};
-var posts = await client.Posts.Query(queryBuilder);
+List&lt;Post&gt; posts = await client.Posts.Query(queryBuilder);
 </code></pre>
 <h2 id="create-new-post">Create new Post</h2>
 <pre><code class="language-C#">// returns created post
-var post = new Post()
+Post post = new Post()
 {
     Title = new Title(&quot;Title 1&quot;),
     Content = new Content(&quot;Content PostCreate&quot;)
 };
 if (await client.IsValidJWToken())
 {
-    var createdPost = await client.Posts.Create(post);
+    Post createdPost = await client.Posts.Create(post);
 }
 </code></pre>
 <h2 id="update-post">Update Post</h2>
 <pre><code class="language-C#">// returns updated post
-var post = client.Posts.GetByID(123);
+Post post = client.Posts.GetByID(123);
 post.Content.Raw = &quot;New Content&quot;;
 if (await client.IsValidJWToken())
 {
-    var updatedPost = await client.Posts.Update(post);
+    Post updatedPost = await client.Posts.Update(post);
 }
 </code></pre>
 <h2 id="delete-post">Delete Post</h2>
 <pre><code class="language-C#">// returns result of deletion
 if (await client.IsValidJWToken())
 {
-    var result = await client.Posts.Delete(123);
+    bool result = await client.Posts.Delete(123);
 }
 </code></pre>
 <h2 id="get-post-revisions">Get Post Revisions</h2>
 <pre><code class="language-C#">// returns revisions of post
-var revisions = await client.Posts.Revisions(123);
+PostRevisions revisions = client.Posts.Revisions(123);
 </code></pre>
               
             </div>

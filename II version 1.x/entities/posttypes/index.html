@@ -174,20 +174,20 @@
 <p>Here is a list of methods and examples of working with PostTypes</p>
 <h2 id="getall">GetAll()</h2>
 <pre><code class="language-C#">// returns all posttypes
-var posttypes = await client.PostTypes.GetAll();
+List&lt;PostType&gt; posttypes = await client.PostTypes.GetAll();
 </code></pre>
 <h2 id="getbyid">GetByID</h2>
 <pre><code class="language-C#">// returns posttype by ID
-var posttype = await client.PostTypes.GetByID(123);
+PostType posttype = await client.PostTypes.GetByID(123);
 </code></pre>
 <h2 id="query">Query</h2>
 <p>Create parametrized request</p>
 <pre><code class="language-C#">// returns result of query
-var queryBuilder = new PostTypesQueryBuilder();
+PostTypesQueryBuilder queryBuilder = new PostTypesQueryBuilder();
 queryBuilder.PerPage = 40;
 queryBuilder.Page = 2;
 queryBuilder.Before = DateTime.Now;
-var posttypes = await client.PostTypes.Query(queryBuilder);
+List&lt;PostType&gt; posttypes = await client.PostTypes.Query(queryBuilder);
 </code></pre>
               
             </div>

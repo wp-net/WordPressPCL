@@ -185,8 +185,8 @@ client.HttpResponsePreProcessing = (response) =&gt;
 <p>In order to correct this, you can add a HttpResponsePreProcessing function that will delete the HTML code that is preventing the deserialization of the JSON content:</p>
 <pre><code class="language-C#">client.HttpResponsePreProcessing = (responseString) =&gt;
 {
-    var clearedString = responseString.Replace(&quot;\n&quot;, &quot;&quot;);
-    var regex = @&quot;\&lt;head(.+)body\&gt;&quot;;
+    string clearedString = responseString.Replace(&quot;\n&quot;, &quot;&quot;);
+    string regex = @&quot;\&lt;head(.+)body\&gt;&quot;;
     return System.Text.RegularExpressions.Regex.Replace(clearedString, regex, &quot;&quot;);
 };
 </code></pre>

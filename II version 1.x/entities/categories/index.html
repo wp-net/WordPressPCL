@@ -180,47 +180,47 @@
 <p>Here is a list of methods and examples of working with Categories</p>
 <h2 id="getall">GetAll()</h2>
 <pre><code class="language-C#">// returns all categories
-var categories = await client.Categories.GetAll();
+List&lt;Category&gt; categories = await client.Categories.GetAll();
 </code></pre>
 <h2 id="getbyid">GetByID</h2>
 <pre><code class="language-C#">// returns category by ID
-var category = await client.Categories.GetByID(123);
+Category category = await client.Categories.GetByID(123);
 </code></pre>
 <h2 id="query">Query</h2>
 <p>Create parametrized request</p>
 <pre><code class="language-C#">// returns result of query
-var queryBuilder = new CategoriesQueryBuilder();
+CategoriesQueryBuilder queryBuilder = new CategoriesQueryBuilder();
 queryBuilder.PerPage = 40;
 queryBuilder.Page = 2;
 queryBuilder.Before = DateTime.Now;
-var categories = await client.Categories.Query(queryBuilder);
+List&lt;Category&gt; categories = await client.Categories.Query(queryBuilder);
 </code></pre>
 <h2 id="create-new-category">Create new Category</h2>
 <pre><code class="language-C#">// returns created category
-var category = new Category()
+Category category = new Category()
 {
     Name = &quot;Title 1&quot;,
     Description = &quot;Content&quot;
 };
 if (await client.IsValidJWToken())
 {
-    var createdCategory = await client.Categories.Create(category);
+    Category createdCategory = await client.Categories.Create(category);
 }
 </code></pre>
 <h2 id="update-category">Update Category</h2>
 <pre><code class="language-C#">// returns updated category
-var category = client.Categories.GetByID(123);
+Category category = client.Categories.GetByID(123);
 category.Name = &quot;New Name&quot;;
 if (await client.IsValidJWToken())
 {
-    var updatedCategory = await client.Categories.Update(category);
+    Category updatedCategory = await client.Categories.Update(category);
 }
 </code></pre>
 <h2 id="delete-category">Delete Category</h2>
 <pre><code class="language-C#">// returns result of deletion
 if (await client.IsValidJWToken())
 {
-    var result = await client.Categories.Delete(123);
+    bool result = await client.Categories.Delete(123);
 }
 </code></pre>
               
