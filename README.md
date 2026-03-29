@@ -59,6 +59,10 @@ var client = new WordPressClient(wpBaseAddress);
 httpClient.BaseAddress = new Uri("https://demo.wp-api.org/wp-json/")
 var client = new WordPressClient(httpClient);
 
+// direct-construction ownership:
+// - WordPressClient(Uri) creates and owns its internal HttpClient
+// - WordPressClient(HttpClient) reuses an external HttpClient and never disposes it
+
 // Posts
 var posts = await client.Posts.GetAllAsync();
 var postbyid = await client.Posts.GetByIdAsync(id);
@@ -89,6 +93,39 @@ client.Auth.UseBasicAuth("username", "password");
 
 // now you can send requests that require authentication
 var response = client.Posts.DeleteAsync(postId);
+```
+
+## Dependency injection and IHttpClientFactory
+
+For ASP.NET Core and worker services, prefer registering `WordPressClient` through DI so that `HttpClient` pooling is managed by `IHttpClientFactory`.
+
+```csharp
+using Microsoft.Extensions.DependencyInjection;
+using WordPressPCL;
+
+builder.Services
+    .AddWordPressClient(
+        (services, httpClient) =>
+        {
+            httpClient.BaseAddress = new Uri(builder.Configuration["WordPress:BaseUrl"]!);
+            httpClient.DefaultRequestHeaders.Add("User-Agent", "MyApp/1.0");
+        },
+        (services, client) =>
+        {
+            client.Auth.UseBasicAuth(
+                builder.Configuration["WordPress:Username"]!,
+                builder.Configuration["WordPress:ApplicationPassword"]!);
+        });
+```
+
+You can then request `WordPressClient` anywhere DI is available:
+
+```csharp
+public sealed class PublishWorker(WordPressClient client)
+{
+    public Task<IReadOnlyList<Post>> GetPostsAsync()
+        => client.Posts.GetAllAsync();
+}
 ```
 
 ## Supported REST Methods

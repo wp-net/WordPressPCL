@@ -9,7 +9,7 @@ namespace WordPressPCL;
 /// <summary>
 /// Main class containing the wrapper client with all public API endpoints.
 /// </summary>
-public class WordPressClient
+public class WordPressClient : IDisposable
 {
     private readonly HttpHelper _httpHelper;
     private const string DEFAULT_PATH = "wp/v2/";
@@ -37,6 +37,12 @@ public class WordPressClient
         get => _httpHelper.JsonSerializerOptions;
         set => _httpHelper.JsonSerializerOptions = value;
     }
+
+    /// <summary>
+    /// Gets a value indicating whether this instance owns the underlying <see cref="HttpClient"/>
+    /// and will dispose it when <see cref="Dispose"/> is called.
+    /// </summary>
+    public bool OwnsHttpClient { get; }
 
     /// <summary>
     /// Auth client interaction object
@@ -123,6 +129,7 @@ public class WordPressClient
     {
         WordPressUri = uri ?? throw new ArgumentNullException(nameof(uri));
         _httpHelper = new HttpHelper(WordPressUri, defaultPath);
+        OwnsHttpClient = true;
         SetupSubClients(_httpHelper);
     }
 
@@ -141,7 +148,7 @@ public class WordPressClient
     /// <summary>
     /// The WordPressClient holds all connection infos and provides methods to call WordPress APIs.
     /// </summary>
-    /// <param name="httpClient">HttpClient with BaseAddress set which will be used for sending requests to the WordPress API endpoint.</param>
+    /// <param name="httpClient">HttpClient with BaseAddress set which will be used for sending requests to the WordPress API endpoint. The caller retains ownership of this instance.</param>
     /// <param name="defaultPath">Relative path to standard API endpoints, defaults to "wp/v2/"</param>
     /// <param name="uri">URI for WordPress API endpoint, e.g. "http://demo.wp-api.org/wp-json/".  Use this if the BaseAddress of the httpClient is not set.</param>
     public WordPressClient(HttpClient httpClient, string defaultPath = DEFAULT_PATH, Uri? uri = null)
@@ -152,7 +159,17 @@ public class WordPressClient
         }
         WordPressUri = uri ?? httpClient.BaseAddress ?? throw new ArgumentNullException(nameof(uri), "Either uri or httpClient.BaseAddress must be set.");
         _httpHelper = new HttpHelper(httpClient, defaultPath, uri);
+        OwnsHttpClient = false;
         SetupSubClients(_httpHelper);
+    }
+
+    /// <summary>
+    /// Disposes the internally created <see cref="HttpClient"/> when this instance owns it.
+    /// Externally supplied <see cref="HttpClient"/> instances are never disposed by <see cref="WordPressClient"/>.
+    /// </summary>
+    public void Dispose()
+    {
+        _httpHelper.Dispose();
     }
 
     private void SetupSubClients(HttpHelper httpHelper)
