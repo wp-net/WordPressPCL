@@ -76,6 +76,7 @@ public static class WordPressServiceCollectionExtensions
         Action<WordPressPCL.WordPressClient>? configureWordPressClient = null,
         string defaultPath = DefaultPath)
     {
+        ArgumentNullException.ThrowIfNull(services);
         ArgumentNullException.ThrowIfNull(configureHttpClient);
 
         return services.AddWordPressClient(

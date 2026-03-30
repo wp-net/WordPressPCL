@@ -84,6 +84,22 @@ public class WordPressClient_DI_Tests
         Assert.AreEqual(Convert.ToBase64String(Encoding.ASCII.GetBytes("demo-user:demo-password")), handler.LastAuthorizationParameter);
     }
 
+    [TestMethod]
+    public void AddWordPressClient_ThrowsArgumentNullException_WhenServicesIsNull()
+    {
+        IServiceCollection services = null!;
+
+        try
+        {
+            _ = services.AddWordPressClient(static _ => { });
+            Assert.Fail("Expected ArgumentNullException when services is null.");
+        }
+        catch (ArgumentNullException ex)
+        {
+            Assert.AreEqual("services", ex.ParamName);
+        }
+    }
+
     private sealed class RecordingHandler : HttpMessageHandler
     {
         public Uri? LastRequestUri { get; private set; }
