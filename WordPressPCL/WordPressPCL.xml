@@ -4274,6 +4274,11 @@
             <param name="defaultPath">Relative path to standard API endpoints, defaults to "wp/v2/"</param>
             <param name="wordpressURI">(optional) Base WP REST API endpoint EX. http://demo.com/wp-json/. Use this if the BaseAddress of the httpClient is not set.</param>
         </member>
+        <member name="M:WordPressPCL.Utility.HttpHelper.Dispose">
+            <summary>
+            Disposes the internally created <see cref="T:System.Net.Http.HttpClient"/> when this helper owns it.
+            </summary>
+        </member>
         <member name="M:WordPressPCL.Utility.HttpHelper.GetRequestWithHeadersAsync``1(System.String,System.Boolean,System.Boolean,System.Boolean,System.Threading.CancellationToken)">
             <summary>
             Issues a GET request and returns both the deserialized response and the raw response headers.
@@ -4880,6 +4885,12 @@
             Serialization/deserialization options for <see cref="T:System.Text.Json.JsonSerializer"/>.
             </summary>
         </member>
+        <member name="P:WordPressPCL.WordPressClient.OwnsHttpClient">
+            <summary>
+            Gets a value indicating whether this instance owns the underlying <see cref="T:System.Net.Http.HttpClient"/>
+            and will dispose it when <see cref="M:WordPressPCL.WordPressClient.Dispose"/> is called.
+            </summary>
+        </member>
         <member name="P:WordPressPCL.WordPressClient.Auth">
             <summary>
             Auth client interaction object
@@ -4973,9 +4984,50 @@
             <summary>
             The WordPressClient holds all connection infos and provides methods to call WordPress APIs.
             </summary>
-            <param name="httpClient">HttpClient with BaseAddress set which will be used for sending requests to the WordPress API endpoint.</param>
+            <param name="httpClient">HttpClient with BaseAddress set which will be used for sending requests to the WordPress API endpoint. The caller retains ownership of this instance.</param>
             <param name="defaultPath">Relative path to standard API endpoints, defaults to "wp/v2/"</param>
             <param name="uri">URI for WordPress API endpoint, e.g. "http://demo.wp-api.org/wp-json/".  Use this if the BaseAddress of the httpClient is not set.</param>
+        </member>
+        <member name="M:WordPressPCL.WordPressClient.Dispose">
+            <summary>
+            Disposes the internally created <see cref="T:System.Net.Http.HttpClient"/> when this instance owns it.
+            Externally supplied <see cref="T:System.Net.Http.HttpClient"/> instances are never disposed by <see cref="T:WordPressPCL.WordPressClient"/>.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Extensions.DependencyInjection.WordPressServiceCollectionExtensions">
+            <summary>
+            Dependency injection extensions for registering <see cref="T:WordPressPCL.WordPressClient"/> with <see cref="T:System.Net.Http.IHttpClientFactory"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.WordPressServiceCollectionExtensions.AddWordPressClient(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Uri,System.Action{System.IServiceProvider,WordPressPCL.WordPressClient},System.String)">
+            <summary>
+            Registers <see cref="T:WordPressPCL.WordPressClient"/> as a typed client with a fixed WordPress API base address.
+            </summary>
+            <param name="services">The DI service collection.</param>
+            <param name="wordpressUri">The WordPress REST API base address, such as <c>https://example.com/wp-json/</c>.</param>
+            <param name="configureWordPressClient">Optional callback for configuring WordPress-specific defaults such as authentication.</param>
+            <param name="defaultPath">Relative path to standard API endpoints, defaults to <c>wp/v2/</c>.</param>
+            <returns>The HTTP client builder for additional configuration such as custom handlers.</returns>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.WordPressServiceCollectionExtensions.AddWordPressClient(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{System.IServiceProvider,System.Net.Http.HttpClient},System.Action{System.IServiceProvider,WordPressPCL.WordPressClient},System.String)">
+            <summary>
+            Registers <see cref="T:WordPressPCL.WordPressClient"/> as a typed client and lets the caller configure the underlying <see cref="T:System.Net.Http.HttpClient"/>.
+            </summary>
+            <param name="services">The DI service collection.</param>
+            <param name="configureHttpClient">Callback used to configure the underlying <see cref="T:System.Net.Http.HttpClient"/>, including its base address.</param>
+            <param name="configureWordPressClient">Optional callback for configuring WordPress-specific defaults such as authentication.</param>
+            <param name="defaultPath">Relative path to standard API endpoints, defaults to <c>wp/v2/</c>.</param>
+            <returns>The HTTP client builder for additional configuration such as custom handlers.</returns>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.WordPressServiceCollectionExtensions.AddWordPressClient(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{System.Net.Http.HttpClient},System.Action{WordPressPCL.WordPressClient},System.String)">
+            <summary>
+            Registers <see cref="T:WordPressPCL.WordPressClient"/> as a typed client with simple callbacks that do not require the <see cref="T:System.IServiceProvider"/>.
+            </summary>
+            <param name="services">The DI service collection.</param>
+            <param name="configureHttpClient">Callback used to configure the underlying <see cref="T:System.Net.Http.HttpClient"/>, including its base address.</param>
+            <param name="configureWordPressClient">Optional callback for configuring WordPress-specific defaults such as authentication.</param>
+            <param name="defaultPath">Relative path to standard API endpoints, defaults to <c>wp/v2/</c>.</param>
+            <returns>The HTTP client builder for additional configuration such as custom handlers.</returns>
         </member>
     </members>
 </doc>

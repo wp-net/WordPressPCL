@@ -16,11 +16,11 @@ namespace WordPressPCL.Utility;
 /// <summary>
 /// Helper class encapsulates common HTTP requests methods
 /// </summary>
-public class HttpHelper
+public sealed class HttpHelper : IDisposable
 {
     // non-static HTTPClient so different WordPressClients can have different base addresses
-    private readonly HttpClient _defaultHttpClient = new();
     private readonly HttpClient _httpClient;
+    private readonly bool _ownsHttpClient;
     private readonly string _defaultPath;
     private readonly Uri? _baseUri;
 
@@ -64,8 +64,11 @@ public class HttpHelper
     /// <param name="defaultPath"></param>
     public HttpHelper(Uri wordpressURI, string defaultPath)
     {
-        _httpClient = _defaultHttpClient;
-        _httpClient.BaseAddress = wordpressURI;
+        _httpClient = new HttpClient
+        {
+            BaseAddress = wordpressURI
+        };
+        _ownsHttpClient = true;
         _defaultPath = defaultPath;
         JsonSerializerOptions = CreateDefaultOptions();
     }
@@ -80,9 +83,21 @@ public class HttpHelper
     public HttpHelper(HttpClient httpClient, string defaultPath, Uri? wordpressURI = null)
     {
         _httpClient = httpClient;
+        _ownsHttpClient = false;
         _defaultPath = defaultPath;
         _baseUri = wordpressURI;
         JsonSerializerOptions = CreateDefaultOptions();
+    }
+
+    /// <summary>
+    /// Disposes the internally created <see cref="HttpClient"/> when this helper owns it.
+    /// </summary>
+    public void Dispose()
+    {
+        if (_ownsHttpClient)
+        {
+            _httpClient.Dispose();
+        }
     }
 
     internal async Task<TClass> GetRequestAsync<TClass>(string route, bool embed, bool isAuthRequired = false, bool ignoreDefaultPath = false, CancellationToken cancellationToken = default)
