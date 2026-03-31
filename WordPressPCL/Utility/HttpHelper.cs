@@ -129,7 +129,7 @@ public sealed class HttpHelper : IDisposable
         }
         route += embedParam;
 
-        Logger?.LogDebug("Sending GET request to {Route}", route);
+        Logger?.LogDebug("Sending GET request");
 
         HttpResponseMessage response;
         using (HttpRequestMessage requestMessage = new(HttpMethod.Get, route))
@@ -143,7 +143,7 @@ public sealed class HttpHelper : IDisposable
             string responseString = await response.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
             if (response.IsSuccessStatusCode)
             {
-                Logger?.LogDebug("Received HTTP {StatusCode} response from GET {Route}", (int)response.StatusCode, route);
+                Logger?.LogDebug("Received HTTP {StatusCode} response from GET request", (int)response.StatusCode);
 
                 if (HttpResponsePreProcessing != null)
                 {
@@ -156,7 +156,7 @@ public sealed class HttpHelper : IDisposable
             }
             else
             {
-                Logger?.LogWarning("Received non-success HTTP {StatusCode} response from GET {Route}", (int)response.StatusCode, route);
+                Logger?.LogWarning("Received non-success HTTP {StatusCode} response from GET request", (int)response.StatusCode);
                 throw CreateUnexpectedResponseException(response, responseString);
             }
         }
@@ -195,7 +195,7 @@ public sealed class HttpHelper : IDisposable
         where TClass : class
     {
         route = BuildRoute(ignoreDefaultPath, route);
-        Logger?.LogDebug("Sending POST request to {Route}", route);
+        Logger?.LogDebug("Sending POST request");
 
         HttpResponseMessage response;
         using (HttpRequestMessage requestMessage = new(HttpMethod.Post, route))
@@ -208,7 +208,7 @@ public sealed class HttpHelper : IDisposable
         string responseString = await response.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
         if (response.IsSuccessStatusCode)
         {
-            Logger?.LogDebug("Received HTTP {StatusCode} response from POST {Route}", (int)response.StatusCode, route);
+            Logger?.LogDebug("Received HTTP {StatusCode} response from POST request", (int)response.StatusCode);
 
             if (HttpResponsePreProcessing != null)
             {
@@ -219,7 +219,7 @@ public sealed class HttpHelper : IDisposable
         }
         else
         {
-            Logger?.LogWarning("Received non-success HTTP {StatusCode} response from POST {Route}", (int)response.StatusCode, route);
+            Logger?.LogWarning("Received non-success HTTP {StatusCode} response from POST request", (int)response.StatusCode);
             throw CreateUnexpectedResponseException(response, responseString);
         }
     }
@@ -227,7 +227,7 @@ public sealed class HttpHelper : IDisposable
     internal async Task<bool> DeleteRequestAsync(string route, bool isAuthRequired = true, bool ignoreDefaultPath = false, CancellationToken cancellationToken = default)
     {
         route = BuildRoute(ignoreDefaultPath, route);
-        Logger?.LogDebug("Sending DELETE request to {Route}", route);
+        Logger?.LogDebug("Sending DELETE request");
 
         HttpResponseMessage response;
         using (HttpRequestMessage requestMessage = new(HttpMethod.Delete, route))
@@ -236,23 +236,26 @@ public sealed class HttpHelper : IDisposable
             response = await _httpClient.SendAsync(requestMessage, cancellationToken).ConfigureAwait(false);
         }
 
-        string responseString = await response.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
-        if (response.IsSuccessStatusCode)
+        using (response)
         {
-            Logger?.LogDebug("Received HTTP {StatusCode} response from DELETE {Route}", (int)response.StatusCode, route);
-            return true;
-        }
-        else
-        {
-            Logger?.LogWarning("Received non-success HTTP {StatusCode} response from DELETE {Route}", (int)response.StatusCode, route);
-            throw CreateUnexpectedResponseException(response, responseString);
+            string responseString = await response.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
+            if (response.IsSuccessStatusCode)
+            {
+                Logger?.LogDebug("Received HTTP {StatusCode} response from DELETE request", (int)response.StatusCode);
+                return true;
+            }
+            else
+            {
+                Logger?.LogWarning("Received non-success HTTP {StatusCode} response from DELETE request", (int)response.StatusCode);
+                throw CreateUnexpectedResponseException(response, responseString);
+            }
         }
     }
 
     internal async Task<HttpResponseHeaders> HeadRequestAsync(string route, bool isAuthRequired = false, bool ignoreDefaultPath = false, CancellationToken cancellationToken = default)
     {
         route = BuildRoute(ignoreDefaultPath, route);
-        Logger?.LogDebug("Sending HEAD request to {Route}", route);
+        Logger?.LogDebug("Sending HEAD request");
 
         HttpResponseMessage response;
         using (HttpRequestMessage requestMessage = new(HttpMethod.Head, route))
@@ -261,14 +264,17 @@ public sealed class HttpHelper : IDisposable
             response = await _httpClient.SendAsync(requestMessage, cancellationToken).ConfigureAwait(false);
         }
 
-        if (response.IsSuccessStatusCode)
+        using (response)
         {
-            Logger?.LogDebug("Received HTTP {StatusCode} response from HEAD {Route}", (int)response.StatusCode, route);
-            return response.Headers;
-        }
+            if (response.IsSuccessStatusCode)
+            {
+                Logger?.LogDebug("Received HTTP {StatusCode} response from HEAD request", (int)response.StatusCode);
+                return response.Headers;
+            }
 
-        Logger?.LogWarning("Received non-success HTTP {StatusCode} response from HEAD {Route}", (int)response.StatusCode, route);
-        throw new WPUnexpectedException(response, string.Empty);
+            Logger?.LogWarning("Received non-success HTTP {StatusCode} response from HEAD request", (int)response.StatusCode);
+            throw new WPUnexpectedException(response, string.Empty);
+        }
     }
 
     private void SetAuthHeader(bool isAuthRequired, HttpRequestMessage requestMessage)

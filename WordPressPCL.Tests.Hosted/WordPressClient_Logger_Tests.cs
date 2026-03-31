@@ -50,13 +50,21 @@ public class WordPressClient_Logger_Tests
         HttpClient httpClient = new(handler) { BaseAddress = new Uri("https://example.com/wp-json/") };
         using WordPressClient client = new(httpClient) { Logger = logger };
 
+        bool exceptionThrown = false;
         try
         {
             _ = await client.Posts.GetByIdAsync(999);
         }
-        catch (Models.Exceptions.WPException) { }
-        catch (Models.Exceptions.WPUnexpectedException) { }
+        catch (Models.Exceptions.WPException)
+        {
+            exceptionThrown = true;
+        }
+        catch (Models.Exceptions.WPUnexpectedException)
+        {
+            exceptionThrown = true;
+        }
 
+        Assert.IsTrue(exceptionThrown, "Expected a WPException or WPUnexpectedException for a non-success GET response.");
         Assert.IsTrue(logger.HasLevel(LogLevel.Warning), "Expected at least one Warning log entry for a non-success GET response.");
     }
 
@@ -84,13 +92,22 @@ public class WordPressClient_Logger_Tests
         using WordPressClient client = new(httpClient) { Logger = logger };
         client.Auth.UseBasicAuth("user", "pass");
 
+        bool exceptionThrown = false;
         try
         {
             await client.Posts.CreateAsync(new Models.Post { Title = new Models.Title { Raw = "Test" } });
+            Assert.Fail("Expected WPException or WPUnexpectedException to be thrown for a non-success POST response.");
         }
-        catch (Models.Exceptions.WPException) { }
-        catch (Models.Exceptions.WPUnexpectedException) { }
+        catch (Models.Exceptions.WPException)
+        {
+            exceptionThrown = true;
+        }
+        catch (Models.Exceptions.WPUnexpectedException)
+        {
+            exceptionThrown = true;
+        }
 
+        Assert.IsTrue(exceptionThrown, "Expected a WPException or WPUnexpectedException for a non-success POST response.");
         Assert.IsTrue(logger.HasLevel(LogLevel.Warning), "Expected at least one Warning log entry for a non-success POST response.");
     }
 
