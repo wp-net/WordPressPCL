@@ -5,14 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://wp-net.github.io/WordPressPCL/I%20version%202.x/customization/customHttpClient/" />
       <link rel="shortcut icon" href="../../../img/favicon.ico" />
-    <title>Custom HttpClient - WordPressPCL</title>
+    <title>Custom HttpClient and DI - WordPressPCL</title>
     <link rel="stylesheet" href="../../../css/theme.css" />
     <link rel="stylesheet" href="../../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
     
       <script>
         // Current page data
-        var mkdocs_page_name = "Custom HttpClient";
+        var mkdocs_page_name = "Custom HttpClient and DI";
         var mkdocs_page_input_path = "I version 2.x/customization/customHttpClient.md";
         var mkdocs_page_url = "/WordPressPCL/I%20version%202.x/customization/customHttpClient/";
       </script>
@@ -53,7 +53,7 @@
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" >Customization</a>
     <ul class="current">
-                <li class="toctree-l2 current"><a class="reference internal current" href="#">Custom HttpClient</a>
+                <li class="toctree-l2 current"><a class="reference internal current" href="#">Custom HttpClient and DI</a>
     <ul class="current">
     </ul>
                 </li>
@@ -155,7 +155,7 @@
     <li><a href="../../.." class="icon icon-home" aria-label="Docs"></a></li>
           <li class="breadcrumb-item">I version 2.x</li>
           <li class="breadcrumb-item">Customization</li>
-      <li class="breadcrumb-item active">Custom HttpClient</li>
+      <li class="breadcrumb-item active">Custom HttpClient and DI</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -164,8 +164,12 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="custom-httpclient">Custom HttpClient</h1>
-<p>You can inject your own instance of an HttpClient into the WordPressClient. This allows you to re-use an existing instance, set desired headers etc.</p>
+                <h1 id="custom-httpclient-and-di">Custom HttpClient and DI</h1>
+<p>You can inject your own instance of an <code>HttpClient</code> into the <code>WordPressClient</code>. This allows you to re-use an existing instance, set desired headers, and hand ownership of the HTTP transport to your application.</p>
+<ul>
+<li><code>new WordPressClient(uri)</code> creates and owns its internal <code>HttpClient</code>.</li>
+<li><code>new WordPressClient(httpClient)</code> reuses an externally managed <code>HttpClient</code> and does <strong>not</strong> dispose it.</li>
+</ul>
 <pre><code class="language-c#">HttpClient httpClient = new HttpClient
 {
     BaseAddress = new Uri(ApiCredentials.WordPressUri)
@@ -176,6 +180,25 @@ httpClient.DefaultRequestHeaders.Add(&quot;Referer&quot;, &quot;https://github.c
 WordPressClient client = new WordPressClient(httpClient);
 List&lt;Post&gt; posts = await client.Posts.GetAllAsync();
 </code></pre>
+<p>For ASP.NET Core or worker services, prefer <code>IHttpClientFactory</code> integration:</p>
+<pre><code class="language-csharp">using Microsoft.Extensions.DependencyInjection;
+using WordPressPCL;
+
+builder.Services
+    .AddWordPressClient(
+        (services, httpClient) =&gt;
+        {
+            httpClient.BaseAddress = new Uri(builder.Configuration[&quot;WordPress:BaseUrl&quot;]!);
+            httpClient.DefaultRequestHeaders.Add(&quot;User-Agent&quot;, &quot;MyApp/1.0&quot;);
+        },
+        (services, client) =&gt;
+        {
+            client.Auth.UseBasicAuth(
+                builder.Configuration[&quot;WordPress:Username&quot;]!,
+                builder.Configuration[&quot;WordPress:ApplicationPassword&quot;]!);
+        });
+</code></pre>
+<p>The returned <code>IHttpClientBuilder</code> can still be customized with standard factory features such as <code>ConfigurePrimaryHttpMessageHandler</code>, policies, and additional handlers.</p>
               
             </div>
           </div><footer>
