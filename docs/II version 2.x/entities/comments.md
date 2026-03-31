@@ -73,7 +73,7 @@ if (await client.IsValidJWTokenAsync())
 
 ```C#
 // returns result of deletion
-if (await client.IsValidJWToken())
+if (await client.IsValidJWTokenAsync())
 {
     var result = await client.Comments.DeleteAsync(123);
 }

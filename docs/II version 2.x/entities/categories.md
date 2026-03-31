@@ -36,7 +36,7 @@ var category = new Category()
     Name = "Title 1",
     Description = "Content"
 };
-if (await client.IsValidJWToken())
+if (await client.IsValidJWTokenAsync())
 {
     var createdCategory = await client.Categories.CreateAsync(category);
 }
