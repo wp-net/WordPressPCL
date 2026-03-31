@@ -8,6 +8,7 @@ using System.Text.Json;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 using WordPressPCL.Models;
 using WordPressPCL.Models.Exceptions;
 
@@ -23,6 +24,12 @@ public sealed class HttpHelper : IDisposable
     private readonly bool _ownsHttpClient;
     private readonly string _defaultPath;
     private readonly Uri? _baseUri;
+
+    /// <summary>
+    /// Optional logger used to emit structured diagnostics for request/response lifecycle events.
+    /// When <see langword="null"/> (the default), no log output is produced.
+    /// </summary>
+    public ILogger? Logger { get; set; }
 
     /// <summary>
     /// JSON Web Token
@@ -122,6 +129,8 @@ public sealed class HttpHelper : IDisposable
         }
         route += embedParam;
 
+        Logger?.LogDebug("Sending GET request");
+
         HttpResponseMessage response;
         using (HttpRequestMessage requestMessage = new(HttpMethod.Get, route))
         {
@@ -134,6 +143,8 @@ public sealed class HttpHelper : IDisposable
             string responseString = await response.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
             if (response.IsSuccessStatusCode)
             {
+                Logger?.LogDebug("Received HTTP {StatusCode} response from GET request", (int)response.StatusCode);
+
                 if (HttpResponsePreProcessing != null)
                 {
                     responseString = HttpResponsePreProcessing(responseString);
@@ -145,6 +156,7 @@ public sealed class HttpHelper : IDisposable
             }
             else
             {
+                Logger?.LogWarning("Received non-success HTTP {StatusCode} response from GET request", (int)response.StatusCode);
                 throw CreateUnexpectedResponseException(response, responseString);
             }
         }
@@ -183,6 +195,8 @@ public sealed class HttpHelper : IDisposable
         where TClass : class
     {
         route = BuildRoute(ignoreDefaultPath, route);
+        Logger?.LogDebug("Sending POST request");
+
         HttpResponseMessage response;
         using (HttpRequestMessage requestMessage = new(HttpMethod.Post, route))
         {
@@ -194,6 +208,8 @@ public sealed class HttpHelper : IDisposable
         string responseString = await response.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
         if (response.IsSuccessStatusCode)
         {
+            Logger?.LogDebug("Received HTTP {StatusCode} response from POST request", (int)response.StatusCode);
+
             if (HttpResponsePreProcessing != null)
             {
                 responseString = HttpResponsePreProcessing(responseString);
@@ -203,6 +219,7 @@ public sealed class HttpHelper : IDisposable
         }
         else
         {
+            Logger?.LogWarning("Received non-success HTTP {StatusCode} response from POST request", (int)response.StatusCode);
             throw CreateUnexpectedResponseException(response, responseString);
         }
     }
@@ -210,6 +227,8 @@ public sealed class HttpHelper : IDisposable
     internal async Task<bool> DeleteRequestAsync(string route, bool isAuthRequired = true, bool ignoreDefaultPath = false, CancellationToken cancellationToken = default)
     {
         route = BuildRoute(ignoreDefaultPath, route);
+        Logger?.LogDebug("Sending DELETE request");
+
         HttpResponseMessage response;
         using (HttpRequestMessage requestMessage = new(HttpMethod.Delete, route))
         {
@@ -217,20 +236,27 @@ public sealed class HttpHelper : IDisposable
             response = await _httpClient.SendAsync(requestMessage, cancellationToken).ConfigureAwait(false);
         }
 
-        string responseString = await response.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
-        if (response.IsSuccessStatusCode)
+        using (response)
         {
-            return true;
-        }
-        else
-        {
-            throw CreateUnexpectedResponseException(response, responseString);
+            string responseString = await response.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
+            if (response.IsSuccessStatusCode)
+            {
+                Logger?.LogDebug("Received HTTP {StatusCode} response from DELETE request", (int)response.StatusCode);
+                return true;
+            }
+            else
+            {
+                Logger?.LogWarning("Received non-success HTTP {StatusCode} response from DELETE request", (int)response.StatusCode);
+                throw CreateUnexpectedResponseException(response, responseString);
+            }
         }
     }
 
     internal async Task<HttpResponseHeaders> HeadRequestAsync(string route, bool isAuthRequired = false, bool ignoreDefaultPath = false, CancellationToken cancellationToken = default)
     {
         route = BuildRoute(ignoreDefaultPath, route);
+        Logger?.LogDebug("Sending HEAD request");
+
         HttpResponseMessage response;
         using (HttpRequestMessage requestMessage = new(HttpMethod.Head, route))
         {
@@ -238,12 +264,17 @@ public sealed class HttpHelper : IDisposable
             response = await _httpClient.SendAsync(requestMessage, cancellationToken).ConfigureAwait(false);
         }
 
-        if (response.IsSuccessStatusCode)
+        using (response)
         {
-            return response.Headers;
-        }
+            if (response.IsSuccessStatusCode)
+            {
+                Logger?.LogDebug("Received HTTP {StatusCode} response from HEAD request", (int)response.StatusCode);
+                return response.Headers;
+            }
 
-        throw new WPUnexpectedException(response, string.Empty);
+            Logger?.LogWarning("Received non-success HTTP {StatusCode} response from HEAD request", (int)response.StatusCode);
+            throw new WPUnexpectedException(response, string.Empty);
+        }
     }
 
     private void SetAuthHeader(bool isAuthRequired, HttpRequestMessage requestMessage)
@@ -298,9 +329,11 @@ public sealed class HttpHelper : IDisposable
         }
         catch (JsonException)
         {
+            Logger?.LogWarning("Deserialization of {TypeName} failed; attempting malformed-response fallback", typeof(TClass).Name);
             (bool success, string sanitizedResponse) = TryGetResponseFromMalformedResponse(responseString);
             if (!success)
             {
+                Logger?.LogError("Malformed-response fallback failed for {TypeName}", typeof(TClass).Name);
                 throw new WPUnexpectedException(response, responseString);
             }
 

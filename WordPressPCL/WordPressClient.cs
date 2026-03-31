@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net.Http;
 using System.Text.Json;
+using Microsoft.Extensions.Logging;
 using WordPressPCL.Client;
 using WordPressPCL.Utility;
 
@@ -18,6 +19,22 @@ public class WordPressClient : IDisposable
     /// WordPressUri holds the WordPress API endpoint, e.g. "http://demo.wp-api.org/wp-json/wp/v2/"
     /// </summary>
 		public Uri WordPressUri { get; private set; }
+
+    /// <summary>
+    /// Gets or sets an optional <see cref="ILogger"/> used to emit structured diagnostics for HTTP
+    /// request/response lifecycle events (sent, success, non-success, deserialization fallback).
+    /// When <see langword="null"/> (the default) no log output is produced, keeping the library opt-in.
+    /// </summary>
+    /// <remarks>
+    /// Assign any <see cref="ILogger"/> implementation, for example one obtained from
+    /// <see cref="ILoggerFactory"/> or an <c>ILogger&lt;WordPressClient&gt;</c> resolved from a
+    /// dependency-injection container.
+    /// </remarks>
+    public ILogger? Logger
+    {
+        get => _httpHelper.Logger;
+        set => _httpHelper.Logger = value;
+    }
 
     /// <summary>
     /// Function called when a HttpRequest response to WordPress APIs are read

@@ -4226,6 +4226,12 @@
             Helper class encapsulates common HTTP requests methods
             </summary>
         </member>
+        <member name="P:WordPressPCL.Utility.HttpHelper.Logger">
+            <summary>
+            Optional logger used to emit structured diagnostics for request/response lifecycle events.
+            When <see langword="null"/> (the default), no log output is produced.
+            </summary>
+        </member>
         <member name="P:WordPressPCL.Utility.HttpHelper.JWToken">
             <summary>
             JSON Web Token
@@ -4873,6 +4879,18 @@
             <summary>
             WordPressUri holds the WordPress API endpoint, e.g. "http://demo.wp-api.org/wp-json/wp/v2/"
             </summary>
+        </member>
+        <member name="P:WordPressPCL.WordPressClient.Logger">
+            <summary>
+            Gets or sets an optional <see cref="T:Microsoft.Extensions.Logging.ILogger"/> used to emit structured diagnostics for HTTP
+            request/response lifecycle events (sent, success, non-success, deserialization fallback).
+            When <see langword="null"/> (the default) no log output is produced, keeping the library opt-in.
+            </summary>
+            <remarks>
+            Assign any <see cref="T:Microsoft.Extensions.Logging.ILogger"/> implementation, for example one obtained from
+            <see cref="T:Microsoft.Extensions.Logging.ILoggerFactory"/> or an <c>ILogger&lt;WordPressClient&gt;</c> resolved from a
+            dependency-injection container.
+            </remarks>
         </member>
         <member name="P:WordPressPCL.WordPressClient.HttpResponsePreProcessing">
             <summary>
