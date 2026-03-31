@@ -1,6 +1,7 @@
 using System;
 using System.Net.Http;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
@@ -57,6 +58,11 @@ public static class WordPressServiceCollectionExtensions
             .AddTypedClient((httpClient, serviceProvider) =>
             {
                 WordPressPCL.WordPressClient client = new(httpClient, defaultPath);
+                ILogger<WordPressPCL.WordPressClient>? logger = serviceProvider.GetService<ILogger<WordPressPCL.WordPressClient>>();
+                if (logger != null)
+                {
+                    client.Logger = logger;
+                }
                 configureWordPressClient?.Invoke(serviceProvider, client);
                 return client;
             });
