@@ -36,7 +36,7 @@ var category = new Category()
     Name = "Title 1",
     Description = "Content"
 };
-if (await client.IsValidJWTokenAsync())
+if (await client.Auth.IsValidJWTokenAsync())
 {
     var createdCategory = await client.Categories.CreateAsync(category);
 }
@@ -46,9 +46,9 @@ if (await client.IsValidJWTokenAsync())
 
 ```C#
 // returns updated category
-var category = client.Categories.GetByIDAsync(123);
+var category = await client.Categories.GetByIDAsync(123);
 category.Name = "New Name";
-if (await client.IsValidJWTokenAsync())
+if (await client.Auth.IsValidJWTokenAsync())
 {
     var updatedCategory = await client.Categories.UpdateAsync(category);
 }
@@ -58,7 +58,7 @@ if (await client.IsValidJWTokenAsync())
 
 ```C#
 // returns result of deletion
-if (await client.IsValidJWTokenAsync())
+if (await client.Auth.IsValidJWTokenAsync())
 {
     var result = await client.Categories.DeleteAsync(123);
 }

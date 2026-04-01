@@ -24,7 +24,7 @@ var queryBuilder = new MediaQueryBuilder();
 queryBuilder.PerPage = 40;
 queryBuilder.Page = 2;
 queryBuilder.Before = DateTime.Now;
-var media = await client.Pages.QueryAsync(queryBuilder);
+var media = await client.Media.QueryAsync(queryBuilder);
 ```
 
 ## Create new Media
@@ -34,7 +34,7 @@ var media = await client.Pages.QueryAsync(queryBuilder);
 // returns created media
 // for create media item you must read them to Stream. Media items can be audio, video, image, pdf ot any othe type supported by wordpress
 Stream s = File.OpenRead("pathToMedia/media.jpg");
-if (await client.IsValidJWTokenAsync())
+if (await client.Auth.IsValidJWTokenAsync())
 {
     var createdMedia = await client.Media.CreateAsync(s,"media.jpg");
 }
@@ -44,7 +44,7 @@ if (await client.IsValidJWTokenAsync())
 ```C#
 // returns created media
 // for create media item you must read them to Stream. Media items can be audio, video, image, pdf ot any othe type supported by wordpress
-if (await client.IsValidJWTokenAsync())
+if (await client.Auth.IsValidJWTokenAsync())
 {
     var createdMedia = await client.Media.CreateAsync(@"C:\pathToFile\media.jpg","media.jpg");
 }
@@ -54,10 +54,10 @@ if (await client.IsValidJWTokenAsync())
 
 ```C#
 // returns updated media
-var media= client.Media.GetByID(123);
+var media = await client.Media.GetByIDAsync(123);
 media.Title.Raw = "New Title";
 
-if (await client.IsValidJWTokenAsync())
+if (await client.Auth.IsValidJWTokenAsync())
 {
     var updatedMedia = await client.Media.UpdateAsync(media);
 }
@@ -67,7 +67,7 @@ if (await client.IsValidJWTokenAsync())
 
 ```C#
 // returns result of deletion
-if (await client.IsValidJWTokenAsync())
+if (await client.Auth.IsValidJWTokenAsync())
 {
     var result = await client.Media.DeleteAsync(123);
 }

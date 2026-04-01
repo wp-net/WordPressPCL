@@ -57,7 +57,7 @@ var user = new User("username","email","password")
 {
     NickName= "nickname"
 };
-if (await client.IsValidJWTokenAsync())
+if (await client.Auth.IsValidJWTokenAsync())
 {
     var user = await client.Users.CreateAsync(user);
 }
@@ -67,9 +67,9 @@ if (await client.IsValidJWTokenAsync())
 
 ```C#
 // returns updated user
-var user = client.Users.GetByIDAsync(123);
+var user = await client.Users.GetByIDAsync(123);
 user.Name = "New Name";
-if (await client.IsValidJWTokenAsync())
+if (await client.Auth.IsValidJWTokenAsync())
 {
     var updatedUser = await client.Users.UpdateAsync(user);
 }
@@ -79,7 +79,7 @@ if (await client.IsValidJWTokenAsync())
 
 ```C#
 // returns result of deletion
-if (await client.IsValidJWTokenAsync())
+if (await client.Auth.IsValidJWTokenAsync())
 {
     //second param - user to reassign all content
     var result = await client.Users.DeleteAsync(123,321);

@@ -36,7 +36,7 @@ var tag = new Tag()
     Name = "Name",
     Description = "Tag"
 };
-if (await client.IsValidJWTokenAsync())
+if (await client.Auth.IsValidJWTokenAsync())
 {
     var createdtag = await client.Tags.CreateAsync(tag);
 }
@@ -46,9 +46,9 @@ if (await client.IsValidJWTokenAsync())
 
 ```C#
 // returns updated tag
-var tag = client.Tags.GetByIDAsync(123);
+var tag = await client.Tags.GetByIDAsync(123);
 tag.Name = "New Name";
-if (await client.IsValidJWTokenAsync())
+if (await client.Auth.IsValidJWTokenAsync())
 {
     var updatedTag = await client.Tags.UpdateAsync(tag);
 }
@@ -58,7 +58,7 @@ if (await client.IsValidJWTokenAsync())
 
 ```C#
 // returns result of deletion
-if (await client.IsValidJWTokenAsync())
+if (await client.Auth.IsValidJWTokenAsync())
 {
     var result = await client.Tags.DeleteAsync(123);
 }

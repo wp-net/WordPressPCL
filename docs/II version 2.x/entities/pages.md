@@ -36,7 +36,7 @@ var page = new Page()
     Title = new Title("Title 1"),
     Content = new Content("Content PageCreate")
 };
-if (await client.IsValidJWTokenAsync())
+if (await client.Auth.IsValidJWTokenAsync())
 {
     var createdPage = await client.Pages.CreateAsync(page);
 }
@@ -46,9 +46,9 @@ if (await client.IsValidJWTokenAsync())
 
 ```C#
 // returns updated page
-var page= client.Pages.GetByIDAsync(123);
+var page = await client.Pages.GetByIDAsync(123);
 page.Content.Raw = "New Content";
-if (await client.IsValidJWTokenAsync())
+if (await client.Auth.IsValidJWTokenAsync())
 {
     var updatedPage = await client.Pages.UpdateAsync(page);
 }
@@ -58,7 +58,7 @@ if (await client.IsValidJWTokenAsync())
 
 ```C#
 // returns result of deletion
-if (await client.IsValidJWTokenAsync())
+if (await client.Auth.IsValidJWTokenAsync())
 {
     var result = await client.Pages.DeleteAsync(123);
 }

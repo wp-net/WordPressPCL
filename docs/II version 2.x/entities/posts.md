@@ -6,7 +6,8 @@ Here is a list of methods and examples of working with Posts
 
 ```C#
 // returns all posts
-var posts = await client.Posts.GetAllAsync();```
+var posts = await client.Posts.GetAllAsync();
+```
 
 ## Get By ID
 
@@ -35,7 +36,7 @@ var post = new Post()
     Title = new Title("Title 1"),
     Content = new Content("Content PostCreate")
 };
-if (await client.IsValidJWTokenAsync())
+if (await client.Auth.IsValidJWTokenAsync())
 {
     var createdPost = await client.Posts.CreateAsync(post);
 }
@@ -45,9 +46,9 @@ if (await client.IsValidJWTokenAsync())
 
 ```C#
 // returns updated post
-var post = client.Posts.GetByIDAsync(123);
+var post = await client.Posts.GetByIDAsync(123);
 post.Content.Raw = "New Content";
-if (await client.IsValidJWTokenAsync())
+if (await client.Auth.IsValidJWTokenAsync())
 {
     var updatedPost = await client.Posts.UpdateAsync(post);
 }
@@ -82,7 +83,7 @@ register_post_meta('post', 'my-custom-key', [
 
 ```C#
 // returns result of deletion
-if (await client.IsValidJWTokenAsync())
+if (await client.Auth.IsValidJWTokenAsync())
 {
     var result = await client.Posts.DeleteAsync(123);
 }

@@ -22,7 +22,7 @@ catch (WPException wpex)
 ```
 
 ### WordPressPCL.Models.Exceptions.WPException: No route was found matching the URL and request method
-This usually happens when a serverside redirect to retreive a new JWT Token changes the POST request into a GET request (e.g. on www-to-non-www or http-to-https redirects).
+This usually happens when a serverside redirect to retrieve a new JWT Token changes the POST request into a GET request (e.g. on www-to-non-www or http-to-https redirects).
 
 ## WordPressClient returns `null`
 * Check your WordPress URL. It should look like this: `https://wordpress-site.com/wp-json/`

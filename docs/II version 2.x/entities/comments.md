@@ -1,3 +1,5 @@
+# Comments
+
 Here is a list of methods and examples of working with Comments
 
 ## Get All
@@ -18,7 +20,7 @@ var comment = await client.Comments.GetByIDAsync(123);
 
 ```C#
 // returns comments from post
-var comments = await client.Comments.GetCommentsForPostAsync(123)
+var comments = await client.Comments.GetCommentsForPostAsync(123);
 ```
 
 ## Query
@@ -29,14 +31,14 @@ var queryBuilder = new CommentsQueryBuilder();
 queryBuilder.PerPage = 40;
 queryBuilder.Page = 2;
 queryBuilder.Before = DateTime.Now;
-var comments = await client.Comments.Query(queryBuilder);
+var comments = await client.Comments.QueryAsync(queryBuilder);
 ```
 
 ## Get threaded comments
 If your blog supports threaded comments (comments with direct answers) you can order and get the right depth for them with this handy extension method:
 
 ```c#
-var comments = await client.Comments.GetCommentsForPostAsync(123)
+var comments = await client.Comments.GetCommentsForPostAsync(123);
 var commentsThreaded = comments.ToThreaded();
 ```
 
@@ -51,7 +53,7 @@ var comment = new Comment()
     AuthorId = 1,
     AuthorEmail = "test@test.com"
 };
-if (await client.IsValidJWTokenAsync())
+if (await client.Auth.IsValidJWTokenAsync())
 {
     var createdComment = await client.Comments.CreateAsync(comment);
 }
@@ -61,9 +63,9 @@ if (await client.IsValidJWTokenAsync())
 
 ```C#
 // returns updated comment
-var comment= client.Comments.GetByIDAsync(123);
+var comment = await client.Comments.GetByIDAsync(123);
 comment.Content.Raw = "New Content";
-if (await client.IsValidJWTokenAsync())
+if (await client.Auth.IsValidJWTokenAsync())
 {
     var updatedComment = await client.Comments.UpdateAsync(comment);
 }
@@ -73,7 +75,7 @@ if (await client.IsValidJWTokenAsync())
 
 ```C#
 // returns result of deletion
-if (await client.IsValidJWTokenAsync())
+if (await client.Auth.IsValidJWTokenAsync())
 {
     var result = await client.Comments.DeleteAsync(123);
 }
