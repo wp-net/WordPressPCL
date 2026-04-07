@@ -5,231 +5,231 @@
          <lastmod>2026-04-07</lastmod>
     </url>
     <url>
-         <loc>https://wp-net.github.io/WordPressPCL/I%20version%203.x/</loc>
+         <loc>https://wp-net.github.io/WordPressPCL/v1/</loc>
          <lastmod>2026-04-07</lastmod>
     </url>
     <url>
-         <loc>https://wp-net.github.io/WordPressPCL/I%20version%203.x/breaking-changes/</loc>
+         <loc>https://wp-net.github.io/WordPressPCL/v1/troubleshooting/</loc>
          <lastmod>2026-04-07</lastmod>
     </url>
     <url>
-         <loc>https://wp-net.github.io/WordPressPCL/I%20version%203.x/endpoint-coverage/</loc>
+         <loc>https://wp-net.github.io/WordPressPCL/v1/customization/customHttpClient/</loc>
          <lastmod>2026-04-07</lastmod>
     </url>
     <url>
-         <loc>https://wp-net.github.io/WordPressPCL/I%20version%203.x/troubleshooting/</loc>
+         <loc>https://wp-net.github.io/WordPressPCL/v1/customization/customJsonSerializationSettings/</loc>
          <lastmod>2026-04-07</lastmod>
     </url>
     <url>
-         <loc>https://wp-net.github.io/WordPressPCL/I%20version%203.x/customization/customHttpClient/</loc>
+         <loc>https://wp-net.github.io/WordPressPCL/v1/customization/customRequest/</loc>
          <lastmod>2026-04-07</lastmod>
     </url>
     <url>
-         <loc>https://wp-net.github.io/WordPressPCL/I%20version%203.x/customization/customJsonSerializationSettings/</loc>
+         <loc>https://wp-net.github.io/WordPressPCL/v1/customization/httpResponsePreProcessing/</loc>
          <lastmod>2026-04-07</lastmod>
     </url>
     <url>
-         <loc>https://wp-net.github.io/WordPressPCL/I%20version%203.x/customization/customRequest/</loc>
+         <loc>https://wp-net.github.io/WordPressPCL/v1/entities/categories/</loc>
          <lastmod>2026-04-07</lastmod>
     </url>
     <url>
-         <loc>https://wp-net.github.io/WordPressPCL/I%20version%203.x/customization/httpResponsePreProcessing/</loc>
+         <loc>https://wp-net.github.io/WordPressPCL/v1/entities/comments/</loc>
          <lastmod>2026-04-07</lastmod>
     </url>
     <url>
-         <loc>https://wp-net.github.io/WordPressPCL/I%20version%203.x/entities/categories/</loc>
+         <loc>https://wp-net.github.io/WordPressPCL/v1/entities/customPostType/</loc>
          <lastmod>2026-04-07</lastmod>
     </url>
     <url>
-         <loc>https://wp-net.github.io/WordPressPCL/I%20version%203.x/entities/comments/</loc>
+         <loc>https://wp-net.github.io/WordPressPCL/v1/entities/media/</loc>
          <lastmod>2026-04-07</lastmod>
     </url>
     <url>
-         <loc>https://wp-net.github.io/WordPressPCL/I%20version%203.x/entities/customPostType/</loc>
+         <loc>https://wp-net.github.io/WordPressPCL/v1/entities/pages/</loc>
          <lastmod>2026-04-07</lastmod>
     </url>
     <url>
-         <loc>https://wp-net.github.io/WordPressPCL/I%20version%203.x/entities/media/</loc>
+         <loc>https://wp-net.github.io/WordPressPCL/v1/entities/posts/</loc>
          <lastmod>2026-04-07</lastmod>
     </url>
     <url>
-         <loc>https://wp-net.github.io/WordPressPCL/I%20version%203.x/entities/pages/</loc>
+         <loc>https://wp-net.github.io/WordPressPCL/v1/entities/poststatuses/</loc>
          <lastmod>2026-04-07</lastmod>
     </url>
     <url>
-         <loc>https://wp-net.github.io/WordPressPCL/I%20version%203.x/entities/posts/</loc>
+         <loc>https://wp-net.github.io/WordPressPCL/v1/entities/posttypes/</loc>
          <lastmod>2026-04-07</lastmod>
     </url>
     <url>
-         <loc>https://wp-net.github.io/WordPressPCL/I%20version%203.x/entities/poststatuses/</loc>
+         <loc>https://wp-net.github.io/WordPressPCL/v1/entities/settings/</loc>
          <lastmod>2026-04-07</lastmod>
     </url>
     <url>
-         <loc>https://wp-net.github.io/WordPressPCL/I%20version%203.x/entities/posttypes/</loc>
+         <loc>https://wp-net.github.io/WordPressPCL/v1/entities/tags/</loc>
          <lastmod>2026-04-07</lastmod>
     </url>
     <url>
-         <loc>https://wp-net.github.io/WordPressPCL/I%20version%203.x/entities/settings/</loc>
+         <loc>https://wp-net.github.io/WordPressPCL/v1/entities/taxonomies/</loc>
          <lastmod>2026-04-07</lastmod>
     </url>
     <url>
-         <loc>https://wp-net.github.io/WordPressPCL/I%20version%203.x/entities/tags/</loc>
+         <loc>https://wp-net.github.io/WordPressPCL/v1/entities/users/</loc>
          <lastmod>2026-04-07</lastmod>
     </url>
     <url>
-         <loc>https://wp-net.github.io/WordPressPCL/I%20version%203.x/entities/taxonomies/</loc>
+         <loc>https://wp-net.github.io/WordPressPCL/v2/</loc>
          <lastmod>2026-04-07</lastmod>
     </url>
     <url>
-         <loc>https://wp-net.github.io/WordPressPCL/I%20version%203.x/entities/users/</loc>
+         <loc>https://wp-net.github.io/WordPressPCL/v2/breaking-changes/</loc>
          <lastmod>2026-04-07</lastmod>
     </url>
     <url>
-         <loc>https://wp-net.github.io/WordPressPCL/II%20version%202.x/</loc>
+         <loc>https://wp-net.github.io/WordPressPCL/v2/troubleshooting/</loc>
          <lastmod>2026-04-07</lastmod>
     </url>
     <url>
-         <loc>https://wp-net.github.io/WordPressPCL/II%20version%202.x/breaking-changes/</loc>
+         <loc>https://wp-net.github.io/WordPressPCL/v2/customization/customHttpClient/</loc>
          <lastmod>2026-04-07</lastmod>
     </url>
     <url>
-         <loc>https://wp-net.github.io/WordPressPCL/II%20version%202.x/troubleshooting/</loc>
+         <loc>https://wp-net.github.io/WordPressPCL/v2/customization/customJsonSerializationSettings/</loc>
          <lastmod>2026-04-07</lastmod>
     </url>
     <url>
-         <loc>https://wp-net.github.io/WordPressPCL/II%20version%202.x/customization/customHttpClient/</loc>
+         <loc>https://wp-net.github.io/WordPressPCL/v2/customization/customRequest/</loc>
          <lastmod>2026-04-07</lastmod>
     </url>
     <url>
-         <loc>https://wp-net.github.io/WordPressPCL/II%20version%202.x/customization/customJsonSerializationSettings/</loc>
+         <loc>https://wp-net.github.io/WordPressPCL/v2/customization/httpResponsePreProcessing/</loc>
          <lastmod>2026-04-07</lastmod>
     </url>
     <url>
-         <loc>https://wp-net.github.io/WordPressPCL/II%20version%202.x/customization/customRequest/</loc>
+         <loc>https://wp-net.github.io/WordPressPCL/v2/entities/categories/</loc>
          <lastmod>2026-04-07</lastmod>
     </url>
     <url>
-         <loc>https://wp-net.github.io/WordPressPCL/II%20version%202.x/customization/httpResponsePreProcessing/</loc>
+         <loc>https://wp-net.github.io/WordPressPCL/v2/entities/comments/</loc>
          <lastmod>2026-04-07</lastmod>
     </url>
     <url>
-         <loc>https://wp-net.github.io/WordPressPCL/II%20version%202.x/entities/categories/</loc>
+         <loc>https://wp-net.github.io/WordPressPCL/v2/entities/customPostType/</loc>
          <lastmod>2026-04-07</lastmod>
     </url>
     <url>
-         <loc>https://wp-net.github.io/WordPressPCL/II%20version%202.x/entities/comments/</loc>
+         <loc>https://wp-net.github.io/WordPressPCL/v2/entities/media/</loc>
          <lastmod>2026-04-07</lastmod>
     </url>
     <url>
-         <loc>https://wp-net.github.io/WordPressPCL/II%20version%202.x/entities/customPostType/</loc>
+         <loc>https://wp-net.github.io/WordPressPCL/v2/entities/pages/</loc>
          <lastmod>2026-04-07</lastmod>
     </url>
     <url>
-         <loc>https://wp-net.github.io/WordPressPCL/II%20version%202.x/entities/media/</loc>
+         <loc>https://wp-net.github.io/WordPressPCL/v2/entities/posts/</loc>
          <lastmod>2026-04-07</lastmod>
     </url>
     <url>
-         <loc>https://wp-net.github.io/WordPressPCL/II%20version%202.x/entities/pages/</loc>
+         <loc>https://wp-net.github.io/WordPressPCL/v2/entities/poststatuses/</loc>
          <lastmod>2026-04-07</lastmod>
     </url>
     <url>
-         <loc>https://wp-net.github.io/WordPressPCL/II%20version%202.x/entities/posts/</loc>
+         <loc>https://wp-net.github.io/WordPressPCL/v2/entities/posttypes/</loc>
          <lastmod>2026-04-07</lastmod>
     </url>
     <url>
-         <loc>https://wp-net.github.io/WordPressPCL/II%20version%202.x/entities/poststatuses/</loc>
+         <loc>https://wp-net.github.io/WordPressPCL/v2/entities/settings/</loc>
          <lastmod>2026-04-07</lastmod>
     </url>
     <url>
-         <loc>https://wp-net.github.io/WordPressPCL/II%20version%202.x/entities/posttypes/</loc>
+         <loc>https://wp-net.github.io/WordPressPCL/v2/entities/tags/</loc>
          <lastmod>2026-04-07</lastmod>
     </url>
     <url>
-         <loc>https://wp-net.github.io/WordPressPCL/II%20version%202.x/entities/settings/</loc>
+         <loc>https://wp-net.github.io/WordPressPCL/v2/entities/taxonomies/</loc>
          <lastmod>2026-04-07</lastmod>
     </url>
     <url>
-         <loc>https://wp-net.github.io/WordPressPCL/II%20version%202.x/entities/tags/</loc>
+         <loc>https://wp-net.github.io/WordPressPCL/v2/entities/users/</loc>
          <lastmod>2026-04-07</lastmod>
     </url>
     <url>
-         <loc>https://wp-net.github.io/WordPressPCL/II%20version%202.x/entities/taxonomies/</loc>
+         <loc>https://wp-net.github.io/WordPressPCL/v3/</loc>
          <lastmod>2026-04-07</lastmod>
     </url>
     <url>
-         <loc>https://wp-net.github.io/WordPressPCL/II%20version%202.x/entities/users/</loc>
+         <loc>https://wp-net.github.io/WordPressPCL/v3/breaking-changes/</loc>
          <lastmod>2026-04-07</lastmod>
     </url>
     <url>
-         <loc>https://wp-net.github.io/WordPressPCL/III%20version%201.x/</loc>
+         <loc>https://wp-net.github.io/WordPressPCL/v3/endpoint-coverage/</loc>
          <lastmod>2026-04-07</lastmod>
     </url>
     <url>
-         <loc>https://wp-net.github.io/WordPressPCL/III%20version%201.x/troubleshooting/</loc>
+         <loc>https://wp-net.github.io/WordPressPCL/v3/troubleshooting/</loc>
          <lastmod>2026-04-07</lastmod>
     </url>
     <url>
-         <loc>https://wp-net.github.io/WordPressPCL/III%20version%201.x/customization/customHttpClient/</loc>
+         <loc>https://wp-net.github.io/WordPressPCL/v3/customization/customHttpClient/</loc>
          <lastmod>2026-04-07</lastmod>
     </url>
     <url>
-         <loc>https://wp-net.github.io/WordPressPCL/III%20version%201.x/customization/customJsonSerializationSettings/</loc>
+         <loc>https://wp-net.github.io/WordPressPCL/v3/customization/customJsonSerializationSettings/</loc>
          <lastmod>2026-04-07</lastmod>
     </url>
     <url>
-         <loc>https://wp-net.github.io/WordPressPCL/III%20version%201.x/customization/customRequest/</loc>
+         <loc>https://wp-net.github.io/WordPressPCL/v3/customization/customRequest/</loc>
          <lastmod>2026-04-07</lastmod>
     </url>
     <url>
-         <loc>https://wp-net.github.io/WordPressPCL/III%20version%201.x/customization/httpResponsePreProcessing/</loc>
+         <loc>https://wp-net.github.io/WordPressPCL/v3/customization/httpResponsePreProcessing/</loc>
          <lastmod>2026-04-07</lastmod>
     </url>
     <url>
-         <loc>https://wp-net.github.io/WordPressPCL/III%20version%201.x/entities/categories/</loc>
+         <loc>https://wp-net.github.io/WordPressPCL/v3/entities/categories/</loc>
          <lastmod>2026-04-07</lastmod>
     </url>
     <url>
-         <loc>https://wp-net.github.io/WordPressPCL/III%20version%201.x/entities/comments/</loc>
+         <loc>https://wp-net.github.io/WordPressPCL/v3/entities/comments/</loc>
          <lastmod>2026-04-07</lastmod>
     </url>
     <url>
-         <loc>https://wp-net.github.io/WordPressPCL/III%20version%201.x/entities/customPostType/</loc>
+         <loc>https://wp-net.github.io/WordPressPCL/v3/entities/customPostType/</loc>
          <lastmod>2026-04-07</lastmod>
     </url>
     <url>
-         <loc>https://wp-net.github.io/WordPressPCL/III%20version%201.x/entities/media/</loc>
+         <loc>https://wp-net.github.io/WordPressPCL/v3/entities/media/</loc>
          <lastmod>2026-04-07</lastmod>
     </url>
     <url>
-         <loc>https://wp-net.github.io/WordPressPCL/III%20version%201.x/entities/pages/</loc>
+         <loc>https://wp-net.github.io/WordPressPCL/v3/entities/pages/</loc>
          <lastmod>2026-04-07</lastmod>
     </url>
     <url>
-         <loc>https://wp-net.github.io/WordPressPCL/III%20version%201.x/entities/posts/</loc>
+         <loc>https://wp-net.github.io/WordPressPCL/v3/entities/posts/</loc>
          <lastmod>2026-04-07</lastmod>
     </url>
     <url>
-         <loc>https://wp-net.github.io/WordPressPCL/III%20version%201.x/entities/poststatuses/</loc>
+         <loc>https://wp-net.github.io/WordPressPCL/v3/entities/poststatuses/</loc>
          <lastmod>2026-04-07</lastmod>
     </url>
     <url>
-         <loc>https://wp-net.github.io/WordPressPCL/III%20version%201.x/entities/posttypes/</loc>
+         <loc>https://wp-net.github.io/WordPressPCL/v3/entities/posttypes/</loc>
          <lastmod>2026-04-07</lastmod>
     </url>
     <url>
-         <loc>https://wp-net.github.io/WordPressPCL/III%20version%201.x/entities/settings/</loc>
+         <loc>https://wp-net.github.io/WordPressPCL/v3/entities/settings/</loc>
          <lastmod>2026-04-07</lastmod>
     </url>
     <url>
-         <loc>https://wp-net.github.io/WordPressPCL/III%20version%201.x/entities/tags/</loc>
+         <loc>https://wp-net.github.io/WordPressPCL/v3/entities/tags/</loc>
          <lastmod>2026-04-07</lastmod>
     </url>
     <url>
-         <loc>https://wp-net.github.io/WordPressPCL/III%20version%201.x/entities/taxonomies/</loc>
+         <loc>https://wp-net.github.io/WordPressPCL/v3/entities/taxonomies/</loc>
          <lastmod>2026-04-07</lastmod>
     </url>
     <url>
-         <loc>https://wp-net.github.io/WordPressPCL/III%20version%201.x/entities/users/</loc>
+         <loc>https://wp-net.github.io/WordPressPCL/v3/entities/users/</loc>
          <lastmod>2026-04-07</lastmod>
     </url>
 </urlset>
