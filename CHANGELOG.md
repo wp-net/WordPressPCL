@@ -23,7 +23,6 @@ The project now uses GitHub Releases as the source of truth for versioned releas
 
 ### Changed
 
-- Target .NET 10.
 - Retargeted the library, tests, and CI/tooling to .NET 10, dropping previous .NET Standard and .NET 6 test targets.
 - Centralized shared .NET configuration via `Directory.Build.props` and `Directory.Packages.props`.
 - Enabled nullable reference types across the public API and the full solution.
