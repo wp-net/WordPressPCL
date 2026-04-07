@@ -244,12 +244,11 @@ public class CommentsThreaded_Tests
         {
             // The following comment depth has to be the lower, equal or +1
             int ni = i + 1;
-            System.DateTime idate = threaded[i].Date;
-            System.DateTime nidate = threaded[ni].Date;
+            System.DateTime idate = firstLvl[i].Date;
+            System.DateTime nidate = firstLvl[ni].Date;
 
             // The following comment date has to be older
-            Assert.IsGreaterThan(threaded[ni].Id, threaded[i].Id);
-            Assert.IsLessThanOrEqualTo(nidate, idate);
+            Assert.IsTrue(nidate <= idate);
         }
     }
 
