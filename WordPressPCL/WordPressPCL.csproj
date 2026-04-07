@@ -14,7 +14,7 @@
     <RepositoryType>GitHub</RepositoryType>
     <VersionPrefix>3.0.0</VersionPrefix>
     <PackageLicenseUrl></PackageLicenseUrl>
-    <PackageReleaseNotes>See CHANGELOG.md and https://github.com/wp-net/WordPressPCL/releases/tag/v$(Version)</PackageReleaseNotes>
+    <PackageReleaseNotes>See CHANGELOG.md and https://github.com/wp-net/WordPressPCL/releases</PackageReleaseNotes>
     <Copyright>© Thomas Pentenrieder | 2023</Copyright>
     <ApplicationIcon />
     <OutputTypeEx>library</OutputTypeEx>
