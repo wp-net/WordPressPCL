@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://wp-net.github.io/WordPressPCL/v3/entities/customFields/" />
+      <link rel="shortcut icon" href="../../../img/favicon.ico" />
+    <title>Custom Fields - WordPressPCL</title>
+    <link rel="stylesheet" href="../../../css/theme.css" />
+    <link rel="stylesheet" href="../../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Custom Fields";
+        var mkdocs_page_input_path = "v3/entities/customFields.md";
+        var mkdocs_page_url = "/WordPressPCL/v3/entities/customFields/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../../.." class="icon icon-home"> WordPressPCL
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../..">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Version 3.x</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../../">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../breaking-changes/">Breaking Changes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../endpoint-coverage/">Endpoint Coverage</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../troubleshooting/">Troubleshooting</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >Customization</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../customization/customHttpClient/">Custom HttpClient & DI</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../customization/customJsonSerializationSettings/">Custom JSON Settings</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../customization/customRequest/">Custom Request</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../customization/httpResponsePreProcessing/">HTTP Response Pre-Processing</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" >Entities</a>
+    <ul class="current">
+                <li class="toctree-l2"><a class="reference internal" href="../posts/">Posts</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../pages/">Pages</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../comments/">Comments</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../categories/">Categories</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../tags/">Tags</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../users/">Users</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../media/">Media</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../taxonomies/">Taxonomies</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../posttypes/">Post Types</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../poststatuses/">Post Statuses</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../settings/">Settings</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../customPostType/">Custom Post Type</a>
+                </li>
+                <li class="toctree-l2 current"><a class="reference internal current" href="#">Custom Fields</a>
+    <ul class="current">
+    <li class="toctree-l3"><a class="reference internal" href="#how-wordpress-exposes-custom-fields-via-rest-api">How WordPress exposes custom fields via REST API</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#approach-1-register_post_meta-recommended">Approach 1 — register_post_meta() (recommended)</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#approach-2-register_rest_field">Approach 2 — register_rest_field()</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#approach-3-advanced-custom-fields-acf-plugin">Approach 3 — Advanced Custom Fields (ACF) plugin</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#supported-object-types">Supported object types</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#reading-custom-fields">Reading custom fields</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#deserialize-to-a-strongly-typed-class">Deserialize to a strongly-typed class</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#writing-updating-custom-fields">Writing / updating custom fields</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#update-a-single-meta-key">Update a single meta key</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#update-multiple-meta-keys">Update multiple meta keys</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#update-with-a-strongly-typed-class">Update with a strongly-typed class</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#top-level-rest-fields-register_rest_field">Top-level REST fields (register_rest_field)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#further-reading">Further reading</a>
+    </li>
+    </ul>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Version 2.x</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../v2/">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../v2/breaking-changes/">Breaking Changes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../v2/troubleshooting/">Troubleshooting</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >Customization</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../../v2/customization/customHttpClient/">Custom HttpClient & DI</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../../v2/customization/customJsonSerializationSettings/">Custom JSON Settings</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../../v2/customization/customRequest/">Custom Request</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../../v2/customization/httpResponsePreProcessing/">HTTP Response Pre-Processing</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >Entities</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../../v2/entities/posts/">Posts</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../../v2/entities/pages/">Pages</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../../v2/entities/comments/">Comments</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../../v2/entities/categories/">Categories</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../../v2/entities/tags/">Tags</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../../v2/entities/users/">Users</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../../v2/entities/media/">Media</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../../v2/entities/taxonomies/">Taxonomies</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../../v2/entities/posttypes/">Post Types</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../../v2/entities/poststatuses/">Post Statuses</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../../v2/entities/settings/">Settings</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../../v2/entities/customPostType/">Custom Post Type</a>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Version 1.x</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../v1/">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../v1/troubleshooting/">Troubleshooting</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >Customization</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../../v1/customization/customHttpClient/">Custom HttpClient</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../../v1/customization/customJsonSerializationSettings/">Custom JSON Settings</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../../v1/customization/customRequest/">Custom Request</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../../v1/customization/httpResponsePreProcessing/">HTTP Response Pre-Processing</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >Entities</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../../v1/entities/posts/">Posts</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../../v1/entities/pages/">Pages</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../../v1/entities/comments/">Comments</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../../v1/entities/categories/">Categories</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../../v1/entities/tags/">Tags</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../../v1/entities/users/">Users</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../../v1/entities/media/">Media</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../../v1/entities/taxonomies/">Taxonomies</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../../v1/entities/posttypes/">Post Types</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../../v1/entities/poststatuses/">Post Statuses</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../../v1/entities/settings/">Settings</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../../v1/entities/customPostType/">Custom Post Type</a>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../..">WordPressPCL</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Version 3.x</li>
+          <li class="breadcrumb-item">Entities</li>
+      <li class="breadcrumb-item active">Custom Fields</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="custom-fields-meta">Custom Fields (Meta)</h1>
+<p>Custom fields — also called post meta or metadata — let you attach arbitrary key/value data to WordPress objects (posts, pages, comments, users, and media). WordPress exposes them through the REST API via the <code>meta</code> property that is present on every supported object type.</p>
+<h2 id="how-wordpress-exposes-custom-fields-via-rest-api">How WordPress exposes custom fields via REST API</h2>
+<p>By default the <code>meta</code> property in a REST API response is an <strong>empty object</strong> (<code>{}</code>). Custom fields are <strong>opt-in</strong>: each meta key must be explicitly registered for REST API exposure, either through core WordPress functions or through plugins.</p>
+<h3 id="approach-1-register_post_meta-recommended">Approach 1 — <code>register_post_meta()</code> (recommended)</h3>
+<p>Register a meta key server-side so that it appears in the <code>meta</code> object of post/page responses:</p>
+<pre><code class="language-php">add_action('rest_api_init', function () {
+    register_post_meta('post', 'my_color', [
+        'type'         =&gt; 'string',
+        'description'  =&gt; 'A color value for the post.',
+        'single'       =&gt; true,
+        'show_in_rest' =&gt; true,
+    ]);
+});
+</code></pre>
+<blockquote>
+<p><strong>Tip:</strong> Use <code>register_term_meta()</code>, <code>register_comment_meta()</code>, and <code>register_user_meta()</code> for the corresponding object types.</p>
+</blockquote>
+<p>Once registered, the field appears in responses like this:</p>
+<pre><code class="language-json">{
+  &quot;id&quot;: 42,
+  &quot;title&quot;: { &quot;rendered&quot;: &quot;Hello world&quot; },
+  &quot;meta&quot;: {
+    &quot;my_color&quot;: &quot;blue&quot;
+  }
+}
+</code></pre>
+<h3 id="approach-2-register_rest_field">Approach 2 — <code>register_rest_field()</code></h3>
+<p><code>register_rest_field()</code> adds a <em>top-level</em> field to REST responses (not nested under <code>meta</code>). This is useful for computed values or when you need full control over serialisation:</p>
+<pre><code class="language-php">add_action('rest_api_init', function () {
+    register_rest_field('post', 'my_color', [
+        'get_callback'    =&gt; function ($post) {
+            return get_post_meta($post['id'], 'my_color', true);
+        },
+        'update_callback' =&gt; function ($value, $post) {
+            update_post_meta($post-&gt;ID, 'my_color', sanitize_text_field($value));
+        },
+        'schema'          =&gt; [
+            'type'        =&gt; 'string',
+            'description' =&gt; 'A color value for the post.',
+        ],
+    ]);
+});
+</code></pre>
+<p>Fields registered this way appear at the top level of the JSON object, alongside <code>id</code>, <code>title</code>, etc.<br />
+Use the <code>CustomRequest</code> approach described below to map them.</p>
+<h3 id="approach-3-advanced-custom-fields-acf-plugin">Approach 3 — Advanced Custom Fields (ACF) plugin</h3>
+<p>The popular <a href="https://www.advancedcustomfields.com/">ACF plugin</a> can expose field groups through the REST API when the <strong>Show in REST API</strong> option is enabled on the field group. ACF exposes the data under an <code>acf</code> top-level key. Use the <a href="../../customization/customRequest/">Custom Request</a> approach to work with ACF data.</p>
+<h2 id="supported-object-types">Supported object types</h2>
+<p>The <code>Meta</code> property is available on the following WordPressPCL models:</p>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th>WordPress endpoint</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Post</code></td>
+<td><code>/wp/v2/posts</code></td>
+</tr>
+<tr>
+<td><code>Page</code></td>
+<td><code>/wp/v2/pages</code></td>
+</tr>
+<tr>
+<td><code>Comment</code></td>
+<td><code>/wp/v2/comments</code></td>
+</tr>
+<tr>
+<td><code>MediaItem</code></td>
+<td><code>/wp/v2/media</code></td>
+</tr>
+<tr>
+<td><code>PostRevision</code></td>
+<td><code>/wp/v2/revisions</code></td>
+</tr>
+<tr>
+<td><code>User</code></td>
+<td><code>/wp/v2/users</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="reading-custom-fields">Reading custom fields</h2>
+<p>The <code>Meta</code> property is typed as <code>JsonElement?</code> so that it can accommodate any JSON shape returned by WordPress (string, number, array, or nested object).</p>
+<pre><code class="language-csharp">Post post = await client.Posts.GetByIdAsync(123);
+
+// Read a simple string value
+string? color = post.Meta?.GetProperty(&quot;my_color&quot;).GetString();
+
+// Read an integer value
+int? count = post.Meta?.GetProperty(&quot;view_count&quot;).GetInt32();
+</code></pre>
+<h3 id="deserialize-to-a-strongly-typed-class">Deserialize to a strongly-typed class</h3>
+<p>Define a class that mirrors the shape of your meta fields and deserialize the element directly:</p>
+<pre><code class="language-csharp">public class PostMeta
+{
+    [JsonPropertyName(&quot;my_color&quot;)]
+    public string? Color { get; set; }
+
+    [JsonPropertyName(&quot;view_count&quot;)]
+    public int ViewCount { get; set; }
+}
+
+Post post = await client.Posts.GetByIdAsync(123);
+PostMeta? meta = post.Meta?.Deserialize&lt;PostMeta&gt;();
+Console.WriteLine(meta?.Color); // e.g. &quot;blue&quot;
+</code></pre>
+<h2 id="writing-updating-custom-fields">Writing / updating custom fields</h2>
+<p>Serialize your data into a <code>JsonElement</code> and assign it to the <code>Meta</code> property before calling <code>UpdateAsync</code>.</p>
+<h3 id="update-a-single-meta-key">Update a single meta key</h3>
+<pre><code class="language-csharp">Post post = new Post
+{
+    Id = 123,
+    Meta = JsonSerializer.SerializeToElement(new Dictionary&lt;string, object?&gt;
+    {
+        [&quot;my_color&quot;] = &quot;blue&quot;
+    }),
+};
+
+await client.Posts.UpdateAsync(post);
+</code></pre>
+<h3 id="update-multiple-meta-keys">Update multiple meta keys</h3>
+<pre><code class="language-csharp">Post post = new Post
+{
+    Id = 123,
+    Meta = JsonSerializer.SerializeToElement(new Dictionary&lt;string, object?&gt;
+    {
+        [&quot;my_color&quot;]   = &quot;blue&quot;,
+        [&quot;view_count&quot;] = 42,
+    }),
+};
+
+await client.Posts.UpdateAsync(post);
+</code></pre>
+<h3 id="update-with-a-strongly-typed-class">Update with a strongly-typed class</h3>
+<pre><code class="language-csharp">PostMeta meta = new PostMeta { Color = &quot;red&quot;, ViewCount = 10 };
+
+Post post = new Post
+{
+    Id = 123,
+    Meta = JsonSerializer.SerializeToElement(meta),
+};
+
+await client.Posts.UpdateAsync(post);
+</code></pre>
+<blockquote>
+<p><strong>Important:</strong> Only meta keys that have been registered with <code>show_in_rest: true</code> (see above) can be written through the REST API. Attempting to update an unregistered key will silently ignore the value.</p>
+</blockquote>
+<h2 id="top-level-rest-fields-register_rest_field">Top-level REST fields (register_rest_field)</h2>
+<p>When a plugin uses <code>register_rest_field()</code> to add a field at the top level of the response — for example <code>acf</code> — it will not appear in <code>Meta</code>. Use the <a href="../../customization/customRequest/">Custom Request</a> feature to work with these fields by defining a custom model:</p>
+<pre><code class="language-csharp">public class PostWithAcf
+{
+    [JsonPropertyName(&quot;id&quot;)]
+    public int Id { get; set; }
+
+    [JsonPropertyName(&quot;title&quot;)]
+    public WordPressPCL.Models.Title? Title { get; set; }
+
+    [JsonPropertyName(&quot;acf&quot;)]
+    public MyAcfFields? Acf { get; set; }
+}
+
+public class MyAcfFields
+{
+    [JsonPropertyName(&quot;my_color&quot;)]
+    public string? Color { get; set; }
+}
+
+// Fetch a post with ACF fields
+PostWithAcf? post = await client.CustomRequest.GetByIdAsync&lt;PostWithAcf&gt;(&quot;wp/v2/posts&quot;, 123);
+Console.WriteLine(post?.Acf?.Color);
+</code></pre>
+<h2 id="further-reading">Further reading</h2>
+<ul>
+<li><a href="https://developer.wordpress.org/rest-api/reference/post-meta/">WordPress REST API — Post meta</a></li>
+<li><a href="https://developer.wordpress.org/reference/functions/register_post_meta/"><code>register_post_meta()</code> reference</a></li>
+<li><a href="https://developer.wordpress.org/rest-api/extending-the-rest-api/modifying-responses/"><code>register_rest_field()</code> reference</a></li>
+<li><a href="../../customization/customRequest/">Custom Requests in WordPressPCL</a></li>
+</ul>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../customPostType/" class="btn btn-neutral float-left" title="Custom Post Type"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../../../v2/" class="btn btn-neutral float-right" title="Overview">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../customPostType/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../../../v2/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../../..";</script>
+    <script src="../../../js/theme_extra.js"></script>
+    <script src="../../../js/theme.js"></script>
+      <script src="../../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
