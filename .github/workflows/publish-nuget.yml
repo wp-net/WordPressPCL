@@ -25,18 +25,19 @@ jobs:
         with:
           dotnet-version: 10.x
       - name: Validate release tag
+        id: version
         run: |
           version="${release_tag#v}"
           if [[ ! "$release_tag" =~ ^v[0-9]+\.[0-9]+\.[0-9]+([-.][0-9A-Za-z.-]+)?$ ]]; then
             echo "Release tag '$release_tag' must use the format v<major>.<minor>.<patch>[-suffix]."
             exit 1
           fi
-          echo "PACKAGE_VERSION=$version" >> "$GITHUB_ENV"
+          echo "value=$version" >> "$GITHUB_OUTPUT"
       - name: Restore
         run: dotnet restore ${{ env.solution }} --disable-parallel
       - name: Build
-        run: dotnet build ${{ env.solution }} -c Release --no-restore -p:Version=$PACKAGE_VERSION
+        run: dotnet build ${{ env.solution }} -c Release --no-restore -p:Version=${{ steps.version.outputs.value }}
       - name: Pack
-        run: dotnet pack ${{ env.project }} -c Release --no-build -o artifacts -p:Version=$PACKAGE_VERSION
+        run: dotnet pack ${{ env.project }} -c Release --no-build -o artifacts -p:Version=${{ steps.version.outputs.value }}
       - name: Publish to NuGet
         run: dotnet nuget push "artifacts/*.nupkg" --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.WORDPRESSPCLNUGET }} --skip-duplicate
