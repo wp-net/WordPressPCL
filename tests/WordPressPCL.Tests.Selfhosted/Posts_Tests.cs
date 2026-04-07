@@ -35,7 +35,7 @@ public class Posts_Tests
 
 
         Assert.AreEqual(post.Content!.Raw, createdPost.Content!.Raw);
-        Assert.Contains(post.Content.Rendered, createdPost.Content!.Rendered);
+        Assert.Contains(post.Content.Rendered!, createdPost.Content!.Rendered!);
     }
 
     [TestMethod]
@@ -62,7 +62,7 @@ public class Posts_Tests
         Assert.Contains(x => x.Title!.Rendered == title, postsTask);
 
         Assert.AreEqual(post.Content!.Raw, createdPost.Content!.Raw);
-        Assert.Contains(post.Content.Rendered, createdPost.Content!.Rendered);
+        Assert.Contains(post.Content.Rendered!, createdPost.Content!.Rendered!);
     }
 
     [TestMethod]
@@ -136,7 +136,7 @@ public class Posts_Tests
         post.Content!.Raw = testContent;
         Post updatedPost = await _clientAuth.Posts.UpdateAsync(post, TestContext.CancellationToken);
         Assert.AreEqual(updatedPost.Content!.Raw, testContent);
-        Assert.Contains(testContent, updatedPost.Content!.Rendered);
+        Assert.Contains(testContent, updatedPost.Content!.Rendered!);
     }
 
     [TestMethod]

@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 using WordPressPCL.Models;
 
@@ -20,7 +21,7 @@ public static class ClientHelper
         {
             clientAuth.Auth.UseBearerAuth(JWTPlugin.JWTAuthByEnriqueChavez);
         }
-        await clientAuth.Auth.RequestJWTokenAsync(ApiCredentials.Username, ApiCredentials.Password, context.CancellationToken);
+        await clientAuth.Auth.RequestJWTokenAsync(ApiCredentials.Username, ApiCredentials.Password, context?.CancellationToken ?? CancellationToken.None);
 
         return clientAuth;
     }
