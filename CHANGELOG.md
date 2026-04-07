@@ -12,10 +12,35 @@ The project now uses GitHub Releases as the source of truth for versioned releas
 
 ## [3.0.0]
 
+### Added
+
+- `CancellationToken` support across the public async API surface.
+- `PagedResult<T>` plus paged query/get helpers for exposing pagination metadata without parsing headers manually.
+- First-class `IServiceCollection` registration helpers for `WordPressClient`.
+- Opt-in structured logging diagnostics for the HTTP request/response lifecycle.
+- Versioned reference docs for 3.x, while restoring dedicated 2.x and 1.x reference sets.
+- Expanded documentation for endpoint coverage, custom fields, and updated HTTPS quickstart/auth examples.
+
 ### Changed
 
 - Target .NET 10.
 - Dropped previous .NET Standard and .NET 6 test targets.
+- Retargeted the library, tests, and CI/tooling to .NET 10.
+- Centralized shared .NET configuration via `Directory.Build.props` and `Directory.Packages.props`.
+- Enabled nullable reference types across the public API and the full solution.
+- Migrated serialization from `Newtonsoft.Json` to `System.Text.Json`.
+- Standardized `GetByIdAsync` naming across the API surface and aligned remaining public async method names/signatures.
+- Modernized `HttpClient` ownership so DI-managed clients can be injected cleanly.
+- Cleaned build warnings and aligned analyzer usage with the .NET 10 SDK.
+- Adopted GitHub Release-based publishing with tag-driven versioning and changelog-driven release notes.
+- Updated GitHub Actions workflows for the `main` branch, Docker Compose v2, and newer action runtimes.
+
+### Fixed
+
+- Comment status updates now serialize correctly.
+- Comment updates skip null-only meta payloads that should not be sent.
+- Docker-based self-hosted integration test setup is more reliable.
+- Documentation and examples were refreshed to match current API names and behavior.
 
 ## [2.1.0]
 
