@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using WordPressPCL.Models;
@@ -225,6 +226,66 @@ public class Posts_Tests
         int count = await _client.Posts.GetCountAsync(TestContext.CancellationToken);
 
         Assert.AreEqual(count, paged.TotalCount, "TotalCount from GetPagedAsync should match GetCountAsync");
+    }
+
+    [TestMethod]
+    public async Task Posts_Meta_Write_And_Read()
+    {
+        // Arrange — create a post carrying a registered meta value
+        string metaValue = $"pcl-meta-{System.Guid.NewGuid()}";
+        Post post = new()
+        {
+            Title = new Title("Meta Test Post"),
+            Content = new Content("Meta Test Content"),
+            Meta = JsonSerializer.SerializeToElement(new Dictionary<string, object?>
+            {
+                ["wordpresspcl_test_meta"] = metaValue
+            }),
+        };
+
+        // Act — create then fetch back (edit context to ensure meta is returned)
+        Post createdPost = await _clientAuth.Posts.CreateAsync(post, TestContext.CancellationToken);
+        Post fetchedPost = await _clientAuth.Posts.GetByIdAsync(createdPost.Id, cancellationToken: TestContext.CancellationToken);
+
+        // Assert
+        Assert.IsNotNull(fetchedPost.Meta, "Meta should not be null when a registered key was written");
+        string? readValue = fetchedPost.Meta.Value.GetProperty("wordpresspcl_test_meta").GetString();
+        Assert.AreEqual(metaValue, readValue, "Meta value read back should equal the value written");
+    }
+
+    [TestMethod]
+    public async Task Posts_Meta_Update()
+    {
+        // Arrange — create a post, then update only the meta field
+        Post post = new()
+        {
+            Title = new Title("Meta Update Test Post"),
+            Content = new Content("Meta Update Test Content"),
+            Meta = JsonSerializer.SerializeToElement(new Dictionary<string, object?>
+            {
+                ["wordpresspcl_test_meta"] = "initial-value"
+            }),
+        };
+
+        Post createdPost = await _clientAuth.Posts.CreateAsync(post, TestContext.CancellationToken);
+
+        // Act — update only the meta field
+        string updatedMetaValue = $"updated-{System.Guid.NewGuid()}";
+        Post updateRequest = new()
+        {
+            Id = createdPost.Id,
+            Meta = JsonSerializer.SerializeToElement(new Dictionary<string, object?>
+            {
+                ["wordpresspcl_test_meta"] = updatedMetaValue
+            }),
+        };
+        await _clientAuth.Posts.UpdateAsync(updateRequest, TestContext.CancellationToken);
+
+        // Assert — fetch back and verify
+        Post fetchedPost = await _clientAuth.Posts.GetByIdAsync(createdPost.Id, cancellationToken: TestContext.CancellationToken);
+        Assert.IsNotNull(fetchedPost.Meta, "Meta should not be null after update");
+        string? readValue = fetchedPost.Meta.Value.GetProperty("wordpresspcl_test_meta").GetString();
+        Assert.AreEqual(updatedMetaValue, readValue, "Meta value should reflect the updated value");
     }
 
     public TestContext TestContext { get; set; } = null!;

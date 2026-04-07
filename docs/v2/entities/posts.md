@@ -60,10 +60,10 @@ if (await client.Auth.IsValidJWTokenAsync())
 var post = new Post
 {
     Id = 123,
-    Meta = new Dictionary<string, string>
+    Meta = JsonSerializer.SerializeToElement(new Dictionary<string, object?>
     {
         ["my-custom-key"] = "some value"
-    },
+    }),
 };
 
 await client.Posts.UpdateAsync(post);
