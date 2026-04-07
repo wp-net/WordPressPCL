@@ -32,6 +32,14 @@ The WordPressPCL API Wrapper is avaiable through [NuGet](https://www.nuget.org/p
 > Install-Package WordPressPCL
 ```
 
+## Release Process
+
+WordPressPCL uses GitHub Releases as the source of truth for publishing new package versions.
+
+1. Update [CHANGELOG.md](CHANGELOG.md) with the release highlights.
+2. Create a GitHub release with a `vX.Y.Z` tag (or `vX.Y.Z-suffix` for pre-releases) and GitHub-generated release notes.
+3. Publishing that release triggers the NuGet workflow, which builds and publishes the same version to NuGet.
+
 ## Runtime Requirement
 WordPressPCL 3.0 targets .NET 10 only. Upgrading from 2.x is a breaking change and requires applications and test environments to move to the .NET 10 SDK/runtime before restoring, building, or running tests.
 
