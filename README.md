@@ -35,6 +35,11 @@ The WordPressPCL API Wrapper is avaiable through [NuGet](https://www.nuget.org/p
 ## Runtime Requirement
 WordPressPCL 3.0 targets .NET 10 only. Upgrading from 2.x is a breaking change and requires applications and test environments to move to the .NET 10 SDK/runtime before restoring, building, or running tests.
 
+## Versioned Reference Docs
+- [Version 3.x reference docs](docs/I%20version%203.x/index.md)
+- [Version 2.x reference docs](docs/II%20version%202.x/index.md)
+- [Version 1.x reference docs](docs/III%20version%201.x/index.md)
+
 ## Supported Platforms
 WordPressPCL 3.0 targets .NET 10 and is intended for applications running on the current .NET platform:
 
@@ -182,7 +187,7 @@ dynamic searchResults = await client.CustomRequest.GetAsync<dynamic>("search?sea
 dynamic customEndpoint = await client.CustomRequest.GetAsync<dynamic>("wc/v3/products", useAuth: true);
 ```
 
-For a fuller endpoint-by-endpoint summary, see [docs/I version 2.x/endpoint-coverage.md](docs/I%20version%202.x/endpoint-coverage.md).
+For a fuller endpoint-by-endpoint summary, see [docs/I version 3.x/endpoint-coverage.md](docs/I%20version%203.x/endpoint-coverage.md).
 
 
 ## Additional Features
