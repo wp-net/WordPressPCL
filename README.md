@@ -44,9 +44,9 @@ WordPressPCL uses GitHub Releases as the source of truth for publishing new pack
 WordPressPCL 3.0 targets .NET 10 only. Upgrading from 2.x is a breaking change and requires applications and test environments to move to the .NET 10 SDK/runtime before restoring, building, or running tests.
 
 ## Versioned Reference Docs
-- [Version 3.x reference docs](docs/I%20version%203.x/index.md)
-- [Version 2.x reference docs](docs/II%20version%202.x/index.md)
-- [Version 1.x reference docs](docs/III%20version%201.x/index.md)
+- [Version 3.x reference docs](docs/v3/index.md)
+- [Version 2.x reference docs](docs/v2/index.md)
+- [Version 1.x reference docs](docs/v1/index.md)
 
 ## Supported Platforms
 WordPressPCL 3.0 targets .NET 10 and is intended for applications running on the current .NET platform:
@@ -195,7 +195,7 @@ dynamic searchResults = await client.CustomRequest.GetAsync<dynamic>("search?sea
 dynamic customEndpoint = await client.CustomRequest.GetAsync<dynamic>("wc/v3/products", useAuth: true);
 ```
 
-For a fuller endpoint-by-endpoint summary, see [docs/I version 3.x/endpoint-coverage.md](docs/I%20version%203.x/endpoint-coverage.md).
+For a fuller endpoint-by-endpoint summary, see [docs/v3/endpoint-coverage.md](docs/v3/endpoint-coverage.md).
 
 
 ## Additional Features
@@ -204,12 +204,10 @@ For a fuller endpoint-by-endpoint summary, see [docs/I version 3.x/endpoint-cove
 - [HttpResponsePreProcessing](https://github.com/wp-net/WordPressPCL/wiki/HttpResponsePreProcessing): manipulate the API response before deserializing it
 
 ## Contribution Guidelines
-We're very happy to get input from the community on this project! To keep the code clean we ask you to follow a few simple contribution guidelines.
+We're very happy to get input from the community on this project! See [CONTRIBUTING.md](CONTRIBUTING.md) for full details on setting up a development environment, running tests, and submitting pull requests.
 
-First, create an issue describing what feature you want to add or what problem you're trying to solve, just to make sure no one is already working on that. That also gives us a chance to debate whether a feature is within the scope of this project.
-
-Second, please try to stick to the official C# coding guidelines. https://msdn.microsoft.com/en-us/library/ms229002(v=vs.110).aspx
-
-Also, make sure to write some tests covering your new or modified code.
-
-In order to run the tests on local machine please refer to the **install.md** file in the dev directory of the repository. Docker and Docker Compose will be required to run the tests.
+In brief:
+- Open an issue before starting work so we can discuss scope and avoid duplicate effort.
+- Follow the [Microsoft C# coding guidelines](https://learn.microsoft.com/dotnet/csharp/fundamentals/coding-style/coding-conventions).
+- Add or update tests to cover your change.
+- In order to run the tests locally, refer to the [`dev/install.md`](dev/install.md) file and use Docker Compose.

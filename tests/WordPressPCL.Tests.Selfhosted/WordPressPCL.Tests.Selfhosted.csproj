@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\WordPressPCL\WordPressPCL.csproj" />
+    <ProjectReference Include="..\..\src\WordPressPCL\WordPressPCL.csproj" />
   </ItemGroup>
 
   <ItemGroup>
