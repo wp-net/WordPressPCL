@@ -87,6 +87,48 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="T:WordPressPCL.Client.Blocks">
+            <summary>
+            Client class for interaction with the Reusable Blocks endpoint WP REST API (<c>wp/v2/blocks</c>).
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Client.Blocks.#ctor(WordPressPCL.Utility.HttpHelper)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="httpHelper">reference to HttpHelper class for interaction with HTTP</param>
+        </member>
+        <member name="T:WordPressPCL.Client.BlockTypes">
+            <summary>
+            Client class for interaction with the Block Types endpoint WP REST API (<c>wp/v2/block-types</c>).
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Client.BlockTypes.#ctor(WordPressPCL.Utility.HttpHelper)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="httpHelper">reference to HttpHelper class for interaction with HTTP</param>
+        </member>
+        <member name="M:WordPressPCL.Client.BlockTypes.GetAsync(System.Boolean,System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            Get all registered block types.
+            </summary>
+            <param name="embed">Include embed info</param>
+            <param name="useAuth">Send request with authentication header</param>
+            <param name="cancellationToken">Cancellation token</param>
+            <returns>List of block types</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.BlockTypes.GetByNameAsync(System.String,System.String,System.Boolean,System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            Get a specific block type by its namespaced name (e.g. "core/paragraph").
+            </summary>
+            <param name="namespace">Block namespace (e.g. "core")</param>
+            <param name="name">Block name (e.g. "paragraph")</param>
+            <param name="embed">Include embed info</param>
+            <param name="useAuth">Send request with authentication header</param>
+            <param name="cancellationToken">Cancellation token</param>
+            <returns>The requested block type</returns>
+        </member>
         <member name="T:WordPressPCL.Client.Categories">
             <summary>
             Client class for interaction with Categories endpoint WP REST API
@@ -319,6 +361,46 @@
             <param name="cancellationToken">Cancellation token</param>
             <returns>Updated object</returns>
         </member>
+        <member name="T:WordPressPCL.Client.GlobalStylesClient">
+            <summary>
+            Client class for interaction with the Global Styles endpoint WP REST API (<c>wp/v2/global-styles/{id}</c>).
+            Global styles objects are identified by an integer ID obtained from the site's API index or theme endpoint.
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Client.GlobalStylesClient.#ctor(WordPressPCL.Utility.HttpHelper)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="httpHelper">reference to HttpHelper class for interaction with HTTP</param>
+        </member>
+        <member name="M:WordPressPCL.Client.GlobalStylesClient.GetByIdAsync(System.Int32,System.Boolean,System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            Get the global styles object for a given ID.
+            </summary>
+            <param name="id">The global styles post ID</param>
+            <param name="embed">Include embed info</param>
+            <param name="useAuth">Send request with authentication header</param>
+            <param name="cancellationToken">Cancellation token</param>
+            <returns>The global styles object</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.GlobalStylesClient.GetThemeStylesAsync(System.String,System.Boolean,System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            Get the global styles for a specific theme by its stylesheet slug.
+            </summary>
+            <param name="stylesheet">The theme stylesheet slug (e.g. "twentytwentyfour")</param>
+            <param name="embed">Include embed info</param>
+            <param name="useAuth">Send request with authentication header</param>
+            <param name="cancellationToken">Cancellation token</param>
+            <returns>The theme's global styles object</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.GlobalStylesClient.UpdateAsync(WordPressPCL.Models.GlobalStyles,System.Threading.CancellationToken)">
+            <summary>
+            Update an existing global styles object.
+            </summary>
+            <param name="entity">Global styles object with updated values</param>
+            <param name="cancellationToken">Cancellation token</param>
+            <returns>Updated global styles object</returns>
+        </member>
         <member name="T:WordPressPCL.Client.Media">
             <summary>
             Client class for interaction with Media endpoint WP REST API
@@ -429,6 +511,104 @@
             <param name="cancellationToken">Cancellation token</param>
             <returns>Updated object</returns>
         </member>
+        <member name="T:WordPressPCL.Client.NavigationClient">
+            <summary>
+            Client class for interaction with the Navigation endpoint WP REST API (<c>wp/v2/navigation</c>).
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Client.NavigationClient.#ctor(WordPressPCL.Utility.HttpHelper)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="httpHelper">reference to HttpHelper class for interaction with HTTP</param>
+        </member>
+        <member name="T:WordPressPCL.Client.PageAutosaves">
+            <summary>
+            Client class for interaction with the Page Autosaves endpoint WP REST API
+            (<c>wp/v2/pages/{pageId}/autosaves</c>).
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Client.PageAutosaves.#ctor(WordPressPCL.Utility.HttpHelper,System.Int32)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="httpHelper">reference to HttpHelper class for interaction with HTTP</param>
+            <param name="pageId">ID of the parent page</param>
+        </member>
+        <member name="M:WordPressPCL.Client.PageAutosaves.GetAsync(System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            Get the available autosaves for the page.
+            </summary>
+            <param name="embed">Include embed info</param>
+            <param name="cancellationToken">Cancellation token</param>
+            <returns>List of autosaves</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.PageAutosaves.GetByIdAsync(System.Int32,System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            Get a specific autosave by ID.
+            </summary>
+            <param name="id">Autosave ID</param>
+            <param name="embed">Include embed info</param>
+            <param name="cancellationToken">Cancellation token</param>
+            <returns>The requested autosave</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.PageAutosaves.CreateAsync(WordPressPCL.Models.Page,System.Threading.CancellationToken)">
+            <summary>
+            Create an autosave for the page.
+            </summary>
+            <param name="page">The page to autosave</param>
+            <param name="cancellationToken">Cancellation token</param>
+            <returns>The created autosave</returns>
+        </member>
+        <member name="T:WordPressPCL.Client.PageRevisions">
+            <summary>
+            Client class for interaction with the Page Revisions endpoint WP REST API
+            (<c>wp/v2/pages/{pageId}/revisions</c>).
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Client.PageRevisions.#ctor(WordPressPCL.Utility.HttpHelper,System.Int32)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="httpHelper">reference to HttpHelper class for interaction with HTTP</param>
+            <param name="pageId">ID of the parent page</param>
+        </member>
+        <member name="M:WordPressPCL.Client.PageRevisions.DeleteAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Delete a revision by ID.
+            </summary>
+            <param name="ID">Revision Id</param>
+            <param name="cancellationToken">Cancellation token</param>
+            <returns>Result of operation</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.PageRevisions.GetAsync(System.Boolean,System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            Get the most recent revisions.
+            </summary>
+            <param name="embed">Include embed info</param>
+            <param name="useAuth">Send request with authentication header</param>
+            <param name="cancellationToken">Cancellation token</param>
+            <returns>List of page revisions</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.PageRevisions.GetAllAsync(System.Boolean,System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            Get all revisions.
+            </summary>
+            <param name="embed">Include embed info</param>
+            <param name="useAuth">Send request with authentication header</param>
+            <param name="cancellationToken">Cancellation token</param>
+            <returns>List of all page revisions</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.PageRevisions.GetByIdAsync(System.Object,System.Boolean,System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            Get a revision by ID.
+            </summary>
+            <param name="id">Revision ID</param>
+            <param name="embed">Include embed info</param>
+            <param name="useAuth">Send request with authentication header</param>
+            <param name="cancellationToken">Cancellation token</param>
+            <returns>The requested page revision</returns>
+        </member>
         <member name="T:WordPressPCL.Client.Pages">
             <summary>
             Client class for interaction with Pages endpoint WP REST API
@@ -468,6 +648,20 @@
             <param name="force">force deletion</param>
             <param name="cancellationToken">Cancellation token</param>
             <returns>Result of operation</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Pages.Revisions(System.Int32)">
+            <summary>
+            Get an object to interact with revisions for a specific page.
+            </summary>
+            <param name="pageId">ID of the parent Page</param>
+            <returns>Page revisions object</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Pages.Autosaves(System.Int32)">
+            <summary>
+            Get an object to interact with autosaves for a specific page.
+            </summary>
+            <param name="pageId">ID of the parent Page</param>
+            <returns>Page autosaves object</returns>
         </member>
         <member name="T:WordPressPCL.Client.Plugins">
             <summary>
@@ -539,6 +733,44 @@
             <param name="Plugin"></param>
             <param name="cancellationToken">Cancellation token</param>
             <returns></returns>
+        </member>
+        <member name="T:WordPressPCL.Client.PostAutosaves">
+            <summary>
+            Client class for interaction with the Post Autosaves endpoint WP REST API
+            (<c>wp/v2/posts/{postId}/autosaves</c>).
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Client.PostAutosaves.#ctor(WordPressPCL.Utility.HttpHelper,System.Int32)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="httpHelper">reference to HttpHelper class for interaction with HTTP</param>
+            <param name="postId">ID of the parent post</param>
+        </member>
+        <member name="M:WordPressPCL.Client.PostAutosaves.GetAsync(System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            Get the available autosaves for the post.
+            </summary>
+            <param name="embed">Include embed info</param>
+            <param name="cancellationToken">Cancellation token</param>
+            <returns>List of autosaves</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.PostAutosaves.GetByIdAsync(System.Int32,System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            Get a specific autosave by ID.
+            </summary>
+            <param name="id">Autosave ID</param>
+            <param name="embed">Include embed info</param>
+            <param name="cancellationToken">Cancellation token</param>
+            <returns>The requested autosave</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.PostAutosaves.CreateAsync(WordPressPCL.Models.Post,System.Threading.CancellationToken)">
+            <summary>
+            Create an autosave for the post.
+            </summary>
+            <param name="post">The post to autosave</param>
+            <param name="cancellationToken">Cancellation token</param>
+            <returns>The created autosave</returns>
         </member>
         <member name="T:WordPressPCL.Client.PostRevisions">
             <summary>
@@ -674,6 +906,13 @@
             <param name="postId">ID of parent Post</param>
             <returns>Post revisions object</returns>
         </member>
+        <member name="M:WordPressPCL.Client.Posts.Autosaves(System.Int32)">
+            <summary>
+            Get an object to interact with autosaves for a specific post.
+            </summary>
+            <param name="postId">ID of parent Post</param>
+            <returns>Post autosaves object</returns>
+        </member>
         <member name="T:WordPressPCL.Client.PostStatuses">
             <summary>
             Client class for interaction with Post Types endpoint WP REST API
@@ -752,6 +991,35 @@
             <param name="cancellationToken">Cancellation token</param>
             <returns>Entity by Id</returns>
         </member>
+        <member name="T:WordPressPCL.Client.Search">
+            <summary>
+            Client class for interaction with the Search endpoint WP REST API (<c>wp/v2/search</c>).
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Client.Search.#ctor(WordPressPCL.Utility.HttpHelper)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="httpHelper">reference to HttpHelper class for interaction with HTTP</param>
+        </member>
+        <member name="M:WordPressPCL.Client.Search.SearchAsync(System.String,System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            Search for content matching a given term.
+            </summary>
+            <param name="searchTerm">Text to search for</param>
+            <param name="useAuth">Send request with authentication header</param>
+            <param name="cancellationToken">Cancellation token</param>
+            <returns>List of matching search results</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Search.QueryAsync(WordPressPCL.Utility.SearchQueryBuilder,System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            Execute a parametrized search query.
+            </summary>
+            <param name="queryBuilder">Query builder with specific parameters</param>
+            <param name="useAuth">Send request with authentication header</param>
+            <param name="cancellationToken">Cancellation token</param>
+            <returns>List of matching search results</returns>
+        </member>
         <member name="T:WordPressPCL.Client.Settings">
             <summary>
             Client class for interaction with Settings endpoints of WP REST API
@@ -777,6 +1045,45 @@
             <param name="settings">Settings object</param>
             <param name="cancellationToken">Cancellation token</param>
             <returns>Updated settings</returns>
+        </member>
+        <member name="T:WordPressPCL.Client.Sidebars">
+            <summary>
+            Client class for interaction with the Sidebars endpoint WP REST API (<c>wp/v2/sidebars</c>).
+            Sidebars support read and update operations only; they cannot be created or deleted via the API.
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Client.Sidebars.#ctor(WordPressPCL.Utility.HttpHelper)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="httpHelper">reference to HttpHelper class for interaction with HTTP</param>
+        </member>
+        <member name="M:WordPressPCL.Client.Sidebars.GetAsync(System.Boolean,System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            Get all registered sidebars.
+            </summary>
+            <param name="embed">Include embed info</param>
+            <param name="useAuth">Send request with authentication header</param>
+            <param name="cancellationToken">Cancellation token</param>
+            <returns>List of sidebars</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Sidebars.GetByIdAsync(System.String,System.Boolean,System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            Get a specific sidebar by its string ID (e.g. "sidebar-1").
+            </summary>
+            <param name="id">Sidebar ID</param>
+            <param name="embed">Include embed info</param>
+            <param name="useAuth">Send request with authentication header</param>
+            <param name="cancellationToken">Cancellation token</param>
+            <returns>The requested sidebar</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Sidebars.UpdateAsync(WordPressPCL.Models.Sidebar,System.Threading.CancellationToken)">
+            <summary>
+            Update an existing sidebar (e.g. to re-assign its widgets).
+            </summary>
+            <param name="entity">Sidebar object with updated values</param>
+            <param name="cancellationToken">Cancellation token</param>
+            <returns>Updated sidebar</returns>
         </member>
         <member name="T:WordPressPCL.Client.Tags">
             <summary>
@@ -837,6 +1144,134 @@
             <param name="cancellationToken">Cancellation token</param>
             <returns>List of filtered result</returns>
         </member>
+        <member name="T:WordPressPCL.Client.TemplateParts">
+            <summary>
+            Client class for interaction with the Block Template Parts endpoint WP REST API (<c>wp/v2/template-parts</c>).
+            Template parts use compound string identifiers such as <c>twentytwentyfour//header</c>.
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Client.TemplateParts.#ctor(WordPressPCL.Utility.HttpHelper)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="httpHelper">reference to HttpHelper class for interaction with HTTP</param>
+        </member>
+        <member name="M:WordPressPCL.Client.TemplateParts.GetAsync(System.Boolean,System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            Get all template parts.
+            </summary>
+            <param name="embed">Include embed info</param>
+            <param name="useAuth">Send request with authentication header</param>
+            <param name="cancellationToken">Cancellation token</param>
+            <returns>List of template parts</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.TemplateParts.GetByIdAsync(System.String,System.Boolean,System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            Get a template part by its compound string ID (e.g. "twentytwentyfour//header").
+            </summary>
+            <param name="id">Template part ID</param>
+            <param name="embed">Include embed info</param>
+            <param name="useAuth">Send request with authentication header</param>
+            <param name="cancellationToken">Cancellation token</param>
+            <returns>The requested template part</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.TemplateParts.QueryAsync(WordPressPCL.Utility.TemplatePartsQueryBuilder,System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            Execute a parametrized query.
+            </summary>
+            <param name="queryBuilder">Query builder with specific parameters</param>
+            <param name="useAuth">Send request with authentication header</param>
+            <param name="cancellationToken">Cancellation token</param>
+            <returns>List of matching template parts</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.TemplateParts.CreateAsync(WordPressPCL.Models.TemplatePart,System.Threading.CancellationToken)">
+            <summary>
+            Create a new template part.
+            </summary>
+            <param name="entity">Template part object to create</param>
+            <param name="cancellationToken">Cancellation token</param>
+            <returns>Created template part</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.TemplateParts.UpdateAsync(WordPressPCL.Models.TemplatePart,System.Threading.CancellationToken)">
+            <summary>
+            Update an existing template part.
+            </summary>
+            <param name="entity">Template part object with updated values</param>
+            <param name="cancellationToken">Cancellation token</param>
+            <returns>Updated template part</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.TemplateParts.DeleteAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Delete a template part by its compound string ID.
+            </summary>
+            <param name="id">Template part ID</param>
+            <param name="cancellationToken">Cancellation token</param>
+            <returns>True if successfully deleted</returns>
+        </member>
+        <member name="T:WordPressPCL.Client.Templates">
+            <summary>
+            Client class for interaction with the Block Templates endpoint WP REST API (<c>wp/v2/templates</c>).
+            Templates use compound string identifiers such as <c>twentytwentyfour//index</c>.
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Client.Templates.#ctor(WordPressPCL.Utility.HttpHelper)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="httpHelper">reference to HttpHelper class for interaction with HTTP</param>
+        </member>
+        <member name="M:WordPressPCL.Client.Templates.GetAsync(System.Boolean,System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            Get all templates.
+            </summary>
+            <param name="embed">Include embed info</param>
+            <param name="useAuth">Send request with authentication header</param>
+            <param name="cancellationToken">Cancellation token</param>
+            <returns>List of templates</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Templates.GetByIdAsync(System.String,System.Boolean,System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            Get a template by its compound string ID (e.g. "twentytwentyfour//index").
+            </summary>
+            <param name="id">Template ID</param>
+            <param name="embed">Include embed info</param>
+            <param name="useAuth">Send request with authentication header</param>
+            <param name="cancellationToken">Cancellation token</param>
+            <returns>The requested template</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Templates.QueryAsync(WordPressPCL.Utility.TemplatesQueryBuilder,System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            Execute a parametrized query.
+            </summary>
+            <param name="queryBuilder">Query builder with specific parameters</param>
+            <param name="useAuth">Send request with authentication header</param>
+            <param name="cancellationToken">Cancellation token</param>
+            <returns>List of matching templates</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Templates.CreateAsync(WordPressPCL.Models.Template,System.Threading.CancellationToken)">
+            <summary>
+            Create a new template.
+            </summary>
+            <param name="entity">Template object to create</param>
+            <param name="cancellationToken">Cancellation token</param>
+            <returns>Created template</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Templates.UpdateAsync(WordPressPCL.Models.Template,System.Threading.CancellationToken)">
+            <summary>
+            Update an existing template.
+            </summary>
+            <param name="entity">Template object with updated values</param>
+            <param name="cancellationToken">Cancellation token</param>
+            <returns>Updated template</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Templates.DeleteAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Delete a template by its compound string ID.
+            </summary>
+            <param name="id">Template ID</param>
+            <param name="cancellationToken">Cancellation token</param>
+            <returns>True if successfully deleted</returns>
+        </member>
         <member name="T:WordPressPCL.Client.Themes">
             <summary>
             Client class for interaction with Themes endpoint WP REST API
@@ -858,6 +1293,27 @@
             <param name="embed">include embed info</param>
             <param name="cancellationToken">Cancellation token</param>
             <returns>List of posts</returns>
+        </member>
+        <member name="T:WordPressPCL.Client.UrlDetailsClient">
+            <summary>
+            Client class for interaction with the URL Details endpoint WP REST API (<c>wp/v2/url-details</c>).
+            This endpoint returns metadata about an external URL, including its title, description and Open Graph data.
+            Requires authentication.
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Client.UrlDetailsClient.#ctor(WordPressPCL.Utility.HttpHelper)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="httpHelper">reference to HttpHelper class for interaction with HTTP</param>
+        </member>
+        <member name="M:WordPressPCL.Client.UrlDetailsClient.GetAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Retrieve metadata for a given URL.
+            </summary>
+            <param name="url">The URL to retrieve details for</param>
+            <param name="cancellationToken">Cancellation token</param>
+            <returns>URL metadata including title, description and Open Graph data</returns>
         </member>
         <member name="T:WordPressPCL.Client.Users">
             <summary>
@@ -990,6 +1446,110 @@
             <param name="userId">User ID, defaults to "me"</param>
             <param name="cancellationToken">Cancellation token</param>
             <returns>List of registered Application Passwords (without the actual password)</returns>
+        </member>
+        <member name="T:WordPressPCL.Client.Widgets">
+            <summary>
+            Client class for interaction with the Widgets endpoint WP REST API (<c>wp/v2/widgets</c>).
+            Widgets use string identifiers such as <c>block-3</c>.
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Client.Widgets.#ctor(WordPressPCL.Utility.HttpHelper)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="httpHelper">reference to HttpHelper class for interaction with HTTP</param>
+        </member>
+        <member name="M:WordPressPCL.Client.Widgets.GetAsync(System.Boolean,System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            Get all widgets.
+            </summary>
+            <param name="embed">Include embed info</param>
+            <param name="useAuth">Send request with authentication header</param>
+            <param name="cancellationToken">Cancellation token</param>
+            <returns>List of widgets</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Widgets.GetBySidebarAsync(System.String,System.Boolean,System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            Get widgets assigned to a specific sidebar.
+            </summary>
+            <param name="sidebarId">Sidebar ID</param>
+            <param name="embed">Include embed info</param>
+            <param name="useAuth">Send request with authentication header</param>
+            <param name="cancellationToken">Cancellation token</param>
+            <returns>List of widgets in the sidebar</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Widgets.GetByIdAsync(System.String,System.Boolean,System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            Get a specific widget by its string ID (e.g. "block-3").
+            </summary>
+            <param name="id">Widget ID</param>
+            <param name="embed">Include embed info</param>
+            <param name="useAuth">Send request with authentication header</param>
+            <param name="cancellationToken">Cancellation token</param>
+            <returns>The requested widget</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Widgets.QueryAsync(WordPressPCL.Utility.WidgetsQueryBuilder,System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            Execute a parametrized query.
+            </summary>
+            <param name="queryBuilder">Query builder with specific parameters</param>
+            <param name="useAuth">Send request with authentication header</param>
+            <param name="cancellationToken">Cancellation token</param>
+            <returns>List of matching widgets</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Widgets.CreateAsync(WordPressPCL.Models.Widget,System.Threading.CancellationToken)">
+            <summary>
+            Create a new widget.
+            </summary>
+            <param name="entity">Widget object to create</param>
+            <param name="cancellationToken">Cancellation token</param>
+            <returns>Created widget</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Widgets.UpdateAsync(WordPressPCL.Models.Widget,System.Threading.CancellationToken)">
+            <summary>
+            Update an existing widget.
+            </summary>
+            <param name="entity">Widget object with updated values</param>
+            <param name="cancellationToken">Cancellation token</param>
+            <returns>Updated widget</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Widgets.DeleteAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Delete a widget by its string ID, optionally removing it from the sidebar.
+            </summary>
+            <param name="id">Widget ID</param>
+            <param name="cancellationToken">Cancellation token</param>
+            <returns>True if successfully deleted</returns>
+        </member>
+        <member name="T:WordPressPCL.Client.WidgetTypes">
+            <summary>
+            Client class for interaction with the Widget Types endpoint WP REST API (<c>wp/v2/widget-types</c>).
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Client.WidgetTypes.#ctor(WordPressPCL.Utility.HttpHelper)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="httpHelper">reference to HttpHelper class for interaction with HTTP</param>
+        </member>
+        <member name="M:WordPressPCL.Client.WidgetTypes.GetAsync(System.Boolean,System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            Get all registered widget types.
+            </summary>
+            <param name="embed">Include embed info</param>
+            <param name="useAuth">Send request with authentication header</param>
+            <param name="cancellationToken">Cancellation token</param>
+            <returns>List of widget types</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.WidgetTypes.GetByIdAsync(System.String,System.Boolean,System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            Get a specific widget type by its ID (e.g. "block").
+            </summary>
+            <param name="id">Widget type ID</param>
+            <param name="embed">Include embed info</param>
+            <param name="useAuth">Send request with authentication header</param>
+            <param name="cancellationToken">Cancellation token</param>
+            <returns>The requested widget type</returns>
         </member>
         <member name="T:WordPressPCL.Interfaces.ICountOperation">
             <summary>
@@ -1209,6 +1769,141 @@
             Read only
             Context: view, edit, embed
             </remarks>
+        </member>
+        <member name="T:WordPressPCL.Models.Block">
+            <summary>
+            Represents a reusable block from the WordPress REST API (<c>wp/v2/blocks</c>).
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Block.Date">
+            <summary>
+            The date the object was published, in the site's timezone.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Block.DateGmt">
+            <summary>
+            The date the object was published, as GMT.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Block.Guid">
+            <summary>
+            The globally unique identifier for the object.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Block.Modified">
+            <summary>
+            The date the object was last modified, in the site's timezone.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Block.ModifiedGmt">
+            <summary>
+            The date the object was last modified, as GMT.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Block.Slug">
+            <summary>
+            An alphanumeric identifier for the object unique to its type.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Block.Status">
+            <summary>
+            A named status for the object.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Block.Title">
+            <summary>
+            The title for the object.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Block.Content">
+            <summary>
+            The content for the object.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Block.Meta">
+            <summary>
+            Meta fields.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Block.Links">
+            <summary>
+            Links to related resources.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Block.Embedded">
+            <summary>
+            Embedded information.
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Models.Block.#ctor">
+            <summary>
+            Parameterless constructor.
+            </summary>
+        </member>
+        <member name="T:WordPressPCL.Models.BlockType">
+            <summary>
+            Represents a registered block type from the WordPress REST API (<c>wp/v2/block-types</c>).
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.BlockType.ApiVersion">
+            <summary>
+            Block API version.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.BlockType.Name">
+            <summary>
+            Unique name identifying the block type, e.g. "core/paragraph".
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.BlockType.Title">
+            <summary>
+            Human-readable title for the block type.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.BlockType.Description">
+            <summary>
+            A short description of the block type.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.BlockType.Category">
+            <summary>
+            The category the block type belongs to.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.BlockType.Icon">
+            <summary>
+            An icon for the block type.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.BlockType.Keywords">
+            <summary>
+            Additional keywords that describe the block type.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.BlockType.Textdomain">
+            <summary>
+            The text domain for translations.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.BlockType.IsDynamic">
+            <summary>
+            Whether the block is dynamically rendered.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.BlockType.Supports">
+            <summary>
+            Editor-facing settings supported by the block type.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.BlockType.Styles">
+            <summary>
+            Named block styles available for the block type.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.BlockType.Links">
+            <summary>
+            Links to related resources.
+            </summary>
         </member>
         <member name="T:WordPressPCL.Models.Category">
             <summary>
@@ -1963,6 +2658,41 @@
             The response body (if any) that was returned with the error status
             </summary>
         </member>
+        <member name="T:WordPressPCL.Models.GlobalStyles">
+            <summary>
+            Represents a global styles object from the WordPress REST API (<c>wp/v2/global-styles/{id}</c>).
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.GlobalStyles.Title">
+            <summary>
+            The title for the global styles object.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.GlobalStyles.Settings">
+            <summary>
+            Global settings as defined in theme.json.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.GlobalStyles.Styles">
+            <summary>
+            Global styles as defined in theme.json.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.GlobalStyles.IsGlobalStylesUserThemeJson">
+            <summary>
+            Whether this is the global styles user theme JSON.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.GlobalStyles.Links">
+            <summary>
+            Links to related resources.
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Models.GlobalStyles.#ctor">
+            <summary>
+            Parameterless constructor.
+            </summary>
+        </member>
         <member name="T:WordPressPCL.Models.ImageMeta">
             <summary>
             Meta info (EXIF) of image media
@@ -2397,6 +3127,96 @@
         <member name="P:WordPressPCL.Models.MediaSize.SourceUrl">
             <summary>
             Url of source media
+            </summary>
+        </member>
+        <member name="T:WordPressPCL.Models.Navigation">
+            <summary>
+            Represents a navigation post from the WordPress REST API (<c>wp/v2/navigation</c>).
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Navigation.Date">
+            <summary>
+            The date the object was published, in the site's timezone.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Navigation.DateGmt">
+            <summary>
+            The date the object was published, as GMT.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Navigation.Guid">
+            <summary>
+            The globally unique identifier for the object.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Navigation.Modified">
+            <summary>
+            The date the object was last modified, in the site's timezone.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Navigation.ModifiedGmt">
+            <summary>
+            The date the object was last modified, as GMT.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Navigation.Password">
+            <summary>
+            A password to protect access to the content.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Navigation.Slug">
+            <summary>
+            An alphanumeric identifier for the object unique to its type.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Navigation.Status">
+            <summary>
+            A named status for the object.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Navigation.Type">
+            <summary>
+            Type of Post for the object.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Navigation.Link">
+            <summary>
+            URL to the object.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Navigation.Title">
+            <summary>
+            The title for the object.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Navigation.Content">
+            <summary>
+            The content for the object.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Navigation.Template">
+            <summary>
+            The theme file to use to display the object.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Navigation.Meta">
+            <summary>
+            Meta fields.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Navigation.Links">
+            <summary>
+            Links to related resources.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Navigation.Embedded">
+            <summary>
+            Embedded information.
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Models.Navigation.#ctor">
+            <summary>
+            Parameterless constructor.
             </summary>
         </member>
         <member name="T:WordPressPCL.Models.Page">
@@ -3101,6 +3921,41 @@
             Default constructor
             </summary>
         </member>
+        <member name="T:WordPressPCL.Models.SearchResult">
+            <summary>
+            Represents a result from the WordPress REST API search endpoint (<c>wp/v2/search</c>).
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.SearchResult.Id">
+            <summary>
+            Unique identifier for the object.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.SearchResult.Title">
+            <summary>
+            The title for the object.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.SearchResult.Url">
+            <summary>
+            URL to the object.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.SearchResult.Type">
+            <summary>
+            Object type.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.SearchResult.Subtype">
+            <summary>
+            Object subtype.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.SearchResult.Links">
+            <summary>
+            Links to related resources.
+            </summary>
+        </member>
         <member name="T:WordPressPCL.Models.Settings">
             <summary>
             WordPress main settings
@@ -3179,6 +4034,61 @@
         <member name="P:WordPressPCL.Models.Settings.DefaultCommentStatus">
             <summary>
             Default Comment Status
+            </summary>
+        </member>
+        <member name="T:WordPressPCL.Models.Sidebar">
+            <summary>
+            Represents a widget sidebar from the WordPress REST API (<c>wp/v2/sidebars</c>).
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Sidebar.Id">
+            <summary>
+            Unique identifier for the sidebar.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Sidebar.Name">
+            <summary>
+            Unique name identifying the sidebar.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Sidebar.Description">
+            <summary>
+            Description of the sidebar.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Sidebar.Class">
+            <summary>
+            Extra CSS class to assign to the sidebar in the customizer.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Sidebar.BeforeWidget">
+            <summary>
+            HTML content to prepend to each widget's HTML output when assigned to this sidebar.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Sidebar.AfterWidget">
+            <summary>
+            HTML content to append to each widget's HTML output when assigned to this sidebar.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Sidebar.BeforeTitle">
+            <summary>
+            HTML content to prepend to each widget's title when assigned to this sidebar.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Sidebar.AfterTitle">
+            <summary>
+            HTML content to append to each widget's title when assigned to this sidebar.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Sidebar.Status">
+            <summary>
+            Status of the sidebar.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Sidebar.Widgets">
+            <summary>
+            Nested widgets assigned to the sidebar.
             </summary>
         </member>
         <member name="T:WordPressPCL.Models.RenderedRawBase">
@@ -3736,6 +4646,188 @@
             Default constructor
             </summary>
         </member>
+        <member name="T:WordPressPCL.Models.Template">
+            <summary>
+            Represents a block template from the WordPress REST API (<c>wp/v2/templates</c>).
+            Templates have a compound string identifier such as <c>twentytwentyfour//index</c>.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Template.Id">
+            <summary>
+            Unique identifier for the template, e.g. "twentytwentyfour//index".
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Template.Slug">
+            <summary>
+            An alphanumeric identifier for the template unique to its type.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Template.Theme">
+            <summary>
+            The theme the template was created for.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Template.Type">
+            <summary>
+            Type of post — always <c>wp_template</c>.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Template.Source">
+            <summary>
+            Source of template (theme or custom).
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Template.Origin">
+            <summary>
+            Where the template originally comes from (theme or custom).
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Template.Content">
+            <summary>
+            The content for the template.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Template.Title">
+            <summary>
+            The title for the template.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Template.Description">
+            <summary>
+            A human-readable description of the template.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Template.Status">
+            <summary>
+            A named status for the template.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Template.WpId">
+            <summary>
+            The ID of the associated post for custom templates.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Template.HasThemeFile">
+            <summary>
+            Whether the template has a matching file in the active theme.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Template.Author">
+            <summary>
+            The ID of the user who last modified the template.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Template.IsCustom">
+            <summary>
+            Whether the template is custom (not bundled with the theme).
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Template.Meta">
+            <summary>
+            Meta fields.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Template.Links">
+            <summary>
+            Links to related resources.
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Models.Template.#ctor">
+            <summary>
+            Parameterless constructor.
+            </summary>
+        </member>
+        <member name="T:WordPressPCL.Models.TemplatePart">
+            <summary>
+            Represents a block template part from the WordPress REST API (<c>wp/v2/template-parts</c>).
+            Template parts have a compound string identifier such as <c>twentytwentyfour//header</c>.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.TemplatePart.Id">
+            <summary>
+            Unique identifier for the template part, e.g. "twentytwentyfour//header".
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.TemplatePart.Slug">
+            <summary>
+            An alphanumeric identifier for the template part unique to its type.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.TemplatePart.Theme">
+            <summary>
+            The theme the template part was created for.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.TemplatePart.Type">
+            <summary>
+            Type of post — always <c>wp_template_part</c>.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.TemplatePart.Source">
+            <summary>
+            Source of template part (theme or custom).
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.TemplatePart.Origin">
+            <summary>
+            Where the template part originally comes from (theme or custom).
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.TemplatePart.Content">
+            <summary>
+            The content for the template part.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.TemplatePart.Title">
+            <summary>
+            The title for the template part.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.TemplatePart.Description">
+            <summary>
+            A human-readable description of the template part.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.TemplatePart.Status">
+            <summary>
+            A named status for the template part.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.TemplatePart.WpId">
+            <summary>
+            The ID of the associated post for custom template parts.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.TemplatePart.HasThemeFile">
+            <summary>
+            Whether the template part has a matching file in the active theme.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.TemplatePart.Author">
+            <summary>
+            The ID of the user who last modified the template part.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.TemplatePart.Area">
+            <summary>
+            The area the template part is used in (e.g. "header", "footer").
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.TemplatePart.Meta">
+            <summary>
+            Meta fields.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.TemplatePart.Links">
+            <summary>
+            Links to related resources.
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Models.TemplatePart.#ctor">
+            <summary>
+            Parameterless constructor.
+            </summary>
+        </member>
         <member name="T:WordPressPCL.Models.Term">
             <summary>
             This is the base class for all terms, like categories and tags
@@ -3857,6 +4949,71 @@
         <member name="P:WordPressPCL.Models.Theme.Status">
             <summary>
             A named status for the theme.
+            </summary>
+        </member>
+        <member name="T:WordPressPCL.Models.UrlDetails">
+            <summary>
+            Represents the URL details returned by the WordPress REST API (<c>wp/v2/url-details</c>).
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.UrlDetails.Title">
+            <summary>
+            The page title of the linked URL.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.UrlDetails.Icon">
+            <summary>
+            The icon URL of the linked URL.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.UrlDetails.Description">
+            <summary>
+            A description of the linked URL.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.UrlDetails.Image">
+            <summary>
+            The Open Graph image of the linked URL.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.UrlDetails.OgDescription">
+            <summary>
+            The Open Graph description of the linked URL.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.UrlDetails.OgTitle">
+            <summary>
+            The Open Graph title of the linked URL.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.UrlDetails.OgImage">
+            <summary>
+            The Open Graph image data of the linked URL.
+            </summary>
+        </member>
+        <member name="T:WordPressPCL.Models.OgImage">
+            <summary>
+            Open Graph image entry returned inside <see cref="T:WordPressPCL.Models.UrlDetails"/>.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.OgImage.Width">
+            <summary>
+            The image width in pixels.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.OgImage.Height">
+            <summary>
+            The image height in pixels.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.OgImage.Url">
+            <summary>
+            The image URL.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.OgImage.Type">
+            <summary>
+            The MIME type of the image.
             </summary>
         </member>
         <member name="T:WordPressPCL.Models.User">
@@ -3996,6 +5153,106 @@
         <member name="M:WordPressPCL.Models.User.#ctor">
             <summary>
             parameterless constructor
+            </summary>
+        </member>
+        <member name="T:WordPressPCL.Models.Widget">
+            <summary>
+            Represents a widget instance from the WordPress REST API (<c>wp/v2/widgets</c>).
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Widget.Id">
+            <summary>
+            Unique identifier for the widget.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Widget.IdBase">
+            <summary>
+            The type of the widget (e.g. "block").
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Widget.Sidebar">
+            <summary>
+            The sidebar the widget belongs to.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Widget.Rendered">
+            <summary>
+            HTML representation of the widget.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Widget.RenderedForm">
+            <summary>
+            HTML representation of the widget admin form.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Widget.Instance">
+            <summary>
+            The widget's serialized state, including raw settings values.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Widget.Links">
+            <summary>
+            Links to related resources.
+            </summary>
+        </member>
+        <member name="T:WordPressPCL.Models.WidgetType">
+            <summary>
+            Represents a registered widget type from the WordPress REST API (<c>wp/v2/widget-types</c>).
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.WidgetType.Id">
+            <summary>
+            Unique identifier for the widget type (e.g. "block").
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.WidgetType.Name">
+            <summary>
+            Human-readable name of the widget type.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.WidgetType.Description">
+            <summary>
+            Description of the widget type.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.WidgetType.IsMulti">
+            <summary>
+            Whether the widget supports multiple instances.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.WidgetType.Classname">
+            <summary>
+            CSS class name for the widget type.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.WidgetType.Links">
+            <summary>
+            Links to related resources.
+            </summary>
+        </member>
+        <member name="T:WordPressPCL.Utility.BlocksQueryBuilder">
+            <summary>
+            Query builder for the <c>wp/v2/blocks</c> endpoint.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.BlocksQueryBuilder.Search">
+            <summary>
+            Limit results to those matching a string.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.BlocksQueryBuilder.Status">
+            <summary>
+            Limit result set to posts assigned a specific status.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.BlocksQueryBuilder.Page">
+            <summary>
+            Current page of the collection.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.BlocksQueryBuilder.PerPage">
+            <summary>
+            Maximum number of items to be returned in result set.
             </summary>
         </member>
         <member name="T:WordPressPCL.Utility.CategoriesQueryBuilder">
@@ -4428,6 +5685,31 @@
             <param name="extension"></param>
             <returns></returns>
         </member>
+        <member name="T:WordPressPCL.Utility.NavigationQueryBuilder">
+            <summary>
+            Query builder for the <c>wp/v2/navigation</c> endpoint.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.NavigationQueryBuilder.Search">
+            <summary>
+            Limit results to those matching a string.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.NavigationQueryBuilder.Status">
+            <summary>
+            Limit result set to posts assigned a specific status.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.NavigationQueryBuilder.Page">
+            <summary>
+            Current page of the collection.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.NavigationQueryBuilder.PerPage">
+            <summary>
+            Maximum number of items to be returned in result set.
+            </summary>
+        </member>
         <member name="T:WordPressPCL.Utility.PagesQueryBuilder">
             <summary>
             Pages Query Builder class to construct queries with valid parameters
@@ -4690,6 +5972,47 @@
             </summary>
             <param name="text">text uses in HTTP query string</param>
         </member>
+        <member name="T:WordPressPCL.Utility.SearchQueryBuilder">
+            <summary>
+            Query builder for the <c>wp/v2/search</c> endpoint.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.SearchQueryBuilder.Search">
+            <summary>
+            Limit results to those matching a string.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.SearchQueryBuilder.Type">
+            <summary>
+            Limit results to items of an object type.
+            One of: post, term, post-format.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.SearchQueryBuilder.Subtype">
+            <summary>
+            Limit results to items of one or more object subtypes.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.SearchQueryBuilder.Exclude">
+            <summary>
+            Ensure result set excludes specific IDs.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.SearchQueryBuilder.Include">
+            <summary>
+            Limit result set to specific IDs.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.SearchQueryBuilder.Page">
+            <summary>
+            Current page of the collection.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.SearchQueryBuilder.PerPage">
+            <summary>
+            Maximum number of items to be returned in result set.
+            </summary>
+        </member>
         <member name="T:WordPressPCL.Utility.TagsQueryBuilder">
             <summary>
             Tag Query Builder class to construct queries with valid parameters
@@ -4757,6 +6080,56 @@
         <member name="P:WordPressPCL.Utility.TaxonomiesQueryBuilder.Type">
             <summary>
             Limit results to taxonomies associated with a specific post type.
+            </summary>
+        </member>
+        <member name="T:WordPressPCL.Utility.TemplatePartsQueryBuilder">
+            <summary>
+            Query builder for the <c>wp/v2/template-parts</c> endpoint.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.TemplatePartsQueryBuilder.Theme">
+            <summary>
+            Limit to template parts for a specific theme (stylesheet).
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.TemplatePartsQueryBuilder.Area">
+            <summary>
+            Limit to template parts assigned to a specific area (e.g. "header", "footer").
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.TemplatePartsQueryBuilder.Page">
+            <summary>
+            Current page of the collection.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.TemplatePartsQueryBuilder.PerPage">
+            <summary>
+            Maximum number of items to be returned in result set.
+            </summary>
+        </member>
+        <member name="T:WordPressPCL.Utility.TemplatesQueryBuilder">
+            <summary>
+            Query builder for the <c>wp/v2/templates</c> endpoint.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.TemplatesQueryBuilder.Theme">
+            <summary>
+            Limit to templates for a specific theme (stylesheet).
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.TemplatesQueryBuilder.Type">
+            <summary>
+            Limit to templates of a specific type.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.TemplatesQueryBuilder.Page">
+            <summary>
+            Current page of the collection.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.TemplatesQueryBuilder.PerPage">
+            <summary>
+            Maximum number of items to be returned in result set.
             </summary>
         </member>
         <member name="T:WordPressPCL.Utility.ThemesQueryBuilder">
@@ -4868,6 +6241,16 @@
         <member name="P:WordPressPCL.Utility.UsersQueryBuilder.Roles">
             <summary>
             Limit result set to users matching at least one specific role provided. Accepts csv list or single role.
+            </summary>
+        </member>
+        <member name="T:WordPressPCL.Utility.WidgetsQueryBuilder">
+            <summary>
+            Query builder for the <c>wp/v2/widgets</c> endpoint.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.WidgetsQueryBuilder.Sidebar">
+            <summary>
+            Limit results to widgets assigned to a specific sidebar.
             </summary>
         </member>
         <member name="T:WordPressPCL.WordPressClient">
@@ -4982,6 +6365,61 @@
         <member name="P:WordPressPCL.WordPressClient.Themes">
             <summary>
             Themes client interaction object
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.WordPressClient.Search">
+            <summary>
+            Search client interaction object
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.WordPressClient.BlockTypes">
+            <summary>
+            Block Types client interaction object
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.WordPressClient.Blocks">
+            <summary>
+            Reusable Blocks client interaction object
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.WordPressClient.Templates">
+            <summary>
+            Block Templates client interaction object
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.WordPressClient.TemplateParts">
+            <summary>
+            Block Template Parts client interaction object
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.WordPressClient.GlobalStyles">
+            <summary>
+            Global Styles client interaction object
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.WordPressClient.Navigation">
+            <summary>
+            Navigation client interaction object
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.WordPressClient.Sidebars">
+            <summary>
+            Sidebars client interaction object
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.WordPressClient.Widgets">
+            <summary>
+            Widgets client interaction object
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.WordPressClient.WidgetTypes">
+            <summary>
+            Widget Types client interaction object
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.WordPressClient.UrlDetails">
+            <summary>
+            URL Details client interaction object
             </summary>
         </member>
         <member name="M:WordPressPCL.WordPressClient.#ctor(System.Uri,System.String)">
