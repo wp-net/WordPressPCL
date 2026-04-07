@@ -138,6 +138,61 @@ public class WordPressClient : IDisposable
     public Themes Themes { get; private set; } = null!;
 
     /// <summary>
+    /// Search client interaction object
+    /// </summary>
+    public Search Search { get; private set; } = null!;
+
+    /// <summary>
+    /// Block Types client interaction object
+    /// </summary>
+    public BlockTypes BlockTypes { get; private set; } = null!;
+
+    /// <summary>
+    /// Reusable Blocks client interaction object
+    /// </summary>
+    public Blocks Blocks { get; private set; } = null!;
+
+    /// <summary>
+    /// Block Templates client interaction object
+    /// </summary>
+    public Templates Templates { get; private set; } = null!;
+
+    /// <summary>
+    /// Block Template Parts client interaction object
+    /// </summary>
+    public TemplateParts TemplateParts { get; private set; } = null!;
+
+    /// <summary>
+    /// Global Styles client interaction object
+    /// </summary>
+    public GlobalStylesClient GlobalStyles { get; private set; } = null!;
+
+    /// <summary>
+    /// Navigation client interaction object
+    /// </summary>
+    public NavigationClient Navigation { get; private set; } = null!;
+
+    /// <summary>
+    /// Sidebars client interaction object
+    /// </summary>
+    public Sidebars Sidebars { get; private set; } = null!;
+
+    /// <summary>
+    /// Widgets client interaction object
+    /// </summary>
+    public Widgets Widgets { get; private set; } = null!;
+
+    /// <summary>
+    /// Widget Types client interaction object
+    /// </summary>
+    public WidgetTypes WidgetTypes { get; private set; } = null!;
+
+    /// <summary>
+    /// URL Details client interaction object
+    /// </summary>
+    public UrlDetailsClient UrlDetails { get; private set; } = null!;
+
+    /// <summary>
     /// The WordPressClient holds all connection infos and provides methods to call WordPress APIs.
     /// </summary>
     /// <param name="uri">URI for WordPress API endpoint, e.g. "http://demo.wp-api.org/wp-json/"</param>
@@ -206,6 +261,17 @@ public class WordPressClient : IDisposable
         Settings = new Settings(httpHelper);
         Plugins = new Plugins(httpHelper);
         Themes = new Themes(httpHelper);
+        Search = new Search(httpHelper);
+        BlockTypes = new BlockTypes(httpHelper);
+        Blocks = new Blocks(httpHelper);
+        Templates = new Templates(httpHelper);
+        TemplateParts = new TemplateParts(httpHelper);
+        GlobalStyles = new GlobalStylesClient(httpHelper);
+        Navigation = new NavigationClient(httpHelper);
+        Sidebars = new Sidebars(httpHelper);
+        Widgets = new Widgets(httpHelper);
+        WidgetTypes = new WidgetTypes(httpHelper);
+        UrlDetails = new UrlDetailsClient(httpHelper);
     }
 
 }

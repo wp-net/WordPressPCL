@@ -70,5 +70,25 @@ public class Pages : CRUDOperation<Page, PagesQueryBuilder>
         return HttpHelper.DeleteRequestAsync($"{_methodPath}/{ID}?force={force.ToString().ToLower(CultureInfo.InvariantCulture)}", cancellationToken: cancellationToken);
     }
 
+    /// <summary>
+    /// Get an object to interact with revisions for a specific page.
+    /// </summary>
+    /// <param name="pageId">ID of the parent Page</param>
+    /// <returns>Page revisions object</returns>
+    public PageRevisions Revisions(int pageId)
+    {
+        return new PageRevisions(HttpHelper, pageId);
+    }
+
+    /// <summary>
+    /// Get an object to interact with autosaves for a specific page.
+    /// </summary>
+    /// <param name="pageId">ID of the parent Page</param>
+    /// <returns>Page autosaves object</returns>
+    public PageAutosaves Autosaves(int pageId)
+    {
+        return new PageAutosaves(HttpHelper, pageId);
+    }
+
     #endregion Custom
 }

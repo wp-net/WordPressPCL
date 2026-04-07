@@ -152,5 +152,15 @@ public class Posts : CRUDOperation<Post, PostsQueryBuilder>, ICountOperation
         return new PostRevisions(HttpHelper, postId);
     }
 
+    /// <summary>
+    /// Get an object to interact with autosaves for a specific post.
+    /// </summary>
+    /// <param name="postId">ID of parent Post</param>
+    /// <returns>Post autosaves object</returns>
+    public PostAutosaves Autosaves(int postId)
+    {
+        return new PostAutosaves(HttpHelper, postId);
+    }
+
     #endregion Custom
 }

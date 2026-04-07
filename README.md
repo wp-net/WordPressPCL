@@ -167,29 +167,32 @@ Notes:
 
 ## Endpoint Coverage and Gaps
 
-WordPressPCL currently provides dedicated clients for the most common `wp/v2` endpoints:
+WordPressPCL provides dedicated clients for the standard `wp/v2` endpoints:
 
 - Posts, Pages, Comments, Categories, Tags, Users and Media
 - Taxonomies, Post Types, Post Statuses and Settings
-- Post revisions via `client.Posts.Revisions(postId)`
 - Plugins and Themes
+- Search (`client.Search`)
+- Block types (`client.BlockTypes`), reusable blocks (`client.Blocks`), templates (`client.Templates`), template parts (`client.TemplateParts`) and global styles (`client.GlobalStyles`)
+- Navigation (`client.Navigation`), sidebars (`client.Sidebars`), widgets (`client.Widgets`) and widget types (`client.WidgetTypes`)
+- URL details (`client.UrlDetails`)
+- Post revisions via `client.Posts.Revisions(postId)` and page revisions via `client.Pages.Revisions(pageId)`
+- Post autosaves via `client.Posts.Autosaves(postId)` and page autosaves via `client.Pages.Autosaves(pageId)`
 
-The standard WordPress REST API reference also includes endpoints that do not yet have first-class wrappers in this library, including:
+The following endpoints do not yet have first-class wrappers but can be called via `CustomRequest`:
 
-- `wp/v2/search`
-- newer block editor endpoints such as block types, blocks, block rendering, templates, template parts and global styles
-- navigation, sidebars, widgets and widget types
-- `wp/v2/url-details`
-- autosaves and page revisions
+- `wp/v2/block-renderer` (server-side block rendering)
+- `wp/v2/navigation-fallback`
+- font families, font faces and pattern directory endpoints
 
-You can still work with unsupported standard endpoints, plugin namespaces and site-specific custom endpoints by using `CustomRequest`.
+You can also work with plugin namespaces and site-specific custom endpoints using `CustomRequest`.
 
 ```csharp
 // Discover the namespaces and routes exposed by a site
 dynamic apiIndex = await client.CustomRequest.GetAsync<dynamic>("", ignoreDefaultPath: true);
 
 // Call a standard wp/v2 endpoint that does not have a dedicated client
-dynamic searchResults = await client.CustomRequest.GetAsync<dynamic>("search?search=hello", ignoreDefaultPath: false);
+dynamic rendered = await client.CustomRequest.PostAsync<dynamic>("block-renderer/core%2Fparagraph", body, ignoreDefaultPath: false);
 
 // Call a plugin or custom namespace route
 dynamic customEndpoint = await client.CustomRequest.GetAsync<dynamic>("wc/v3/products", useAuth: true);
