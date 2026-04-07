@@ -1,3 +1,71 @@
 site_name: WordPressPCL
 site_url: https://wp-net.github.io/WordPressPCL/
 theme: readthedocs
+nav:
+  - Home: index.md
+  - Version 3.x:
+    - Overview: v3/index.md
+    - Breaking Changes: v3/breaking-changes.md
+    - Endpoint Coverage: v3/endpoint-coverage.md
+    - Troubleshooting: v3/troubleshooting.md
+    - Customization:
+      - Custom HttpClient & DI: v3/customization/customHttpClient.md
+      - Custom JSON Settings: v3/customization/customJsonSerializationSettings.md
+      - Custom Request: v3/customization/customRequest.md
+      - HTTP Response Pre-Processing: v3/customization/httpResponsePreProcessing.md
+    - Entities:
+      - Posts: v3/entities/posts.md
+      - Pages: v3/entities/pages.md
+      - Comments: v3/entities/comments.md
+      - Categories: v3/entities/categories.md
+      - Tags: v3/entities/tags.md
+      - Users: v3/entities/users.md
+      - Media: v3/entities/media.md
+      - Taxonomies: v3/entities/taxonomies.md
+      - Post Types: v3/entities/posttypes.md
+      - Post Statuses: v3/entities/poststatuses.md
+      - Settings: v3/entities/settings.md
+      - Custom Post Type: v3/entities/customPostType.md
+  - Version 2.x:
+    - Overview: v2/index.md
+    - Breaking Changes: v2/breaking-changes.md
+    - Troubleshooting: v2/troubleshooting.md
+    - Customization:
+      - Custom HttpClient & DI: v2/customization/customHttpClient.md
+      - Custom JSON Settings: v2/customization/customJsonSerializationSettings.md
+      - Custom Request: v2/customization/customRequest.md
+      - HTTP Response Pre-Processing: v2/customization/httpResponsePreProcessing.md
+    - Entities:
+      - Posts: v2/entities/posts.md
+      - Pages: v2/entities/pages.md
+      - Comments: v2/entities/comments.md
+      - Categories: v2/entities/categories.md
+      - Tags: v2/entities/tags.md
+      - Users: v2/entities/users.md
+      - Media: v2/entities/media.md
+      - Taxonomies: v2/entities/taxonomies.md
+      - Post Types: v2/entities/posttypes.md
+      - Post Statuses: v2/entities/poststatuses.md
+      - Settings: v2/entities/settings.md
+      - Custom Post Type: v2/entities/customPostType.md
+  - Version 1.x:
+    - Overview: v1/index.md
+    - Troubleshooting: v1/troubleshooting.md
+    - Customization:
+      - Custom HttpClient: v1/customization/customHttpClient.md
+      - Custom JSON Settings: v1/customization/customJsonSerializationSettings.md
+      - Custom Request: v1/customization/customRequest.md
+      - HTTP Response Pre-Processing: v1/customization/httpResponsePreProcessing.md
+    - Entities:
+      - Posts: v1/entities/posts.md
+      - Pages: v1/entities/pages.md
+      - Comments: v1/entities/comments.md
+      - Categories: v1/entities/categories.md
+      - Tags: v1/entities/tags.md
+      - Users: v1/entities/users.md
+      - Media: v1/entities/media.md
+      - Taxonomies: v1/entities/taxonomies.md
+      - Post Types: v1/entities/posttypes.md
+      - Post Statuses: v1/entities/poststatuses.md
+      - Settings: v1/entities/settings.md
+      - Custom Post Type: v1/entities/customPostType.md

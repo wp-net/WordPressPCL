@@ -50,4 +50,4 @@ jobs:
         curl --fail http://localhost:8080/wp-json
 
     - name: 'Run Tests: Selfhosted WordPress with JWT-AUTH'
-      run: dotnet test -l "console;verbosity=detailed" WordPressPCL.Tests.Selfhosted/WordPressPCL.Tests.Selfhosted.csproj -s WordPressPCL.Tests.Selfhosted/jwtauth.runsettings
+      run: dotnet test -l "console;verbosity=detailed" tests/WordPressPCL.Tests.Selfhosted/WordPressPCL.Tests.Selfhosted.csproj -s tests/WordPressPCL.Tests.Selfhosted/jwtauth.runsettings
