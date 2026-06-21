@@ -1,5 +1,5 @@
 # WordPressPCL
-![Integration Tests](https://github.com/wp-net/WordPressPCL/workflows/Integration%20Tests/badge.svg?branch=main) [![NuGet](https://img.shields.io/nuget/vpre/WordPressPCL)](https://www.nuget.org/packages/WordPressPCL/)
+![Integration Tests](https://github.com/wp-net/WordPressPCL/workflows/Integration%20Tests/badge.svg?branch=main) [![NuGet](https://img.shields.io/nuget/v/WordPressPCL)](https://www.nuget.org/packages/WordPressPCL/)
 
 This is a .NET 10 library for consuming the WordPress REST API in C# applications.
 If you find bugs or have any suggestions, feel free to create an issue.
@@ -37,8 +37,8 @@ The WordPressPCL API Wrapper is avaiable through [NuGet](https://www.nuget.org/p
 WordPressPCL uses GitHub Releases as the source of truth for publishing new package versions.
 
 1. Update [CHANGELOG.md](CHANGELOG.md) with the release highlights.
-2. Create a GitHub release with a `vX.Y.Z` tag (or `vX.Y.Z-suffix` for pre-releases) and GitHub-generated release notes.
-3. Publishing that release triggers the NuGet workflow, which builds and publishes the same version to NuGet.
+2. Create a stable GitHub release with a `vX.Y.Z` tag and GitHub-generated release notes.
+3. Publishing that stable release triggers the NuGet workflow, which builds and publishes the same version to NuGet.
 
 ## Runtime Requirement
 WordPressPCL 3.0 targets .NET 10 only. Upgrading from 2.x is a breaking change and requires applications and test environments to move to the .NET 10 SDK/runtime before restoring, building, or running tests.

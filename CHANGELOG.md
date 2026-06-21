@@ -8,7 +8,7 @@ The project now uses GitHub Releases as the source of truth for versioned releas
 
 ### Changed
 
-- Placeholder for upcoming changes before the next GitHub release is published.
+- NuGet publishing now validates stable `vX.Y.Z` GitHub releases only.
 
 ## [3.0.0]
 

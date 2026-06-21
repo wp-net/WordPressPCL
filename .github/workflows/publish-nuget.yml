@@ -15,6 +15,7 @@ jobs:
       solution: WordPressPCL.sln
       project: src/WordPressPCL/WordPressPCL.csproj
       release_tag: ${{ github.event.release.tag_name }}
+      is_prerelease: ${{ github.event.release.prerelease }}
 
     steps:
       - uses: actions/checkout@v5
@@ -27,9 +28,13 @@ jobs:
       - name: Validate release tag
         id: version
         run: |
+          if [[ "$is_prerelease" == "true" ]]; then
+            echo "Only stable GitHub releases can publish to NuGet."
+            exit 1
+          fi
           version="${release_tag#v}"
-          if [[ ! "$release_tag" =~ ^v[0-9]+\.[0-9]+\.[0-9]+([-.][0-9A-Za-z.-]+)?$ ]]; then
-            echo "Release tag '$release_tag' must use the format v<major>.<minor>.<patch>[-suffix]."
+          if [[ ! "$release_tag" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "Release tag '$release_tag' must use the stable format v<major>.<minor>.<patch>."
             exit 1
           fi
           echo "value=$version" >> "$GITHUB_OUTPUT"
