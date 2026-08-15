@@ -6,6 +6,11 @@ The project now uses GitHub Releases as the source of truth for versioned releas
 
 ## [Unreleased]
 
+### Added
+
+- `WordPressClient.HttpHelper` exposes the client's `HttpHelper`, so custom endpoints (custom post types, custom taxonomies) can be built on `CRUDOperation<TClass, QClass>` / `CustomRequest` while sharing the client's connection, authentication and serializer settings.
+- `Base.CustomFields` collects REST payload fields that are not mapped to a model property — those added by a plugin or a custom endpoint — on every model derived from `Base`. Backed by `[JsonExtensionData]`, so entries round-trip as top-level properties and an unset dictionary adds nothing to outgoing payloads.
+
 ### Changed
 
 - Placeholder for upcoming changes before the next GitHub release is published.

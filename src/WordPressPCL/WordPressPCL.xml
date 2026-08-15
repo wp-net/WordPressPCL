@@ -1210,6 +1210,27 @@
             Context: view, edit, embed
             </remarks>
         </member>
+        <member name="P:WordPressPCL.Models.Base.CustomFields">
+            <summary>
+            Fields of the REST payload that are not mapped to a property of this model, such as those
+            added by a plugin or by a custom endpoint.
+            </summary>
+            <remarks>
+            Backed by <see cref="T:System.Text.Json.Serialization.JsonExtensionDataAttribute"/>: unrecognized properties are collected here
+            while deserializing, and each entry is written back as a top-level property while serializing.
+            The property stays <see langword="null"/> when a response carries no unmapped fields, and neither
+            a <see langword="null"/> nor an empty dictionary contributes anything to an outgoing payload.
+            <para>
+            Values are <see cref="T:System.Text.Json.JsonElement"/> instances after deserialization, while any
+            CLR object may be assigned before a request is sent. Entries are written verbatim, so a key that
+            collides with a mapped property name produces a duplicate JSON property.
+            </para>
+            <para>
+            System.Text.Json allows a single extension data member per type, so a derived model must not
+            declare one of its own.
+            </para>
+            </remarks>
+        </member>
         <member name="T:WordPressPCL.Models.Category">
             <summary>
             Terms of the type category
@@ -4874,6 +4895,16 @@
             <summary>
             Main class containing the wrapper client with all public API endpoints.
             </summary>
+        </member>
+        <member name="P:WordPressPCL.WordPressClient.HttpHelper">
+            <summary>
+            Gets the <see cref="T:WordPressPCL.Utility.HttpHelper"/> instance used for sending requests to the WordPress API endpoint.
+            </summary>
+            <remarks>
+            Exposed so custom endpoints can share this client's connection, authentication and serializer settings,
+            for example by passing it to a <see cref="T:WordPressPCL.Client.CustomRequest"/> or to a custom
+            <see cref="T:WordPressPCL.Client.CRUDOperation`2"/> implementation for a custom post type or taxonomy.
+            </remarks>
         </member>
         <member name="P:WordPressPCL.WordPressClient.WordPressUri">
             <summary>
