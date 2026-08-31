@@ -87,6 +87,67 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="T:WordPressPCL.Client.Blocks">
+            <summary>
+            Client class for interaction with the Reusable Blocks endpoint WP REST API (<c>wp/v2/blocks</c>).
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Client.Blocks.#ctor(WordPressPCL.Utility.HttpHelper)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="httpHelper">reference to HttpHelper class for interaction with HTTP</param>
+        </member>
+        <member name="T:WordPressPCL.Client.BlockTypes">
+            <summary>
+            Client class for interaction with the Block Types endpoint WP REST API (<c>wp/v2/block-types</c>).
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Client.BlockTypes.#ctor(WordPressPCL.Utility.HttpHelper)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="httpHelper">reference to HttpHelper class for interaction with HTTP</param>
+        </member>
+        <member name="M:WordPressPCL.Client.BlockTypes.GetAsync(System.Boolean,System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            Get all registered block types.
+            </summary>
+            <param name="embed">Include embed info</param>
+            <param name="useAuth">Send request with authentication header</param>
+            <param name="cancellationToken">Cancellation token</param>
+            <returns>List of block types</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.BlockTypes.QueryAsync(WordPressPCL.Utility.BlockTypesQueryBuilder,System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            Query registered block types.
+            </summary>
+            <param name="queryBuilder">Query builder with the namespace and response context</param>
+            <param name="useAuth">Send request with authentication header</param>
+            <param name="cancellationToken">Cancellation token</param>
+            <returns>List of matching block types</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.BlockTypes.GetByNamespaceAsync(System.String,WordPressPCL.Models.Context,System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            Get all registered block types in a namespace.
+            </summary>
+            <param name="namespace">Block namespace, for example <c>core</c></param>
+            <param name="context">Scope under which the request is made</param>
+            <param name="useAuth">Send request with authentication header</param>
+            <param name="cancellationToken">Cancellation token</param>
+            <returns>List of block types in the namespace</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.BlockTypes.GetByNameAsync(System.String,System.String,WordPressPCL.Models.Context,System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            Get a specific block type by its namespaced name.
+            </summary>
+            <param name="namespace">Block namespace, for example <c>core</c></param>
+            <param name="name">Block name, for example <c>paragraph</c></param>
+            <param name="context">Scope under which the request is made</param>
+            <param name="useAuth">Send request with authentication header</param>
+            <param name="cancellationToken">Cancellation token</param>
+            <returns>The requested block type</returns>
+        </member>
         <member name="T:WordPressPCL.Client.Categories">
             <summary>
             Client class for interaction with Categories endpoint WP REST API
@@ -168,6 +229,11 @@
             Is object must be force deleted
             </summary>
         </member>
+        <member name="P:WordPressPCL.Client.CRUDOperation`2.AuthenticationRequiredForReads">
+            <summary>
+            Whether read requests for this endpoint always require authentication.
+            </summary>
+        </member>
         <member name="M:WordPressPCL.Client.CRUDOperation`2.#ctor(WordPressPCL.Utility.HttpHelper,System.String,System.Boolean)">
             <summary>
             Constructor
@@ -175,6 +241,15 @@
             <param name="httpHelper">reference to HttpHelper class for interaction with HTTP</param>
             <param name="methodPath">path to endpoint, EX. posts</param>
             <param name="forceDeletion">is objects must be force deleted</param>
+        </member>
+        <member name="M:WordPressPCL.Client.CRUDOperation`2.#ctor(WordPressPCL.Utility.HttpHelper,System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Constructor for endpoints that can require authentication for every read request.
+            </summary>
+            <param name="httpHelper">reference to HttpHelper class for interaction with HTTP</param>
+            <param name="methodPath">path to endpoint, EX. posts</param>
+            <param name="forceDeletion">is objects must be force deleted</param>
+            <param name="authenticationRequiredForReads">whether all read requests require authentication</param>
         </member>
         <member name="M:WordPressPCL.Client.CRUDOperation`2.CreateAsync(`0,System.Threading.CancellationToken)">
             <summary>
@@ -428,6 +503,17 @@
             <param name="Entity">Entity object</param>
             <param name="cancellationToken">Cancellation token</param>
             <returns>Updated object</returns>
+        </member>
+        <member name="T:WordPressPCL.Client.NavigationClient">
+            <summary>
+            Client class for interaction with the Navigation endpoint WP REST API (<c>wp/v2/navigation</c>).
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Client.NavigationClient.#ctor(WordPressPCL.Utility.HttpHelper)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="httpHelper">reference to HttpHelper class for interaction with HTTP</param>
         </member>
         <member name="T:WordPressPCL.Client.PageAutosaves">
             <summary>
@@ -1427,6 +1513,274 @@
             </para>
             </remarks>
         </member>
+        <member name="T:WordPressPCL.Models.Block">
+            <summary>
+            Represents a reusable block from the WordPress REST API (<c>wp/v2/blocks</c>).
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Block.Date">
+            <summary>
+            The date the block was published, in the site's timezone.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Block.DateGmt">
+            <summary>
+            The date the block was published, as GMT.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Block.Guid">
+            <summary>
+            The globally unique identifier for the block.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Block.Link">
+            <summary>
+            URL to the block.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Block.Modified">
+            <summary>
+            The date the block was last modified, in the site's timezone.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Block.ModifiedGmt">
+            <summary>
+            The date the block was last modified, as GMT.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Block.Password">
+            <summary>
+            A password to protect access to the content.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Block.Slug">
+            <summary>
+            An alphanumeric identifier for the block unique to its type.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Block.Status">
+            <summary>
+            A named status for the block.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Block.Type">
+            <summary>
+            Type of post for the block.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Block.Title">
+            <summary>
+            The title for the block.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Block.Content">
+            <summary>
+            The content for the block.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Block.Template">
+            <summary>
+            The theme file to use to display the block.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Block.Meta">
+            <summary>
+            Meta fields.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Block.Links">
+            <summary>
+            Links to related resources.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Block.Embedded">
+            <summary>
+            Embedded information.
+            </summary>
+        </member>
+        <member name="T:WordPressPCL.Models.BlockType">
+            <summary>
+            Represents a registered block type from the WordPress REST API (<c>wp/v2/block-types</c>).
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.BlockType.ApiVersion">
+            <summary>
+            Block API version.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.BlockType.Name">
+            <summary>
+            Unique name identifying the block type.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.BlockType.Title">
+            <summary>
+            Human-readable title for the block type.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.BlockType.Description">
+            <summary>
+            Description of the block type.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.BlockType.Icon">
+            <summary>
+            Icon for the block type.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.BlockType.Attributes">
+            <summary>
+            Block attribute schemas keyed by attribute name.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.BlockType.ProvidesContext">
+            <summary>
+            Context values provided by blocks of this type.
+            </summary>
+            <remarks>
+            Kept as JSON because older WordPress releases returned an array while current releases return an object.
+            </remarks>
+        </member>
+        <member name="P:WordPressPCL.Models.BlockType.UsesContext">
+            <summary>
+            Context values inherited by blocks of this type.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.BlockType.Selectors">
+            <summary>
+            Custom CSS selectors keyed by feature.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.BlockType.Supports">
+            <summary>
+            Editor-facing settings supported by the block type.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.BlockType.Category">
+            <summary>
+            Block category.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.BlockType.IsDynamic">
+            <summary>
+            Whether the block is dynamically rendered.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.BlockType.EditorScriptHandles">
+            <summary>
+            Editor script handles.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.BlockType.ScriptHandles">
+            <summary>
+            Public-facing and editor script handles.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.BlockType.ViewScriptHandles">
+            <summary>
+            Public-facing script handles.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.BlockType.ViewScriptModuleIds">
+            <summary>
+            Public-facing script module IDs.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.BlockType.EditorStyleHandles">
+            <summary>
+            Editor style handles.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.BlockType.StyleHandles">
+            <summary>
+            Public-facing and editor style handles.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.BlockType.ViewStyleHandles">
+            <summary>
+            Public-facing style handles.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.BlockType.Styles">
+            <summary>
+            Block style variations.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.BlockType.Variations">
+            <summary>
+            Block variations.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.BlockType.Textdomain">
+            <summary>
+            Public text domain.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.BlockType.Parent">
+            <summary>
+            Parent block types.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.BlockType.Ancestor">
+            <summary>
+            Ancestor block types.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.BlockType.AllowedBlocks">
+            <summary>
+            Block types allowed as direct children.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.BlockType.Keywords">
+            <summary>
+            Search keywords for the block type.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.BlockType.Example">
+            <summary>
+            Example data for the block type.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.BlockType.BlockHooks">
+            <summary>
+            Block types and relative positions where this block is automatically inserted.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.BlockType.EditorScript">
+            <summary>
+            Deprecated editor script handle.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.BlockType.Script">
+            <summary>
+            Deprecated public-facing and editor script handle.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.BlockType.ViewScript">
+            <summary>
+            Deprecated public-facing script handle.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.BlockType.EditorStyle">
+            <summary>
+            Deprecated editor style handle.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.BlockType.Style">
+            <summary>
+            Deprecated public-facing and editor style handle.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.BlockType.Links">
+            <summary>
+            Links to related resources.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.BlockType.AdditionalFields">
+            <summary>
+            Additional fields supplied by newer WordPress versions, plugins or custom registrations.
+            </summary>
+        </member>
         <member name="T:WordPressPCL.Models.Category">
             <summary>
             Terms of the type category
@@ -1797,6 +2151,11 @@
         <member name="F:WordPressPCL.Models.PostsOrderBy.Parent">
             <summary>
             Order By parent
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.PostsOrderBy.IncludeSlugs">
+            <summary>
+            Order by the order of the slugs supplied in the slug parameter.
             </summary>
         </member>
         <member name="T:WordPressPCL.Models.UsersOrderBy">
@@ -2614,6 +2973,91 @@
         <member name="P:WordPressPCL.Models.MediaSize.SourceUrl">
             <summary>
             Url of source media
+            </summary>
+        </member>
+        <member name="T:WordPressPCL.Models.Navigation">
+            <summary>
+            Represents a navigation post from the WordPress REST API (<c>wp/v2/navigation</c>).
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Navigation.Date">
+            <summary>
+            The date the navigation post was published, in the site's timezone.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Navigation.DateGmt">
+            <summary>
+            The date the navigation post was published, as GMT.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Navigation.Guid">
+            <summary>
+            The globally unique identifier for the navigation post.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Navigation.Link">
+            <summary>
+            URL to the navigation post.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Navigation.Modified">
+            <summary>
+            The date the navigation post was last modified, in the site's timezone.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Navigation.ModifiedGmt">
+            <summary>
+            The date the navigation post was last modified, as GMT.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Navigation.Password">
+            <summary>
+            A password to protect access to the content.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Navigation.Slug">
+            <summary>
+            An alphanumeric identifier for the navigation post unique to its type.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Navigation.Status">
+            <summary>
+            A named status for the navigation post.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Navigation.Type">
+            <summary>
+            Type of post for the navigation post.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Navigation.Title">
+            <summary>
+            The title for the navigation post.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Navigation.Content">
+            <summary>
+            The block markup stored for the navigation post.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Navigation.Template">
+            <summary>
+            The theme file to use to display the navigation post.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Navigation.Meta">
+            <summary>
+            Meta fields.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Navigation.Links">
+            <summary>
+            Links to related resources.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Navigation.Embedded">
+            <summary>
+            Embedded information.
             </summary>
         </member>
         <member name="T:WordPressPCL.Models.Page">
@@ -4315,6 +4759,97 @@
             parameterless constructor
             </summary>
         </member>
+        <member name="T:WordPressPCL.Utility.BlocksQueryBuilder">
+            <summary>
+            Query builder for the <c>wp/v2/blocks</c> endpoint.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.BlocksQueryBuilder.Page">
+            <summary>
+            Current page of the collection.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.BlocksQueryBuilder.PerPage">
+            <summary>
+            Maximum number of items to be returned in result set.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.BlocksQueryBuilder.Search">
+            <summary>
+            Limit results to those matching a string.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.BlocksQueryBuilder.After">
+            <summary>
+            Limit response to posts published after a given date.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.BlocksQueryBuilder.ModifiedAfter">
+            <summary>
+            Limit response to posts modified after a given date.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.BlocksQueryBuilder.Before">
+            <summary>
+            Limit response to posts published before a given date.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.BlocksQueryBuilder.ModifiedBefore">
+            <summary>
+            Limit response to posts modified before a given date.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.BlocksQueryBuilder.Exclude">
+            <summary>
+            Ensure result set excludes specific IDs.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.BlocksQueryBuilder.Include">
+            <summary>
+            Limit result set to specific IDs.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.BlocksQueryBuilder.Offset">
+            <summary>
+            Offset the result set by a specific number of items.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.BlocksQueryBuilder.OrderBy">
+            <summary>
+            Sort collection by post attribute.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.BlocksQueryBuilder.SearchColumns">
+            <summary>
+            Limit search to specific post columns.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.BlocksQueryBuilder.Slugs">
+            <summary>
+            Limit result set to posts with one or more specific slugs.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.BlocksQueryBuilder.Statuses">
+            <summary>
+            Limit result set to posts assigned one or more statuses.
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Utility.BlocksQueryBuilder.BuildQuery">
+            <inheritdoc />
+        </member>
+        <member name="T:WordPressPCL.Utility.BlockTypesQueryBuilder">
+            <summary>
+            Query builder for the <c>wp/v2/block-types</c> endpoint.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.BlockTypesQueryBuilder.Namespace">
+            <summary>
+            Limit results to block types in a namespace.
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Utility.BlockTypesQueryBuilder.BuildQuery">
+            <inheritdoc />
+        </member>
         <member name="T:WordPressPCL.Utility.CategoriesQueryBuilder">
             <summary>
             Category Query Builder class to construct queries with valid parameters
@@ -4744,6 +5279,11 @@
             </summary>
             <param name="extension"></param>
             <returns></returns>
+        </member>
+        <member name="T:WordPressPCL.Utility.NavigationQueryBuilder">
+            <summary>
+            Query builder for the <c>wp/v2/navigation</c> endpoint.
+            </summary>
         </member>
         <member name="T:WordPressPCL.Utility.PagesQueryBuilder">
             <summary>
@@ -5364,6 +5904,21 @@
         <member name="P:WordPressPCL.WordPressClient.UrlDetails">
             <summary>
             URL Details client interaction object
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.WordPressClient.BlockTypes">
+            <summary>
+            Block Types client interaction object
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.WordPressClient.Blocks">
+            <summary>
+            Reusable Blocks client interaction object
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.WordPressClient.Navigation">
+            <summary>
+            Navigation client interaction object
             </summary>
         </member>
         <member name="M:WordPressPCL.WordPressClient.#ctor(System.Uri,System.String)">

@@ -200,7 +200,13 @@ public enum PostsOrderBy
     /// Order By parent
     /// </summary>
     [EnumMember(Value = "parent")]
-    Parent
+    Parent,
+
+    /// <summary>
+    /// Order by the order of the slugs supplied in the slug parameter.
+    /// </summary>
+    [EnumMember(Value = "include_slugs")]
+    IncludeSlugs
 }
 
 /// <summary>
