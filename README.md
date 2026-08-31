@@ -167,6 +167,9 @@ public sealed class PublishWorker(WordPressClient client)
 | **Block Types**    | ---     | yes     | ---     | ---     |
 | **Reusable Blocks**| yes     | yes     | yes     | yes     |
 | **Navigation**     | yes     | yes     | yes     | yes     |
+| **Templates**      | yes     | yes     | yes     | yes     |
+| **Template Parts** | yes     | yes     | yes     | yes     |
+| **Global Styles**  | ---     | yes     | yes     | ---     |
 
 Notes:
 
@@ -177,6 +180,8 @@ Notes:
 - Block types require WordPress 5.5 or newer and an authenticated user with permission to edit a REST-enabled post type.
 - Reusable blocks require WordPress 5.0 or newer; core requires authentication and suitable post-editing permissions for reads and writes.
 - Navigation posts require WordPress 5.9 or newer. Published posts can be read anonymously in `view` context, while edit context, non-public content and writes require authentication; core maps editing capabilities to `edit_theme_options`.
+- Templates and template parts require WordPress 5.8 or newer and authentication. They use compound string IDs such as `twentytwentyfour//index`; template fallback lookup requires WordPress 6.1 or newer.
+- Global styles require WordPress 5.9 or newer and authentication. `client.GlobalStyles` reads or updates a record by integer ID and reads merged styles for the active theme.
 - Discover `/wp-json/` rather than assuming these newer routes exist on older or customized sites.
 
 ## Endpoint Coverage and Gaps
@@ -191,10 +196,11 @@ WordPressPCL currently provides dedicated clients for the most common `wp/v2` en
 - Search via `client.Search`
 - URL details via `client.UrlDetails` (`wp-block-editor/v1/url-details`, authentication required)
 - Block types, reusable blocks and navigation posts via `client.BlockTypes`, `client.Blocks` and `client.Navigation`
+- Templates, template parts and global styles via `client.Templates`, `client.TemplateParts` and `client.GlobalStyles`
 
 The standard WordPress REST API reference also includes endpoints that do not yet have first-class wrappers in this library, including:
 
-- newer block editor endpoints such as block rendering, templates, template parts and global styles
+- newer block editor endpoints such as block rendering
 - navigation fallback, sidebars, widgets and widget types
 
 You can still work with unsupported standard endpoints, plugin namespaces and site-specific custom endpoints by using `CustomRequest`.

@@ -394,6 +394,39 @@
             <param name="cancellationToken">Cancellation token</param>
             <returns>Updated object</returns>
         </member>
+        <member name="T:WordPressPCL.Client.GlobalStylesClient">
+            <summary>
+            Client for single global styles records and active-theme styles
+            (<c>wp/v2/global-styles</c>).
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Client.GlobalStylesClient.#ctor(WordPressPCL.Utility.HttpHelper)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="httpHelper">Reference to the HTTP helper used for API requests.</param>
+        </member>
+        <member name="M:WordPressPCL.Client.GlobalStylesClient.GetByIdAsync(System.Int32,System.Boolean,System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            Gets a global styles record by its post ID.
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Client.GlobalStylesClient.GetThemeStylesAsync(System.String,System.Boolean,System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            Gets the merged settings and styles for the active theme.
+            </summary>
+            <param name="stylesheet">
+            Active theme stylesheet, including a parent directory when the theme is nested.
+            </param>
+            <param name="embed">Include embedded resources.</param>
+            <param name="useAuth">Send the request with an authentication header.</param>
+            <param name="cancellationToken">Cancellation token.</param>
+        </member>
+        <member name="M:WordPressPCL.Client.GlobalStylesClient.UpdateAsync(System.Int32,WordPressPCL.Models.GlobalStyles,System.Threading.CancellationToken)">
+            <summary>
+            Updates the settings, styles, or title of a global styles record.
+            </summary>
+        </member>
         <member name="T:WordPressPCL.Client.Media">
             <summary>
             Client class for interaction with Media endpoint WP REST API
@@ -1097,6 +1130,94 @@
             <param name="useAuth">Send request with authentication header</param>
             <param name="cancellationToken">Cancellation token</param>
             <returns>List of filtered result</returns>
+        </member>
+        <member name="T:WordPressPCL.Client.TemplateParts">
+            <summary>
+            Client for the block template parts endpoint (<c>wp/v2/template-parts</c>).
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Client.TemplateParts.#ctor(WordPressPCL.Utility.HttpHelper)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="httpHelper">Reference to the HTTP helper used for API requests.</param>
+        </member>
+        <member name="M:WordPressPCL.Client.TemplateParts.GetAsync(System.Boolean,WordPressPCL.Models.Context,System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            Gets the template parts available to the current user.
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Client.TemplateParts.GetByIdAsync(System.String,System.Boolean,WordPressPCL.Models.Context,System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            Gets a template part by its compound identifier, such as <c>twentytwentyfour//header</c>.
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Client.TemplateParts.QueryAsync(WordPressPCL.Utility.TemplatePartsQueryBuilder,System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            Queries template parts using the filters supported by WordPress core.
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Client.TemplateParts.CreateAsync(WordPressPCL.Models.TemplatePart,System.Threading.CancellationToken)">
+            <summary>
+            Creates a template part.
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Client.TemplateParts.UpdateAsync(WordPressPCL.Models.TemplatePart,System.Threading.CancellationToken)">
+            <summary>
+            Updates a template part identified by <see cref="P:WordPressPCL.Models.TemplateEntity.Id"/>.
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Client.TemplateParts.DeleteAsync(System.String,System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            Trashes or permanently deletes a customized template part.
+            </summary>
+        </member>
+        <member name="T:WordPressPCL.Client.Templates">
+            <summary>
+            Client for the block templates endpoint (<c>wp/v2/templates</c>).
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Client.Templates.#ctor(WordPressPCL.Utility.HttpHelper)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="httpHelper">Reference to the HTTP helper used for API requests.</param>
+        </member>
+        <member name="M:WordPressPCL.Client.Templates.GetAsync(System.Boolean,WordPressPCL.Models.Context,System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            Gets the templates available to the current user.
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Client.Templates.GetByIdAsync(System.String,System.Boolean,WordPressPCL.Models.Context,System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            Gets a template by its compound identifier, such as <c>twentytwentyfour//index</c>.
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Client.Templates.QueryAsync(WordPressPCL.Utility.TemplatesQueryBuilder,System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            Queries templates using the filters supported by WordPress core.
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Client.Templates.GetFallbackAsync(System.String,System.Nullable{System.Boolean},System.String,System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            Gets the fallback template for a template hierarchy slug.
+            An unresolved fallback is returned by WordPress as an empty template with a null ID.
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Client.Templates.CreateAsync(WordPressPCL.Models.Template,System.Threading.CancellationToken)">
+            <summary>
+            Creates a template.
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Client.Templates.UpdateAsync(WordPressPCL.Models.Template,System.Threading.CancellationToken)">
+            <summary>
+            Updates a template identified by <see cref="P:WordPressPCL.Models.TemplateEntity.Id"/>.
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Client.Templates.DeleteAsync(System.String,System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            Trashes or permanently deletes a customized template.
+            </summary>
         </member>
         <member name="T:WordPressPCL.Client.Themes">
             <summary>
@@ -2537,6 +2658,41 @@
         <member name="P:WordPressPCL.Models.Exceptions.WPUnexpectedException.ResponseBody">
             <summary>
             The response body (if any) that was returned with the error status
+            </summary>
+        </member>
+        <member name="T:WordPressPCL.Models.GlobalStyles">
+            <summary>
+            Represents a global styles record or the merged styles for the active theme.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.GlobalStyles.Id">
+            <summary>
+            Global styles post ID. Theme style responses do not include an ID.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.GlobalStyles.Title">
+            <summary>
+            Title of a stored global styles variation.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.GlobalStyles.Settings">
+            <summary>
+            Global settings from theme.json.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.GlobalStyles.Styles">
+            <summary>
+            Global styles from theme.json.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.GlobalStyles.Links">
+            <summary>
+            Links to related resources.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.GlobalStyles.AdditionalFields">
+            <summary>
+            Additional fields supplied by WordPress or plugins.
             </summary>
         </member>
         <member name="T:WordPressPCL.Models.ImageMeta">
@@ -4432,6 +4588,161 @@
             Default constructor
             </summary>
         </member>
+        <member name="T:WordPressPCL.Models.Template">
+            <summary>
+            Represents a block template from the WordPress REST API.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Template.IsCustom">
+            <summary>
+            Whether this is a custom template rather than part of the template hierarchy.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Template.Plugin">
+            <summary>
+            Plugin that registered the template.
+            </summary>
+        </member>
+        <member name="T:WordPressPCL.Models.TemplateContent">
+            <summary>
+            Block markup stored in a template.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.TemplateContent.Raw">
+            <summary>
+            Raw block markup.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.TemplateContent.BlockVersion">
+            <summary>
+            Version of the block content format.
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Models.TemplateContent.#ctor">
+            <summary>
+            Constructor.
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Models.TemplateContent.#ctor(System.String)">
+            <summary>
+            Creates template content from raw block markup.
+            </summary>
+        </member>
+        <member name="T:WordPressPCL.Models.TemplateEntity">
+            <summary>
+            Common fields returned for block templates and template parts.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.TemplateEntity.Id">
+            <summary>
+            Compound identifier in <c>{theme}//{slug}</c> form.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.TemplateEntity.Slug">
+            <summary>
+            Unique slug identifying the template.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.TemplateEntity.Theme">
+            <summary>
+            Theme identifier for the template.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.TemplateEntity.Type">
+            <summary>
+            WordPress post type for the template.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.TemplateEntity.Source">
+            <summary>
+            Current source of the template.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.TemplateEntity.Origin">
+            <summary>
+            Source from which a customized template originated.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.TemplateEntity.Content">
+            <summary>
+            Template block markup and its format version.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.TemplateEntity.Title">
+            <summary>
+            Template title.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.TemplateEntity.Description">
+            <summary>
+            Human-readable template description.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.TemplateEntity.Status">
+            <summary>
+            Template status.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.TemplateEntity.WpId">
+            <summary>
+            Post ID for a customized template.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.TemplateEntity.HasThemeFile">
+            <summary>
+            Whether a corresponding file exists in the active theme.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.TemplateEntity.Author">
+            <summary>
+            ID of the author who last modified the template.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.TemplateEntity.Modified">
+            <summary>
+            Date the template was last modified in the site's timezone.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.TemplateEntity.AuthorText">
+            <summary>
+            Human-readable author name.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.TemplateEntity.OriginalSource">
+            <summary>
+            Original source of the template, such as theme, plugin, site, or user.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.TemplateEntity.Date">
+            <summary>
+            Date the template was published in the site's timezone.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.TemplateEntity.Links">
+            <summary>
+            Links to related resources.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.TemplateEntity.Embedded">
+            <summary>
+            Embedded related resources.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.TemplateEntity.AdditionalFields">
+            <summary>
+            Additional fields supplied by WordPress, plugins, or custom registrations.
+            </summary>
+        </member>
+        <member name="T:WordPressPCL.Models.TemplatePart">
+            <summary>
+            Represents a block template part from the WordPress REST API.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.TemplatePart.Area">
+            <summary>
+            Area where the template part is intended for use, such as header or footer.
+            </summary>
+        </member>
         <member name="T:WordPressPCL.Models.Term">
             <summary>
             This is the base class for all terms, like categories and tags
@@ -5660,6 +5971,53 @@
             Limit results to taxonomies associated with a specific post type.
             </summary>
         </member>
+        <member name="T:WordPressPCL.Utility.TemplatePartsQueryBuilder">
+            <summary>
+            Query builder for the <c>wp/v2/template-parts</c> endpoint.
+            </summary>
+            <remarks>
+            WordPress core does not support the inherited <see cref="P:WordPressPCL.Utility.QueryBuilder.Order"/> option for this endpoint.
+            </remarks>
+        </member>
+        <member name="P:WordPressPCL.Utility.TemplatePartsQueryBuilder.WpId">
+            <summary>
+            Limit results to a specific customized template part post ID.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.TemplatePartsQueryBuilder.Area">
+            <summary>
+            Limit results to a template part area, such as header or footer.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.TemplatePartsQueryBuilder.PostType">
+            <summary>
+            Post type for which to resolve template parts.
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Utility.TemplatePartsQueryBuilder.BuildQuery">
+            <inheritdoc />
+        </member>
+        <member name="T:WordPressPCL.Utility.TemplatesQueryBuilder">
+            <summary>
+            Query builder for the <c>wp/v2/templates</c> endpoint.
+            </summary>
+            <remarks>
+            WordPress core does not support the inherited <see cref="P:WordPressPCL.Utility.QueryBuilder.Order"/> option for this endpoint.
+            </remarks>
+        </member>
+        <member name="P:WordPressPCL.Utility.TemplatesQueryBuilder.WpId">
+            <summary>
+            Limit results to a specific customized template post ID.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.TemplatesQueryBuilder.PostType">
+            <summary>
+            Post type for which to resolve templates.
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Utility.TemplatesQueryBuilder.BuildQuery">
+            <inheritdoc />
+        </member>
         <member name="T:WordPressPCL.Utility.ThemesQueryBuilder">
             <summary>
             Themes Query Builder class to construct queries with valid parameters
@@ -5914,6 +6272,21 @@
         <member name="P:WordPressPCL.WordPressClient.Blocks">
             <summary>
             Reusable Blocks client interaction object
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.WordPressClient.Templates">
+            <summary>
+            Block Templates client interaction object
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.WordPressClient.TemplateParts">
+            <summary>
+            Block Template Parts client interaction object
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.WordPressClient.GlobalStyles">
+            <summary>
+            Global Styles client interaction object
             </summary>
         </member>
         <member name="P:WordPressPCL.WordPressClient.Navigation">
