@@ -1,10 +1,10 @@
 # Custom Fields (Meta)
 
-Custom fields — also called post meta or metadata — let you attach arbitrary key/value data to WordPress objects (posts, pages, comments, users, and media). WordPress exposes them through the REST API via the `meta` property that is present on every supported object type.
+Custom fields, also called metadata, let you attach key/value data to WordPress objects. The core REST API exposes registered metadata in a nested `meta` property, which WordPressPCL maps to each model's `Meta` property. Plugins and custom endpoints can also add fields at the top level of a response; WordPressPCL v3 captures those unmapped fields in the `Base.CustomFields` dictionary inherited by its models.
 
 ## How WordPress exposes custom fields via REST API
 
-By default the `meta` property in a REST API response is an **empty object** (`{}`). Custom fields are **opt-in**: each meta key must be explicitly registered for REST API exposure, either through core WordPress functions or through plugins.
+REST API access to metadata is **opt-in**: each meta key must be explicitly registered for REST exposure, either through core WordPress functions or through a plugin. When no registered values are available, WordPress commonly returns an empty `meta` object.
 
 ### Approach 1 — `register_post_meta()` (recommended)
 
@@ -56,12 +56,11 @@ add_action('rest_api_init', function () {
 });
 ```
 
-Fields registered this way appear at the top level of the JSON object, alongside `id`, `title`, etc.  
-Use the `CustomRequest` approach described below to map them.
+Fields registered this way appear at the top level of the JSON object, alongside `id`, `title`, etc. In WordPressPCL v3, built-in models collect these fields in `Base.CustomFields`.
 
 ### Approach 3 — Advanced Custom Fields (ACF) plugin
 
-The popular [ACF plugin](https://www.advancedcustomfields.com/) can expose field groups through the REST API when the **Show in REST API** option is enabled on the field group. ACF exposes the data under an `acf` top-level key. Use the [Custom Request](../customization/customRequest.md) approach to work with ACF data.
+The popular [ACF plugin](https://www.advancedcustomfields.com/) can expose field groups through the REST API when the **Show in REST API** option is enabled on the field group. ACF returns the data under a top-level `acf` key, which is available through `Base.CustomFields` when using a built-in WordPressPCL model.
 
 ## Supported object types
 
@@ -73,21 +72,25 @@ The `Meta` property is available on the following WordPressPCL models:
 | `Page` | `/wp/v2/pages` |
 | `Comment` | `/wp/v2/comments` |
 | `MediaItem` | `/wp/v2/media` |
-| `PostRevision` | `/wp/v2/revisions` |
+| `PostRevision` | `/wp/v2/posts/{postId}/revisions` |
 | `User` | `/wp/v2/users` |
+| `Category` | `/wp/v2/categories` |
+| `Tag` | `/wp/v2/tags` |
 
-## Reading custom fields
+Revisions are nested under their parent post, so their route includes the post ID.
+
+## Reading registered meta
 
 The `Meta` property is typed as `JsonElement?` so that it can accommodate any JSON shape returned by WordPress (string, number, array, or nested object).
 
 ```csharp
 Post post = await client.Posts.GetByIdAsync(123);
 
-// Read a simple string value
-string? color = post.Meta?.GetProperty("my_color").GetString();
-
-// Read an integer value
-int? count = post.Meta?.GetProperty("view_count").GetInt32();
+if (post.Meta is JsonElement meta &&
+    meta.TryGetProperty("my_color", out JsonElement colorProperty))
+{
+    string? color = colorProperty.GetString();
+}
 ```
 
 ### Deserialize to a strongly-typed class
@@ -109,7 +112,7 @@ PostMeta? meta = post.Meta?.Deserialize<PostMeta>();
 Console.WriteLine(meta?.Color); // e.g. "blue"
 ```
 
-## Writing / updating custom fields
+## Writing registered meta
 
 Serialize your data into a `JsonElement` and assign it to the `Meta` property before calling `UpdateAsync`.
 
@@ -158,11 +161,47 @@ Post post = new Post
 await client.Posts.UpdateAsync(post);
 ```
 
-> **Important:** Only meta keys that have been registered with `show_in_rest: true` (see above) can be written through the REST API. Attempting to update an unregistered key will silently ignore the value.
+> **Important:** Only meta keys registered with `show_in_rest: true` can be read or written through the REST API's `meta` property.
 
 ## Top-level REST fields (register_rest_field)
 
-When a plugin uses `register_rest_field()` to add a field at the top level of the response — for example `acf` — it will not appear in `Meta`. Use the [Custom Request](../customization/customRequest.md) feature to work with these fields by defining a custom model:
+When a plugin uses `register_rest_field()` to add a field at the top level of a response, it will not appear in `Meta`. Entity models such as `Post` derive from `Base`, whose `CustomFields` dictionary contains these unmapped top-level values as `JsonElement` instances after deserialization.
+
+```csharp
+public class MyAcfFields
+{
+    [JsonPropertyName("my_color")]
+    public string? Color { get; set; }
+}
+
+Post post = await client.Posts.GetByIdAsync(123);
+
+if (post.CustomFields?.TryGetValue("acf", out object? rawAcf) == true &&
+    rawAcf is JsonElement acfElement)
+{
+    MyAcfFields? acf = acfElement.Deserialize<MyAcfFields>();
+    Console.WriteLine(acf?.Color);
+}
+```
+
+Entries assigned to `CustomFields` are serialized as top-level properties, so the same API can send plugin fields when the endpoint supports updates:
+
+```csharp
+Post post = new()
+{
+    Id = 123,
+    CustomFields = new Dictionary<string, object>
+    {
+        ["my_color"] = "blue"
+    }
+};
+
+await client.Posts.UpdateAsync(post);
+```
+
+### Custom DTOs and endpoints
+
+Use [Custom Request](../customization/customRequest.md) when an endpoint has no built-in client or when you want to deserialize the complete response into a custom DTO:
 
 ```csharp
 public class PostWithAcf
@@ -170,23 +209,16 @@ public class PostWithAcf
     [JsonPropertyName("id")]
     public int Id { get; set; }
 
-    [JsonPropertyName("title")]
-    public WordPressPCL.Models.Title? Title { get; set; }
-
     [JsonPropertyName("acf")]
     public MyAcfFields? Acf { get; set; }
 }
 
-public class MyAcfFields
-{
-    [JsonPropertyName("my_color")]
-    public string? Color { get; set; }
-}
-
-// Fetch a post with ACF fields
-PostWithAcf? post = await client.CustomRequest.GetByIdAsync<PostWithAcf>("wp/v2/posts", 123);
-Console.WriteLine(post?.Acf?.Color);
+PostWithAcf post = await client.CustomRequest.GetAsync<PostWithAcf>(
+    "wp/v2/posts/123",
+    useAuth: true);
 ```
+
+`CustomRequest` accepts the complete resource route and exposes `GetAsync<T>`, rather than a `GetByIdAsync` method.
 
 ## Further reading
 
