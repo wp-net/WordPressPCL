@@ -91,6 +91,8 @@
                 </li>
                 <li class="toctree-l2"><a class="reference internal" href="../../../v3/entities/customPostType/">Custom Post Type</a>
                 </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../../v3/entities/customFields/">Custom Fields</a>
+                </li>
     </ul>
                   </li>
               </ul>
@@ -277,10 +279,10 @@ if (await client.Auth.IsValidJWTokenAsync())
 <pre><code class="language-C#">var post = new Post
 {
     Id = 123,
-    Meta = new Dictionary&lt;string, string&gt;
+    Meta = JsonSerializer.SerializeToElement(new Dictionary&lt;string, object?&gt;
     {
         [&quot;my-custom-key&quot;] = &quot;some value&quot;
-    },
+    }),
 };
 
 await client.Posts.UpdateAsync(post);

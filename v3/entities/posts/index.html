@@ -107,6 +107,8 @@
                 </li>
                 <li class="toctree-l2"><a class="reference internal" href="../customPostType/">Custom Post Type</a>
                 </li>
+                <li class="toctree-l2"><a class="reference internal" href="../customFields/">Custom Fields</a>
+                </li>
     </ul>
                   </li>
               </ul>
@@ -277,10 +279,10 @@ if (await client.IsValidJWTokenAsync())
 <pre><code class="language-csharp">Post post = new Post
 {
     Id = 123,
-    Meta = new Dictionary&lt;string, string&gt;
+    Meta = JsonSerializer.SerializeToElement(new Dictionary&lt;string, object?&gt;
     {
         [&quot;my-custom-key&quot;] = &quot;some value&quot;
-    },
+    }),
 };
 
 await client.Posts.UpdateAsync(post);
@@ -292,6 +294,7 @@ await client.Posts.UpdateAsync(post);
     'show_in_rest' =&gt; true,
 ]);
 </code></pre>
+<p>For more information on reading, writing, and working with custom fields see the <a href="../customFields/">Custom Fields</a> documentation.</p>
 <h2 id="delete-post">Delete Post</h2>
 <pre><code class="language-csharp">// returns result of deletion
 if (await client.IsValidJWTokenAsync())
