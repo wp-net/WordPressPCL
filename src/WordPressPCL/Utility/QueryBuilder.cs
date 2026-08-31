@@ -40,7 +40,7 @@ public abstract class QueryBuilder
     /// Builds the query URL from all properties
     /// </summary>
     /// <returns>query HTTP string</returns>
-    public string BuildQuery()
+    public virtual string BuildQuery()
     {
         NameValueCollection query = HttpUtility.ParseQueryString(string.Empty);
         foreach (PropertyInfo property in GetType().GetRuntimeProperties())

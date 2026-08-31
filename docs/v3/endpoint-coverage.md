@@ -20,16 +20,16 @@ WordPressPCL focuses on the most commonly used WordPress REST API endpoints and 
 | `wp/v2/settings` | `client.Settings` | Read/update only |
 | `wp/v2/plugins` | `client.Plugins` | Install, activate, deactivate, delete |
 | `wp/v2/themes` | `client.Themes` | Read/query only |
+| `wp/v2/search` | `client.Search` | Read/query only |
+| `wp-block-editor/v1/url-details` | `client.UrlDetails` | Read by URL (requires auth) |
 
 ## Standard endpoints without dedicated wrappers
 
 The official WordPress REST API reference includes additional standard endpoints that currently do not have dedicated WordPressPCL clients. The main gaps are:
 
-- `wp/v2/search`
 - block editor endpoints such as `wp/v2/block-types`, `wp/v2/blocks`, `wp/v2/block-renderer`, `wp/v2/templates`, `wp/v2/template-parts` and `wp/v2/global-styles`
 - navigation and site editing endpoints such as `wp/v2/navigation` and `wp/v2/navigation-fallback`
 - `wp/v2/sidebars`, `wp/v2/widgets` and `wp/v2/widget-types`
-- `wp/v2/url-details`
 - autosaves and page revisions
 
 As WordPress adds more standard endpoints, the authoritative way to see what a site exposes is its API index at `/wp-json/`.
@@ -47,7 +47,7 @@ These examples use `dynamic` for brevity. If you already know the response shape
 Use `CustomRequest` for standard endpoints that do not yet have dedicated wrappers:
 
 ```csharp
-dynamic searchResults = await client.CustomRequest.GetAsync<dynamic>("search?search=hello", ignoreDefaultPath: false);
+dynamic renderedBlock = await client.CustomRequest.PostAsync<dynamic>("block-renderer/core%2Fparagraph", body, ignoreDefaultPath: false);
 dynamic pageRevisions = await client.CustomRequest.GetAsync<dynamic>("pages/42/revisions", useAuth: true, ignoreDefaultPath: false);
 ```
 
@@ -61,4 +61,5 @@ dynamic products = await client.CustomRequest.GetAsync<dynamic>("wc/v3/products"
 
 - Themes are available through `client.Themes`, but they are read/query only.
 - Post revisions are available through `client.Posts.Revisions(postId)`.
+- URL details are available through `client.UrlDetails` and require authentication.
 - Pages do not currently have a dedicated revisions or autosaves helper.
