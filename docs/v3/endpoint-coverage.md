@@ -25,13 +25,16 @@ WordPressPCL focuses on the most commonly used WordPress REST API endpoints and 
 | `wp/v2/themes` | `client.Themes` | Read/query only |
 | `wp/v2/search` | `client.Search` | Read/query only |
 | `wp-block-editor/v1/url-details` | `client.UrlDetails` | Read by URL (requires auth) |
+| `wp/v2/block-types` | `client.BlockTypes` | Read/query only; WordPress 5.5+ and authentication required |
+| `wp/v2/blocks` | `client.Blocks` | CRUD for reusable blocks; WordPress 5.0+ and authentication required |
+| `wp/v2/navigation` | `client.Navigation` | CRUD for `wp_navigation`; WordPress 5.9+ |
 
 ## Standard endpoints without dedicated wrappers
 
 The official WordPress REST API reference includes additional standard endpoints that currently do not have dedicated WordPressPCL clients. The main gaps are:
 
-- block editor endpoints such as `wp/v2/block-types`, `wp/v2/blocks`, `wp/v2/block-renderer`, `wp/v2/templates`, `wp/v2/template-parts` and `wp/v2/global-styles`
-- navigation and site editing endpoints such as `wp/v2/navigation` and `wp/v2/navigation-fallback`
+- block editor endpoints such as `wp/v2/block-renderer`, `wp/v2/templates`, `wp/v2/template-parts` and `wp/v2/global-styles`
+- navigation and site editing endpoints such as `wp/v2/navigation-fallback`
 - `wp/v2/sidebars`, `wp/v2/widgets` and `wp/v2/widget-types`
 
 As WordPress adds more standard endpoints, the authoritative way to see what a site exposes is its API index at `/wp-json/`.
@@ -66,3 +69,7 @@ dynamic products = await client.CustomRequest.GetAsync<dynamic>("wc/v3/products"
 - Post autosaves are available through `client.Posts.Autosaves(postId)`.
 - Page autosaves are available through `client.Pages.Autosaves(pageId)`.
 - URL details are available through `client.UrlDetails` and require authentication.
+- Block types were added in WordPress 5.5 and require a user who can edit at least one REST-enabled post type.
+- Reusable blocks were added in WordPress 5.0 and are stored as `wp_block` posts. Core requires suitable post-editing permissions for reads and writes, so `client.Blocks` authenticates read requests by default. Current core responses expose raw block markup and may omit rendered title/content.
+- Navigation posts were added in WordPress 5.9. Published posts can be read anonymously in `view` context. Edit context, non-public content and writes require authentication, and core maps `wp_navigation` editing capabilities to `edit_theme_options`.
+- The API index at `/wp-json/` is authoritative for route availability on a particular site.
