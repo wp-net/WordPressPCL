@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Text.Json;
 using System.Threading.Tasks;
 using WordPressPCL.Models;
 using WordPressPCL.Tests.Selfhosted.Utility;
@@ -12,6 +13,21 @@ namespace WordPressPCL.Tests.Selfhosted;
 [TestClass]
 public class HttpClient_Tests
 {
+    [TestMethod]
+    public void HttpHelper_ExposesClientsConfiguredHelper()
+    {
+        using HttpClient httpClient = new()
+        {
+            BaseAddress = new Uri("https://example.org/wp-json/")
+        };
+        using WordPressClient client = new(httpClient);
+        JsonSerializerOptions options = new();
+
+        client.HttpHelper.JsonSerializerOptions = options;
+
+        Assert.AreSame(options, client.JsonSerializerOptions);
+    }
+
     [TestMethod]
     public async Task CustomHttpClient_WithBaseAddress()
     {

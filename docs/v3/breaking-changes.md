@@ -1,4 +1,4 @@
-# Breaking Changes in Version 2.x
+# Breaking Changes in Version 3.x
 
 - Separate sub client for Authentication accessed via `client.Auth`
 - Separate sub client for Settings accessed via `client.Settings`
