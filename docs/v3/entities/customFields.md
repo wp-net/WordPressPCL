@@ -42,10 +42,10 @@ Once registered, the field appears in responses like this:
 ```php
 add_action('rest_api_init', function () {
     register_rest_field('post', 'my_color', [
-        'get_callback'    => function ($post) {
+        'get_callback'    => function ($post, $field_name, $request) {
             return get_post_meta($post['id'], 'my_color', true);
         },
-        'update_callback' => function ($value, $post) {
+        'update_callback' => function ($value, $post, $field_name, $request) {
             update_post_meta($post->ID, 'my_color', sanitize_text_field($value));
         },
         'schema'          => [
