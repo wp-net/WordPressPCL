@@ -13,6 +13,18 @@ namespace WordPressPCL;
 public class WordPressClient : IDisposable
 {
     private readonly HttpHelper _httpHelper;
+
+    /// <summary>
+    /// Gets the <see cref="Utility.HttpHelper"/> instance used for sending requests to the WordPress API endpoint.
+    /// </summary>
+    /// <remarks>
+    /// Exposed so custom endpoints can share this client's connection, authentication and serializer settings,
+    /// for example by passing it to a <see cref="Client.CustomRequest"/> or to a custom
+    /// <see cref="CRUDOperation{TClass, QClass}"/> implementation for a custom post type or taxonomy.
+    /// The returned instance is owned by this <see cref="WordPressClient"/> and is disposed with it; do not dispose it directly.
+    /// </remarks>
+    public HttpHelper HttpHelper => _httpHelper;
+
     private const string DEFAULT_PATH = "wp/v2/";
 
     /// <summary>
