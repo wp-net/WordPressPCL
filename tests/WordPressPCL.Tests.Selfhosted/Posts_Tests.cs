@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using WordPressPCL.Models;
@@ -225,6 +226,76 @@ public class Posts_Tests
         int count = await _client.Posts.GetCountAsync(TestContext.CancellationToken);
 
         Assert.AreEqual(count, paged.TotalCount, "TotalCount from GetPagedAsync should match GetCountAsync");
+    }
+
+    [TestMethod]
+    public async Task Posts_Meta_Write_And_Read()
+    {
+        string metaValue = $"pcl-meta-{System.Guid.NewGuid()}";
+        Post post = new()
+        {
+            Title = new Title("Meta Test Post"),
+            Content = new Content("Meta Test Content"),
+            Meta = JsonSerializer.SerializeToElement(new Dictionary<string, object?>
+            {
+                ["wordpresspcl_test_meta"] = metaValue
+            }),
+        };
+
+        Post createdPost = await _clientAuth.Posts.CreateAsync(post, TestContext.CancellationToken);
+        List<Post> fetchedPosts = await _clientAuth.Posts.QueryAsync(new PostsQueryBuilder
+        {
+            Include = new List<int> { createdPost.Id },
+            Context = Context.Edit
+        }, useAuth: true, cancellationToken: TestContext.CancellationToken);
+        Post fetchedPost = fetchedPosts.Single();
+
+        Assert.IsNotNull(fetchedPost.Meta, "Meta should not be null when a registered key was written");
+        Assert.IsTrue(
+            fetchedPost.Meta.Value.TryGetProperty("wordpresspcl_test_meta", out JsonElement metaProperty),
+            "The response should contain the registered wordpresspcl_test_meta property");
+        Assert.AreEqual(JsonValueKind.String, metaProperty.ValueKind, "The registered meta property should be a string");
+        Assert.AreEqual(metaValue, metaProperty.GetString(), "Meta value read back should equal the value written");
+    }
+
+    [TestMethod]
+    public async Task Posts_Meta_Update()
+    {
+        Post post = new()
+        {
+            Title = new Title("Meta Update Test Post"),
+            Content = new Content("Meta Update Test Content"),
+            Meta = JsonSerializer.SerializeToElement(new Dictionary<string, object?>
+            {
+                ["wordpresspcl_test_meta"] = "initial-value"
+            }),
+        };
+        Post createdPost = await _clientAuth.Posts.CreateAsync(post, TestContext.CancellationToken);
+
+        string updatedMetaValue = $"updated-{System.Guid.NewGuid()}";
+        Post updateRequest = new()
+        {
+            Id = createdPost.Id,
+            Meta = JsonSerializer.SerializeToElement(new Dictionary<string, object?>
+            {
+                ["wordpresspcl_test_meta"] = updatedMetaValue
+            }),
+        };
+        await _clientAuth.Posts.UpdateAsync(updateRequest, TestContext.CancellationToken);
+
+        List<Post> fetchedPosts = await _clientAuth.Posts.QueryAsync(new PostsQueryBuilder
+        {
+            Include = new List<int> { createdPost.Id },
+            Context = Context.Edit
+        }, useAuth: true, cancellationToken: TestContext.CancellationToken);
+        Post fetchedPost = fetchedPosts.Single();
+
+        Assert.IsNotNull(fetchedPost.Meta, "Meta should not be null after update");
+        Assert.IsTrue(
+            fetchedPost.Meta.Value.TryGetProperty("wordpresspcl_test_meta", out JsonElement metaProperty),
+            "The response should contain the registered wordpresspcl_test_meta property after update");
+        Assert.AreEqual(JsonValueKind.String, metaProperty.ValueKind, "The registered meta property should be a string");
+        Assert.AreEqual(updatedMetaValue, metaProperty.GetString(), "Meta value should reflect the updated value");
     }
 
     public TestContext TestContext { get; set; } = null!;

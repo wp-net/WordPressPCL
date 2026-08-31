@@ -59,10 +59,10 @@ if (await client.IsValidJWTokenAsync())
 Post post = new Post
 {
     Id = 123,
-    Meta = new Dictionary<string, string>
+    Meta = JsonSerializer.SerializeToElement(new Dictionary<string, object?>
     {
         ["my-custom-key"] = "some value"
-    },
+    }),
 };
 
 await client.Posts.UpdateAsync(post);
@@ -77,6 +77,8 @@ register_post_meta('post', 'my-custom-key', [
 	'show_in_rest' => true,
 ]);
 ```
+
+For more information on reading, writing, and working with custom fields see the [Custom Fields](customFields.md) documentation.
 
 ## Delete Post
 

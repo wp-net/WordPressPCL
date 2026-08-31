@@ -39,5 +39,19 @@ wp plugin install application-passwords-enable --activate --force --path="$WP_PA
 wp plugin install contact-form-7 --activate --force --path="$WP_PATH"
 wp plugin install jwt-auth --activate --force --path="$WP_PATH"
 
+echo "Registering test meta fields..."
+mkdir -p "$WP_PATH/wp-content/mu-plugins"
+cat > "$WP_PATH/wp-content/mu-plugins/wordpresspcl-test-meta.php" << 'EOF'
+<?php
+add_action('rest_api_init', function () {
+    register_post_meta('post', 'wordpresspcl_test_meta', [
+        'type'         => 'string',
+        'single'       => true,
+        'show_in_rest' => true,
+        'default'      => '',
+    ]);
+});
+EOF
+
 touch "$WP_READY_FILE"
 echo "WordPress test environment is ready."

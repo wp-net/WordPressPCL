@@ -26,6 +26,7 @@ nav:
       - Post Statuses: v3/entities/poststatuses.md
       - Settings: v3/entities/settings.md
       - Custom Post Type: v3/entities/customPostType.md
+      - Custom Fields: v3/entities/customFields.md
   - Version 2.x:
     - Overview: v2/index.md
     - Breaking Changes: v2/breaking-changes.md
