@@ -21,6 +21,7 @@ public class WordPressClient : IDisposable
     /// Exposed so custom endpoints can share this client's connection, authentication and serializer settings,
     /// for example by passing it to a <see cref="Client.CustomRequest"/> or to a custom
     /// <see cref="CRUDOperation{TClass, QClass}"/> implementation for a custom post type or taxonomy.
+    /// The returned instance is owned by this <see cref="WordPressClient"/> and is disposed with it; do not dispose it directly.
     /// </remarks>
     public HttpHelper HttpHelper => _httpHelper;
 
