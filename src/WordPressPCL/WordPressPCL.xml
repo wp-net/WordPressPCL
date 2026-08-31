@@ -1072,6 +1072,32 @@
             <param name="cancellationToken">Cancellation token</param>
             <returns>Updated settings</returns>
         </member>
+        <member name="T:WordPressPCL.Client.Sidebars">
+            <summary>
+            Client for the WordPress sidebars endpoint (<c>wp/v2/sidebars</c>).
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Client.Sidebars.#ctor(WordPressPCL.Utility.HttpHelper)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="httpHelper">Reference to the HTTP helper used for API requests.</param>
+        </member>
+        <member name="M:WordPressPCL.Client.Sidebars.GetAsync(System.Boolean,System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            Gets all registered sidebars.
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Client.Sidebars.GetByIdAsync(System.String,System.Boolean,System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            Gets a sidebar by its string ID.
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Client.Sidebars.UpdateAsync(WordPressPCL.Models.Sidebar,System.Threading.CancellationToken)">
+            <summary>
+            Replaces the ordered widget assignment for a sidebar.
+            </summary>
+        </member>
         <member name="T:WordPressPCL.Client.Tags">
             <summary>
             Client class for interaction with Tags endpoint WP REST API
@@ -1393,6 +1419,79 @@
             <param name="userId">User ID, defaults to "me"</param>
             <param name="cancellationToken">Cancellation token</param>
             <returns>List of registered Application Passwords (without the actual password)</returns>
+        </member>
+        <member name="T:WordPressPCL.Client.Widgets">
+            <summary>
+            Client for the WordPress widgets endpoint (<c>wp/v2/widgets</c>).
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Client.Widgets.#ctor(WordPressPCL.Utility.HttpHelper)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="httpHelper">Reference to the HTTP helper used for API requests.</param>
+        </member>
+        <member name="M:WordPressPCL.Client.Widgets.GetAsync(System.Boolean,System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            Gets all visible widgets.
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Client.Widgets.GetBySidebarAsync(System.String,System.Boolean,System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            Gets all widgets assigned to a sidebar.
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Client.Widgets.GetByIdAsync(System.String,System.Boolean,System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            Gets a widget by its string ID.
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Client.Widgets.QueryAsync(WordPressPCL.Utility.WidgetsQueryBuilder,System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            Gets widgets matching a core-supported collection query.
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Client.Widgets.CreateAsync(WordPressPCL.Models.Widget,System.Threading.CancellationToken)">
+            <summary>
+            Creates a widget. WordPress generates the widget ID.
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Client.Widgets.UpdateAsync(WordPressPCL.Models.Widget,System.Threading.CancellationToken)">
+            <summary>
+            Updates a widget identified by <see cref="P:WordPressPCL.Models.Widget.Id"/>.
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Client.Widgets.DeleteAsync(System.String,System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            Deletes a widget or moves it to the inactive sidebar.
+            </summary>
+            <param name="id">Widget ID.</param>
+            <param name="force">
+            <see langword="true"/> to permanently remove the widget; <see langword="false"/>
+            to move it to the inactive sidebar.
+            </param>
+            <param name="cancellationToken">Cancellation token.</param>
+        </member>
+        <member name="T:WordPressPCL.Client.WidgetTypes">
+            <summary>
+            Client for the WordPress widget types endpoint (<c>wp/v2/widget-types</c>).
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Client.WidgetTypes.#ctor(WordPressPCL.Utility.HttpHelper)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="httpHelper">Reference to the HTTP helper used for API requests.</param>
+        </member>
+        <member name="M:WordPressPCL.Client.WidgetTypes.GetAsync(System.Boolean,System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            Gets all registered widget types.
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Client.WidgetTypes.GetByIdAsync(System.String,System.Boolean,System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            Gets a widget type by its string ID.
+            </summary>
         </member>
         <member name="T:WordPressPCL.Interfaces.ICountOperation">
             <summary>
@@ -4033,6 +4132,71 @@
             Default Comment Status
             </summary>
         </member>
+        <member name="T:WordPressPCL.Models.Sidebar">
+            <summary>
+            Represents a widget sidebar from the WordPress REST API.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Sidebar.Id">
+            <summary>
+            Unique string identifier for the sidebar.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Sidebar.Name">
+            <summary>
+            Human-readable sidebar name.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Sidebar.Description">
+            <summary>
+            Sidebar description.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Sidebar.Class">
+            <summary>
+            Extra CSS class used by the widgets interface.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Sidebar.BeforeWidget">
+            <summary>
+            HTML placed before each widget.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Sidebar.AfterWidget">
+            <summary>
+            HTML placed after each widget.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Sidebar.BeforeTitle">
+            <summary>
+            HTML placed before each widget title.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Sidebar.AfterTitle">
+            <summary>
+            HTML placed after each widget title.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Sidebar.Status">
+            <summary>
+            Sidebar status, either <c>active</c> or <c>inactive</c>.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Sidebar.Widgets">
+            <summary>
+            Ordered widget IDs assigned to the sidebar.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Sidebar.Links">
+            <summary>
+            Links to related resources.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Sidebar.AdditionalFields">
+            <summary>
+            Additional fields supplied by WordPress or plugins.
+            </summary>
+        </member>
         <member name="T:WordPressPCL.Models.RenderedRawBase">
             <summary>
             Adds a "Rendered" and a "Raw" property to all classes derived from this one
@@ -5068,6 +5232,116 @@
         <member name="M:WordPressPCL.Models.User.#ctor">
             <summary>
             parameterless constructor
+            </summary>
+        </member>
+        <member name="T:WordPressPCL.Models.Widget">
+            <summary>
+            Represents a widget instance from the WordPress REST API.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Widget.Id">
+            <summary>
+            Server-generated string identifier for the widget.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Widget.IdBase">
+            <summary>
+            Widget type ID, corresponding to an ID from <c>wp/v2/widget-types</c>.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Widget.Sidebar">
+            <summary>
+            Sidebar containing the widget.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Widget.Rendered">
+            <summary>
+            Rendered widget HTML.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Widget.RenderedForm">
+            <summary>
+            Rendered widget administration form, available in edit context.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Widget.Instance">
+            <summary>
+            Widget instance settings, available in edit context.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Widget.FormData">
+            <summary>
+            URL-encoded widget form data used for widgets that do not expose instance settings.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Widget.Links">
+            <summary>
+            Links to related resources.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Widget.AdditionalFields">
+            <summary>
+            Additional fields supplied by WordPress or plugins.
+            </summary>
+        </member>
+        <member name="T:WordPressPCL.Models.WidgetInstance">
+            <summary>
+            Represents the encoded or raw settings for a widget instance.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.WidgetInstance.Encoded">
+            <summary>
+            Base64-encoded serialized instance settings.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.WidgetInstance.Hash">
+            <summary>
+            Cryptographic hash for <see cref="P:WordPressPCL.Models.WidgetInstance.Encoded"/>.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.WidgetInstance.Raw">
+            <summary>
+            Unencoded instance settings for widget types that expose them.
+            </summary>
+        </member>
+        <member name="T:WordPressPCL.Models.WidgetType">
+            <summary>
+            Represents a registered widget type from the WordPress REST API.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.WidgetType.Id">
+            <summary>
+            Unique string identifier for the widget type.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.WidgetType.Name">
+            <summary>
+            Human-readable widget type name.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.WidgetType.Description">
+            <summary>
+            Widget type description.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.WidgetType.IsMulti">
+            <summary>
+            Whether the widget type supports multiple instances.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.WidgetType.Classname">
+            <summary>
+            Widget type CSS class name.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.WidgetType.Links">
+            <summary>
+            Links to related resources.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.WidgetType.AdditionalFields">
+            <summary>
+            Additional fields supplied by WordPress or plugins.
             </summary>
         </member>
         <member name="T:WordPressPCL.Utility.BlocksQueryBuilder">
@@ -6129,6 +6403,19 @@
             Limit result set to users matching at least one specific role provided. Accepts csv list or single role.
             </summary>
         </member>
+        <member name="T:WordPressPCL.Utility.WidgetsQueryBuilder">
+            <summary>
+            Query builder for the <c>wp/v2/widgets</c> endpoint.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.WidgetsQueryBuilder.Sidebar">
+            <summary>
+            Limits results to widgets assigned to this sidebar.
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Utility.WidgetsQueryBuilder.BuildQuery">
+            <inheritdoc />
+        </member>
         <member name="T:WordPressPCL.WordPressClient">
             <summary>
             Main class containing the wrapper client with all public API endpoints.
@@ -6292,6 +6579,21 @@
         <member name="P:WordPressPCL.WordPressClient.Navigation">
             <summary>
             Navigation client interaction object
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.WordPressClient.Sidebars">
+            <summary>
+            Sidebars client interaction object
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.WordPressClient.Widgets">
+            <summary>
+            Widgets client interaction object
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.WordPressClient.WidgetTypes">
+            <summary>
+            Widget Types client interaction object
             </summary>
         </member>
         <member name="M:WordPressPCL.WordPressClient.#ctor(System.Uri,System.String)">
