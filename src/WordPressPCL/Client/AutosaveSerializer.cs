@@ -43,10 +43,29 @@ internal static class AutosaveSerializer
             Content = content,
             Excerpt = excerpt,
             Meta = meta,
-            CustomFields = customFields
+            CustomFields = FilterReservedFields(customFields)
         };
 
         return JsonSerializer.Serialize(request, options);
+    }
+
+    private static IDictionary<string, object>? FilterReservedFields(IDictionary<string, object>? customFields)
+    {
+        if (customFields is null)
+        {
+            return null;
+        }
+
+        Dictionary<string, object> filteredFields = [];
+        foreach ((string key, object value) in customFields)
+        {
+            if (key is not ("title" or "content" or "excerpt" or "meta"))
+            {
+                filteredFields.Add(key, value);
+            }
+        }
+
+        return filteredFields;
     }
 
     private sealed class AutosaveRequest
