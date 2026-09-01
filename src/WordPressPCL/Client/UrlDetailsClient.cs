@@ -33,9 +33,7 @@ public class UrlDetailsClient
     public Task<Models.UrlDetails> GetAsync(string url, CancellationToken cancellationToken = default)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(url);
-#pragma warning disable CA1507 // "url" is a query parameter name, not the method parameter
-        string route = _methodPath.SetQueryParam("url", Uri.EscapeDataString(url));
-#pragma warning restore CA1507
+        string route = _methodPath.SetQueryParam(nameof(url), Uri.EscapeDataString(url));
         return _httpHelper.GetRequestAsync<Models.UrlDetails>(
             route,
             false,
