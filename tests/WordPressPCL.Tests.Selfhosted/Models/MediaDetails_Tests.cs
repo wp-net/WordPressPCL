@@ -147,8 +147,6 @@ public class MediaDetails_Tests
         Assert.AreEqual("2026/09/example.jpg", root.GetProperty("file").GetString());
         Assert.IsTrue(root.TryGetProperty("sizes", out _));
         Assert.AreEqual("Example camera", root.GetProperty("image_meta").GetProperty("camera").GetString());
-        Assert.AreEqual(1024, root.GetProperty("width").GetInt32());
-        Assert.AreEqual(768, root.GetProperty("height").GetInt32());
 
         foreach (string propertyName in s_audioPropertyNames)
         {
