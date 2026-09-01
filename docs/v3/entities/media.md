@@ -32,7 +32,7 @@ List<MediaItem> media = await client.Media.QueryAsync(queryBuilder);
 
 ```C#
 // returns created media
-// for create media item you must read them to Stream. Media items can be audio, video, image, pdf or any other type supported by WordPress
+// Read the media file into a stream before uploading it. Media items can be audio, video, images, PDFs, or any other type supported by WordPress.
 Stream s = File.OpenRead("pathToMedia/media.jpg");
 if (await client.IsValidJWTokenAsync())
 {
