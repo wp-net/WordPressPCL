@@ -94,7 +94,7 @@ public class Media : IUpdateOperation<MediaItem>, IReadOperation<MediaItem>, IDe
             ? MimeTypeHelper.GetMIMETypeFromExtension(filename.Split('.').Last())
             : mimeType;
 
-        content.Headers.TryAddWithoutValidation("Content-Type", contentType);
+        content.Headers.ContentType = MediaTypeHeaderValue.Parse(contentType);
         content.Headers.ContentDisposition = CreateContentDisposition(filename);
     }
 

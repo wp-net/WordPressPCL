@@ -68,6 +68,20 @@ public class MediaRequest_Tests
         Assert.IsNull(handler.ContentDisposition);
     }
 
+    [TestMethod]
+    public async Task CreateAsync_RejectsInjectedMimeType()
+    {
+        using CapturingHandler handler = new();
+        using HttpClient httpClient = CreateHttpClient(handler);
+        using WordPressClient client = new(httpClient);
+        using MemoryStream stream = new([1, 2, 3]);
+
+        await Assert.ThrowsExactlyAsync<FormatException>(
+            () => client.Media.CreateAsync(stream, "photo.jpg", "image/jpeg\r\nX-Injected: true"));
+
+        Assert.IsNull(handler.ContentDisposition);
+    }
+
     private static HttpClient CreateHttpClient(HttpMessageHandler handler)
     {
         return new HttpClient(handler)
