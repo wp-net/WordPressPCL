@@ -40,7 +40,12 @@ public class Autosaves_Tests
         PostRevision created = await client.Posts.Autosaves(42).CreateAsync(new Post
         {
             Title = new Title(string.Empty),
-            Content = new Content("Draft content")
+            Content = new Content("Draft content"),
+            CustomFields = new Dictionary<string, object>
+            {
+                ["title"] = "Custom title must not override autosave title.",
+                ["custom_field"] = "Retained custom field"
+            }
         });
 
         Assert.HasCount(1, autosaves);
@@ -61,6 +66,7 @@ public class Autosaves_Tests
         Assert.AreEqual("Draft content", requestBody.RootElement.GetProperty("content").GetString());
         Assert.IsFalse(requestBody.RootElement.TryGetProperty("status", out _));
         Assert.IsFalse(requestBody.RootElement.TryGetProperty("password", out _));
+        Assert.AreEqual("Retained custom field", requestBody.RootElement.GetProperty("custom_field").GetString());
     }
 
     [TestMethod]

@@ -43,7 +43,7 @@ public class PostRevision : Base
     /// </remarks>
     [JsonPropertyName("guid")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
-    public WordPressPCL.Models.Guid? Guid { get; set; }
+    public Guid? Guid { get; set; }
 
     /// <summary>
     /// The date the object was last modified, in the site's timezone.
