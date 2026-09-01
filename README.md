@@ -170,6 +170,9 @@ public sealed class PublishWorker(WordPressClient client)
 | **Templates**      | yes     | yes     | yes     | yes     |
 | **Template Parts** | yes     | yes     | yes     | yes     |
 | **Global Styles**  | ---     | yes     | yes     | ---     |
+| **Sidebars**       | ---     | yes     | yes     | ---     |
+| **Widgets**        | yes     | yes     | yes     | yes     |
+| **Widget Types**   | ---     | yes     | ---     | ---     |
 
 Notes:
 
@@ -182,6 +185,8 @@ Notes:
 - Navigation posts require WordPress 5.9 or newer. `client.Navigation` authenticates reads by default because core maps `wp_navigation` capabilities to `edit_theme_options`; the route's availability and permissions can still vary with WordPress version and site customization.
 - Templates and template parts require WordPress 5.8 or newer and authentication. They use compound string IDs such as `twentytwentyfour//index`; template fallback lookup requires WordPress 6.1 or newer.
 - Global styles require WordPress 5.9 or newer and authentication. `client.GlobalStyles` reads or updates a record by integer ID and reads merged styles for the active theme.
+- Sidebars, widgets and widget types require WordPress 5.8 or newer. Widget-type reads and all writes require authentication and the `edit_theme_options` capability. Sidebars and widgets can be read without authentication when the target sidebar is registered with `show_in_rest`.
+- Sidebars and widgets use string IDs. `client.Sidebars.UpdateAsync` replaces a sidebar's ordered widget assignment; `client.Widgets` supports sidebar filtering and raw or encoded widget instance settings.
 - Discover `/wp-json/` rather than assuming these newer routes exist on older or customized sites.
 
 ## Endpoint Coverage and Gaps
@@ -197,11 +202,13 @@ WordPressPCL currently provides dedicated clients for the most common `wp/v2` en
 - URL details via `client.UrlDetails` (`wp-block-editor/v1/url-details`, authentication required)
 - Block types, reusable blocks and navigation posts via `client.BlockTypes`, `client.Blocks` and `client.Navigation`
 - Templates, template parts and global styles via `client.Templates`, `client.TemplateParts` and `client.GlobalStyles`
+- Sidebars, widgets and widget types via `client.Sidebars`, `client.Widgets` and `client.WidgetTypes`
 
 The standard WordPress REST API reference also includes endpoints that do not yet have first-class wrappers in this library, including:
 
-- newer block editor endpoints such as block rendering
-- navigation fallback, sidebars, widgets and widget types
+- block rendering via `wp/v2/block-renderer/<name>`
+- navigation fallback via `wp/v2/navigation-fallback`
+- widget form-data encoding via `wp/v2/widget-types/<id>/encode`
 
 You can still work with unsupported standard endpoints, plugin namespaces and site-specific custom endpoints by using `CustomRequest`.
 
