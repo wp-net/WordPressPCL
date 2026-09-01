@@ -159,6 +159,8 @@ public sealed class PublishWorker(WordPressClient client)
 | **Settings**       | ---     | yes     | yes     | ---     |
 | **Plugins**        | yes     | yes     | yes     | yes     |
 | **Themes**         | ---     | yes     | ---     | ---     |
+| **Search**         | ---     | yes     | ---     | ---     |
+| **URL Details**    | ---     | yes     | ---     | ---     |
 
 Notes:
 
@@ -173,13 +175,13 @@ WordPressPCL currently provides dedicated clients for the most common `wp/v2` en
 - Taxonomies, Post Types, Post Statuses and Settings
 - Post revisions via `client.Posts.Revisions(postId)`
 - Plugins and Themes
+- Search via `client.Search`
+- URL details via `client.UrlDetails` (`wp-block-editor/v1/url-details`, authentication required)
 
 The standard WordPress REST API reference also includes endpoints that do not yet have first-class wrappers in this library, including:
 
-- `wp/v2/search`
 - newer block editor endpoints such as block types, blocks, block rendering, templates, template parts and global styles
 - navigation, sidebars, widgets and widget types
-- `wp/v2/url-details`
 - autosaves and page revisions
 
 You can still work with unsupported standard endpoints, plugin namespaces and site-specific custom endpoints by using `CustomRequest`.
@@ -189,7 +191,7 @@ You can still work with unsupported standard endpoints, plugin namespaces and si
 dynamic apiIndex = await client.CustomRequest.GetAsync<dynamic>("", ignoreDefaultPath: true);
 
 // Call a standard wp/v2 endpoint that does not have a dedicated client
-dynamic searchResults = await client.CustomRequest.GetAsync<dynamic>("search?search=hello", ignoreDefaultPath: false);
+dynamic pageRevisions = await client.CustomRequest.GetAsync<dynamic>("pages/42/revisions", useAuth: true, ignoreDefaultPath: false);
 
 // Call a plugin or custom namespace route
 dynamic customEndpoint = await client.CustomRequest.GetAsync<dynamic>("wc/v3/products", useAuth: true);

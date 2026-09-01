@@ -150,6 +150,16 @@ public class WordPressClient : IDisposable
     public Themes Themes { get; private set; } = null!;
 
     /// <summary>
+    /// Search client interaction object
+    /// </summary>
+    public Search Search { get; private set; } = null!;
+
+    /// <summary>
+    /// URL Details client interaction object
+    /// </summary>
+    public UrlDetailsClient UrlDetails { get; private set; } = null!;
+
+    /// <summary>
     /// The WordPressClient holds all connection infos and provides methods to call WordPress APIs.
     /// </summary>
     /// <param name="uri">URI for WordPress API endpoint, e.g. "http://demo.wp-api.org/wp-json/"</param>
@@ -218,6 +228,8 @@ public class WordPressClient : IDisposable
         Settings = new Settings(httpHelper);
         Plugins = new Plugins(httpHelper);
         Themes = new Themes(httpHelper);
+        Search = new Search(httpHelper);
+        UrlDetails = new UrlDetailsClient(httpHelper);
     }
 
 }

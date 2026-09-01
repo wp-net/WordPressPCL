@@ -752,6 +752,35 @@
             <param name="cancellationToken">Cancellation token</param>
             <returns>Entity by Id</returns>
         </member>
+        <member name="T:WordPressPCL.Client.Search">
+            <summary>
+            Client class for interaction with the Search endpoint WP REST API (<c>wp/v2/search</c>).
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Client.Search.#ctor(WordPressPCL.Utility.HttpHelper)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="httpHelper">reference to HttpHelper class for interaction with HTTP</param>
+        </member>
+        <member name="M:WordPressPCL.Client.Search.SearchAsync(System.String,System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            Search for content matching a given term.
+            </summary>
+            <param name="searchTerm">Text to search for</param>
+            <param name="useAuth">Send request with authentication header</param>
+            <param name="cancellationToken">Cancellation token</param>
+            <returns>List of matching search results</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Search.QueryAsync(WordPressPCL.Utility.SearchQueryBuilder,System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            Execute a parametrized search query.
+            </summary>
+            <param name="queryBuilder">Query builder with specific parameters</param>
+            <param name="useAuth">Send request with authentication header</param>
+            <param name="cancellationToken">Cancellation token</param>
+            <returns>List of matching search results</returns>
+        </member>
         <member name="T:WordPressPCL.Client.Settings">
             <summary>
             Client class for interaction with Settings endpoints of WP REST API
@@ -858,6 +887,27 @@
             <param name="embed">include embed info</param>
             <param name="cancellationToken">Cancellation token</param>
             <returns>List of posts</returns>
+        </member>
+        <member name="T:WordPressPCL.Client.UrlDetailsClient">
+            <summary>
+            Client class for interaction with the URL Details endpoint WP REST API (<c>wp-block-editor/v1/url-details</c>).
+            This endpoint returns metadata about an external URL, including its title, description and Open Graph data.
+            Requires authentication.
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Client.UrlDetailsClient.#ctor(WordPressPCL.Utility.HttpHelper)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="httpHelper">reference to HttpHelper class for interaction with HTTP</param>
+        </member>
+        <member name="M:WordPressPCL.Client.UrlDetailsClient.GetAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Retrieve metadata for a given URL.
+            </summary>
+            <param name="url">The URL to retrieve details for</param>
+            <param name="cancellationToken">Cancellation token</param>
+            <returns>URL metadata including title, description and Open Graph data</returns>
         </member>
         <member name="T:WordPressPCL.Client.Users">
             <summary>
@@ -3232,6 +3282,41 @@
             Default constructor
             </summary>
         </member>
+        <member name="T:WordPressPCL.Models.SearchResult">
+            <summary>
+            Represents a result from the WordPress REST API search endpoint (<c>wp/v2/search</c>).
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.SearchResult.Id">
+            <summary>
+            Unique identifier for the object. WordPress returns either an integer or a string.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.SearchResult.Title">
+            <summary>
+            The title for the object.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.SearchResult.Url">
+            <summary>
+            URL to the object.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.SearchResult.Type">
+            <summary>
+            Object type.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.SearchResult.Subtype">
+            <summary>
+            Object subtype.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.SearchResult.Links">
+            <summary>
+            Links to related resources.
+            </summary>
+        </member>
         <member name="T:WordPressPCL.Models.Settings">
             <summary>
             WordPress main settings
@@ -3988,6 +4073,71 @@
         <member name="P:WordPressPCL.Models.Theme.Status">
             <summary>
             A named status for the theme.
+            </summary>
+        </member>
+        <member name="T:WordPressPCL.Models.UrlDetails">
+            <summary>
+            Represents the URL details returned by the WordPress REST API (<c>wp-block-editor/v1/url-details</c>).
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.UrlDetails.Title">
+            <summary>
+            The page title of the linked URL.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.UrlDetails.Icon">
+            <summary>
+            The icon URL of the linked URL.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.UrlDetails.Description">
+            <summary>
+            A description of the linked URL.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.UrlDetails.Image">
+            <summary>
+            The Open Graph image of the linked URL.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.UrlDetails.OgDescription">
+            <summary>
+            The Open Graph description of the linked URL.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.UrlDetails.OgTitle">
+            <summary>
+            The Open Graph title of the linked URL.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.UrlDetails.OgImage">
+            <summary>
+            The Open Graph image data of the linked URL.
+            </summary>
+        </member>
+        <member name="T:WordPressPCL.Models.OgImage">
+            <summary>
+            Open Graph image entry returned inside <see cref="T:WordPressPCL.Models.UrlDetails"/>.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.OgImage.Width">
+            <summary>
+            The image width in pixels.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.OgImage.Height">
+            <summary>
+            The image height in pixels.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.OgImage.Url">
+            <summary>
+            The image URL.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.OgImage.Type">
+            <summary>
+            The MIME type of the image.
             </summary>
         </member>
         <member name="T:WordPressPCL.Models.User">
@@ -4821,6 +4971,50 @@
             </summary>
             <param name="text">text uses in HTTP query string</param>
         </member>
+        <member name="T:WordPressPCL.Utility.SearchQueryBuilder">
+            <summary>
+            Query builder for the <c>wp/v2/search</c> endpoint.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.SearchQueryBuilder.Search">
+            <summary>
+            Limit results to those matching a string.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.SearchQueryBuilder.Type">
+            <summary>
+            Limit results to items of an object type.
+            One of: post, term, post-format.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.SearchQueryBuilder.Subtype">
+            <summary>
+            Limit results to items of one or more object subtypes.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.SearchQueryBuilder.Exclude">
+            <summary>
+            Ensure result set excludes specific IDs.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.SearchQueryBuilder.Include">
+            <summary>
+            Limit result set to specific IDs.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.SearchQueryBuilder.Page">
+            <summary>
+            Current page of the collection.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.SearchQueryBuilder.PerPage">
+            <summary>
+            Maximum number of items to be returned in result set.
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Utility.SearchQueryBuilder.BuildQuery">
+            <inheritdoc />
+        </member>
         <member name="T:WordPressPCL.Utility.TagsQueryBuilder">
             <summary>
             Tag Query Builder class to construct queries with valid parameters
@@ -5014,6 +5208,7 @@
             Exposed so custom endpoints can share this client's connection, authentication and serializer settings,
             for example by passing it to a <see cref="T:WordPressPCL.Client.CustomRequest"/> or to a custom
             <see cref="T:WordPressPCL.Client.CRUDOperation`2"/> implementation for a custom post type or taxonomy.
+            The returned instance is owned by this <see cref="T:WordPressPCL.WordPressClient"/> and is disposed with it; do not dispose it directly.
             </remarks>
         </member>
         <member name="P:WordPressPCL.WordPressClient.WordPressUri">
@@ -5123,6 +5318,16 @@
         <member name="P:WordPressPCL.WordPressClient.Themes">
             <summary>
             Themes client interaction object
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.WordPressClient.Search">
+            <summary>
+            Search client interaction object
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.WordPressClient.UrlDetails">
+            <summary>
+            URL Details client interaction object
             </summary>
         </member>
         <member name="M:WordPressPCL.WordPressClient.#ctor(System.Uri,System.String)">
