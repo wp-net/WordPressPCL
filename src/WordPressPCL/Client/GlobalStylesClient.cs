@@ -2,6 +2,7 @@ using System;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Nodes;
 using System.Threading;
 using System.Threading.Tasks;
 using WordPressPCL.Models;
@@ -77,7 +78,12 @@ public class GlobalStylesClient
     {
         if (id <= 0) throw new ArgumentOutOfRangeException(nameof(id));
         ArgumentNullException.ThrowIfNull(entity);
-        string json = JsonSerializer.Serialize(entity, _httpHelper.JsonSerializerOptions);
+        JsonObject payload = JsonSerializer.SerializeToNode(
+            entity,
+            _httpHelper.JsonSerializerOptions)!.AsObject();
+        payload.Remove("id");
+        payload.Remove("_links");
+        string json = payload.ToJsonString(_httpHelper.JsonSerializerOptions);
         using StringContent postBody = new(json, Encoding.UTF8, "application/json");
         return (await _httpHelper.PostRequestAsync<GlobalStyles>(
             $"{_methodPath}/{id}",
