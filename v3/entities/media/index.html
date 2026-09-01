@@ -87,6 +87,8 @@
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#query">Query</a>
     </li>
+    <li class="toctree-l3"><a class="reference internal" href="#audio-metadata">Audio metadata</a>
+    </li>
     <li class="toctree-l3"><a class="reference internal" href="#create-new-media">Create new Media</a>
         <ul>
     <li class="toctree-l4"><a class="reference internal" href="#create-from-stream">Create from Stream</a>
@@ -256,6 +258,87 @@ queryBuilder.Page = 2;
 queryBuilder.Before = DateTime.Now;
 List&lt;MediaItem&gt; media = await client.Media.QueryAsync(queryBuilder);
 </code></pre>
+<h2 id="audio-metadata">Audio metadata</h2>
+<p>For audio attachments, <code>MediaItem.MediaDetails</code> maps the optional metadata returned by
+WordPress. Values depend on the uploaded file and the server's metadata extraction.</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>WordPress field</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>DataFormat</code></td>
+<td><code>dataformat</code></td>
+</tr>
+<tr>
+<td><code>Channels</code></td>
+<td><code>channels</code></td>
+</tr>
+<tr>
+<td><code>SampleRate</code></td>
+<td><code>sample_rate</code></td>
+</tr>
+<tr>
+<td><code>Bitrate</code></td>
+<td><code>bitrate</code></td>
+</tr>
+<tr>
+<td><code>ChannelMode</code></td>
+<td><code>channelmode</code></td>
+</tr>
+<tr>
+<td><code>BitrateMode</code></td>
+<td><code>bitrate_mode</code></td>
+</tr>
+<tr>
+<td><code>Lossless</code></td>
+<td><code>lossless</code></td>
+</tr>
+<tr>
+<td><code>EncoderOptions</code></td>
+<td><code>encoder_options</code></td>
+</tr>
+<tr>
+<td><code>CompressionRatio</code></td>
+<td><code>compression_ratio</code></td>
+</tr>
+<tr>
+<td><code>FileFormat</code></td>
+<td><code>fileformat</code></td>
+</tr>
+<tr>
+<td><code>FileSize</code></td>
+<td><code>filesize</code></td>
+</tr>
+<tr>
+<td><code>MimeType</code></td>
+<td><code>mime_type</code></td>
+</tr>
+<tr>
+<td><code>Length</code></td>
+<td><code>length</code></td>
+</tr>
+<tr>
+<td><code>LengthFormatted</code></td>
+<td><code>length_formatted</code></td>
+</tr>
+<tr>
+<td><code>Genre</code>, <code>Year</code>, <code>Date</code>, <code>Text</code></td>
+<td>ID3 tag fields</td>
+</tr>
+<tr>
+<td><code>Title</code>, <code>Artist</code>, <code>Album</code></td>
+<td>ID3 tag fields</td>
+</tr>
+<tr>
+<td><code>CreatedTimestamp</code></td>
+<td><code>created_timestamp</code></td>
+</tr>
+</tbody>
+</table>
 <h2 id="create-new-media">Create new Media</h2>
 <h3 id="create-from-stream">Create from Stream</h3>
 <pre><code class="language-C#">// returns created media
