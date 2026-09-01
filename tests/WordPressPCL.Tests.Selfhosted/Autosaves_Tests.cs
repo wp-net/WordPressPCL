@@ -20,6 +20,7 @@ public class Autosaves_Tests
           "id": 71,
           "parent": 42,
           "author": 3,
+          "guid": { "raw": "https://example.com/?p=71", "rendered": "https://example.com/?p=71" },
           "title": { "raw": "Autosaved title", "rendered": "Autosaved title" },
           "content": { "raw": "Autosaved content", "rendered": "Autosaved content" }
         }
@@ -45,7 +46,9 @@ public class Autosaves_Tests
         Assert.HasCount(1, autosaves);
         Assert.AreEqual(71, autosaves[0].Id);
         Assert.AreEqual(42, autosaves[0].Parent);
+        Assert.AreEqual("https://example.com/?p=71", autosaves[0].Guid?.Raw);
         Assert.AreEqual("Autosaved content", autosave.Content?.Raw);
+        Assert.AreEqual("https://example.com/?p=71", autosave.Guid?.Rendered);
         Assert.AreEqual(71, created.Id);
         AssertRequest(handler.Requests[0], HttpMethod.Get, "https://example.com/wp-json/wp/v2/posts/42/autosaves?_embed");
         AssertRequest(handler.Requests[1], HttpMethod.Get, "https://example.com/wp-json/wp/v2/posts/42/autosaves/71");
@@ -80,7 +83,9 @@ public class Autosaves_Tests
         Assert.HasCount(1, autosaves);
         Assert.AreEqual(71, autosaves[0].Id);
         Assert.AreEqual(42, autosaves[0].Parent);
+        Assert.AreEqual("https://example.com/?p=71", autosaves[0].Guid?.Raw);
         Assert.AreEqual("Autosaved title", autosave.Title?.Raw);
+        Assert.AreEqual("https://example.com/?p=71", autosave.Guid?.Rendered);
         Assert.AreEqual(71, created.Id);
         AssertRequest(handler.Requests[0], HttpMethod.Get, "https://example.com/wp-json/wp/v2/pages/42/autosaves?_embed");
         AssertRequest(handler.Requests[1], HttpMethod.Get, "https://example.com/wp-json/wp/v2/pages/42/autosaves/71");
