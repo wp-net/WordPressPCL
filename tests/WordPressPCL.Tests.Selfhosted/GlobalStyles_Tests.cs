@@ -82,7 +82,7 @@ public class GlobalStyles_Tests
     }
 
     [TestMethod]
-    public async Task UpdateAsync_PostsOnlyProvidedGlobalStylesFields()
+    public async Task UpdateAsync_UsesMethodIdAndOmitsResponseOnlyBodyId()
     {
         RecordingHandler handler = new(StoredStylesJson);
         using HttpClient httpClient = CreateHttpClient(handler);
@@ -92,6 +92,7 @@ public class GlobalStyles_Tests
 
         GlobalStyles updated = await client.GlobalStyles.UpdateAsync(63, new GlobalStyles
         {
+            Id = 999,
             Title = new Title("Updated"),
             Settings = settings.RootElement.Clone(),
             Styles = styles.RootElement.Clone()
