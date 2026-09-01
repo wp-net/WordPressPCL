@@ -176,7 +176,7 @@ Notes:
 - Block types, reusable blocks and navigation posts are available through `client.BlockTypes`, `client.Blocks` and `client.Navigation`.
 - Block types require WordPress 5.5 or newer and an authenticated user with permission to edit a REST-enabled post type.
 - Reusable blocks require WordPress 5.0 or newer; core requires authentication and suitable post-editing permissions for reads and writes.
-- Navigation posts require WordPress 5.9 or newer. Published posts can be read anonymously in `view` context, while edit context, non-public content and writes require authentication; core maps editing capabilities to `edit_theme_options`.
+- Navigation posts require WordPress 5.9 or newer. `client.Navigation` authenticates reads by default because core maps `wp_navigation` capabilities to `edit_theme_options`; the route's availability and permissions can still vary with WordPress version and site customization.
 - Discover `/wp-json/` rather than assuming these newer routes exist on older or customized sites.
 
 ## Endpoint Coverage and Gaps
