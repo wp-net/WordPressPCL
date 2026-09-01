@@ -18,6 +18,7 @@ public class PageRevisions_Tests
           "id": 73,
           "parent": 42,
           "author": 3,
+          "guid": { "raw": "https://example.com/?p=73", "rendered": "https://example.com/?p=73" },
           "title": { "raw": "Previous title", "rendered": "Previous title" },
           "content": { "raw": "Previous content", "rendered": "Previous content" }
         }
@@ -42,7 +43,9 @@ public class PageRevisions_Tests
         Assert.HasCount(1, revisions);
         Assert.AreEqual(73, revisions[0].Id);
         Assert.AreEqual(42, revisions[0].Parent);
+        Assert.AreEqual("https://example.com/?p=73", revisions[0].Guid?.Raw);
         Assert.AreEqual("Previous content", revision.Content?.Raw);
+        Assert.AreEqual("https://example.com/?p=73", revision.Guid?.Rendered);
         Assert.IsTrue(deleted);
         AssertRequest(handler.Requests[0], HttpMethod.Get, "https://example.com/wp-json/wp/v2/pages/42/revisions?_embed");
         AssertRequest(handler.Requests[1], HttpMethod.Get, "https://example.com/wp-json/wp/v2/pages/42/revisions/73");
