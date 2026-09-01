@@ -2785,6 +2785,116 @@
             Meta info of Image
             </summary>
         </member>
+        <member name="P:WordPressPCL.Models.MediaDetails.DataFormat">
+            <summary>
+            Audio data format
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.MediaDetails.Channels">
+            <summary>
+            Number of audio channels
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.MediaDetails.SampleRate">
+            <summary>
+            Audio sample rate in hertz
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.MediaDetails.Bitrate">
+            <summary>
+            Audio bitrate in bits per second
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.MediaDetails.ChannelMode">
+            <summary>
+            Audio channel mode
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.MediaDetails.BitrateMode">
+            <summary>
+            Audio bitrate mode
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.MediaDetails.Lossless">
+            <summary>
+            Whether the audio encoding is lossless
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.MediaDetails.EncoderOptions">
+            <summary>
+            Audio encoder options
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.MediaDetails.CompressionRatio">
+            <summary>
+            Audio compression ratio
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.MediaDetails.FileFormat">
+            <summary>
+            Media file format
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.MediaDetails.FileSize">
+            <summary>
+            Media file size in bytes
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.MediaDetails.MimeType">
+            <summary>
+            Media MIME type
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.MediaDetails.Length">
+            <summary>
+            Audio duration in seconds
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.MediaDetails.LengthFormatted">
+            <summary>
+            Formatted audio duration
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.MediaDetails.Genre">
+            <summary>
+            Audio genre
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.MediaDetails.Year">
+            <summary>
+            Audio release year
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.MediaDetails.Date">
+            <summary>
+            Audio tag date
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.MediaDetails.Text">
+            <summary>
+            Audio tag text
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.MediaDetails.Title">
+            <summary>
+            Audio title
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.MediaDetails.Artist">
+            <summary>
+            Audio artist
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.MediaDetails.Album">
+            <summary>
+            Audio album
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.MediaDetails.CreatedTimestamp">
+            <summary>
+            Media creation time as a Unix timestamp
+            </summary>
+        </member>
         <member name="T:WordPressPCL.Models.MediaItem">
             <summary>
             Type represent Media Entity of WP REST API

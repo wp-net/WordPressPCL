@@ -52,16 +52,7 @@ public class Media : IUpdateOperation<MediaItem>, IReadOperation<MediaItem>, IDe
         }
 
         using StreamContent content = new(fileStream);
-        if (string.IsNullOrEmpty(mimeType))
-        {
-            string extension = filename.Split('.').Last();
-            content.Headers.TryAddWithoutValidation("Content-Type", MimeTypeHelper.GetMIMETypeFromExtension(extension));
-        }
-        else
-        {
-            content.Headers.TryAddWithoutValidation("Content-Type", mimeType);
-        }
-        content.Headers.TryAddWithoutValidation("Content-Disposition", $"attachment; filename={filename}");
+        ConfigureStreamContent(content, filename, mimeType);
         return (await _httpHelper.PostRequestAsync<MediaItem>($"{_methodPath}", content, cancellationToken: cancellationToken).ConfigureAwait(false)).Item1;
     }
 
@@ -88,22 +79,45 @@ public class Media : IUpdateOperation<MediaItem>, IReadOperation<MediaItem>, IDe
         if (File.Exists(filePath))
         {
             using StreamContent content = new(File.OpenRead(filePath));
-            if (string.IsNullOrEmpty(mimeType))
-            {
-                string extension = filename.Split('.').Last();
-                content.Headers.TryAddWithoutValidation("Content-Type", MimeTypeHelper.GetMIMETypeFromExtension(extension));
-            }
-            else
-            {
-                content.Headers.TryAddWithoutValidation("Content-Type", mimeType);
-            }
-            content.Headers.TryAddWithoutValidation("Content-Disposition", $"attachment; filename={filename}");
+            ConfigureStreamContent(content, filename, mimeType);
             return (await _httpHelper.PostRequestAsync<MediaItem>($"{_methodPath}", content, cancellationToken: cancellationToken).ConfigureAwait(false)).Item1;
         }
         else
         {
             throw new FileNotFoundException($"{filePath} was not found");
         }
+    }
+
+    private static void ConfigureStreamContent(StreamContent content, string filename, string? mimeType)
+    {
+        string contentType = string.IsNullOrEmpty(mimeType)
+            ? MimeTypeHelper.GetMIMETypeFromExtension(filename.Split('.').Last())
+            : mimeType;
+
+        content.Headers.ContentType = MediaTypeHeaderValue.Parse(contentType);
+        content.Headers.ContentDisposition = CreateContentDisposition(filename);
+    }
+
+    private static ContentDispositionHeaderValue CreateContentDisposition(string filename)
+    {
+        if (filename.Any(char.IsControl))
+        {
+            throw new FormatException("The filename cannot contain control characters.");
+        }
+
+        ContentDispositionHeaderValue contentDisposition = new("attachment");
+        if (filename.All(character => character <= 0x7f && character is not '"' and not '\\'))
+        {
+            contentDisposition.FileName = filename;
+            return contentDisposition;
+        }
+
+        contentDisposition.FileName = string.Concat(
+            filename.Select(character => character <= 0x7f && character is not '"' and not '\\'
+                ? character
+                : '_'));
+        contentDisposition.FileNameStar = filename;
+        return contentDisposition;
     }
 
     /// <summary>
