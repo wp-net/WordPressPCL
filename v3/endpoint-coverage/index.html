@@ -246,12 +246,27 @@
 <tr>
 <td><code>wp/v2/posts/&lt;id&gt;/revisions</code></td>
 <td><code>client.Posts.Revisions(postId)</code></td>
-<td>Post revisions only</td>
+<td>Post revisions</td>
+</tr>
+<tr>
+<td><code>wp/v2/posts/&lt;id&gt;/autosaves</code></td>
+<td><code>client.Posts.Autosaves(postId)</code></td>
+<td>Create and read autosaves</td>
 </tr>
 <tr>
 <td><code>wp/v2/pages</code></td>
 <td><code>client.Pages</code></td>
 <td>CRUD</td>
+</tr>
+<tr>
+<td><code>wp/v2/pages/&lt;id&gt;/revisions</code></td>
+<td><code>client.Pages.Revisions(pageId)</code></td>
+<td>Page revisions</td>
+</tr>
+<tr>
+<td><code>wp/v2/pages/&lt;id&gt;/autosaves</code></td>
+<td><code>client.Pages.Autosaves(pageId)</code></td>
+<td>Create and read autosaves</td>
 </tr>
 <tr>
 <td><code>wp/v2/comments</code></td>
@@ -326,7 +341,6 @@
 <li>block editor endpoints such as <code>wp/v2/block-types</code>, <code>wp/v2/blocks</code>, <code>wp/v2/block-renderer</code>, <code>wp/v2/templates</code>, <code>wp/v2/template-parts</code> and <code>wp/v2/global-styles</code></li>
 <li>navigation and site editing endpoints such as <code>wp/v2/navigation</code> and <code>wp/v2/navigation-fallback</code></li>
 <li><code>wp/v2/sidebars</code>, <code>wp/v2/widgets</code> and <code>wp/v2/widget-types</code></li>
-<li>autosaves and page revisions</li>
 </ul>
 <p>As WordPress adds more standard endpoints, the authoritative way to see what a site exposes is its API index at <code>/wp-json/</code>.</p>
 <h2 id="using-discovery-and-customrequest">Using discovery and CustomRequest</h2>
@@ -336,7 +350,6 @@
 <p>These examples use <code>dynamic</code> for brevity. If you already know the response shape, prefer a DTO or a JSON type that matches your project style.</p>
 <p>Use <code>CustomRequest</code> for standard endpoints that do not yet have dedicated wrappers:</p>
 <pre><code class="language-csharp">dynamic renderedBlock = await client.CustomRequest.PostAsync&lt;dynamic&gt;(&quot;block-renderer/core%2Fparagraph&quot;, body, ignoreDefaultPath: false);
-dynamic pageRevisions = await client.CustomRequest.GetAsync&lt;dynamic&gt;(&quot;pages/42/revisions&quot;, useAuth: true, ignoreDefaultPath: false);
 </code></pre>
 <p>Use <code>CustomRequest</code> for plugin namespaces and custom site routes:</p>
 <pre><code class="language-csharp">dynamic products = await client.CustomRequest.GetAsync&lt;dynamic&gt;(&quot;wc/v3/products&quot;, useAuth: true);
@@ -345,8 +358,10 @@ dynamic pageRevisions = await client.CustomRequest.GetAsync&lt;dynamic&gt;(&quot
 <ul>
 <li>Themes are available through <code>client.Themes</code>, but they are read/query only.</li>
 <li>Post revisions are available through <code>client.Posts.Revisions(postId)</code>.</li>
+<li>Page revisions are available through <code>client.Pages.Revisions(pageId)</code>.</li>
+<li>Post autosaves are available through <code>client.Posts.Autosaves(postId)</code>.</li>
+<li>Page autosaves are available through <code>client.Pages.Autosaves(pageId)</code>.</li>
 <li>URL details are available through <code>client.UrlDetails</code> and require authentication.</li>
-<li>Pages do not currently have a dedicated revisions or autosaves helper.</li>
 </ul>
               
             </div>
