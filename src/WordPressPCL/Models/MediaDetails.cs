@@ -14,11 +14,13 @@ public class MediaDetails
     /// Media width
     /// </summary>
     [JsonPropertyName("width")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
     public int Width { get; set; }
     /// <summary>
     /// Media height
     /// </summary>
     [JsonPropertyName("height")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
     public int Height { get; set; }
     /// <summary>
     /// File

@@ -81,7 +81,8 @@ public class MediaDetails_Tests
         Assert.AreEqual("cbr", mediaItem.MediaDetails.BitrateMode);
         Assert.AreEqual(false, mediaItem.MediaDetails.Lossless);
         Assert.AreEqual("CBR256", mediaItem.MediaDetails.EncoderOptions);
-        Assert.AreEqual(0.18140589569160998D, mediaItem.MediaDetails.CompressionRatio);
+        Assert.IsNotNull(mediaItem.MediaDetails.CompressionRatio);
+        Assert.AreEqual(0.18140589569160998D, mediaItem.MediaDetails.CompressionRatio.Value, 0.000000000000001D);
         Assert.AreEqual("mp3", mediaItem.MediaDetails.FileFormat);
         Assert.AreEqual(1545929L, mediaItem.MediaDetails.FileSize);
         Assert.AreEqual("audio/mpeg", mediaItem.MediaDetails.MimeType);
@@ -118,6 +119,8 @@ public class MediaDetails_Tests
         Assert.AreEqual("cbr", root.GetProperty("bitrate_mode").GetString());
         Assert.AreEqual("0:48", root.GetProperty("length_formatted").GetString());
         Assert.AreEqual(1565654400L, root.GetProperty("created_timestamp").GetInt64());
+        Assert.IsFalse(root.TryGetProperty("width", out _));
+        Assert.IsFalse(root.TryGetProperty("height", out _));
         Assert.IsFalse(root.TryGetProperty("SampleRate", out _));
         Assert.IsFalse(root.TryGetProperty("BitrateMode", out _));
         Assert.IsFalse(root.TryGetProperty("LengthFormatted", out _));
@@ -144,6 +147,8 @@ public class MediaDetails_Tests
         Assert.AreEqual("2026/09/example.jpg", root.GetProperty("file").GetString());
         Assert.IsTrue(root.TryGetProperty("sizes", out _));
         Assert.AreEqual("Example camera", root.GetProperty("image_meta").GetProperty("camera").GetString());
+        Assert.AreEqual(1024, root.GetProperty("width").GetInt32());
+        Assert.AreEqual(768, root.GetProperty("height").GetInt32());
 
         foreach (string propertyName in s_audioPropertyNames)
         {
