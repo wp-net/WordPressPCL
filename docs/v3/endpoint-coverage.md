@@ -7,8 +7,11 @@ WordPressPCL focuses on the most commonly used WordPress REST API endpoints and 
 | WordPress endpoint | WordPressPCL entry point | Notes |
 |--------------------|--------------------------|-------|
 | `wp/v2/posts` | `client.Posts` | CRUD, count, sticky/filter helpers |
-| `wp/v2/posts/<id>/revisions` | `client.Posts.Revisions(postId)` | Post revisions only |
+| `wp/v2/posts/<id>/revisions` | `client.Posts.Revisions(postId)` | Post revisions |
+| `wp/v2/posts/<id>/autosaves` | `client.Posts.Autosaves(postId)` | Create and read autosaves |
 | `wp/v2/pages` | `client.Pages` | CRUD |
+| `wp/v2/pages/<id>/revisions` | `client.Pages.Revisions(pageId)` | Page revisions |
+| `wp/v2/pages/<id>/autosaves` | `client.Pages.Autosaves(pageId)` | Create and read autosaves |
 | `wp/v2/comments` | `client.Comments` | CRUD |
 | `wp/v2/categories` | `client.Categories` | CRUD |
 | `wp/v2/tags` | `client.Tags` | CRUD |
@@ -30,7 +33,6 @@ The official WordPress REST API reference includes additional standard endpoints
 - block editor endpoints such as `wp/v2/block-types`, `wp/v2/blocks`, `wp/v2/block-renderer`, `wp/v2/templates`, `wp/v2/template-parts` and `wp/v2/global-styles`
 - navigation and site editing endpoints such as `wp/v2/navigation` and `wp/v2/navigation-fallback`
 - `wp/v2/sidebars`, `wp/v2/widgets` and `wp/v2/widget-types`
-- autosaves and page revisions
 
 As WordPress adds more standard endpoints, the authoritative way to see what a site exposes is its API index at `/wp-json/`.
 
@@ -48,7 +50,6 @@ Use `CustomRequest` for standard endpoints that do not yet have dedicated wrappe
 
 ```csharp
 dynamic renderedBlock = await client.CustomRequest.PostAsync<dynamic>("block-renderer/core%2Fparagraph", body, ignoreDefaultPath: false);
-dynamic pageRevisions = await client.CustomRequest.GetAsync<dynamic>("pages/42/revisions", useAuth: true, ignoreDefaultPath: false);
 ```
 
 Use `CustomRequest` for plugin namespaces and custom site routes:
@@ -61,5 +62,7 @@ dynamic products = await client.CustomRequest.GetAsync<dynamic>("wc/v3/products"
 
 - Themes are available through `client.Themes`, but they are read/query only.
 - Post revisions are available through `client.Posts.Revisions(postId)`.
+- Page revisions are available through `client.Pages.Revisions(pageId)`.
+- Post autosaves are available through `client.Posts.Autosaves(postId)`.
+- Page autosaves are available through `client.Pages.Autosaves(pageId)`.
 - URL details are available through `client.UrlDetails` and require authentication.
-- Pages do not currently have a dedicated revisions or autosaves helper.
