@@ -29,11 +29,11 @@ public class Widgets
     }
 
     /// <summary>
-    /// Gets all visible widgets.
+    /// Gets all publicly visible widgets.
     /// </summary>
     public Task<List<Widget>> GetAsync(
         bool embed = false,
-        bool useAuth = true,
+        bool useAuth = false,
         CancellationToken cancellationToken = default)
     {
         return _httpHelper.GetRequestAsync<List<Widget>>(
@@ -44,12 +44,12 @@ public class Widgets
     }
 
     /// <summary>
-    /// Gets all widgets assigned to a sidebar.
+    /// Gets publicly visible widgets assigned to a sidebar.
     /// </summary>
     public Task<List<Widget>> GetBySidebarAsync(
         string sidebarId,
         bool embed = false,
-        bool useAuth = true,
+        bool useAuth = false,
         CancellationToken cancellationToken = default)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(sidebarId);
@@ -62,12 +62,12 @@ public class Widgets
     }
 
     /// <summary>
-    /// Gets a widget by its string ID.
+    /// Gets a publicly visible widget by its string ID.
     /// </summary>
     public Task<Widget> GetByIdAsync(
         string id,
         bool embed = false,
-        bool useAuth = true,
+        bool useAuth = false,
         CancellationToken cancellationToken = default)
     {
         return _httpHelper.GetRequestAsync<Widget>(
@@ -78,11 +78,11 @@ public class Widgets
     }
 
     /// <summary>
-    /// Gets widgets matching a core-supported collection query.
+    /// Gets publicly visible widgets matching a core-supported collection query.
     /// </summary>
     public Task<List<Widget>> QueryAsync(
         WidgetsQueryBuilder queryBuilder,
-        bool useAuth = true,
+        bool useAuth = false,
         CancellationToken cancellationToken = default)
     {
         ArgumentNullException.ThrowIfNull(queryBuilder);
@@ -94,7 +94,8 @@ public class Widgets
     }
 
     /// <summary>
-    /// Creates a widget. WordPress generates the widget ID.
+    /// Creates a widget. WordPress generates the widget ID and defaults an omitted sidebar to
+    /// <c>wp_inactive_widgets</c>.
     /// </summary>
     public async Task<Widget> CreateAsync(
         Widget entity,
@@ -102,7 +103,11 @@ public class Widgets
     {
         ArgumentNullException.ThrowIfNull(entity);
         ArgumentException.ThrowIfNullOrWhiteSpace(entity.IdBase);
-        ArgumentException.ThrowIfNullOrWhiteSpace(entity.Sidebar);
+        if (entity.Sidebar is not null)
+        {
+            ArgumentException.ThrowIfNullOrWhiteSpace(entity.Sidebar);
+        }
+
         string json = SerializeWritableFields(entity, includeIdBase: true);
         using StringContent postBody = new(json, Encoding.UTF8, "application/json");
         return (await _httpHelper.PostRequestAsync<Widget>(

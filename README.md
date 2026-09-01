@@ -185,7 +185,7 @@ Notes:
 - Navigation posts require WordPress 5.9 or newer. `client.Navigation` authenticates reads by default because core maps `wp_navigation` capabilities to `edit_theme_options`; the route's availability and permissions can still vary with WordPress version and site customization.
 - Templates and template parts require WordPress 5.8 or newer and authentication. They use compound string IDs such as `twentytwentyfour//index`; template fallback lookup requires WordPress 6.1 or newer.
 - Global styles require WordPress 5.9 or newer and authentication. `client.GlobalStyles` reads or updates a record by integer ID and reads merged styles for the active theme.
-- Sidebars, widgets and widget types require WordPress 5.8 or newer. Sidebar and widget-type operations, plus widget writes, require authentication and the `edit_theme_options` capability. Core can expose reads for widgets in sidebars registered with `show_in_rest`.
+- Sidebars, widgets and widget types require WordPress 5.8 or newer. Widget-type reads and all writes require authentication and the `edit_theme_options` capability. Sidebars and widgets can be read without authentication when the target sidebar is registered with `show_in_rest`.
 - Sidebars and widgets use string IDs. `client.Sidebars.UpdateAsync` replaces a sidebar's ordered widget assignment; `client.Widgets` supports sidebar filtering and raw or encoded widget instance settings.
 - Discover `/wp-json/` rather than assuming these newer routes exist on older or customized sites.
 

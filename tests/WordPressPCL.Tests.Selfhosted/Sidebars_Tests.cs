@@ -34,16 +34,18 @@ public class Sidebars_Tests
         """;
 
     [TestMethod]
-    public async Task ReadOperations_UseStringIdRoutesAuthenticationAndResponseShape()
+    public async Task ReadOperations_DefaultToPublicAccessAndAllowExplicitAuthentication()
     {
-        RecordingHandler handler = new($"[{SidebarJson}]", SidebarJson);
+        RecordingHandler handler = new($"[{SidebarJson}]", SidebarJson, SidebarJson);
         using HttpClient httpClient = CreateHttpClient(handler);
         using WordPressClient client = CreateAuthenticatedClient(httpClient);
 
         List<Sidebar> sidebars = await client.Sidebars.GetAsync(embed: true);
         Sidebar sidebar = await client.Sidebars.GetByIdAsync(
-            "Primary / Footer & More",
-            useAuth: false);
+            "Primary / Footer & More");
+        Sidebar protectedSidebar = await client.Sidebars.GetByIdAsync(
+            "sidebar-1",
+            useAuth: true);
 
         Assert.HasCount(1, sidebars);
         Assert.AreEqual("sidebar-1", sidebar.Id);
@@ -58,16 +60,22 @@ public class Sidebars_Tests
         Assert.AreEqual(
             "preserved",
             sidebar.AdditionalFields?["plugin_field"].GetString());
+        Assert.AreEqual("sidebar-1", protectedSidebar.Id);
         AssertRequest(
             handler.Requests[0],
             HttpMethod.Get,
             "https://example.com/wp-json/wp/v2/sidebars?_embed",
-            "Basic");
+            null);
         AssertRequest(
             handler.Requests[1],
             HttpMethod.Get,
             "https://example.com/wp-json/wp/v2/sidebars/Primary%20%2F%20Footer%20%26%20More",
             null);
+        AssertRequest(
+            handler.Requests[2],
+            HttpMethod.Get,
+            "https://example.com/wp-json/wp/v2/sidebars/sidebar-1",
+            "Basic");
     }
 
     [TestMethod]

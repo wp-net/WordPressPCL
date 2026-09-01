@@ -32,8 +32,8 @@ WordPressPCL focuses on the most commonly used WordPress REST API endpoints and 
 | `wp/v2/template-parts` | `client.TemplateParts` | CRUD and collection filters; WordPress 5.8+ and authentication required |
 | `wp/v2/global-styles/<id>` | `client.GlobalStyles` | Read/update a stored record by ID; WordPress 5.9+ and authentication required |
 | `wp/v2/global-styles/themes/<stylesheet>` | `client.GlobalStyles` | Read merged settings and styles for the active theme; authentication required |
-| `wp/v2/sidebars` | `client.Sidebars` | Read/update widget assignments; WordPress 5.8+ and `edit_theme_options` required |
-| `wp/v2/widgets` | `client.Widgets` | CRUD and sidebar filtering with string IDs; WordPress 5.8+ |
+| `wp/v2/sidebars` | `client.Sidebars` | Public reads when a sidebar has `show_in_rest`; authenticated widget-assignment updates; WordPress 5.8+ |
+| `wp/v2/widgets` | `client.Widgets` | Public reads when a sidebar has `show_in_rest`; authenticated CRUD and sidebar filtering with string IDs; WordPress 5.8+ |
 | `wp/v2/widget-types` | `client.WidgetTypes` | Read only; WordPress 5.8+ and `edit_theme_options` required |
 
 ## Standard endpoints without dedicated wrappers
@@ -84,5 +84,5 @@ dynamic products = await client.CustomRequest.GetAsync<dynamic>("wc/v3/products"
 - `client.Templates.GetFallbackAsync` uses the fallback lookup route introduced in WordPress 6.1.
 - Global styles exposes only the core-supported single-record read/update operations and active-theme style retrieval. Core does not expose a global styles collection create or delete route.
 - Sidebars and widgets use string IDs. Updating a sidebar replaces its ordered widget assignment, while widget create/update accepts either raw instance settings or encoded settings and a hash. WordPress generates IDs for newly created widgets.
-- Sidebar and widget-type operations, plus widget writes, require authentication and the `edit_theme_options` capability. Core can expose widget reads for sidebars registered with `show_in_rest`.
+- Widget-type reads and all writes require authentication and the `edit_theme_options` capability. Core exposes sidebar and widget reads without authentication when the relevant sidebar is registered with `show_in_rest`.
 - The API index at `/wp-json/` is authoritative for route availability on a particular site.

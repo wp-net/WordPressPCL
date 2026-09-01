@@ -35,20 +35,20 @@ public class Widgets_Tests
         """;
 
     [TestMethod]
-    public async Task ReadOperations_UseRoutesQueriesEncodingAndAuthenticationChoice()
+    public async Task ReadOperations_DefaultToPublicAccessAndAllowExplicitAuthentication()
     {
         RecordingHandler handler = new(
             $"[{WidgetJson}]",
             WidgetJson,
+            $"[{WidgetJson}]",
+            $"[{WidgetJson}]",
             $"[{WidgetJson}]",
             $"[{WidgetJson}]");
         using HttpClient httpClient = CreateHttpClient(handler);
         using WordPressClient client = CreateAuthenticatedClient(httpClient);
 
         List<Widget> all = await client.Widgets.GetAsync(embed: true);
-        Widget widget = await client.Widgets.GetByIdAsync(
-            "block/7 & draft",
-            useAuth: false);
+        Widget widget = await client.Widgets.GetByIdAsync("block/7 & draft");
         List<Widget> sidebarWidgets = await client.Widgets.GetBySidebarAsync(
             "Header & Footer",
             embed: true);
@@ -59,6 +59,10 @@ public class Widgets_Tests
             Embed = true,
             Order = Order.ASC
         });
+        List<Widget> authenticatedAll = await client.Widgets.GetAsync(useAuth: true);
+        List<Widget> authenticatedQuery = await client.Widgets.QueryAsync(
+            new WidgetsQueryBuilder { Sidebar = "sidebar-1" },
+            useAuth: true);
 
         Assert.HasCount(1, all);
         Assert.AreEqual("block-7", widget.Id);
@@ -72,11 +76,13 @@ public class Widgets_Tests
         Assert.IsTrue(widget.AdditionalFields?["plugin_field"].GetBoolean());
         Assert.HasCount(1, sidebarWidgets);
         Assert.HasCount(1, queried);
+        Assert.HasCount(1, authenticatedAll);
+        Assert.HasCount(1, authenticatedQuery);
         AssertRequest(
             handler.Requests[0],
             HttpMethod.Get,
             "https://example.com/wp-json/wp/v2/widgets?_embed",
-            "Basic");
+            null);
         AssertRequest(
             handler.Requests[1],
             HttpMethod.Get,
@@ -86,11 +92,21 @@ public class Widgets_Tests
             handler.Requests[2],
             HttpMethod.Get,
             "https://example.com/wp-json/wp/v2/widgets?sidebar=Header%20%26%20Footer&_embed",
-            "Basic");
+            null);
         AssertRequest(
             handler.Requests[3],
             HttpMethod.Get,
             "https://example.com/wp-json/wp/v2/widgets?sidebar=Header%20%26%20Footer%2FPrimary&context=edit&_embed=true",
+            null);
+        AssertRequest(
+            handler.Requests[4],
+            HttpMethod.Get,
+            "https://example.com/wp-json/wp/v2/widgets",
+            "Basic");
+        AssertRequest(
+            handler.Requests[5],
+            HttpMethod.Get,
+            "https://example.com/wp-json/wp/v2/widgets?sidebar=sidebar-1",
             "Basic");
     }
 
@@ -100,12 +116,17 @@ public class Widgets_Tests
         RecordingHandler handler = new(
             WidgetJson,
             WidgetJson,
+            WidgetJson,
             """{"id":"block-7","sidebar":"wp_inactive_widgets"}""",
             """{"deleted":true,"previous":{"id":"block-7"}}""");
         using HttpClient httpClient = CreateHttpClient(handler);
         using WordPressClient client = CreateAuthenticatedClient(httpClient);
         using JsonDocument raw = JsonDocument.Parse("""{"content":"Welcome"}""");
 
+        Widget defaultSidebarCreated = await client.Widgets.CreateAsync(new Widget
+        {
+            IdBase = "block"
+        });
         Widget created = await client.Widgets.CreateAsync(new Widget
         {
             Id = "caller-id-must-be-ignored",
@@ -125,6 +146,7 @@ public class Widgets_Tests
         bool deactivated = await client.Widgets.DeleteAsync("block-7");
         bool deleted = await client.Widgets.DeleteAsync("block/7 & old", force: true);
 
+        Assert.AreEqual("block-7", defaultSidebarCreated.Id);
         Assert.AreEqual("block-7", created.Id);
         Assert.AreEqual("block-7", updated.Id);
         Assert.IsTrue(deactivated);
@@ -137,22 +159,31 @@ public class Widgets_Tests
         AssertRequest(
             handler.Requests[1],
             HttpMethod.Post,
-            "https://example.com/wp-json/wp/v2/widgets/block-7",
+            "https://example.com/wp-json/wp/v2/widgets",
             "Basic");
         AssertRequest(
             handler.Requests[2],
+            HttpMethod.Post,
+            "https://example.com/wp-json/wp/v2/widgets/block-7",
+            "Basic");
+        AssertRequest(
+            handler.Requests[3],
             HttpMethod.Delete,
             "https://example.com/wp-json/wp/v2/widgets/block-7?force=false",
             "Basic");
         AssertRequest(
-            handler.Requests[3],
+            handler.Requests[4],
             HttpMethod.Delete,
             "https://example.com/wp-json/wp/v2/widgets/block%2F7%20%26%20old?force=true",
             "Basic");
         Assert.AreEqual("application/json", handler.Requests[0].ContentType);
         Assert.AreEqual("application/json", handler.Requests[1].ContentType);
 
-        using JsonDocument createBody = JsonDocument.Parse(handler.Requests[0].Body!);
+        using JsonDocument defaultCreateBody = JsonDocument.Parse(handler.Requests[0].Body!);
+        Assert.AreEqual("block", defaultCreateBody.RootElement.GetProperty("id_base").GetString());
+        Assert.IsFalse(defaultCreateBody.RootElement.TryGetProperty("sidebar", out _));
+
+        using JsonDocument createBody = JsonDocument.Parse(handler.Requests[1].Body!);
         Assert.AreEqual("block", createBody.RootElement.GetProperty("id_base").GetString());
         Assert.AreEqual("sidebar-1", createBody.RootElement.GetProperty("sidebar").GetString());
         Assert.AreEqual(
@@ -166,7 +197,7 @@ public class Widgets_Tests
         Assert.IsFalse(createBody.RootElement.TryGetProperty("rendered", out _));
         Assert.IsFalse(createBody.RootElement.TryGetProperty("rendered_form", out _));
 
-        using JsonDocument updateBody = JsonDocument.Parse(handler.Requests[1].Body!);
+        using JsonDocument updateBody = JsonDocument.Parse(handler.Requests[2].Body!);
         Assert.AreEqual(
             "Footer & Secondary",
             updateBody.RootElement.GetProperty("sidebar").GetString());
@@ -202,8 +233,6 @@ public class Widgets_Tests
             client.Widgets.CreateAsync(new Widget()));
         await Assert.ThrowsExactlyAsync<ArgumentException>(() =>
             client.Widgets.CreateAsync(new Widget { IdBase = " " }));
-        await Assert.ThrowsExactlyAsync<ArgumentNullException>(() =>
-            client.Widgets.CreateAsync(new Widget { IdBase = "block" }));
         await Assert.ThrowsExactlyAsync<ArgumentException>(() =>
             client.Widgets.CreateAsync(new Widget { IdBase = "block", Sidebar = " " }));
         await Assert.ThrowsExactlyAsync<ArgumentNullException>(() =>

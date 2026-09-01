@@ -1085,12 +1085,12 @@
         </member>
         <member name="M:WordPressPCL.Client.Sidebars.GetAsync(System.Boolean,System.Boolean,System.Threading.CancellationToken)">
             <summary>
-            Gets all registered sidebars.
+            Gets all publicly visible registered sidebars.
             </summary>
         </member>
         <member name="M:WordPressPCL.Client.Sidebars.GetByIdAsync(System.String,System.Boolean,System.Boolean,System.Threading.CancellationToken)">
             <summary>
-            Gets a sidebar by its string ID.
+            Gets a publicly visible sidebar by its string ID.
             </summary>
         </member>
         <member name="M:WordPressPCL.Client.Sidebars.UpdateAsync(WordPressPCL.Models.Sidebar,System.Threading.CancellationToken)">
@@ -1433,27 +1433,28 @@
         </member>
         <member name="M:WordPressPCL.Client.Widgets.GetAsync(System.Boolean,System.Boolean,System.Threading.CancellationToken)">
             <summary>
-            Gets all visible widgets.
+            Gets all publicly visible widgets.
             </summary>
         </member>
         <member name="M:WordPressPCL.Client.Widgets.GetBySidebarAsync(System.String,System.Boolean,System.Boolean,System.Threading.CancellationToken)">
             <summary>
-            Gets all widgets assigned to a sidebar.
+            Gets publicly visible widgets assigned to a sidebar.
             </summary>
         </member>
         <member name="M:WordPressPCL.Client.Widgets.GetByIdAsync(System.String,System.Boolean,System.Boolean,System.Threading.CancellationToken)">
             <summary>
-            Gets a widget by its string ID.
+            Gets a publicly visible widget by its string ID.
             </summary>
         </member>
         <member name="M:WordPressPCL.Client.Widgets.QueryAsync(WordPressPCL.Utility.WidgetsQueryBuilder,System.Boolean,System.Threading.CancellationToken)">
             <summary>
-            Gets widgets matching a core-supported collection query.
+            Gets publicly visible widgets matching a core-supported collection query.
             </summary>
         </member>
         <member name="M:WordPressPCL.Client.Widgets.CreateAsync(WordPressPCL.Models.Widget,System.Threading.CancellationToken)">
             <summary>
-            Creates a widget. WordPress generates the widget ID.
+            Creates a widget. WordPress generates the widget ID and defaults an omitted sidebar to
+            <c>wp_inactive_widgets</c>.
             </summary>
         </member>
         <member name="M:WordPressPCL.Client.Widgets.UpdateAsync(WordPressPCL.Models.Widget,System.Threading.CancellationToken)">

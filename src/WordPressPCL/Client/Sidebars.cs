@@ -29,11 +29,11 @@ public class Sidebars
     }
 
     /// <summary>
-    /// Gets all registered sidebars.
+    /// Gets all publicly visible registered sidebars.
     /// </summary>
     public Task<List<Sidebar>> GetAsync(
         bool embed = false,
-        bool useAuth = true,
+        bool useAuth = false,
         CancellationToken cancellationToken = default)
     {
         return _httpHelper.GetRequestAsync<List<Sidebar>>(
@@ -44,12 +44,12 @@ public class Sidebars
     }
 
     /// <summary>
-    /// Gets a sidebar by its string ID.
+    /// Gets a publicly visible sidebar by its string ID.
     /// </summary>
     public Task<Sidebar> GetByIdAsync(
         string id,
         bool embed = false,
-        bool useAuth = true,
+        bool useAuth = false,
         CancellationToken cancellationToken = default)
     {
         return _httpHelper.GetRequestAsync<Sidebar>(
