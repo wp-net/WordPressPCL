@@ -259,16 +259,20 @@ List&lt;MediaItem&gt; media = await client.Media.QueryAsync(queryBuilder);
 <h2 id="create-new-media">Create new Media</h2>
 <h3 id="create-from-stream">Create from Stream</h3>
 <pre><code class="language-C#">// returns created media
-// for create media item you must read them to Stream. Media items can be audio, video, image, pdf ot any othe type supported by wordpress
+// Read the media file into a stream before uploading it. Media items can be audio, video, images, PDFs, or any other type supported by WordPress.
 Stream s = File.OpenRead(&quot;pathToMedia/media.jpg&quot;);
 if (await client.IsValidJWTokenAsync())
 {
     MediaItem createdMedia = await client.Media.CreateAsync(s,&quot;media.jpg&quot;);
 }
 </code></pre>
+<p>Filenames may contain Unicode characters, such as <code>"中文.webp"</code>. For Unicode filenames
+(or names containing quotes or backslashes), uploads send an RFC 5987 <code>filename*</code> value
+with a safe ASCII fallback so WordPress receives a valid <code>Content-Disposition</code> header.
+Plain ASCII filenames use the standard <code>filename</code> parameter.</p>
 <h3 id="create-from-file-path">Create from file path</h3>
 <pre><code class="language-C#">// returns created media
-// for create media item you must read them to Stream. Media items can be audio, video, image, pdf ot any othe type supported by wordpress
+// Media items can be audio, video, images, PDFs, or any other type supported by WordPress.
 if (await client.IsValidJWTokenAsync())
 {
     MediaItem createdMedia = await client.Media.CreateAsync(@&quot;C:\pathToFile\media.jpg&quot;,&quot;media.jpg&quot;);
