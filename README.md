@@ -182,7 +182,7 @@ Notes:
 - Block types, reusable blocks and navigation posts are available through `client.BlockTypes`, `client.Blocks` and `client.Navigation`.
 - Block types require WordPress 5.5 or newer and an authenticated user with permission to edit a REST-enabled post type.
 - Reusable blocks require WordPress 5.0 or newer; core requires authentication and suitable post-editing permissions for reads and writes.
-- Navigation posts require WordPress 5.9 or newer. Published posts can be read anonymously in `view` context, while edit context, non-public content and writes require authentication; core maps editing capabilities to `edit_theme_options`.
+- Navigation posts require WordPress 5.9 or newer. `client.Navigation` authenticates reads by default because core maps `wp_navigation` capabilities to `edit_theme_options`; the route's availability and permissions can still vary with WordPress version and site customization.
 - Templates and template parts require WordPress 5.8 or newer and authentication. They use compound string IDs such as `twentytwentyfour//index`; template fallback lookup requires WordPress 6.1 or newer.
 - Global styles require WordPress 5.9 or newer and authentication. `client.GlobalStyles` reads or updates a record by integer ID and reads merged styles for the active theme.
 - Sidebars, widgets and widget types require WordPress 5.8 or newer. Sidebar and widget-type operations, plus widget writes, require authentication and the `edit_theme_options` capability. Core can expose reads for widgets in sidebars registered with `show_in_rest`.

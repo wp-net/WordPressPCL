@@ -99,6 +99,34 @@ public class TemplateParts_Tests
     }
 
     [TestMethod]
+    public async Task UpdateAsync_FetchedThemePartOmitsResponseOnlySourceSemantics()
+    {
+        string themePartJson = TemplatePartJson.Replace(
+            "\"source\": \"custom\"",
+            "\"source\": \"theme\"",
+            StringComparison.Ordinal);
+        RecordingHandler handler = new(themePartJson, themePartJson);
+        using HttpClient httpClient = CreateHttpClient(handler);
+        using WordPressClient client = CreateAuthenticatedClient(httpClient);
+
+        TemplatePart part = await client.TemplateParts.GetByIdAsync("child theme//header & utility");
+        part.Title = new Title("Customized Header");
+        part.Content = new TemplateContent("<!-- wp:group --><div>Changed</div><!-- /wp:group -->");
+        await client.TemplateParts.UpdateAsync(part);
+
+        AssertRequest(
+            handler.Requests[1],
+            HttpMethod.Post,
+            "https://example.com/wp-json/wp/v2/template-parts/child%20theme//header%20%26%20utility");
+        using JsonDocument updateBody = JsonDocument.Parse(handler.Requests[1].Body!);
+        Assert.AreEqual("Customized Header", updateBody.RootElement.GetProperty("title").GetString());
+        Assert.Contains("Changed", updateBody.RootElement.GetProperty("content").GetString()!);
+        Assert.IsFalse(updateBody.RootElement.TryGetProperty("source", out _));
+        Assert.IsFalse(updateBody.RootElement.TryGetProperty("origin", out _));
+        Assert.IsFalse(updateBody.RootElement.TryGetProperty("id", out _));
+    }
+
+    [TestMethod]
     public async Task CrudOperations_UseTemplatePartRoutesAndSerializeArea()
     {
         RecordingHandler handler = new(TemplatePartJson, TemplatePartJson, """{"deleted":true}""");

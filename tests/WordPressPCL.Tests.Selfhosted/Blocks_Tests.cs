@@ -20,7 +20,10 @@ public class Blocks_Tests
           "id": 17,
           "date": null,
           "date_gmt": null,
-          "guid": { "rendered": "https://example.com/?post_type=wp_block&p=17" },
+          "guid": {
+            "raw": "https://example.com/?post_type=wp_block&p=17",
+            "rendered": "https://example.com/?post_type=wp_block&p=17"
+          },
           "link": "https://example.com/?post_type=wp_block&p=17",
           "modified": "2026-08-31T20:15:00",
           "modified_gmt": "2026-08-31T18:15:00",
@@ -64,6 +67,8 @@ public class Blocks_Tests
         Assert.AreEqual(17, blocks[0].Id);
         Assert.IsNull(blocks[0].Date);
         Assert.AreEqual("wp_block", blocks[0].Type);
+        Assert.AreEqual("https://example.com/?post_type=wp_block&p=17", blocks[0].Guid?.Raw);
+        Assert.AreEqual("https://example.com/?post_type=wp_block&p=17", blocks[0].Guid?.Rendered);
         string? rawContent = blocks[0].Content?.Raw;
         Assert.IsNotNull(rawContent);
         Assert.Contains("wp:paragraph", rawContent);

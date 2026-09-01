@@ -14,7 +14,7 @@ public class NavigationClient : CRUDOperation<Navigation, NavigationQueryBuilder
     /// Constructor
     /// </summary>
     /// <param name="httpHelper">reference to HttpHelper class for interaction with HTTP</param>
-    public NavigationClient(HttpHelper httpHelper) : base(httpHelper, _methodPath)
+    public NavigationClient(HttpHelper httpHelper) : base(httpHelper, _methodPath, false, true)
     {
     }
 }

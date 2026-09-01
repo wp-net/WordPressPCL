@@ -110,9 +110,36 @@ internal sealed class TemplateClient<TTemplate, TQuery>
         JsonObject payload = JsonSerializer.SerializeToNode(
             entity,
             _httpHelper.JsonSerializerOptions)!.AsObject();
+        RemoveResponseOnlyFields(payload);
         FlattenWritableText(payload, "content");
         FlattenWritableText(payload, "title");
         return payload.ToJsonString(_httpHelper.JsonSerializerOptions);
+    }
+
+    private static void RemoveResponseOnlyFields(JsonObject payload)
+    {
+        string[] responseOnlyFields =
+        [
+            "id",
+            "type",
+            "source",
+            "origin",
+            "wp_id",
+            "has_theme_file",
+            "modified",
+            "author_text",
+            "original_source",
+            "date",
+            "is_custom",
+            "plugin",
+            "_links",
+            "_embedded"
+        ];
+
+        foreach (string field in responseOnlyFields)
+        {
+            payload.Remove(field);
+        }
     }
 
     private static void FlattenWritableText(JsonObject payload, string propertyName)
