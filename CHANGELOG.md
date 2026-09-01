@@ -15,6 +15,10 @@ The project now uses GitHub Releases as the source of truth for versioned releas
 
 - Placeholder for upcoming changes before the next GitHub release is published.
 
+### Fixed
+
+- Media uploads now send Unicode filenames with a safe ASCII fallback and RFC 5987 `filename*` encoding, preventing failures for non-ASCII names (#370).
+
 ## [3.0.0]
 
 ### Added
