@@ -27,7 +27,7 @@ WordPressPCL focuses on the most commonly used WordPress REST API endpoints and 
 | `wp-block-editor/v1/url-details` | `client.UrlDetails` | Read by URL (requires auth) |
 | `wp/v2/block-types` | `client.BlockTypes` | Read/query only; WordPress 5.5+ and authentication required |
 | `wp/v2/blocks` | `client.Blocks` | CRUD for reusable blocks; WordPress 5.0+ and authentication required |
-| `wp/v2/navigation` | `client.Navigation` | CRUD for `wp_navigation`; WordPress 5.9+ |
+| `wp/v2/navigation` | `client.Navigation` | CRUD for `wp_navigation`; WordPress 5.9+ and authentication required |
 | `wp/v2/templates` | `client.Templates` | CRUD and collection filters in WordPress 5.8+; fallback lookup requires WordPress 6.1+; authentication required |
 | `wp/v2/template-parts` | `client.TemplateParts` | CRUD and collection filters; WordPress 5.8+ and authentication required |
 | `wp/v2/global-styles/<id>` | `client.GlobalStyles` | Read/update a stored record by ID; WordPress 5.9+ and authentication required |
@@ -75,7 +75,7 @@ dynamic products = await client.CustomRequest.GetAsync<dynamic>("wc/v3/products"
 - URL details are available through `client.UrlDetails` and require authentication.
 - Block types were added in WordPress 5.5 and require a user who can edit at least one REST-enabled post type.
 - Reusable blocks were added in WordPress 5.0 and are stored as `wp_block` posts. Core requires suitable post-editing permissions for reads and writes, so `client.Blocks` authenticates read requests by default. Current core responses expose raw block markup and may omit rendered title/content.
-- Navigation posts were added in WordPress 5.9. Published posts can be read anonymously in `view` context. Edit context, non-public content and writes require authentication, and core maps `wp_navigation` editing capabilities to `edit_theme_options`.
+- Navigation posts were added in WordPress 5.9. Core maps `wp_navigation` editing capabilities to `edit_theme_options`; `client.Navigation` therefore authenticates reads by default, as well as writes.
 - Templates and template parts use compound string IDs such as `twentytwentyfour//index`. Their clients preserve the slash separators and URL-encode each identifier segment.
 - Template collection queries expose the core-supported `wp_id` and `post_type` filters; template parts additionally expose `area`.
 - `client.Templates.GetFallbackAsync` uses the fallback lookup route introduced in WordPress 6.1.

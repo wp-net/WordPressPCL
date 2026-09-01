@@ -126,6 +126,34 @@ public class Templates_Tests
     }
 
     [TestMethod]
+    public async Task UpdateAsync_FetchedThemeTemplateOmitsResponseOnlySourceSemantics()
+    {
+        string themeTemplateJson = TemplateJson.Replace(
+            "\"source\": \"custom\"",
+            "\"source\": \"theme\"",
+            StringComparison.Ordinal);
+        RecordingHandler handler = new(themeTemplateJson, themeTemplateJson);
+        using HttpClient httpClient = CreateHttpClient(handler);
+        using WordPressClient client = CreateAuthenticatedClient(httpClient);
+
+        Template template = await client.Templates.GetByIdAsync("parent theme//front & page");
+        template.Title = new Title("Customized");
+        template.Content = new TemplateContent("<!-- wp:paragraph --><p>Changed</p><!-- /wp:paragraph -->");
+        await client.Templates.UpdateAsync(template);
+
+        AssertRequest(
+            handler.Requests[1],
+            HttpMethod.Post,
+            "https://example.com/wp-json/wp/v2/templates/parent%20theme//front%20%26%20page");
+        using JsonDocument updateBody = JsonDocument.Parse(handler.Requests[1].Body!);
+        Assert.AreEqual("Customized", updateBody.RootElement.GetProperty("title").GetString());
+        Assert.Contains("Changed", updateBody.RootElement.GetProperty("content").GetString()!);
+        Assert.IsFalse(updateBody.RootElement.TryGetProperty("source", out _));
+        Assert.IsFalse(updateBody.RootElement.TryGetProperty("origin", out _));
+        Assert.IsFalse(updateBody.RootElement.TryGetProperty("id", out _));
+    }
+
+    [TestMethod]
     public async Task CrudOperations_UseCompoundRoutesAndSerializeWritableFields()
     {
         RecordingHandler handler = new(TemplateJson, TemplateJson, """{"deleted":true}""");
