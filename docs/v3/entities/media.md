@@ -40,9 +40,10 @@ if (await client.IsValidJWTokenAsync())
 }
 ```
 
-Filenames may contain Unicode characters, such as `"中文.webp"`. Uploads send an RFC 5987
-`filename*` value with a safe ASCII fallback so WordPress receives a valid
-`Content-Disposition` header.
+Filenames may contain Unicode characters, such as `"中文.webp"`. For Unicode filenames
+(or names containing quotes or backslashes), uploads send an RFC 5987 `filename*` value
+with a safe ASCII fallback so WordPress receives a valid `Content-Disposition` header.
+Plain ASCII filenames use the standard `filename` parameter.
 
 ### Create from file path
 
