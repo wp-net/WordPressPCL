@@ -27,6 +27,31 @@ queryBuilder.Before = DateTime.Now;
 List<MediaItem> media = await client.Media.QueryAsync(queryBuilder);
 ```
 
+## Audio metadata
+
+For audio attachments, `MediaItem.MediaDetails` maps the optional metadata returned by
+WordPress. Values depend on the uploaded file and the server's metadata extraction.
+
+| Property | WordPress field |
+| --- | --- |
+| `DataFormat` | `dataformat` |
+| `Channels` | `channels` |
+| `SampleRate` | `sample_rate` |
+| `Bitrate` | `bitrate` |
+| `ChannelMode` | `channelmode` |
+| `BitrateMode` | `bitrate_mode` |
+| `Lossless` | `lossless` |
+| `EncoderOptions` | `encoder_options` |
+| `CompressionRatio` | `compression_ratio` |
+| `FileFormat` | `fileformat` |
+| `FileSize` | `filesize` |
+| `MimeType` | `mime_type` |
+| `Length` | `length` |
+| `LengthFormatted` | `length_formatted` |
+| `Genre`, `Year`, `Date`, `Text` | ID3 tag fields |
+| `Title`, `Artist`, `Album` | ID3 tag fields |
+| `CreatedTimestamp` | `created_timestamp` |
+
 ## Create new Media
 ### Create from Stream
 
