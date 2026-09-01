@@ -1,6 +1,7 @@
 using System;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using RenderedGuid = WordPressPCL.Models.Guid;
 
 namespace WordPressPCL.Models;
 
@@ -28,7 +29,7 @@ public class Navigation : Base
     /// </summary>
     [JsonPropertyName("guid")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public Guid? Guid { get; set; }
+    public RenderedGuid? Guid { get; set; }
 
     /// <summary>
     /// URL to the navigation post.

@@ -20,7 +20,10 @@ public class Navigation_Tests
           "id": 29,
           "date": null,
           "date_gmt": null,
-          "guid": { "rendered": "https://example.com/?post_type=wp_navigation&p=29" },
+          "guid": {
+            "raw": "https://example.com/?post_type=wp_navigation&p=29",
+            "rendered": "https://example.com/?post_type=wp_navigation&p=29"
+          },
           "link": "https://example.com/?post_type=wp_navigation&p=29",
           "modified": "2026-08-31T20:15:00",
           "modified_gmt": "2026-08-31T18:15:00",
@@ -39,7 +42,7 @@ public class Navigation_Tests
         """;
 
     [TestMethod]
-    public async Task QueryAsync_UsesNavigationRouteAndInheritedFilters()
+    public async Task QueryAsync_AuthenticatesByDefaultAndUsesNavigationRouteAndFilters()
     {
         RecordingHandler handler = new($"[{NavigationJson}]");
         using HttpClient httpClient = CreateHttpClient(handler);
@@ -54,12 +57,14 @@ public class Navigation_Tests
             Context = Context.Edit
         };
 
-        List<Navigation> navigations = await client.Navigation.QueryAsync(query, useAuth: true);
+        List<Navigation> navigations = await client.Navigation.QueryAsync(query);
 
         Assert.HasCount(1, navigations);
         Assert.AreEqual(29, navigations[0].Id);
         Assert.IsNull(navigations[0].Date);
         Assert.AreEqual("wp_navigation", navigations[0].Type);
+        Assert.AreEqual("https://example.com/?post_type=wp_navigation&p=29", navigations[0].Guid?.Raw);
+        Assert.AreEqual("https://example.com/?post_type=wp_navigation&p=29", navigations[0].Guid?.Rendered);
         string? navigationContent = navigations[0].Content?.Raw;
         Assert.IsNotNull(navigationContent);
         Assert.Contains("navigation-link", navigationContent);
