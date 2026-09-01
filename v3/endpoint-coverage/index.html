@@ -308,16 +308,24 @@
 <td><code>client.Themes</code></td>
 <td>Read/query only</td>
 </tr>
+<tr>
+<td><code>wp/v2/search</code></td>
+<td><code>client.Search</code></td>
+<td>Read/query only</td>
+</tr>
+<tr>
+<td><code>wp-block-editor/v1/url-details</code></td>
+<td><code>client.UrlDetails</code></td>
+<td>Read by URL (requires auth)</td>
+</tr>
 </tbody>
 </table>
 <h2 id="standard-endpoints-without-dedicated-wrappers">Standard endpoints without dedicated wrappers</h2>
 <p>The official WordPress REST API reference includes additional standard endpoints that currently do not have dedicated WordPressPCL clients. The main gaps are:</p>
 <ul>
-<li><code>wp/v2/search</code></li>
 <li>block editor endpoints such as <code>wp/v2/block-types</code>, <code>wp/v2/blocks</code>, <code>wp/v2/block-renderer</code>, <code>wp/v2/templates</code>, <code>wp/v2/template-parts</code> and <code>wp/v2/global-styles</code></li>
 <li>navigation and site editing endpoints such as <code>wp/v2/navigation</code> and <code>wp/v2/navigation-fallback</code></li>
 <li><code>wp/v2/sidebars</code>, <code>wp/v2/widgets</code> and <code>wp/v2/widget-types</code></li>
-<li><code>wp/v2/url-details</code></li>
 <li>autosaves and page revisions</li>
 </ul>
 <p>As WordPress adds more standard endpoints, the authoritative way to see what a site exposes is its API index at <code>/wp-json/</code>.</p>
@@ -327,7 +335,7 @@
 </code></pre>
 <p>These examples use <code>dynamic</code> for brevity. If you already know the response shape, prefer a DTO or a JSON type that matches your project style.</p>
 <p>Use <code>CustomRequest</code> for standard endpoints that do not yet have dedicated wrappers:</p>
-<pre><code class="language-csharp">dynamic searchResults = await client.CustomRequest.GetAsync&lt;dynamic&gt;(&quot;search?search=hello&quot;, ignoreDefaultPath: false);
+<pre><code class="language-csharp">dynamic renderedBlock = await client.CustomRequest.PostAsync&lt;dynamic&gt;(&quot;block-renderer/core%2Fparagraph&quot;, body, ignoreDefaultPath: false);
 dynamic pageRevisions = await client.CustomRequest.GetAsync&lt;dynamic&gt;(&quot;pages/42/revisions&quot;, useAuth: true, ignoreDefaultPath: false);
 </code></pre>
 <p>Use <code>CustomRequest</code> for plugin namespaces and custom site routes:</p>
@@ -337,6 +345,7 @@ dynamic pageRevisions = await client.CustomRequest.GetAsync&lt;dynamic&gt;(&quot
 <ul>
 <li>Themes are available through <code>client.Themes</code>, but they are read/query only.</li>
 <li>Post revisions are available through <code>client.Posts.Revisions(postId)</code>.</li>
+<li>URL details are available through <code>client.UrlDetails</code> and require authentication.</li>
 <li>Pages do not currently have a dedicated revisions or autosaves helper.</li>
 </ul>
               
