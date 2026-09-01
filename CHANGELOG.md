@@ -12,6 +12,7 @@ The project now uses GitHub Releases as the source of truth for versioned releas
 - `Base.CustomFields` collects REST payload fields that are not mapped to a model property — those added by a plugin or a custom endpoint — on every model derived from `Base`. Backed by `[JsonExtensionData]`, so entries round-trip as top-level properties and an unset dictionary adds nothing to outgoing payloads.
 - `MediaDetails` exposes optional WordPress audio metadata, including format, duration, bitrate, ID3 tags, and creation timestamp (#184).
 - Dedicated Search and URL Details endpoint clients are available through `WordPressClient.Search` and `WordPressClient.UrlDetails`.
+- Dedicated post/page autosave clients and a page revisions client are available through `WordPressClient.Posts` and `WordPressClient.Pages`.
 
 ### Changed
 

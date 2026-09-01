@@ -153,6 +153,9 @@ public sealed class PublishWorker(WordPressClient client)
 | **Users**          | yes     | yes     | yes     | yes     |
 | **Media**          | yes     | yes     | yes     | yes     |
 | **Post Revisions** | ---     | yes     | ---     | yes     |
+| **Page Revisions** | ---     | yes     | ---     | yes     |
+| **Post Autosaves** | yes     | yes     | ---     | ---     |
+| **Page Autosaves** | yes     | yes     | ---     | ---     |
 | **Taxonomies**     | ---     | yes     | ---     | ---     |
 | **Post Types**     | ---     | yes     | ---     | ---     |
 | **Post Statuses**  | ---     | yes     | ---     | ---     |
@@ -165,7 +168,8 @@ public sealed class PublishWorker(WordPressClient client)
 Notes:
 
 - Post revisions are available through `client.Posts.Revisions(postId)`.
-- WordPressPCL does not currently provide a dedicated wrapper for page revisions or autosaves.
+- Page revisions are available through `client.Pages.Revisions(pageId)`.
+- Post and page autosaves are available through `client.Posts.Autosaves(postId)` and `client.Pages.Autosaves(pageId)`.
 
 ## Endpoint Coverage and Gaps
 
@@ -173,7 +177,8 @@ WordPressPCL currently provides dedicated clients for the most common `wp/v2` en
 
 - Posts, Pages, Comments, Categories, Tags, Users and Media
 - Taxonomies, Post Types, Post Statuses and Settings
-- Post revisions via `client.Posts.Revisions(postId)`
+- Post and page revisions via `client.Posts.Revisions(postId)` and `client.Pages.Revisions(pageId)`
+- Post and page autosaves via `client.Posts.Autosaves(postId)` and `client.Pages.Autosaves(pageId)`
 - Plugins and Themes
 - Search via `client.Search`
 - URL details via `client.UrlDetails` (`wp-block-editor/v1/url-details`, authentication required)
@@ -182,16 +187,12 @@ The standard WordPress REST API reference also includes endpoints that do not ye
 
 - newer block editor endpoints such as block types, blocks, block rendering, templates, template parts and global styles
 - navigation, sidebars, widgets and widget types
-- autosaves and page revisions
 
 You can still work with unsupported standard endpoints, plugin namespaces and site-specific custom endpoints by using `CustomRequest`.
 
 ```csharp
 // Discover the namespaces and routes exposed by a site
 dynamic apiIndex = await client.CustomRequest.GetAsync<dynamic>("", ignoreDefaultPath: true);
-
-// Call a standard wp/v2 endpoint that does not have a dedicated client
-dynamic pageRevisions = await client.CustomRequest.GetAsync<dynamic>("pages/42/revisions", useAuth: true, ignoreDefaultPath: false);
 
 // Call a plugin or custom namespace route
 dynamic customEndpoint = await client.CustomRequest.GetAsync<dynamic>("wc/v3/products", useAuth: true);
