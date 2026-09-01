@@ -48,7 +48,7 @@ Filenames may contain Unicode characters, such as `"中文.webp"`. Uploads send 
 
 ```C#
 // returns created media
-// Media items can be audio, video, image, pdf or any other type supported by WordPress
+// Media items can be audio, video, images, PDFs, or any other type supported by WordPress.
 if (await client.IsValidJWTokenAsync())
 {
     MediaItem createdMedia = await client.Media.CreateAsync(@"C:\pathToFile\media.jpg","media.jpg");
