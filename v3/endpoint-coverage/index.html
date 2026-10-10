@@ -333,13 +333,28 @@
 <td><code>client.UrlDetails</code></td>
 <td>Read by URL (requires auth)</td>
 </tr>
+<tr>
+<td><code>wp/v2/block-types</code></td>
+<td><code>client.BlockTypes</code></td>
+<td>Read/query only; WordPress 5.5+ and authentication required</td>
+</tr>
+<tr>
+<td><code>wp/v2/blocks</code></td>
+<td><code>client.Blocks</code></td>
+<td>CRUD for reusable blocks; WordPress 5.0+ and authentication required</td>
+</tr>
+<tr>
+<td><code>wp/v2/navigation</code></td>
+<td><code>client.Navigation</code></td>
+<td>CRUD for <code>wp_navigation</code>; WordPress 5.9+ and authentication required</td>
+</tr>
 </tbody>
 </table>
 <h2 id="standard-endpoints-without-dedicated-wrappers">Standard endpoints without dedicated wrappers</h2>
 <p>The official WordPress REST API reference includes additional standard endpoints that currently do not have dedicated WordPressPCL clients. The main gaps are:</p>
 <ul>
-<li>block editor endpoints such as <code>wp/v2/block-types</code>, <code>wp/v2/blocks</code>, <code>wp/v2/block-renderer</code>, <code>wp/v2/templates</code>, <code>wp/v2/template-parts</code> and <code>wp/v2/global-styles</code></li>
-<li>navigation and site editing endpoints such as <code>wp/v2/navigation</code> and <code>wp/v2/navigation-fallback</code></li>
+<li>block editor endpoints such as <code>wp/v2/block-renderer</code>, <code>wp/v2/templates</code>, <code>wp/v2/template-parts</code> and <code>wp/v2/global-styles</code></li>
+<li>navigation and site editing endpoints such as <code>wp/v2/navigation-fallback</code></li>
 <li><code>wp/v2/sidebars</code>, <code>wp/v2/widgets</code> and <code>wp/v2/widget-types</code></li>
 </ul>
 <p>As WordPress adds more standard endpoints, the authoritative way to see what a site exposes is its API index at <code>/wp-json/</code>.</p>
@@ -362,6 +377,10 @@
 <li>Post autosaves are available through <code>client.Posts.Autosaves(postId)</code>.</li>
 <li>Page autosaves are available through <code>client.Pages.Autosaves(pageId)</code>.</li>
 <li>URL details are available through <code>client.UrlDetails</code> and require authentication.</li>
+<li>Block types were added in WordPress 5.5 and require a user who can edit at least one REST-enabled post type.</li>
+<li>Reusable blocks were added in WordPress 5.0 and are stored as <code>wp_block</code> posts. Core requires suitable post-editing permissions for reads and writes, so <code>client.Blocks</code> authenticates read requests by default. Current core responses expose raw block markup and may omit rendered title/content.</li>
+<li>Navigation posts were added in WordPress 5.9. Core maps <code>wp_navigation</code> editing capabilities to <code>edit_theme_options</code>; <code>client.Navigation</code> therefore authenticates reads by default, as well as writes.</li>
+<li>The API index at <code>/wp-json/</code> is authoritative for route availability on a particular site.</li>
 </ul>
               
             </div>
