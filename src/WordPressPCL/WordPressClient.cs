@@ -190,6 +190,21 @@ public class WordPressClient : IDisposable
     public NavigationClient Navigation { get; private set; } = null!;
 
     /// <summary>
+    /// Sidebars client interaction object
+    /// </summary>
+    public Sidebars Sidebars { get; private set; } = null!;
+
+    /// <summary>
+    /// Widgets client interaction object
+    /// </summary>
+    public Widgets Widgets { get; private set; } = null!;
+
+    /// <summary>
+    /// Widget Types client interaction object
+    /// </summary>
+    public WidgetTypes WidgetTypes { get; private set; } = null!;
+
+    /// <summary>
     /// The WordPressClient holds all connection infos and provides methods to call WordPress APIs.
     /// </summary>
     /// <param name="uri">URI for WordPress API endpoint, e.g. "http://demo.wp-api.org/wp-json/"</param>
@@ -266,6 +281,9 @@ public class WordPressClient : IDisposable
         TemplateParts = new TemplateParts(httpHelper);
         GlobalStyles = new GlobalStylesClient(httpHelper);
         Navigation = new NavigationClient(httpHelper);
+        Sidebars = new Sidebars(httpHelper);
+        Widgets = new Widgets(httpHelper);
+        WidgetTypes = new WidgetTypes(httpHelper);
     }
 
 }
