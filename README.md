@@ -164,12 +164,20 @@ public sealed class PublishWorker(WordPressClient client)
 | **Themes**         | ---     | yes     | ---     | ---     |
 | **Search**         | ---     | yes     | ---     | ---     |
 | **URL Details**    | ---     | yes     | ---     | ---     |
+| **Block Types**    | ---     | yes     | ---     | ---     |
+| **Reusable Blocks**| yes     | yes     | yes     | yes     |
+| **Navigation**     | yes     | yes     | yes     | yes     |
 
 Notes:
 
 - Post revisions are available through `client.Posts.Revisions(postId)`.
 - Page revisions are available through `client.Pages.Revisions(pageId)`.
 - Post and page autosaves are available through `client.Posts.Autosaves(postId)` and `client.Pages.Autosaves(pageId)`.
+- Block types, reusable blocks and navigation posts are available through `client.BlockTypes`, `client.Blocks` and `client.Navigation`.
+- Block types require WordPress 5.5 or newer and an authenticated user with permission to edit a REST-enabled post type.
+- Reusable blocks require WordPress 5.0 or newer; core requires authentication and suitable post-editing permissions for reads and writes.
+- Navigation posts require WordPress 5.9 or newer. `client.Navigation` authenticates reads by default because core maps `wp_navigation` capabilities to `edit_theme_options`; the route's availability and permissions can still vary with WordPress version and site customization.
+- Discover `/wp-json/` rather than assuming these newer routes exist on older or customized sites.
 
 ## Endpoint Coverage and Gaps
 
@@ -182,11 +190,12 @@ WordPressPCL currently provides dedicated clients for the most common `wp/v2` en
 - Plugins and Themes
 - Search via `client.Search`
 - URL details via `client.UrlDetails` (`wp-block-editor/v1/url-details`, authentication required)
+- Block types, reusable blocks and navigation posts via `client.BlockTypes`, `client.Blocks` and `client.Navigation`
 
 The standard WordPress REST API reference also includes endpoints that do not yet have first-class wrappers in this library, including:
 
-- newer block editor endpoints such as block types, blocks, block rendering, templates, template parts and global styles
-- navigation, sidebars, widgets and widget types
+- newer block editor endpoints such as block rendering, templates, template parts and global styles
+- navigation fallback, sidebars, widgets and widget types
 
 You can still work with unsupported standard endpoints, plugin namespaces and site-specific custom endpoints by using `CustomRequest`.
 

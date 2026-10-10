@@ -34,16 +34,34 @@ public abstract class CRUDOperation<TClass, QClass> : IReadOperation<TClass>, IU
     protected bool ForceDeletion { get; }
 
     /// <summary>
+    /// Whether read requests for this endpoint always require authentication.
+    /// </summary>
+    protected bool AuthenticationRequiredForReads { get; }
+
+    /// <summary>
     /// Constructor
     /// </summary>
     /// <param name="httpHelper">reference to HttpHelper class for interaction with HTTP</param>
     /// <param name="methodPath">path to endpoint, EX. posts</param>
     /// <param name="forceDeletion">is objects must be force deleted</param>
     protected CRUDOperation(HttpHelper httpHelper, string methodPath, bool forceDeletion = false)
+        : this(httpHelper, methodPath, forceDeletion, false)
+    {
+    }
+
+    /// <summary>
+    /// Constructor for endpoints that can require authentication for every read request.
+    /// </summary>
+    /// <param name="httpHelper">reference to HttpHelper class for interaction with HTTP</param>
+    /// <param name="methodPath">path to endpoint, EX. posts</param>
+    /// <param name="forceDeletion">is objects must be force deleted</param>
+    /// <param name="authenticationRequiredForReads">whether all read requests require authentication</param>
+    protected CRUDOperation(HttpHelper httpHelper, string methodPath, bool forceDeletion, bool authenticationRequiredForReads)
     {
         HttpHelper = httpHelper;
         MethodPath = methodPath;
         ForceDeletion = forceDeletion;
+        AuthenticationRequiredForReads = authenticationRequiredForReads;
     }
 
     /// <summary>
@@ -80,7 +98,7 @@ public abstract class CRUDOperation<TClass, QClass> : IReadOperation<TClass>, IU
     /// <returns>Entity by Id</returns>
     public Task<List<TClass>> GetAsync(bool embed = false, bool useAuth = false, CancellationToken cancellationToken = default)
     {
-        return HttpHelper.GetRequestAsync<List<TClass>>(MethodPath, embed, useAuth, cancellationToken: cancellationToken);
+        return HttpHelper.GetRequestAsync<List<TClass>>(MethodPath, embed, useAuth || AuthenticationRequiredForReads, cancellationToken: cancellationToken);
     }
 
     /// <summary>
@@ -94,12 +112,12 @@ public abstract class CRUDOperation<TClass, QClass> : IReadOperation<TClass>, IU
     {
         //100 - Max posts per page in WordPress REST API, so this is hack with multiple requests
         string url = MethodPath.SetQueryParam("per_page", "100").SetQueryParam("page", "1");
-        (List<TClass>? entities, System.Net.Http.Headers.HttpResponseHeaders? headers) = await HttpHelper.GetRequestWithHeadersAsync<List<TClass>>(url, embed, useAuth, cancellationToken: cancellationToken).ConfigureAwait(false);
+        (List<TClass>? entities, System.Net.Http.Headers.HttpResponseHeaders? headers) = await HttpHelper.GetRequestWithHeadersAsync<List<TClass>>(url, embed, useAuth || AuthenticationRequiredForReads, cancellationToken: cancellationToken).ConfigureAwait(false);
         (int _, int totalPages) = HttpHelper.ParsePaginationHeaders(headers);
         for (int page = 2; page <= totalPages; page++)
         {
             url = MethodPath.SetQueryParam("per_page", "100").SetQueryParam("page", page.ToString(CultureInfo.InvariantCulture));
-            entities.AddRange(await HttpHelper.GetRequestAsync<List<TClass>>(url, embed, useAuth, cancellationToken: cancellationToken).ConfigureAwait(false));
+            entities.AddRange(await HttpHelper.GetRequestAsync<List<TClass>>(url, embed, useAuth || AuthenticationRequiredForReads, cancellationToken: cancellationToken).ConfigureAwait(false));
         }
         return entities;
     }
@@ -122,7 +140,7 @@ public abstract class CRUDOperation<TClass, QClass> : IReadOperation<TClass>, IU
         string url = MethodPath.SetQueryParam("per_page", perPage.ToString(CultureInfo.InvariantCulture))
                                .SetQueryParam("page", page.ToString(CultureInfo.InvariantCulture));
 #pragma warning restore CA1507
-        (List<TClass>? items, System.Net.Http.Headers.HttpResponseHeaders? headers) = await HttpHelper.GetRequestWithHeadersAsync<List<TClass>>(url, embed, useAuth, cancellationToken: cancellationToken).ConfigureAwait(false);
+        (List<TClass>? items, System.Net.Http.Headers.HttpResponseHeaders? headers) = await HttpHelper.GetRequestWithHeadersAsync<List<TClass>>(url, embed, useAuth || AuthenticationRequiredForReads, cancellationToken: cancellationToken).ConfigureAwait(false);
         (int total, int totalPages) = HttpHelper.ParsePaginationHeaders(headers);
         return new PagedResult<TClass>(items, total, totalPages);
     }
@@ -139,7 +157,7 @@ public abstract class CRUDOperation<TClass, QClass> : IReadOperation<TClass>, IU
     /// </returns>
     public async Task<PagedResult<TClass>> QueryPagedAsync(QClass queryBuilder, bool useAuth = false, CancellationToken cancellationToken = default)
     {
-        (List<TClass>? items, System.Net.Http.Headers.HttpResponseHeaders? headers) = await HttpHelper.GetRequestWithHeadersAsync<List<TClass>>($"{MethodPath}{queryBuilder.BuildQuery()}", false, useAuth, cancellationToken: cancellationToken).ConfigureAwait(false);
+        (List<TClass>? items, System.Net.Http.Headers.HttpResponseHeaders? headers) = await HttpHelper.GetRequestWithHeadersAsync<List<TClass>>($"{MethodPath}{queryBuilder.BuildQuery()}", false, useAuth || AuthenticationRequiredForReads, cancellationToken: cancellationToken).ConfigureAwait(false);
         (int total, int totalPages) = HttpHelper.ParsePaginationHeaders(headers);
         return new PagedResult<TClass>(items, total, totalPages);
     }
@@ -154,7 +172,7 @@ public abstract class CRUDOperation<TClass, QClass> : IReadOperation<TClass>, IU
     /// <returns>Entity by Id</returns>
     public Task<TClass> GetByIdAsync(object id, bool embed = false, bool useAuth = false, CancellationToken cancellationToken = default)
     {
-        return HttpHelper.GetRequestAsync<TClass>($"{MethodPath}/{id}", embed, useAuth, cancellationToken: cancellationToken);
+        return HttpHelper.GetRequestAsync<TClass>($"{MethodPath}/{id}", embed, useAuth || AuthenticationRequiredForReads, cancellationToken: cancellationToken);
     }
 
     /// <summary>
@@ -166,7 +184,7 @@ public abstract class CRUDOperation<TClass, QClass> : IReadOperation<TClass>, IU
     /// <returns>List of filtered result</returns>
     public Task<List<TClass>> QueryAsync(QClass queryBuilder, bool useAuth = false, CancellationToken cancellationToken = default)
     {
-        return HttpHelper.GetRequestAsync<List<TClass>>($"{MethodPath}{queryBuilder.BuildQuery()}", false, useAuth, cancellationToken: cancellationToken);
+        return HttpHelper.GetRequestAsync<List<TClass>>($"{MethodPath}{queryBuilder.BuildQuery()}", false, useAuth || AuthenticationRequiredForReads, cancellationToken: cancellationToken);
     }
 
     /// <summary>

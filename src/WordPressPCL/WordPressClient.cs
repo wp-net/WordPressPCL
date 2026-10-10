@@ -160,6 +160,21 @@ public class WordPressClient : IDisposable
     public UrlDetailsClient UrlDetails { get; private set; } = null!;
 
     /// <summary>
+    /// Block Types client interaction object
+    /// </summary>
+    public BlockTypes BlockTypes { get; private set; } = null!;
+
+    /// <summary>
+    /// Reusable Blocks client interaction object
+    /// </summary>
+    public Blocks Blocks { get; private set; } = null!;
+
+    /// <summary>
+    /// Navigation client interaction object
+    /// </summary>
+    public NavigationClient Navigation { get; private set; } = null!;
+
+    /// <summary>
     /// The WordPressClient holds all connection infos and provides methods to call WordPress APIs.
     /// </summary>
     /// <param name="uri">URI for WordPress API endpoint, e.g. "http://demo.wp-api.org/wp-json/"</param>
@@ -230,6 +245,9 @@ public class WordPressClient : IDisposable
         Themes = new Themes(httpHelper);
         Search = new Search(httpHelper);
         UrlDetails = new UrlDetailsClient(httpHelper);
+        BlockTypes = new BlockTypes(httpHelper);
+        Blocks = new Blocks(httpHelper);
+        Navigation = new NavigationClient(httpHelper);
     }
 
 }
