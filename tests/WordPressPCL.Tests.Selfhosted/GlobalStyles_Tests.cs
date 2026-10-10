@@ -24,7 +24,10 @@ public class GlobalStyles_Tests
           "styles": {
             "elements": { "link": { "color": { "text": "var:preset|color|blue" } } }
           },
-          "future_field": "preserved"
+          "future_field": "preserved",
+          "_links": {
+            "self": [{ "href": "https://example.com/wp-json/wp/v2/global-styles/63" }]
+          }
         }
         """;
 
@@ -82,34 +85,35 @@ public class GlobalStyles_Tests
     }
 
     [TestMethod]
-    public async Task UpdateAsync_UsesMethodIdAndOmitsResponseOnlyBodyId()
+    public async Task UpdateAsync_UsesMethodIdAndOmitsResponseOnlyFields()
     {
-        RecordingHandler handler = new(StoredStylesJson);
+        RecordingHandler handler = new(StoredStylesJson, StoredStylesJson);
         using HttpClient httpClient = CreateHttpClient(handler);
         using WordPressClient client = CreateAuthenticatedClient(httpClient);
         using JsonDocument settings = JsonDocument.Parse("""{"color":{"custom":true}}""");
         using JsonDocument styles = JsonDocument.Parse("""{"spacing":{"blockGap":"1rem"}}""");
 
-        GlobalStyles updated = await client.GlobalStyles.UpdateAsync(63, new GlobalStyles
-        {
-            Id = 999,
-            Title = new Title("Updated"),
-            Settings = settings.RootElement.Clone(),
-            Styles = styles.RootElement.Clone()
-        });
+        GlobalStyles entity = await client.GlobalStyles.GetByIdAsync(63);
+        entity.Id = 999;
+        entity.Title = new Title("Updated");
+        entity.Settings = settings.RootElement.Clone();
+        entity.Styles = styles.RootElement.Clone();
+        GlobalStyles updated = await client.GlobalStyles.UpdateAsync(63, entity);
 
         Assert.AreEqual(63, updated.Id);
         AssertRequest(
-            handler.Requests[0],
+            handler.Requests[1],
             HttpMethod.Post,
             "https://example.com/wp-json/wp/v2/global-styles/63");
-        using JsonDocument body = JsonDocument.Parse(handler.Requests[0].Body!);
+        using JsonDocument body = JsonDocument.Parse(handler.Requests[1].Body!);
         Assert.AreEqual("Updated", body.RootElement.GetProperty("title").GetProperty("raw").GetString());
         Assert.IsTrue(body.RootElement.GetProperty("settings").GetProperty("color").GetProperty("custom").GetBoolean());
         Assert.AreEqual(
             "1rem",
             body.RootElement.GetProperty("styles").GetProperty("spacing").GetProperty("blockGap").GetString());
         Assert.IsFalse(body.RootElement.TryGetProperty("id", out _));
+        Assert.IsFalse(body.RootElement.TryGetProperty("_links", out _));
+        Assert.IsFalse(body.RootElement.TryGetProperty("future_field", out _));
     }
 
     private static WordPressClient CreateAuthenticatedClient(HttpClient httpClient)

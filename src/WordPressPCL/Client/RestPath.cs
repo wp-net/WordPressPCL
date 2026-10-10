@@ -8,6 +8,12 @@ internal static class RestPath
     public static string EncodeSegments(string value)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(value);
-        return string.Join("/", value.Split('/').Select(Uri.EscapeDataString));
+        string[] segments = value.Split('/');
+        if (segments.Any(segment => segment is "." or ".."))
+        {
+            throw new ArgumentException("Path segments cannot be '.' or '..'.", nameof(value));
+        }
+
+        return string.Join("/", segments.Select(Uri.EscapeDataString));
     }
 }

@@ -78,11 +78,19 @@ public class GlobalStylesClient
     {
         if (id <= 0) throw new ArgumentOutOfRangeException(nameof(id));
         ArgumentNullException.ThrowIfNull(entity);
-        JsonObject payload = JsonSerializer.SerializeToNode(
+        JsonObject serializedEntity = JsonSerializer.SerializeToNode(
             entity,
             _httpHelper.JsonSerializerOptions)!.AsObject();
-        payload.Remove("id");
-        payload.Remove("_links");
+        JsonObject payload = new();
+        string[] writableFields = ["title", "settings", "styles"];
+        foreach (string field in writableFields)
+        {
+            if (serializedEntity.TryGetPropertyValue(field, out JsonNode? value))
+            {
+                payload[field] = value?.DeepClone();
+            }
+        }
+
         string json = payload.ToJsonString(_httpHelper.JsonSerializerOptions);
         using StringContent postBody = new(json, Encoding.UTF8, "application/json");
         return (await _httpHelper.PostRequestAsync<GlobalStyles>(

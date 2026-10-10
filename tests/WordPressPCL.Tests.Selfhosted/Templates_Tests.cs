@@ -126,6 +126,19 @@ public class Templates_Tests
     }
 
     [TestMethod]
+    public void ItemReads_RejectDotSegments()
+    {
+        RecordingHandler handler = new();
+        using HttpClient httpClient = CreateHttpClient(handler);
+        using WordPressClient client = CreateAuthenticatedClient(httpClient);
+
+        Assert.ThrowsExactly<ArgumentException>(() => client.Templates.GetByIdAsync("."));
+        Assert.ThrowsExactly<ArgumentException>(() => client.Templates.GetByIdAsync("../posts"));
+        Assert.ThrowsExactly<ArgumentException>(() => client.Templates.GetByIdAsync("theme/../posts"));
+        Assert.IsEmpty(handler.Requests);
+    }
+
+    [TestMethod]
     public async Task UpdateAsync_FetchedThemeTemplateOmitsResponseOnlySourceSemantics()
     {
         string themeTemplateJson = TemplateJson.Replace(
