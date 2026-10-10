@@ -85,7 +85,9 @@ public class GlobalStyles_Tests
     }
 
     [TestMethod]
-    public async Task UpdateAsync_UsesMethodIdAndOmitsResponseOnlyFields()
+    [DataRow("Updated")]
+    [DataRow("")]
+    public async Task UpdateAsync_UsesMethodIdAndOmitsResponseOnlyFields(string rawTitle)
     {
         RecordingHandler handler = new(StoredStylesJson, StoredStylesJson);
         using HttpClient httpClient = CreateHttpClient(handler);
@@ -95,7 +97,7 @@ public class GlobalStyles_Tests
 
         GlobalStyles entity = await client.GlobalStyles.GetByIdAsync(63);
         entity.Id = 999;
-        entity.Title = new Title("Updated");
+        entity.Title!.Raw = rawTitle;
         entity.Settings = settings.RootElement.Clone();
         entity.Styles = styles.RootElement.Clone();
         GlobalStyles updated = await client.GlobalStyles.UpdateAsync(63, entity);
@@ -106,7 +108,9 @@ public class GlobalStyles_Tests
             HttpMethod.Post,
             "https://example.com/wp-json/wp/v2/global-styles/63");
         using JsonDocument body = JsonDocument.Parse(handler.Requests[1].Body!);
-        Assert.AreEqual("Updated", body.RootElement.GetProperty("title").GetProperty("raw").GetString());
+        Assert.AreEqual(rawTitle, body.RootElement.GetProperty("title").GetProperty("raw").GetString());
+        Assert.IsFalse(body.RootElement.GetProperty("title").TryGetProperty("rendered", out _));
+        Assert.AreEqual("Custom", entity.Title.Rendered);
         Assert.IsTrue(body.RootElement.GetProperty("settings").GetProperty("color").GetProperty("custom").GetBoolean());
         Assert.AreEqual(
             "1rem",

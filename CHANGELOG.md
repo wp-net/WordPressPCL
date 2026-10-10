@@ -21,6 +21,7 @@ The project now uses GitHub Releases as the source of truth for versioned releas
 
 ### Fixed
 
+- Global-styles updates omit the read-only `title.rendered` field from fetched records.
 - Media uploads now send Unicode filenames with a safe ASCII fallback and RFC 5987 `filename*` encoding, preventing failures for non-ASCII names (#370).
 
 ## [3.0.0]

@@ -87,7 +87,9 @@ public class GlobalStylesClient
         {
             if (serializedEntity.TryGetPropertyValue(field, out JsonNode? value))
             {
-                payload[field] = value?.DeepClone();
+                payload[field] = field == "title" && value is JsonObject title
+                    ? new JsonObject { ["raw"] = title["raw"]?.DeepClone() }
+                    : value?.DeepClone();
             }
         }
 

@@ -28,8 +28,8 @@ WordPressPCL focuses on the most commonly used WordPress REST API endpoints and 
 | `wp/v2/block-types` | `client.BlockTypes` | Read/query only; WordPress 5.5+ and authentication required |
 | `wp/v2/blocks` | `client.Blocks` | CRUD for reusable blocks; WordPress 5.0+ and authentication required |
 | `wp/v2/navigation` | `client.Navigation` | CRUD for `wp_navigation`; WordPress 5.9+ and authentication required |
-| `wp/v2/templates` | `client.Templates` | CRUD and collection filters in WordPress 5.8+; fallback lookup requires WordPress 6.1+; authentication required |
-| `wp/v2/template-parts` | `client.TemplateParts` | CRUD and collection filters; WordPress 5.8+ and authentication required |
+| `wp/v2/templates` | `client.Templates` | CRUD and `wp_id` collection filter in WordPress 5.8+; `post_type` filter requires WordPress 5.9+; fallback lookup requires WordPress 6.1+; authentication required |
+| `wp/v2/template-parts` | `client.TemplateParts` | CRUD and `wp_id` collection filter in WordPress 5.8+; `area` and `post_type` filters require WordPress 5.9+; authentication required |
 | `wp/v2/global-styles/<id>` | `client.GlobalStyles` | Read/update a stored record by ID; WordPress 5.9+ and authentication required |
 | `wp/v2/global-styles/themes/<stylesheet>` | `client.GlobalStyles` | Read merged settings and styles for the active theme; authentication required |
 
