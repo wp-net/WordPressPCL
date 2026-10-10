@@ -170,6 +170,21 @@ public class WordPressClient : IDisposable
     public Blocks Blocks { get; private set; } = null!;
 
     /// <summary>
+    /// Block Templates client interaction object
+    /// </summary>
+    public Templates Templates { get; private set; } = null!;
+
+    /// <summary>
+    /// Block Template Parts client interaction object
+    /// </summary>
+    public TemplateParts TemplateParts { get; private set; } = null!;
+
+    /// <summary>
+    /// Global Styles client interaction object
+    /// </summary>
+    public GlobalStylesClient GlobalStyles { get; private set; } = null!;
+
+    /// <summary>
     /// Navigation client interaction object
     /// </summary>
     public NavigationClient Navigation { get; private set; } = null!;
@@ -247,6 +262,9 @@ public class WordPressClient : IDisposable
         UrlDetails = new UrlDetailsClient(httpHelper);
         BlockTypes = new BlockTypes(httpHelper);
         Blocks = new Blocks(httpHelper);
+        Templates = new Templates(httpHelper);
+        TemplateParts = new TemplateParts(httpHelper);
+        GlobalStyles = new GlobalStylesClient(httpHelper);
         Navigation = new NavigationClient(httpHelper);
     }
 

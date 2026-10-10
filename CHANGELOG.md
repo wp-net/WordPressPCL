@@ -13,6 +13,7 @@ The project now uses GitHub Releases as the source of truth for versioned releas
 - `MediaDetails` exposes optional WordPress audio metadata, including format, duration, bitrate, ID3 tags, and creation timestamp (#184).
 - Dedicated Search and URL Details endpoint clients are available through `WordPressClient.Search` and `WordPressClient.UrlDetails`.
 - Dedicated post/page autosave clients and a page revisions client are available through `WordPressClient.Posts` and `WordPressClient.Pages`.
+- Dedicated template, template-part and global-styles clients are available through `WordPressClient.Templates`, `WordPressClient.TemplateParts` and `WordPressClient.GlobalStyles`.
 
 ### Changed
 
@@ -20,6 +21,7 @@ The project now uses GitHub Releases as the source of truth for versioned releas
 
 ### Fixed
 
+- Global-styles updates omit the read-only `title.rendered` field from fetched records.
 - Media uploads now send Unicode filenames with a safe ASCII fallback and RFC 5987 `filename*` encoding, preventing failures for non-ASCII names (#370).
 
 ## [3.0.0]
